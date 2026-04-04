@@ -106,58 +106,43 @@ export function HeroSection() {
 
         {/* Subtitle */}
         <p className="text-lg text-white/50 mb-10 max-w-xl mx-auto animate-fade-in-up animate-delay-200">
-          Premium cheats and spoofers designed for competitive gamers. 
-          Stay undetected, stay ahead.
+          Kernel-level spoofers, external cheats, and custom DMA firmware — built for players who refuse to lose.
         </p>
 
         {/* CTA */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12 animate-fade-in-up animate-delay-300">
           <Button
             size="lg"
-            className="bg-primary hover:bg-primary/90 text-white font-semibold px-8 h-12 rounded-xl shadow-lg shadow-primary/25 btn-glow"
+            className="bg-gradient-to-r from-primary to-accent hover:opacity-90 text-white font-bold px-8 h-13 rounded-xl shadow-lg shadow-primary/25 btn-glow"
             asChild
           >
             <Link href="/products">
-              View Products
+              Browse Products
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </Button>
           <Button
             size="lg"
             variant="outline"
-            className="border-white/10 bg-white/5 hover:bg-white/10 text-white font-semibold px-8 h-12 rounded-xl"
+            className="border-white/10 bg-white/5 hover:bg-white/10 text-white font-semibold px-8 h-13 rounded-xl"
             asChild
           >
-            <Link href="/reviews">Read Reviews</Link>
+            <Link href="/reviews">847+ Reviews</Link>
           </Button>
         </div>
 
-        {/* Trust badges */}
-        <div className="flex flex-wrap justify-center gap-8 mb-10 animate-fade-in-up animate-delay-400">
+        {/* Trust chips */}
+        <div className="flex flex-wrap justify-center gap-3 mb-10 animate-fade-in-up animate-delay-400">
           {[
-            { icon: Shield, label: "Undetected" },
-            { icon: Zap, label: "Instant Delivery" },
-            { icon: Clock, label: "24/7 Support" },
+            { icon: Shield, label: "99.8% Undetected", color: "text-emerald-400 border-emerald-400/20 bg-emerald-400/5" },
+            { icon: Zap, label: "Instant Delivery", color: "text-yellow-400 border-yellow-400/20 bg-yellow-400/5" },
+            { icon: Clock, label: "24/7 Discord Support", color: "text-blue-400 border-blue-400/20 bg-blue-400/5" },
           ].map((item, i) => (
-            <div key={i} className="flex items-center gap-2 text-white/40">
-              <item.icon className="h-4 w-4" />
-              <span className="text-sm">{item.label}</span>
+            <div key={i} className={`flex items-center gap-2 px-3.5 py-2 rounded-full border text-xs font-medium ${item.color}`}>
+              <item.icon className="h-3.5 w-3.5" />
+              <span>{item.label}</span>
             </div>
           ))}
-        </div>
-
-        {/* Payment methods - text only */}
-        <div className="flex items-center justify-center gap-2 animate-fade-in-up animate-delay-500">
-          <span className="text-xs text-white/30 uppercase tracking-wider">Accepted:</span>
-          <div className="flex items-center gap-3">
-            <span className="text-xs text-white/50 font-medium">BTC</span>
-            <span className="text-white/20">|</span>
-            <span className="text-xs text-white/50 font-medium">ETH</span>
-            <span className="text-white/20">|</span>
-            <span className="text-xs text-white/50 font-medium">LTC</span>
-            <span className="text-white/20">|</span>
-            <span className="text-xs text-white/50 font-medium">PayPal</span>
-          </div>
         </div>
       </div>
 

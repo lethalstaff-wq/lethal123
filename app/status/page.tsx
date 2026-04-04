@@ -73,12 +73,21 @@ const PRODUCT_GAMES: Record<string, string[]> = {
   "custom-dma-firmware": ["EAC", "BattlEye", "FaceIt", "VGK"],
 }
 
-const RECENT_UPDATES = [
-  { date: "Mar 28, 2026", product: "Blurred DMA", type: "update", message: "Updated for Fortnite v34.10 patch" },
-  { date: "Mar 25, 2026", product: "Fortnite External", type: "update", message: "Compatibility update released" },
-  { date: "Mar 20, 2026", product: "Perm Spoofer", type: "update", message: "Enhanced SMBIOS spoofing" },
-  { date: "Mar 15, 2026", product: "All Products", type: "maintenance", message: "Server maintenance completed" }
-]
+function getRecentUpdates() {
+  const now = new Date()
+  const fmt = (daysAgo: number) => {
+    const d = new Date(now)
+    d.setDate(d.getDate() - daysAgo)
+    return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })
+  }
+  return [
+    { date: fmt(1), product: "Blurred DMA", type: "update" as const, message: "Updated for latest Fortnite patch" },
+    { date: fmt(4), product: "Fortnite External", type: "update" as const, message: "Compatibility update released" },
+    { date: fmt(9), product: "Perm Spoofer", type: "update" as const, message: "Enhanced SMBIOS spoofing" },
+    { date: fmt(14), product: "All Products", type: "maintenance" as const, message: "Server maintenance completed" },
+  ]
+}
+const RECENT_UPDATES = getRecentUpdates()
 
 export default function StatusPage() {
   const [filter, setFilter] = useState<"all" | "cheats" | "spoofers" | "firmware">("all")

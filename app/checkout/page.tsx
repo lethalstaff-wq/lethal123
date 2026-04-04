@@ -783,7 +783,7 @@ export default function CheckoutPage() {
                       
                       <div className="py-2">
                         <p className="text-6xl font-black text-foreground tracking-tight tabular-nums">
-                          <span className="text-4xl text-muted-foreground mr-1">GBP</span>
+                          <span className="text-4xl text-muted-foreground/60 mr-1">£</span>
                           {finalTotal.toFixed(2)}
                         </p>
                       </div>
@@ -1059,13 +1059,14 @@ export default function CheckoutPage() {
                     className={cn(
                       "w-full py-5 text-primary-foreground font-bold text-base rounded-2xl transition-all duration-300 flex items-center justify-center gap-3 relative overflow-hidden group",
                       timeLeft > 0
-                        ? "bg-primary hover:bg-primary/90 hover:shadow-[0_0_40px_rgba(var(--primary-rgb),0.35)] hover:scale-[1.01] active:scale-[0.99]"
+                        ? "bg-gradient-to-r from-primary to-accent hover:opacity-90 hover:shadow-[0_0_40px_rgba(249,115,22,0.35)] hover:scale-[1.01] active:scale-[0.99]"
                         : "bg-muted/30 cursor-not-allowed text-muted-foreground"
                     )}
                   >
                     {timeLeft <= 0 ? "Session Expired" : (
                       <span className="flex items-center gap-3">
-                        {"I Have Sent the Payment"}
+                        <CheckCircle2 className="h-5 w-5" />
+                        {"Confirm Payment Sent"}
                         <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                       </span>
                     )}

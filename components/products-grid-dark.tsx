@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowRight, Sparkles, Star, Tag, Zap } from "lucide-react"
+import { ArrowRight, Sparkles, Tag, Zap } from "lucide-react"
 import { type Product, formatPrice } from "@/lib/products"
 
 const categories = [
@@ -51,8 +51,8 @@ export function ProductsGridDark({ products }: { products: Product[] }) {
               <div
                 className={`relative rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1.5 ${
                   isPremium
-                    ? "border-2 border-primary/40 bg-gradient-to-b from-primary/5 to-card shadow-lg shadow-primary/10 hover:shadow-xl hover:shadow-primary/20 hover:border-primary/60"
-                    : "border border-border/50 bg-card hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5"
+                    ? "border-2 border-primary/40 bg-gradient-to-b from-primary/5 to-card shadow-lg shadow-primary/10 hover:shadow-xl hover:shadow-primary/20 hover:border-primary/60 card-glow-border"
+                    : "border border-border/50 bg-card hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 card-glow-border"
                 }`}
               >
                 {/* Top badges row */}
@@ -110,16 +110,17 @@ export function ProductsGridDark({ products }: { products: Product[] }) {
 
                 {/* Info Section */}
                 <div className="border-t border-border/40 p-5 space-y-3.5">
-                  {/* Rating */}
-                  <div className="flex items-center gap-1.5">
-                    <div className="flex items-center gap-0.5">
-                      {[1, 2, 3, 4, 5].map((i) => (
-                        <Star key={i} className="h-3 w-3 fill-yellow-400 text-yellow-400" />
-                      ))}
-                    </div>
-                    <span className="text-[10px] text-muted-foreground">4.9</span>
-                    <span className="text-[10px] text-muted-foreground/50">|</span>
-                    <span className="text-[10px] text-muted-foreground">{variantCount} option{variantCount > 1 ? "s" : ""}</span>
+                  {/* Tags */}
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] text-emerald-400 font-medium flex items-center gap-1">
+                      <Zap className="h-3 w-3" /> Instant Delivery
+                    </span>
+                    {variantCount > 1 && (
+                      <>
+                        <span className="text-[10px] text-muted-foreground/30">·</span>
+                        <span className="text-[10px] text-muted-foreground">{variantCount} options</span>
+                      </>
+                    )}
                   </div>
 
                   {/* Title & description */}
@@ -127,13 +128,13 @@ export function ProductsGridDark({ products }: { products: Product[] }) {
                     <h3 className="font-bold text-base text-foreground group-hover:text-primary transition-colors duration-200 text-balance">
                       {product.name}
                     </h3>
-                    <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">{product.description}</p>
+                    <p className="text-xs text-muted-foreground mt-1 line-clamp-2 leading-relaxed">{product.description}</p>
                   </div>
 
                   {/* Price & CTA */}
                   <div className="flex items-end justify-between pt-1">
                     <div>
-                      <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-0.5">Starting at</p>
+                      <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-0.5">From</p>
                       <p className="text-2xl font-bold tracking-tight text-foreground">{formatPrice(lowestPrice)}</p>
                     </div>
                     <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 text-primary text-xs font-semibold group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">

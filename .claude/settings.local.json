@@ -7,7 +7,9 @@
       "Bash(git -C \"C:/Users/кир/Desktop/сайт\" add -A)",
       "Bash(git -C C:/Users/кир/Desktop/сайт commit -m 'fix: all typescript errors final:*)",
       "Bash(git -C \"C:/Users/кир/Desktop/сайт\" push)",
-      "WebFetch(domain:blurred.gg)"
+      "WebFetch(domain:blurred.gg)",
+      "WebFetch(domain:stuxnet.fun)",
+      "WebFetch(domain:ednercheats.com)"
     ]
   }
 }

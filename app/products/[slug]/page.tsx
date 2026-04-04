@@ -3,8 +3,6 @@ import { Footer } from "@/components/footer"
 import { ProductDetailClient } from "@/components/product-detail-client"
 import { RecentlyViewedWrapper } from "./recently-viewed-wrapper"
 import { notFound } from "next/navigation"
-import Link from "next/link"
-import { ChevronRight } from "lucide-react"
 import { getProductsFromDB, getProductByIdFromDB } from "@/lib/db-products"
 
 export async function generateStaticParams() {
@@ -81,15 +79,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     <main className="flex min-h-screen flex-col bg-background">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Navbar />
-      <section className="py-8 px-4 sm:px-6 lg:px-8">
+      <section className="pt-28 pb-8 px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto max-w-7xl">
-          <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-8">
-            <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
-            <ChevronRight className="h-4 w-4" />
-            <Link href="/products" className="hover:text-foreground transition-colors">Products</Link>
-            <ChevronRight className="h-4 w-4" />
-            <span className="text-foreground">{product.name}</span>
-          </nav>
           <ProductDetailClient product={transformedProduct} />
           <RecentlyViewedWrapper productId={product.id} />
         </div>

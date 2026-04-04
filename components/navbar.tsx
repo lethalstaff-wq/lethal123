@@ -239,15 +239,6 @@ export function Navbar() {
               </Button>
             </Link>
             
-            {/* Live status */}
-            <div className="hidden lg:flex items-center gap-2 ml-1 px-3 py-1.5 rounded-full bg-white/5 border border-white/5 text-[11px]">
-              <div className="relative">
-                <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                <div className="absolute inset-0 h-1.5 w-1.5 rounded-full bg-emerald-500 animate-ping opacity-75" />
-              </div>
-              <span className="text-emerald-400/80 font-medium">Online</span>
-            </div>
-
             <div className="lg:hidden">
               <MobileMenu />
             </div>

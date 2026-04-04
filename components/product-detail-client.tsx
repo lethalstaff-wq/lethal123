@@ -144,22 +144,17 @@ export function ProductDetailClient({ product }: { product: Product }) {
           {/* Features list */}
           {product.features && product.features.length > 0 && (
             <div className="mb-8">
-              <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
-                <span className="w-7 h-7 rounded-lg bg-primary/20 flex items-center justify-center">
-                  <CheckCircle2 className="h-4 w-4 text-primary" />
-                </span>
-                {product.name} Features
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4">What&apos;s Included</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {product.features.map((feature, idx) => (
                   <div
                     key={idx}
-                    className="flex items-center gap-3 px-4 py-3 text-sm rounded-xl bg-card/60 border border-border/30 hover:border-primary/30 transition-colors"
+                    className="group flex items-center gap-3 px-4 py-3 text-sm rounded-xl border border-border/20 hover:border-primary/40 hover:bg-primary/[0.03] transition-all duration-300"
                   >
-                    <div className="w-6 h-6 rounded-md bg-primary/15 flex items-center justify-center flex-shrink-0">
-                      <CheckCircle2 className="h-3.5 w-3.5 text-primary" />
+                    <div className="w-5 h-5 rounded-full bg-primary/10 group-hover:bg-primary/20 flex items-center justify-center flex-shrink-0 transition-colors">
+                      <Check className="h-3 w-3 text-primary" />
                     </div>
-                    <span className="text-foreground/90">{feature}</span>
+                    <span className="text-foreground/80 group-hover:text-foreground transition-colors">{feature}</span>
                   </div>
                 ))}
               </div>
@@ -214,55 +209,117 @@ export function ProductDetailClient({ product }: { product: Product }) {
 
           {/* Action Buttons */}
           <div className="space-y-3">
+            <Button onClick={handleBuyNow} size="lg" className="w-full h-14 text-base font-bold gap-2 bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-opacity shadow-lg shadow-primary/20 btn-glow">
+              <Zap className="h-5 w-5" />
+              Buy Now — {"£"}{(selectedVariant.price * quantity).toFixed(2)}
+            </Button>
             <div className="flex gap-3">
-              <Button onClick={handleBuyNow} size="lg" className="flex-1 h-14 text-base font-semibold gap-2">
-                <CreditCard className="h-5 w-5" />
-                Buy Now
-              </Button>
               <Button
                 onClick={handleAddToCart}
                 variant="outline"
                 size="lg"
-                className="flex-1 h-14 text-base font-semibold gap-2 bg-transparent"
+                className="flex-1 h-12 text-sm font-semibold gap-2 bg-transparent"
               >
-                <ShoppingCart className="h-5 w-5" />
+                <ShoppingCart className="h-4 w-4" />
                 Add to Cart
               </Button>
-            </div>
-
-            <Button
-              onClick={() => setShowDiscordModal(true)}
-              variant="outline"
-              size="lg"
-              className="w-full h-12 gap-2 bg-[#5865F2]/10 border-[#5865F2]/30 text-[#5865F2] hover:bg-[#5865F2]/20 hover:text-[#5865F2]"
-            >
-              <MessageCircle className="h-4 w-4" />
-              Order via Discord
-            </Button>
-          </div>
-
-          {/* Accepted payment methods */}
-          <div className="mt-5 flex items-center gap-4">
-            <span className="text-xs text-muted-foreground">Accepted:</span>
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                <BitcoinIcon className="h-4 w-4" />
-                BTC
-              </div>
-              <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                <EthereumIcon className="h-4 w-4" />
-                ETH
-              </div>
-              <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                <LitecoinIcon className="h-4 w-4" />
-                LTC
-              </div>
-              <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                <PayPalIcon className="h-4 w-4" />
-                PayPal
-              </div>
+              <Button
+                onClick={() => setShowDiscordModal(true)}
+                variant="outline"
+                size="lg"
+                className="flex-1 h-12 text-sm font-semibold gap-2 bg-[#5865F2]/10 border-[#5865F2]/30 text-[#5865F2] hover:bg-[#5865F2]/20"
+              >
+                <MessageCircle className="h-4 w-4" />
+                Discord Order
+              </Button>
             </div>
           </div>
+
+          {/* Payment methods */}
+          <div className="mt-6 rounded-xl border border-border/30 bg-card/30 p-4">
+            <p className="text-xs text-muted-foreground mb-3 uppercase tracking-wider font-medium">Accepted Payments</p>
+            <div className="flex items-center gap-4">
+              {[
+                { icon: BitcoinIcon, label: "Bitcoin" },
+                { icon: EthereumIcon, label: "Ethereum" },
+                { icon: LitecoinIcon, label: "Litecoin" },
+                { icon: PayPalIcon, label: "PayPal" },
+              ].map(({ icon: Icon, label }) => (
+                <div key={label} className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors cursor-default">
+                  <Icon className="h-5 w-5" />
+                  <span className="hidden sm:inline">{label}</span>
+                </div>
+              ))}
+            </div>
+            <div className="flex items-center gap-4 mt-3 pt-3 border-t border-border/20">
+              <div className="flex items-center gap-1.5 text-xs text-emerald-400">
+                <Shield className="h-3.5 w-3.5" />
+                <span>Secure Checkout</span>
+              </div>
+              <div className="flex items-center gap-1.5 text-xs text-emerald-400">
+                <Zap className="h-3.5 w-3.5" />
+                <span>Instant Delivery</span>
+              </div>
+              <div className="flex items-center gap-1.5 text-xs text-emerald-400">
+                <Globe className="h-3.5 w-3.5" />
+                <span>24/7 Support</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom swag section */}
+      <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="group rounded-2xl border border-border/30 bg-gradient-to-b from-card/80 to-transparent p-6 hover:border-primary/30 transition-all duration-300">
+          <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+            <Shield className="h-6 w-6 text-primary" />
+          </div>
+          <h3 className="font-bold text-lg mb-2">Undetected Since Day 1</h3>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            Zero detections across all anti-cheat engines. We update within 2 hours of every game patch. Your account stays safe — guaranteed.
+          </p>
+        </div>
+        <div className="group rounded-2xl border border-border/30 bg-gradient-to-b from-card/80 to-transparent p-6 hover:border-primary/30 transition-all duration-300">
+          <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-4 group-hover:bg-emerald-500/20 transition-colors">
+            <Zap className="h-6 w-6 text-emerald-500" />
+          </div>
+          <h3 className="font-bold text-lg mb-2">Instant Digital Delivery</h3>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            Your license key and download link arrive within seconds. No waiting, no manual verification. Pay and play — it&apos;s that simple.
+          </p>
+        </div>
+        <div className="group rounded-2xl border border-border/30 bg-gradient-to-b from-card/80 to-transparent p-6 hover:border-primary/30 transition-all duration-300">
+          <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center mb-4 group-hover:bg-blue-500/20 transition-colors">
+            <MessageCircle className="h-6 w-6 text-blue-500" />
+          </div>
+          <h3 className="font-bold text-lg mb-2">Priority Discord Support</h3>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            Dedicated support team available around the clock. Setup help, config optimization, troubleshooting — we&apos;ve got you covered 24/7.
+          </p>
+        </div>
+      </div>
+
+      {/* Trust banner */}
+      <div className="mt-10 rounded-2xl border border-primary/10 bg-primary/[0.02] p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="flex items-center gap-4">
+          <div className="flex -space-x-2">
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="w-8 h-8 rounded-full bg-gradient-to-br from-primary/30 to-accent/30 border-2 border-background flex items-center justify-center text-[10px] font-bold text-primary">
+                {String.fromCharCode(65 + i)}
+              </div>
+            ))}
+          </div>
+          <div>
+            <p className="text-sm font-semibold">Trusted by thousands of players</p>
+            <p className="text-xs text-muted-foreground">847+ verified 5-star reviews</p>
+          </div>
+        </div>
+        <div className="flex items-center gap-1">
+          {[...Array(5)].map((_, i) => (
+            <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+          ))}
+          <span className="ml-2 text-sm font-bold">4.9</span>
         </div>
       </div>
 

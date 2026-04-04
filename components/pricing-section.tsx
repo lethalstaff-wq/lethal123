@@ -108,20 +108,20 @@ export function PricingSection() {
               key={bundle.id}
               className={`relative flex flex-col rounded-2xl transition-all duration-300 card-hover overflow-hidden ${
                 bundle.highlighted
-                  ? "glass border-2 border-primary/50 scale-[1.02] neon-glow"
+                  ? "glass border-2 border-primary/50 scale-[1.03] shadow-xl shadow-primary/15 card-glow-border"
                   : "glass hover:border-primary/40"
               }`}
             >
               {/* Top accent */}
               {bundle.highlighted && (
-                <div className="h-1 bg-gradient-to-r from-primary to-accent" />
+                <div className="h-1.5 bg-gradient-to-r from-primary via-accent to-primary" />
               )}
-              
+
               {/* Popular badge */}
               {bundle.highlighted && (
                 <div className="absolute -top-px left-1/2 -translate-x-1/2">
-                  <span className="bg-primary text-primary-foreground px-4 py-1.5 rounded-b-xl text-xs font-bold flex items-center gap-1.5">
-                    <Crown className="h-3 w-3" />
+                  <span className="bg-gradient-to-r from-primary to-accent text-primary-foreground px-5 py-2 rounded-b-xl text-xs font-bold flex items-center gap-1.5 shadow-lg shadow-primary/30">
+                    <Crown className="h-3.5 w-3.5" />
                     Most Popular
                   </span>
                 </div>
