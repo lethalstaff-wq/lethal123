@@ -38,7 +38,7 @@ interface OrderStatusData {
   customerName?: string
   orderId: string
   productName?: string
-  status: 'pending' | 'processing' | 'completed' | 'cancelled'
+  status: 'pending' | 'processing' | 'completed' | 'cancelled' | 'refunded' | 'confirmed'
   message?: string
 }
 
@@ -256,7 +256,9 @@ export function generateOrderStatusEmail(data: OrderStatusData): { subject: stri
     pending: { badge: 'Pending', color: '#eab308', message: 'Your order is awaiting payment confirmation.' },
     processing: { badge: 'Processing', color: '#3b82f6', message: 'Your order is being processed by our team.' },
     completed: { badge: 'Completed', color: '#22c55e', message: 'Your order has been completed successfully!' },
-    cancelled: { badge: 'Cancelled', color: '#ef4444', message: 'Your order has been cancelled.' }
+    confirmed: { badge: 'Confirmed', color: '#22c55e', message: 'Your order has been confirmed and is being prepared!' },
+    cancelled: { badge: 'Cancelled', color: '#ef4444', message: 'Your order has been cancelled.' },
+    refunded: { badge: 'Refunded', color: '#a855f7', message: 'Your order has been refunded.' }
   }
   
   const status = statusConfig[data.status] || statusConfig.pending

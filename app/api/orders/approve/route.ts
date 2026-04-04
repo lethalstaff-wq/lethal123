@@ -70,7 +70,7 @@ export async function GET(request: NextRequest) {
             orderId: order.order_display_id,
             productName,
             licenseKey: generateLicenseKey(),
-            downloadUrl: `${siteUrl}/downloads/${order.order_display_id}`,
+            downloadLink: `${siteUrl}/downloads/${order.order_display_id}`,
             instructions: "1. Download the loader\n2. Run as Administrator\n3. Enter your license key\n4. Enjoy!",
           },
         }),

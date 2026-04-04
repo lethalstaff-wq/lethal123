@@ -27,6 +27,8 @@ export async function getProductsFromDB(): Promise<Product[]> {
       id: p.id,
       name: p.name,
       description: p.description || "",
+      longDescription: p.long_description || undefined,
+      features: p.features || undefined,
       image: p.image || "/placeholder.svg",
       category: p.category || "cheat",
       popular: p.popular || false,

@@ -241,17 +241,23 @@ export async function updateOrderStatus(id: string, status: string) {
     .eq("id", id)
   if (error) throw new Error(error.message)
 
-  // Send confirmation email via existing API
+  // Send license delivery email when confirming an order
   if (status === "confirmed" && order?.user_email) {
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || ""}/api/orders/approve`, {
+      const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || ""
+      const productName = order.order_items?.[0]?.product_variants?.products?.name ?? "Your product"
+      await fetch(`${siteUrl}/api/send-email`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          orderId: id,
-          userEmail: order.user_email,
-          productName: order.order_items?.[0]?.product_variants?.products?.name ?? "Your product",
-          licenseKey: order.license_key ?? "",
+          type: "license_delivery",
+          to: order.user_email,
+          data: {
+            orderId: order.order_display_id ?? id,
+            productName,
+            licenseKey: order.license_key ?? "",
+            downloadLink: `${siteUrl}/downloads/${order.order_display_id ?? id}`,
+          },
         }),
       })
     } catch { /* email failure shouldn't block status update */ }

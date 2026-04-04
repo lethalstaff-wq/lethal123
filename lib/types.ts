@@ -47,7 +47,7 @@ export interface Review {
 export interface Order {
   id: string
   user_id: string
-  status: "pending" | "paid" | "completed" | "cancelled"
+  status: "pending" | "paid" | "processing" | "completed" | "cancelled" | "refunded" | "confirmed"
   total: number
   payment_method: string | null
   created_at: string

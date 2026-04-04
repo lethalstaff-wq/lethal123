@@ -143,7 +143,7 @@ export async function sendOrderStatusUpdate(
     customerName: string
     orderId: string
     productName: string
-    status: 'processing' | 'completed' | 'cancelled' | 'refunded'
+    status: 'pending' | 'processing' | 'completed' | 'cancelled' | 'refunded' | 'confirmed'
     message?: string
   }
 ) {
