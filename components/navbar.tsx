@@ -19,6 +19,7 @@ interface SearchResult {
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
+  const [scrollProgress, setScrollProgress] = useState(0)
   const [searchOpen, setSearchOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
   const [searchResults, setSearchResults] = useState<SearchResult[]>([])
@@ -29,7 +30,11 @@ export function Navbar() {
   const router = useRouter()
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20)
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20)
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight
+      setScrollProgress(totalHeight > 0 ? (window.scrollY / totalHeight) * 100 : 0)
+    }
     window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
@@ -86,10 +91,18 @@ export function Navbar() {
   ]
 
   return (
+    <>
+    {/* Scroll progress */}
+    <div className="fixed top-0 left-0 right-0 z-[61] h-[2px] bg-transparent pointer-events-none">
+      <div
+        className="h-full bg-gradient-to-r from-primary to-accent transition-all duration-150 ease-out"
+        style={{ width: `${scrollProgress}%` }}
+      />
+    </div>
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled 
-          ? "py-3 bg-background/80 backdrop-blur-xl border-b border-border/40 shadow-lg shadow-black/5" 
+        isScrolled
+          ? "py-3 bg-background/80 backdrop-blur-xl border-b border-border/40 shadow-lg shadow-black/5"
           : "py-5 bg-transparent"
       }`}
     >
@@ -226,6 +239,15 @@ export function Navbar() {
               </Button>
             </Link>
             
+            {/* Live status */}
+            <div className="hidden lg:flex items-center gap-2 ml-1 px-3 py-1.5 rounded-full bg-white/5 border border-white/5 text-[11px]">
+              <div className="relative">
+                <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                <div className="absolute inset-0 h-1.5 w-1.5 rounded-full bg-emerald-500 animate-ping opacity-75" />
+              </div>
+              <span className="text-emerald-400/80 font-medium">Online</span>
+            </div>
+
             <div className="lg:hidden">
               <MobileMenu />
             </div>
@@ -233,5 +255,6 @@ export function Navbar() {
         </div>
       </div>
     </nav>
+    </>
   )
 }

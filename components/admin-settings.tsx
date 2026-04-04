@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useTransition } from "react"
+import { toast } from "sonner"
 import { updateSetting } from "@/app/admin/actions"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -37,27 +38,31 @@ export function AdminSettings({ settings, userEmail }: {
 
   function saveAll() {
     startTransition(async () => {
-      await Promise.all([
-        updateSetting("site_name", siteName),
-        updateSetting("site_description", siteDescription),
-        updateSetting("discord_link", discordLink),
-        updateSetting("youtube_link", youtubeLink),
-        updateSetting("telegram_link", telegramLink),
-        updateSetting("coupon_code", couponCode),
-        updateSetting("coupon_percent", couponPercent),
-        updateSetting("announcement_text", announcementText),
-        updateSetting("review_total", reviewTotal),
-        updateSetting("review_stars_5", reviewStars5),
-        updateSetting("review_stars_4", reviewStars4),
-        updateSetting("review_stars_3", reviewStars3),
-        updateSetting("review_stars_2", reviewStars2),
-        updateSetting("review_stars_1", reviewStars1),
-        updateSetting("review_daily_growth", reviewDailyGrowth),
-        updateSetting("helpful_min", helpfulMin),
-        updateSetting("helpful_max", helpfulMax),
-      ])
-      setSaved(true)
-      setTimeout(() => setSaved(false), 2000)
+      try {
+        await Promise.all([
+          updateSetting("site_name", siteName),
+          updateSetting("site_description", siteDescription),
+          updateSetting("discord_link", discordLink),
+          updateSetting("youtube_link", youtubeLink),
+          updateSetting("telegram_link", telegramLink),
+          updateSetting("coupon_code", couponCode),
+          updateSetting("coupon_percent", couponPercent),
+          updateSetting("announcement_text", announcementText),
+          updateSetting("review_total", reviewTotal),
+          updateSetting("review_stars_5", reviewStars5),
+          updateSetting("review_stars_4", reviewStars4),
+          updateSetting("review_stars_3", reviewStars3),
+          updateSetting("review_stars_2", reviewStars2),
+          updateSetting("review_stars_1", reviewStars1),
+          updateSetting("review_daily_growth", reviewDailyGrowth),
+          updateSetting("helpful_min", helpfulMin),
+          updateSetting("helpful_max", helpfulMax),
+        ])
+        setSaved(true)
+        setTimeout(() => setSaved(false), 2000)
+      } catch (err) {
+        toast.error("Failed to save: " + (err instanceof Error ? err.message : "Unknown error"))
+      }
     })
   }
 

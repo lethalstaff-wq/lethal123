@@ -11,10 +11,10 @@ import {
 interface Coupon {
   id: string
   code: string
-  percent: number
+  discount_percent: number
   max_uses: number | null
-  uses: number
-  active: boolean
+  uses_count: number
+  is_active: boolean
   expires_at: string | null
   created_at: string
 }
@@ -73,8 +73,8 @@ export function AdminCouponsClient({ coupons: initial }: { coupons: Coupon[] }) 
     setTimeout(() => setCopied(null), 2000)
   }
 
-  const activeCoupons = coupons.filter(c => c.active)
-  const inactiveCoupons = coupons.filter(c => !c.active)
+  const activeCoupons = coupons.filter(c => c.is_active)
+  const inactiveCoupons = coupons.filter(c => !c.is_active)
 
   return (
     <div className="space-y-6">
@@ -194,30 +194,30 @@ export function AdminCouponsClient({ coupons: initial }: { coupons: Coupon[] }) 
         ) : (
           <div className="divide-y divide-border">
             {coupons.map(coupon => (
-              <div key={coupon.id} className={`grid grid-cols-6 items-center px-4 py-3 hover:bg-muted/10 transition-colors ${!coupon.active ? "opacity-50" : ""}`}>
+              <div key={coupon.id} className={`grid grid-cols-6 items-center px-4 py-3 hover:bg-muted/10 transition-colors ${!coupon.is_active ? "opacity-50" : ""}`}>
                 <div className="col-span-2 flex items-center gap-2">
                   <span className="font-mono font-bold text-sm">{coupon.code}</span>
                   <button onClick={() => copyCode(coupon.code)} className="text-muted-foreground hover:text-foreground">
                     {copied === coupon.code ? <Check className="h-3.5 w-3.5 text-emerald-500" /> : <Copy className="h-3.5 w-3.5" />}
                   </button>
-                  {!coupon.active && <span className="text-xs bg-muted px-1.5 py-0.5 rounded">Inactive</span>}
+                  {!coupon.is_active && <span className="text-xs bg-muted px-1.5 py-0.5 rounded">Inactive</span>}
                 </div>
-                <span className="text-emerald-500 font-bold">{coupon.percent}% OFF</span>
+                <span className="text-emerald-500 font-bold">{coupon.discount_percent}% OFF</span>
                 <span className="text-sm text-muted-foreground">
-                  {coupon.uses}{coupon.max_uses ? `/${coupon.max_uses}` : ""}
+                  {coupon.uses_count}{coupon.max_uses ? `/${coupon.max_uses}` : ""}
                 </span>
                 <span className="text-sm text-muted-foreground">
-                  {coupon.expires_at 
-                    ? new Date(coupon.expires_at).toLocaleDateString("en-GB") 
+                  {coupon.expires_at
+                    ? new Date(coupon.expires_at).toLocaleDateString("en-GB")
                     : "Never"}
                 </span>
                 <div className="flex items-center gap-2">
                   <button
-                    onClick={() => handleToggle(coupon.id, coupon.active)}
+                    onClick={() => handleToggle(coupon.id, coupon.is_active)}
                     className="text-muted-foreground hover:text-primary transition-colors"
-                    title={coupon.active ? "Deactivate" : "Activate"}
+                    title={coupon.is_active ? "Deactivate" : "Activate"}
                   >
-                    {coupon.active 
+                    {coupon.is_active
                       ? <ToggleRight className="h-5 w-5 text-emerald-500" />
                       : <ToggleLeft className="h-5 w-5" />
                     }

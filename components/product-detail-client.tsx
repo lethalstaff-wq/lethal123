@@ -150,13 +150,11 @@ export function ProductDetailClient({ product }: { product: Product }) {
                 </span>
                 {product.name} Features
               </h3>
-              <div className="rounded-xl border border-border/50 overflow-hidden">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {product.features.map((feature, idx) => (
                   <div
                     key={idx}
-                    className={`flex items-center gap-3 px-4 py-3 text-sm ${
-                      idx !== product.features!.length - 1 ? "border-b border-border/40" : ""
-                    } hover:bg-primary/5 transition-colors`}
+                    className="flex items-center gap-3 px-4 py-3 text-sm rounded-xl bg-card/60 border border-border/30 hover:border-primary/30 transition-colors"
                   >
                     <div className="w-6 h-6 rounded-md bg-primary/15 flex items-center justify-center flex-shrink-0">
                       <CheckCircle2 className="h-3.5 w-3.5 text-primary" />

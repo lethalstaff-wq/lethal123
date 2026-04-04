@@ -34,7 +34,7 @@ export function RecentlyViewed({ currentProductId }: { currentProductId: string 
     .map((id) => PRODUCTS.find((p) => p.id === id))
     .filter(Boolean) as typeof PRODUCTS
 
-  if (products.length === 0) return null
+  if (products.length < 2) return null
 
   return (
     <section className="mt-16 pt-12 border-t border-border/30">

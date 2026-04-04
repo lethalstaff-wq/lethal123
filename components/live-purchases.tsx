@@ -30,13 +30,13 @@ const COUNTRIES = [
 ]
 
 const TIME_LABELS = [
-  "3 minutes ago",
-  "7 minutes ago",
-  "11 minutes ago",
-  "18 minutes ago",
-  "24 minutes ago",
-  "31 minutes ago",
-  "38 minutes ago",
+  "2 minutes ago",
+  "5 minutes ago",
+  "9 minutes ago",
+  "14 minutes ago",
+  "21 minutes ago",
+  "33 minutes ago",
+  "47 minutes ago",
 ]
 
 interface Purchase {

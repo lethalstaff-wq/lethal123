@@ -36,11 +36,20 @@ function getOrdersToday(): number {
 export function HeroSection() {
   const ordersToday = getOrdersToday()
   const [scrollY, setScrollY] = useState(0)
+  const [mousePos, setMousePos] = useState({ x: 50, y: 50 })
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY)
     window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePos({ x: (e.clientX / window.innerWidth) * 100, y: (e.clientY / window.innerHeight) * 100 })
+    }
+    window.addEventListener("mousemove", handleMouseMove, { passive: true })
+    return () => window.removeEventListener("mousemove", handleMouseMove)
   }, [])
 
   const scrollToProducts = () => {
@@ -50,6 +59,20 @@ export function HeroSection() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden">
+      {/* Mouse-following spotlight */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-20 transition-opacity duration-500 hidden lg:block"
+        style={{ background: `radial-gradient(600px circle at ${mousePos.x}% ${mousePos.y}%, rgba(249,115,22,0.15), transparent 60%)` }}
+      />
+      {/* Animated grid */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-[0.03]">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `linear-gradient(rgba(249,115,22,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(249,115,22,0.3) 1px, transparent 1px)`,
+          backgroundSize: '60px 60px',
+          maskImage: 'radial-gradient(ellipse at center, black 30%, transparent 70%)',
+          WebkitMaskImage: 'radial-gradient(ellipse at center, black 30%, transparent 70%)',
+        }} />
+      </div>
       {/* Parallax background orbs */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div
@@ -75,7 +98,10 @@ export function HeroSection() {
         <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight mb-6 animate-fade-in-up animate-delay-100">
           <span className="text-white">Dominate with</span>
           <br />
-          <span className="text-primary">confidence</span>
+          <span className="text-primary relative inline-block">
+            confidence
+            <span className="absolute -inset-x-2 -inset-y-1 bg-primary/5 rounded-lg blur-xl animate-pulse-glow" />
+          </span>
         </h1>
 
         {/* Subtitle */}

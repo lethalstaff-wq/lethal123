@@ -323,11 +323,11 @@ export async function createCoupon(data: {
   const db = await requireAdmin()
   const { error } = await db.from("coupons").insert({
     code: data.code.toUpperCase(),
-    percent: data.percent,
+    discount_percent: data.percent,
     max_uses: data.max_uses || null,
     expires_at: data.expires_at || null,
-    active: true,
-    uses: 0,
+    is_active: true,
+    uses_count: 0,
   })
   if (error) throw new Error(error.message)
   revalidatePath("/admin/coupons")
@@ -344,7 +344,7 @@ export async function toggleCoupon(id: string, active: boolean) {
   const db = await requireAdmin()
   const { error } = await db
     .from("coupons")
-    .update({ active })
+    .update({ is_active: active })
     .eq("id", id)
   if (error) throw new Error(error.message)
   revalidatePath("/admin/coupons")

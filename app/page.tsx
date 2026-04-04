@@ -3,6 +3,8 @@ import { Navbar } from "@/components/navbar"
 import { HeroSection } from "@/components/hero-section"
 import { Footer } from "@/components/footer"
 import { ScrollReveal } from "@/components/scroll-reveal"
+import { SupportedGames } from "@/components/supported-games"
+import { GlowDivider } from "@/components/glow-divider"
 
 // Dynamic imports for below-the-fold sections — reduces initial JS bundle
 const AboutSection = dynamic(() => import("@/components/about-section").then((m) => ({ default: m.AboutSection })), {
@@ -77,24 +79,32 @@ export default function Home() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }} />
       <Navbar />
       <HeroSection />
+      <SupportedGames />
+      <GlowDivider />
       <ScrollReveal>
         <AboutSection />
       </ScrollReveal>
+      <GlowDivider />
       <ScrollReveal delay={100}>
         <ServicesSection />
       </ScrollReveal>
+      <GlowDivider />
       <ScrollReveal delay={100}>
         <ProcessSection />
       </ScrollReveal>
+      <GlowDivider />
       <ScrollReveal delay={100}>
         <PricingSection />
       </ScrollReveal>
+      <GlowDivider />
       <ScrollReveal delay={100}>
         <TestimonialsSection />
       </ScrollReveal>
+      <GlowDivider />
       <ScrollReveal delay={100}>
         <FaqSection />
       </ScrollReveal>
+      <GlowDivider />
       <ScrollReveal delay={100}>
         <ContactSection />
       </ScrollReveal>

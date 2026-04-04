@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
       .from("coupons")
       .select("*")
       .eq("code", code.toUpperCase())
-      .eq("active", true)
+      .eq("is_active", true)
       .single()
 
     // Handle table not existing or coupon not found
@@ -36,14 +36,14 @@ export async function POST(request: NextRequest) {
     }
 
     // Check max uses
-    if (coupon.max_uses !== null && coupon.uses >= coupon.max_uses) {
+    if (coupon.max_uses !== null && coupon.uses_count >= coupon.max_uses) {
       return NextResponse.json({ error: "Coupon has reached maximum uses" }, { status: 400 })
     }
 
     return NextResponse.json({
       valid: true,
       code: coupon.code,
-      percent: coupon.percent
+      percent: coupon.discount_percent
     })
   } catch (error) {
     return NextResponse.json({ error: "Failed to validate coupon" }, { status: 500 })
