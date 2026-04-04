@@ -3,7 +3,10 @@
     "allow": [
       "Bash(npx next:*)",
       "Bash(xargs grep:*)",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "Bash(git -C \"C:/Users/кир/Desktop/сайт\" add -A)",
+      "Bash(git -C C:/Users/кир/Desktop/сайт commit -m 'fix: all typescript errors final:*)",
+      "Bash(git -C \"C:/Users/кир/Desktop/сайт\" push)"
     ]
   }
 }

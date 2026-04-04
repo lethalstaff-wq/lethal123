@@ -8,11 +8,11 @@ const db = createClient(supabaseUrl, supabaseKey)
 // ── Seeded random ──
 let _seed = 42
 function sr() { _seed = (_seed * 16807 + 0) % 2147483647; return (_seed & 0x7fffffff) / 0x7fffffff }
-function pick(arr) { return arr[Math.floor(sr() * arr.length)] }
-function pickN(arr, n) { const s = [...arr]; for (let i = s.length - 1; i > 0; i--) { const j = Math.floor(sr() * (i + 1)); [s[i], s[j]] = [s[j], s[i]] } return s.slice(0, n) }
+function pick<T>(arr: T[]): T { return arr[Math.floor(sr() * arr.length)] }
+function pickN<T>(arr: T[], n: number): T[] { const s = [...arr]; for (let i = s.length - 1; i > 0; i--) { const j = Math.floor(sr() * (i + 1)); [s[i], s[j]] = [s[j], s[i]] } return s.slice(0, n) }
 
 // ── Product IDs ──
-const PRODUCTS = {
+const PRODUCTS: Record<string, { name: string; cat: string }> = {
   "perm-spoofer": { name: "Perm Spoofer", cat: "spoofer" },
   "temp-spoofer": { name: "Temp Spoofer", cat: "spoofer" },
   "fortnite-external": { name: "Fortnite External", cat: "cheat" },
@@ -207,11 +207,11 @@ async function main() {
   console.log("Clearing existing reviews...")
   await db.from("reviews").delete().neq("id", 0)
 
-  const allReviews = []
+  const allReviews: Record<string, unknown>[] = []
   let idx = 0
 
   // ── 5-star reviews: 2800 total (2300 auto + 500 manual) ──
-  const fiveStarTemplates = {
+  const fiveStarTemplates: Record<string, string[]> = {
     spoofer: spooferReviews5,
     cheat: cheatReviews5,
     firmware: firmwareReviews5,

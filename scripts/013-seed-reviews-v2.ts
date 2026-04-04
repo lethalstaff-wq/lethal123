@@ -8,11 +8,11 @@ const db = createClient(supabaseUrl, supabaseKey)
 // ── Seeded random ──
 let _s = 777
 function sr() { _s = (_s * 48271 + 0) % 2147483647; return (_s & 0x7fffffff) / 0x7fffffff }
-function pick(a) { return a[Math.floor(sr() * a.length)] }
-function shuffle(a) { const s = [...a]; for (let i = s.length - 1; i > 0; i--) { const j = Math.floor(sr() * (i + 1)); [s[i], s[j]] = [s[j], s[i]] }; return s }
+function pick<T>(a: T[]): T { return a[Math.floor(sr() * a.length)] }
+function shuffle<T>(a: T[]): T[] { const s = [...a]; for (let i = s.length - 1; i > 0; i--) { const j = Math.floor(sr() * (i + 1)); [s[i], s[j]] = [s[j], s[i]] }; return s }
 
 // ── Products ──
-const PRODUCTS = {
+const PRODUCTS: Record<string, { name: string; cat: string }> = {
   "perm-spoofer": { name: "Perm Spoofer", cat: "spoofer" },
   "temp-spoofer": { name: "Temp Spoofer", cat: "spoofer" },
   "fortnite-external": { name: "Fortnite External", cat: "cheat" },
@@ -222,7 +222,7 @@ const closers = [
   " best purchase ever"," absolutely cracked"," never going back"," changed my life"," fire"," W product"," straight heat",
 ]
 
-function variate(base, productName) {
+function variate(base: string, productName: string) {
   let t = base.replace(/\{name\}/g, productName)
   t = pick(openers) + t + pick(closers)
   // Randomly uppercase first letter or not
@@ -279,8 +279,8 @@ const r1_all = [
 // ═══════════════════════════════════════════════
 
 function buildReviews() {
-  const reviews = []
-  const templateMap = {}
+  const reviews: Record<string, unknown>[] = []
+  const templateMap: Record<string, string[]> = {}
   for (const pid of pids) {
     const cat = PRODUCTS[pid].cat
     if (cat === "spoofer") templateMap[pid] = r5_spoofer
