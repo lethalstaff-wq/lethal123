@@ -23,12 +23,14 @@ export async function getProductsFromDB(): Promise<Product[]> {
 
     if (error || !data || data.length === 0) return PRODUCTS
 
-    return data.map((p) => ({
+    return data.map((p) => {
+      const localProduct = PRODUCTS.find(lp => lp.id === p.id)
+      return {
       id: p.id,
       name: p.name,
       description: p.description || "",
-      longDescription: p.long_description || undefined,
-      features: p.features || undefined,
+      longDescription: p.long_description || localProduct?.longDescription || undefined,
+      features: p.features || localProduct?.features || undefined,
       image: p.image || "/placeholder.svg",
       category: p.category || "cheat",
       popular: p.popular || false,
@@ -42,7 +44,7 @@ export async function getProductsFromDB(): Promise<Product[]> {
           priceInPence: v.price_in_pence,
           sellAuthVariant: v.sell_auth_variant || undefined,
         })),
-    }))
+    }})
   } catch {
     return PRODUCTS
   }
