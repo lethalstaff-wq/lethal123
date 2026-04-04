@@ -1,0 +1,543 @@
+"use client"
+
+import { useState } from "react"
+import { Navbar } from "@/components/navbar"
+import { Footer } from "@/components/footer"
+import { Button } from "@/components/ui/button"
+import { 
+  GitCompare, 
+  Check, 
+  X, 
+  ShoppingCart,
+  Crosshair,
+  Eye,
+  Shield,
+  Cpu,
+  Zap,
+  Crown,
+  Package
+} from "lucide-react"
+import { cn } from "@/lib/utils"
+import { useCart } from "@/lib/cart-context"
+import Link from "next/link"
+
+type CompareCategory = "cheats" | "spoofers" | "bundles"
+
+// Cheat Features
+const CHEAT_FEATURES = [
+  { key: "aimbot", label: "Aimbot", description: "Auto-aim assistance" },
+  { key: "silent_aim", label: "Silent Aim", description: "Invisible aim adjustment" },
+  { key: "triggerbot", label: "Triggerbot", description: "Auto-fire on target" },
+  { key: "prediction", label: "Bullet Prediction", description: "Lead target compensation" },
+  { key: "esp_box", label: "Box ESP", description: "Player bounding boxes" },
+  { key: "esp_skeleton", label: "Skeleton ESP", description: "Bone structure overlay" },
+  { key: "esp_distance", label: "Distance ESP", description: "Player distance display" },
+  { key: "esp_health", label: "Health ESP", description: "Health bar display" },
+  { key: "esp_weapon", label: "Weapon ESP", description: "Player weapon info" },
+  { key: "esp_items", label: "Item ESP", description: "Loot & chest locations" },
+  { key: "radar", label: "Radar Hack", description: "Mini-map overlay" },
+  { key: "stream_proof", label: "Stream Proof", description: "Hidden from OBS/Discord" },
+  { key: "no_recoil", label: "No Recoil", description: "Recoil compensation" },
+  { key: "fov_circle", label: "FOV Circle", description: "Aim range indicator" },
+]
+
+const CHEATS_DATA = {
+  "blurred": {
+    name: "Blurred DMA",
+    badge: "Premium",
+    price: 2200,
+    pricePer: "Weekly",
+    features: {
+      aimbot: true, silent_aim: true, triggerbot: true, prediction: true,
+      esp_box: true, esp_skeleton: true, esp_distance: true, esp_health: true,
+      esp_weapon: true, esp_items: true, radar: true, stream_proof: true,
+      no_recoil: true, fov_circle: true
+    }
+  },
+  "streck": {
+    name: "Streck DMA",
+    badge: "Value",
+    price: 800,
+    pricePer: "Weekly",
+    features: {
+      aimbot: true, silent_aim: false, triggerbot: true, prediction: true,
+      esp_box: true, esp_skeleton: true, esp_distance: true, esp_health: true,
+      esp_weapon: false, esp_items: true, radar: true, stream_proof: true,
+      no_recoil: false, fov_circle: true
+    }
+  },
+  "fortnite-external": {
+    name: "Fortnite External",
+    badge: "Software",
+    price: 1000,
+    pricePer: "Daily",
+    features: {
+      aimbot: true, silent_aim: true, triggerbot: true, prediction: true,
+      esp_box: true, esp_skeleton: true, esp_distance: true, esp_health: true,
+      esp_weapon: true, esp_items: true, radar: false, stream_proof: true,
+      no_recoil: true, fov_circle: true
+    }
+  }
+}
+
+// Spoofer Features
+const SPOOFER_FEATURES = [
+  { key: "disk_serial", label: "Disk Serial Spoof", description: "HDD/SSD identifiers" },
+  { key: "motherboard", label: "Motherboard Spoof", description: "MB serial & UUID" },
+  { key: "mac_address", label: "MAC Address Spoof", description: "Network adapter ID" },
+  { key: "smbios", label: "SMBIOS Spoof", description: "System firmware data" },
+  { key: "gpu_serial", label: "GPU Serial Spoof", description: "Graphics card ID" },
+  { key: "tpm", label: "TPM Bypass", description: "Trusted Platform Module" },
+  { key: "efi_vars", label: "EFI Variables", description: "Boot firmware data" },
+  { key: "registry_clean", label: "Registry Cleaner", description: "Trace removal" },
+  { key: "kernel_level", label: "Kernel Level", description: "Ring 0 operation" },
+  { key: "auto_clean", label: "Auto Cleanup", description: "Automatic trace removal" },
+  { key: "persist_reboot", label: "Persist on Reboot", description: "Survives restarts" },
+]
+
+const SPOOFERS_DATA = {
+  "perm": {
+    name: "Perm Spoofer",
+    badge: "Permanent",
+    price: 3500,
+    pricePer: "One-Time",
+    features: {
+      disk_serial: true, motherboard: true, mac_address: true, smbios: true,
+      gpu_serial: true, tpm: true, efi_vars: true, registry_clean: true,
+      kernel_level: true, auto_clean: true, persist_reboot: true
+    }
+  },
+  "temp": {
+    name: "Temp Spoofer",
+    badge: "Session",
+    price: 2000,
+    pricePer: "15 Days",
+    features: {
+      disk_serial: true, motherboard: true, mac_address: true, smbios: true,
+      gpu_serial: true, tpm: false, efi_vars: false, registry_clean: true,
+      kernel_level: true, auto_clean: true, persist_reboot: false
+    }
+  }
+}
+
+// Bundle Features
+const BUNDLE_FEATURES = [
+  { key: "dma_card", label: "DMA Card", description: "Captain DMA 100T-7th" },
+  { key: "fuser", label: "Fuser Type", description: "Signal converter" },
+  { key: "teensy", label: "Teensy Board", description: "With firmware" },
+  { key: "firmware_eac", label: "EAC/BE Firmware", description: "Anti-cheat bypass" },
+  { key: "firmware_faceit", label: "FaceIt/VGK", description: "Additional AC support" },
+  { key: "cheat_included", label: "Cheat Included", description: "DMA cheat software" },
+  { key: "cheat_duration", label: "Cheat Duration", description: "License length" },
+  { key: "discord_support", label: "Discord Support", description: "Lifetime support" },
+  { key: "remote_install", label: "Remote Install", description: "Setup assistance" },
+]
+
+const BUNDLES_DATA = {
+  "basic": {
+    name: "Basic Bundle",
+    badge: "Starter",
+    price: 42500,
+    features: {
+      dma_card: "Captain 100T-7th",
+      fuser: "Mini DP Fuser V2",
+      teensy: false,
+      firmware_eac: "EAC/BE Emulated",
+      firmware_faceit: false,
+      cheat_included: "Blurred + Macku",
+      cheat_duration: "30 Days",
+      discord_support: true,
+      remote_install: true
+    }
+  },
+  "advanced": {
+    name: "Advanced Bundle",
+    badge: "Popular",
+    price: 67500,
+    features: {
+      dma_card: "Captain 100T-7th",
+      fuser: "Dichen D60 Fuser",
+      teensy: "Included",
+      firmware_eac: "Slotted Edition",
+      firmware_faceit: false,
+      cheat_included: "Blurred DMA",
+      cheat_duration: "Quarterly",
+      discord_support: true,
+      remote_install: true
+    }
+  },
+  "elite": {
+    name: "Elite Bundle",
+    badge: "Premium",
+    price: 150000,
+    features: {
+      dma_card: "Captain 100T-7th",
+      fuser: "Dichen DC500 Fuser",
+      teensy: "Included",
+      firmware_eac: "Full Emulation",
+      firmware_faceit: "EAC/BE + FaceIt + VGK",
+      cheat_included: "Blurred DMA",
+      cheat_duration: "Lifetime",
+      discord_support: true,
+      remote_install: true
+    }
+  }
+}
+
+export default function ComparePage() {
+  const [category, setCategory] = useState<CompareCategory>("cheats")
+  const { addItem } = useCart()
+
+  const handleAddToCart = (id: string, name: string, price: number, variant: string) => {
+    addItem({
+      id,
+      name,
+      variant,
+      price,
+      quantity: 1
+    })
+  }
+
+  return (
+    <main className="min-h-screen bg-background">
+      <Navbar />
+
+      {/* Hero */}
+      <section className="relative pt-32 pb-12 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[150px] opacity-30" />
+
+        <div className="container mx-auto px-4 relative">
+          <div className="max-w-2xl mx-auto text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
+              <GitCompare className="h-4 w-4 text-primary" />
+              <span className="text-sm font-bold text-primary">Product Comparison</span>
+            </div>
+
+            <h1 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">
+              Compare Products
+            </h1>
+            <p className="text-lg text-muted-foreground">
+              Find the perfect product for your needs with our detailed comparison
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Category Tabs */}
+      <section className="pb-8">
+        <div className="container mx-auto px-4">
+          <div className="flex justify-center">
+            <div className="inline-flex p-1 rounded-2xl bg-muted/30 border border-border/50">
+              <button
+                onClick={() => setCategory("cheats")}
+                className={cn(
+                  "flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all",
+                  category === "cheats"
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground hover:text-foreground"
+                )}
+              >
+                <Crosshair className="h-4 w-4" />
+                Cheats
+              </button>
+              <button
+                onClick={() => setCategory("spoofers")}
+                className={cn(
+                  "flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all",
+                  category === "spoofers"
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground hover:text-foreground"
+                )}
+              >
+                <Shield className="h-4 w-4" />
+                Spoofers
+              </button>
+              <button
+                onClick={() => setCategory("bundles")}
+                className={cn(
+                  "flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all",
+                  category === "bundles"
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground hover:text-foreground"
+                )}
+              >
+                <Package className="h-4 w-4" />
+                Bundles
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Comparison Table */}
+      <section className="pb-24">
+        <div className="container mx-auto px-4">
+          {/* Cheats Comparison */}
+          {category === "cheats" && (
+            <div className="max-w-5xl mx-auto">
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr>
+                      <th className="text-left p-4 w-[200px]">
+                        <div className="flex items-center gap-2 text-muted-foreground">
+                          <Crosshair className="h-4 w-4" />
+                          <span className="font-medium">Features</span>
+                        </div>
+                      </th>
+                      {Object.entries(CHEATS_DATA).map(([id, cheat]) => (
+                        <th key={id} className="p-4 text-center min-w-[180px]">
+                          <div className="rounded-2xl border border-border/50 bg-card/60 p-6">
+                            <span className={cn(
+                              "inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase mb-3",
+                              cheat.badge === "Premium" ? "bg-primary/10 text-primary" :
+                              cheat.badge === "Value" ? "bg-emerald-500/10 text-emerald-500" :
+                              "bg-blue-500/10 text-blue-500"
+                            )}>
+                              {cheat.badge}
+                            </span>
+                            <h3 className="font-black text-foreground text-lg mb-1">{cheat.name}</h3>
+                            <p className="text-2xl font-black text-primary mb-1">
+                              £{(cheat.price / 100).toFixed(0)}
+                            </p>
+                            <p className="text-xs text-muted-foreground">{cheat.pricePer}</p>
+                          </div>
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {CHEAT_FEATURES.map((feature, index) => (
+                      <tr key={feature.key} className={cn(index % 2 === 0 && "bg-muted/5")}>
+                        <td className="p-4">
+                          <div>
+                            <p className="font-medium text-foreground">{feature.label}</p>
+                            <p className="text-xs text-muted-foreground">{feature.description}</p>
+                          </div>
+                        </td>
+                        {Object.entries(CHEATS_DATA).map(([id, cheat]) => (
+                          <td key={id} className="p-4 text-center">
+                            {cheat.features[feature.key as keyof typeof cheat.features] ? (
+                              <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-emerald-500/10">
+                                <Check className="h-5 w-5 text-emerald-500" />
+                              </div>
+                            ) : (
+                              <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-muted/30">
+                                <X className="h-5 w-5 text-muted-foreground/50" />
+                              </div>
+                            )}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                    <tr>
+                      <td className="p-4" />
+                      {Object.entries(CHEATS_DATA).map(([id, cheat]) => (
+                        <td key={id} className="p-4 text-center">
+                          <Button
+                            onClick={() => handleAddToCart(id, cheat.name, cheat.price, cheat.pricePer)}
+                            className="gap-2 rounded-xl w-full"
+                          >
+                            <ShoppingCart className="h-4 w-4" />
+                            Add to Cart
+                          </Button>
+                        </td>
+                      ))}
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
+          {/* Spoofers Comparison */}
+          {category === "spoofers" && (
+            <div className="max-w-4xl mx-auto">
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr>
+                      <th className="text-left p-4 w-[200px]">
+                        <div className="flex items-center gap-2 text-muted-foreground">
+                          <Shield className="h-4 w-4" />
+                          <span className="font-medium">Features</span>
+                        </div>
+                      </th>
+                      {Object.entries(SPOOFERS_DATA).map(([id, spoofer]) => (
+                        <th key={id} className="p-4 text-center min-w-[200px]">
+                          <div className="rounded-2xl border border-border/50 bg-card/60 p-6">
+                            <span className={cn(
+                              "inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase mb-3",
+                              spoofer.badge === "Permanent" ? "bg-primary/10 text-primary" : "bg-blue-500/10 text-blue-500"
+                            )}>
+                              {spoofer.badge}
+                            </span>
+                            <h3 className="font-black text-foreground text-lg mb-1">{spoofer.name}</h3>
+                            <p className="text-2xl font-black text-primary mb-1">
+                              £{(spoofer.price / 100).toFixed(0)}
+                            </p>
+                            <p className="text-xs text-muted-foreground">{spoofer.pricePer}</p>
+                          </div>
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {SPOOFER_FEATURES.map((feature, index) => (
+                      <tr key={feature.key} className={cn(index % 2 === 0 && "bg-muted/5")}>
+                        <td className="p-4">
+                          <div>
+                            <p className="font-medium text-foreground">{feature.label}</p>
+                            <p className="text-xs text-muted-foreground">{feature.description}</p>
+                          </div>
+                        </td>
+                        {Object.entries(SPOOFERS_DATA).map(([id, spoofer]) => (
+                          <td key={id} className="p-4 text-center">
+                            {spoofer.features[feature.key as keyof typeof spoofer.features] ? (
+                              <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-emerald-500/10">
+                                <Check className="h-5 w-5 text-emerald-500" />
+                              </div>
+                            ) : (
+                              <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-muted/30">
+                                <X className="h-5 w-5 text-muted-foreground/50" />
+                              </div>
+                            )}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                    <tr>
+                      <td className="p-4" />
+                      {Object.entries(SPOOFERS_DATA).map(([id, spoofer]) => (
+                        <td key={id} className="p-4 text-center">
+                          <Button
+                            onClick={() => handleAddToCart(id, spoofer.name, spoofer.price, spoofer.pricePer)}
+                            className="gap-2 rounded-xl w-full"
+                          >
+                            <ShoppingCart className="h-4 w-4" />
+                            Add to Cart
+                          </Button>
+                        </td>
+                      ))}
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
+          {/* Bundles Comparison */}
+          {category === "bundles" && (
+            <div className="max-w-5xl mx-auto">
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr>
+                      <th className="text-left p-4 w-[200px]">
+                        <div className="flex items-center gap-2 text-muted-foreground">
+                          <Package className="h-4 w-4" />
+                          <span className="font-medium">Includes</span>
+                        </div>
+                      </th>
+                      {Object.entries(BUNDLES_DATA).map(([id, bundle]) => (
+                        <th key={id} className="p-4 text-center min-w-[180px]">
+                          <div className={cn(
+                            "rounded-2xl border p-6",
+                            bundle.badge === "Popular" 
+                              ? "border-primary/50 bg-primary/5" 
+                              : "border-border/50 bg-card/60"
+                          )}>
+                            {bundle.badge === "Popular" && (
+                              <div className="flex items-center justify-center gap-1 mb-2">
+                                <Crown className="h-4 w-4 text-primary" />
+                                <span className="text-xs font-bold text-primary">MOST POPULAR</span>
+                              </div>
+                            )}
+                            <span className={cn(
+                              "inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase mb-3",
+                              bundle.badge === "Starter" ? "bg-muted/30 text-muted-foreground" :
+                              bundle.badge === "Popular" ? "bg-primary/10 text-primary" :
+                              "bg-amber-500/10 text-amber-500"
+                            )}>
+                              {bundle.badge}
+                            </span>
+                            <h3 className="font-black text-foreground text-lg mb-1">{bundle.name}</h3>
+                            <p className="text-2xl font-black text-primary mb-1">
+                              £{(bundle.price / 100).toFixed(0)}
+                            </p>
+                            <p className="text-xs text-muted-foreground">one-time</p>
+                          </div>
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {BUNDLE_FEATURES.map((feature, index) => (
+                      <tr key={feature.key} className={cn(index % 2 === 0 && "bg-muted/5")}>
+                        <td className="p-4">
+                          <div>
+                            <p className="font-medium text-foreground">{feature.label}</p>
+                            <p className="text-xs text-muted-foreground">{feature.description}</p>
+                          </div>
+                        </td>
+                        {Object.entries(BUNDLES_DATA).map(([id, bundle]) => {
+                          const value = bundle.features[feature.key as keyof typeof bundle.features]
+                          return (
+                            <td key={id} className="p-4 text-center">
+                              {value === true ? (
+                                <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-emerald-500/10">
+                                  <Check className="h-5 w-5 text-emerald-500" />
+                                </div>
+                              ) : value === false ? (
+                                <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-muted/30">
+                                  <X className="h-5 w-5 text-muted-foreground/50" />
+                                </div>
+                              ) : (
+                                <span className="text-sm font-medium text-foreground">{value}</span>
+                              )}
+                            </td>
+                          )
+                        })}
+                      </tr>
+                    ))}
+                    <tr>
+                      <td className="p-4" />
+                      {Object.entries(BUNDLES_DATA).map(([id, bundle]) => (
+                        <td key={id} className="p-4 text-center">
+                          <Button
+                            onClick={() => handleAddToCart(id, bundle.name, bundle.price, "Complete Bundle")}
+                            className={cn(
+                              "gap-2 rounded-xl w-full",
+                              bundle.badge === "Popular" && "bg-primary hover:bg-primary/90"
+                            )}
+                          >
+                            <ShoppingCart className="h-4 w-4" />
+                            Add to Cart
+                          </Button>
+                        </td>
+                      ))}
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Bundle Info */}
+              <div className="mt-8 p-6 rounded-2xl border border-border/50 bg-card/30 text-center">
+                <p className="text-muted-foreground">
+                  All bundles include discreet shipping, lifetime Discord support, and remote firmware installation.
+                </p>
+                <Link href="/products" className="inline-flex items-center gap-2 mt-4 text-primary font-bold hover:underline">
+                  View all individual products
+                  <Zap className="h-4 w-4" />
+                </Link>
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+
+      <Footer />
+    </main>
+  )
+}

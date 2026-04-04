@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin
+Disallow: /admin/*
+Disallow: /api/*
+Disallow: /checkout
+Disallow: /login
+Disallow: /profile
+Disallow: /dashboard
+
+Sitemap: https://www.lethalsolutions.me/sitemap.xml
