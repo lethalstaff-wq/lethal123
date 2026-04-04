@@ -49,6 +49,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
         price: selectedVariant.price,
         product_id: product.id,
         is_lifetime: selectedVariant.name.toLowerCase().includes("lifetime"),
+        duration_days: null,
         created_at: "",
         sellAuthVariant: selectedVariant.sellAuthVariant,
         product: {
