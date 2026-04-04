@@ -75,20 +75,22 @@ export function ServicesSection() {
           {features.map((feature, index) => (
             <div
               key={index}
-              className="p-6 rounded-2xl glass hover:border-primary/40 transition-all card-hover"
+              className="group p-6 rounded-2xl glass hover:border-primary/40 transition-all card-hover card-glow-border"
             >
               {/* Top row */}
-              <div className="flex items-start justify-between mb-4">
-                <div className="p-3 rounded-xl bg-primary/10">
+              <div className="flex items-start justify-between mb-5">
+                <div className="p-3 rounded-xl bg-primary/10 group-hover:bg-primary/20 transition-colors">
                   <feature.icon className="h-5 w-5 text-primary" />
                 </div>
                 <div className="text-right">
-                  <div className="text-xl font-bold text-primary"><AnimatedCounter value={feature.stat} /></div>
+                  <div className="text-2xl font-black text-primary" style={{ textShadow: "0 0 20px rgba(249,115,22,0.3)" }}>
+                    <AnimatedCounter value={feature.stat} />
+                  </div>
                   <div className="text-[10px] text-muted-foreground uppercase tracking-wider">{feature.statLabel}</div>
                 </div>
               </div>
 
-              <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
+              <h3 className="text-lg font-bold mb-2 group-hover:text-primary transition-colors">{feature.title}</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
             </div>
           ))}

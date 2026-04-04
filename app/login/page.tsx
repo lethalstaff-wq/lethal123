@@ -88,8 +88,8 @@ export default function LoginPage() {
         <div className="w-full max-w-md">
           <Card className="border-border/50 bg-card/60 backdrop-blur-sm">
             <CardHeader className="text-center pb-4">
-              <CardTitle className="text-2xl font-bold">Welcome</CardTitle>
-              <CardDescription>Sign in to your account or create a new one</CardDescription>
+              <CardTitle className="text-2xl font-bold">Welcome back</CardTitle>
+              <CardDescription>Sign in to access your licenses and orders</CardDescription>
             </CardHeader>
             <CardContent>
               <Tabs defaultValue="login">

@@ -40,7 +40,7 @@ const faqs = [
 
 function FaqItem({ faq, isOpen, onClick }: { faq: typeof faqs[number]; isOpen: boolean; onClick: () => void }) {
   return (
-    <div className="border border-border/50 rounded-xl overflow-hidden bg-card/30 backdrop-blur-sm hover:border-border/80 transition-colors">
+    <div className={`border rounded-xl overflow-hidden bg-card/30 backdrop-blur-sm transition-all duration-300 ${isOpen ? "border-primary/30 shadow-lg shadow-primary/5 bg-primary/[0.02]" : "border-border/50 hover:border-border/80"}`}>
       <button
         onClick={onClick}
         className="w-full flex items-center justify-between p-5 text-left gap-4"

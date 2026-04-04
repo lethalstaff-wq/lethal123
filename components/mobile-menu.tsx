@@ -30,8 +30,8 @@ export function MobileMenu() {
       </SheetTrigger>
       <SheetContent side="right" className="w-[280px] sm:w-[350px]">
         <SheetHeader>
-          <SheetTitle>Navigation Menu</SheetTitle>
-          <SheetDescription>Navigate to different sections of the website</SheetDescription>
+          <SheetTitle>Menu</SheetTitle>
+          <SheetDescription>Products, guides, and support</SheetDescription>
         </SheetHeader>
         <nav className="flex flex-col gap-1 mt-8">
           {menuItems.map((item) => (

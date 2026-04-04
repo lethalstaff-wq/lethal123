@@ -160,14 +160,14 @@ export function PricingSection() {
                 <Button
                   onClick={() => handleAddToCart(bundle)}
                   size="lg"
-                  className={`w-full h-12 gap-2 font-semibold rounded-xl ${
+                  className={`w-full h-12 gap-2 font-bold rounded-xl transition-all ${
                     bundle.highlighted
-                      ? "bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg shadow-primary/25"
+                      ? "bg-gradient-to-r from-primary to-accent hover:opacity-90 text-primary-foreground shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 btn-glow"
                       : "bg-secondary hover:bg-primary hover:text-primary-foreground"
                   }`}
                 >
                   <ShoppingCart className="h-4 w-4" />
-                  Add to Cart
+                  {bundle.highlighted ? "Get Started" : "Add to Cart"}
                   <ArrowRight className="h-4 w-4" />
                 </Button>
               </div>

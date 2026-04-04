@@ -66,7 +66,8 @@ export default function CartPage() {
             {/* Cart items */}
             <div className="lg:col-span-2 space-y-3">
               {items.map((item) => (
-                <div key={item.variant.id} className="rounded-xl border border-border/60 bg-card/40 backdrop-blur-sm p-4 hover:border-primary/20 transition-colors">
+                <div key={item.variant.id} className="relative rounded-xl border border-border/60 bg-card/40 backdrop-blur-sm p-4 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all overflow-hidden">
+                  <div className="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-primary via-primary/50 to-transparent rounded-l-xl" />
                   <div className="flex items-center gap-4">
                     <div className="w-16 h-16 rounded-lg bg-muted/50 flex items-center justify-center flex-shrink-0 overflow-hidden">
                       {(item.variant.product?.image || item.variant.product?.image_url) ? (
