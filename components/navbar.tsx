@@ -121,18 +121,14 @@ export function Navbar() {
           <div className="flex items-center gap-2">
             {/* Search - desktop: Cmd+K button, mobile: inline search */}
             <div ref={searchRef} className="relative">
-              {/* Desktop: Cmd+K trigger */}
+              {/* Desktop: search trigger */}
               <button
-                onClick={() => {
-                  // Dispatch Cmd+K to open command search
-                  window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", metaKey: true }))
-                }}
+                onClick={() => setSearchOpen(!searchOpen)}
                 className="hidden sm:flex items-center gap-2 h-9 px-3 rounded-lg bg-muted/30 border border-border/40 hover:bg-muted/50 hover:border-border/60 transition-all text-muted-foreground text-xs"
                 aria-label="Search products"
               >
                 <Search className="h-3.5 w-3.5" />
                 <span className="text-muted-foreground/50">Search...</span>
-                <kbd className="ml-2 px-1.5 py-0.5 rounded bg-muted/50 text-[10px] font-mono font-bold text-muted-foreground/40">⌘K</kbd>
               </button>
               {/* Mobile: icon button */}
               <Button
