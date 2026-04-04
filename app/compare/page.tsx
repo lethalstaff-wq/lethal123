@@ -188,14 +188,26 @@ export default function ComparePage() {
   const [category, setCategory] = useState<CompareCategory>("cheats")
   const { addItem } = useCart()
 
-  const handleAddToCart = (id: string, name: string, price: number, variant: string) => {
+  const handleAddToCart = (id: string, name: string, price: number, variantName: string) => {
     addItem({
       id,
-      name,
-      variant,
+      name: variantName,
       price,
-      quantity: 1
-    })
+      product_id: id,
+      is_lifetime: variantName.toLowerCase().includes("lifetime"),
+      duration_days: null,
+      created_at: "",
+      product: {
+        id,
+        name,
+        slug: id,
+        description: null,
+        category: "cheat",
+        image_url: null,
+        created_at: "",
+        updated_at: "",
+      },
+    }, 1)
   }
 
   return (
