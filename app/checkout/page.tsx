@@ -17,7 +17,9 @@ import { cn } from "@/lib/utils"
 /* -- Coupons (fallback for fortune wheel + hardcoded) -- */
 const COUPONS: Record<string, number> = {
   LETHAL: 10, LETHAL5: 5, LETHAL20: 20, DOMINATE: 15, GAMING10: 10,
-  // Fortune wheel coupons
+  // Fortune wheel coupons (v3)
+  SPIN10: 10, LUCKY15: 15, WIN7: 7, MEGA20: 20, SAVE12: 12, DEAL8: 8, JACKPOT: 25,
+  // Legacy wheel coupons
   EASTER5: 5, BUNNY10: 10, EGG15: 15, SPRING7: 7, EASTER20: 20, HUNT12: 12, RABBIT8: 8, GOLDEN25: 25,
 }
 

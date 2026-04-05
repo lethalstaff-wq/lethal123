@@ -47,9 +47,8 @@ export function Footer() {
             <ul className="space-y-2.5">
               {[
                 { label: "All Products", href: "/products" },
-                { label: "DMA Cheats", href: "/products" },
-                { label: "Spoofers", href: "/products" },
-                { label: "Bundles", href: "/products" },
+                { label: "Compare", href: "/compare" },
+                { label: "Reviews", href: "/reviews" },
               ].map((item) => (
                 <li key={item.label}>
                   <Link href={item.href} className="text-sm text-white/30 hover:text-primary transition-colors">
@@ -88,7 +87,6 @@ export function Footer() {
               {[
                 { label: "Track Order", href: "/track" },
                 { label: "Downloads", href: "/downloads" },
-                { label: "Dashboard", href: "/dashboard" },
               ].map((item) => (
                 <li key={item.label}>
                   <Link href={item.href} className="text-sm text-white/30 hover:text-primary transition-colors">

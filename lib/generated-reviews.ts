@@ -265,10 +265,10 @@ export function generateAllReviews(): GeneratedReview[] {
     const daysAgo = Math.floor((today.getTime() - d.getTime()) / 86400000)
     const dayIndex = totalDays - daysAgo // 0 = first day, totalDays = today
 
-    // Daily count grows over time: early days 3-8, recent days 15-35
-    const growthFactor = Math.min(dayIndex / Math.max(totalDays, 1), 1) // 0→1
-    const minCount = Math.floor(3 + growthFactor * 12) // 3→15
-    const maxExtra = Math.floor(5 + growthFactor * 20) // 5→25
+    // Daily count: ~2-4 early, ~4-7 recent → ~1500 total over a year
+    const growthFactor = Math.min(dayIndex / Math.max(totalDays, 1), 1)
+    const minCount = Math.floor(2 + growthFactor * 2) // 2→4
+    const maxExtra = Math.floor(2 + growthFactor * 3) // 2→5
     const dayCount = minCount + Math.floor(seededRandom(daySeed) * maxExtra)
 
     // For today — only generate up to current hour's order count

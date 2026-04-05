@@ -230,47 +230,6 @@ export default function ReviewsPage() {
             ))}
           </div>
 
-          {/* Review of the Week */}
-          {allReviews.length > 0 && (() => {
-            const topReview = allReviews.filter(r => r.rating === 5 && r.text.length > 80 && r.team_response).sort((a, b) => b.helpful - a.helpful)[0]
-              || allReviews.filter(r => r.rating === 5 && r.text.length > 80).sort((a, b) => b.helpful - a.helpful)[0]
-            if (!topReview) return null
-            const initials = getInitials(topReview.username)
-            const avatarColor = avatarColors[topReview.id % avatarColors.length]
-            return (
-              <Card className="mb-8 border-primary/30 bg-gradient-to-r from-primary/[0.06] to-transparent backdrop-blur-sm overflow-hidden relative">
-                <div className="absolute top-3 right-4 px-2.5 py-1 rounded-full bg-primary/15 text-primary text-[10px] font-bold uppercase tracking-wider flex items-center gap-1">
-                  <Award className="h-3 w-3" />
-                  Review of the Week
-                </div>
-                <CardContent className="p-6 pt-10">
-                  <div className="flex gap-1 mb-3">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <Star key={i} className="h-4 w-4 fill-amber-400 text-amber-400" />
-                    ))}
-                  </div>
-                  <p className="text-foreground/90 leading-relaxed mb-4">&ldquo;{topReview.text}&rdquo;</p>
-                  {topReview.team_response && (
-                    <div className="mb-4 rounded-lg bg-primary/[0.06] border border-primary/10 p-3">
-                      <div className="flex items-center gap-2 mb-1.5">
-                        <MessageSquare className="h-3.5 w-3.5 text-primary" />
-                        <span className="text-xs font-semibold text-primary">Lethal Team</span>
-                      </div>
-                      <p className="text-xs text-foreground/70">{topReview.team_response}</p>
-                    </div>
-                  )}
-                  <div className="flex items-center gap-3">
-                    <div className={`w-9 h-9 rounded-full ${avatarColor} flex items-center justify-center text-xs font-bold text-white`}>{initials}</div>
-                    <div>
-                      <p className="text-sm font-medium">{maskEmail(topReview.email)}</p>
-                      <p className="text-xs text-primary">{topReview.product}</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            )
-          })()}
-
           {/* Rating Breakdown */}
           <Card className="mb-8 border-border/40 bg-card/40 backdrop-blur-sm">
             <CardContent className="p-6">
@@ -388,7 +347,7 @@ export default function ReviewsPage() {
                 const avatarColor = avatarColors[review.id % avatarColors.length]
 
                 return (
-                  <div key={review.id} className="rounded-xl border border-border/40 bg-card/40 backdrop-blur-sm p-6 flex flex-col hover:bg-card/60 hover:border-border/60 hover:shadow-lg hover:shadow-primary/[0.03] transition-all duration-300">
+                  <div key={review.id} className="rounded-xl border border-border/40 bg-[#1a1a1a] p-6 flex flex-col hover:bg-[#1e1e1e] hover:border-border/60 transition-colors duration-200">
                     {/* Stars + Badges */}
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex gap-0.5">

@@ -43,15 +43,13 @@ export function getProductReviewCount(slugOrName: string): number {
   return base + daysSince * dailyGrowth
 }
 
-/** Total review count — uses generated reviews length + a base offset for "pre-generator" reviews */
+/** Total review count — estimate matching generated reviews (~1500) */
 export function getTotalReviewCount(): number {
-  // Lazy import to avoid circular deps — just estimate based on days
   const now = new Date()
   const genStart = new Date("2025-04-01")
   const totalDays = Math.max(0, Math.floor((now.getTime() - genStart.getTime()) / 86400000))
-  // Average ~18 reviews/day growing over time, plus today's orders
-  const avgPerDay = 12 + (totalDays / 365) * 10
-  return Math.round(totalDays * avgPerDay) + getOrdersToday()
+  // ~4 reviews/day average → ~1500 over a year
+  return Math.round(totalDays * 4) + getOrdersToday()
 }
 
 /**

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
@@ -40,8 +40,17 @@ export function ProductDetailClient({ product }: { product: Product }) {
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0])
   const [quantity, setQuantity] = useState(1)
   const [showDiscordModal, setShowDiscordModal] = useState(false)
+  const [viewingNow, setViewingNow] = useState(0)
   const { addItem } = useCart()
   const router = useRouter()
+
+  useEffect(() => {
+    const seed = product.id.split("").reduce((a, c) => a + c.charCodeAt(0), 0)
+    const gen = () => 3 + ((seed + Math.floor(Date.now() / 30000)) % 10)
+    setViewingNow(gen())
+    const interval = setInterval(() => setViewingNow(gen()), 30000)
+    return () => clearInterval(interval)
+  }, [product.id])
 
   const handleAddToCart = () => {
     toast.success(`${product.name} added to cart`)
@@ -143,6 +152,14 @@ export function ProductDetailClient({ product }: { product: Product }) {
               <span className="font-bold text-sm text-yellow-400">5.0</span>
             </div>
             <span className="text-sm text-muted-foreground">{getProductReviewCount(product.slug)} Verified Reviews</span>
+            <span className="text-muted-foreground/30">·</span>
+            <div className="flex items-center gap-1.5">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500" />
+              </span>
+              <span className="text-sm text-muted-foreground">{viewingNow} viewing now</span>
+            </div>
           </div>
 
           {/* Price */}

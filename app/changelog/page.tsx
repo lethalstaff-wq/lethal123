@@ -14,8 +14,31 @@ interface ChangelogEntry {
   changes: string[]
 }
 
-// Realistic changelog from October 2025 onwards
+// Realistic changelog from April 2025 to present
 const CHANGELOG_DATA: ChangelogEntry[] = [
+  // April 2026
+  {
+    version: "4.3.0",
+    date: "2026-04-02",
+    product: "Custom DMA Firmware",
+    type: "patch",
+    changes: [
+      "Hotfix for Fortnite v40.10 (Chapter 7 Season 2: Showdown, April Fools patch)",
+      "Updated EAC emulation signatures",
+      "Improved memory read stability during lobby transitions",
+    ]
+  },
+  {
+    version: "4.2.5",
+    date: "2026-03-29",
+    product: "Blurred DMA Cheat",
+    type: "improvement",
+    changes: [
+      "FPS overhead reduced by 40% — runs smoother on mid-range second PCs",
+      "New radar overlay with 3D terrain rendering",
+      "Improved aimbot prediction for OG map rotations",
+    ]
+  },
   // March 2026
   {
     version: "4.2.1",
@@ -39,6 +62,17 @@ const CHANGELOG_DATA: ChangelogEntry[] = [
       "Improved anti-screenshot bypass",
       "Fixed triggerbot delay inconsistency",
       "New softaim curves added"
+    ]
+  },
+  {
+    version: "1.0.0",
+    date: "2026-03-25",
+    product: "Website",
+    type: "feature",
+    changes: [
+      "Full website redesign — new orange brand theme",
+      "Updated product cards, pricing section, and checkout flow",
+      "New product finder wizard and comparison page",
     ]
   },
   {
@@ -321,6 +355,17 @@ const CHANGELOG_DATA: ChangelogEntry[] = [
       "Better VGK bypass"
     ]
   },
+  {
+    version: "0.5.0",
+    date: "2025-11-01",
+    product: "Website",
+    type: "improvement",
+    changes: [
+      "Black Friday sale preparation",
+      "Elite Bundle price adjustment announced",
+      "New Discord support ticket system"
+    ]
+  },
   // October 2025
   {
     version: "3.9.5",
@@ -382,6 +427,88 @@ const CHANGELOG_DATA: ChangelogEntry[] = [
       "Reduced CPU overhead on second PC"
     ]
   },
+  // September 2025
+  {
+    version: "3.2.0",
+    date: "2025-09-20",
+    product: "Custom DMA Firmware",
+    type: "security",
+    changes: [
+      "FaceIt/VGK firmware — improved kernel-level masking",
+      "New stealth mode for tournament anti-cheat",
+      "Better compatibility with Valorant ranked"
+    ]
+  },
+  {
+    version: "3.8.0",
+    date: "2025-09-10",
+    product: "Blurred DMA Cheat",
+    type: "patch",
+    changes: [
+      "Chapter 5 Season 4 compatibility update",
+      "New weapon database for season items",
+      "Improved ESP rendering performance"
+    ]
+  },
+  // August 2025
+  {
+    version: "1.0.0",
+    date: "2025-08-12",
+    product: "Streck DMA Cheat",
+    type: "feature",
+    changes: [
+      "Streck DMA launch — budget DMA cheat option",
+      "Core ESP and aimbot features",
+      "Fortnite and Apex Legends support"
+    ]
+  },
+  {
+    version: "3.0.0",
+    date: "2025-08-01",
+    product: "Perm Spoofer",
+    type: "feature",
+    changes: [
+      "Perm Spoofer v3.0 — complete kernel rewrite",
+      "NVMe serial spoofing support added",
+      "New anti-trace cleanup module"
+    ]
+  },
+  // July 2025
+  {
+    version: "0.1.0",
+    date: "2025-07-05",
+    product: "Website",
+    type: "feature",
+    changes: [
+      "Lethal Solutions website launched",
+      "Discord server opened for customer support",
+      "Initial product catalog: Blurred DMA, Perm Spoofer, Fortnite External"
+    ]
+  },
+  // June 2025
+  {
+    version: "3.0.0",
+    date: "2025-06-01",
+    product: "Blurred DMA Cheat",
+    type: "feature",
+    changes: [
+      "Blurred DMA closed beta begins",
+      "Core features: ESP, aimbot, triggerbot",
+      "First testers onboarded via Discord"
+    ]
+  },
+  // April 2025
+  {
+    version: "0.0.1",
+    date: "2025-04-15",
+    product: "Website",
+    type: "feature",
+    changes: [
+      "Lethal Solutions founded",
+      "Development begins on DMA cheat and firmware solutions",
+      "Initial team assembled"
+    ]
+  },
 ]
 
 const TYPE_CONFIG = {
@@ -392,7 +519,7 @@ const TYPE_CONFIG = {
   patch: { icon: RefreshCw, color: "text-primary", bg: "bg-primary/10", label: "Game Patch" },
 }
 
-const PRODUCTS = ["All", "Blurred DMA Cheat", "Streck DMA Cheat", "Fortnite External", "Perm Spoofer", "Temp Spoofer", "Custom DMA Firmware"]
+const PRODUCTS = ["All", "Blurred DMA Cheat", "Streck DMA Cheat", "Fortnite External", "Perm Spoofer", "Temp Spoofer", "Custom DMA Firmware", "Website"]
 
 export default function ChangelogPage() {
   const [selectedProduct, setSelectedProduct] = useState("All")
