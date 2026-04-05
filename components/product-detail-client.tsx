@@ -95,7 +95,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
             </div>
           </div>
 
-          {/* Features */}
+          {/* Trust cards */}
           <div className="grid grid-cols-3 gap-4 mt-6">
             <Card className="border-border/50 bg-card/40 backdrop-blur-sm">
               <CardContent className="p-4 text-center">
@@ -119,6 +119,26 @@ export function ProductDetailClient({ product }: { product: Product }) {
               </CardContent>
             </Card>
           </div>
+
+          {/* Features list — below image */}
+          {product.features && product.features.length > 0 && (
+            <div className="mt-8">
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4">What&apos;s Included</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {product.features.map((feature, idx) => (
+                  <div
+                    key={idx}
+                    className="group flex items-center gap-3 px-4 py-3 text-sm rounded-xl border border-border/20 hover:border-primary/40 hover:bg-primary/[0.03] transition-all duration-300"
+                  >
+                    <div className="w-5 h-5 rounded-full bg-primary/10 group-hover:bg-primary/20 flex items-center justify-center flex-shrink-0 transition-colors">
+                      <Check className="h-3 w-3 text-primary" />
+                    </div>
+                    <span className="text-foreground/80 group-hover:text-foreground transition-colors">{feature}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Product Info */}
@@ -140,26 +160,6 @@ export function ProductDetailClient({ product }: { product: Product }) {
           </div>
 
           <p className="text-3xl font-bold mb-6">{"£"}{selectedVariant.price}</p>
-
-          {/* Features list */}
-          {product.features && product.features.length > 0 && (
-            <div className="mb-8">
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4">What&apos;s Included</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                {product.features.map((feature, idx) => (
-                  <div
-                    key={idx}
-                    className="group flex items-center gap-3 px-4 py-3 text-sm rounded-xl border border-border/20 hover:border-primary/40 hover:bg-primary/[0.03] transition-all duration-300"
-                  >
-                    <div className="w-5 h-5 rounded-full bg-primary/10 group-hover:bg-primary/20 flex items-center justify-center flex-shrink-0 transition-colors">
-                      <Check className="h-3 w-3 text-primary" />
-                    </div>
-                    <span className="text-foreground/80 group-hover:text-foreground transition-colors">{feature}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
 
           {/* Variant Selection */}
           {product.variants.length > 1 && (
@@ -266,60 +266,6 @@ export function ProductDetailClient({ product }: { product: Product }) {
               </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Bottom swag section */}
-      <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="group rounded-2xl border border-border/30 bg-gradient-to-b from-card/80 to-transparent p-6 hover:border-primary/30 transition-all duration-300">
-          <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-            <Shield className="h-6 w-6 text-primary" />
-          </div>
-          <h3 className="font-bold text-lg mb-2">Undetected Since Day 1</h3>
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            Zero detections across all anti-cheat engines. We update within 2 hours of every game patch. Your account stays safe — guaranteed.
-          </p>
-        </div>
-        <div className="group rounded-2xl border border-border/30 bg-gradient-to-b from-card/80 to-transparent p-6 hover:border-primary/30 transition-all duration-300">
-          <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-4 group-hover:bg-emerald-500/20 transition-colors">
-            <Zap className="h-6 w-6 text-emerald-500" />
-          </div>
-          <h3 className="font-bold text-lg mb-2">Instant Digital Delivery</h3>
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            Your license key and download link arrive within seconds. No waiting, no manual verification. Pay and play — it&apos;s that simple.
-          </p>
-        </div>
-        <div className="group rounded-2xl border border-border/30 bg-gradient-to-b from-card/80 to-transparent p-6 hover:border-primary/30 transition-all duration-300">
-          <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center mb-4 group-hover:bg-blue-500/20 transition-colors">
-            <MessageCircle className="h-6 w-6 text-blue-500" />
-          </div>
-          <h3 className="font-bold text-lg mb-2">Priority Discord Support</h3>
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            Dedicated support team available around the clock. Setup help, config optimization, troubleshooting — we&apos;ve got you covered 24/7.
-          </p>
-        </div>
-      </div>
-
-      {/* Trust banner */}
-      <div className="mt-10 rounded-2xl border border-primary/10 bg-primary/[0.02] p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div className="flex items-center gap-4">
-          <div className="flex -space-x-2">
-            {[...Array(4)].map((_, i) => (
-              <div key={i} className="w-8 h-8 rounded-full bg-gradient-to-br from-primary/30 to-accent/30 border-2 border-background flex items-center justify-center text-[10px] font-bold text-primary">
-                {String.fromCharCode(65 + i)}
-              </div>
-            ))}
-          </div>
-          <div>
-            <p className="text-sm font-semibold">Trusted by thousands of players</p>
-            <p className="text-xs text-muted-foreground">847+ verified 5-star reviews</p>
-          </div>
-        </div>
-        <div className="flex items-center gap-1">
-          {[...Array(5)].map((_, i) => (
-            <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-          ))}
-          <span className="ml-2 text-sm font-bold">4.9</span>
         </div>
       </div>
 

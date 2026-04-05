@@ -67,8 +67,10 @@ export function Footer() {
               {[
                 { label: "FAQ", href: "/faq" },
                 { label: "Guides", href: "/guides" },
+                { label: "Compare", href: "/compare" },
                 { label: "Status", href: "/status" },
                 { label: "Changelog", href: "/changelog" },
+                { label: "Referrals", href: "/referrals" },
               ].map((item) => (
                 <li key={item.label}>
                   <Link href={item.href} className="text-sm text-white/30 hover:text-primary transition-colors">

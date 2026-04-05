@@ -217,7 +217,7 @@ export function Navbar() {
                   className="hidden sm:inline-flex bg-primary hover:bg-primary/90 text-white text-xs font-semibold rounded-full px-4 h-8 gap-1.5 shadow-lg shadow-primary/20"
                 >
                   <User className="h-3.5 w-3.5" />
-                  Login
+                  Customer Login
                 </Button>
               </Link>
 
