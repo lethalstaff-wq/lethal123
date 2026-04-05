@@ -12,6 +12,8 @@ import { CookieConsent } from "@/components/cookie-consent"
 import { CommandSearch } from "@/components/command-search"
 import { CheckoutProgress } from "@/components/checkout-progress"
 import { Toaster } from "@/components/ui/sonner"
+import { SocialProofToast } from "@/components/social-proof-toast"
+import { BackToTop } from "@/components/back-to-top"
 import { ClientOverlays } from "./client-overlays"
 import "./globals.css"
 
@@ -39,6 +41,20 @@ export const metadata: Metadata = {
     title: "Lethal Solutions | Premium Gaming Cheats & Spoofers",
     description: "Undetected gaming solutions for competitive players. Premium cheats, DMA hardware, and HWID spoofers.",
     url: "https://www.lethalsolutions.me",
+    images: [
+      {
+        url: "/images/banner.png",
+        width: 1200,
+        height: 630,
+        alt: "Lethal Solutions — Premium Gaming Solutions",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Lethal Solutions | Premium Gaming Cheats & Spoofers",
+    description: "Undetected gaming solutions for competitive players. Premium cheats, DMA hardware, and HWID spoofers.",
+    images: ["/images/banner.png"],
   },
   metadataBase: new URL("https://www.lethalsolutions.me"),
   alternates: {
@@ -79,6 +95,8 @@ export default function RootLayout({
             <CommandSearch />
             <CheckoutProgress />
             <Toaster position="top-right" richColors />
+            <SocialProofToast />
+            <BackToTop />
             <div className="relative z-10">{children}</div>
           </CartProvider>
         </ThemeProvider>

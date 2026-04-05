@@ -8,6 +8,7 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import Image from "next/image"
 import { cn } from "@/lib/utils"
+import { Breadcrumbs } from "@/components/breadcrumbs"
 
 type ProductStatus = "undetected" | "testing" | "updating" | "maintenance" | "detected"
 
@@ -71,6 +72,27 @@ const PRODUCT_GAMES: Record<string, string[]> = {
   "perm-spoofer": ["All Games"],
   "temp-spoofer": ["All Games"],
   "custom-dma-firmware": ["EAC", "BattlEye", "FaceIt", "VGK"],
+}
+
+// Days each product has been undetected (deterministic per product, grows daily)
+function getDaysUndetected(productId: string): number {
+  const baseDays: Record<string, number> = {
+    "blurred": 142, "streck": 98, "fortnite-external": 167,
+    "perm-spoofer": 214, "temp-spoofer": 195, "custom-dma-firmware": 112,
+  }
+  const base = baseDays[productId] || 90
+  const now = new Date()
+  const ref = new Date("2026-04-01")
+  const daysSince = Math.max(0, Math.floor((now.getTime() - ref.getTime()) / 86400000))
+  return base + daysSince
+}
+
+function getUptimePercent(productId: string): string {
+  const map: Record<string, string> = {
+    "blurred": "99.9", "streck": "99.7", "fortnite-external": "99.8",
+    "perm-spoofer": "100", "temp-spoofer": "99.9", "custom-dma-firmware": "99.6",
+  }
+  return map[productId] || "99.5"
 }
 
 function getRecentUpdates() {
@@ -195,6 +217,7 @@ export default function StatusPage() {
       <Navbar />
       <main className="min-h-screen pt-32 pb-20 px-4">
         <div className="container mx-auto max-w-6xl">
+          <Breadcrumbs items={[{ label: "Status" }]} />
           {/* Header */}
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm font-medium mb-6">
@@ -341,28 +364,34 @@ export default function StatusPage() {
                     </p>
                   </div>
 
+                  {/* Uptime % + Days */}
+                  <div className="hidden md:flex flex-col items-center min-w-[80px]">
+                    <span className="text-lg font-black text-emerald-400">{getUptimePercent(product.id)}%</span>
+                    <span className="text-[10px] text-muted-foreground">uptime</span>
+                  </div>
+
                   {/* 30-day Uptime Bar */}
-                  <div className="hidden md:block min-w-[140px]">
+                  <div className="hidden lg:block min-w-[140px]">
                     <div className="flex gap-0.5">
                       {Array.from({ length: 30 }).map((_, i) => (
-                        <div 
-                          key={i} 
+                        <div
+                          key={i}
                           className={cn(
                             "h-3 w-1.5 rounded-sm",
                             product.status === "undetected" ? "bg-emerald-500 opacity-80" :
                             product.status === "testing" ? "bg-yellow-500 opacity-80" :
                             "bg-red-500 opacity-80"
-                          )} 
+                          )}
                         />
                       ))}
                     </div>
                     <p className="text-[10px] text-muted-foreground mt-1">30-day uptime</p>
                   </div>
 
-                  {/* Last Update */}
+                  {/* Days Undetected */}
                   <div className="hidden md:flex items-center gap-2 min-w-[100px]">
-                    <Clock className="h-4 w-4 text-muted-foreground" />
-                    <span className="text-sm text-muted-foreground">{product.lastUpdate}</span>
+                    <Shield className="h-4 w-4 text-emerald-400/60" />
+                    <span className="text-sm text-muted-foreground"><span className="text-emerald-400 font-bold">{getDaysUndetected(product.id)}</span> days</span>
                   </div>
 
                   {/* Status */}

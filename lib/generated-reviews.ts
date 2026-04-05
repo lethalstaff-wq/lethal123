@@ -183,6 +183,21 @@ function formatDate(d: Date): string {
   return d.toISOString().split("T")[0]
 }
 
+// ─── Team responses ───
+
+const TEAM_RESPONSES = [
+  "appreciate the love! glad everything is running smooth for you. hit us up on discord if you ever need anything 🤝",
+  "thanks for the review! your setup is looking clean. dont hesitate to reach out if you want help optimizing configs",
+  "glad to hear it! we put a lot of work into making sure everything stays undetected. enjoy the grind 💪",
+  "love hearing this! our support team works hard to help everyone get set up properly. thanks for the kind words",
+  "thanks king! we push updates fast because we know downtime = lost games. appreciate the trust 🔥",
+  "this means a lot! quality and reliability are our top priorities. welcome to the lethal family",
+  "happy you went with us! if you ever want to upgrade or try other products, your loyalty gets you priority support",
+  "respect! reviews like this keep us motivated to stay the best. see you in the discord 🎯",
+  "goated review 🙏 we're always working behind the scenes to improve. glad you noticed the difference",
+  "thanks for taking the time to write this! real feedback from real customers is what drives us forward",
+]
+
 // ─── Main generator ───
 
 const GEN_START = new Date("2025-11-01") // start generating from this date
@@ -236,6 +251,12 @@ export function generateAllReviews(): GeneratedReview[] {
       // Helpful votes 30-120
       const helpful = 30 + Math.floor(seededRandom(seed + 7) * 90)
 
+      // ~8% of 5-star reviews get a team response
+      let teamResponse: string | null = null
+      if (rating === 5 && seededRandom(seed + 8) < 0.08) {
+        teamResponse = pickFromSeed(TEAM_RESPONSES, seed + 9)
+      }
+
       reviews.push({
         id: globalId++,
         text: reviewText,
@@ -249,7 +270,7 @@ export function generateAllReviews(): GeneratedReview[] {
         is_auto: false,
         refunded: false,
         helpful,
-        team_response: null,
+        team_response: teamResponse,
         created_at: formatDate(d),
       })
     }

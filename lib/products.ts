@@ -75,7 +75,7 @@ export const PRODUCTS: Product[] = [
     description: "Built for precision. Designed to endure.",
     longDescription: "Private firmware built per order — unique device signature, no shared releases. Clean PCIe enumeration, zero driver footprint. Built and delivered in 24-48 hours.",
     features: ["Built per order — unique signature", "No shared releases", "Clean PCIe enumeration", "Zero driver footprint", "EAC / BattleEye emulation", "FaceIt / Vanguard masking", "75T, 100T, M.2, ZDMA supported", "24-48h delivery", "Lifetime replacement"],
-    image: "/images/products/fortnite-external-2.png",
+    image: "/images/products/dma-firmware.png",
     category: "firmware",
     badge: "In Stock",
     variants: [

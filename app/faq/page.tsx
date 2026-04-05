@@ -3,9 +3,10 @@
 import { useState } from "react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { HelpCircle, ChevronDown, Search, ShieldCheck, Clock, MessageCircle, ExternalLink, CreditCard, Download, Settings } from "lucide-react"
+import { HelpCircle, ChevronDown, Search, ShieldCheck, Clock, MessageCircle, ExternalLink, CreditCard, Download, Settings, ThumbsUp, ThumbsDown } from "lucide-react"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
+import { Breadcrumbs } from "@/components/breadcrumbs"
 
 interface FAQItem {
   question: string
@@ -154,6 +155,7 @@ export default function FAQPage() {
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("All")
   const [openItems, setOpenItems] = useState<Set<number>>(new Set())
+  const [helpfulVotes, setHelpfulVotes] = useState<Record<number, "yes" | "no">>({})
 
   const toggleItem = (index: number) => {
     const newOpen = new Set(openItems)
@@ -183,6 +185,7 @@ export default function FAQPage() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[150px] opacity-30" />
 
         <div className="container mx-auto px-4 relative">
+          <Breadcrumbs items={[{ label: "FAQ" }]} />
           <div className="max-w-2xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
               <HelpCircle className="h-4 w-4 text-primary" />
@@ -263,7 +266,33 @@ export default function FAQPage() {
                 
                 {openItems.has(index) && (
                   <div className="px-5 pb-5 pl-[4.5rem]">
-                    <p className="text-muted-foreground leading-relaxed">{item.answer}</p>
+                    <p className="text-muted-foreground leading-relaxed mb-4">{item.answer}</p>
+                    <div className="flex items-center gap-3 pt-3 border-t border-border/30">
+                      <span className="text-xs text-muted-foreground/60">Was this helpful?</span>
+                      <button
+                        onClick={(e) => { e.stopPropagation(); setHelpfulVotes(prev => ({ ...prev, [index]: "yes" })) }}
+                        className={cn(
+                          "inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs transition-colors",
+                          helpfulVotes[index] === "yes" ? "bg-emerald-500/15 text-emerald-400" : "bg-muted/20 text-muted-foreground hover:bg-muted/40"
+                        )}
+                      >
+                        <ThumbsUp className="h-3 w-3" /> Yes
+                      </button>
+                      <button
+                        onClick={(e) => { e.stopPropagation(); setHelpfulVotes(prev => ({ ...prev, [index]: "no" })) }}
+                        className={cn(
+                          "inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs transition-colors",
+                          helpfulVotes[index] === "no" ? "bg-red-500/15 text-red-400" : "bg-muted/20 text-muted-foreground hover:bg-muted/40"
+                        )}
+                      >
+                        <ThumbsDown className="h-3 w-3" /> No
+                      </button>
+                      {helpfulVotes[index] === "no" && (
+                        <Link href="https://discord.gg/lethaldma" target="_blank" className="text-xs text-primary hover:underline ml-auto">
+                          Ask on Discord →
+                        </Link>
+                      )}
+                    </div>
                   </div>
                 )}
               </div>

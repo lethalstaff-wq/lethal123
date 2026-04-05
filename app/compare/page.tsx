@@ -18,6 +18,7 @@ import {
   Package
 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { Breadcrumbs } from "@/components/breadcrumbs"
 import { useCart } from "@/lib/cart-context"
 import Link from "next/link"
 
@@ -45,6 +46,7 @@ const CHEATS_DATA = {
   "blurred": {
     name: "Blurred DMA",
     badge: "Premium",
+    bestFor: "Best for Tournaments",
     price: 2200,
     pricePer: "Weekly",
     features: {
@@ -57,6 +59,7 @@ const CHEATS_DATA = {
   "streck": {
     name: "Streck DMA",
     badge: "Value",
+    bestFor: "Best on Budget",
     price: 800,
     pricePer: "Weekly",
     features: {
@@ -69,6 +72,7 @@ const CHEATS_DATA = {
   "fortnite-external": {
     name: "Fortnite External",
     badge: "Software",
+    bestFor: "Best for Fortnite",
     price: 1000,
     pricePer: "Daily",
     features: {
@@ -99,6 +103,7 @@ const SPOOFERS_DATA = {
   "perm": {
     name: "Perm Spoofer",
     badge: "Permanent",
+    bestFor: "Best Overall",
     price: 3500,
     pricePer: "One-Time",
     features: {
@@ -110,6 +115,7 @@ const SPOOFERS_DATA = {
   "temp": {
     name: "Temp Spoofer",
     badge: "Session",
+    bestFor: "Best Short-Term",
     price: 2000,
     pricePer: "15 Days",
     features: {
@@ -137,6 +143,7 @@ const BUNDLES_DATA = {
   "basic": {
     name: "Basic Bundle",
     badge: "Starter",
+    bestFor: "Best for Beginners",
     price: 42500,
     features: {
       dma_card: "Captain 100T-7th",
@@ -153,6 +160,7 @@ const BUNDLES_DATA = {
   "advanced": {
     name: "Advanced Bundle",
     badge: "Popular",
+    bestFor: "Best Value",
     price: 67500,
     features: {
       dma_card: "Captain 100T-7th",
@@ -169,6 +177,7 @@ const BUNDLES_DATA = {
   "elite": {
     name: "Elite Bundle",
     badge: "Premium",
+    bestFor: "Best Performance",
     price: 150000,
     features: {
       dma_card: "Captain 100T-7th",
@@ -220,6 +229,7 @@ export default function ComparePage() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[150px] opacity-30" />
 
         <div className="container mx-auto px-4 relative">
+          <Breadcrumbs items={[{ label: "Compare" }]} />
           <div className="max-w-2xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
               <GitCompare className="h-4 w-4 text-primary" />
@@ -302,13 +312,16 @@ export default function ComparePage() {
                         <th key={id} className="p-4 text-center min-w-[180px]">
                           <div className="rounded-2xl border border-border/50 bg-card/60 p-6">
                             <span className={cn(
-                              "inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase mb-3",
+                              "inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase mb-2",
                               cheat.badge === "Premium" ? "bg-primary/10 text-primary" :
                               cheat.badge === "Value" ? "bg-emerald-500/10 text-emerald-500" :
                               "bg-blue-500/10 text-blue-500"
                             )}>
                               {cheat.badge}
                             </span>
+                            {"bestFor" in cheat && (
+                              <p className="text-[10px] text-amber-400 font-bold mb-2">{(cheat as any).bestFor}</p>
+                            )}
                             <h3 className="font-black text-foreground text-lg mb-1">{cheat.name}</h3>
                             <p className="text-2xl font-black text-primary mb-1">
                               £{(cheat.price / 100).toFixed(0)}
@@ -380,11 +393,14 @@ export default function ComparePage() {
                         <th key={id} className="p-4 text-center min-w-[200px]">
                           <div className="rounded-2xl border border-border/50 bg-card/60 p-6">
                             <span className={cn(
-                              "inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase mb-3",
+                              "inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase mb-2",
                               spoofer.badge === "Permanent" ? "bg-primary/10 text-primary" : "bg-blue-500/10 text-blue-500"
                             )}>
                               {spoofer.badge}
                             </span>
+                            {"bestFor" in spoofer && (
+                              <p className="text-[10px] text-amber-400 font-bold mb-2">{(spoofer as any).bestFor}</p>
+                            )}
                             <h3 className="font-black text-foreground text-lg mb-1">{spoofer.name}</h3>
                             <p className="text-2xl font-black text-primary mb-1">
                               £{(spoofer.price / 100).toFixed(0)}
@@ -467,13 +483,16 @@ export default function ComparePage() {
                               </div>
                             )}
                             <span className={cn(
-                              "inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase mb-3",
+                              "inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase mb-2",
                               bundle.badge === "Starter" ? "bg-muted/30 text-muted-foreground" :
                               bundle.badge === "Popular" ? "bg-primary/10 text-primary" :
                               "bg-amber-500/10 text-amber-500"
                             )}>
                               {bundle.badge}
                             </span>
+                            {"bestFor" in bundle && (
+                              <p className="text-[10px] text-amber-400 font-bold mb-2">{(bundle as any).bestFor}</p>
+                            )}
                             <h3 className="font-black text-foreground text-lg mb-1">{bundle.name}</h3>
                             <p className="text-2xl font-black text-primary mb-1">
                               £{(bundle.price / 100).toFixed(0)}

@@ -4,18 +4,22 @@ import { useState, useEffect } from "react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
-import { 
-  Gift, 
-  Users, 
-  Coins, 
-  Copy, 
-  Check, 
+import {
+  Gift,
+  Users,
+  Coins,
+  Copy,
+  Check,
   Share2,
   ArrowRight,
   Loader2,
   CheckCircle2,
   Clock,
-  Trophy
+  Trophy,
+  Medal,
+  Crown,
+  Star,
+  Flame
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { createClient } from "@/lib/supabase/client"
@@ -155,6 +159,87 @@ export default function ReferralsPage() {
         </div>
       </section>
 
+      {/* Tier System */}
+      <section className="pb-12">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-2xl font-bold text-center mb-8">
+              Referral <span className="text-primary">Tiers</span>
+            </h2>
+            <div className="grid md:grid-cols-3 gap-4">
+              {[
+                { name: "Bronze", icon: Medal, color: "text-amber-600", bg: "bg-amber-600/10", border: "border-amber-600/20", refs: "1-5", commission: "10%", perks: ["10% commission", "Standard support", "Monthly payouts"] },
+                { name: "Silver", icon: Star, color: "text-gray-300", bg: "bg-gray-300/10", border: "border-gray-300/20", refs: "6-15", commission: "12%", perks: ["12% commission", "Priority support", "Weekly payouts", "Early access to new products"] },
+                { name: "Gold", icon: Crown, color: "text-yellow-400", bg: "bg-yellow-400/10", border: "border-yellow-400/20", refs: "16+", commission: "15%", perks: ["15% commission", "VIP Discord channel", "Instant payouts", "Custom referral code", "Free product testing"] },
+              ].map((tier) => (
+                <div key={tier.name} className={cn("p-6 rounded-2xl border bg-card/60 relative overflow-hidden", tier.border)}>
+                  {tier.name === "Gold" && (
+                    <div className="absolute top-0 right-0 px-3 py-1 rounded-bl-xl bg-yellow-400/20 text-yellow-400 text-[10px] font-bold">BEST</div>
+                  )}
+                  <div className={cn("w-12 h-12 rounded-xl flex items-center justify-center mb-4", tier.bg)}>
+                    <tier.icon className={cn("h-6 w-6", tier.color)} />
+                  </div>
+                  <h3 className="font-bold text-lg mb-1">{tier.name}</h3>
+                  <p className="text-sm text-muted-foreground mb-1">{tier.refs} referrals</p>
+                  <p className={cn("text-2xl font-black mb-4", tier.color)}>{tier.commission}</p>
+                  <ul className="space-y-2">
+                    {tier.perks.map((perk) => (
+                      <li key={perk} className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <CheckCircle2 className="h-3.5 w-3.5 text-primary shrink-0" />
+                        {perk}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Leaderboard */}
+      <section className="pb-12">
+        <div className="container mx-auto px-4">
+          <div className="max-w-2xl mx-auto">
+            <div className="rounded-3xl border border-border/50 bg-card/60 overflow-hidden">
+              <div className="p-5 border-b border-border/30 flex items-center justify-between">
+                <h2 className="font-bold text-foreground flex items-center gap-2">
+                  <Flame className="h-5 w-5 text-primary" />
+                  Top Referrers
+                </h2>
+                <span className="text-xs text-muted-foreground">This month</span>
+              </div>
+              <div className="divide-y divide-border/30">
+                {[
+                  { rank: 1, name: "dr***@gmail.com", refs: 23, earned: "£187.50", tier: "Gold" },
+                  { rank: 2, name: "ky***@proton.me", refs: 18, earned: "£142.20", tier: "Gold" },
+                  { rank: 3, name: "wr***@gmail.com", refs: 14, earned: "£98.70", tier: "Silver" },
+                  { rank: 4, name: "nx***@outlook.com", refs: 11, earned: "£76.30", tier: "Silver" },
+                  { rank: 5, name: "bl***@yahoo.com", refs: 8, earned: "£52.40", tier: "Silver" },
+                ].map((entry) => (
+                  <div key={entry.rank} className="p-4 flex items-center gap-4">
+                    <div className={cn(
+                      "w-8 h-8 rounded-full flex items-center justify-center text-sm font-black shrink-0",
+                      entry.rank === 1 ? "bg-yellow-400/20 text-yellow-400" :
+                      entry.rank === 2 ? "bg-gray-300/20 text-gray-300" :
+                      entry.rank === 3 ? "bg-amber-600/20 text-amber-600" :
+                      "bg-muted/30 text-muted-foreground"
+                    )}>
+                      {entry.rank}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium text-sm truncate">{entry.name}</p>
+                      <p className="text-xs text-muted-foreground">{entry.refs} referrals · {entry.tier}</p>
+                    </div>
+                    <p className="text-sm font-bold text-emerald-400">{entry.earned}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Main Content */}
       <section className="pb-24">
         <div className="container mx-auto px-4">
@@ -164,7 +249,7 @@ export default function ReferralsPage() {
                 <Gift className="h-16 w-16 text-orange-500/30 mx-auto mb-6" />
                 <h2 className="text-xl font-bold text-foreground mb-2">Login to Start Earning</h2>
                 <p className="text-muted-foreground mb-6">Create an account or login to get your referral link</p>
-                <Button onClick={() => router.push("/login")} className="gap-2 rounded-xl bg-orange-500 hover:bg-purple-600">
+                <Button onClick={() => router.push("/login")} className="gap-2 rounded-xl bg-primary hover:bg-primary/90">
                   Get Started
                   <ArrowRight className="h-4 w-4" />
                 </Button>
@@ -204,7 +289,7 @@ export default function ReferralsPage() {
                       onClick={copyCode}
                       className={cn(
                         "shrink-0 rounded-xl",
-                        copied ? "bg-emerald-500 hover:bg-emerald-600" : "bg-orange-500 hover:bg-purple-600"
+                        copied ? "bg-emerald-500 hover:bg-emerald-600" : "bg-orange-500 hover:bg-primary/90"
                       )}
                     >
                       {copied ? <Check className="h-5 w-5" /> : <Copy className="h-5 w-5" />}
