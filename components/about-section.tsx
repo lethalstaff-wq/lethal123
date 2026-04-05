@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { ArrowRight, Star, Sparkles } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
+import { getProductReviewCount } from "@/lib/review-counts"
 
 const featuredProducts = [
   {
@@ -12,7 +13,6 @@ const featuredProducts = [
     price: 35,
     slug: "perm-spoofer",
     tag: "Best Seller",
-    reviews: "312",
   },
   {
     name: "Blurred DMA",
@@ -20,7 +20,6 @@ const featuredProducts = [
     price: 22,
     slug: "blurred",
     tag: "Popular",
-    reviews: "248",
   },
   {
     name: "DMA Elite Bundle",
@@ -28,7 +27,6 @@ const featuredProducts = [
     price: 1500,
     slug: "dma-elite",
     tag: "Premium",
-    reviews: "87",
   },
 ]
 
@@ -92,7 +90,7 @@ export function AboutSection() {
                     {[1, 2, 3, 4, 5].map((i) => (
                       <Star key={i} className="h-3.5 w-3.5 fill-primary text-primary" />
                     ))}
-                    <span className="text-xs text-muted-foreground ml-2">{product.reviews} reviews</span>
+                    <span className="text-xs text-muted-foreground ml-2">{getProductReviewCount(product.slug)} reviews</span>
                   </div>
                   
                   <div className="flex items-end justify-between">

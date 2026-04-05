@@ -10,6 +10,7 @@ import {
   ShoppingCart, Zap, Star, Shield, Minus, Plus, Check,
   CheckCircle2, MessageCircle, Lock, Clock, Globe
 } from "lucide-react"
+import { getProductReviewCount } from "@/lib/review-counts"
 import { DiscordCheckoutModal } from "@/components/discord-checkout-modal"
 import { BitcoinIcon, EthereumIcon, LitecoinIcon, PayPalIcon } from "@/components/crypto-icons"
 import { toast } from "sonner"
@@ -141,7 +142,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
               <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
               <span className="font-bold text-sm text-yellow-400">5.0</span>
             </div>
-            <span className="text-sm text-muted-foreground">312 Verified Reviews</span>
+            <span className="text-sm text-muted-foreground">{getProductReviewCount(product.slug)} Verified Reviews</span>
           </div>
 
           {/* Price */}

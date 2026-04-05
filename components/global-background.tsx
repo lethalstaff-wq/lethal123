@@ -9,7 +9,7 @@ export function GlobalBackground() {
       <div 
         className="absolute -top-[300px] left-1/2 -translate-x-1/2 w-[1000px] h-[600px] opacity-20"
         style={{
-          background: 'radial-gradient(ellipse at center, rgba(249, 115, 22, 0.6) 0%, transparent 60%)',
+          background: 'radial-gradient(ellipse at center, rgba(239, 111, 41, 0.6) 0%, transparent 60%)',
           filter: 'blur(100px)',
         }}
       />

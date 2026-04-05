@@ -255,7 +255,7 @@ export default function CheckoutPage() {
                     <div className="relative mx-auto w-28 h-28 mb-6">
                       <div className="absolute inset-0 rounded-full bg-primary/20 animate-ping" style={{ animationDuration: "2s" }} />
                       <div className="absolute inset-2 rounded-full bg-primary/10 animate-pulse" style={{ animationDuration: "1.5s" }} />
-                      <div className="relative w-28 h-28 rounded-full bg-gradient-to-br from-primary/30 via-primary/10 to-transparent flex items-center justify-center border-2 border-primary/30 shadow-[0_0_40px_rgba(249,115,22,0.3)]">
+                      <div className="relative w-28 h-28 rounded-full bg-gradient-to-br from-primary/30 via-primary/10 to-transparent flex items-center justify-center border-2 border-primary/30 shadow-[0_0_40px_rgba(239,111,41,0.3)]">
                         <Clock className="h-12 w-12 text-primary" />
                       </div>
                     </div>
@@ -282,7 +282,7 @@ export default function CheckoutPage() {
                       {/* Progress bar */}
                       <div className="mt-6 h-2 rounded-full bg-background/50 overflow-hidden">
                         <div
-                          className="h-full rounded-full bg-gradient-to-r from-primary via-primary/80 to-amber-500 transition-all duration-1000 ease-linear shadow-[0_0_20px_rgba(249,115,22,0.5)]"
+                          className="h-full rounded-full bg-gradient-to-r from-primary via-primary/80 to-amber-500 transition-all duration-1000 ease-linear shadow-[0_0_20px_rgba(239,111,41,0.5)]"
                           style={{ width: `${Math.min(((VERIFY_SECONDS - verifyTimeLeft) / VERIFY_SECONDS) * 100, 100)}%` }}
                         />
                       </div>
@@ -974,7 +974,7 @@ export default function CheckoutPage() {
 
                         {/* Live Status */}
                         <div className="relative rounded-xl bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 border border-primary/20 p-4 overflow-hidden">
-                          <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent,rgba(249,115,22,0.1),transparent)] animate-pulse" style={{ animationDuration: "2s" }} />
+                          <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent,rgba(239,111,41,0.1),transparent)] animate-pulse" style={{ animationDuration: "2s" }} />
                           <div className="relative flex items-center justify-center gap-3">
                             <div className="relative">
                               <div className="absolute inset-0 rounded-full bg-primary/30 animate-ping" style={{ animationDuration: "1.5s" }} />
@@ -1059,7 +1059,7 @@ export default function CheckoutPage() {
                     className={cn(
                       "w-full py-5 text-primary-foreground font-bold text-base rounded-2xl transition-all duration-300 flex items-center justify-center gap-3 relative overflow-hidden group",
                       timeLeft > 0
-                        ? "bg-gradient-to-r from-primary to-accent hover:opacity-90 hover:shadow-[0_0_40px_rgba(249,115,22,0.35)] hover:scale-[1.01] active:scale-[0.99]"
+                        ? "bg-gradient-to-r from-primary to-accent hover:opacity-90 hover:shadow-[0_0_40px_rgba(239,111,41,0.35)] hover:scale-[1.01] active:scale-[0.99]"
                         : "bg-muted/30 cursor-not-allowed text-muted-foreground"
                     )}
                   >

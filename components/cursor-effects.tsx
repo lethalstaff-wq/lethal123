@@ -91,7 +91,7 @@ export function CursorEffects() {
           style={{
             width: isMoving ? 40 : 20,
             height: isMoving ? 40 : 20,
-            background: `radial-gradient(circle, rgba(249, 115, 22, ${isMoving ? 0.4 : 0.2}) 0%, transparent 70%)`,
+            background: `radial-gradient(circle, rgba(239, 111, 41, ${isMoving ? 0.4 : 0.2}) 0%, transparent 70%)`,
             filter: "blur(2px)",
           }}
         />

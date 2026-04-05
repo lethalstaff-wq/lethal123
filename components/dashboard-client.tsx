@@ -154,7 +154,7 @@ export function DashboardClient({ user, orders, totalSpent, activeLicenses, memb
       <div className="container mx-auto max-w-6xl">
         {/* Hero Banner */}
         <div className="relative rounded-2xl bg-gradient-to-r from-primary/20 via-primary/10 to-orange-500/20 border border-primary/20 p-6 md:p-8 mb-8 overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(249,115,22,0.1),transparent_70%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(239,111,41,0.1),transparent_70%)]" />
           <div className="relative flex flex-col md:flex-row md:items-center gap-6">
             <div className="w-16 h-16 rounded-full bg-primary/20 border-2 border-primary flex items-center justify-center text-2xl font-bold text-primary">
               {username.slice(0, 2).toUpperCase()}

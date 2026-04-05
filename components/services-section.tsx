@@ -83,7 +83,7 @@ export function ServicesSection() {
                   <feature.icon className="h-5 w-5 text-primary" />
                 </div>
                 <div className="text-right">
-                  <div className="text-2xl font-black text-primary" style={{ textShadow: "0 0 20px rgba(249,115,22,0.3)" }}>
+                  <div className="text-2xl font-black text-primary" style={{ textShadow: "0 0 20px rgba(239,111,41,0.3)" }}>
                     <AnimatedCounter value={feature.stat} />
                   </div>
                   <div className="text-[10px] text-muted-foreground uppercase tracking-wider">{feature.statLabel}</div>

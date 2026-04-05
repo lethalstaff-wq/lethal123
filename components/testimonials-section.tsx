@@ -4,6 +4,7 @@ import { memo } from "react"
 import { Star, Quote, MessageSquare } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { getTotalReviewCount } from "@/lib/review-counts"
 
 const testimonials = [
   {
@@ -139,7 +140,7 @@ export function TestimonialsSection() {
           <Link href="/reviews">
             <Button variant="outline" size="lg" className="border-border hover:border-primary/50 hover:bg-primary/5 rounded-xl gap-2">
               <Star className="h-4 w-4" />
-              Read all 847 reviews
+              Read all {getTotalReviewCount()} reviews
             </Button>
           </Link>
         </div>

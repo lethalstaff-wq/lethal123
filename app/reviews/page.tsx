@@ -12,6 +12,8 @@ import {
   SlidersHorizontal, X, Bot, ToggleLeft, ToggleRight,
 } from "lucide-react"
 import useSWR from "swr"
+import { getTotalReviewCount } from "@/lib/review-counts"
+import { generateAllReviews } from "@/lib/generated-reviews"
 
 const fetcher = (url: string) => fetch(url).then(r => r.json())
 
@@ -53,52 +55,33 @@ const REVIEWS_PER_PAGE = 18
 type SortOption = "newest" | "oldest" | "helpful"
 const sortLabels: Record<SortOption, string> = { newest: "Newest First", oldest: "Oldest First", helpful: "Most Helpful" }
 
-// Calculate virtual review count that grows by daily_growth/day from the base date
-const SEED_DATE = new Date("2026-02-18")
-function getVirtualCount(baseCount: number, dailyGrowth: number) {
-  const now = new Date()
-  const daysSinceSeed = Math.max(0, Math.floor((now.getTime() - SEED_DATE.getTime()) / 86400000))
-  return baseCount + daysSinceSeed * dailyGrowth
+// Generated reviews are created deterministically for every simulated order (lazy singleton)
+let _cachedGenerated: ReturnType<typeof generateAllReviews> | null = null
+function getGeneratedReviews() {
+  if (!_cachedGenerated) _cachedGenerated = generateAllReviews()
+  return _cachedGenerated
 }
-function getWeekGrowth(dailyGrowth: number) {
-  const dayOfWeek = new Date().getDay() || 7
-  return dayOfWeek * dailyGrowth
-}
-
-const FALLBACK_REVIEWS: ReviewItem[] = [
-  { id:1, text:"bro the esp is actually insane. doesnt drop my fps AT ALL and looks clean on stream. been running ranked for 3 weeks now, nobody suspects anything lmao", rating:5, product:"Blurred DMA Cheat", product_id:"blurred", username:"zk", email:"z***@gmail.com", time_label:"2 weeks ago", verified:true, is_auto:false, refunded:false, helpful:47, team_response:null, created_at:"2026-03-18" },
-  { id:2, text:"best aimbot ive ever used ngl. 3 months straight zero detections. support helped me config everything in like 10 min on discord, actually goated team", rating:5, product:"Blurred DMA Cheat", product_id:"blurred", username:"vex", email:"v***@gmail.com", time_label:"1 month ago", verified:true, is_auto:false, refunded:false, helpful:89, team_response:null, created_at:"2026-02-18" },
-  { id:3, text:"perm spoofer literally saved my main after hwid ban. thought my pc was cooked but nah this fixed everything in 5 min. worth every penny fr fr", rating:5, product:"Perm Spoofer", product_id:"perm-spoofer", username:"rxn", email:"r***@gmail.com", time_label:"3 weeks ago", verified:true, is_auto:false, refunded:false, helpful:63, team_response:null, created_at:"2026-03-11" },
-  { id:4, text:"got the dma elite bundle and bro... setup took 20 min with discord support. everything works out the box. this is premium quality no cap", rating:5, product:"DMA Elite Bundle", product_id:"dma-elite", username:"ty1er", email:"t***@gmail.com", time_label:"1 month ago", verified:true, is_auto:false, refunded:false, helpful:71, team_response:null, created_at:"2026-02-21" },
-  { id:5, text:"temp spoofer for a month, not a single issue. instant delivery too i got the key in like 10 seconds. way cheaper than other providers and actually works", rating:5, product:"Temp Spoofer", product_id:"temp-spoofer", username:"drix", email:"d***@gmail.com", time_label:"5 weeks ago", verified:true, is_auto:false, refunded:false, helpful:44, team_response:null, created_at:"2026-02-07" },
-  { id:6, text:"switched from another provider and its night and day difference. blurred dma is so smooth and they push firmware updates fast after every game patch", rating:5, product:"Blurred DMA Cheat", product_id:"blurred", username:"kev", email:"k***@gmail.com", time_label:"2 months ago", verified:true, is_auto:false, refunded:false, helpful:92, team_response:null, created_at:"2026-01-25" },
-  { id:7, text:"support team helped me at 3am on a sunday bro. thats the kind of service that keeps me coming back. also the cheat itself is insane, zero fps drops", rating:5, product:"Blurred DMA Cheat", product_id:"blurred", username:"dxn", email:"d***@gmail.com", time_label:"2 months ago", verified:true, is_auto:false, refunded:false, helpful:58, team_response:null, created_at:"2026-01-18" },
-  { id:8, text:"custom firmware is 100% worth it. running eac bypass for 6 weeks now without a single issue. genuinely the best dma provider ive tried and ive tried like 4", rating:5, product:"Custom DMA Firmware", product_id:"custom-dma-firmware", username:"mikez", email:"m***@gmail.com", time_label:"6 weeks ago", verified:true, is_auto:false, refunded:false, helpful:76, team_response:null, created_at:"2026-02-01" },
-  { id:9, text:"was scared to buy ngl but this actually works perfectly?? perm spoofer + fn external combo is unbeatable. playing on main for 2 months no problems", rating:5, product:"Perm Spoofer", product_id:"perm-spoofer", username:"jx", email:"j***@gmail.com", time_label:"2 months ago", verified:true, is_auto:false, refunded:false, helpful:83, team_response:null, created_at:"2026-01-30" },
-  { id:10, text:"ordered the streck for a budget setup and it performs way above what i expected for the price. great entry option if ur new to dma. support walked me thru everything", rating:5, product:"Streck DMA Cheat", product_id:"streck", username:"chrxs", email:"c***@gmail.com", time_label:"3 months ago", verified:true, is_auto:false, refunded:false, helpful:55, team_response:null, created_at:"2026-01-02" },
-  { id:11, text:"firmware update dropped same day as the fortnite patch lol these guys are on it 24/7. never been detected in 4 months", rating:5, product:"Custom DMA Firmware", product_id:"custom-dma-firmware", username:"fr0st", email:"f***@gmail.com", time_label:"3 weeks ago", verified:true, is_auto:false, refunded:false, helpful:67, team_response:null, created_at:"2026-03-10" },
-  { id:12, text:"dma elite bundle is expensive but bro it is WORTH it. lifetime blurred + full emulation. havent touched another provider since", rating:5, product:"DMA Elite Bundle", product_id:"dma-elite", username:"luxe", email:"l***@gmail.com", time_label:"1 month ago", verified:true, is_auto:false, refunded:false, helpful:94, team_response:null, created_at:"2026-02-28" },
-]
 
 export default function ReviewsPage() {
   const { data, isLoading: isLoadingData } = useSWR<{ reviews: ReviewItem[]; totalCount: number }>("/api/reviews", fetcher)
   const { data: settings } = useSWR<Record<string, unknown>>("/api/settings", fetcher)
   const apiReviews = data?.reviews || []
-  const allReviews = apiReviews.length > 0 ? apiReviews : FALLBACK_REVIEWS
+  // Merge: real DB reviews first (newest), then generated reviews fill the rest
+  const allReviews = [...apiReviews, ...getGeneratedReviews()]
 
-  // Fixed review count - exactly 847 total reviews
-  const cfgTotal = 847
-  const cfgStars5 = 720
-  const cfgStars4 = 85
-  const cfgStars3 = 25
-  const cfgStars2 = 12
-  const cfgStars1 = 5
+  // Dynamic review count from centralized config
+  const dynamicTotal = getTotalReviewCount()
+  const cfgTotal = dynamicTotal
+  const cfgStars5 = Math.round(dynamicTotal * 0.849)
+  const cfgStars4 = Math.round(dynamicTotal * 0.100)
+  const cfgStars3 = Math.round(dynamicTotal * 0.030)
+  const cfgStars2 = Math.round(dynamicTotal * 0.014)
+  const cfgStars1 = dynamicTotal - cfgStars5 - cfgStars4 - cfgStars3 - cfgStars2
   const cfgHelpfulMin = Number(settings?.helpful_min ?? 50)
   const cfgHelpfulMax = Number(settings?.helpful_max ?? 120)
 
-  // Fixed at 847 with weekly growth
-  const virtualTotal = 847
-  const weekGrowth = Math.floor(3 + (new Date().getDate() % 5))
+  const virtualTotal = dynamicTotal
+  const weekGrowth = Math.floor(12 + (new Date().getDate() % 8))
 
   const [filterRating, setFilterRating] = useState<number | null>(null)
   const [filterProduct, setFilterProduct] = useState<string | null>(null)
@@ -223,7 +206,7 @@ export default function ReviewsPage() {
               Customer <span className="text-primary">Reviews</span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-pretty">
-              847 verified reviews from real customers
+              {dynamicTotal.toLocaleString()} verified reviews from real customers
             </p>
           </div>
 
