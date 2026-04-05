@@ -12,7 +12,11 @@
       "WebFetch(domain:ednercheats.com)",
       "Bash(npx:*)",
       "Bash(node:*)",
-      "Bash(find /c/Users/кир/Desktop/сайт -type f -name *checkout*)"
+      "Bash(find /c/Users/кир/Desktop/сайт -type f -name *checkout*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m ':*)",
+      "Bash(git push:*)",
+      "Bash(git commit -m 'feat: checkout two-column premium redesign:*)"
     ]
   }
 }

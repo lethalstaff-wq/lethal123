@@ -212,6 +212,67 @@ export default function CheckoutPage() {
     } catch (e) { console.error("Order creation failed:", e) }
   }
 
+  /* ---- Order Summary Component (reused) ---- */
+  const OrderSummaryContent = () => (
+    <>
+      {/* Products list */}
+      <div className="space-y-4 mb-6">
+        {items.map((item) => (
+          <div key={item.variant.id} className="flex items-center gap-3">
+            <div className="w-14 h-14 rounded-xl bg-white/[0.03] border border-border/30 flex items-center justify-center overflow-hidden flex-shrink-0">
+              {item.variant.product?.image ? (
+                <Image src={item.variant.product.image} alt="" width={48} height={48} className="object-contain" />
+              ) : (
+                <Package className="w-5 h-5 text-muted-foreground/30" />
+              )}
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-semibold truncate">{item.variant.product?.name || item.variant.name}</p>
+              <p className="text-xs text-muted-foreground">{item.variant.name} &times; {item.quantity}</p>
+            </div>
+            <p className="text-sm font-bold tabular-nums">{"£"}{(item.variant.price * item.quantity).toFixed(2)}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Totals */}
+      <div className="border-t border-border/30 pt-4 space-y-2">
+        <div className="flex justify-between text-sm">
+          <span className="text-muted-foreground">Subtotal</span>
+          <span className="tabular-nums">{"£"}{total.toFixed(2)}</span>
+        </div>
+        {appliedCoupon && (
+          <div className="flex justify-between text-sm">
+            <span className="text-emerald-400">Discount ({appliedCoupon.percent}%)</span>
+            <span className="text-emerald-400 tabular-nums">-{"£"}{discount.toFixed(2)}</span>
+          </div>
+        )}
+        <div className="border-t border-border/30 pt-3 mt-3">
+          <div className="flex justify-between">
+            <span className="font-bold">Total</span>
+            <span className="text-xl font-black tabular-nums">{"£"}{finalTotal.toFixed(2)}</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Trust badges */}
+      <div className="mt-6 pt-4 border-t border-border/30 space-y-2">
+        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+          <Lock className="h-3 w-3 text-primary/60" />
+          <span>Secure &amp; encrypted checkout</span>
+        </div>
+        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+          <Zap className="h-3 w-3 text-primary/60" />
+          <span>Instant digital delivery</span>
+        </div>
+        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+          <Shield className="h-3 w-3 text-primary/60" />
+          <span>Buyer protection guaranteed</span>
+        </div>
+      </div>
+    </>
+  )
+
   /* ---- EMPTY CART ---- */
   if (items.length === 0 && step !== "confirming" && step !== "done") {
     return (
@@ -409,14 +470,14 @@ export default function CheckoutPage() {
   }
 
   /* ---- MAIN CHECKOUT ---- */
-  const stepIndex = step === "form" ? 0 : 1
+  const cryptoAmount = getCryptoAmount(selectedCrypto.id, finalTotal)
 
   return (
     <main className="flex min-h-screen flex-col bg-background">
       <Navbar />
 
       <section className="flex-1 pt-28 pb-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-[1100px] mx-auto">
+        <div className="container mx-auto max-w-6xl">
 
           {/* Header row */}
           <div className="flex items-center justify-between mb-8">
@@ -425,7 +486,7 @@ export default function CheckoutPage() {
                 <div className="w-8 h-8 rounded-lg bg-card border border-border/50 flex items-center justify-center group-hover:border-border transition-colors">
                   <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-0.5" />
                 </div>
-                <span className="hidden sm:inline font-medium">Continue Shopping</span>
+                <span className="hidden sm:inline font-medium">Back to Cart</span>
               </Link>
             ) : (
               <button onClick={() => { setStep("form"); setTimeLeft(TIMER_SECONDS) }} className="inline-flex items-center gap-2.5 text-sm text-muted-foreground hover:text-foreground transition-colors group">
@@ -436,60 +497,62 @@ export default function CheckoutPage() {
               </button>
             )}
             <div className="flex items-center gap-2 text-xs text-muted-foreground/50 bg-card/50 border border-border/30 px-3 py-1.5 rounded-full">
-              <Shield className="h-3 w-3" />
-              <span className="hidden sm:inline">Encrypted & Secure</span>
+              <Lock className="h-3 w-3" />
+              <span className="hidden sm:inline">Encrypted &amp; Secure</span>
             </div>
           </div>
 
-          {/* Step indicator — clean pill style */}
-          <div className="flex items-center gap-3 mb-10">
-            {["Details & Payment", "Send Payment"].map((label, i) => (
-              <div key={label} className="flex items-center gap-3">
-                {i > 0 && (
-                  <div className="w-16 h-[2px] rounded-full overflow-hidden bg-border/30">
-                    <div className={cn("h-full rounded-full bg-primary transition-all duration-700 origin-left", i <= stepIndex ? "scale-x-100" : "scale-x-0")} />
-                  </div>
-                )}
-                <div className="flex items-center gap-2.5">
-                  <div className={cn(
-                    "w-8 h-8 rounded-full flex items-center justify-center text-xs font-black transition-all duration-300",
-                    i < stepIndex ? "bg-primary text-primary-foreground shadow-[0_0_20px_rgba(var(--primary-rgb),0.4)]" :
-                    i === stepIndex ? "bg-primary text-primary-foreground shadow-[0_0_20px_rgba(var(--primary-rgb),0.3)]" :
-                    "bg-card text-muted-foreground/40 border border-border/40"
-                  )}>
-                    {i < stepIndex ? <Check className="w-3.5 h-3.5" /> : i + 1}
-                  </div>
-                  <span className={cn(
-                    "text-sm font-semibold hidden sm:inline transition-colors",
-                    i <= stepIndex ? "text-foreground" : "text-muted-foreground/40"
-                  )}>{label}</span>
-                </div>
+          {/* Progress Steps */}
+          <div className="flex items-center gap-4 mb-8">
+            <div className={`flex items-center gap-2 ${step === "form" ? "text-primary" : "text-emerald-500"}`}>
+              <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${
+                step === "form" ? "bg-primary text-white" : "bg-emerald-500 text-white"
+              }`}>
+                {step !== "form" ? <Check className="h-4 w-4" /> : "1"}
               </div>
-            ))}
+              <span className="text-sm font-semibold">Details &amp; Payment</span>
+            </div>
+            <div className="flex-1 h-px bg-border/50 relative">
+              <div className={`absolute inset-y-0 left-0 bg-primary transition-all duration-500 ${step !== "form" ? "w-full" : "w-0"}`} />
+            </div>
+            <div className={`flex items-center gap-2 ${step !== "form" ? "text-primary" : "text-muted-foreground"}`}>
+              <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${
+                step !== "form" ? "bg-primary text-white" : "bg-muted/50 text-muted-foreground"
+              }`}>2</div>
+              <span className="text-sm font-semibold">Send Payment</span>
+            </div>
           </div>
 
-          <div className="grid lg:grid-cols-[1fr,400px] gap-8 items-start">
+          {/* Mobile Collapsible Order Summary */}
+          <details className="lg:hidden rounded-2xl border border-border/40 bg-card/50 mb-6">
+            <summary className="flex items-center justify-between p-4 cursor-pointer">
+              <span className="font-bold text-sm">Order Summary ({items.length} {items.length === 1 ? "item" : "items"})</span>
+              <span className="font-bold tabular-nums">{"£"}{finalTotal.toFixed(2)}</span>
+            </summary>
+            <div className="p-4 pt-0">
+              <OrderSummaryContent />
+            </div>
+          </details>
 
-            {/* ======= LEFT: Forms & Payment ======= */}
-            <div className="space-y-6">
+          {/* Two Column Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+
+            {/* ======= LEFT COLUMN (60%) ======= */}
+            <div className="lg:col-span-3 order-1">
 
               {/* === STEP 1: FORM === */}
               {step === "form" && (
                 <div className="space-y-6">
 
                   {/* Contact Information */}
-                  <div className="rounded-2xl border border-border/40 bg-card/80 backdrop-blur-sm overflow-hidden shadow-[0_2px_20px_rgba(0,0,0,0.15)]">
-                    <div className="px-6 py-5 border-b border-border/20">
-                      <h2 className="text-sm font-bold flex items-center gap-3">
-                        <div className="w-7 h-7 rounded-full bg-primary flex items-center justify-center shadow-[0_0_15px_rgba(var(--primary-rgb),0.3)]">
-                          <span className="text-[11px] font-black text-primary-foreground">1</span>
-                        </div>
-                        Contact Information
-                      </h2>
+                  <div className="rounded-2xl border border-border/40 bg-card/50 p-6">
+                    <div className="flex items-center gap-3 mb-5">
+                      <div className="w-7 h-7 rounded-lg bg-primary/15 flex items-center justify-center text-xs font-bold text-primary">1</div>
+                      <h2 className="text-base font-bold">Contact Information</h2>
                     </div>
-                    <div className="p-6 space-y-5">
+                    <div className="space-y-5">
                       <div>
-                        <label className="text-[11px] font-bold text-muted-foreground/70 mb-2.5 block uppercase tracking-[0.15em]">
+                        <label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground mb-2 block">
                           Email <span className="text-primary">*</span>
                         </label>
                         <input
@@ -498,78 +561,60 @@ export default function CheckoutPage() {
                           onBlur={() => setEmailTouched(true)}
                           placeholder="your@email.com"
                           className={cn(
-                            "w-full rounded-xl border bg-background/50 px-4 py-3.5 text-sm placeholder:text-muted-foreground/20 focus:outline-none focus:ring-2 transition-all duration-200",
+                            "w-full h-12 px-4 rounded-xl bg-white/[0.03] border text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-primary/20 transition-all",
                             emailTouched && !email.trim().includes("@")
-                              ? "border-destructive/40 focus:ring-destructive/20"
-                              : "border-border/30 focus:ring-primary/20 focus:border-primary/30 hover:border-border/50"
+                              ? "border-destructive/40 focus:border-destructive"
+                              : "border-border/40 focus:border-primary"
                           )}
                         />
                         {emailTouched && !email.trim().includes("@") ? (
-                          <p className="text-[10px] text-destructive mt-2 flex items-center gap-1"><AlertTriangle className="w-3 h-3" /> Please enter a valid email</p>
+                          <p className="text-[11px] text-destructive mt-2 flex items-center gap-1"><AlertTriangle className="w-3 h-3" /> Please enter a valid email</p>
                         ) : (
-                          <p className="text-[10px] text-muted-foreground/40 mt-2 flex items-center gap-1"><Zap className="w-3 h-3" /> License key delivered instantly</p>
+                          <p className="text-[11px] text-muted-foreground mt-2 flex items-center gap-1"><Zap className="h-3 w-3 text-primary/60" /> License key delivered instantly</p>
                         )}
                       </div>
                       <div>
-                        <label className="text-[11px] font-bold text-muted-foreground/70 mb-2.5 flex items-center gap-1.5 uppercase tracking-[0.15em]">
-                          <DiscordIcon className="w-3.5 h-3.5" /> Discord <span className="text-muted-foreground/25 font-normal normal-case tracking-normal">(optional)</span>
+                        <label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground mb-2 flex items-center gap-1.5">
+                          <DiscordIcon className="w-3.5 h-3.5" /> Discord <span className="text-muted-foreground/40 font-normal normal-case tracking-normal">(optional)</span>
                         </label>
                         <input
                           type="text" value={discordUser} onChange={(e) => setDiscordUser(e.target.value)}
                           placeholder="username"
-                          className="w-full rounded-xl border border-border/30 bg-background/50 px-4 py-3.5 text-sm placeholder:text-muted-foreground/20 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 hover:border-border/50 transition-all duration-200"
+                          className="w-full h-12 px-4 rounded-xl bg-white/[0.03] border border-border/40 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all"
                         />
                       </div>
                     </div>
                   </div>
 
                   {/* Payment Method */}
-                  <div className="rounded-2xl border border-border/40 bg-card/80 backdrop-blur-sm overflow-hidden shadow-[0_2px_20px_rgba(0,0,0,0.15)]">
-                    <div className="px-6 py-5 border-b border-border/20">
-                      <h2 className="text-sm font-bold flex items-center gap-3">
-                        <div className="w-7 h-7 rounded-full bg-primary flex items-center justify-center shadow-[0_0_15px_rgba(var(--primary-rgb),0.3)]">
-                          <span className="text-[11px] font-black text-primary-foreground">2</span>
-                        </div>
-                        Payment Method
-                      </h2>
+                  <div className="rounded-2xl border border-border/40 bg-card/50 p-6">
+                    <div className="flex items-center gap-3 mb-5">
+                      <div className="w-7 h-7 rounded-lg bg-primary/15 flex items-center justify-center text-xs font-bold text-primary">2</div>
+                      <h2 className="text-base font-bold">Payment Method</h2>
                     </div>
-                    <div className="p-5 space-y-2.5">
-                      {CRYPTO_OPTIONS.map((crypto) => {
-                        const isSelected = paymentMethod === "crypto" && selectedCrypto.id === crypto.id
-                        const cryptoAmount = getCryptoAmount(crypto.id, finalTotal)
-                        const Icon = crypto.icon
+                    <div className="space-y-2.5">
+                      {CRYPTO_OPTIONS.map((option) => {
+                        const isSelected = paymentMethod === "crypto" && selectedCrypto.id === option.id
+                        const amt = getCryptoAmount(option.id, finalTotal)
+                        const Icon = option.icon
                         return (
-                          <button key={crypto.id} onClick={() => { setPaymentMethod("crypto"); setSelectedCrypto(crypto) }}
-                            className={cn(
-                              "w-full rounded-xl p-4 flex items-center gap-4 transition-all duration-200 group relative overflow-hidden",
+                          <button key={option.id} onClick={() => { setPaymentMethod("crypto"); setSelectedCrypto(option) }}
+                            className={`w-full flex items-center gap-4 p-4 rounded-xl border transition-all ${
                               isSelected
-                                ? "bg-gradient-to-r from-primary/8 to-primary/4 border-2 border-primary/30 shadow-[0_0_20px_rgba(var(--primary-rgb),0.1)]"
-                                : "bg-background/30 border border-border/20 hover:bg-background/50 hover:border-border/40"
-                            )}>
-                            {isSelected && <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent pointer-events-none" />}
-                            <div className={cn(
-                              "relative w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-all duration-200",
-                              isSelected ? "scale-110" : "group-hover:scale-105"
-                            )} style={{ backgroundColor: crypto.color + "15" }}>
-                              <Icon className="h-5 w-5" />
+                                ? "border-primary bg-primary/[0.06]"
+                                : "border-border/30 hover:border-primary/30 hover:bg-white/[0.02]"
+                            }`}>
+                            <Icon className="h-10 w-10" style={{ color: option.color }} />
+                            <div className="text-left flex-1">
+                              <p className="font-semibold text-sm">{option.name}</p>
+                              <p className="text-xs text-muted-foreground font-mono">
+                                {option.ticker} {amt ? `~${amt} ${option.ticker}` : ""}
+                              </p>
                             </div>
-                            <div className="relative text-left flex-1 min-w-0">
-                              <p className="font-bold text-sm">{crypto.name}</p>
-                              <div className="flex items-center gap-2 mt-0.5">
-                                <span className="text-xs text-muted-foreground/60">{crypto.ticker}</span>
-                                {cryptoAmount && (
-                                  <span className={cn(
-                                    "text-xs font-mono tabular-nums transition-colors",
-                                    isSelected ? "text-primary font-bold" : "text-muted-foreground/40"
-                                  )}>~{cryptoAmount} {crypto.ticker}</span>
-                                )}
-                              </div>
-                            </div>
-                            <div className={cn(
-                              "relative w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-all duration-200",
-                              isSelected ? "border-primary bg-primary shadow-[0_0_10px_rgba(var(--primary-rgb),0.4)]" : "border-border/40"
-                            )}>
-                              {isSelected && <Check className="w-3 h-3 text-primary-foreground" />}
+                            <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                              isSelected ? "border-primary" : "border-border/40"
+                            }`}>
+                              {isSelected && <div className="w-2.5 h-2.5 rounded-full bg-primary" />}
                             </div>
                           </button>
                         )
@@ -577,45 +622,39 @@ export default function CheckoutPage() {
 
                       {/* PayPal */}
                       <button onClick={() => setPaymentMethod("paypal")}
-                        className={cn(
-                          "w-full rounded-xl p-4 flex items-center gap-4 transition-all duration-200 group relative overflow-hidden",
+                        className={`w-full flex items-center gap-4 p-4 rounded-xl border transition-all ${
                           paymentMethod === "paypal"
-                            ? "bg-gradient-to-r from-[#003087]/8 to-[#003087]/4 border-2 border-[#003087]/30 shadow-[0_0_20px_rgba(0,48,135,0.1)]"
-                            : "bg-background/30 border border-border/20 hover:bg-background/50 hover:border-border/40"
-                        )}>
-                        {paymentMethod === "paypal" && <div className="absolute inset-0 bg-gradient-to-r from-[#003087]/5 to-transparent pointer-events-none" />}
-                        <div className="relative w-11 h-11 rounded-xl bg-[#003087]/10 flex items-center justify-center shrink-0"><PayPalIcon className="h-5 w-5" /></div>
-                        <div className="relative text-left flex-1">
-                          <p className="font-bold text-sm">PayPal</p>
-                          <p className="text-xs text-muted-foreground/60 mt-0.5">Friends & Family only</p>
+                            ? "border-primary bg-primary/[0.06]"
+                            : "border-border/30 hover:border-primary/30 hover:bg-white/[0.02]"
+                        }`}>
+                        <PayPalIcon className="h-10 w-10" />
+                        <div className="text-left flex-1">
+                          <p className="font-semibold text-sm">PayPal</p>
+                          <p className="text-xs text-muted-foreground">Friends &amp; Family only</p>
                         </div>
-                        <div className={cn(
-                          "relative w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-all duration-200",
-                          paymentMethod === "paypal" ? "border-[#003087] bg-[#003087] shadow-[0_0_10px_rgba(0,48,135,0.4)]" : "border-border/40"
-                        )}>
-                          {paymentMethod === "paypal" && <Check className="w-3 h-3 text-white" />}
+                        <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                          paymentMethod === "paypal" ? "border-primary" : "border-border/40"
+                        }`}>
+                          {paymentMethod === "paypal" && <div className="w-2.5 h-2.5 rounded-full bg-primary" />}
                         </div>
                       </button>
 
                       {/* Discord */}
                       <button onClick={() => setPaymentMethod("discord")}
-                        className={cn(
-                          "w-full rounded-xl p-4 flex items-center gap-4 transition-all duration-200 group relative overflow-hidden",
+                        className={`w-full flex items-center gap-4 p-4 rounded-xl border transition-all ${
                           paymentMethod === "discord"
-                            ? "bg-gradient-to-r from-[#5865F2]/8 to-[#5865F2]/4 border-2 border-[#5865F2]/30 shadow-[0_0_20px_rgba(88,101,242,0.1)]"
-                            : "bg-background/30 border border-border/20 hover:bg-background/50 hover:border-border/40"
-                        )}>
-                        {paymentMethod === "discord" && <div className="absolute inset-0 bg-gradient-to-r from-[#5865F2]/5 to-transparent pointer-events-none" />}
-                        <div className="relative w-11 h-11 rounded-xl bg-[#5865F2]/10 flex items-center justify-center shrink-0"><DiscordIcon className="h-5 w-5" /></div>
-                        <div className="relative text-left flex-1">
-                          <p className="font-bold text-sm">Via Discord</p>
-                          <p className="text-xs text-muted-foreground/60 mt-0.5">Open a ticket</p>
+                            ? "border-primary bg-primary/[0.06]"
+                            : "border-border/30 hover:border-primary/30 hover:bg-white/[0.02]"
+                        }`}>
+                        <DiscordIcon className="h-10 w-10" />
+                        <div className="text-left flex-1">
+                          <p className="font-semibold text-sm">Via Discord</p>
+                          <p className="text-xs text-muted-foreground">Open a ticket</p>
                         </div>
-                        <div className={cn(
-                          "relative w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-all duration-200",
-                          paymentMethod === "discord" ? "border-[#5865F2] bg-[#5865F2] shadow-[0_0_10px_rgba(88,101,242,0.4)]" : "border-border/40"
-                        )}>
-                          {paymentMethod === "discord" && <Check className="w-3 h-3 text-white" />}
+                        <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                          paymentMethod === "discord" ? "border-primary" : "border-border/40"
+                        }`}>
+                          {paymentMethod === "discord" && <div className="w-2.5 h-2.5 rounded-full bg-primary" />}
                         </div>
                       </button>
                     </div>
@@ -625,43 +664,44 @@ export default function CheckoutPage() {
                     <div className="rounded-2xl border border-[#003087]/20 bg-[#003087]/5 p-5">
                       <p className="text-sm font-bold mb-3 flex items-center gap-2"><DiscordIcon className="w-4 h-4" /> Discord Username Required</p>
                       <input type="text" value={discordUser} onChange={(e) => setDiscordUser(e.target.value)} placeholder="Enter Discord username"
-                        className="w-full rounded-xl border border-[#003087]/15 bg-background/60 px-4 py-3 text-sm placeholder:text-muted-foreground/25 focus:outline-none focus:ring-2 focus:ring-[#003087]/20 transition-all" />
+                        className="w-full h-12 px-4 rounded-xl bg-white/[0.03] border border-[#003087]/15 text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-[#003087]/20 transition-all" />
                     </div>
                   )}
 
                   {/* Discount Code */}
-                  <div className="rounded-2xl border border-border/40 bg-card/80 backdrop-blur-sm overflow-hidden shadow-[0_2px_20px_rgba(0,0,0,0.15)]">
-                    <div className="px-6 py-5 border-b border-border/20">
-                      <h2 className="text-sm font-bold flex items-center gap-2.5">
-                        <Tag className="w-4 h-4 text-primary" />
-                        Discount Code
-                      </h2>
+                  <div className="rounded-2xl border border-border/40 bg-card/50 p-6">
+                    <div className="flex items-center gap-2 mb-4">
+                      <Tag className="h-4 w-4 text-primary" />
+                      <h3 className="text-sm font-bold">Discount Code</h3>
                     </div>
-                    <div className="p-6">
-                      {appliedCoupon ? (
-                        <div className="flex items-center gap-3 rounded-xl border border-primary/20 bg-primary/5 px-4 py-3.5">
-                          <Sparkles className="w-4 h-4 text-primary" />
-                          <div className="flex-1">
-                            <p className="text-sm font-black text-primary">{appliedCoupon.code}</p>
-                            <p className="text-[11px] text-primary/60">{appliedCoupon.percent}% discount applied</p>
-                          </div>
-                          <button onClick={() => { setAppliedCoupon(null); setCouponCode("") }} className="p-1.5 hover:bg-muted/30 rounded-lg transition-colors"><X className="h-4 w-4 text-muted-foreground" /></button>
+                    {appliedCoupon ? (
+                      <div className="flex items-center gap-3 rounded-xl border border-primary/20 bg-primary/5 px-4 py-3.5">
+                        <Sparkles className="w-4 h-4 text-primary" />
+                        <div className="flex-1">
+                          <p className="text-sm font-black text-primary">{appliedCoupon.code}</p>
+                          <p className="text-[11px] text-primary/60">{appliedCoupon.percent}% discount applied</p>
                         </div>
-                      ) : (
-                        <div className="flex gap-2.5">
-                          <input type="text" value={couponCode}
-                            onChange={(e) => { setCouponCode(e.target.value); setCouponError("") }}
-                            onKeyDown={(e) => e.key === "Enter" && applyCoupon()}
-                            placeholder="Enter code"
-                            className="flex-1 rounded-xl border border-border/30 bg-background/50 px-4 py-3.5 text-sm placeholder:text-muted-foreground/20 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 hover:border-border/50 transition-all duration-200" />
-                          <button onClick={applyCoupon}
-                            className="px-6 py-3 rounded-xl bg-primary/10 border border-primary/20 hover:bg-primary/20 text-sm font-bold text-primary transition-all duration-200 hover:shadow-[0_0_15px_rgba(var(--primary-rgb),0.15)]">
-                            Apply
-                          </button>
-                        </div>
-                      )}
-                      {couponError && <p className="text-xs text-destructive mt-2.5">{couponError}</p>}
-                    </div>
+                        <button onClick={() => { setAppliedCoupon(null); setCouponCode("") }} className="p-1.5 hover:bg-muted/30 rounded-lg transition-colors"><X className="h-4 w-4 text-muted-foreground" /></button>
+                      </div>
+                    ) : (
+                      <div className="flex gap-2">
+                        <input type="text" value={couponCode}
+                          onChange={(e) => { setCouponCode(e.target.value); setCouponError("") }}
+                          onKeyDown={(e) => e.key === "Enter" && applyCoupon()}
+                          placeholder="Enter code"
+                          className="flex-1 h-11 px-4 rounded-xl bg-white/[0.03] border border-border/40 text-sm font-mono placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary transition-all" />
+                        <button onClick={applyCoupon}
+                          className="px-5 h-11 rounded-xl bg-white/[0.06] border border-border/40 text-sm font-semibold hover:bg-white/[0.1] transition-all">
+                          Apply
+                        </button>
+                      </div>
+                    )}
+                    {appliedCoupon && (
+                      <p className="text-xs text-emerald-400 mt-2 flex items-center gap-1">
+                        <Check className="h-3 w-3" /> {appliedCoupon.code}: {appliedCoupon.percent}% off applied
+                      </p>
+                    )}
+                    {couponError && <p className="text-xs text-red-400 mt-2">{couponError}</p>}
                   </div>
 
                   {/* TOS */}
@@ -678,22 +718,14 @@ export default function CheckoutPage() {
                     </span>
                   </label>
 
-                  {/* Continue button */}
+                  {/* Continue Button */}
                   <button disabled={!canProceed} onClick={handleProceed}
-                    className={cn(
-                      "w-full py-4 text-sm font-bold rounded-xl transition-all duration-300 flex items-center justify-center gap-2.5 relative overflow-hidden group",
-                      canProceed
-                        ? "bg-primary text-primary-foreground hover:shadow-[0_0_30px_rgba(var(--primary-rgb),0.3)] active:scale-[0.99]"
-                        : "bg-card border border-border/30 text-muted-foreground/30 cursor-not-allowed"
-                    )}>
-                    {canProceed && <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />}
-                    <span className="relative">
-                      {paymentMethod === "discord" ? (
-                        <>Open Discord <ExternalLink className="inline h-4 w-4 ml-1" /></>
-                      ) : (
-                        <>Continue <ArrowRight className="inline h-4 w-4 ml-1" /></>
-                      )}
-                    </span>
+                    className="w-full h-14 rounded-xl bg-primary hover:bg-primary/90 text-white font-bold text-base flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 mt-6">
+                    {paymentMethod === "discord" ? (
+                      <>Open Discord <ExternalLink className="h-4 w-4" /></>
+                    ) : (
+                      <><Lock className="h-4 w-4" /> Continue to Payment <ArrowRight className="h-4 w-4" /></>
+                    )}
                   </button>
                 </div>
               )}
@@ -701,184 +733,143 @@ export default function CheckoutPage() {
               {/* === STEP 2: PAY === */}
               {step === "pay" && (
                 <div className="space-y-6">
-                  {/* Timer */}
-                  <div className={cn(
-                    "rounded-2xl border p-5 backdrop-blur-sm shadow-[0_2px_20px_rgba(0,0,0,0.15)]",
-                    timeLeft < 300 ? "border-destructive/30 bg-destructive/5" : "border-primary/20 bg-primary/5"
-                  )}>
+
+                  {/* Timer bar */}
+                  <div className="rounded-2xl border border-border/40 bg-card/50 p-5">
                     <div className="flex items-center gap-3 mb-3">
-                      <Clock className={cn("h-5 w-5", timeLeft < 300 ? "text-destructive" : "text-primary")} />
-                      <span className={cn("text-lg font-black font-mono tabular-nums", timeLeft < 300 ? "text-destructive" : "text-primary")}>{formatTime(timeLeft)}</span>
-                      <span className="text-sm text-muted-foreground/60 ml-1">remaining</span>
+                      <Clock className={cn("h-4 w-4", timeLeft < 300 ? "text-destructive" : "text-primary")} />
+                      <span className={cn("text-xl font-mono font-bold", timeLeft < 300 ? "text-destructive" : "text-primary")}>{formatTime(timeLeft)}</span>
+                      <span className="text-sm text-muted-foreground">remaining</span>
                     </div>
-                    <div className="h-1.5 rounded-full bg-background/30 overflow-hidden">
-                      <div className={cn("h-full rounded-full transition-all duration-1000", timeLeft < 300 ? "bg-destructive" : "bg-primary")} style={{ width: `${(timeLeft / TIMER_SECONDS) * 100}%` }} />
+                    <div className="w-full h-2 rounded-full bg-white/[0.06] overflow-hidden">
+                      <div
+                        className={cn("h-full rounded-full transition-all duration-1000", timeLeft < 300 ? "bg-destructive" : "bg-gradient-to-r from-primary to-accent")}
+                        style={{ width: `${(timeLeft / TIMER_SECONDS) * 100}%` }}
+                      />
                     </div>
                   </div>
 
                   {/* Crypto payment details */}
                   {paymentMethod === "crypto" && (
-                    <div className="rounded-2xl border border-border/40 bg-card/80 backdrop-blur-sm overflow-hidden shadow-[0_2px_20px_rgba(0,0,0,0.15)]">
-                      <div className="p-5 border-b border-border/20 flex items-center gap-3">
-                        {(() => { const Icon = selectedCrypto.icon; return <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ backgroundColor: selectedCrypto.color + "15" }}><Icon className="h-5 w-5" /></div> })()}
-                        <div><p className="font-bold">{selectedCrypto.name}</p><p className="text-xs text-muted-foreground/60">{selectedCrypto.name.includes("TRC") ? "TRON Network" : selectedCrypto.name.includes("Ethereum") ? "Ethereum Network" : `${selectedCrypto.name} Mainnet`}</p></div>
-                      </div>
-                      <div className="p-5 space-y-5">
-                        {/* Amount */}
-                        <div className="text-center py-4 rounded-xl bg-background/30 border border-border/20">
-                          <p className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.2em] mb-1">Amount Due</p>
-                          <p className="text-3xl font-black tabular-nums" style={{ color: selectedCrypto.color }}>{getCryptoAmount(selectedCrypto.id, finalTotal)} <span className="text-lg text-muted-foreground/40">{selectedCrypto.ticker}</span></p>
-                          <button onClick={() => copyToClipboard(getCryptoAmount(selectedCrypto.id, finalTotal) || "", "amount")}
-                            className={cn("mt-3 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all duration-200",
-                              copiedField === "amount" ? "bg-emerald-500/15 text-emerald-400" : "bg-muted/10 text-muted-foreground/60 hover:text-foreground hover:bg-muted/20"
-                            )}>{copiedField === "amount" ? <><Check className="h-3 w-3" /> Copied</> : <><Copy className="h-3 w-3" /> Copy Amount</>}</button>
-                        </div>
-                        {/* QR */}
-                        <div className="flex justify-center">
-                          <div className="p-2.5 bg-white rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.2)]"><Image src={`https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(selectedCrypto.address)}&bgcolor=FFFFFF&color=000000&format=png&margin=1`} alt="QR" width={160} height={160} className="rounded-lg" unoptimized crossOrigin="anonymous" /></div>
-                        </div>
-                        {/* Address */}
+                    <div className="rounded-2xl border border-border/40 bg-card/50 p-6">
+                      {/* Crypto name */}
+                      <div className="flex items-center gap-3 mb-6">
+                        {(() => { const Icon = selectedCrypto.icon; return <Icon className="h-8 w-8" style={{ color: selectedCrypto.color }} /> })()}
                         <div>
-                          <div className="flex items-center justify-between mb-2">
-                            <label className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.2em] font-bold">Wallet Address</label>
-                            <button onClick={() => copyToClipboard(selectedCrypto.address, "wallet")}
-                              className={cn("flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold transition-all duration-200",
-                                copiedField === "wallet" ? "bg-emerald-500/15 text-emerald-400" : "bg-muted/10 text-muted-foreground/60 hover:text-foreground"
-                              )}>{copiedField === "wallet" ? <><Check className="h-3 w-3" /> Copied</> : <><Copy className="h-3 w-3" /> Copy</>}</button>
-                          </div>
-                          <div onClick={() => copyToClipboard(selectedCrypto.address, "wallet")} className="rounded-xl border border-border/20 bg-background/30 p-3.5 cursor-pointer hover:bg-background/50 transition-all duration-200">
-                            <p className="font-mono text-xs break-all text-muted-foreground/70 select-all leading-relaxed">{selectedCrypto.address}</p>
-                          </div>
-                        </div>
-                        {/* Warning */}
-                        <div className="flex items-start gap-2.5 p-3.5 rounded-xl bg-amber-500/5 border border-amber-500/10">
-                          <AlertTriangle className="h-4 w-4 text-amber-400 shrink-0 mt-0.5" />
-                          <p className="text-xs text-muted-foreground/70">Send only <strong className="text-foreground">{selectedCrypto.ticker}</strong> on the correct network. Other assets will be lost.</p>
+                          <p className="font-bold">{selectedCrypto.name}</p>
+                          <p className="text-xs text-muted-foreground">{selectedCrypto.name.includes("TRC") ? "TRON Network" : selectedCrypto.name.includes("Ethereum") ? "Ethereum Network" : `${selectedCrypto.name} Mainnet`}</p>
                         </div>
                       </div>
+
+                      {/* Amount */}
+                      <div className="rounded-xl bg-white/[0.03] border border-border/30 p-5 text-center mb-6">
+                        <p className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1">Amount Due</p>
+                        <p className="text-3xl font-black text-foreground">
+                          {cryptoAmount} <span className="text-lg text-muted-foreground">{selectedCrypto.ticker}</span>
+                        </p>
+                        <button onClick={() => copyToClipboard(cryptoAmount || "", "amount")}
+                          className={cn("mt-3 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all",
+                            copiedField === "amount" ? "bg-emerald-500/15 text-emerald-400" : "bg-muted/10 text-muted-foreground/60 hover:text-foreground hover:bg-muted/20"
+                          )}>{copiedField === "amount" ? <><Check className="h-3 w-3" /> Copied</> : <><Copy className="h-3 w-3" /> Copy Amount</>}</button>
+                      </div>
+
+                      {/* QR Code */}
+                      <div className="flex justify-center mb-6">
+                        <div className="p-4 bg-white rounded-2xl">
+                          <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(selectedCrypto.address)}&bgcolor=FFFFFF&color=000000&format=png&margin=1`} alt="QR" width={200} height={200} className="rounded-lg" unoptimized crossOrigin="anonymous" />
+                        </div>
+                      </div>
+
+                      {/* Wallet Address */}
+                      <div className="mb-6">
+                        <p className="text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Wallet Address</p>
+                        <div className="flex items-center gap-2 p-3 rounded-xl bg-white/[0.03] border border-border/30">
+                          <code className="text-xs text-muted-foreground flex-1 truncate">{selectedCrypto.address}</code>
+                          <button onClick={() => copyToClipboard(selectedCrypto.address, "wallet")}
+                            className={cn("shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[10px] font-bold transition-all",
+                              copiedField === "wallet" ? "bg-emerald-500/15 text-emerald-400" : "bg-muted/10 text-muted-foreground/60 hover:text-foreground"
+                            )}>{copiedField === "wallet" ? <><Check className="h-3 w-3" /> Copied</> : <><Copy className="h-3 w-3" /> Copy</>}</button>
+                        </div>
+                      </div>
+
+                      {/* Warning */}
+                      <div className="flex items-start gap-2 p-3 rounded-xl bg-yellow-500/5 border border-yellow-500/10 mb-6">
+                        <AlertTriangle className="h-4 w-4 text-yellow-500 mt-0.5 shrink-0" />
+                        <p className="text-xs text-muted-foreground">
+                          Send only <span className="text-yellow-500 font-bold">{selectedCrypto.ticker}</span> on the correct network. Other assets will be lost.
+                        </p>
+                      </div>
+
+                      {/* Confirm button */}
+                      <button onClick={handleConfirmPayment} disabled={timeLeft <= 0}
+                        className="w-full h-14 rounded-xl bg-primary hover:bg-primary/90 text-white font-bold text-base flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30">
+                        {timeLeft <= 0 ? "Session Expired" : <><CheckCircle2 className="h-4 w-4" /> Confirm Payment Sent</>}
+                      </button>
+
+                      <button onClick={() => { setStep("form"); setTimeLeft(TIMER_SECONDS) }}
+                        className="w-full text-center mt-3 text-sm text-muted-foreground hover:text-primary transition-colors">
+                        Change payment method
+                      </button>
                     </div>
                   )}
 
                   {/* PayPal payment details */}
                   {paymentMethod === "paypal" && (
-                    <div className="rounded-2xl border border-[#003087]/20 bg-card/80 backdrop-blur-sm overflow-hidden shadow-[0_2px_20px_rgba(0,0,0,0.15)]">
-                      <div className="p-5 border-b border-[#003087]/10 flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-[#003087]/10 flex items-center justify-center"><PayPalIcon className="h-5 w-5" /></div>
-                        <div><p className="font-bold">PayPal — Friends & Family</p></div>
-                      </div>
-                      <div className="p-5 space-y-4">
-                        <div><label className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.2em] font-bold block mb-2">PayPal Email</label>
-                          <div className="flex items-center gap-2"><div className="flex-1 rounded-xl border border-border/30 bg-background/30 px-4 py-3.5 font-mono text-sm select-all">{PAYPAL_EMAIL}</div>
-                            <button onClick={() => copyToClipboard(PAYPAL_EMAIL, "paypal")} className={cn("shrink-0 h-11 w-11 rounded-xl border flex items-center justify-center transition-all duration-200",
-                              copiedField === "paypal" ? "border-[#003087]/40 bg-[#003087]/10" : "border-border/30 hover:bg-muted/20"
-                            )}>{copiedField === "paypal" ? <Check className="h-4 w-4 text-[#003087]" /> : <Copy className="h-4 w-4 text-muted-foreground" />}</button></div>
-                        </div>
-                        <div><label className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.2em] font-bold block mb-2">Payment Note</label>
-                          <div className="rounded-xl border border-border/30 bg-background/30 px-4 py-3.5 text-sm">{"Discord: "}<strong className="text-primary">{discordUser || "your_username"}</strong></div></div>
-                        <div className="flex items-start gap-2.5 p-3.5 rounded-xl bg-amber-500/5 border border-amber-500/10">
-                          <AlertTriangle className="h-4 w-4 text-amber-400 shrink-0 mt-0.5" />
-                          <p className="text-xs text-muted-foreground/70"><strong className="text-foreground">Friends & Family ONLY.</strong> Include Discord username in note.</p>
+                    <div className="rounded-2xl border border-border/40 bg-card/50 p-6">
+                      <div className="flex items-center gap-3 mb-6">
+                        <PayPalIcon className="h-8 w-8" />
+                        <div>
+                          <p className="font-bold">PayPal</p>
+                          <p className="text-xs text-muted-foreground">Friends &amp; Family only</p>
                         </div>
                       </div>
+
+                      <div className="rounded-xl bg-white/[0.03] border border-border/30 p-5 text-center mb-6">
+                        <p className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1">Send To</p>
+                        <p className="text-lg font-bold">{PAYPAL_EMAIL}</p>
+                        <button onClick={() => copyToClipboard(PAYPAL_EMAIL, "paypal")}
+                          className={cn("mt-2 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all",
+                            copiedField === "paypal" ? "bg-emerald-500/15 text-emerald-400" : "bg-muted/10 text-muted-foreground/60 hover:text-foreground hover:bg-muted/20"
+                          )}>{copiedField === "paypal" ? <><Check className="h-3 w-3" /> Copied</> : <><Copy className="h-3 w-3" /> Copy</>}</button>
+                      </div>
+
+                      <div className="rounded-xl bg-white/[0.03] border border-border/30 p-5 text-center mb-6">
+                        <p className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1">Amount</p>
+                        <p className="text-3xl font-black">{"£"}{finalTotal.toFixed(2)}</p>
+                      </div>
+
+                      <div className="flex items-start gap-2 p-3 rounded-xl bg-yellow-500/5 border border-yellow-500/10 mb-6">
+                        <AlertTriangle className="h-4 w-4 text-yellow-500 mt-0.5 shrink-0" />
+                        <p className="text-xs text-muted-foreground">
+                          Send as <span className="text-yellow-500 font-bold">Friends &amp; Family</span>. Include order ID <span className="font-mono font-bold text-foreground">{orderId}</span> in the note.
+                        </p>
+                      </div>
+
+                      <button onClick={handleConfirmPayment} disabled={timeLeft <= 0}
+                        className="w-full h-14 rounded-xl bg-primary hover:bg-primary/90 text-white font-bold text-base flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30">
+                        {timeLeft <= 0 ? "Session Expired" : <><CheckCircle2 className="h-4 w-4" /> Confirm Payment Sent</>}
+                      </button>
+
+                      <button onClick={() => { setStep("form"); setTimeLeft(TIMER_SECONDS) }}
+                        className="w-full text-center mt-3 text-sm text-muted-foreground hover:text-primary transition-colors">
+                        Change payment method
+                      </button>
                     </div>
                   )}
-
-                  <button onClick={handleConfirmPayment} disabled={timeLeft <= 0}
-                    className={cn(
-                      "w-full py-4 font-bold rounded-xl transition-all duration-300 flex items-center justify-center gap-2.5 relative overflow-hidden group",
-                      timeLeft > 0
-                        ? "bg-gradient-to-r from-primary to-primary/80 text-primary-foreground hover:shadow-[0_0_30px_rgba(var(--primary-rgb),0.3)] active:scale-[0.99]"
-                        : "bg-card border border-border/30 text-muted-foreground/30 cursor-not-allowed"
-                    )}>
-                    {timeLeft > 0 && <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />}
-                    <span className="relative flex items-center gap-2">
-                      {timeLeft <= 0 ? "Session Expired" : <><CheckCircle2 className="h-4 w-4" />Confirm Payment Sent</>}
-                    </span>
-                  </button>
-
-                  <button onClick={() => { setStep("form"); setTimeLeft(TIMER_SECONDS) }}
-                    className="w-full text-center text-xs text-muted-foreground/40 hover:text-muted-foreground transition-colors py-2">
-                    Change payment method
-                  </button>
                 </div>
               )}
             </div>
 
-            {/* ======= RIGHT: Order Summary (sticky) ======= */}
-            <div className="lg:sticky lg:top-28 h-fit">
-              <div className="rounded-2xl border border-border/40 bg-card/80 backdrop-blur-sm overflow-hidden shadow-[0_2px_20px_rgba(0,0,0,0.15)]">
-                {/* Header */}
-                <div className="px-6 py-5 border-b border-border/20">
-                  <div className="flex items-center justify-between">
-                    <h3 className="font-bold text-sm flex items-center gap-2.5">
-                      <ShoppingBag className="w-4 h-4 text-primary" />
-                      Order Summary
-                    </h3>
-                    <span className="text-[10px] text-muted-foreground/40 font-mono font-bold tracking-wider">{orderId}</span>
+            {/* ======= RIGHT COLUMN (40%) — Order Summary (sticky, hidden on mobile) ======= */}
+            <div className="lg:col-span-2 order-2 hidden lg:block">
+              <div className="lg:sticky lg:top-24">
+                <div className="rounded-2xl border border-border/40 bg-card/50 p-6">
+                  <div className="flex items-center gap-2 mb-5">
+                    <Package className="h-4 w-4 text-muted-foreground" />
+                    <h3 className="text-base font-bold">Order Summary</h3>
+                    <span className="ml-auto text-xs text-muted-foreground font-mono">{orderId}</span>
                   </div>
-                </div>
-
-                {/* Items */}
-                <div className="p-6 space-y-4">
-                  {items.map((item) => (
-                    <div key={item.variant.id} className="flex items-center gap-3.5">
-                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-muted/10 to-muted/5 flex items-center justify-center shrink-0 border border-border/20">
-                        <Package className="w-5 h-5 text-muted-foreground/30" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-bold truncate">{item.variant.product?.name || item.variant.name}</p>
-                        <p className="text-xs text-muted-foreground/40 mt-0.5">{item.variant.name} x{item.quantity}</p>
-                      </div>
-                      <p className="text-sm font-black shrink-0 tabular-nums">{"£"}{(item.variant.price * item.quantity).toFixed(2)}</p>
-                    </div>
-                  ))}
-
-                  {/* Divider */}
-                  <div className="h-px bg-gradient-to-r from-transparent via-border/30 to-transparent" />
-
-                  {/* Totals */}
-                  <div className="space-y-3">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground/60">Subtotal</span>
-                      <span className="font-semibold tabular-nums">{"£"}{total.toFixed(2)}</span>
-                    </div>
-                    {appliedCoupon && (
-                      <div className="flex justify-between text-sm">
-                        <span className="text-primary flex items-center gap-1"><Sparkles className="w-3 h-3" />{appliedCoupon.code}</span>
-                        <span className="text-primary font-bold tabular-nums">-{"£"}{discount.toFixed(2)}</span>
-                      </div>
-                    )}
-                    <div className="h-px bg-gradient-to-r from-transparent via-border/30 to-transparent" />
-                    <div className="flex justify-between items-baseline pt-1">
-                      <span className="text-sm font-bold">Total</span>
-                      <span className="text-2xl font-black tracking-tight tabular-nums">{"£"}{finalTotal.toFixed(2)}</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Payment icons */}
-                <div className="px-6 py-3.5 border-t border-border/20 flex items-center justify-center gap-5">
-                  <BitcoinIcon className="h-4 w-4 text-[#F7931A] opacity-50" />
-                  <EthereumIcon className="h-4 w-4 text-[#627EEA] opacity-50" />
-                  <TetherIcon className="h-4 w-4 text-[#26A17B] opacity-50" />
-                  <LitecoinIcon className="h-4 w-4 text-[#345D9D] opacity-50" />
-                  <PayPalIcon className="h-4 w-4 text-[#0070BA] opacity-50" />
-                </div>
-
-                {/* Trust badges */}
-                <div className="px-6 py-5 bg-background/30 border-t border-border/20 space-y-3">
-                  {[
-                    { icon: Shield, text: "256-bit SSL Encrypted", color: "text-emerald-500" },
-                    { icon: Zap, text: "Instant Digital Delivery", color: "text-amber-500" },
-                    { icon: Lock, text: "Secure Processing", color: "text-blue-400" },
-                  ].map(({ icon: I, text, color }) => (
-                    <div key={text} className="flex items-center gap-3">
-                      <div className="w-7 h-7 rounded-lg bg-background/50 border border-border/20 flex items-center justify-center shrink-0">
-                        <I className={cn("w-3.5 h-3.5", color)} />
-                      </div>
-                      <span className="text-[11px] text-muted-foreground/50">{text}</span>
-                    </div>
-                  ))}
+                  <OrderSummaryContent />
                 </div>
               </div>
             </div>
