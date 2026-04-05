@@ -1,6 +1,6 @@
 "use client"
 
-import { ArrowRight, MessageSquare, Mail } from "lucide-react"
+import { ArrowRight, Zap, Shield, Headphones, BookOpen, Mail, MessageSquare } from "lucide-react"
 
 function DiscordIcon({ className }: { className?: string }) {
   return (
@@ -10,28 +10,15 @@ function DiscordIcon({ className }: { className?: string }) {
   )
 }
 
-const CHANNELS = [
-  { icon: "📢", name: "announcements", desc: "Updates & patches" },
-  { icon: "🎯", name: "store", desc: "Browse products" },
-  { icon: "🎁", name: "giveaways", desc: "Free prizes" },
-  { icon: "⭐", name: "testimonials", desc: "Customer reviews" },
-  { icon: "🔧", name: "setup-help", desc: "Get started fast" },
-  { icon: "📩", name: "contact-us", desc: "Open a ticket" },
-  { icon: "📦", name: "downloads", desc: "Get your files" },
-  { icon: "📖", name: "guides", desc: "Step-by-step tutorials" },
-]
-
 export function ContactSection() {
   return (
     <section id="contact" className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-      {/* Background effects */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute w-[600px] h-[600px] bg-[#5865F2]/5 rounded-full blur-[150px] top-0 left-1/4" />
         <div className="absolute w-[400px] h-[400px] bg-primary/5 rounded-full blur-[120px] bottom-0 right-1/4" />
       </div>
 
       <div className="container mx-auto max-w-5xl relative z-10">
-        {/* Header */}
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#5865F2]/10 border border-[#5865F2]/20 text-[#5865F2] text-sm font-medium mb-6">
             <DiscordIcon className="h-4 w-4" />
@@ -46,72 +33,61 @@ export function ContactSection() {
         </div>
 
         {/* Discord Card */}
-        <div className="rounded-2xl border border-white/[0.06] bg-card/80 backdrop-blur-sm p-8 mb-6">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mb-8">
-            <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-2xl bg-[#5865F2] flex items-center justify-center shadow-lg shadow-[#5865F2]/20">
-                <DiscordIcon className="h-7 w-7 text-white" />
-              </div>
-              <div>
-                <h3 className="text-xl font-bold">Lethal Solutions</h3>
-                <div className="flex items-center gap-3 mt-1">
-                  <span className="flex items-center gap-1.5 text-sm">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                    <span className="text-emerald-400 font-medium">3,147 online</span>
-                  </span>
-                  <span className="text-white/20">|</span>
-                  <span className="text-sm text-muted-foreground">9,248 members</span>
+        <div className="rounded-2xl border border-white/[0.06] bg-card/80 backdrop-blur-sm overflow-hidden mb-6">
+          <div className="h-1.5 bg-gradient-to-r from-[#5865F2] via-[#7289DA] to-[#5865F2]" />
+
+          <div className="p-8">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mb-6">
+              <div className="flex items-center gap-4">
+                <div className="w-14 h-14 rounded-2xl bg-[#5865F2] flex items-center justify-center shadow-lg shadow-[#5865F2]/20">
+                  <DiscordIcon className="h-7 w-7 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold">Lethal Solutions</h3>
+                  <div className="flex items-center gap-3 mt-1">
+                    <span className="flex items-center gap-1.5 text-sm">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                      <span className="text-emerald-400 font-medium">3,147 online</span>
+                    </span>
+                    <span className="text-white/15">&bull;</span>
+                    <span className="text-sm text-white/40">9,248 members</span>
+                  </div>
                 </div>
               </div>
-            </div>
-            <a
-              href="https://discord.gg/lethaldma"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#5865F2] hover:bg-[#4752C4] text-white font-semibold text-sm transition-all hover:shadow-lg hover:shadow-[#5865F2]/25 hover:-translate-y-0.5 group"
-            >
-              Join Server
-              <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
-            </a>
-          </div>
-
-          <p className="text-sm text-muted-foreground mb-6">
-            Open a ticket in <span className="text-white font-medium">#contact-us</span> for purchases, setup help, or any questions. Our staff responds in minutes, not hours.
-          </p>
-
-          {/* Trust badges */}
-          <div className="flex flex-wrap gap-2 mb-8">
-            {[
-              { icon: "⚡", text: "< 5 min response" },
-              { icon: "✅", text: "Verified staff" },
-              { icon: "🕐", text: "24/7 support" },
-              { icon: "📚", text: "Setup guides" },
-            ].map((badge, i) => (
-              <span key={i} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.06] text-xs text-white/60">
-                <span>{badge.icon}</span>
-                {badge.text}
-              </span>
-            ))}
-          </div>
-
-          {/* Channel grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            {CHANNELS.map((ch, i) => (
-              <div
-                key={i}
-                className="rounded-xl border border-white/[0.04] bg-white/[0.02] p-4 hover:border-[#5865F2]/30 hover:bg-[#5865F2]/5 transition-all duration-200 cursor-default group"
+              <a
+                href="https://discord.gg/lethaldma"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-[#5865F2] hover:bg-[#4752C4] text-white font-semibold text-sm transition-all hover:shadow-lg hover:shadow-[#5865F2]/25 hover:-translate-y-0.5 group whitespace-nowrap"
               >
-                <div className="text-lg mb-2">{ch.icon}</div>
-                <p className="text-sm font-semibold text-white/80 group-hover:text-white transition-colors">
-                  <span className="text-white/30">#</span>{ch.name}
-                </p>
-                <p className="text-[11px] text-muted-foreground mt-0.5">{ch.desc}</p>
-              </div>
-            ))}
+                Join Server
+                <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
+              </a>
+            </div>
+
+            <p className="text-[15px] text-white/50 mb-8 max-w-2xl leading-relaxed">
+              Open a ticket in <span className="text-white font-medium">#contact-us</span> for purchases, setup help, or any questions. Our staff responds in minutes, not hours.
+            </p>
+
+            {/* Feature cards */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              {[
+                { icon: Zap, title: "< 5 min response", desc: "Average staff reply time" },
+                { icon: Shield, title: "Verified team", desc: "Trusted & experienced" },
+                { icon: Headphones, title: "24/7 available", desc: "Round the clock support" },
+                { icon: BookOpen, title: "Setup guides", desc: "Step-by-step tutorials" },
+              ].map((item, i) => (
+                <div key={i} className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.04]">
+                  <item.icon className="h-5 w-5 text-[#5865F2] mb-3" />
+                  <p className="text-sm font-semibold text-white/80">{item.title}</p>
+                  <p className="text-[11px] text-white/30 mt-0.5">{item.desc}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Email + Telegram row */}
+        {/* Email + Telegram */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <a
             href="mailto:support@lethalsolutions.me"

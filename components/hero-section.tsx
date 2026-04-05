@@ -131,18 +131,32 @@ export function HeroSection() {
           </Button>
         </div>
 
-        {/* Trust chips */}
-        <div className="flex flex-wrap justify-center gap-3 mb-10 animate-fade-in-up animate-delay-400">
+        {/* Trust badges */}
+        <div className="flex flex-wrap justify-center gap-8 mb-10 animate-fade-in-up animate-delay-400">
           {[
-            { icon: Shield, label: "99.8% Undetected", color: "text-emerald-400 border-emerald-400/20 bg-emerald-400/5" },
-            { icon: Zap, label: "Instant Delivery", color: "text-yellow-400 border-yellow-400/20 bg-yellow-400/5" },
-            { icon: Clock, label: "24/7 Discord Support", color: "text-blue-400 border-blue-400/20 bg-blue-400/5" },
+            { icon: Shield, label: "99.8% Undetected" },
+            { icon: Zap, label: "Instant Delivery" },
+            { icon: Clock, label: "24/7 Discord Support" },
           ].map((item, i) => (
-            <div key={i} className={`flex items-center gap-2 px-3.5 py-2 rounded-full border text-xs font-medium ${item.color}`}>
-              <item.icon className="h-3.5 w-3.5" />
-              <span>{item.label}</span>
+            <div key={i} className="flex items-center gap-2 text-white/40">
+              <item.icon className="h-4 w-4" />
+              <span className="text-sm">{item.label}</span>
             </div>
           ))}
+        </div>
+
+        {/* Payment methods */}
+        <div className="flex items-center justify-center gap-2 animate-fade-in-up animate-delay-500">
+          <span className="text-xs text-white/30 uppercase tracking-wider">Accepted:</span>
+          <div className="flex items-center gap-3">
+            <span className="text-xs text-white/50 font-medium">BTC</span>
+            <span className="text-white/20">|</span>
+            <span className="text-xs text-white/50 font-medium">ETH</span>
+            <span className="text-white/20">|</span>
+            <span className="text-xs text-white/50 font-medium">LTC</span>
+            <span className="text-white/20">|</span>
+            <span className="text-xs text-white/50 font-medium">PayPal</span>
+          </div>
         </div>
       </div>
 

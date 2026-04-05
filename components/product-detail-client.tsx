@@ -219,25 +219,24 @@ export function ProductDetailClient({ product }: { product: Product }) {
           </div>
 
           {/* Accepted Payments */}
-          <div className="rounded-xl border border-border/30 bg-card/30 p-4">
-            <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-3">Accepted Payments</p>
-            <div className="flex items-center gap-4 mb-3">
+          <div className="mt-5 pt-5 border-t border-border/20">
+            <div className="flex flex-wrap items-center gap-5">
               {[
-                { Icon: BitcoinIcon, label: "Bitcoin" },
-                { Icon: EthereumIcon, label: "Ethereum" },
-                { Icon: LitecoinIcon, label: "Litecoin" },
-                { Icon: PayPalIcon, label: "PayPal" },
-              ].map(({ Icon, label }) => (
-                <div key={label} className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                  <Icon className="h-4 w-4" />
-                  <span>{label}</span>
+                { Icon: BitcoinIcon, label: "Bitcoin", color: "text-[#F7931A]" },
+                { Icon: EthereumIcon, label: "Ethereum", color: "text-[#627EEA]" },
+                { Icon: LitecoinIcon, label: "Litecoin", color: "text-[#345D9D]" },
+                { Icon: PayPalIcon, label: "PayPal", color: "text-[#0070BA]" },
+              ].map(({ Icon, label, color }) => (
+                <div key={label} className="flex items-center gap-2">
+                  <Icon className={`h-5 w-5 ${color}`} />
+                  <span className="text-xs text-white/50">{label}</span>
                 </div>
               ))}
             </div>
-            <div className="flex items-center gap-4 text-[11px] text-muted-foreground">
-              <span className="flex items-center gap-1"><Lock className="h-3 w-3 text-primary/60" /> Secure Checkout</span>
-              <span className="flex items-center gap-1"><Zap className="h-3 w-3 text-primary/60" /> Instant Delivery</span>
-              <span className="flex items-center gap-1"><Globe className="h-3 w-3 text-primary/60" /> 24/7 Support</span>
+            <div className="flex items-center gap-4 mt-3 text-[11px] text-white/30">
+              <span className="flex items-center gap-1"><Lock className="h-3 w-3" /> Secure Checkout</span>
+              <span className="flex items-center gap-1"><Zap className="h-3 w-3" /> Instant Delivery</span>
+              <span className="flex items-center gap-1"><Globe className="h-3 w-3" /> 24/7 Support</span>
             </div>
           </div>
         </div>
@@ -252,7 +251,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
             </div>
             <h2 className="text-xl font-bold">What&apos;s Included</h2>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {product.features.map((feature, idx) => (
               <div
                 key={idx}
