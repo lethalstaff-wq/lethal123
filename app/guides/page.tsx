@@ -10,6 +10,7 @@ import {
   Zap, Shield, Clock, ArrowRight, Play, ExternalLink, Download, FileText
 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { Breadcrumbs } from "@/components/breadcrumbs"
 
 const SETUP_GUIDES = [
   {
@@ -226,6 +227,7 @@ export default function GuidesPage() {
       
       <main className="flex-1 pt-32 pb-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
+          <Breadcrumbs items={[{ label: "Guides" }]} />
           {/* Hero */}
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
@@ -288,7 +290,7 @@ export default function GuidesPage() {
                   <Link
                     key={guide.id}
                     href={`/guides/${guide.id}`}
-                    className="group relative p-6 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/50 hover:bg-card/80 transition-all overflow-hidden"
+                    className="group relative p-6 rounded-2xl bg-card/50 border border-border/50 hover:border-[rgba(239,111,41,0.4)] hover:bg-card/80 hover:shadow-[0_0_30px_rgba(239,111,41,0.08)] transition-all duration-300 overflow-hidden"
                   >
                     {/* Orange accent bar */}
                     <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />

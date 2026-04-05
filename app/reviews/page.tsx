@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input"
 import {
   Star, CheckCircle2, TrendingUp, Users, Award, ShieldCheck,
   Loader2, Search, ThumbsUp, ChevronDown, MessageSquare,
-  SlidersHorizontal, X, Bot, ToggleLeft, ToggleRight,
+  SlidersHorizontal, X,
 } from "lucide-react"
 import useSWR from "swr"
 import { getTotalReviewCount } from "@/lib/review-counts"
@@ -88,7 +88,6 @@ export default function ReviewsPage() {
   const [filterProduct, setFilterProduct] = useState<string | null>(null)
   const [searchQuery, setSearchQuery] = useState("")
   const [sortBy, setSortBy] = useState<SortOption>("newest")
-  const [hideAutoReviews, setHideAutoReviews] = useState(false)
   const [visibleCount, setVisibleCount] = useState(REVIEWS_PER_PAGE)
   const [helpfulVotes, setHelpfulVotes] = useState<Set<number>>(new Set())
   const [showProductDropdown, setShowProductDropdown] = useState(false)
@@ -135,7 +134,6 @@ export default function ReviewsPage() {
 
   const filteredReviews = useMemo(() => {
     let filtered = [...allReviews]
-    if (hideAutoReviews) filtered = filtered.filter(r => !r.is_auto)
     if (filterRating !== null) filtered = filtered.filter(r => r.rating === filterRating)
     if (filterProduct) filtered = filtered.filter(r => r.product === filterProduct)
     if (searchQuery.trim()) {
@@ -153,7 +151,7 @@ export default function ReviewsPage() {
     filtered.sort((a, b) => vHelp(b.id) - vHelp(a.id))
   }
     return filtered
-  }, [allReviews, filterRating, filterProduct, searchQuery, sortBy, hideAutoReviews, cfgHelpfulMin, cfgHelpfulMax])
+  }, [allReviews, filterRating, filterProduct, searchQuery, sortBy, cfgHelpfulMin, cfgHelpfulMax])
 
   const visibleReviews = filteredReviews.slice(0, visibleCount)
   const hasMore = visibleCount < filteredReviews.length
@@ -173,12 +171,12 @@ export default function ReviewsPage() {
 
   const clearFilters = () => {
     setFilterRating(null); setFilterProduct(null); setSearchQuery("")
-    setSortBy("newest"); setHideAutoReviews(false); setVisibleCount(REVIEWS_PER_PAGE)
+    setSortBy("newest"); setVisibleCount(REVIEWS_PER_PAGE)
   }
 
-  const hasActiveFilters = filterRating !== null || filterProduct !== null || searchQuery.trim() !== "" || hideAutoReviews
+  const hasActiveFilters = filterRating !== null || filterProduct !== null || searchQuery.trim() !== ""
 
-  useEffect(() => { setVisibleCount(REVIEWS_PER_PAGE) }, [filterRating, filterProduct, searchQuery, sortBy, hideAutoReviews])
+  useEffect(() => { setVisibleCount(REVIEWS_PER_PAGE) }, [filterRating, filterProduct, searchQuery, sortBy])
 
   if (isLoadingData) {
     return (
@@ -344,20 +342,6 @@ export default function ReviewsPage() {
             </div>
           </div>
 
-          {/* Hide auto reviews toggle */}
-          <div className="flex items-center gap-3 mb-8">
-            <button
-              onClick={() => setHideAutoReviews(!hideAutoReviews)}
-              className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-medium transition-all duration-200 ${
-                hideAutoReviews ? "bg-primary/15 text-primary border border-primary/30" : "bg-muted/20 text-muted-foreground border border-border/40 hover:bg-muted/30 hover:text-foreground"
-              }`}
-            >
-              {hideAutoReviews ? <ToggleRight className="h-4 w-4" /> : <ToggleLeft className="h-4 w-4" />}
-              Hide automatic feedback
-            </button>
-            <span className="text-[11px] text-muted-foreground/60">Automatic feedback collected after 7 days of use</span>
-          </div>
-
           {/* Active filters */}
           {hasActiveFilters && (
             <div className="flex flex-wrap items-center gap-2 mb-6">
@@ -377,23 +361,15 @@ export default function ReviewsPage() {
                   {`"${searchQuery}"`} <X className="h-3 w-3" />
                 </button>
               )}
-              {hideAutoReviews && (
-                <button onClick={() => setHideAutoReviews(false)} className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium hover:bg-primary/20 transition-colors">
-                  Manual only <X className="h-3 w-3" />
-                </button>
-              )}
               <button onClick={clearFilters} className="text-xs text-muted-foreground hover:text-foreground underline underline-offset-2 ml-2 transition-colors">Clear all</button>
               <span className="text-xs text-muted-foreground ml-auto">
-                {filterRating !== null && !filterProduct && !searchQuery.trim() && !hideAutoReviews
-                  ? (breakdown.find(b => b.stars === filterRating)?.count || filteredReviews.length).toLocaleString()
-                  : filteredReviews.length.toLocaleString()
-                } results
+                {filteredReviews.length.toLocaleString()} results
               </span>
             </div>
           )}
           {!hasActiveFilters && (
             <div className="flex items-center mb-6">
-              <span className="text-xs text-muted-foreground ml-auto">{virtualTotal.toLocaleString()} results</span>
+              <span className="text-xs text-muted-foreground ml-auto">{allReviews.length.toLocaleString()} results</span>
             </div>
           )}
 
@@ -426,12 +402,6 @@ export default function ReviewsPage() {
                             Refunded
                           </span>
                         )}
-                        {review.is_auto && review.rating === 5 && !review.text && (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-blue-500/10 text-[10px] font-medium text-blue-400">
-                            <Bot className="h-2.5 w-2.5" />
-                            Auto
-                          </span>
-                        )}
                         <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 text-xs font-medium text-emerald-500">
                           <CheckCircle2 className="h-3 w-3" />
                           Verified
@@ -440,14 +410,7 @@ export default function ReviewsPage() {
                     </div>
 
                     {/* Text */}
-                    {review.text ? (
-                      <p className="text-sm text-foreground/85 leading-relaxed mb-5 flex-1">{review.text}</p>
-                    ) : (
-                      <div className="mb-5 flex-1 flex items-center gap-2">
-                        <Bot className="h-4 w-4 text-blue-400/60 shrink-0" />
-                        <p className="text-sm text-muted-foreground/70 italic">Automatic feedback after 7 days</p>
-                      </div>
-                    )}
+                    <p className="text-sm text-foreground/85 leading-relaxed mb-5 flex-1">{review.text || "Great product, works as described."}</p>
 
                     {/* Team response */}
                     {review.team_response && (
@@ -498,7 +461,7 @@ export default function ReviewsPage() {
             )}
             {!hasMore && visibleReviews.length > 0 && (
               <p className="text-sm text-muted-foreground">
-                Showing all {hasActiveFilters ? filteredReviews.length.toLocaleString() : virtualTotal.toLocaleString()} reviews
+                Showing all {hasActiveFilters ? filteredReviews.length.toLocaleString() : allReviews.length.toLocaleString()} reviews
               </p>
             )}
           </div>

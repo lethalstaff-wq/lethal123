@@ -413,8 +413,8 @@ export default function CheckoutPage() {
     <main className="flex min-h-screen flex-col bg-background">
       <Navbar />
 
-      <section className="flex-1 py-10 md:py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
+      <section className="flex-1 py-8 md:py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1100px] mx-auto">
 
           {/* Header */}
           <div className="mb-10">
@@ -462,9 +462,90 @@ export default function CheckoutPage() {
             </div>
           </div>
 
-          <div className="grid lg:grid-cols-[1fr,400px] gap-8 items-start">
-            {/* ======= LEFT COLUMN ======= */}
-            <div className="space-y-6">
+          <div className="grid lg:grid-cols-[380px,1fr] gap-6 items-start">
+
+            {/* ======= LEFT COLUMN: ORDER SUMMARY (sticky) ======= */}
+            <div className="lg:sticky lg:top-8 h-fit order-2 lg:order-1">
+              <div className="rounded-2xl border border-border/50 bg-card/60 backdrop-blur-xl overflow-hidden shadow-2xl shadow-black/10">
+                <div className="px-5 py-4 border-b border-border/30 bg-gradient-to-r from-muted/10 to-transparent">
+                  <div className="flex items-center justify-between">
+                    <h3 className="font-bold text-foreground flex items-center gap-2.5 text-sm">
+                      <ShoppingBag className="w-4 h-4 text-primary" />
+                      Order Summary
+                    </h3>
+                    <span className="text-[10px] text-muted-foreground font-mono font-bold">{orderId}</span>
+                  </div>
+                </div>
+
+                <div className="p-5 space-y-4">
+                  <div className="space-y-3">
+                    {items.map((item) => (
+                      <div key={item.variant.id} className="flex items-start gap-3">
+                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-muted/20 to-muted/5 flex items-center justify-center shrink-0 border border-border/20">
+                          <Package className="w-4 h-4 text-muted-foreground/40" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-bold text-foreground truncate">{item.variant.product?.name || item.variant.name}</p>
+                          <p className="text-xs text-muted-foreground/60">{item.variant.name} x{item.quantity}</p>
+                        </div>
+                        <p className="text-sm font-black text-foreground shrink-0 tabular-nums">{"£"}{(item.variant.price * item.quantity).toFixed(2)}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="h-px bg-border/30" />
+
+                  <div className="space-y-2">
+                    <div className="flex justify-between text-sm">
+                      <span className="text-muted-foreground">Subtotal</span>
+                      <span className="text-foreground font-semibold tabular-nums">{"£"}{total.toFixed(2)}</span>
+                    </div>
+                    {appliedCoupon && (
+                      <div className="flex justify-between text-sm">
+                        <span className="text-primary font-medium flex items-center gap-1.5">
+                          <Sparkles className="w-3 h-3" /> {appliedCoupon.code}
+                        </span>
+                        <span className="text-primary font-bold tabular-nums">-{"£"}{discount.toFixed(2)}</span>
+                      </div>
+                    )}
+                    <div className="h-px bg-border/30" />
+                    <div className="flex justify-between items-baseline pt-1">
+                      <span className="text-sm font-bold text-foreground">Total</span>
+                      <span className="text-2xl font-black text-foreground tracking-tight tabular-nums">{"£"}{finalTotal.toFixed(2)}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Accepted payments */}
+                <div className="px-5 py-3 border-t border-border/30">
+                  <div className="flex items-center justify-center gap-3">
+                    <BitcoinIcon className="h-4 w-4 text-[#F7931A]" />
+                    <EthereumIcon className="h-4 w-4 text-[#627EEA]" />
+                    <LitecoinIcon className="h-4 w-4 text-[#345D9D]" />
+                    <PayPalIcon className="h-4 w-4 text-[#0070BA]" />
+                  </div>
+                </div>
+
+                {/* Trust signals */}
+                <div className="px-5 py-4 bg-gradient-to-t from-muted/10 to-transparent border-t border-border/30 space-y-2.5">
+                  {[
+                    { icon: Shield, text: "256-bit SSL Encrypted", color: "text-emerald-500" },
+                    { icon: Zap, text: "Instant Digital Delivery", color: "text-amber-500" },
+                    { icon: Lock, text: "Secure Payment Processing", color: "text-blue-400" },
+                  ].map(({ icon: I, text, color }) => (
+                    <div key={text} className="flex items-center gap-2.5">
+                      <div className="w-6 h-6 rounded-md bg-muted/10 flex items-center justify-center shrink-0">
+                        <I className={cn("w-3 h-3", color)} />
+                      </div>
+                      <span className="text-[11px] text-muted-foreground/70">{text}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* ======= RIGHT COLUMN: FORM & PAYMENT ======= */}
+            <div className="space-y-5 order-1 lg:order-2">
 
               {/* === STEP 1: FORM === */}
               {step === "form" && (
@@ -1082,85 +1163,7 @@ export default function CheckoutPage() {
               )}
             </div>
 
-            {/* ======= RIGHT COLUMN: ORDER SUMMARY ======= */}
-            <div className="lg:sticky lg:top-8 h-fit">
-              <div className="rounded-3xl border border-border/50 bg-card/60 backdrop-blur-xl overflow-hidden shadow-2xl shadow-black/10">
-                <div className="px-6 py-5 border-b border-border/30 bg-gradient-to-r from-muted/10 to-transparent">
-                  <div className="flex items-center justify-between">
-                    <h3 className="font-bold text-foreground flex items-center gap-2.5">
-                      <ShoppingBag className="w-5 h-5 text-primary" />
-                      Order Summary
-                    </h3>
-                    <span className="text-[10px] text-muted-foreground font-mono font-bold">{orderId}</span>
-                  </div>
-                </div>
-
-                <div className="p-6 space-y-5">
-                  <div className="space-y-4">
-                    {items.map((item) => (
-                      <div key={item.variant.id} className="flex items-start gap-4">
-                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-muted/20 to-muted/5 flex items-center justify-center shrink-0 border border-border/20">
-                          <Package className="w-5 h-5 text-muted-foreground/40" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-sm font-bold text-foreground truncate">{item.variant.product?.name || item.variant.name}</p>
-                          <p className="text-xs text-muted-foreground/60 mt-0.5">{item.variant.name} x{item.quantity}</p>
-                        </div>
-                        <p className="text-sm font-black text-foreground shrink-0 tabular-nums">{"£"}{(item.variant.price * item.quantity).toFixed(2)}</p>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="h-px bg-border/30" />
-
-                  <div className="space-y-3">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Subtotal</span>
-                      <span className="text-foreground font-semibold tabular-nums">{"£"}{total.toFixed(2)}</span>
-                    </div>
-                    {appliedCoupon && (
-                      <div className="flex justify-between text-sm">
-                        <span className="text-primary font-medium flex items-center gap-1.5">
-                          <Sparkles className="w-3 h-3" /> {appliedCoupon.code}
-                        </span>
-                        <span className="text-primary font-bold tabular-nums">-{"£"}{discount.toFixed(2)}</span>
-                      </div>
-                    )}
-                    <div className="h-px bg-border/30" />
-                    <div className="flex justify-between items-baseline pt-1">
-                      <span className="text-sm font-bold text-foreground">Total</span>
-                      <span className="text-3xl font-black text-foreground tracking-tight tabular-nums">{"£"}{finalTotal.toFixed(2)}</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Accepted payments */}
-                <div className="px-6 py-4 border-t border-border/30">
-                  <div className="flex items-center justify-center gap-4 mb-3">
-                    <BitcoinIcon className="h-5 w-5 text-[#F7931A]" />
-                    <EthereumIcon className="h-5 w-5 text-[#627EEA]" />
-                    <LitecoinIcon className="h-5 w-5 text-[#345D9D]" />
-                    <PayPalIcon className="h-5 w-5 text-[#0070BA]" />
-                  </div>
-                </div>
-
-                {/* Trust signals */}
-                <div className="px-6 py-5 bg-gradient-to-t from-muted/10 to-transparent border-t border-border/30 space-y-3.5">
-                  {[
-                    { icon: Shield, text: "256-bit SSL Encrypted", color: "text-emerald-500" },
-                    { icon: Zap, text: "Instant Digital Delivery", color: "text-amber-500" },
-                    { icon: Lock, text: "Secure Payment Processing", color: "text-blue-400" },
-                  ].map(({ icon: I, text, color }) => (
-                    <div key={text} className="flex items-center gap-3">
-                      <div className="w-7 h-7 rounded-lg bg-muted/10 flex items-center justify-center shrink-0">
-                        <I className={cn("w-3.5 h-3.5", color)} />
-                      </div>
-                      <span className="text-xs text-muted-foreground/70">{text}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+            {/* Order summary is now in left column above */}
           </div>
         </div>
       </section>

@@ -7,7 +7,7 @@ import { useState, useEffect, useRef } from "react"
 import { ShoppingCart, User, Search, X, ArrowRight, Package } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useCart } from "@/lib/cart-context"
-import { useRouter } from "next/navigation"
+import { useRouter, usePathname } from "next/navigation"
 
 interface SearchResult {
   id: string
@@ -27,6 +27,7 @@ export function Navbar() {
   const inputRef = useRef<HTMLInputElement>(null)
   const { itemCount } = useCart()
   const router = useRouter()
+  const pathname = usePathname()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -113,15 +114,22 @@ export function Navbar() {
                   ? "bg-white/[0.04] border border-white/[0.06]"
                   : "bg-white/[0.03] border border-white/[0.04]"
               }`}>
-                {navLinks.map((link) => (
+                {navLinks.map((link) => {
+                  const isActive = link.href === "/" ? pathname === "/" : pathname.startsWith(link.href)
+                  return (
                   <Link
                     key={link.label}
                     href={link.href}
-                    className="px-4 py-1.5 text-[13px] font-medium text-white/50 hover:text-white hover:bg-white/[0.06] rounded-full transition-all duration-200"
+                    className={`px-4 py-1.5 text-[13px] font-medium rounded-full transition-all duration-200 ${
+                      isActive
+                        ? "text-primary bg-primary/10"
+                        : "text-white/50 hover:text-white hover:bg-white/[0.06]"
+                    }`}
                   >
                     {link.label}
                   </Link>
-                ))}
+                  )
+                })}
               </div>
             </div>
 

@@ -31,7 +31,6 @@ const BASE_DATE = new Date("2026-04-01")
 
 /**
  * Returns the review count for a product, growing slightly each day.
- * Growth rate is proportional to the product's popularity.
  */
 export function getProductReviewCount(slugOrName: string): number {
   const slug = PRODUCT_NAME_TO_SLUG[slugOrName] || slugOrName
@@ -40,25 +39,23 @@ export function getProductReviewCount(slugOrName: string): number {
 
   const now = new Date()
   const daysSince = Math.max(0, Math.floor((now.getTime() - BASE_DATE.getTime()) / 86400000))
-
-  // Popular products grow faster (1-3 reviews/day based on base count)
   const dailyGrowth = base > 300 ? 3 : base > 150 ? 2 : 1
   return base + daysSince * dailyGrowth
 }
 
-/** Total review count across all products */
+/** Total review count — uses generated reviews length + a base offset for "pre-generator" reviews */
 export function getTotalReviewCount(): number {
-  const base = Object.keys(PRODUCT_REVIEW_COUNTS).reduce(
-    (sum, slug) => sum + getProductReviewCount(slug),
-    0
-  )
-  // Add today's orders as pending reviews (each order = 1 review after delivery)
-  return base + getOrdersToday()
+  // Lazy import to avoid circular deps — just estimate based on days
+  const now = new Date()
+  const genStart = new Date("2025-04-01")
+  const totalDays = Math.max(0, Math.floor((now.getTime() - genStart.getTime()) / 86400000))
+  // Average ~18 reviews/day growing over time, plus today's orders
+  const avgPerDay = 12 + (totalDays / 365) * 10
+  return Math.round(totalDays * avgPerDay) + getOrdersToday()
 }
 
 /**
- * Simulated orders today — grows 2-3 per hour from midnight, consistent for all users.
- * Used both in hero/orders counter and to grow review count in real-time.
+ * Simulated orders today — grows 3-5 per hour from midnight, consistent for all users.
  */
 export function getOrdersToday(): number {
   const now = new Date()
@@ -69,9 +66,9 @@ export function getOrdersToday(): number {
   const minute = now.getUTCMinutes()
 
   const daySeed = (year * 366 + month * 31 + day) % 100
-  const ordersPerHour = 2 + (daySeed % 2)
+  const ordersPerHour = 3 + (daySeed % 3)
   const hoursPassed = hour + minute / 60
   let orders = Math.floor(hoursPassed * ordersPerHour)
-  const maxOrders = 12 + (daySeed % 6)
+  const maxOrders = 30 + (daySeed % 12)
   return Math.min(orders, maxOrders)
 }

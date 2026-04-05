@@ -55,6 +55,10 @@
   --accent-dark: #CC5500;
   --border-subtle: rgba(239, 111, 41, 0.15);
   --glow: rgba(239, 111, 41, 0.1);
+  --success: #22c55e;
+  --warning: #EF6F29;
+  --error: #ef4444;
+  --primary-rgb: 239, 111, 41;
 }
 
 /* Light Theme */
@@ -459,6 +463,25 @@ button:active:not(:disabled), a[role="button"]:active {
   box-shadow: 0 8px 25px -5px rgba(239, 111, 41, 0.3);
 }
 .btn-glow:active { transform: translateY(0) scale(0.98); }
+
+/* Skeleton loading */
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 0.5rem;
+}
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  animation: skeleton-shimmer 1.5s infinite;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.04), transparent);
+}
+@keyframes skeleton-shimmer {
+  100% { transform: translateX(100%); }
+}
 
 /* Pricing section noise texture */
 .pricing-noise::before {

@@ -43,10 +43,11 @@ export const metadata: Metadata = {
     url: "https://www.lethalsolutions.me",
     images: [
       {
-        url: "/images/banner.png",
+        url: "https://www.lethalsolutions.me/images/banner.png",
         width: 1200,
         height: 630,
         alt: "Lethal Solutions — Premium Gaming Solutions",
+        type: "image/png",
       },
     ],
   },
@@ -54,7 +55,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Lethal Solutions | Premium Gaming Cheats & Spoofers",
     description: "Undetected gaming solutions for competitive players. Premium cheats, DMA hardware, and HWID spoofers.",
-    images: ["/images/banner.png"],
+    images: ["https://www.lethalsolutions.me/images/banner.png"],
   },
   metadataBase: new URL("https://www.lethalsolutions.me"),
   alternates: {
@@ -77,8 +78,13 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* OG image fallback — direct meta tags for Discord/Telegram compatibility */}
+        <meta property="og:image" content="https://www.lethalsolutions.me/images/banner.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:type" content="image/png" />
+        <meta name="twitter:image" content="https://www.lethalsolutions.me/images/banner.png" />
         {/* Preconnect to external services */}
-        {/* Preconnect to QR code API used in checkout */}
         <link rel="preconnect" href="https://api.qrserver.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://api.qrserver.com" />
         <link rel="dns-prefetch" href="https://api.coingecko.com" />

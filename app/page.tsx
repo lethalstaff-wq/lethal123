@@ -4,6 +4,7 @@ import { HeroSection } from "@/components/hero-section"
 import { Footer } from "@/components/footer"
 import { ScrollReveal } from "@/components/scroll-reveal"
 import { GlowDivider } from "@/components/glow-divider"
+import { StatsBar } from "@/components/stats-bar"
 
 // Dynamic imports for below-the-fold sections — reduces initial JS bundle
 const AboutSection = dynamic(() => import("@/components/about-section").then((m) => ({ default: m.AboutSection })), {
@@ -78,6 +79,7 @@ export default function Home() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }} />
       <Navbar />
       <HeroSection />
+      <StatsBar />
       <GlowDivider />
       <ScrollReveal>
         <AboutSection />

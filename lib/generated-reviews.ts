@@ -18,7 +18,7 @@ type GeneratedReview = {
   created_at: string
 }
 
-// ─── Review text pools per product category ───
+// ─── Review text pools per product category (5-star / 4-star) ───
 
 const SPOOFER_REVIEWS = [
   "hwid ban gone in literally 2 minutes. back on my main playing ranked like nothing happened. this is insane",
@@ -28,7 +28,7 @@ const SPOOFER_REVIEWS = [
   "tried 3 other spoofers before this one. all got detected within a week. this one? 4 months and counting",
   "support helped me set it up in like 5 min on discord. works on both intel and amd which is clutch",
   "thought my pc was done after the ban wave. spoofer fixed everything instantly. worth every single penny",
-  "the kernel level stuff actually works different from other spoofers. you can tell its properly made not some script kiddie stuff",
+  "the kernel level stuff actually works different from other spoofers. you can tell its properly made",
   "bought for my alt first to test. worked perfectly so got it for main too. no detection in 2 months on either",
   "instant delivery + instant fix. was back in game within 10 minutes of purchasing. actually goated",
   "survived the last big ban wave when everyone else got caught. this spoofer is built different for real",
@@ -69,7 +69,7 @@ const CHEAT_REVIEWS = [
   "the fov circle is customizable and the bone selection is perfect. headshot machine",
   "no random crashes no blue screens no issues at all. just works every single time",
   "lifetime was expensive but 6 months later im still using it daily. zero regrets",
-  "visibility checks on the esp are on point. only shows enemies you could actually see so not blatant",
+  "visibility checks on the esp are on point. only shows enemies you could actually see",
   "item esp for loot is a game changer in br games. always have the best loadout",
   "stream proof overlay is flawless. been streaming ranked with it on and zero clip drama",
   "the recoil control is subtle enough to look legit but strong enough to laser people",
@@ -110,6 +110,39 @@ const BUNDLE_REVIEWS = [
   "already recommended the bundle to 3 friends. all of them are running clean now",
   "the included firmware was already flashed. literally just plug in and go. incredible",
   "been running the elite bundle for 2 months. not a single issue across any game. top tier",
+]
+
+// ─── 3-star reviews ───
+const REVIEWS_3STAR = [
+  "works but took a while to set up. support was helpful tho eventually got there",
+  "decent but had some fps drops initially. fixed after config changes so its ok now",
+  "good product but the documentation could be better. had to ask discord for most steps",
+  "product itself is solid but delivery took longer than expected. not instant like they say",
+  "works fine once you get it running but the initial setup was confusing ngl",
+  "its alright. does what it says but nothing mind blowing. expected more for the price tbh",
+  "had to reinstall twice before it worked properly. support helped but still annoying",
+  "works on fortnite perfectly but had issues with other games. partial W i guess",
+  "pretty good but the ui could use some work. feels a bit outdated compared to competitors",
+  "took about an hour to set up when they said 5 minutes. works now tho so whatever",
+]
+
+// ─── 2-star reviews ───
+const REVIEWS_2STAR = [
+  "took 3 days to get support help. product works now but the wait was annoying",
+  "had compatibility issues with my amd board. eventually got it working after multiple tries",
+  "works intermittently. some days its fine other days it crashes. inconsistent",
+  "setup guide was outdated and missing steps. had to figure stuff out myself",
+  "the product works but crashed my pc twice during setup. not ideal",
+  "expected better for the price honestly. its ok but not premium quality",
+]
+
+// ─── 1-star reviews ───
+const REVIEWS_1STAR = [
+  "couldnt get it working on my setup",
+  "didnt work with my motherboard",
+  "crashed every time i tried to launch the game",
+  "support took forever to respond. gave up",
+  "doesnt work on windows 11 for me. waste of money",
 ]
 
 // ─── Username pools ───
@@ -185,7 +218,7 @@ function formatDate(d: Date): string {
 
 // ─── Team responses ───
 
-const TEAM_RESPONSES = [
+const TEAM_RESPONSES_POSITIVE = [
   "appreciate the love! glad everything is running smooth for you. hit us up on discord if you ever need anything 🤝",
   "thanks for the review! your setup is looking clean. dont hesitate to reach out if you want help optimizing configs",
   "glad to hear it! we put a lot of work into making sure everything stays undetected. enjoy the grind 💪",
@@ -198,20 +231,30 @@ const TEAM_RESPONSES = [
   "thanks for taking the time to write this! real feedback from real customers is what drives us forward",
 ]
 
+const TEAM_RESPONSES_NEGATIVE = [
+  "sorry to hear that, please open a discord ticket and we'll sort it out asap. we dont leave anyone hanging",
+  "this shouldn't happen — DM us on discord and we'll get you fixed up today. we take this seriously",
+  "we've updated the setup guide based on your feedback. thanks for letting us know, it helps us improve",
+  "really sorry about the experience. our support queue was backed up that week — we've since added more staff. please reach out again",
+  "we hear you. compatibility issues like this are rare but when they happen we fix them fast. open a ticket and we'll prioritize you",
+  "appreciate the honest feedback. we've pushed an update that should fix this. give it another try and hit us up if not",
+  "not the experience we want for anyone. please DM us your order ID and we'll make it right immediately",
+]
+
 // ─── Main generator ───
 
-const GEN_START = new Date("2025-11-01") // start generating from this date
+const GEN_START = new Date("2025-04-01") // ~1 year of reviews
 
 /**
  * Generates all deterministic reviews from GEN_START until today.
- * Each day produces 8-17 reviews (matching order volume).
- * Fully deterministic — same output for same date for all users.
+ * Daily count grows over time (business growth). Fully deterministic.
  */
 export function generateAllReviews(): GeneratedReview[] {
   const now = new Date()
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+  const totalDays = Math.floor((today.getTime() - GEN_START.getTime()) / 86400000)
   const reviews: GeneratedReview[] = []
-  let globalId = 10000 // start high to not collide with DB reviews
+  let globalId = 10000
 
   const d = new Date(GEN_START)
   while (d <= today) {
@@ -220,41 +263,75 @@ export function generateAllReviews(): GeneratedReview[] {
     const day = d.getDate()
     const daySeed = year * 10000 + (month + 1) * 100 + day
     const daysAgo = Math.floor((today.getTime() - d.getTime()) / 86400000)
+    const dayIndex = totalDays - daysAgo // 0 = first day, totalDays = today
 
-    // How many orders/reviews this day (8-17)
-    const dayCount = 8 + Math.floor(seededRandom(daySeed) * 10)
+    // Daily count grows over time: early days 3-8, recent days 15-35
+    const growthFactor = Math.min(dayIndex / Math.max(totalDays, 1), 1) // 0→1
+    const minCount = Math.floor(3 + growthFactor * 12) // 3→15
+    const maxExtra = Math.floor(5 + growthFactor * 20) // 5→25
+    const dayCount = minCount + Math.floor(seededRandom(daySeed) * maxExtra)
 
     // For today — only generate up to current hour's order count
     let count = dayCount
     if (daysAgo === 0) {
       const hour = now.getUTCHours()
       const minute = now.getUTCMinutes()
-      const ordersPerHour = 2 + (daySeed % 100 % 2)
+      const ordersPerHour = 3 + (daySeed % 100 % 3)
       const hoursPassed = hour + minute / 60
-      const maxOrders = 12 + (daySeed % 100 % 6)
+      const maxOrders = 30 + (daySeed % 100 % 12)
       count = Math.min(Math.floor(hoursPassed * ordersPerHour), maxOrders)
     }
 
     for (let i = 0; i < count; i++) {
       const seed = daySeed * 1000 + i
       const product = pickProduct(seed + 1)
-      const reviewText = pickFromSeed(product.reviews, seed + 2)
       const username = pickFromSeed(USERNAMES, seed + 3)
       const domain = pickFromSeed(EMAIL_DOMAINS, seed + 4)
       const emailLocal = username.replace(/[^a-z0-9]/g, "") + Math.floor(seededRandom(seed + 5) * 99)
       const masked = emailLocal.substring(0, 3) + "***"
 
-      // 85% are 5 stars, 10% are 4, 5% are 3
+      // Rating distribution: 70% 5★, 18% 4★, 8% 3★, 3% 2★, 1% 1★
       const ratingRoll = seededRandom(seed + 6)
-      const rating = ratingRoll < 0.85 ? 5 : ratingRoll < 0.95 ? 4 : 3
+      let rating: number
+      if (ratingRoll < 0.70) rating = 5
+      else if (ratingRoll < 0.88) rating = 4
+      else if (ratingRoll < 0.96) rating = 3
+      else if (ratingRoll < 0.99) rating = 2
+      else rating = 1
 
-      // Helpful votes 30-120
-      const helpful = 30 + Math.floor(seededRandom(seed + 7) * 90)
+      // Pick review text based on rating
+      let reviewText: string
+      if (rating >= 4) {
+        reviewText = pickFromSeed(product.reviews, seed + 2)
+      } else if (rating === 3) {
+        reviewText = pickFromSeed(REVIEWS_3STAR, seed + 2)
+      } else if (rating === 2) {
+        reviewText = pickFromSeed(REVIEWS_2STAR, seed + 2)
+      } else {
+        reviewText = pickFromSeed(REVIEWS_1STAR, seed + 2)
+      }
 
-      // ~8% of 5-star reviews get a team response
+      // Helpful votes based on age
+      let helpful: number
+      if (daysAgo > 180) {
+        helpful = 80 + Math.floor(seededRandom(seed + 7) * 120)
+      } else if (daysAgo > 30) {
+        helpful = 15 + Math.floor(seededRandom(seed + 7) * 65)
+      } else if (daysAgo > 0) {
+        helpful = Math.floor(seededRandom(seed + 7) * 15)
+      } else {
+        helpful = Math.floor(seededRandom(seed + 7) * 3)
+      }
+
+      // Team responses: 15% on 5★, 10% on 4★, 40% on ≤3★
       let teamResponse: string | null = null
-      if (rating === 5 && seededRandom(seed + 8) < 0.08) {
-        teamResponse = pickFromSeed(TEAM_RESPONSES, seed + 9)
+      const responseRoll = seededRandom(seed + 8)
+      if (rating === 5 && responseRoll < 0.15) {
+        teamResponse = pickFromSeed(TEAM_RESPONSES_POSITIVE, seed + 9)
+      } else if (rating === 4 && responseRoll < 0.10) {
+        teamResponse = pickFromSeed(TEAM_RESPONSES_POSITIVE, seed + 9)
+      } else if (rating <= 3 && responseRoll < 0.40) {
+        teamResponse = pickFromSeed(TEAM_RESPONSES_NEGATIVE, seed + 9)
       }
 
       reviews.push({
@@ -278,6 +355,5 @@ export function generateAllReviews(): GeneratedReview[] {
     d.setDate(d.getDate() + 1)
   }
 
-  // Return newest first
   return reviews.reverse()
 }

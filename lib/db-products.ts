@@ -31,7 +31,7 @@ export async function getProductsFromDB(): Promise<Product[]> {
       description: p.description || "",
       longDescription: p.long_description || localProduct?.longDescription || undefined,
       features: p.features || localProduct?.features || undefined,
-      image: p.image || "/placeholder.svg",
+      image: localProduct?.image || p.image || "/placeholder.svg",
       category: p.category || "cheat",
       popular: p.popular || false,
       badge: p.badge || undefined,
