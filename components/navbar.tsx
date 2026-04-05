@@ -106,17 +106,23 @@ export function Navbar() {
               <Logo />
             </Link>
 
-            {/* Nav links */}
-            <div className="hidden lg:flex items-center gap-1 ml-8">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground rounded-lg transition-colors"
-                >
-                  {link.label}
-                </Link>
-              ))}
+            {/* Center nav — pill */}
+            <div className="hidden lg:flex items-center absolute left-1/2 -translate-x-1/2">
+              <div className={`flex items-center gap-0.5 rounded-full px-1 py-1 transition-all duration-300 ${
+                isScrolled
+                  ? "bg-white/[0.04] border border-white/[0.06]"
+                  : "bg-white/[0.03] border border-white/[0.04]"
+              }`}>
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    className="px-4 py-1.5 text-[13px] font-medium text-white/50 hover:text-white hover:bg-white/[0.06] rounded-full transition-all duration-200"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
             </div>
 
             {/* Right side */}

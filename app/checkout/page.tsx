@@ -1134,6 +1134,16 @@ export default function CheckoutPage() {
                   </div>
                 </div>
 
+                {/* Accepted payments */}
+                <div className="px-6 py-4 border-t border-border/30">
+                  <div className="flex items-center justify-center gap-4 mb-3">
+                    <BitcoinIcon className="h-5 w-5 text-[#F7931A]" />
+                    <EthereumIcon className="h-5 w-5 text-[#627EEA]" />
+                    <LitecoinIcon className="h-5 w-5 text-[#345D9D]" />
+                    <PayPalIcon className="h-5 w-5 text-[#0070BA]" />
+                  </div>
+                </div>
+
                 {/* Trust signals */}
                 <div className="px-6 py-5 bg-gradient-to-t from-muted/10 to-transparent border-t border-border/30 space-y-3.5">
                   {[
