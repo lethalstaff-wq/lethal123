@@ -113,7 +113,7 @@ export function HeroSection() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12 animate-fade-in-up animate-delay-300">
           <Button
             size="lg"
-            className="bg-gradient-to-r from-primary to-accent hover:opacity-90 text-white font-bold px-8 h-13 rounded-xl shadow-lg shadow-primary/25 btn-glow"
+            className="bg-gradient-to-r from-primary to-accent hover:opacity-90 text-white font-bold px-8 h-13 rounded-2xl shadow-lg shadow-primary/25 btn-glow"
             asChild
           >
             <Link href="/products">
@@ -124,7 +124,7 @@ export function HeroSection() {
           <Button
             size="lg"
             variant="outline"
-            className="border-white/10 bg-white/5 hover:bg-white/10 text-white font-semibold px-8 h-13 rounded-xl"
+            className="border-white/10 bg-white/5 hover:bg-white/10 text-white font-semibold px-8 h-13 rounded-2xl"
             asChild
           >
             <Link href="/reviews">847+ Reviews</Link>

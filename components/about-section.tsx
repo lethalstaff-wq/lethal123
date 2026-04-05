@@ -65,7 +65,7 @@ export function AboutSection() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {featuredProducts.map((product, index) => (
             <Link key={index} href={`/products/${product.slug}`} className="group">
-              <div className="relative rounded-2xl glass overflow-hidden card-hover hover:border-primary/40 card-glow-border">
+              <div className="relative rounded-2xl glass overflow-hidden card-hover hover:border-primary/40 card-glow-border hover:shadow-2xl hover:shadow-primary/10">
                 {/* Tag */}
                 <div className="absolute top-5 left-5 z-10">
                   <span className="px-3 py-1.5 rounded-full text-[11px] font-bold bg-primary text-primary-foreground shadow-lg">

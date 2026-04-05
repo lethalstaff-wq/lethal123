@@ -278,29 +278,6 @@ export function ProductDetailClient({ product }: { product: Product }) {
         ))}
       </div>
 
-      {/* ═══ Social Proof ═══ */}
-      <div className="mt-8 flex flex-col sm:flex-row items-center justify-between rounded-2xl border border-border/30 bg-card/30 px-6 py-4 gap-4">
-        <div className="flex items-center gap-3">
-          <div className="flex -space-x-2">
-            {["A", "B", "C", "D"].map((letter, i) => (
-              <div key={i} className="w-8 h-8 rounded-full bg-primary/20 border-2 border-background flex items-center justify-center text-xs font-bold text-primary">
-                {letter}
-              </div>
-            ))}
-          </div>
-          <div>
-            <p className="text-sm font-semibold">Trusted by thousands of players</p>
-            <p className="text-xs text-muted-foreground">847+ verified 5-star reviews</p>
-          </div>
-        </div>
-        <div className="flex items-center gap-1">
-          {[1, 2, 3, 4, 5].map((i) => (
-            <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-          ))}
-          <span className="ml-1.5 font-bold text-sm">4.9</span>
-        </div>
-      </div>
-
       {/* Discord Checkout Modal */}
       <DiscordCheckoutModal
         isOpen={showDiscordModal}

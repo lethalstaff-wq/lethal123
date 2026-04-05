@@ -70,7 +70,7 @@ const testimonials = [
 
 const ReviewCard = memo(function ReviewCard({ testimonial }: { testimonial: (typeof testimonials)[number] }) {
   return (
-    <div className="flex-shrink-0 w-[280px] sm:w-[360px] rounded-2xl glass p-6 flex flex-col hover:border-primary/40 transition-all">
+    <div className="flex-shrink-0 w-[280px] sm:w-[360px] rounded-2xl glass p-6 flex flex-col hover:border-primary/40 transition-all card-glow-border">
       {/* Rating */}
       <div className="flex items-center gap-1 mb-4">
         {Array.from({ length: testimonial.rating }).map((_, i) => (

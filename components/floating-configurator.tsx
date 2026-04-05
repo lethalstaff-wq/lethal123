@@ -116,7 +116,7 @@ export function FloatingConfigurator() {
             {/* Header */}
             <div className="flex items-center justify-between p-6 border-b border-white/10 flex-shrink-0">
               <div className="flex items-center gap-3">
-                <div className="p-2.5 rounded-xl bg-primary/10">
+                <div className="p-2.5 rounded-lg bg-primary/10">
                   <Sparkles className="h-5 w-5 text-primary" />
                 </div>
                 <div>
@@ -136,7 +136,7 @@ export function FloatingConfigurator() {
             <div className="p-6 overflow-y-auto flex-1">
               {step === "purpose" && (
                 <div className="space-y-3">
-                  <p className="text-sm text-white/60 mb-4">What are you looking for?</p>
+                  <p className="text-sm text-white/60 mb-4">What&apos;s your use case?</p>
                   {PURPOSE_OPTIONS.map((option) => (
                     <button
                       key={option.id}
@@ -183,7 +183,7 @@ export function FloatingConfigurator() {
                   
                   {recommendations.length > 0 ? (
                     <>
-                      <p className="text-sm text-white/60">Found {recommendations.length} products for you:</p>
+                      <p className="text-sm text-white/60">Perfect matches ({recommendations.length}):</p>
                       <div className="space-y-3">
                         {recommendations.map((product) => {
                           const minPrice = Math.min(...product.variants.map(v => v.priceInPence))
@@ -194,7 +194,7 @@ export function FloatingConfigurator() {
                               onClick={() => setIsOpen(false)}
                               className="flex items-center gap-4 p-4 rounded-xl border border-white/10 hover:border-primary/50 hover:bg-primary/5 transition-all group"
                             >
-                              <div className="relative w-14 h-14 rounded-xl overflow-hidden border border-white/10 flex-shrink-0">
+                              <div className="relative w-14 h-14 rounded-lg overflow-hidden border border-white/10 flex-shrink-0">
                                 <Image src={product.image} alt={product.name} fill className="object-cover" />
                               </div>
                               <div className="flex-1 min-w-0">
@@ -216,7 +216,7 @@ export function FloatingConfigurator() {
                     </>
                   ) : (
                     <div className="text-center py-8">
-                      <p className="text-white/50 mb-4">No products match this budget. Try a higher budget!</p>
+                      <p className="text-white/50 mb-4">Nothing in that range yet. Try increasing your budget.</p>
                       <Button onClick={reset} variant="outline">Try Different Options</Button>
                     </div>
                   )}
