@@ -16,17 +16,17 @@ export function ChatWidget() {
 
   return (
     <>
-      {/* Button */}
+      {/* Button — left side, above live purchases area */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`fixed bottom-20 left-6 z-[80] p-3.5 rounded-2xl bg-[#5865F2] text-white shadow-lg shadow-[#5865F2]/25 hover:shadow-xl hover:-translate-y-0.5 transition-all ${isOpen ? "opacity-0 pointer-events-none" : ""}`}
+        className={`fixed bottom-20 left-6 z-[75] p-3.5 rounded-2xl bg-[#5865F2] text-white shadow-lg shadow-[#5865F2]/25 hover:shadow-xl hover:-translate-y-0.5 transition-all ${isOpen ? "opacity-0 pointer-events-none" : ""}`}
       >
         <MessageCircle className="h-5 w-5" />
       </button>
 
       {/* Panel */}
       {isOpen && (
-        <div className="fixed bottom-20 left-6 z-[100] w-[340px] rounded-2xl border border-white/[0.08] bg-[#0c0c0e] shadow-2xl overflow-hidden animate-in slide-in-from-bottom-4 fade-in duration-300">
+        <div className="fixed bottom-6 left-6 z-[100] w-[340px] rounded-2xl border border-white/[0.08] bg-[#0c0c0e] shadow-2xl overflow-hidden animate-in slide-in-from-bottom-4 fade-in duration-300">
           {/* Header */}
           <div className="flex items-center justify-between p-4 bg-[#5865F2]">
             <div>

@@ -12,20 +12,29 @@ function formatTimeAgo(dateStr: string | null): string {
   return `${Math.floor(days / 30)} months ago`
 }
 
-export async function GET() {
+export async function GET(request: Request) {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
   if (!url || !key) {
     return NextResponse.json({ reviews: [], totalCount: 0 }, { status: 200 })
   }
 
+  const { searchParams } = new URL(request.url)
+  const productId = searchParams.get("product")
+
   const db = createClient(url, key)
 
-  const { data, count, error } = await db
+  let query = db
     .from("reviews")
     .select("*, products(name)", { count: "exact" })
     .order("created_at", { ascending: false })
     .limit(4000)
+
+  if (productId) {
+    query = query.eq("product_id", productId)
+  }
+
+  const { data, count, error } = await query
 
   if (error) {
     console.error("Reviews API error:", error.message)

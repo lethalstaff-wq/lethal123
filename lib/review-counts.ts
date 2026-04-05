@@ -1,4 +1,4 @@
-// Review counts — source of truth
+// Review counts — source of truth (approximate, real counts come from DB)
 
 export const PRODUCT_REVIEW_COUNTS: Record<string, number> = {
   "perm-spoofer": 156,
@@ -30,9 +30,9 @@ export function getProductReviewCount(slugOrName: string): number {
   return PRODUCT_REVIEW_COUNTS[slug] || 0
 }
 
-/** Always returns 847 */
+/** Sum of all product review counts */
 export function getTotalReviewCount(): number {
-  return 847
+  return Object.values(PRODUCT_REVIEW_COUNTS).reduce((sum, count) => sum + count, 0)
 }
 
 /**
@@ -47,7 +47,6 @@ export function getOrdersToday(): number {
   const minute = now.getUTCMinutes()
 
   const daySeed = (year * 366 + month * 31 + day) % 100
-  // ~2 orders per hour, max 15-20
   const ordersPerHour = 1.5 + (daySeed % 2) * 0.5
   const hoursPassed = hour + minute / 60
   let orders = Math.floor(hoursPassed * ordersPerHour)

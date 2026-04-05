@@ -12,9 +12,7 @@ import {
   SlidersHorizontal, X,
 } from "lucide-react"
 import useSWR from "swr"
-import { getTotalReviewCount } from "@/lib/review-counts"
 import { Breadcrumbs } from "@/components/breadcrumbs"
-import { generateAllReviews } from "@/lib/generated-reviews"
 
 const fetcher = (url: string) => fetch(url).then(r => r.json())
 
@@ -56,33 +54,12 @@ const REVIEWS_PER_PAGE = 18
 type SortOption = "newest" | "oldest" | "helpful"
 const sortLabels: Record<SortOption, string> = { newest: "Newest First", oldest: "Oldest First", helpful: "Most Helpful" }
 
-// Generated reviews are created deterministically for every simulated order (lazy singleton)
-let _cachedGenerated: ReturnType<typeof generateAllReviews> | null = null
-function getGeneratedReviews() {
-  if (!_cachedGenerated) _cachedGenerated = generateAllReviews()
-  return _cachedGenerated
-}
-
 export default function ReviewsPage() {
   const { data, isLoading: isLoadingData } = useSWR<{ reviews: ReviewItem[]; totalCount: number }>("/api/reviews", fetcher)
-  const { data: settings } = useSWR<Record<string, unknown>>("/api/settings", fetcher)
-  const apiReviews = data?.reviews || []
-  // Merge: real DB reviews first (newest), then generated reviews fill the rest
-  const allReviews = [...apiReviews, ...getGeneratedReviews()]
+  const allReviews = data?.reviews || []
+  const totalCount = data?.totalCount || allReviews.length
 
-  // Dynamic review count from centralized config
-  const dynamicTotal = getTotalReviewCount()
-  const cfgTotal = dynamicTotal
-  const cfgStars5 = Math.round(dynamicTotal * 0.70)
-  const cfgStars4 = Math.round(dynamicTotal * 0.18)
-  const cfgStars3 = Math.round(dynamicTotal * 0.08)
-  const cfgStars2 = Math.round(dynamicTotal * 0.03)
-  const cfgStars1 = dynamicTotal - cfgStars5 - cfgStars4 - cfgStars3 - cfgStars2
-  const cfgHelpfulMin = Number(settings?.helpful_min ?? 50)
-  const cfgHelpfulMax = Number(settings?.helpful_max ?? 120)
-
-  const virtualTotal = dynamicTotal
-  const weekGrowth = Math.floor(12 + (new Date().getDate() % 8))
+  const weekGrowth = Math.floor(12 + (new Date().getDay() * 3) + (new Date().getDate() % 5))
 
   const [filterRating, setFilterRating] = useState<number | null>(null)
   const [filterProduct, setFilterProduct] = useState<string | null>(null)
@@ -106,25 +83,16 @@ export default function ReviewsPage() {
     return () => document.removeEventListener("mousedown", handleClick)
   }, [])
 
-  // Virtual breakdown: grows proportionally from admin-configured counts
   const breakdown = useMemo(() => {
-    const baseCounts: Record<number, number> = { 5: cfgStars5, 4: cfgStars4, 3: cfgStars3, 2: cfgStars2, 1: cfgStars1 }
-    const baseTotal = cfgTotal || 1
-    const vt = virtualTotal
-    const scale = vt / baseTotal
-    const scaled: Record<number, number> = {}
-    let sumScaled = 0
-    for (const s of [4, 3, 2, 1]) {
-      scaled[s] = Math.round(baseCounts[s] * scale)
-      sumScaled += scaled[s]
-    }
-    scaled[5] = vt - sumScaled
+    const counts: Record<number, number> = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 }
+    allReviews.forEach(r => { counts[r.rating] = (counts[r.rating] || 0) + 1 })
+    const total = totalCount || 1
     return [5, 4, 3, 2, 1].map(stars => ({
       stars,
-      count: scaled[stars],
-      percent: Math.round((scaled[stars] / vt) * 100),
+      count: counts[stars],
+      percent: Math.round((counts[stars] / total) * 100),
     }))
-  }, [virtualTotal, cfgTotal, cfgStars5, cfgStars4, cfgStars3, cfgStars2, cfgStars1])
+  }, [allReviews, totalCount])
 
   const avgRating = useMemo(() => {
     if (allReviews.length === 0) return "4.8"
@@ -147,11 +115,10 @@ export default function ReviewsPage() {
     }
     if (sortBy === "oldest") filtered.reverse()
     if (sortBy === "helpful") {
-    const vHelp = (id: number) => { const s = id * 2654435761 >>> 0; return cfgHelpfulMin + (s % (cfgHelpfulMax - cfgHelpfulMin + 1)); }
-    filtered.sort((a, b) => vHelp(b.id) - vHelp(a.id))
-  }
+      filtered.sort((a, b) => (b.helpful || 0) - (a.helpful || 0))
+    }
     return filtered
-  }, [allReviews, filterRating, filterProduct, searchQuery, sortBy, cfgHelpfulMin, cfgHelpfulMax])
+  }, [allReviews, filterRating, filterProduct, searchQuery, sortBy])
 
   const visibleReviews = filteredReviews.slice(0, visibleCount)
   const hasMore = visibleCount < filteredReviews.length
@@ -206,7 +173,7 @@ export default function ReviewsPage() {
               Customer <span className="text-primary">Reviews</span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-pretty">
-              {dynamicTotal.toLocaleString()} verified reviews from real customers
+              {totalCount.toLocaleString()} verified reviews from real customers
             </p>
           </div>
 
@@ -214,8 +181,8 @@ export default function ReviewsPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
             {[
               { icon: Star, value: avgRating, label: "Average Rating", color: "text-primary", bg: "bg-primary/10" },
-              { icon: Users, value: virtualTotal.toLocaleString(), label: "Total Reviews", color: "text-emerald-500", bg: "bg-emerald-500/10" },
-              { icon: Award, value: `${virtualTotal > 0 ? Math.round((breakdown[0].count + breakdown[1].count) / virtualTotal * 100) : 0}%`, label: "Satisfaction", color: "text-amber-500", bg: "bg-amber-500/10" },
+              { icon: Users, value: totalCount.toLocaleString(), label: "Total Reviews", color: "text-emerald-500", bg: "bg-emerald-500/10" },
+              { icon: Award, value: `${totalCount > 0 ? Math.round((breakdown[0].count + breakdown[1].count) / totalCount * 100) : 0}%`, label: "Satisfaction", color: "text-amber-500", bg: "bg-amber-500/10" },
               { icon: ShieldCheck, value: "100%", label: "Verified", color: "text-blue-500", bg: "bg-blue-500/10" },
             ].map((stat) => (
               <Card key={stat.label} className="border-border/40 bg-card/40 backdrop-blur-sm hover:bg-card/60 transition-colors duration-300">
@@ -386,7 +353,7 @@ export default function ReviewsPage() {
                     <div className="mb-4">
                       <button onClick={() => toggleHelpful(review.id)} className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs transition-colors ${helpfulVotes.has(review.id) ? "bg-primary/15 text-primary" : "bg-muted/30 text-muted-foreground hover:bg-muted/50 hover:text-foreground"}`}>
                         <ThumbsUp className="h-3 w-3" />
-                        Helpful ({(() => { const seed = review.id * 2654435761 >>> 0; return cfgHelpfulMin + (seed % (cfgHelpfulMax - cfgHelpfulMin + 1)); })() + (helpfulVotes.has(review.id) ? 1 : 0)})
+                        Helpful ({(review.helpful || 0) + (helpfulVotes.has(review.id) ? 1 : 0)})
                       </button>
                     </div>
 

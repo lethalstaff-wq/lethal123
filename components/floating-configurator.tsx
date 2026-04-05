@@ -15,6 +15,12 @@ interface Answers {
   budgetMax: number
 }
 
+interface Recommendation {
+  product: typeof PRODUCTS[number]
+  variant: typeof PRODUCTS[number]["variants"][number]
+  reason: string
+}
+
 function getReasonText(product: typeof PRODUCTS[number], answers: Answers): string {
   if (answers.purpose === "banned") {
     if (product.id === "perm-spoofer") return "One install — your banned HWID is gone forever"
@@ -29,7 +35,15 @@ function getReasonText(product: typeof PRODUCTS[number], answers: Answers): stri
   return "Recommended for your setup"
 }
 
-function getRecommendations(answers: Answers) {
+function getBestVariant(product: typeof PRODUCTS[number], budgetMax: number) {
+  // Find the most expensive variant that fits the budget (best value within budget)
+  const affordable = product.variants.filter(v => v.priceInPence <= budgetMax)
+  if (affordable.length === 0) return product.variants[0] // fallback to cheapest
+  // Pick the most expensive affordable one (longest duration / lifetime)
+  return affordable.reduce((best, v) => v.priceInPence > best.priceInPence ? v : best, affordable[0])
+}
+
+function getRecommendations(answers: Answers): Recommendation[] {
   if (!answers.purpose) return []
 
   let filtered = [...PRODUCTS]
@@ -39,10 +53,8 @@ function getRecommendations(answers: Answers) {
     filtered = filtered.filter(p => p.category === "spoofer")
   } else if (answers.purpose === "cheats") {
     if (answers.hasDMA === false) {
-      // No DMA — only show external cheats (non-DMA)
       filtered = filtered.filter(p => p.category === "cheat" && !p.name.toLowerCase().includes("dma"))
     } else if (answers.hasDMA === true) {
-      // Has DMA — show DMA cheats + firmware
       filtered = filtered.filter(p =>
         (p.category === "cheat" && p.name.toLowerCase().includes("dma")) ||
         p.category === "firmware"
@@ -55,13 +67,11 @@ function getRecommendations(answers: Answers) {
   } else if (answers.purpose === "bundle") {
     filtered = filtered.filter(p => p.category === "bundle")
   }
-  // "all" — no category filter
 
-  // Filter by budget
-  filtered = filtered.filter(p => {
-    const minPrice = Math.min(...p.variants.map(v => v.priceInPence))
-    return minPrice <= answers.budgetMax
-  })
+  // Filter: at least one variant must be within budget
+  filtered = filtered.filter(p =>
+    p.variants.some(v => v.priceInPence <= answers.budgetMax)
+  )
 
   // Sort: popular first, then by price
   filtered.sort((a, b) => {
@@ -72,7 +82,11 @@ function getRecommendations(answers: Answers) {
     return aMin - bMin
   })
 
-  return filtered.slice(0, 5)
+  return filtered.slice(0, 5).map(product => ({
+    product,
+    variant: getBestVariant(product, answers.budgetMax),
+    reason: getReasonText(product, answers),
+  }))
 }
 
 export function FloatingConfigurator() {
@@ -81,7 +95,7 @@ export function FloatingConfigurator() {
   const [answers, setAnswers] = useState<Answers>({
     purpose: null, hasDMA: null, game: null, budgetMax: 99999999
   })
-  const [recommendations, setRecommendations] = useState<typeof PRODUCTS>([])
+  const [recommendations, setRecommendations] = useState<Recommendation[]>([])
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
@@ -102,8 +116,7 @@ export function FloatingConfigurator() {
     else if (step === "game") setStep("dma-check")
     else if (step === "budget") {
       if (answers.purpose === "cheats") {
-        if (answers.hasDMA === false) setStep("dma-check")
-        else setStep("dma-check")
+        setStep("dma-check")
       } else setStep("purpose")
     }
     else if (step === "result") setStep("budget")
@@ -311,41 +324,37 @@ export function FloatingConfigurator() {
                       </div>
 
                       <div className="space-y-2.5">
-                        {recommendations.map((product, i) => {
-                          const minPrice = Math.min(...product.variants.map(v => v.priceInPence))
-                          const reason = getReasonText(product, answers)
-                          return (
-                            <Link
-                              key={product.id}
-                              href={`/products/${product.id}`}
-                              onClick={() => setIsOpen(false)}
-                              className="block rounded-xl border border-white/[0.06] hover:border-primary/30 overflow-hidden transition-all group"
-                            >
-                              {i === 0 && (
-                                <div className="bg-primary/[0.06] border-b border-primary/10 px-3.5 py-1.5">
-                                  <p className="text-[10px] font-bold text-primary uppercase tracking-widest flex items-center gap-1">
-                                    <Sparkles className="h-3 w-3" /> Best match
-                                  </p>
-                                </div>
-                              )}
-                              <div className="flex items-center gap-3 p-3.5">
-                                <div className="w-11 h-11 rounded-lg overflow-hidden border border-white/[0.06] flex-shrink-0 bg-white/[0.02]">
-                                  <Image src={product.image} alt={product.name} width={44} height={44} className="object-cover w-full h-full" />
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                  <div className="flex items-center gap-1.5">
-                                    <p className="text-sm font-bold truncate group-hover:text-primary transition-colors">{product.name}</p>
-                                    {product.popular && (
-                                      <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-primary/10 text-primary font-bold shrink-0">HOT</span>
-                                    )}
-                                  </div>
-                                  <p className="text-[11px] text-white/25 truncate">{reason}</p>
-                                </div>
-                                <p className="text-sm font-bold text-primary shrink-0">{formatPrice(minPrice)}</p>
+                        {recommendations.map((rec, i) => (
+                          <Link
+                            key={rec.product.id}
+                            href={`/products/${rec.product.id}?variant=${rec.variant.id}`}
+                            onClick={() => setIsOpen(false)}
+                            className="block rounded-xl border border-white/[0.06] hover:border-primary/30 overflow-hidden transition-all group"
+                          >
+                            {i === 0 && (
+                              <div className="bg-primary/[0.06] border-b border-primary/10 px-3.5 py-1.5">
+                                <p className="text-[10px] font-bold text-primary uppercase tracking-widest flex items-center gap-1">
+                                  <Sparkles className="h-3 w-3" /> Best match
+                                </p>
                               </div>
-                            </Link>
-                          )
-                        })}
+                            )}
+                            <div className="flex items-center gap-3 p-3.5">
+                              <div className="w-11 h-11 rounded-lg overflow-hidden border border-white/[0.06] flex-shrink-0 bg-white/[0.02]">
+                                <Image src={rec.product.image} alt={rec.product.name} width={44} height={44} className="object-cover w-full h-full" />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-1.5">
+                                  <p className="text-sm font-bold truncate group-hover:text-primary transition-colors">{rec.product.name}</p>
+                                  {rec.product.popular && (
+                                    <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-primary/10 text-primary font-bold shrink-0">HOT</span>
+                                  )}
+                                </div>
+                                <p className="text-[11px] text-white/25 truncate">{rec.variant.name} — {rec.reason}</p>
+                              </div>
+                              <p className="text-sm font-bold text-primary shrink-0">{formatPrice(rec.variant.priceInPence)}</p>
+                            </div>
+                          </Link>
+                        ))}
                       </div>
 
                       {/* Footer */}

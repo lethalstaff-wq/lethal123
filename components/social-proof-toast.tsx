@@ -3,16 +3,32 @@
 import { useState, useEffect, useCallback } from "react"
 import { ShoppingBag, CheckCircle2 } from "lucide-react"
 
-const BUYER_NAMES = [
-  "James", "Alex", "Ryan", "Daniel", "Tom", "Chris", "Mike", "Nick",
-  "Sam", "Jake", "Max", "Liam", "Noah", "Ethan", "Lucas", "Ben",
-  "Jack", "Leo", "Kai", "Finn", "Josh", "Kyle", "Drew", "Cole",
-  "Matt", "Zach", "Will", "Owen", "Luke", "Adam", "Ian", "Jay",
-]
-
-const LOCATIONS = [
-  "UK", "US", "DE", "FR", "NL", "SE", "NO", "AU",
-  "CA", "PL", "ES", "IT", "DK", "FI", "BE", "AT",
+// Masked emails — looks like real user data from the dashboard
+const MASKED_EMAILS = [
+  "koi***@yahoo.com",
+  "arc***@gmail.com",
+  "cam***@outlook.com",
+  "jst***@gmail.com",
+  "dex***@proton.me",
+  "nit***@hotmail.com",
+  "zer***@gmail.com",
+  "blk***@yahoo.com",
+  "rxn***@gmail.com",
+  "mvp***@outlook.com",
+  "hxc***@gmail.com",
+  "fnx***@proton.me",
+  "sky***@gmail.com",
+  "drk***@yahoo.com",
+  "ace***@gmail.com",
+  "vex***@hotmail.com",
+  "rog***@gmail.com",
+  "zyn***@outlook.com",
+  "phr***@gmail.com",
+  "wrx***@proton.me",
+  "kng***@gmail.com",
+  "spc***@yahoo.com",
+  "hex***@gmail.com",
+  "ash***@outlook.com",
 ]
 
 const PRODUCTS = [
@@ -23,7 +39,7 @@ const PRODUCTS = [
   { name: "Streck DMA", price: "£8" },
   { name: "DMA Basic Bundle", price: "£425" },
   { name: "DMA Advanced Bundle", price: "£675" },
-  { name: "Custom DMA Firmware", price: "£20" },
+  { name: "Custom DMA Firmware", price: "£200" },
 ]
 
 function seededPick<T>(arr: T[], seed: number): T {
@@ -32,19 +48,17 @@ function seededPick<T>(arr: T[], seed: number): T {
 
 export function SocialProofToast() {
   const [visible, setVisible] = useState(false)
-  const [notification, setNotification] = useState({ name: "", location: "", product: "", time: "" })
+  const [notification, setNotification] = useState({ email: "", product: "", time: "" })
 
   const showNotification = useCallback(() => {
     const now = Date.now()
-    const seed = Math.floor(now / 30000) // changes every 30s
-    const name = seededPick(BUYER_NAMES, seed)
-    const location = seededPick(LOCATIONS, seed * 7 + 3)
+    const seed = Math.floor(now / 30000)
+    const email = seededPick(MASKED_EMAILS, seed)
     const product = seededPick(PRODUCTS, seed * 13 + 7)
     const minutes = 1 + (seed % 12)
 
     setNotification({
-      name: `${name} from ${location}`,
-      location,
+      email,
       product: product.name,
       time: `${minutes} min ago`,
     })
@@ -55,11 +69,9 @@ export function SocialProofToast() {
   }, [])
 
   useEffect(() => {
-    // First show after 8-15 seconds
     const initialDelay = 8000 + Math.random() * 7000
     const firstTimer = setTimeout(showNotification, initialDelay)
 
-    // Then every 25-45 seconds
     const interval = setInterval(() => {
       showNotification()
     }, 25000 + Math.random() * 20000)
@@ -83,8 +95,8 @@ export function SocialProofToast() {
           <ShoppingBag className="h-4 w-4 text-emerald-400" />
         </div>
         <div className="min-w-0 flex-1">
-          <p className="text-sm font-medium text-foreground leading-tight">
-            {notification.name}
+          <p className="text-sm font-medium text-foreground leading-tight font-mono">
+            {notification.email}
           </p>
           <p className="text-xs text-muted-foreground mt-0.5">
             purchased <span className="text-[#EF6F29] font-medium">{notification.product}</span>

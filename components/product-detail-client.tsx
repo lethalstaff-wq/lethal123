@@ -1,38 +1,42 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { useCart } from "@/lib/cart-context"
 import {
   ShoppingCart, Zap, Star, Shield, Minus, Plus, Check,
-  CheckCircle2, MessageCircle, Lock, Clock, Globe, ShoppingBag, Heart
+  CheckCircle2, MessageCircle, Lock, Clock, Globe, ThumbsUp, ArrowRight
 } from "lucide-react"
 import { getProductReviewCount } from "@/lib/review-counts"
 import { DiscordCheckoutModal } from "@/components/discord-checkout-modal"
 import { BitcoinIcon, EthereumIcon, LitecoinIcon, PayPalIcon } from "@/components/crypto-icons"
-import { PRODUCTS } from "@/lib/products"
-import { toggleWishlist, isInWishlist } from "@/lib/wishlist"
 import { toast } from "sonner"
+import useSWR from "swr"
 
-function getRelatedProducts(current: Product) {
-  const rules: Record<string, string[]> = {
-    "fortnite-external": ["perm-spoofer", "temp-spoofer", "blurred"],
-    "blurred": ["custom-dma-firmware", "perm-spoofer", "fortnite-external"],
-    "streck": ["custom-dma-firmware", "perm-spoofer", "blurred"],
-    "perm-spoofer": ["fortnite-external", "blurred", "temp-spoofer"],
-    "temp-spoofer": ["perm-spoofer", "fortnite-external", "blurred"],
-    "custom-dma-firmware": ["blurred", "streck", "dma-advanced"],
-    "dma-basic": ["dma-advanced", "perm-spoofer", "blurred"],
-    "dma-advanced": ["dma-elite", "perm-spoofer", "blurred"],
-    "dma-elite": ["perm-spoofer", "fortnite-external", "blurred"],
-  }
-  const ids = rules[current.id] || ["perm-spoofer", "fortnite-external", "blurred"]
-  return ids.map(id => PRODUCTS.find(p => p.id === id)).filter(Boolean).slice(0, 3) as typeof PRODUCTS
+const fetcher = (url: string) => fetch(url).then(r => r.json())
+
+function maskEmail(email: string) {
+  if (!email) return "***@***.com"
+  const [local, domain] = email.split("@")
+  const masked = local.length <= 3 ? local[0] + "***" : local.substring(0, 3) + "***"
+  return `${masked}@${domain}`
 }
+
+function formatTimeAgo(dateStr: string) {
+  if (!dateStr) return "recently"
+  const diff = Date.now() - new Date(dateStr).getTime()
+  const days = Math.floor(diff / 86400000)
+  if (days < 1) return "today"
+  if (days === 1) return "1 day ago"
+  if (days < 30) return `${days} days ago`
+  if (days < 60) return "1 month ago"
+  return `${Math.floor(days / 30)} months ago`
+}
+
 
 interface Variant {
   id: string
@@ -56,14 +60,34 @@ interface Product {
 }
 
 export function ProductDetailClient({ product }: { product: Product }) {
-  const [selectedVariant, setSelectedVariant] = useState(product.variants[0])
+  const searchParams = useSearchParams()
+  const variantParam = searchParams.get("variant")
+
+  const [selectedVariant, setSelectedVariant] = useState(() => {
+    if (variantParam) {
+      const found = product.variants.find(v => v.id === variantParam)
+      if (found) return found
+    }
+    return product.variants[0]
+  })
   const [quantity, setQuantity] = useState(1)
   const [showDiscordModal, setShowDiscordModal] = useState(false)
   const [viewingNow, setViewingNow] = useState(0)
-  const [wishlisted, setWishlisted] = useState(false)
   const [showStickyBar, setShowStickyBar] = useState(false)
   const { addItem } = useCart()
   const router = useRouter()
+
+  // Fetch product-specific reviews
+  const { data: reviewData } = useSWR<{ reviews: Array<{ id: number; text: string; rating: number; username: string; email: string; helpful: number; team_response: string | null; created_at: string }>; totalCount: number }>(
+    `/api/reviews?product=${product.id}`, fetcher
+  )
+  const productReviews = useMemo(() => {
+    if (!reviewData?.reviews) return []
+    return reviewData.reviews
+      .filter(r => r.rating >= 4 && r.text && r.text.length > 20)
+      .slice(0, 4)
+  }, [reviewData])
+  const reviewCount = reviewData?.totalCount || getProductReviewCount(product.slug)
 
   const [lastPurchased] = useState(() => {
     const seed = product.id.split("").reduce((a, c) => a + c.charCodeAt(0), 0)
@@ -76,10 +100,6 @@ export function ProductDetailClient({ product }: { product: Product }) {
     setViewingNow(gen())
     const interval = setInterval(() => setViewingNow(gen()), 30000)
     return () => clearInterval(interval)
-  }, [product.id])
-
-  useEffect(() => {
-    setWishlisted(isInWishlist(product.id))
   }, [product.id])
 
   useEffect(() => {
@@ -141,12 +161,6 @@ export function ProductDetailClient({ product }: { product: Product }) {
               <Zap className="h-3 w-3 mr-1" />
               Instant Delivery
             </Badge>
-            <button
-              onClick={() => { const added = toggleWishlist(product.id); setWishlisted(added); toast.success(added ? "Added to wishlist" : "Removed from wishlist") }}
-              className="absolute top-4 right-4 z-10 p-2.5 rounded-full bg-black/40 backdrop-blur-sm hover:bg-black/60 transition-all"
-            >
-              <Heart className={`h-4 w-4 ${wishlisted ? "fill-red-500 text-red-500" : "text-white/50"}`} />
-            </button>
             <div className="absolute inset-0 flex items-center justify-center p-10">
               <Image
                 src={product.image || "/placeholder.svg"}
@@ -199,7 +213,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
               <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
               <span className="font-bold text-sm text-yellow-400">5.0</span>
             </div>
-            <span className="text-sm text-muted-foreground">{getProductReviewCount(product.slug)} Verified Reviews</span>
+            <span className="text-sm text-muted-foreground">{reviewCount} Verified Reviews</span>
             <span className="text-muted-foreground/30">·</span>
             <div className="flex items-center gap-1.5">
               <span className="relative flex h-2 w-2">
@@ -351,24 +365,66 @@ export function ProductDetailClient({ product }: { product: Product }) {
         ))}
       </div>
 
-      {/* ═══ Cross-sell ═══ */}
-      <div className="mt-12">
-        <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
-          <ShoppingBag className="h-5 w-5 text-primary/60" />
-          Customers also bought
-        </h3>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-          {getRelatedProducts(product).map((related) => (
-            <Link key={related.id} href={`/products/${related.id}`} className="group rounded-xl border border-border/30 bg-card/30 p-3 hover:border-primary/20 transition-all">
-              <div className="h-20 flex items-center justify-center mb-2">
-                <Image src={related.image} alt={related.name} width={80} height={60} className="object-contain group-hover:scale-105 transition-transform" />
+      {/* ═══ What Buyers Say ═══ */}
+      {productReviews.length > 0 && (
+        <div className="mt-12">
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-lg bg-amber-500/15 flex items-center justify-center">
+                <Star className="h-4 w-4 text-amber-400" />
               </div>
-              <p className="text-xs font-semibold truncate group-hover:text-primary transition-colors">{related.name}</p>
-              <p className="text-xs text-primary font-bold">from {"£"}{(Math.min(...related.variants.map(v => v.priceInPence)) / 100).toFixed(0)}</p>
+              <div>
+                <h2 className="text-xl font-bold">What Buyers Say</h2>
+                <p className="text-xs text-muted-foreground">{reviewCount} verified reviews</p>
+              </div>
+            </div>
+            <Link href={`/reviews`} className="text-xs text-primary hover:text-primary/80 flex items-center gap-1 transition-colors">
+              See all reviews <ArrowRight className="h-3 w-3" />
             </Link>
-          ))}
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {productReviews.map((review) => (
+              <div key={review.id} className="rounded-xl border border-border/30 bg-card/30 p-5 hover:border-border/50 transition-colors">
+                {/* Stars */}
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="flex gap-0.5">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <Star key={i} className={`h-3.5 w-3.5 ${i < review.rating ? "fill-amber-400 text-amber-400" : "fill-muted text-muted"}`} />
+                    ))}
+                  </div>
+                  <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-emerald-500/10 text-[10px] font-medium text-emerald-500">
+                    <CheckCircle2 className="h-2.5 w-2.5" /> Verified
+                  </span>
+                </div>
+
+                {/* Text */}
+                <p className="text-sm text-foreground/85 leading-relaxed mb-3">{review.text}</p>
+
+                {/* Team response */}
+                {review.team_response && (
+                  <div className="mb-3 rounded-lg bg-primary/[0.04] border border-primary/10 p-3">
+                    <p className="text-[11px] font-semibold text-primary mb-1">Lethal Team</p>
+                    <p className="text-xs text-foreground/60 leading-relaxed">{review.team_response}</p>
+                  </div>
+                )}
+
+                {/* Footer */}
+                <div className="flex items-center justify-between pt-3 border-t border-border/20">
+                  <span className="text-xs text-muted-foreground font-mono">{maskEmail(review.email)}</span>
+                  <div className="flex items-center gap-3">
+                    {review.helpful > 0 && (
+                      <span className="text-[10px] text-muted-foreground flex items-center gap-1">
+                        <ThumbsUp className="h-3 w-3" /> {review.helpful}
+                      </span>
+                    )}
+                    <span className="text-[10px] text-muted-foreground">{formatTimeAgo(review.created_at)}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Sticky Add to Cart bar (mobile) */}
       {showStickyBar && (
