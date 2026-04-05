@@ -100,17 +100,32 @@ export function ProductDetailClient({ product }: { product: Product }) {
               />
             </div>
           </div>
+
+          {/* Trust badges under image */}
+          <div className="grid grid-cols-3 gap-4 mt-6">
+            <div className="rounded-xl border border-border/40 bg-card/40 p-4 text-center">
+              <Shield className="h-6 w-6 mx-auto mb-2 text-muted-foreground" />
+              <p className="font-semibold text-sm">Secure</p>
+              <p className="text-xs text-muted-foreground">Encrypted</p>
+            </div>
+            <div className="rounded-xl border border-border/40 bg-card/40 p-4 text-center">
+              <Zap className="h-6 w-6 mx-auto mb-2 text-muted-foreground" />
+              <p className="font-semibold text-sm">Instant</p>
+              <p className="text-xs text-muted-foreground">Delivery</p>
+            </div>
+            <div className="rounded-xl border border-border/40 bg-card/40 p-4 text-center">
+              <Globe className="h-6 w-6 mx-auto mb-2 text-muted-foreground" />
+              <p className="font-semibold text-sm">Global</p>
+              <p className="text-xs text-muted-foreground">Support</p>
+            </div>
+          </div>
         </div>
 
         {/* ═══ RIGHT: Info ═══ */}
         <div className="flex flex-col">
 
-          {/* Name — lowercase brand style */}
-          <h1 className="text-4xl sm:text-5xl font-black tracking-tight lowercase mb-3">
-            <span className="text-foreground">{product.name.split(" ")[0]}</span>
-            {product.name.split(" ").length > 1 && (
-              <span className="text-primary"> {product.name.split(" ").slice(1).join(" ")}</span>
-            )}
+          <h1 className="text-4xl sm:text-5xl font-black tracking-tight lowercase mb-3 text-foreground">
+            {product.name}
           </h1>
 
           {/* Description */}
@@ -218,27 +233,6 @@ export function ProductDetailClient({ product }: { product: Product }) {
             </div>
           </div>
 
-          {/* Accepted Payments */}
-          <div className="mt-5 pt-5 border-t border-border/20">
-            <div className="flex flex-wrap items-center gap-5">
-              {[
-                { Icon: BitcoinIcon, label: "Bitcoin", color: "text-[#F7931A]" },
-                { Icon: EthereumIcon, label: "Ethereum", color: "text-[#627EEA]" },
-                { Icon: LitecoinIcon, label: "Litecoin", color: "text-[#345D9D]" },
-                { Icon: PayPalIcon, label: "PayPal", color: "text-[#0070BA]" },
-              ].map(({ Icon, label, color }) => (
-                <div key={label} className="flex items-center gap-2">
-                  <Icon className={`h-5 w-5 ${color}`} />
-                  <span className="text-xs text-white/50">{label}</span>
-                </div>
-              ))}
-            </div>
-            <div className="flex items-center gap-4 mt-3 text-[11px] text-white/30">
-              <span className="flex items-center gap-1"><Lock className="h-3 w-3" /> Secure Checkout</span>
-              <span className="flex items-center gap-1"><Zap className="h-3 w-3" /> Instant Delivery</span>
-              <span className="flex items-center gap-1"><Globe className="h-3 w-3" /> 24/7 Support</span>
-            </div>
-          </div>
         </div>
       </div>
 

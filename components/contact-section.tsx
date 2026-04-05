@@ -20,7 +20,7 @@ export function ContactSection() {
 
       <div className="container mx-auto max-w-5xl relative z-10">
         <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#5865F2]/10 border border-[#5865F2]/20 text-[#5865F2] text-sm font-medium mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-6">
             <DiscordIcon className="h-4 w-4" />
             <span>Community Hub</span>
           </div>
@@ -34,13 +34,13 @@ export function ContactSection() {
 
         {/* Discord Card */}
         <div className="rounded-2xl border border-white/[0.06] bg-card/80 backdrop-blur-sm overflow-hidden mb-6">
-          <div className="h-1.5 bg-gradient-to-r from-[#5865F2] via-[#7289DA] to-[#5865F2]" />
+          <div className="h-1 bg-gradient-to-r from-primary via-accent to-primary" />
 
           <div className="p-8">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mb-6">
               <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-2xl bg-[#5865F2] flex items-center justify-center shadow-lg shadow-[#5865F2]/20">
-                  <DiscordIcon className="h-7 w-7 text-white" />
+                <div className="w-14 h-14 rounded-2xl overflow-hidden shadow-lg shadow-primary/10 border border-white/10">
+                  <img src="/images/ava.png" alt="Lethal Solutions" className="w-full h-full object-cover" />
                 </div>
                 <div>
                   <h3 className="text-xl font-bold">Lethal Solutions</h3>
@@ -78,7 +78,7 @@ export function ContactSection() {
                 { icon: BookOpen, title: "Setup guides", desc: "Step-by-step tutorials" },
               ].map((item, i) => (
                 <div key={i} className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.04]">
-                  <item.icon className="h-5 w-5 text-[#5865F2] mb-3" />
+                  <item.icon className="h-5 w-5 text-primary mb-3" />
                   <p className="text-sm font-semibold text-white/80">{item.title}</p>
                   <p className="text-[11px] text-white/30 mt-0.5">{item.desc}</p>
                 </div>
