@@ -11,7 +11,8 @@
       "WebFetch(domain:stuxnet.fun)",
       "WebFetch(domain:ednercheats.com)",
       "Bash(npx:*)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(find /c/Users/кир/Desktop/сайт -type f -name *checkout*)"
     ]
   }
 }
