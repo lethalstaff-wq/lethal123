@@ -604,7 +604,9 @@ export default function CheckoutPage() {
                                 ? "border-primary bg-primary/[0.06]"
                                 : "border-border/30 hover:border-primary/30 hover:bg-white/[0.02]"
                             }`}>
-                            <Icon className="h-10 w-10" style={{ color: option.color }} />
+                            <div className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0" style={{ backgroundColor: option.color + "15" }}>
+                              <Icon className="h-5 w-5" />
+                            </div>
                             <div className="text-left flex-1">
                               <p className="font-semibold text-sm">{option.name}</p>
                               <p className="text-xs text-muted-foreground font-mono">
@@ -754,7 +756,7 @@ export default function CheckoutPage() {
                     <div className="rounded-2xl border border-border/40 bg-card/50 p-6">
                       {/* Crypto name */}
                       <div className="flex items-center gap-3 mb-6">
-                        {(() => { const Icon = selectedCrypto.icon; return <Icon className="h-8 w-8" style={{ color: selectedCrypto.color }} /> })()}
+                        {(() => { const Icon = selectedCrypto.icon; return <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ backgroundColor: selectedCrypto.color + "15" }}><Icon className="h-5 w-5" /></div> })()}
                         <div>
                           <p className="font-bold">{selectedCrypto.name}</p>
                           <p className="text-xs text-muted-foreground">{selectedCrypto.name.includes("TRC") ? "TRON Network" : selectedCrypto.name.includes("Ethereum") ? "Ethereum Network" : `${selectedCrypto.name} Mainnet`}</p>
