@@ -409,764 +409,411 @@ export default function CheckoutPage() {
   }
 
   /* ---- MAIN CHECKOUT ---- */
-  const stepIndex = step === "form" ? 0 : 1
-
   return (
-    <main className="flex min-h-screen flex-col bg-background">
+    <main className="flex min-h-screen flex-col bg-[#0a0a0a]">
       <Navbar />
 
-      <section className="flex-1 py-8 md:py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-[1100px] mx-auto">
+      <section className="flex-1">
+        <div className="grid lg:grid-cols-2 gap-0 min-h-[calc(100vh-64px)]">
 
-          {/* Header */}
-          <div className="mb-10">
-            <div className="flex items-center justify-between mb-8">
+          {/* ======= LEFT PANEL — Order Summary (dark) ======= */}
+          <div className="bg-[#0a0a0a] border-r border-[rgba(255,255,255,0.06)] p-6 lg:p-10 flex flex-col">
+
+            {/* Back + title */}
+            <div className="flex items-center gap-3 mb-8">
               {step === "form" ? (
-                <Link href="/products" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors group">
-                  <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
-                  Continue Shopping
+                <Link href="/products" className="w-8 h-8 rounded-lg border border-[rgba(255,255,255,0.06)] flex items-center justify-center text-white/40 hover:text-white/80 hover:border-[rgba(255,255,255,0.12)] transition-all">
+                  <ArrowLeft className="h-4 w-4" />
                 </Link>
               ) : (
-                <button onClick={() => { setStep("form"); setTimeLeft(TIMER_SECONDS) }} className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors group">
-                  <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
-                  Back to Details
+                <button onClick={() => { setStep("form"); setTimeLeft(TIMER_SECONDS) }} className="w-8 h-8 rounded-lg border border-[rgba(255,255,255,0.06)] flex items-center justify-center text-white/40 hover:text-white/80 hover:border-[rgba(255,255,255,0.12)] transition-all">
+                  <ArrowLeft className="h-4 w-4" />
                 </button>
               )}
-              <div className="flex items-center gap-2 text-xs text-muted-foreground/60">
-                <Lock className="h-3 w-3" />
-                <span className="hidden sm:inline">Encrypted & Secure</span>
-              </div>
+              <h1 className="text-lg font-bold text-white">Checkout</h1>
+              <span className="ml-auto text-[10px] text-white/20 font-mono">{orderId}</span>
             </div>
 
-            {/* Step indicator */}
-            <div className="flex items-center gap-4">
-              {["Details & Payment", "Send Payment"].map((label, i) => (
-                <div key={label} className="flex items-center gap-4">
-                  {i > 0 && (
-                    <div className="w-16 h-0.5 relative rounded-full overflow-hidden">
-                      <div className="absolute inset-0 bg-border/40" />
-                      <div className={cn("absolute inset-0 bg-gradient-to-r from-primary to-primary/60 transition-all duration-700 origin-left", i <= stepIndex ? "scale-x-100" : "scale-x-0")} />
-                    </div>
-                  )}
-                  <div className="flex items-center gap-2.5">
-                    <div className={cn(
-                      "w-8 h-8 rounded-xl flex items-center justify-center text-xs font-black transition-all duration-500",
-                      i < stepIndex ? "bg-primary text-primary-foreground shadow-[0_0_20px_rgba(var(--primary-rgb),0.4)]" :
-                      i === stepIndex ? "bg-primary/10 text-primary border border-primary/30" :
-                      "bg-muted/20 text-muted-foreground/40 border border-border/30"
-                    )}>
-                      {i < stepIndex ? <Check className="w-4 h-4" /> : i + 1}
-                    </div>
-                    <span className={cn("text-sm font-semibold hidden sm:inline", i <= stepIndex ? "text-foreground" : "text-muted-foreground/40")}>{label}</span>
+            {/* Product items */}
+            <div className="space-y-3 mb-6">
+              {items.map((item) => (
+                <div key={item.variant.id} className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-lg bg-white/[0.04] border border-[rgba(255,255,255,0.06)] flex items-center justify-center shrink-0">
+                    <Package className="w-4 h-4 text-white/20" />
                   </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-semibold text-white truncate">{item.variant.product?.name || item.variant.name}</p>
+                    <p className="text-xs text-white/30">{item.variant.name} x{item.quantity}</p>
+                  </div>
+                  <p className="text-sm font-bold text-white tabular-nums shrink-0">{"£"}{(item.variant.price * item.quantity).toFixed(2)}</p>
                 </div>
               ))}
             </div>
-          </div>
 
-          <div className="grid lg:grid-cols-[380px,1fr] gap-6 items-start">
+            <div className="h-px bg-[rgba(255,255,255,0.06)] mb-5" />
 
-            {/* ======= LEFT COLUMN: ORDER SUMMARY (sticky) ======= */}
-            <div className="lg:sticky lg:top-8 h-fit order-2 lg:order-1">
-              <div className="rounded-2xl border border-border/50 bg-card/60 backdrop-blur-xl overflow-hidden shadow-2xl shadow-black/10">
-                <div className="px-5 py-4 border-b border-border/30 bg-gradient-to-r from-muted/10 to-transparent">
-                  <div className="flex items-center justify-between">
-                    <h3 className="font-bold text-foreground flex items-center gap-2.5 text-sm">
-                      <ShoppingBag className="w-4 h-4 text-primary" />
-                      Order Summary
-                    </h3>
-                    <span className="text-[10px] text-muted-foreground font-mono font-bold">{orderId}</span>
-                  </div>
+            {/* Coupon inline */}
+            <div className="mb-5">
+              {appliedCoupon ? (
+                <div className="flex items-center gap-3 px-3 py-2.5 rounded-lg border border-[#EF6F29]/20 bg-[#EF6F29]/5">
+                  <Tag className="w-3.5 h-3.5 text-[#EF6F29]" />
+                  <span className="text-xs font-bold text-[#EF6F29] flex-1">{appliedCoupon.code} (-{appliedCoupon.percent}%)</span>
+                  <button onClick={() => { setAppliedCoupon(null); setCouponCode("") }} className="text-white/30 hover:text-white/60 transition-colors">
+                    <X className="h-3.5 w-3.5" />
+                  </button>
                 </div>
-
-                <div className="p-5 space-y-4">
-                  <div className="space-y-3">
-                    {items.map((item) => (
-                      <div key={item.variant.id} className="flex items-start gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-muted/20 to-muted/5 flex items-center justify-center shrink-0 border border-border/20">
-                          <Package className="w-4 h-4 text-muted-foreground/40" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-sm font-bold text-foreground truncate">{item.variant.product?.name || item.variant.name}</p>
-                          <p className="text-xs text-muted-foreground/60">{item.variant.name} x{item.quantity}</p>
-                        </div>
-                        <p className="text-sm font-black text-foreground shrink-0 tabular-nums">{"£"}{(item.variant.price * item.quantity).toFixed(2)}</p>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="h-px bg-border/30" />
-
-                  <div className="space-y-2">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Subtotal</span>
-                      <span className="text-foreground font-semibold tabular-nums">{"£"}{total.toFixed(2)}</span>
-                    </div>
-                    {appliedCoupon && (
-                      <div className="flex justify-between text-sm">
-                        <span className="text-primary font-medium flex items-center gap-1.5">
-                          <Sparkles className="w-3 h-3" /> {appliedCoupon.code}
-                        </span>
-                        <span className="text-primary font-bold tabular-nums">-{"£"}{discount.toFixed(2)}</span>
-                      </div>
-                    )}
-                    <div className="h-px bg-border/30" />
-                    <div className="flex justify-between items-baseline pt-1">
-                      <span className="text-sm font-bold text-foreground">Total</span>
-                      <span className="text-2xl font-black text-foreground tracking-tight tabular-nums">{"£"}{finalTotal.toFixed(2)}</span>
-                    </div>
-                  </div>
+              ) : (
+                <div className="flex gap-2">
+                  <input
+                    type="text" value={couponCode}
+                    onChange={(e) => { setCouponCode(e.target.value); setCouponError("") }}
+                    onKeyDown={(e) => e.key === "Enter" && applyCoupon()}
+                    placeholder="Coupon code"
+                    className="flex-1 rounded-lg border border-[rgba(255,255,255,0.06)] bg-white/[0.03] px-3 py-2 text-xs text-white placeholder:text-white/20 focus:outline-none focus:border-[rgba(255,255,255,0.12)] transition-all"
+                  />
+                  <button onClick={applyCoupon} className="px-4 py-2 rounded-lg border border-[rgba(255,255,255,0.06)] bg-white/[0.03] hover:bg-white/[0.06] text-xs font-semibold text-white/60 hover:text-white/80 transition-all">
+                    Apply
+                  </button>
                 </div>
+              )}
+              {couponError && <p className="text-[10px] text-red-400 mt-1.5">{couponError}</p>}
+            </div>
 
-                {/* Accepted payments */}
-                <div className="px-5 py-3 border-t border-border/30">
-                  <div className="flex items-center justify-center gap-3">
-                    <BitcoinIcon className="h-4 w-4 text-[#F7931A]" />
-                    <EthereumIcon className="h-4 w-4 text-[#627EEA]" />
-                    <LitecoinIcon className="h-4 w-4 text-[#345D9D]" />
-                    <PayPalIcon className="h-4 w-4 text-[#0070BA]" />
-                  </div>
+            {/* Totals */}
+            <div className="space-y-2.5 mb-6">
+              <div className="flex justify-between text-sm">
+                <span className="text-white/40">Subtotal</span>
+                <span className="text-white/70 font-medium tabular-nums">{"£"}{total.toFixed(2)}</span>
+              </div>
+              {appliedCoupon && (
+                <div className="flex justify-between text-sm">
+                  <span className="text-[#EF6F29]/80">Discount</span>
+                  <span className="text-[#EF6F29] font-semibold tabular-nums">-{"£"}{discount.toFixed(2)}</span>
                 </div>
-
-                {/* Trust signals */}
-                <div className="px-5 py-4 bg-gradient-to-t from-muted/10 to-transparent border-t border-border/30 space-y-2.5">
-                  {[
-                    { icon: Shield, text: "256-bit SSL Encrypted", color: "text-emerald-500" },
-                    { icon: Zap, text: "Instant Digital Delivery", color: "text-amber-500" },
-                    { icon: Lock, text: "Secure Payment Processing", color: "text-blue-400" },
-                  ].map(({ icon: I, text, color }) => (
-                    <div key={text} className="flex items-center gap-2.5">
-                      <div className="w-6 h-6 rounded-md bg-muted/10 flex items-center justify-center shrink-0">
-                        <I className={cn("w-3 h-3", color)} />
-                      </div>
-                      <span className="text-[11px] text-muted-foreground/70">{text}</span>
-                    </div>
-                  ))}
-                </div>
+              )}
+              <div className="h-px bg-[rgba(255,255,255,0.06)]" />
+              <div className="flex justify-between items-baseline pt-1">
+                <span className="text-sm font-semibold text-white/60">Total</span>
+                <span className="text-2xl font-black text-white tracking-tight tabular-nums">{"£"}{finalTotal.toFixed(2)}</span>
               </div>
             </div>
 
-            {/* ======= RIGHT COLUMN: FORM & PAYMENT ======= */}
-            <div className="space-y-5 order-1 lg:order-2">
-
-              {/* === STEP 1: FORM === */}
-              {step === "form" && (
-                <div className="space-y-6 animate-in fade-in slide-in-from-left-4 duration-300">
-
-                  {/* Contact Info */}
-                  <div className="rounded-3xl border border-border/50 bg-card/60 backdrop-blur-xl overflow-hidden shadow-xl shadow-black/5">
-                    <div className="px-7 py-5 border-b border-border/30 bg-gradient-to-r from-muted/10 to-transparent">
-                      <h2 className="text-base font-bold text-foreground flex items-center gap-3">
-                        <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center border border-primary/20">
-                          <span className="text-xs font-black text-primary">1</span>
-                        </div>
-                        Contact Information
-                      </h2>
-                    </div>
-                    <div className="p-7 space-y-5">
-                      <div>
-                        <label className="text-xs font-bold text-muted-foreground/80 mb-2.5 block uppercase tracking-wider">
-                          Email Address <span className="text-primary">*</span>
-                        </label>
-                        <input
-                          type="email" value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          onBlur={() => setEmailTouched(true)}
-                          placeholder="your@email.com"
-                          className={cn(
-                            "w-full rounded-2xl border bg-background/60 px-5 py-4 text-sm font-medium placeholder:text-muted-foreground/25 focus:outline-none focus:ring-2 transition-all",
-                            emailTouched && !email.trim().includes("@")
-                              ? "border-destructive/50 focus:ring-destructive/30 focus:border-destructive/30"
-                              : "border-border/50 focus:ring-primary/30 focus:border-primary/30"
-                          )}
-                        />
-                        {emailTouched && !email.trim().includes("@") ? (
-                          <p className="text-[10px] text-destructive mt-2 flex items-center gap-1.5">
-                            <AlertTriangle className="w-3 h-3" /> Please enter a valid email address
-                          </p>
-                        ) : (
-                          <p className="text-[10px] text-muted-foreground/50 mt-2 flex items-center gap-1.5">
-                            <Zap className="w-3 h-3" /> License key delivered instantly to this email
-                          </p>
-                        )}
-                      </div>
-                      <div>
-                        <label className="text-xs font-bold text-muted-foreground/80 mb-2.5 flex items-center gap-2 uppercase tracking-wider">
-                          <DiscordIcon className="w-3.5 h-3.5" /> Discord <span className="text-muted-foreground/30 font-normal normal-case tracking-normal">(optional)</span>
-                        </label>
-                        <input
-                          type="text" value={discordUser} onChange={(e) => setDiscordUser(e.target.value)}
-                          placeholder="username"
-                          className="w-full rounded-2xl border border-border/50 bg-background/60 px-5 py-4 text-sm font-medium placeholder:text-muted-foreground/25 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/30 transition-all"
-                        />
-                      </div>
-                    </div>
+            {/* Trust row — pushed to bottom */}
+            <div className="mt-auto pt-6">
+              <div className="flex items-center gap-5">
+                {[
+                  { icon: Shield, label: "SSL" },
+                  { icon: Zap, label: "Instant" },
+                  { icon: Lock, label: "Secure" },
+                ].map(({ icon: I, label }) => (
+                  <div key={label} className="flex items-center gap-1.5">
+                    <I className="w-3 h-3 text-white/15" />
+                    <span className="text-[10px] text-white/20">{label}</span>
                   </div>
+                ))}
+              </div>
+            </div>
+          </div>
 
-                  {/* Payment Method */}
-                  <div className="rounded-3xl border border-border/50 bg-card/60 backdrop-blur-xl overflow-hidden shadow-xl shadow-black/5">
-                    <div className="px-7 py-5 border-b border-border/30 bg-gradient-to-r from-muted/10 to-transparent">
-                      <h2 className="text-base font-bold text-foreground flex items-center gap-3">
-                        <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center border border-primary/20">
-                          <span className="text-xs font-black text-primary">2</span>
-                        </div>
-                        Payment Method
-                      </h2>
-                    </div>
-                    <div className="p-5 space-y-2.5">
-                      {/* PayPal */}
-                      <button
-                        onClick={() => setPaymentMethod("paypal")}
-                        className={cn(
-                          "w-full rounded-2xl border-2 p-5 flex items-center gap-5 transition-all duration-300 group relative overflow-hidden",
-                          paymentMethod === "paypal"
-                            ? "border-[#003087]/50 bg-[#003087]/8 shadow-[0_0_30px_rgba(0,48,135,0.15)]"
-                            : "border-border/30 hover:border-border/60 hover:bg-muted/5"
-                        )}
-                      >
-                        {paymentMethod === "paypal" && <div className="absolute inset-0 bg-gradient-to-r from-[#003087]/8 via-[#003087]/3 to-transparent" />}
-                        <div className={cn(
-                          "relative w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 transition-all duration-300",
-                          paymentMethod === "paypal" ? "bg-[#003087]/15 shadow-[0_0_20px_rgba(0,48,135,0.2)] scale-105" : "bg-[#003087]/8 group-hover:scale-105"
-                        )}>
-                          <PayPalIcon className="h-7 w-7" />
-                        </div>
-                        <div className="relative text-left flex-1">
-                          <p className="font-bold text-foreground">PayPal</p>
-                          <p className="text-xs text-muted-foreground mt-0.5">Friends & Family only</p>
-                        </div>
-                        {paymentMethod === "paypal" && (
-                          <span className="relative text-xs font-bold text-[#003087] bg-[#003087]/10 px-3 py-1.5 rounded-xl">Preferred</span>
-                        )}
-                        <div className={cn(
-                          "relative w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 transition-all duration-300",
-                          paymentMethod === "paypal" ? "border-[#003087] bg-[#003087] scale-110" : "border-border/50"
-                        )}>
-                          {paymentMethod === "paypal" && <Check className="w-3.5 h-3.5 text-white" />}
-                        </div>
-                      </button>
+          {/* ======= RIGHT PANEL — Form / Pay ======= */}
+          <div className="bg-[#111113] p-6 lg:p-10 flex flex-col">
 
-                      {/* Crypto options */}
-                      {CRYPTO_OPTIONS.map((crypto) => {
-                        const isSelected = paymentMethod === "crypto" && selectedCrypto.id === crypto.id
-                        const cryptoAmount = getCryptoAmount(crypto.id, finalTotal)
-                        const Icon = crypto.icon
-                        return (
-                          <button
-                            key={crypto.id}
-                            onClick={() => { setPaymentMethod("crypto"); setSelectedCrypto(crypto) }}
-                            className={cn(
-                              "w-full rounded-2xl border-2 p-5 flex items-center gap-5 transition-all duration-300 group relative overflow-hidden",
-                              isSelected
-                                ? "border-primary/40 bg-primary/5 shadow-[0_0_25px_rgba(var(--primary-rgb),0.1)]"
-                                : "border-border/30 hover:border-border/60 hover:bg-muted/5"
-                            )}
-                          >
-                            {isSelected && <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-primary/2 to-transparent" />}
-                            <div className={cn(
-                              "relative w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 transition-all duration-300",
-                              isSelected ? "scale-105 shadow-[0_0_15px_rgba(var(--primary-rgb),0.15)]" : "group-hover:scale-105"
-                            )} style={{ backgroundColor: crypto.color + "12" }}>
-                              <Icon className="h-7 w-7" />
-                            </div>
-                            <div className="relative text-left flex-1">
-                              <p className="font-bold text-foreground">{crypto.name}</p>
-                              <div className="flex items-center gap-2 mt-0.5">
-                                <span className="text-xs text-muted-foreground">{crypto.ticker}</span>
-                                {cryptoAmount && (
-                                  <span className={cn("text-xs font-mono tabular-nums", isSelected ? "text-primary font-bold" : "text-muted-foreground/60")}>
-                                    ~{cryptoAmount} {crypto.ticker}
-                                  </span>
-                                )}
-                              </div>
-                            </div>
-                            <div className={cn(
-                              "relative w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 transition-all duration-300",
-                              isSelected ? "border-primary bg-primary scale-110" : "border-border/50"
-                            )}>
-                              {isSelected && <Check className="w-3.5 h-3.5 text-primary-foreground" />}
-                            </div>
-                          </button>
-                        )
-                      })}
+            {/* === STEP 1: FORM === */}
+            {step === "form" && (
+              <div className="flex-1 flex flex-col max-w-md mx-auto w-full">
 
-                      {/* Discord */}
-                      <button
-                        onClick={() => setPaymentMethod("discord")}
-                        className={cn(
-                          "w-full rounded-2xl border-2 p-5 flex items-center gap-5 transition-all duration-300 group relative overflow-hidden",
-                          paymentMethod === "discord"
-                            ? "border-[#5865F2]/40 bg-[#5865F2]/5 shadow-[0_0_25px_rgba(88,101,242,0.1)]"
-                            : "border-border/30 hover:border-border/60 hover:bg-muted/5"
-                        )}
-                      >
-                        {paymentMethod === "discord" && <div className="absolute inset-0 bg-gradient-to-r from-[#5865F2]/5 to-transparent" />}
-                        <div className={cn(
-                          "relative w-14 h-14 rounded-2xl bg-[#5865F2]/10 flex items-center justify-center shrink-0 transition-all duration-300",
-                          paymentMethod === "discord" ? "scale-105 shadow-[0_0_15px_rgba(88,101,242,0.15)]" : "group-hover:scale-105"
-                        )}>
-                          <DiscordIcon className="h-7 w-7" />
-                        </div>
-                        <div className="relative text-left flex-1">
-                          <p className="font-bold text-foreground">Via Discord</p>
-                          <p className="text-xs text-muted-foreground mt-0.5">Open a ticket in our server</p>
-                        </div>
-                        <div className={cn(
-                          "relative w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 transition-all duration-300",
-                          paymentMethod === "discord" ? "border-[#5865F2] bg-[#5865F2] scale-110" : "border-border/50"
-                        )}>
-                          {paymentMethod === "discord" && <Check className="w-3.5 h-3.5 text-white" />}
-                        </div>
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* PayPal Discord Requirement */}
-                  {paymentMethod === "paypal" && (
-                    <div className="rounded-3xl border border-[#003087]/20 bg-gradient-to-br from-[#003087]/5 to-transparent p-7 space-y-4 animate-in fade-in slide-in-from-top-3 duration-300">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-[#003087]/10 flex items-center justify-center">
-                          <DiscordIcon className="w-5 h-5" />
-                        </div>
-                        <div>
-                          <p className="text-sm font-bold text-foreground">Discord Username Required</p>
-                          <p className="text-[11px] text-muted-foreground">Include in PayPal payment note</p>
-                        </div>
-                      </div>
-                      <input
-                        type="text" value={discordUser} onChange={(e) => setDiscordUser(e.target.value)}
-                        placeholder="Enter Discord username"
-                        className="w-full rounded-2xl border border-[#003087]/15 bg-background/60 px-5 py-4 text-sm font-medium placeholder:text-muted-foreground/25 focus:outline-none focus:ring-2 focus:ring-[#003087]/20 focus:border-[#003087]/30 transition-all"
-                      />
-                    </div>
-                  )}
-
-                  {/* Coupon */}
-                  <div className="rounded-3xl border border-border/50 bg-card/60 backdrop-blur-xl overflow-hidden shadow-xl shadow-black/5">
-                    <div className="px-7 py-5 border-b border-border/30 bg-gradient-to-r from-muted/10 to-transparent">
-                      <h2 className="text-base font-bold text-foreground flex items-center gap-3">
-                        <Tag className="w-5 h-5 text-primary" />
-                        Discount Code
-                      </h2>
-                    </div>
-                    <div className="p-7">
-                      {appliedCoupon ? (
-                        <div className="flex items-center gap-4 rounded-2xl border border-primary/20 bg-primary/5 px-5 py-4">
-                          <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                            <Sparkles className="w-5 h-5 text-primary" />
-                          </div>
-                          <div className="flex-1">
-                            <p className="text-sm font-black text-primary">{appliedCoupon.code}</p>
-                            <p className="text-[11px] text-primary/60 font-medium">{appliedCoupon.percent}% discount applied</p>
-                          </div>
-                          <button onClick={() => { setAppliedCoupon(null); setCouponCode("") }} className="p-2 hover:bg-muted/30 rounded-xl transition-colors">
-                            <X className="h-4 w-4 text-muted-foreground" />
-                          </button>
-                        </div>
-                      ) : (
-                        <div className="flex gap-3">
-                          <input
-                            type="text" value={couponCode}
-                            onChange={(e) => { setCouponCode(e.target.value); setCouponError("") }}
-                            onKeyDown={(e) => e.key === "Enter" && applyCoupon()}
-                            placeholder="Enter code"
-                            className="flex-1 rounded-2xl border border-border/50 bg-background/60 px-5 py-3.5 text-sm font-medium placeholder:text-muted-foreground/25 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/30 transition-all"
-                          />
-                          <button onClick={applyCoupon} className="px-7 py-3.5 rounded-2xl border border-border/50 bg-muted/10 hover:bg-muted/30 text-sm font-bold text-foreground transition-all hover:border-border/80">
-                            Apply
-                          </button>
-                        </div>
-                      )}
-                      {couponError && <p className="text-xs text-destructive mt-3 font-medium">{couponError}</p>}
-                    </div>
-                  </div>
-
-                  {/* TOS */}
-                  <label className="flex items-start gap-4 cursor-pointer group px-2 py-2">
-                    <div className={cn(
-                      "mt-0.5 h-6 w-6 rounded-lg border-2 flex items-center justify-center shrink-0 transition-all duration-300",
-                      agreedTos ? "bg-primary border-primary shadow-[0_0_12px_rgba(var(--primary-rgb),0.3)]" : "border-border/50 group-hover:border-border"
-                    )}>
-                      {agreedTos && <Check className="h-3.5 w-3.5 text-primary-foreground" />}
-                    </div>
-                    <input type="checkbox" checked={agreedTos} onChange={(e) => setAgreedTos(e.target.checked)} className="sr-only" />
-                    <span className="text-xs text-muted-foreground group-hover:text-foreground/80 transition-colors leading-relaxed">
-                      {"I agree to Lethal Solutions' Terms of Service and acknowledge that all sales are final. Products are delivered digitally."}
-                    </span>
+                {/* Email */}
+                <div className="mb-5">
+                  <label className="text-xs font-medium text-white/40 mb-2 block">
+                    Email <span className="text-[#EF6F29]">*</span>
                   </label>
-
-                  {/* Proceed CTA */}
-                  <button
-                    disabled={!canProceed}
-                    onClick={handleProceed}
+                  <input
+                    type="email" value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    onBlur={() => setEmailTouched(true)}
+                    placeholder="your@email.com"
                     className={cn(
-                      "w-full py-5 text-primary-foreground font-bold text-base rounded-2xl transition-all duration-300 flex items-center justify-center gap-3 relative overflow-hidden group",
-                      canProceed
-                        ? "bg-primary hover:bg-primary/90 hover:shadow-[0_0_40px_rgba(var(--primary-rgb),0.35)] hover:scale-[1.01] active:scale-[0.99]"
-                        : "bg-primary/20 cursor-not-allowed"
+                      "w-full rounded-xl border bg-white/[0.03] px-4 py-3 text-sm text-white placeholder:text-white/15 focus:outline-none focus:ring-1 transition-all",
+                      emailTouched && !email.trim().includes("@")
+                        ? "border-red-500/40 focus:ring-red-500/30"
+                        : "border-[rgba(255,255,255,0.06)] focus:ring-[#EF6F29]/30 focus:border-[#EF6F29]/30"
                     )}
-                  >
-                    <span className="relative z-10 flex items-center gap-3">
-                      {paymentMethod === "discord" ? (
-                        <>Open Discord <ExternalLink className="h-4 w-4" /></>
-                      ) : (
-                        <>Proceed to Payment <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></>
-                      )}
-                    </span>
-                  </button>
+                  />
+                  {emailTouched && !email.trim().includes("@") && (
+                    <p className="text-[10px] text-red-400 mt-1.5 flex items-center gap-1">
+                      <AlertTriangle className="w-3 h-3" /> Valid email required
+                    </p>
+                  )}
                 </div>
-              )}
 
-              {/* === STEP 2: PAY === */}
-              {step === "pay" && (
-                <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
+                {/* Discord */}
+                <div className="mb-6">
+                  <label className="text-xs font-medium text-white/40 mb-2 flex items-center gap-1.5">
+                    <DiscordIcon className="w-3 h-3" /> Discord <span className="text-white/15">(optional)</span>
+                  </label>
+                  <input
+                    type="text" value={discordUser} onChange={(e) => setDiscordUser(e.target.value)}
+                    placeholder="username"
+                    className="w-full rounded-xl border border-[rgba(255,255,255,0.06)] bg-white/[0.03] px-4 py-3 text-sm text-white placeholder:text-white/15 focus:outline-none focus:ring-1 focus:ring-[#EF6F29]/30 focus:border-[#EF6F29]/30 transition-all"
+                  />
+                </div>
 
-                  {/* Timer */}
-                  <div className={cn(
-                    "rounded-3xl border p-6 space-y-4 transition-all",
-                    timeLeft < 300 ? "border-destructive/30 bg-destructive/5 shadow-[0_0_20px_rgba(239,68,68,0.1)]" : "border-primary/20 bg-primary/5 shadow-[0_0_20px_rgba(var(--primary-rgb),0.05)]"
-                  )}>
-                    <div className="flex items-center gap-4">
-                      <div className={cn(
-                        "w-14 h-14 rounded-2xl flex items-center justify-center transition-all",
-                        timeLeft < 300 ? "bg-destructive/10" : "bg-primary/10"
-                      )}>
-                        <Clock className={cn("h-7 w-7", timeLeft < 300 ? "text-destructive" : "text-primary")} />
-                      </div>
-                      <div>
-                        <p className="text-lg font-black text-foreground tabular-nums">
-                          <span className={cn("font-mono", timeLeft < 300 ? "text-destructive" : "text-primary")}>
-                            {formatTime(timeLeft)}
-                          </span>
-                          <span className="text-sm font-semibold text-foreground/60 ml-2">remaining</span>
-                        </p>
-                        <p className="text-xs text-muted-foreground">Send the exact amount before expiry</p>
-                      </div>
-                    </div>
-                    <div className="h-1.5 rounded-full bg-muted/15 overflow-hidden">
-                      <div
-                        className={cn("h-full rounded-full transition-all duration-1000", timeLeft < 300 ? "bg-destructive" : "bg-gradient-to-r from-primary to-primary/60")}
-                        style={{ width: `${(timeLeft / TIMER_SECONDS) * 100}%` }}
-                      />
-                    </div>
+                {/* Payment method — tile grid */}
+                <div className="mb-5">
+                  <label className="text-xs font-medium text-white/40 mb-3 block">Payment method</label>
+                  <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+                    {/* BTC */}
+                    {CRYPTO_OPTIONS.map((crypto) => {
+                      const isSelected = paymentMethod === "crypto" && selectedCrypto.id === crypto.id
+                      const Icon = crypto.icon
+                      return (
+                        <button
+                          key={crypto.id}
+                          onClick={() => { setPaymentMethod("crypto"); setSelectedCrypto(crypto) }}
+                          className={cn(
+                            "h-12 rounded-xl border flex flex-col items-center justify-center gap-0.5 transition-all",
+                            isSelected
+                              ? "border-[#EF6F29]/50 bg-[#EF6F29]/8"
+                              : "border-[rgba(255,255,255,0.06)] bg-white/[0.02] hover:bg-white/[0.05] hover:border-[rgba(255,255,255,0.1)]"
+                          )}
+                        >
+                          <Icon className="h-4 w-4" />
+                          <span className="text-[9px] font-bold text-white/40">{crypto.ticker}</span>
+                        </button>
+                      )
+                    })}
+                    {/* PayPal */}
+                    <button
+                      onClick={() => setPaymentMethod("paypal")}
+                      className={cn(
+                        "h-12 rounded-xl border flex flex-col items-center justify-center gap-0.5 transition-all",
+                        paymentMethod === "paypal"
+                          ? "border-[#0070BA]/50 bg-[#0070BA]/8"
+                          : "border-[rgba(255,255,255,0.06)] bg-white/[0.02] hover:bg-white/[0.05] hover:border-[rgba(255,255,255,0.1)]"
+                      )}
+                    >
+                      <PayPalIcon className="h-4 w-4" />
+                      <span className="text-[9px] font-bold text-white/40">PayPal</span>
+                    </button>
+                    {/* Discord */}
+                    <button
+                      onClick={() => setPaymentMethod("discord")}
+                      className={cn(
+                        "h-12 rounded-xl border flex flex-col items-center justify-center gap-0.5 transition-all",
+                        paymentMethod === "discord"
+                          ? "border-[#5865F2]/50 bg-[#5865F2]/8"
+                          : "border-[rgba(255,255,255,0.06)] bg-white/[0.02] hover:bg-white/[0.05] hover:border-[rgba(255,255,255,0.1)]"
+                      )}
+                    >
+                      <DiscordIcon className="h-4 w-4" />
+                      <span className="text-[9px] font-bold text-white/40">Discord</span>
+                    </button>
                   </div>
+                </div>
 
-                  {/* Amount card - Premium Design */}
-                  <div className="relative rounded-3xl border border-primary/20 overflow-hidden shadow-2xl shadow-primary/10">
-                    {/* Background gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-card to-card" />
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 rounded-full blur-[60px]" />
-                    <div className="absolute bottom-0 left-0 w-24 h-24 bg-primary/10 rounded-full blur-[40px]" />
-                    
-                    <div className="relative p-8 text-center space-y-4">
-                      <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
-                        <Zap className="h-4 w-4 text-primary" />
-                        <span className="text-xs font-bold text-primary uppercase tracking-wider">Total Amount</span>
+                {/* Crypto amount preview */}
+                {paymentMethod === "crypto" && getCryptoAmount(selectedCrypto.id, finalTotal) && (
+                  <div className="mb-5 flex items-center gap-2 px-3 py-2 rounded-lg bg-white/[0.02] border border-[rgba(255,255,255,0.06)]">
+                    {(() => { const Icon = selectedCrypto.icon; return <Icon className="h-4 w-4" /> })()}
+                    <span className="text-xs font-mono text-white/50 tabular-nums">
+                      ~{getCryptoAmount(selectedCrypto.id, finalTotal)} {selectedCrypto.ticker}
+                    </span>
+                    <button onClick={fetchRates} className="ml-auto p-1 text-white/20 hover:text-white/50 transition-colors" title="Refresh rate">
+                      <RefreshCw className={cn("h-3 w-3", ratesLoading && "animate-spin")} />
+                    </button>
+                  </div>
+                )}
+
+                {/* PayPal Discord requirement */}
+                {paymentMethod === "paypal" && (
+                  <div className="mb-5 p-3 rounded-xl border border-[#003087]/15 bg-[#003087]/5">
+                    <p className="text-[11px] text-white/50 mb-2">Include your Discord username in the PayPal payment note</p>
+                    <input
+                      type="text" value={discordUser} onChange={(e) => setDiscordUser(e.target.value)}
+                      placeholder="Discord username"
+                      className="w-full rounded-lg border border-[#003087]/15 bg-white/[0.03] px-3 py-2 text-xs text-white placeholder:text-white/15 focus:outline-none focus:ring-1 focus:ring-[#003087]/30 transition-all"
+                    />
+                  </div>
+                )}
+
+                {/* TOS */}
+                <label className="flex items-start gap-3 cursor-pointer group mb-6">
+                  <div className={cn(
+                    "mt-0.5 h-5 w-5 rounded-md border flex items-center justify-center shrink-0 transition-all",
+                    agreedTos ? "bg-[#EF6F29] border-[#EF6F29]" : "border-[rgba(255,255,255,0.12)] group-hover:border-[rgba(255,255,255,0.2)]"
+                  )}>
+                    {agreedTos && <Check className="h-3 w-3 text-white" />}
+                  </div>
+                  <input type="checkbox" checked={agreedTos} onChange={(e) => setAgreedTos(e.target.checked)} className="sr-only" />
+                  <span className="text-[11px] text-white/30 leading-relaxed group-hover:text-white/40 transition-colors">
+                    {"I agree to the Terms of Service. All sales are final. Products are delivered digitally."}
+                  </span>
+                </label>
+
+                {/* Continue */}
+                <button
+                  disabled={!canProceed}
+                  onClick={handleProceed}
+                  className={cn(
+                    "w-full py-3.5 font-bold text-sm rounded-xl transition-all flex items-center justify-center gap-2.5 mt-auto",
+                    canProceed
+                      ? "bg-[#EF6F29] hover:bg-[#EF6F29]/90 text-white active:scale-[0.98]"
+                      : "bg-white/[0.04] text-white/20 cursor-not-allowed"
+                  )}
+                >
+                  {paymentMethod === "discord" ? (
+                    <>Open Discord <ExternalLink className="h-3.5 w-3.5" /></>
+                  ) : (
+                    <>Continue <ArrowRight className="h-3.5 w-3.5" /></>
+                  )}
+                </button>
+              </div>
+            )}
+
+            {/* === STEP 2: PAY === */}
+            {step === "pay" && (
+              <div className="flex-1 flex flex-col max-w-md mx-auto w-full">
+
+                {/* Timer bar */}
+                <div className="mb-6">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-2">
+                      <Clock className={cn("h-3.5 w-3.5", timeLeft < 300 ? "text-red-400" : "text-[#EF6F29]")} />
+                      <span className={cn("text-sm font-mono font-bold tabular-nums", timeLeft < 300 ? "text-red-400" : "text-white/70")}>
+                        {formatTime(timeLeft)}
+                      </span>
+                    </div>
+                    <span className="text-[10px] text-white/20">Send before expiry</span>
+                  </div>
+                  <div className="h-1 rounded-full bg-white/[0.04] overflow-hidden">
+                    <div
+                      className={cn("h-full rounded-full transition-all duration-1000", timeLeft < 300 ? "bg-red-500" : "bg-[#EF6F29]")}
+                      style={{ width: `${(timeLeft / TIMER_SECONDS) * 100}%` }}
+                    />
+                  </div>
+                </div>
+
+                {/* Crypto pay */}
+                {paymentMethod === "crypto" && (
+                  <div className="flex-1 flex flex-col">
+
+                    {/* QR code centered */}
+                    <div className="flex justify-center mb-6">
+                      <div className="p-2 bg-white rounded-xl">
+                        <Image
+                          src={`https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(selectedCrypto.address)}&bgcolor=FFFFFF&color=000000&format=png&margin=1`}
+                          alt={`${selectedCrypto.name} QR`} width={160} height={160}
+                          className="rounded-lg" unoptimized crossOrigin="anonymous"
+                        />
                       </div>
-                      
-                      <div className="py-2">
-                        <p className="text-6xl font-black text-foreground tracking-tight tabular-nums">
-                          <span className="text-4xl text-muted-foreground/60 mr-1">£</span>
-                          {finalTotal.toFixed(2)}
-                        </p>
-                      </div>
-                      
-                      {paymentMethod === "crypto" && cryptoRates[RATE_KEY_MAP[selectedCrypto.id] || selectedCrypto.id] && (
-                        <div className="flex items-center justify-center gap-3 py-3 px-6 rounded-2xl bg-background/50 border border-border/30 mx-auto w-fit">
-                          {(() => { const Icon = selectedCrypto.icon; return <Icon className="h-5 w-5" /> })()}
-                          <span className="text-lg font-mono font-black tabular-nums" style={{ color: selectedCrypto.color }}>
+                    </div>
+
+                    {/* Amount */}
+                    <div className="mb-4">
+                      <label className="text-[10px] text-white/25 font-medium uppercase tracking-wider mb-1.5 block">Amount</label>
+                      <div
+                        onClick={() => copyToClipboard(getCryptoAmount(selectedCrypto.id, finalTotal) || "", "amount")}
+                        className="flex items-center justify-between rounded-xl border border-[rgba(255,255,255,0.06)] bg-white/[0.02] px-4 py-3 cursor-pointer hover:bg-white/[0.04] transition-all group"
+                      >
+                        <div className="flex items-center gap-2">
+                          {(() => { const Icon = selectedCrypto.icon; return <Icon className="h-4 w-4" /> })()}
+                          <span className="text-sm font-mono font-bold tabular-nums" style={{ color: selectedCrypto.color }}>
                             {getCryptoAmount(selectedCrypto.id, finalTotal)} {selectedCrypto.ticker}
                           </span>
-                          <button onClick={fetchRates} className="p-1.5 text-muted-foreground hover:text-primary transition-colors rounded-lg hover:bg-muted/20" title="Refresh rate">
-                            <RefreshCw className={cn("h-4 w-4", ratesLoading && "animate-spin")} />
-                          </button>
                         </div>
-                      )}
-                      
-                      {appliedCoupon && (
-                        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">
-                          <Sparkles className="h-3 w-3 text-emerald-500" />
-                          <span className="text-xs font-bold text-emerald-500">{appliedCoupon.code} -{appliedCoupon.percent}%</span>
-                        </div>
-                      )}
-                      
-                      <p className="text-xs text-muted-foreground/40 font-mono font-bold">{orderId}</p>
+                        <button className="text-white/20 group-hover:text-white/50 transition-colors">
+                          {copiedField === "amount" ? <Check className="h-4 w-4 text-emerald-400" /> : <Copy className="h-4 w-4" />}
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Wallet address */}
+                    <div className="mb-5">
+                      <label className="text-[10px] text-white/25 font-medium uppercase tracking-wider mb-1.5 block">Wallet address</label>
+                      <div
+                        onClick={() => copyToClipboard(selectedCrypto.address, "wallet")}
+                        className="flex items-center gap-3 rounded-xl border border-[rgba(255,255,255,0.06)] bg-white/[0.02] px-4 py-3 cursor-pointer hover:bg-white/[0.04] transition-all group"
+                      >
+                        <p className="font-mono text-[11px] break-all text-white/50 flex-1 leading-relaxed select-all">
+                          {selectedCrypto.address}
+                        </p>
+                        <button className="text-white/20 group-hover:text-white/50 transition-colors shrink-0">
+                          {copiedField === "wallet" ? <Check className="h-4 w-4 text-emerald-400" /> : <Copy className="h-4 w-4" />}
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Warning */}
+                    <div className="flex items-start gap-2.5 p-3 rounded-xl bg-amber-500/[0.04] border border-amber-500/10 mb-6">
+                      <AlertTriangle className="h-3.5 w-3.5 text-amber-400 shrink-0 mt-0.5" />
+                      <p className="text-[11px] text-white/40 leading-relaxed">
+                        Send only <strong className="text-white/70">{selectedCrypto.ticker}</strong> on the <strong className="text-white/70">{selectedCrypto.name.includes("TRC") ? "TRON" : selectedCrypto.name.includes("Ethereum") ? "Ethereum" : selectedCrypto.name}</strong> network.
+                      </p>
                     </div>
                   </div>
+                )}
 
-                  {/* Crypto payment - Premium Payment Gateway */}
-                  {paymentMethod === "crypto" && (
-                    <div className="relative rounded-3xl border border-border/30 bg-gradient-to-b from-[#0d0d0f] via-[#0a0a0c] to-[#080809] overflow-hidden shadow-2xl shadow-black/50">
-                      {/* Animated background effects */}
-                      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                        <div className="absolute -top-32 -right-32 w-64 h-64 rounded-full blur-[120px] opacity-20" style={{ backgroundColor: selectedCrypto.color }} />
-                        <div className="absolute -bottom-32 -left-32 w-64 h-64 rounded-full blur-[120px] opacity-15" style={{ backgroundColor: selectedCrypto.color }} />
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full blur-[150px] opacity-5" style={{ backgroundColor: selectedCrypto.color }} />
-                      </div>
-
-                      {/* Gateway Header */}
-                      <div className="relative border-b border-white/5">
-                        <div className="px-6 py-4 flex items-center justify-between">
-                          <div className="flex items-center gap-3">
-                            <div className="flex items-center gap-1.5">
-                              <div className="w-2 h-2 rounded-full bg-primary" />
-                              <div className="w-2 h-2 rounded-full bg-primary/60" />
-                              <div className="w-2 h-2 rounded-full bg-primary/30" />
-                            </div>
-                            <span className="text-xs font-bold text-white/40 uppercase tracking-widest">Lethal Pay</span>
-                          </div>
-                          <div className="flex items-center gap-4">
-                            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">
-                              <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                              <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">Connected</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Crypto Selection Bar */}
-                      <div className="relative px-6 py-4 border-b border-white/5 bg-white/[0.02]">
-                        <div className="flex items-center gap-4">
-                          {(() => { 
-                            const Icon = selectedCrypto.icon
-                            return (
-                              <div className="relative">
-                                <div className="absolute inset-0 rounded-xl blur-xl opacity-50" style={{ backgroundColor: selectedCrypto.color }} />
-                                <div className="relative w-12 h-12 rounded-xl flex items-center justify-center border border-white/10 backdrop-blur-sm" style={{ backgroundColor: selectedCrypto.color + "15" }}>
-                                  <Icon className="h-6 w-6" />
-                                </div>
-                              </div>
-                            )
-                          })()}
-                          <div className="flex-1">
-                            <p className="font-black text-base text-white tracking-tight">{selectedCrypto.name}</p>
-                            <p className="text-[11px] text-white/40 font-medium">{selectedCrypto.name.includes("TRC") ? "TRON Network (TRC-20)" : selectedCrypto.name.includes("Ethereum") ? "Ethereum Network (ERC-20)" : `${selectedCrypto.name} Mainnet`}</p>
-                          </div>
-                          <div className="text-right">
-                            <p className="text-xs text-white/30 font-medium">Exchange Rate</p>
-                            <p className="text-sm font-bold text-white/60 font-mono">1 {selectedCrypto.ticker} = GBP {(cryptoRates[RATE_KEY_MAP[selectedCrypto.id] || selectedCrypto.id] || 0).toLocaleString()}</p>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Main Payment Area */}
-                      <div className="relative p-6 space-y-6">
-                        {/* Amount Display - Hero */}
-                        <div className="relative rounded-2xl bg-gradient-to-br from-white/[0.03] to-transparent border border-white/5 p-6 text-center overflow-hidden">
-                          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.02] to-transparent" />
-                          <p className="text-[10px] text-white/30 font-bold uppercase tracking-[0.2em] mb-3">Amount Due</p>
-                          <div className="flex items-baseline justify-center gap-2 mb-2">
-                            <span className="text-5xl font-black tabular-nums tracking-tight" style={{ color: selectedCrypto.color }}>
-                              {getCryptoAmount(selectedCrypto.id, finalTotal)}
-                            </span>
-                            <span className="text-xl font-bold text-white/50">{selectedCrypto.ticker}</span>
-                          </div>
-                          <p className="text-sm text-white/30 font-mono">GBP {finalTotal.toFixed(2)}</p>
-                          
-                          {/* Copy amount button */}
-                          <button
-                            onClick={() => copyToClipboard(getCryptoAmount(selectedCrypto.id, finalTotal) || "", "amount")}
-                            className={cn(
-                              "mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold transition-all",
-                              copiedField === "amount" 
-                                ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30" 
-                                : "bg-white/5 text-white/50 hover:text-white hover:bg-white/10 border border-white/10"
-                            )}
-                          >
-                            {copiedField === "amount" ? <><Check className="h-3 w-3" /> Amount Copied</> : <><Copy className="h-3 w-3" /> Copy Amount</>}
-                          </button>
-                        </div>
-
-                        {/* QR Code */}
-                        <div className="flex justify-center py-2">
-                          <div className="relative group">
-                            <div className="absolute -inset-4 rounded-3xl opacity-30 blur-2xl transition-all group-hover:opacity-50" style={{ backgroundColor: selectedCrypto.color }} />
-                            <div className="relative rounded-2xl bg-gradient-to-br from-white/10 to-white/5 p-1 border border-white/10">
-                              <div className="p-3 bg-white rounded-xl">
-                                <Image
-                                  src={`https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(selectedCrypto.address)}&bgcolor=FFFFFF&color=000000&format=png&margin=1`}
-                                  alt={`${selectedCrypto.name} QR`} width={180} height={180}
-                                  className="rounded-lg" unoptimized crossOrigin="anonymous"
-                                />
-                              </div>
-                            </div>
-                            <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-[#0a0a0c] border border-white/10">
-                              <p className="text-[9px] font-bold text-white/50 uppercase tracking-wider">Scan QR Code</p>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Wallet Address */}
-                        <div className="space-y-3 pt-2">
-                          <div className="flex items-center justify-between px-1">
-                            <label className="text-[10px] text-white/30 font-bold uppercase tracking-wider">Destination Address</label>
-                            <button
-                              onClick={() => copyToClipboard(selectedCrypto.address, "wallet")}
-                              className={cn(
-                                "flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all",
-                                copiedField === "wallet" 
-                                  ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30" 
-                                  : "bg-white/5 text-white/40 hover:text-white hover:bg-white/10 border border-white/10"
-                              )}
-                            >
-                              {copiedField === "wallet" ? <><Check className="h-3 w-3" /> Copied</> : <><Copy className="h-3 w-3" /> Copy Address</>}
-                            </button>
-                          </div>
-                          <div 
-                            onClick={() => copyToClipboard(selectedCrypto.address, "wallet")}
-                            className="relative group cursor-pointer rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] p-4 transition-all"
-                          >
-                            <p className="font-mono text-[13px] break-all select-all text-white/70 leading-relaxed tracking-wide">
-                              {selectedCrypto.address}
-                            </p>
-                          </div>
-                        </div>
-
-                        {/* Transaction Details Grid */}
-                        <div className="grid grid-cols-2 gap-3">
-                          <div className="rounded-xl bg-white/[0.02] border border-white/5 p-4">
-                            <div className="flex items-center gap-2 mb-2">
-                              <div className="w-6 h-6 rounded-lg bg-primary/10 flex items-center justify-center">
-                                <Clock className="h-3 w-3 text-primary" />
-                              </div>
-                              <span className="text-[10px] text-white/30 font-bold uppercase">Time Left</span>
-                            </div>
-                            <p className="text-xl font-black text-white tabular-nums font-mono">{formatTime(timeLeft)}</p>
-                          </div>
-                          <div className="rounded-xl bg-white/[0.02] border border-white/5 p-4">
-                            <div className="flex items-center gap-2 mb-2">
-                              <div className="w-6 h-6 rounded-lg bg-emerald-500/10 flex items-center justify-center">
-                                <CheckCircle2 className="h-3 w-3 text-emerald-400" />
-                              </div>
-                              <span className="text-[10px] text-white/30 font-bold uppercase">Confirmations</span>
-                            </div>
-                            <p className="text-xl font-black text-white">{selectedCrypto.confirmations.split(" ")[0]} <span className="text-sm font-medium text-white/30">required</span></p>
-                          </div>
-                        </div>
-
-                        {/* Warning */}
-                        <div className="flex items-start gap-3 p-4 rounded-xl bg-amber-500/5 border border-amber-500/10">
-                          <div className="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center shrink-0">
-                            <AlertTriangle className="h-4 w-4 text-amber-400" />
-                          </div>
-                          <div className="text-xs text-white/50 leading-relaxed">
-                            <p className="font-bold text-amber-400 mb-0.5">Important Notice</p>
-                            <p>Send only <strong className="text-white">{selectedCrypto.ticker}</strong> on the <strong className="text-white">{selectedCrypto.name.includes("TRC") ? "TRON" : selectedCrypto.name.includes("Ethereum") ? "Ethereum" : selectedCrypto.name}</strong> network. Other assets will be lost permanently.</p>
-                          </div>
-                        </div>
-
-                        {/* Live Status */}
-                        <div className="relative rounded-xl bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 border border-primary/20 p-4 overflow-hidden">
-                          <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent,rgba(239,111,41,0.1),transparent)] animate-pulse" style={{ animationDuration: "2s" }} />
-                          <div className="relative flex items-center justify-center gap-3">
-                            <div className="relative">
-                              <div className="absolute inset-0 rounded-full bg-primary/30 animate-ping" style={{ animationDuration: "1.5s" }} />
-                              <Loader2 className="h-5 w-5 text-primary animate-spin" />
-                            </div>
-                            <span className="text-sm text-white/70 font-medium">Monitoring blockchain for incoming transaction...</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Gateway Footer */}
-                      <div className="px-6 py-4 border-t border-white/5 bg-white/[0.01]">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-3">
-                            <Shield className="h-4 w-4 text-white/20" />
-                            <span className="text-[10px] text-white/20 font-medium">256-bit SSL Encrypted</span>
-                          </div>
-                          <div className="flex items-center gap-3">
-                            <span className="text-[10px] text-white/30 font-mono">{orderId}</span>
-                            <div className="w-1 h-1 rounded-full bg-white/20" />
-                            <span className="text-[10px] text-white/20">Lethal Solutions</span>
-                          </div>
-                        </div>
+                {/* PayPal pay */}
+                {paymentMethod === "paypal" && (
+                  <div className="flex-1 flex flex-col">
+                    <div className="mb-4">
+                      <label className="text-[10px] text-white/25 font-medium uppercase tracking-wider mb-1.5 block">PayPal Email (Friends & Family)</label>
+                      <div
+                        onClick={() => copyToClipboard(PAYPAL_EMAIL, "paypal")}
+                        className="flex items-center justify-between rounded-xl border border-[rgba(255,255,255,0.06)] bg-white/[0.02] px-4 py-3 cursor-pointer hover:bg-white/[0.04] transition-all group"
+                      >
+                        <span className="font-mono text-sm text-white/70 select-all">{PAYPAL_EMAIL}</span>
+                        <button className="text-white/20 group-hover:text-white/50 transition-colors">
+                          {copiedField === "paypal" ? <Check className="h-4 w-4 text-emerald-400" /> : <Copy className="h-4 w-4" />}
+                        </button>
                       </div>
                     </div>
-                  )}
 
-                  {/* PayPal payment */}
-                  {paymentMethod === "paypal" && (
-                    <div className="rounded-3xl border border-[#003087]/20 bg-card/60 backdrop-blur-xl overflow-hidden shadow-xl shadow-black/5">
-                      <div className="p-6 flex items-center gap-4 border-b border-[#003087]/10 bg-gradient-to-r from-[#003087]/5 to-transparent">
-                        <div className="w-12 h-12 rounded-2xl bg-[#003087]/10 flex items-center justify-center">
-                          <PayPalIcon className="h-6 w-6" />
-                        </div>
-                        <div>
-                          <p className="font-bold text-foreground">PayPal - Friends & Family</p>
-                          <p className="text-xs text-muted-foreground">Must be sent as Friends & Family</p>
-                        </div>
-                      </div>
-
-                      <div className="p-6 space-y-5">
-                        <div>
-                          <label className="text-[10px] text-muted-foreground/60 uppercase tracking-[0.15em] font-bold block mb-2.5">PayPal Email</label>
-                          <div className="flex items-center gap-2.5">
-                            <div className="flex-1 rounded-2xl border border-border/50 bg-background/60 px-5 py-4 font-mono text-sm select-all text-foreground font-bold">
-                              {PAYPAL_EMAIL}
-                            </div>
-                            <button
-                              onClick={() => copyToClipboard(PAYPAL_EMAIL, "paypal")}
-                              className={cn(
-                                "shrink-0 h-[52px] w-[52px] rounded-2xl border flex items-center justify-center transition-all duration-300",
-                                copiedField === "paypal" ? "border-[#003087]/40 bg-[#003087]/10 shadow-[0_0_15px_rgba(0,48,135,0.2)]" : "border-border/50 hover:border-border hover:bg-muted/20"
-                              )}
-                            >
-                              {copiedField === "paypal" ? <Check className="h-5 w-5 text-[#003087]" /> : <Copy className="h-5 w-5 text-muted-foreground" />}
-                            </button>
-                          </div>
-                        </div>
-
-                        <div>
-                          <label className="text-[10px] text-muted-foreground/60 uppercase tracking-[0.15em] font-bold block mb-2.5">Payment Note</label>
-                          <div className="rounded-2xl border border-border/50 bg-background/60 px-5 py-4 text-sm text-foreground">
-                            {"Discord: "}<strong className="text-primary">{discordUser || "your_username"}</strong>
-                          </div>
-                        </div>
-
-                        <div className="flex items-start gap-3 p-4 rounded-2xl bg-amber-500/5 border border-amber-500/10">
-                          <AlertTriangle className="h-5 w-5 text-amber-400 shrink-0 mt-0.5" />
-                          <div className="text-xs text-muted-foreground leading-relaxed">
-                            <p><strong className="text-foreground">Friends & Family ONLY.</strong></p>
-                            <p className="mt-1">{"Include your Discord username in the note. Goods & Services payments will be refunded."}</p>
-                          </div>
-                        </div>
+                    <div className="mb-4">
+                      <label className="text-[10px] text-white/25 font-medium uppercase tracking-wider mb-1.5 block">Payment Note</label>
+                      <div className="rounded-xl border border-[rgba(255,255,255,0.06)] bg-white/[0.02] px-4 py-3 text-sm text-white/50">
+                        {"Discord: "}<strong className="text-[#EF6F29]">{discordUser || "your_username"}</strong>
                       </div>
                     </div>
+
+                    <div className="flex items-start gap-2.5 p-3 rounded-xl bg-amber-500/[0.04] border border-amber-500/10 mb-6">
+                      <AlertTriangle className="h-3.5 w-3.5 text-amber-400 shrink-0 mt-0.5" />
+                      <p className="text-[11px] text-white/40 leading-relaxed">
+                        <strong className="text-white/60">Friends & Family ONLY.</strong>{" Include your Discord username in the note."}
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {/* Confirm button */}
+                <button
+                  onClick={handleConfirmPayment}
+                  disabled={timeLeft <= 0}
+                  className={cn(
+                    "w-full py-3.5 font-bold text-sm rounded-xl transition-all flex items-center justify-center gap-2.5 mt-auto",
+                    timeLeft > 0
+                      ? "bg-[#EF6F29] hover:bg-[#EF6F29]/90 text-white active:scale-[0.98]"
+                      : "bg-white/[0.04] text-white/20 cursor-not-allowed"
                   )}
+                >
+                  {timeLeft <= 0 ? "Session Expired" : (
+                    <>
+                      <CheckCircle2 className="h-4 w-4" />
+                      {"I've sent the payment"}
+                    </>
+                  )}
+                </button>
 
-                  {/* Confirm CTA */}
-                  <button
-                    onClick={handleConfirmPayment}
-                    disabled={timeLeft <= 0}
-                    className={cn(
-                      "w-full py-5 text-primary-foreground font-bold text-base rounded-2xl transition-all duration-300 flex items-center justify-center gap-3 relative overflow-hidden group",
-                      timeLeft > 0
-                        ? "bg-gradient-to-r from-primary to-accent hover:opacity-90 hover:shadow-[0_0_40px_rgba(239,111,41,0.35)] hover:scale-[1.01] active:scale-[0.99]"
-                        : "bg-muted/30 cursor-not-allowed text-muted-foreground"
-                    )}
-                  >
-                    {timeLeft <= 0 ? "Session Expired" : (
-                      <span className="flex items-center gap-3">
-                        <CheckCircle2 className="h-5 w-5" />
-                        {"Confirm Payment Sent"}
-                        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                      </span>
-                    )}
-                  </button>
-
-                  <button
-                    onClick={() => { setStep("form"); setTimeLeft(TIMER_SECONDS) }}
-                    className="w-full text-center text-xs text-muted-foreground hover:text-foreground transition-colors py-2"
-                  >
-                    {"< "}Change payment method
-                  </button>
-                </div>
-              )}
-            </div>
-
-            {/* Order summary is now in left column above */}
+                <button
+                  onClick={() => { setStep("form"); setTimeLeft(TIMER_SECONDS) }}
+                  className="w-full text-center text-[11px] text-white/20 hover:text-white/40 transition-colors py-3 mt-2"
+                >
+                  Change payment method
+                </button>
+              </div>
+            )}
           </div>
+
         </div>
       </section>
 
