@@ -9,7 +9,9 @@
       "Bash(git -C \"C:/Users/кир/Desktop/сайт\" push)",
       "WebFetch(domain:blurred.gg)",
       "WebFetch(domain:stuxnet.fun)",
-      "WebFetch(domain:ednercheats.com)"
+      "WebFetch(domain:ednercheats.com)",
+      "Bash(npx:*)",
+      "Bash(node:*)"
     ]
   }
 }

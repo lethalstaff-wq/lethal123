@@ -183,14 +183,14 @@ function renderHtml(title: string, message: string, type: "success" | "error"): 
       display: inline-block;
       margin-top: 24px;
       padding: 12px 24px;
-      background: #f97316;
+      background: #EF6F29;
       color: #fff;
       text-decoration: none;
       border-radius: 8px;
       font-weight: 600;
     }
     .btn:hover {
-      background: #ea580c;
+      background: #CC5500;
     }
   </style>
 </head>

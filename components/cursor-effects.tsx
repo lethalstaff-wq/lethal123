@@ -17,7 +17,7 @@ export function CursorEffects() {
   const [isMoving, setIsMoving] = useState(false)
 
   const createParticle = useCallback((x: number, y: number) => {
-    const colors = ["#f97316", "#fb923c", "#fdba74", "#fff7ed"]
+    const colors = ["#EF6F29", "#FFB347", "#fdba74", "#fff7ed"]
     return {
       id: Date.now() + Math.random(),
       x: x + (Math.random() - 0.5) * 20,

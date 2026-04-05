@@ -27,8 +27,11 @@ export const metadata: Metadata = {
     "Undetected gaming solutions for competitive players. Premium cheats, ESP, aimbots, DMA hardware, and HWID spoofers with 24/7 support.",
   keywords: ["gaming cheats", "DMA", "spoofer", "HWID", "fortnite", "undetected", "ESP", "aimbot"],
   icons: {
-    icon: "/favicon.png",
-    apple: "/favicon.png",
+    icon: [
+      { url: "/favicon.ico", sizes: "32x32" },
+      { url: "/favicon.png", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
   },
   openGraph: {
     type: "website",
@@ -45,7 +48,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#f97316",
+  themeColor: "#EF6F29",
   width: "device-width",
   initialScale: 1,
 }

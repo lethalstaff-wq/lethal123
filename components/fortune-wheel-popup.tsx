@@ -8,13 +8,13 @@ const POPUP_STORAGE_KEY = "lethal_fortune_wheel_v2"
 const COUPON_STORAGE_KEY = "lethal_won_coupon_v2"
 
 const WHEEL_SEGMENTS = [
-  { label: "5%", code: "EASTER5", color: "#f97316", discount: 5 },
+  { label: "5%", code: "EASTER5", color: "#EF6F29", discount: 5 },
   { label: "10%", code: "BUNNY10", color: "#1c1c1f", discount: 10 },
-  { label: "15%", code: "EGG15", color: "#fb923c", discount: 15 },
+  { label: "15%", code: "EGG15", color: "#FFB347", discount: 15 },
   { label: "7%", code: "SPRING7", color: "#1c1c1f", discount: 7 },
-  { label: "20%", code: "EASTER20", color: "#f97316", discount: 20 },
+  { label: "20%", code: "EASTER20", color: "#EF6F29", discount: 20 },
   { label: "12%", code: "HUNT12", color: "#1c1c1f", discount: 12 },
-  { label: "8%", code: "RABBIT8", color: "#fb923c", discount: 8 },
+  { label: "8%", code: "RABBIT8", color: "#FFB347", discount: 8 },
   { label: "25%", code: "GOLDEN25", color: "#1c1c1f", discount: 25 },
 ]
 
@@ -169,7 +169,7 @@ export function FortuneWheelPopup() {
                             textAnchor="middle"
                             dominantBaseline="middle"
                             className="text-[8px] font-bold"
-                            fill={segment.color === "#1c1c1f" ? "#f97316" : "#ffffff"}
+                            fill={segment.color === "#1c1c1f" ? "#EF6F29" : "#ffffff"}
                             transform={`rotate(${midAngle + 90}, ${textX}, ${textY})`}
                           >
                             {segment.label}
@@ -177,8 +177,8 @@ export function FortuneWheelPopup() {
                         </g>
                       )
                     })}
-                    <circle cx="50" cy="50" r="10" fill="#0a0a0b" stroke="#f97316" strokeWidth="2" />
-                    <text x="50" y="50" textAnchor="middle" dominantBaseline="middle" className="text-[5px] font-bold" fill="#f97316">SPIN</text>
+                    <circle cx="50" cy="50" r="10" fill="#0a0a0b" stroke="#EF6F29" strokeWidth="2" />
+                    <text x="50" y="50" textAnchor="middle" dominantBaseline="middle" className="text-[5px] font-bold" fill="#EF6F29">SPIN</text>
                   </svg>
                 </div>
               </div>
