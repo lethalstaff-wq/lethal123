@@ -1,5 +1,5 @@
-// Deterministic review generator — produces realistic review texts for every simulated order.
-// All users see the same reviews at the same time (seeded by date).
+// Deterministic review generator — 847 reviews total, realistic distribution.
+// All users see identical reviews (seeded by date).
 
 type GeneratedReview = {
   id: number
@@ -18,135 +18,116 @@ type GeneratedReview = {
   created_at: string
 }
 
-// ─── Review text pools per product category (5-star / 4-star) ───
+// ─── 5-star / 4-star review texts ───
 
 const SPOOFER_REVIEWS = [
-  "hwid ban gone in literally 2 minutes. back on my main playing ranked like nothing happened. this is insane",
-  "been using perm spoofer for 3 months now zero issues. survives reboots, updates, everything. actually permanent fr",
-  "got banned on fortnite and warzone. one install fixed both games. easiest purchase ive ever made ngl",
-  "my buddy got his whole pc hwid banned. told him about this, hes been playing for 6 weeks straight no problems",
-  "tried 3 other spoofers before this one. all got detected within a week. this one? 4 months and counting",
-  "support helped me set it up in like 5 min on discord. works on both intel and amd which is clutch",
-  "thought my pc was done after the ban wave. spoofer fixed everything instantly. worth every single penny",
-  "the kernel level stuff actually works different from other spoofers. you can tell its properly made",
-  "bought for my alt first to test. worked perfectly so got it for main too. no detection in 2 months on either",
-  "instant delivery + instant fix. was back in game within 10 minutes of purchasing. actually goated",
-  "survived the last big ban wave when everyone else got caught. this spoofer is built different for real",
-  "changed all my hardware ids clean. motherboard, gpu, mac address, disk serials. actually thorough",
-  "was skeptical at first but bro this just works. no bloatware no sketchy stuff just clean spoof",
-  "reinstalled windows and the spoofer still held. truly permanent like they say. no cap",
-  "running it alongside blurred dma and zero conflicts. clean setup clean results",
-  "bought the lifetime and its the best investment. 5 months in still undetected still running smooth",
-  "eac and battleye both spoofed perfectly. tested on fortnite rust and pubg all clean",
-  "my homie recommended this after his worked for 6 months. now i see why. quality product",
-  "setup guide was clear af. even for someone not super technical it was easy to follow",
-  "temp spoofer is perfect if you just need it for a tournament weekend. cheap and effective",
-  "30 day temp spoofer got me through the whole season. renewed and going again. reliable af",
-  "the fact that it survives game updates without needing to redo anything is huge. zero maintenance",
-  "used to manually spoof with regedit and pray lmao. this is a whole different level",
-  "vanguard bypass works flawlessly. been playing val on a previously banned pc for months",
-  "ricochet cant touch this. warzone on a banned hwid running smooth as butter",
+  "hwid ban gone in literally 2 minutes. back on my main playing ranked like nothing happened",
+  "been using perm spoofer for 3 months now zero issues. survives reboots, updates, everything",
+  "got banned on fortnite and warzone. one install fixed both games. easiest purchase ever",
+  "tried 3 other spoofers before this one. all got detected within a week. this one? 4 months",
+  "support helped me set it up in 5 min on discord. works on both intel and amd",
+  "thought my pc was done after the ban wave. spoofer fixed everything instantly",
+  "the kernel level stuff actually works different from other spoofers. properly made",
+  "bought for my alt first to test. worked perfectly so got it for main too",
+  "instant delivery + instant fix. was back in game within 10 minutes",
+  "survived the last big ban wave when everyone else got caught. built different",
+  "changed all my hardware ids clean. motherboard, gpu, mac, disk serials",
+  "was skeptical but this just works. no bloatware no sketchy stuff",
+  "reinstalled windows and the spoofer still held. truly permanent",
+  "running it alongside blurred dma and zero conflicts",
+  "bought the lifetime. 5 months in still undetected still smooth",
+  "eac and battleye both spoofed perfectly. tested on fn rust and pubg",
+  "setup guide was clear af. even for someone not technical it was easy",
+  "temp spoofer is perfect for a tournament weekend. cheap and effective",
+  "30 day temp got me through the whole season. renewed and going again",
+  "vanguard bypass works flawlessly. playing val on a banned pc for months",
 ]
 
 const CHEAT_REVIEWS = [
-  "the esp is so clean on stream. overlay is perfect, nobody in chat has ever noticed anything",
-  "aimbot smoothing is actually insane. looks completely natural even in kill cams. well done",
-  "been running this in ranked for a month straight. zero suspicion zero detection. worth it",
-  "fps literally didnt drop at all after installing. whatever optimization they did is top tier",
-  "config options are crazy detailed. you can tune literally everything to your playstyle",
-  "external only so no injection detection risk. smart design honestly. runs clean",
-  "started with 7 day to test it out. bought lifetime same night lmao. its that good",
-  "support helped me optimize my config for comp play. the attention to detail is next level",
-  "update came out 2 hours after the game patched. these devs are actually on it 24/7",
-  "switched from another provider and the difference is night and day. way smoother way cleaner",
-  "been through 3 ban waves with this running. not a single detection. actually undetected",
-  "the trigger bot is so subtle even i forget its on sometimes lol. perfectly tuned",
-  "radar hack alone is worth the price. full map awareness without looking sus at all",
-  "dma setup with this cheat is literally unbeatable. hardware level so nothing to detect on pc",
-  "quarterly sub is the move. saves money and you get updates for 3 months straight",
-  "movement prediction on the aimbot is crazy accurate. hitting shots i definitely shouldnt be hitting",
-  "used this for a $500 tournament and absolutely dominated. roi in one night lmaooo",
-  "the fov circle is customizable and the bone selection is perfect. headshot machine",
-  "no random crashes no blue screens no issues at all. just works every single time",
-  "lifetime was expensive but 6 months later im still using it daily. zero regrets",
-  "visibility checks on the esp are on point. only shows enemies you could actually see",
-  "item esp for loot is a game changer in br games. always have the best loadout",
-  "stream proof overlay is flawless. been streaming ranked with it on and zero clip drama",
-  "the recoil control is subtle enough to look legit but strong enough to laser people",
-  "blurred dma is the smoothest cheat ive used in 4 years of gaming. actually premium quality",
+  "the esp is so clean on stream. overlay is perfect, nobody notices",
+  "aimbot smoothing is insane. looks completely natural in kill cams",
+  "been running this in ranked for a month. zero suspicion zero detection",
+  "fps literally didnt drop at all. whatever optimization they did is top tier",
+  "config options are crazy detailed. you can tune everything to your playstyle",
+  "external only so no injection risk. smart design. runs clean",
+  "started with 7 day to test. bought lifetime same night lmao",
+  "support helped me optimize config for comp. attention to detail is next level",
+  "update came out 2 hours after the game patched. devs are on it 24/7",
+  "switched from another provider. night and day difference. way smoother",
+  "been through 3 ban waves with this running. not a single detection",
+  "the trigger bot is so subtle even i forget its on sometimes lol",
+  "radar hack alone is worth the price. full map awareness without looking sus",
+  "dma setup with this cheat is literally unbeatable. hardware level",
+  "quarterly sub is the move. saves money and 3 months of updates",
+  "movement prediction on the aimbot is crazy accurate",
+  "no random crashes no blue screens. just works every time",
+  "lifetime was expensive but 6 months later still using it daily",
+  "stream proof overlay is flawless. streaming ranked with it, zero drama",
+  "blurred dma is the smoothest cheat ive used in 4 years. premium quality",
 ]
 
 const FIRMWARE_REVIEWS = [
-  "custom firmware runs flawless. eac emulation is perfect and stable as hell",
-  "dma card with this firmware is literally invisible to anti cheat. hardware level bypass",
-  "setup was smooth with discord support. they walked me through the whole flashing process",
-  "firmware update dropped within hours of the game update. fastest turnaround ive seen",
-  "been running eac/be emulation for 3 months. not a single issue not a single detection",
-  "the slotted edition is next level. worth the premium for the extra compatibility",
-  "faceit bypass firmware actually works. thought it was impossible but here we are",
-  "flashing was easier than expected. clear instructions and support was there when i needed help",
-  "captain dma + this firmware = unstoppable combo. best setup ive ever run",
-  "vanguard emulation works perfectly. playing val with full hardware bypass is a dream",
-  "quality of the firmware is insane. you can tell actual engineers built this not amateurs",
-  "tried cheap firmware from another provider. got detected in a week. this? 4 months strong",
-  "teensy integration is seamless. plug and play basically after flashing",
-  "the emulation is so good the system literally thinks its a normal device. undetectable",
-  "firmware updates are free and they push them fast. never been left hanging after a patch",
+  "custom firmware runs flawless. eac emulation is perfect and stable",
+  "dma card with this firmware is literally invisible to anti cheat",
+  "setup was smooth with discord support. walked me through flashing",
+  "firmware update dropped within hours of the game update. fastest ever",
+  "been running eac/be emulation for 3 months. zero issues zero detection",
+  "the slotted edition is next level. worth the premium",
+  "faceit bypass firmware actually works. thought it was impossible",
+  "captain dma + this firmware = unstoppable combo",
+  "vanguard emulation works perfectly. val with full hardware bypass",
+  "quality is insane. actual engineers built this not amateurs",
+  "tried cheap firmware elsewhere. detected in a week. this? 4 months",
+  "teensy integration is seamless. plug and play after flashing",
+  "firmware updates are free and fast. never left hanging after a patch",
 ]
 
 const BUNDLE_REVIEWS = [
-  "got the full bundle and bro everything just works together perfectly. best purchase this year",
-  "bundle saved me like 200 quid compared to buying everything separate. smart move",
-  "setup took 30 min with discord support. from unboxing to in-game in half an hour",
-  "the hardware quality is premium. dma card, fuser, everything feels solid and well made",
-  "lifetime discord support is actually real. they helped me at 2am no questions asked",
-  "discreet shipping was fast. package looked completely normal from outside. good opsec",
-  "elite bundle is expensive but you literally get everything you need for the best setup possible",
-  "advanced bundle hits the sweet spot. great hardware + quarterly cheat access. perfect combo",
-  "basic bundle got me started and i upgraded to advanced 2 months later. both worth it",
-  "everything was plug and play. no compatibility issues no driver problems. just works",
-  "the bundle came with clear setup docs + priority discord channel. felt premium from start",
-  "shipping was 3 days to UK. packaged well everything arrived in perfect condition",
-  "already recommended the bundle to 3 friends. all of them are running clean now",
-  "the included firmware was already flashed. literally just plug in and go. incredible",
-  "been running the elite bundle for 2 months. not a single issue across any game. top tier",
+  "got the full bundle. everything works together perfectly. best purchase this year",
+  "bundle saved me like 200 quid compared to buying separate. smart move",
+  "setup took 30 min with discord support. unboxing to in-game in half an hour",
+  "the hardware quality is premium. dma card fuser everything feels solid",
+  "lifetime discord support is real. they helped me at 2am no questions",
+  "discreet shipping was fast. package looked normal from outside",
+  "elite bundle is expensive but you get everything for the best setup",
+  "advanced bundle hits the sweet spot. great hardware + quarterly cheat",
+  "basic bundle got me started. upgraded to advanced 2 months later",
+  "everything was plug and play. no compatibility issues no driver problems",
+  "bundle came with clear setup docs + priority discord channel",
+  "shipping was 3 days to UK. packaged well, arrived perfect condition",
+  "already recommended to 3 friends. all running clean now",
 ]
 
-// ─── 3-star reviews ───
+// ─── 3-star texts ───
 const REVIEWS_3STAR = [
-  "works but took a while to set up. support was helpful tho eventually got there",
-  "decent but had some fps drops initially. fixed after config changes so its ok now",
-  "good product but the documentation could be better. had to ask discord for most steps",
-  "product itself is solid but delivery took longer than expected. not instant like they say",
-  "works fine once you get it running but the initial setup was confusing ngl",
-  "its alright. does what it says but nothing mind blowing. expected more for the price tbh",
-  "had to reinstall twice before it worked properly. support helped but still annoying",
-  "works on fortnite perfectly but had issues with other games. partial W i guess",
-  "pretty good but the ui could use some work. feels a bit outdated compared to competitors",
-  "took about an hour to set up when they said 5 minutes. works now tho so whatever",
+  "works but took a while to set up. support was helpful tho",
+  "decent but had some fps drops initially. fixed after config changes",
+  "good product but the documentation could be better",
+  "product is solid but setup was confusing at first",
+  "works fine once running but initial config was annoying",
+  "its alright. does what it says but expected more for the price",
+  "had to reinstall twice before it worked. support helped tho",
+  "works on fortnite perfectly but had issues with other games",
+  "took about an hour to set up when they said 5 minutes",
 ]
 
-// ─── 2-star reviews ───
+// ─── 2-star texts ───
 const REVIEWS_2STAR = [
   "took 3 days to get support help. product works now but the wait was annoying",
-  "had compatibility issues with my amd board. eventually got it working after multiple tries",
-  "works intermittently. some days its fine other days it crashes. inconsistent",
-  "setup guide was outdated and missing steps. had to figure stuff out myself",
-  "the product works but crashed my pc twice during setup. not ideal",
-  "expected better for the price honestly. its ok but not premium quality",
+  "had compatibility issues with my amd board. eventually got it working",
+  "setup was confusing. got it working after support helped but meh experience",
+  "the product works but crashed my pc twice during setup",
+  "expected better for the price honestly. its ok but not premium",
 ]
 
-// ─── 1-star reviews ───
+// ─── 1-star texts ───
 const REVIEWS_1STAR = [
   "couldnt get it working on my setup",
   "didnt work with my motherboard",
-  "crashed every time i tried to launch the game",
   "support took forever to respond. gave up",
-  "doesnt work on windows 11 for me. waste of money",
 ]
 
-// ─── Username pools ───
-
+// ─── Usernames ───
 const USERNAMES = [
   "wraith", "sk8", "nxva", "zeph", "blitz", "kyro", "dex", "flux",
   "ash", "ryze", "vxid", "cryo", "hex", "mrk", "sly", "bxn",
@@ -164,19 +145,16 @@ const USERNAMES = [
 
 const EMAIL_DOMAINS = ["gmail.com", "yahoo.com", "outlook.com", "proton.me", "hotmail.com", "icloud.com"]
 
-// ─── Deterministic seeded random ───
-
+// ─── Seeded random ───
 function seededRandom(seed: number): number {
   const x = Math.sin(seed * 9301 + 49297) * 233280
   return x - Math.floor(x)
 }
-
 function pickFromSeed<T>(arr: T[], seed: number): T {
   return arr[Math.floor(seededRandom(seed) * arr.length)]
 }
 
-// ─── Products with their review pools ───
-
+// ─── Products ───
 const PRODUCT_POOLS: { name: string; id: string; reviews: string[]; weight: number }[] = [
   { name: "Perm Spoofer", id: "perm-spoofer", reviews: SPOOFER_REVIEWS, weight: 25 },
   { name: "Temp Spoofer", id: "temp-spoofer", reviews: SPOOFER_REVIEWS, weight: 12 },
@@ -192,14 +170,9 @@ const PRODUCT_POOLS: { name: string; id: string; reviews: string[]; weight: numb
 function pickProduct(seed: number) {
   const totalWeight = PRODUCT_POOLS.reduce((s, p) => s + p.weight, 0)
   let roll = seededRandom(seed) * totalWeight
-  for (const p of PRODUCT_POOLS) {
-    roll -= p.weight
-    if (roll <= 0) return p
-  }
+  for (const p of PRODUCT_POOLS) { roll -= p.weight; if (roll <= 0) return p }
   return PRODUCT_POOLS[0]
 }
-
-// ─── Time label helpers ───
 
 function getTimeLabel(daysAgo: number): string {
   if (daysAgo === 0) return "today"
@@ -212,75 +185,84 @@ function getTimeLabel(daysAgo: number): string {
   return "1 year ago"
 }
 
-function formatDate(d: Date): string {
-  return d.toISOString().split("T")[0]
-}
+function formatDate(d: Date): string { return d.toISOString().split("T")[0] }
 
 // ─── Team responses ───
-
 const TEAM_RESPONSES_POSITIVE = [
-  "appreciate the love! glad everything is running smooth for you. hit us up on discord if you ever need anything 🤝",
-  "thanks for the review! your setup is looking clean. dont hesitate to reach out if you want help optimizing configs",
-  "glad to hear it! we put a lot of work into making sure everything stays undetected. enjoy the grind 💪",
-  "love hearing this! our support team works hard to help everyone get set up properly. thanks for the kind words",
-  "thanks king! we push updates fast because we know downtime = lost games. appreciate the trust 🔥",
-  "this means a lot! quality and reliability are our top priorities. welcome to the lethal family",
-  "happy you went with us! if you ever want to upgrade or try other products, your loyalty gets you priority support",
-  "respect! reviews like this keep us motivated to stay the best. see you in the discord 🎯",
-  "goated review 🙏 we're always working behind the scenes to improve. glad you noticed the difference",
-  "thanks for taking the time to write this! real feedback from real customers is what drives us forward",
+  "appreciate the love! glad everything is running smooth. hit us up on discord if you need anything 🤝",
+  "thanks for the review! dont hesitate to reach out if you want help optimizing configs",
+  "glad to hear it! we put a lot of work into keeping everything undetected 💪",
+  "love hearing this! thanks for the kind words",
+  "thanks king! we push updates fast because downtime = lost games 🔥",
+  "welcome to the lethal family! quality and reliability are our top priorities",
+  "respect! reviews like this keep us motivated 🎯",
+  "thanks for taking the time to write this! real feedback drives us forward",
 ]
 
 const TEAM_RESPONSES_NEGATIVE = [
-  "sorry to hear that, please open a discord ticket and we'll sort it out asap. we dont leave anyone hanging",
-  "this shouldn't happen — DM us on discord and we'll get you fixed up today. we take this seriously",
-  "we've updated the setup guide based on your feedback. thanks for letting us know, it helps us improve",
-  "really sorry about the experience. our support queue was backed up that week — we've since added more staff. please reach out again",
-  "we hear you. compatibility issues like this are rare but when they happen we fix them fast. open a ticket and we'll prioritize you",
-  "appreciate the honest feedback. we've pushed an update that should fix this. give it another try and hit us up if not",
-  "not the experience we want for anyone. please DM us your order ID and we'll make it right immediately",
+  "sorry to hear that, please open a discord ticket and we'll sort it out asap",
+  "this shouldn't happen — DM us on discord and we'll get you fixed up today",
+  "we've updated the setup guide based on feedback like this. thanks for letting us know",
+  "really sorry about the experience. please reach out again and we'll prioritize you",
+  "appreciate the honest feedback. we've pushed an update that should fix this",
+  "not the experience we want for anyone. DM us your order ID and we'll make it right",
 ]
 
-// ─── Main generator ───
+// ─── Generator — exactly 847 reviews ───
 
-const GEN_START = new Date("2025-04-01") // ~1 year of reviews
+const TARGET_TOTAL = 847
+const GEN_START = new Date("2025-06-01")
 
-/**
- * Generates all deterministic reviews from GEN_START until today.
- * Daily count grows over time (business growth). Fully deterministic.
- */
 export function generateAllReviews(): GeneratedReview[] {
   const now = new Date()
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
-  const totalDays = Math.floor((today.getTime() - GEN_START.getTime()) / 86400000)
+  const totalDays = Math.max(1, Math.floor((today.getTime() - GEN_START.getTime()) / 86400000))
+
+  // Calculate per-day count to hit exactly TARGET_TOTAL
+  // We'll distribute reviews across days, more recent = more reviews
   const reviews: GeneratedReview[] = []
   let globalId = 10000
 
+  // First pass: calculate raw weights per day
+  const dayWeights: number[] = []
+  let totalWeight = 0
+  for (let dayIdx = 0; dayIdx < totalDays; dayIdx++) {
+    // Gradual growth: early days ~0.6 weight, recent ~1.4
+    const w = 0.6 + 0.8 * (dayIdx / totalDays)
+    dayWeights.push(w)
+    totalWeight += w
+  }
+
+  // Second pass: scale to TARGET_TOTAL
+  const dayCounts: number[] = []
+  let runningTotal = 0
+  for (let dayIdx = 0; dayIdx < totalDays; dayIdx++) {
+    const raw = (dayWeights[dayIdx] / totalWeight) * TARGET_TOTAL
+    const count = Math.round(raw)
+    dayCounts.push(count)
+    runningTotal += count
+  }
+  // Adjust last day to hit exact target
+  if (dayCounts.length > 0) {
+    dayCounts[dayCounts.length - 1] += TARGET_TOTAL - runningTotal
+  }
+
+  // For today: only show up to current hour proportion
+  const todayIdx = totalDays - 1
+  if (dayCounts[todayIdx]) {
+    const hour = now.getUTCHours()
+    const proportion = Math.min((hour + 1) / 24, 1)
+    dayCounts[todayIdx] = Math.max(1, Math.floor(dayCounts[todayIdx] * proportion))
+  }
+
   const d = new Date(GEN_START)
-  while (d <= today) {
+  for (let dayIdx = 0; dayIdx < totalDays; dayIdx++) {
     const year = d.getFullYear()
     const month = d.getMonth()
     const day = d.getDate()
     const daySeed = year * 10000 + (month + 1) * 100 + day
     const daysAgo = Math.floor((today.getTime() - d.getTime()) / 86400000)
-    const dayIndex = totalDays - daysAgo // 0 = first day, totalDays = today
-
-    // Daily count: ~2-4 early, ~4-7 recent → ~1500 total over a year
-    const growthFactor = Math.min(dayIndex / Math.max(totalDays, 1), 1)
-    const minCount = Math.floor(2 + growthFactor * 2) // 2→4
-    const maxExtra = Math.floor(2 + growthFactor * 3) // 2→5
-    const dayCount = minCount + Math.floor(seededRandom(daySeed) * maxExtra)
-
-    // For today — only generate up to current hour's order count
-    let count = dayCount
-    if (daysAgo === 0) {
-      const hour = now.getUTCHours()
-      const minute = now.getUTCMinutes()
-      const ordersPerHour = 3 + (daySeed % 100 % 3)
-      const hoursPassed = hour + minute / 60
-      const maxOrders = 30 + (daySeed % 100 % 12)
-      count = Math.min(Math.floor(hoursPassed * ordersPerHour), maxOrders)
-    }
+    const count = dayCounts[dayIdx] || 0
 
     for (let i = 0; i < count; i++) {
       const seed = daySeed * 1000 + i
@@ -290,7 +272,7 @@ export function generateAllReviews(): GeneratedReview[] {
       const emailLocal = username.replace(/[^a-z0-9]/g, "") + Math.floor(seededRandom(seed + 5) * 99)
       const masked = emailLocal.substring(0, 3) + "***"
 
-      // Rating distribution: 70% 5★, 18% 4★, 8% 3★, 3% 2★, 1% 1★
+      // Rating: 70% 5★, 18% 4★, 8% 3★, 3% 2★, 1% 1★
       const ratingRoll = seededRandom(seed + 6)
       let rating: number
       if (ratingRoll < 0.70) rating = 5
@@ -299,40 +281,26 @@ export function generateAllReviews(): GeneratedReview[] {
       else if (ratingRoll < 0.99) rating = 2
       else rating = 1
 
-      // Pick review text based on rating
+      // Pick text by rating
       let reviewText: string
-      if (rating >= 4) {
-        reviewText = pickFromSeed(product.reviews, seed + 2)
-      } else if (rating === 3) {
-        reviewText = pickFromSeed(REVIEWS_3STAR, seed + 2)
-      } else if (rating === 2) {
-        reviewText = pickFromSeed(REVIEWS_2STAR, seed + 2)
-      } else {
-        reviewText = pickFromSeed(REVIEWS_1STAR, seed + 2)
-      }
+      if (rating >= 4) reviewText = pickFromSeed(product.reviews, seed + 2)
+      else if (rating === 3) reviewText = pickFromSeed(REVIEWS_3STAR, seed + 2)
+      else if (rating === 2) reviewText = pickFromSeed(REVIEWS_2STAR, seed + 2)
+      else reviewText = pickFromSeed(REVIEWS_1STAR, seed + 2)
 
-      // Helpful votes based on age
+      // Helpful by age
       let helpful: number
-      if (daysAgo > 180) {
-        helpful = 80 + Math.floor(seededRandom(seed + 7) * 120)
-      } else if (daysAgo > 30) {
-        helpful = 15 + Math.floor(seededRandom(seed + 7) * 65)
-      } else if (daysAgo > 0) {
-        helpful = Math.floor(seededRandom(seed + 7) * 15)
-      } else {
-        helpful = Math.floor(seededRandom(seed + 7) * 3)
-      }
+      if (daysAgo > 180) helpful = 80 + Math.floor(seededRandom(seed + 7) * 120)
+      else if (daysAgo > 30) helpful = 15 + Math.floor(seededRandom(seed + 7) * 65)
+      else if (daysAgo > 0) helpful = Math.floor(seededRandom(seed + 7) * 15)
+      else helpful = Math.floor(seededRandom(seed + 7) * 3)
 
       // Team responses: 15% on 5★, 10% on 4★, 40% on ≤3★
       let teamResponse: string | null = null
       const responseRoll = seededRandom(seed + 8)
-      if (rating === 5 && responseRoll < 0.15) {
-        teamResponse = pickFromSeed(TEAM_RESPONSES_POSITIVE, seed + 9)
-      } else if (rating === 4 && responseRoll < 0.10) {
-        teamResponse = pickFromSeed(TEAM_RESPONSES_POSITIVE, seed + 9)
-      } else if (rating <= 3 && responseRoll < 0.40) {
-        teamResponse = pickFromSeed(TEAM_RESPONSES_NEGATIVE, seed + 9)
-      }
+      if (rating === 5 && responseRoll < 0.15) teamResponse = pickFromSeed(TEAM_RESPONSES_POSITIVE, seed + 9)
+      else if (rating === 4 && responseRoll < 0.10) teamResponse = pickFromSeed(TEAM_RESPONSES_POSITIVE, seed + 9)
+      else if (rating <= 3 && responseRoll < 0.40) teamResponse = pickFromSeed(TEAM_RESPONSES_NEGATIVE, seed + 9)
 
       reviews.push({
         id: globalId++,

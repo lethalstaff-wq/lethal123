@@ -1,19 +1,17 @@
-// Per-product review counts — source of truth
-// These are base counts as of 2026-04-01. They grow dynamically via getProductReviewCount().
+// Review counts — source of truth
 
 export const PRODUCT_REVIEW_COUNTS: Record<string, number> = {
-  "perm-spoofer": 487,
-  "temp-spoofer": 234,
-  "fortnite-external": 356,
-  "blurred": 412,
-  "streck": 178,
-  "custom-dma-firmware": 145,
-  "dma-basic": 67,
-  "dma-advanced": 93,
-  "dma-elite": 41,
+  "perm-spoofer": 156,
+  "temp-spoofer": 78,
+  "fortnite-external": 132,
+  "blurred": 168,
+  "streck": 52,
+  "custom-dma-firmware": 47,
+  "dma-basic": 32,
+  "dma-advanced": 41,
+  "dma-elite": 21,
 }
 
-// Map product display names to slugs for lookup
 export const PRODUCT_NAME_TO_SLUG: Record<string, string> = {
   "Perm Spoofer": "perm-spoofer",
   "Temp Spoofer": "temp-spoofer",
@@ -27,33 +25,18 @@ export const PRODUCT_NAME_TO_SLUG: Record<string, string> = {
   "DMA Elite Bundle": "dma-elite",
 }
 
-const BASE_DATE = new Date("2026-04-01")
-
-/**
- * Returns the review count for a product, growing slightly each day.
- */
 export function getProductReviewCount(slugOrName: string): number {
   const slug = PRODUCT_NAME_TO_SLUG[slugOrName] || slugOrName
-  const base = PRODUCT_REVIEW_COUNTS[slug]
-  if (!base) return 0
-
-  const now = new Date()
-  const daysSince = Math.max(0, Math.floor((now.getTime() - BASE_DATE.getTime()) / 86400000))
-  const dailyGrowth = base > 300 ? 3 : base > 150 ? 2 : 1
-  return base + daysSince * dailyGrowth
+  return PRODUCT_REVIEW_COUNTS[slug] || 0
 }
 
-/** Total review count — estimate matching generated reviews (~1500) */
+/** Always returns 847 */
 export function getTotalReviewCount(): number {
-  const now = new Date()
-  const genStart = new Date("2025-04-01")
-  const totalDays = Math.max(0, Math.floor((now.getTime() - genStart.getTime()) / 86400000))
-  // ~4 reviews/day average → ~1500 over a year
-  return Math.round(totalDays * 4) + getOrdersToday()
+  return 847
 }
 
 /**
- * Simulated orders today — grows 3-5 per hour from midnight, consistent for all users.
+ * Orders today — 15-20 per day, consistent for all users.
  */
 export function getOrdersToday(): number {
   const now = new Date()
@@ -64,9 +47,10 @@ export function getOrdersToday(): number {
   const minute = now.getUTCMinutes()
 
   const daySeed = (year * 366 + month * 31 + day) % 100
-  const ordersPerHour = 3 + (daySeed % 3)
+  // ~2 orders per hour, max 15-20
+  const ordersPerHour = 1.5 + (daySeed % 2) * 0.5
   const hoursPassed = hour + minute / 60
   let orders = Math.floor(hoursPassed * ordersPerHour)
-  const maxOrders = 30 + (daySeed % 12)
+  const maxOrders = 15 + (daySeed % 6)
   return Math.min(orders, maxOrders)
 }

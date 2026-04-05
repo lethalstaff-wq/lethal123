@@ -73,10 +73,10 @@ export default function ReviewsPage() {
   // Dynamic review count from centralized config
   const dynamicTotal = getTotalReviewCount()
   const cfgTotal = dynamicTotal
-  const cfgStars5 = Math.round(dynamicTotal * 0.849)
-  const cfgStars4 = Math.round(dynamicTotal * 0.100)
-  const cfgStars3 = Math.round(dynamicTotal * 0.030)
-  const cfgStars2 = Math.round(dynamicTotal * 0.014)
+  const cfgStars5 = Math.round(dynamicTotal * 0.70)
+  const cfgStars4 = Math.round(dynamicTotal * 0.18)
+  const cfgStars3 = Math.round(dynamicTotal * 0.08)
+  const cfgStars2 = Math.round(dynamicTotal * 0.03)
   const cfgStars1 = dynamicTotal - cfgStars5 - cfgStars4 - cfgStars3 - cfgStars2
   const cfgHelpfulMin = Number(settings?.helpful_min ?? 50)
   const cfgHelpfulMax = Number(settings?.helpful_max ?? 120)
