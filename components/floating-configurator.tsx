@@ -1,342 +1,382 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { X, ChevronRight, Gamepad2, ShieldOff, Cpu, Package, Sparkles, Wand2, ArrowLeft } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { X, ChevronRight, ChevronLeft, Gamepad2, ShieldOff, Cpu, Package, Sparkles, Monitor, CheckCircle2 } from "lucide-react"
 import { PRODUCTS, formatPrice } from "@/lib/products"
 import Image from "next/image"
 import Link from "next/link"
 
-type Step = "start" | "game_select" | "dma_check" | "spoofer_type" | "firmware_type" | "bundle_level" | "result"
+type Step = "purpose" | "dma-check" | "game" | "budget" | "result"
 
-interface State {
-  step: Step
-  category: string | null
+interface Answers {
+  purpose: string | null
+  hasDMA: boolean | null
   game: string | null
-  hasDma: boolean | null
-  resultProducts: typeof PRODUCTS
-  resultTitle: string
+  budgetMax: number
 }
 
-const GAMES = ["Fortnite", "Rust", "Valorant", "CS2", "PUBG", "Apex Legends", "R6 Siege", "GTA", "Other"]
-
-const INITIAL: State = {
-  step: "start",
-  category: null,
-  game: null,
-  hasDma: null,
-  resultProducts: [],
-  resultTitle: "",
+function getReasonText(product: typeof PRODUCTS[number], answers: Answers): string {
+  if (answers.purpose === "banned") {
+    if (product.id === "perm-spoofer") return "One install — your banned HWID is gone forever"
+    if (product.id === "temp-spoofer") return "Quick fix for alt accounts, clears on restart"
+  }
+  if (product.id === "fortnite-external") return "No DMA needed — single PC, zero FPS impact"
+  if (product.id === "blurred") return "Premium DMA cheat — 6+ months undetected"
+  if (product.id === "streck") return "Budget-friendly DMA cheat — great starter"
+  if (product.id === "custom-dma-firmware") return "Unique build per order — no shared releases"
+  if (product.category === "bundle") return "Complete setup — hardware + cheat + firmware included"
+  if (product.popular) return "Most popular — trusted by thousands"
+  return "Recommended for your setup"
 }
 
-function filterProducts(ids: string[]) {
-  return PRODUCTS.filter(p => ids.includes(p.id))
+function getRecommendations(answers: Answers) {
+  if (!answers.purpose) return []
+
+  let filtered = [...PRODUCTS]
+
+  // Filter by purpose
+  if (answers.purpose === "banned") {
+    filtered = filtered.filter(p => p.category === "spoofer")
+  } else if (answers.purpose === "cheats") {
+    if (answers.hasDMA === false) {
+      // No DMA — only show external cheats (non-DMA)
+      filtered = filtered.filter(p => p.category === "cheat" && !p.name.toLowerCase().includes("dma"))
+    } else if (answers.hasDMA === true) {
+      // Has DMA — show DMA cheats + firmware
+      filtered = filtered.filter(p =>
+        (p.category === "cheat" && p.name.toLowerCase().includes("dma")) ||
+        p.category === "firmware"
+      )
+    } else {
+      filtered = filtered.filter(p => p.category === "cheat")
+    }
+  } else if (answers.purpose === "firmware") {
+    filtered = filtered.filter(p => p.category === "firmware")
+  } else if (answers.purpose === "bundle") {
+    filtered = filtered.filter(p => p.category === "bundle")
+  }
+  // "all" — no category filter
+
+  // Filter by budget
+  filtered = filtered.filter(p => {
+    const minPrice = Math.min(...p.variants.map(v => v.priceInPence))
+    return minPrice <= answers.budgetMax
+  })
+
+  // Sort: popular first, then by price
+  filtered.sort((a, b) => {
+    if (a.popular && !b.popular) return -1
+    if (!a.popular && b.popular) return 1
+    const aMin = Math.min(...a.variants.map(v => v.priceInPence))
+    const bMin = Math.min(...b.variants.map(v => v.priceInPence))
+    return aMin - bMin
+  })
+
+  return filtered.slice(0, 5)
 }
 
 export function FloatingConfigurator() {
   const [isOpen, setIsOpen] = useState(false)
-  const [state, setState] = useState<State>(INITIAL)
+  const [step, setStep] = useState<Step>("purpose")
+  const [answers, setAnswers] = useState<Answers>({
+    purpose: null, hasDMA: null, game: null, budgetMax: 99999999
+  })
+  const [recommendations, setRecommendations] = useState<typeof PRODUCTS>([])
   const [isVisible, setIsVisible] = useState(false)
-  const [hasInteracted, setHasInteracted] = useState(false)
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 2000)
     return () => clearTimeout(timer)
   }, [])
 
-  const reset = () => setState(INITIAL)
-  const open = () => { setIsOpen(true); setHasInteracted(true) }
-
-  const goResult = (ids: string[], title: string) => {
-    setState(prev => ({ ...prev, step: "result", resultProducts: filterProducts(ids), resultTitle: title }))
-  }
-
-  // ── Category handlers ──
-  const selectCategory = (cat: string) => {
-    if (cat === "cheat") setState(prev => ({ ...prev, step: "game_select", category: cat }))
-    else if (cat === "spoofer") setState(prev => ({ ...prev, step: "spoofer_type", category: cat }))
-    else if (cat === "firmware") setState(prev => ({ ...prev, step: "firmware_type", category: cat }))
-    else if (cat === "bundle") setState(prev => ({ ...prev, step: "bundle_level", category: cat }))
-    else if (cat === "all") goResult(PRODUCTS.map(p => p.id), "All Products")
-  }
-
-  const selectGame = (game: string) => {
-    setState(prev => ({ ...prev, game, step: "dma_check" }))
-  }
-
-  const selectDmaCheck = (hasDma: boolean) => {
-    if (hasDma) {
-      goResult(["blurred", "streck"], "DMA Cheats")
-    } else {
-      if (state.game === "Fortnite" || state.game === "Other") {
-        goResult(["fortnite-external"], "Software Cheats")
-      } else {
-        goResult(["fortnite-external", "blurred", "streck"], "Available Cheats")
-      }
-    }
-  }
-
-  const selectSpooferType = (type: string) => {
-    if (type === "banned") goResult(["perm-spoofer"], "Permanent Fix")
-    else if (type === "temp") goResult(["temp-spoofer"], "Temporary Solution")
-    else goResult(["perm-spoofer", "temp-spoofer"], "Spoofer Options")
-  }
-
-  const selectFirmwareType = (type: string) => {
-    if (type === "eac") goResult(["custom-dma-firmware"], "EAC / BE Firmware")
-    else if (type === "slotted") goResult(["custom-dma-firmware"], "Slotted Edition")
-    else goResult(["custom-dma-firmware"], "Full Anti-Cheat Bypass")
-  }
-
-  const selectBundleLevel = (level: string) => {
-    if (level === "new") goResult(["dma-basic"], "Starter Setup")
-    else if (level === "mid") goResult(["dma-advanced"], "Most Popular")
-    else goResult(["dma-elite"], "No Compromises")
-  }
+  const totalSteps = answers.purpose === "cheats" ? 4 : 3
+  const currentStepNum =
+    step === "purpose" ? 1 :
+    step === "dma-check" ? 2 :
+    step === "game" ? 3 :
+    step === "budget" ? (answers.purpose === "cheats" ? 3 : 2) :
+    totalSteps
 
   const goBack = () => {
-    if (state.step === "game_select" || state.step === "spoofer_type" || state.step === "firmware_type" || state.step === "bundle_level") {
-      setState(INITIAL)
-    } else if (state.step === "dma_check") {
-      setState(prev => ({ ...prev, step: "game_select" }))
-    } else if (state.step === "result") {
-      // go back to category-specific step
-      if (state.category === "cheat") setState(prev => ({ ...prev, step: state.hasDma !== null ? "dma_check" : "game_select" }))
-      else if (state.category === "spoofer") setState(prev => ({ ...prev, step: "spoofer_type" }))
-      else if (state.category === "firmware") setState(prev => ({ ...prev, step: "firmware_type" }))
-      else if (state.category === "bundle") setState(prev => ({ ...prev, step: "bundle_level" }))
-      else reset()
+    if (step === "dma-check") setStep("purpose")
+    else if (step === "game") setStep("dma-check")
+    else if (step === "budget") {
+      if (answers.purpose === "cheats") {
+        if (answers.hasDMA === false) setStep("dma-check")
+        else setStep("dma-check")
+      } else setStep("purpose")
     }
+    else if (step === "result") setStep("budget")
+  }
+
+  const reset = () => {
+    setStep("purpose")
+    setAnswers({ purpose: null, hasDMA: null, game: null, budgetMax: 99999999 })
+    setRecommendations([])
+  }
+
+  const selectPurpose = (p: string) => {
+    setAnswers(prev => ({ ...prev, purpose: p }))
+    if (p === "cheats") {
+      setStep("dma-check")
+    } else {
+      setStep("budget")
+    }
+  }
+
+  const selectDMA = (has: boolean) => {
+    setAnswers(prev => ({ ...prev, hasDMA: has }))
+    setStep("budget")
+  }
+
+  const selectBudget = (max: number) => {
+    const newAnswers = { ...answers, budgetMax: max }
+    setAnswers(newAnswers)
+    setRecommendations(getRecommendations(newAnswers))
+    setStep("result")
   }
 
   if (!isVisible) return null
 
-  const stepNum = state.step === "start" ? 1 : state.step === "result" ? 3 : 2
-
   return (
     <>
       {/* Floating Button */}
-      <div className={`fixed bottom-6 right-6 z-[80] transition-all duration-500 ${isOpen ? "opacity-0 pointer-events-none scale-75" : "opacity-100 scale-100"}`}>
-        {!hasInteracted && (
-          <span className="absolute inset-0 rounded-2xl bg-primary/30 animate-ping" style={{ animationDuration: "2.5s" }} />
-        )}
-        <button
-          onClick={open}
-          className="relative p-4 rounded-2xl bg-gradient-to-br from-[#EF6F29] to-[#FF8C42] text-white shadow-lg shadow-[#EF6F29]/30 hover:shadow-xl hover:shadow-[#EF6F29]/40 hover:scale-110 active:scale-95 transition-all duration-300 group"
-          aria-label="Find Your Perfect Product"
-        >
-          <Wand2 className="h-6 w-6 group-hover:rotate-12 transition-transform duration-300" />
-        </button>
-        {!hasInteracted && (
-          <div className="absolute bottom-full right-0 mb-3 px-3 py-1.5 rounded-lg bg-card border border-border/50 text-xs font-medium whitespace-nowrap shadow-lg animate-fade-in-up opacity-0" style={{ animationDelay: "3s", animationFillMode: "forwards" }}>
-            Need help choosing?
-            <div className="absolute top-full right-5 w-2 h-2 bg-card border-r border-b border-border/50 rotate-45 -translate-y-1" />
-          </div>
-        )}
-      </div>
+      <button
+        onClick={() => setIsOpen(true)}
+        className={`fixed bottom-6 right-6 z-[80] flex items-center gap-2.5 pl-4 pr-5 py-3 rounded-2xl bg-primary text-white text-sm font-semibold shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/35 hover:-translate-y-0.5 active:scale-95 transition-all duration-300 group ${
+          isOpen ? "opacity-0 pointer-events-none scale-90" : "opacity-100"
+        }`}
+      >
+        <Sparkles className="h-4 w-4 group-hover:rotate-12 transition-transform" />
+        Need help choosing?
+      </button>
 
-      {/* Panel */}
+      {/* Modal */}
       {isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center sm:justify-end p-0 sm:p-6">
-          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setIsOpen(false)} />
+        <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center">
+          <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={() => setIsOpen(false)} />
 
-          <div className="relative w-full sm:w-[420px] sm:max-h-[85vh] max-h-[90vh] rounded-t-3xl sm:rounded-2xl border border-white/10 bg-[#0c0c0e] shadow-2xl overflow-hidden flex flex-col animate-fade-in-up" style={{ animationDuration: "0.3s" }}>
-            {/* Progress */}
-            <div className="h-1 bg-white/5">
-              <div className="h-full bg-gradient-to-r from-[#EF6F29] to-[#FF8C42] transition-all duration-500 rounded-r-full" style={{ width: `${(stepNum / 3) * 100}%` }} />
-            </div>
+          <div className="relative w-full sm:max-w-md rounded-t-2xl sm:rounded-2xl border border-white/[0.08] bg-[#0c0c0e] shadow-2xl overflow-hidden max-h-[90vh] flex flex-col animate-in slide-in-from-bottom-4 sm:slide-in-from-bottom-0 fade-in duration-300">
 
             {/* Header */}
-            <div className="flex items-center justify-between p-5">
+            <div className="flex items-center justify-between px-5 py-4 border-b border-white/[0.06]">
               <div className="flex items-center gap-3">
-                <div className="p-2 rounded-xl bg-gradient-to-br from-[#EF6F29]/20 to-[#FF8C42]/10">
-                  <Wand2 className="h-5 w-5 text-[#EF6F29]" />
+                <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center">
+                  <Sparkles className="h-4 w-4 text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-bold">Product Finder</h3>
-                  <p className="text-xs text-white/40">Step {stepNum} of 3</p>
+                  <h3 className="font-bold text-[15px]">Product Finder</h3>
+                  <p className="text-[11px] text-white/30">Step {currentStepNum} of {totalSteps}</p>
                 </div>
               </div>
-              <button onClick={() => setIsOpen(false)} className="p-2 rounded-xl text-white/30 hover:text-white hover:bg-white/10 transition-colors">
+              <button onClick={() => setIsOpen(false)} className="p-2 rounded-xl text-white/25 hover:text-white hover:bg-white/[0.06] transition-all">
                 <X className="h-5 w-5" />
               </button>
             </div>
 
+            {/* Progress bar */}
+            <div className="h-0.5 bg-white/[0.04]">
+              <div
+                className="h-full bg-primary transition-all duration-500"
+                style={{ width: `${(currentStepNum / totalSteps) * 100}%` }}
+              />
+            </div>
+
             {/* Content */}
-            <div className="p-5 pt-0 overflow-y-auto flex-1">
-              {state.step !== "start" && (
-                <button onClick={goBack} className="text-xs text-white/30 hover:text-white mb-3 flex items-center gap-1 transition-colors">
-                  <ArrowLeft className="h-3.5 w-3.5" /> Back
-                </button>
-              )}
+            <div className="p-5 overflow-y-auto flex-1">
 
-              {/* Step: Start */}
-              {state.step === "start" && (
-                <div className="space-y-2">
-                  <p className="text-sm text-white/50 mb-4">What are you looking for?</p>
-                  {[
-                    { id: "cheat", label: "Game Cheats", desc: "ESP, aimbot, DMA cheats", icon: Gamepad2 },
-                    { id: "spoofer", label: "HWID Spoofer", desc: "Unban & protect your PC", icon: ShieldOff },
-                    { id: "firmware", label: "DMA Firmware", desc: "Custom anti-cheat bypass", icon: Cpu },
-                    { id: "bundle", label: "Full DMA Setup", desc: "Hardware + software combo", icon: Package },
-                    { id: "all", label: "Show Everything", desc: "Browse all products", icon: Sparkles },
-                  ].map((opt) => (
-                    <button key={opt.id} onClick={() => selectCategory(opt.id)} className="w-full flex items-center gap-3.5 p-3.5 rounded-xl border border-white/[0.06] hover:border-[#EF6F29]/40 hover:bg-[#EF6F29]/[0.04] transition-all group">
-                      <div className="p-2.5 rounded-lg bg-white/[0.04] group-hover:bg-[#EF6F29]/10 transition-colors">
-                        <opt.icon className="h-5 w-5 text-white/50 group-hover:text-[#EF6F29] transition-colors" />
-                      </div>
-                      <div className="flex-1 text-left">
-                        <p className="font-semibold text-sm">{opt.label}</p>
-                        <p className="text-xs text-white/30">{opt.desc}</p>
-                      </div>
-                      <ChevronRight className="h-4 w-4 text-white/15 group-hover:text-[#EF6F29] transition-all" />
-                    </button>
-                  ))}
-                </div>
-              )}
-
-              {/* Step: Game Select */}
-              {state.step === "game_select" && (
-                <div className="space-y-2">
-                  <p className="text-sm text-white/50 mb-4">Which game do you play?</p>
-                  <div className="grid grid-cols-3 gap-2">
-                    {GAMES.map((game) => (
-                      <button key={game} onClick={() => selectGame(game)} className="p-3 rounded-xl border border-white/[0.06] hover:border-[#EF6F29]/40 hover:bg-[#EF6F29]/[0.04] transition-all text-center group">
-                        <p className="text-xs font-semibold group-hover:text-[#EF6F29] transition-colors">{game}</p>
+              {/* STEP 1: Purpose */}
+              {step === "purpose" && (
+                <div>
+                  <p className="text-sm text-white/50 mb-4">What do you need?</p>
+                  <div className="space-y-2">
+                    {[
+                      { id: "banned", icon: ShieldOff, label: "I got HWID banned", desc: "Spoofer to unban your hardware" },
+                      { id: "cheats", icon: Gamepad2, label: "Game cheats", desc: "ESP, aimbot, DMA cheats" },
+                      { id: "firmware", icon: Cpu, label: "DMA firmware", desc: "Custom firmware for your DMA card" },
+                      { id: "bundle", icon: Package, label: "Complete DMA setup", desc: "Hardware + cheat + firmware" },
+                      { id: "all", icon: Sparkles, label: "Show everything", desc: "Browse all products" },
+                    ].map((opt) => (
+                      <button
+                        key={opt.id}
+                        onClick={() => selectPurpose(opt.id)}
+                        className="w-full flex items-center gap-3 p-3.5 rounded-xl border border-white/[0.06] hover:border-primary/30 hover:bg-primary/[0.03] transition-all group"
+                      >
+                        <div className="w-9 h-9 rounded-lg bg-white/[0.04] group-hover:bg-primary/10 flex items-center justify-center transition-colors">
+                          <opt.icon className="h-4 w-4 text-white/40 group-hover:text-primary transition-colors" />
+                        </div>
+                        <div className="flex-1 text-left">
+                          <p className="text-sm font-semibold group-hover:text-primary transition-colors">{opt.label}</p>
+                          <p className="text-[11px] text-white/25">{opt.desc}</p>
+                        </div>
+                        <ChevronRight className="h-4 w-4 text-white/10 group-hover:text-primary/50 group-hover:translate-x-0.5 transition-all" />
                       </button>
                     ))}
                   </div>
                 </div>
               )}
 
-              {/* Step: DMA Check */}
-              {state.step === "dma_check" && (
-                <div className="space-y-2">
-                  <p className="text-sm text-white/50 mb-4">Do you have DMA hardware?</p>
-                  {[
-                    { yes: true, label: "Yes, I have a DMA card", desc: "Show DMA cheats (Blurred, Streck)" },
-                    { yes: false, label: "No, software only", desc: "Show external/software cheats" },
-                  ].map((opt) => (
-                    <button key={String(opt.yes)} onClick={() => selectDmaCheck(opt.yes)} className="w-full flex items-center gap-3.5 p-4 rounded-xl border border-white/[0.06] hover:border-[#EF6F29]/40 hover:bg-[#EF6F29]/[0.04] transition-all group">
-                      <div className="flex-1 text-left">
-                        <p className="font-semibold text-sm">{opt.label}</p>
-                        <p className="text-xs text-white/30">{opt.desc}</p>
-                      </div>
-                      <ChevronRight className="h-4 w-4 text-white/15 group-hover:text-[#EF6F29] transition-all" />
-                    </button>
-                  ))}
-                </div>
-              )}
-
-              {/* Step: Spoofer Type */}
-              {state.step === "spoofer_type" && (
-                <div className="space-y-2">
-                  <p className="text-sm text-white/50 mb-4">What do you need?</p>
-                  {[
-                    { type: "banned", label: "Banned — need to play again", desc: "Permanent HWID change. One-time fix." },
-                    { type: "temp", label: "Temp / alt account use", desc: "Session-based. Resets on reboot." },
-                    { type: "both", label: "Not sure — show both", desc: "Compare perm vs temp side by side" },
-                  ].map((opt) => (
-                    <button key={opt.type} onClick={() => selectSpooferType(opt.type)} className="w-full flex items-center gap-3.5 p-4 rounded-xl border border-white/[0.06] hover:border-[#EF6F29]/40 hover:bg-[#EF6F29]/[0.04] transition-all group">
-                      <div className="flex-1 text-left">
-                        <p className="font-semibold text-sm">{opt.label}</p>
-                        <p className="text-xs text-white/30">{opt.desc}</p>
-                      </div>
-                      <ChevronRight className="h-4 w-4 text-white/15 group-hover:text-[#EF6F29] transition-all" />
-                    </button>
-                  ))}
-                </div>
-              )}
-
-              {/* Step: Firmware Type */}
-              {state.step === "firmware_type" && (
-                <div className="space-y-2">
-                  <p className="text-sm text-white/50 mb-4">What anti-cheats need bypass?</p>
-                  {[
-                    { type: "eac", label: "EAC / BattlEye", desc: "Fortnite, Rust, Apex — £20", price: "£20" },
-                    { type: "slotted", label: "EAC/BE Slotted (better stealth)", desc: "Enhanced emulation — £450", price: "£450" },
-                    { type: "all", label: "Everything (FaceIt, VGK too)", desc: "Full bypass including Vanguard — £975", price: "£975" },
-                  ].map((opt) => (
-                    <button key={opt.type} onClick={() => selectFirmwareType(opt.type)} className="w-full flex items-center gap-3.5 p-4 rounded-xl border border-white/[0.06] hover:border-[#EF6F29]/40 hover:bg-[#EF6F29]/[0.04] transition-all group">
-                      <div className="flex-1 text-left">
-                        <p className="font-semibold text-sm">{opt.label}</p>
-                        <p className="text-xs text-white/30">{opt.desc}</p>
-                      </div>
-                      <span className="text-xs font-bold text-[#EF6F29] shrink-0">{opt.price}</span>
-                    </button>
-                  ))}
-                </div>
-              )}
-
-              {/* Step: Bundle Level */}
-              {state.step === "bundle_level" && (
-                <div className="space-y-2">
-                  <p className="text-sm text-white/50 mb-4">What&apos;s your experience level?</p>
-                  {[
-                    { level: "new", label: "New to DMA", desc: "Basic Bundle — perfect starter kit", price: "£425" },
-                    { level: "mid", label: "Some experience", desc: "Advanced Bundle — most popular choice", price: "£675", popular: true },
-                    { level: "pro", label: "Want the absolute best", desc: "Elite Bundle — no compromises", price: "£1,500" },
-                  ].map((opt) => (
-                    <button key={opt.level} onClick={() => selectBundleLevel(opt.level)} className={`w-full flex items-center gap-3.5 p-4 rounded-xl border transition-all group ${opt.popular ? "border-[#EF6F29]/30 bg-[#EF6F29]/[0.04]" : "border-white/[0.06] hover:border-[#EF6F29]/40 hover:bg-[#EF6F29]/[0.04]"}`}>
-                      <div className="flex-1 text-left">
-                        <div className="flex items-center gap-2">
-                          <p className="font-semibold text-sm">{opt.label}</p>
-                          {opt.popular && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-[#EF6F29]/15 text-[#EF6F29] font-bold">POPULAR</span>}
-                        </div>
-                        <p className="text-xs text-white/30">{opt.desc}</p>
-                      </div>
-                      <span className="text-xs font-bold text-[#EF6F29] shrink-0">{opt.price}</span>
-                    </button>
-                  ))}
-                </div>
-              )}
-
-              {/* Step: Results */}
-              {state.step === "result" && (
-                <div className="space-y-3">
-                  <p className="text-sm text-white/50">
-                    {state.resultTitle} — <span className="text-[#EF6F29] font-bold">{state.resultProducts.length}</span> {state.resultProducts.length === 1 ? "match" : "matches"}
-                  </p>
+              {/* STEP 2: DMA Check (only for cheats) */}
+              {step === "dma-check" && (
+                <div>
+                  <button onClick={goBack} className="flex items-center gap-1 text-[11px] text-white/25 hover:text-white/50 mb-4 transition-colors">
+                    <ChevronLeft className="h-3 w-3" /> Back
+                  </button>
+                  <p className="text-sm text-white/50 mb-4">Do you have a DMA card?</p>
                   <div className="space-y-2">
-                    {state.resultProducts.map((product) => {
-                      const minPrice = Math.min(...product.variants.map(v => v.priceInPence))
-                      return (
-                        <Link key={product.id} href={`/products/${product.id}`} onClick={() => setIsOpen(false)} className="flex items-center gap-3.5 p-3 rounded-xl border border-white/[0.06] hover:border-[#EF6F29]/40 hover:bg-[#EF6F29]/[0.04] transition-all group">
-                          <div className="relative w-12 h-12 rounded-lg overflow-hidden border border-white/10 flex-shrink-0 bg-white/[0.02]">
-                            <Image src={product.image} alt={product.name} fill className="object-cover" />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-2">
-                              <p className="font-semibold text-sm truncate group-hover:text-[#EF6F29] transition-colors">{product.name}</p>
-                              {product.popular && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-[#EF6F29]/15 text-[#EF6F29] font-bold shrink-0">HOT</span>}
-                            </div>
-                            <p className="text-xs text-[#EF6F29] font-bold mt-0.5">from {formatPrice(minPrice)}</p>
-                          </div>
-                          <ChevronRight className="h-4 w-4 text-white/15 group-hover:text-[#EF6F29] transition-all flex-shrink-0" />
-                        </Link>
-                      )
-                    })}
+                    <button
+                      onClick={() => selectDMA(true)}
+                      className="w-full flex items-center gap-3 p-4 rounded-xl border border-white/[0.06] hover:border-primary/30 hover:bg-primary/[0.03] transition-all group"
+                    >
+                      <div className="w-9 h-9 rounded-lg bg-white/[0.04] group-hover:bg-primary/10 flex items-center justify-center transition-colors">
+                        <Cpu className="h-4 w-4 text-white/40 group-hover:text-primary transition-colors" />
+                      </div>
+                      <div className="flex-1 text-left">
+                        <p className="text-sm font-semibold group-hover:text-primary transition-colors">Yes, I have DMA hardware</p>
+                        <p className="text-[11px] text-white/25">Show DMA cheats & firmware</p>
+                      </div>
+                      <ChevronRight className="h-4 w-4 text-white/10 group-hover:text-primary/50 group-hover:translate-x-0.5 transition-all" />
+                    </button>
+                    <button
+                      onClick={() => selectDMA(false)}
+                      className="w-full flex items-center gap-3 p-4 rounded-xl border border-white/[0.06] hover:border-primary/30 hover:bg-primary/[0.03] transition-all group"
+                    >
+                      <div className="w-9 h-9 rounded-lg bg-white/[0.04] group-hover:bg-primary/10 flex items-center justify-center transition-colors">
+                        <Monitor className="h-4 w-4 text-white/40 group-hover:text-primary transition-colors" />
+                      </div>
+                      <div className="flex-1 text-left">
+                        <p className="text-sm font-semibold group-hover:text-primary transition-colors">No, single PC only</p>
+                        <p className="text-[11px] text-white/25">Show external cheats (no extra hardware)</p>
+                      </div>
+                      <ChevronRight className="h-4 w-4 text-white/10 group-hover:text-primary/50 group-hover:translate-x-0.5 transition-all" />
+                    </button>
+                    <button
+                      onClick={() => { setAnswers(prev => ({ ...prev, hasDMA: null })); setStep("budget") }}
+                      className="w-full flex items-center gap-3 p-4 rounded-xl border border-white/[0.06] hover:border-primary/30 hover:bg-primary/[0.03] transition-all group"
+                    >
+                      <div className="w-9 h-9 rounded-lg bg-white/[0.04] group-hover:bg-primary/10 flex items-center justify-center transition-colors">
+                        <Sparkles className="h-4 w-4 text-white/40 group-hover:text-primary transition-colors" />
+                      </div>
+                      <div className="flex-1 text-left">
+                        <p className="text-sm font-semibold group-hover:text-primary transition-colors">Not sure / show both</p>
+                        <p className="text-[11px] text-white/25">We'll show all options</p>
+                      </div>
+                      <ChevronRight className="h-4 w-4 text-white/10 group-hover:text-primary/50 group-hover:translate-x-0.5 transition-all" />
+                    </button>
                   </div>
-                  {state.resultProducts.length === 0 && (
+                </div>
+              )}
+
+              {/* STEP 3: Budget */}
+              {step === "budget" && (
+                <div>
+                  <button onClick={goBack} className="flex items-center gap-1 text-[11px] text-white/25 hover:text-white/50 mb-4 transition-colors">
+                    <ChevronLeft className="h-3 w-3" /> Back
+                  </button>
+                  <p className="text-sm text-white/50 mb-4">What's your budget?</p>
+                  <div className="space-y-2">
+                    {[
+                      { max: 2500, label: "Under £25", desc: "Budget picks" },
+                      { max: 10000, label: "Under £100", desc: "Most popular range" },
+                      { max: 50000, label: "Under £500", desc: "Premium options" },
+                      { max: 200000, label: "Under £2,000", desc: "Full setups & bundles" },
+                      { max: 99999999, label: "Any budget", desc: "Show me everything" },
+                    ].map((range) => (
+                      <button
+                        key={range.label}
+                        onClick={() => selectBudget(range.max)}
+                        className="w-full flex items-center justify-between p-3.5 rounded-xl border border-white/[0.06] hover:border-primary/30 hover:bg-primary/[0.03] transition-all group"
+                      >
+                        <div>
+                          <p className="text-sm font-semibold group-hover:text-primary transition-colors">{range.label}</p>
+                          <p className="text-[11px] text-white/25">{range.desc}</p>
+                        </div>
+                        <ChevronRight className="h-4 w-4 text-white/10 group-hover:text-primary/50 group-hover:translate-x-0.5 transition-all" />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* STEP 4: Results */}
+              {step === "result" && (
+                <div>
+                  {recommendations.length > 0 ? (
+                    <>
+                      <div className="flex items-center gap-2 mb-4">
+                        <CheckCircle2 className="h-4 w-4 text-emerald-500" />
+                        <p className="text-sm font-semibold text-white/70">
+                          {recommendations.length} {recommendations.length === 1 ? "match" : "matches"} found
+                        </p>
+                      </div>
+
+                      <div className="space-y-2.5">
+                        {recommendations.map((product, i) => {
+                          const minPrice = Math.min(...product.variants.map(v => v.priceInPence))
+                          const reason = getReasonText(product, answers)
+                          return (
+                            <Link
+                              key={product.id}
+                              href={`/products/${product.id}`}
+                              onClick={() => setIsOpen(false)}
+                              className="block rounded-xl border border-white/[0.06] hover:border-primary/30 overflow-hidden transition-all group"
+                            >
+                              {i === 0 && (
+                                <div className="bg-primary/[0.06] border-b border-primary/10 px-3.5 py-1.5">
+                                  <p className="text-[10px] font-bold text-primary uppercase tracking-widest flex items-center gap-1">
+                                    <Sparkles className="h-3 w-3" /> Best match
+                                  </p>
+                                </div>
+                              )}
+                              <div className="flex items-center gap-3 p-3.5">
+                                <div className="w-11 h-11 rounded-lg overflow-hidden border border-white/[0.06] flex-shrink-0 bg-white/[0.02]">
+                                  <Image src={product.image} alt={product.name} width={44} height={44} className="object-cover w-full h-full" />
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <div className="flex items-center gap-1.5">
+                                    <p className="text-sm font-bold truncate group-hover:text-primary transition-colors">{product.name}</p>
+                                    {product.popular && (
+                                      <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-primary/10 text-primary font-bold shrink-0">HOT</span>
+                                    )}
+                                  </div>
+                                  <p className="text-[11px] text-white/25 truncate">{reason}</p>
+                                </div>
+                                <p className="text-sm font-bold text-primary shrink-0">{formatPrice(minPrice)}</p>
+                              </div>
+                            </Link>
+                          )
+                        })}
+                      </div>
+
+                      {/* Footer */}
+                      <div className="flex items-center justify-between mt-5 pt-4 border-t border-white/[0.04]">
+                        <button onClick={reset} className="text-[11px] text-white/25 hover:text-white/50 transition-colors">
+                          Start over
+                        </button>
+                        <Link
+                          href="/products"
+                          onClick={() => setIsOpen(false)}
+                          className="text-[11px] text-primary/60 hover:text-primary transition-colors"
+                        >
+                          Browse all products →
+                        </Link>
+                      </div>
+                    </>
+                  ) : (
                     <div className="text-center py-8">
-                      <p className="text-white/40 text-sm mb-4">No products match.</p>
-                      <Button onClick={reset} variant="outline" size="sm" className="rounded-xl">Start Over</Button>
+                      <div className="w-12 h-12 rounded-xl bg-white/[0.03] flex items-center justify-center mx-auto mb-3">
+                        <Package className="h-5 w-5 text-white/15" />
+                      </div>
+                      <p className="text-sm text-white/40 mb-1">Nothing in this range</p>
+                      <p className="text-[11px] text-white/20 mb-4">Try a higher budget</p>
+                      <button onClick={reset} className="px-4 py-2 rounded-lg bg-primary/10 text-primary text-xs font-semibold hover:bg-primary/20 transition-colors">
+                        Start Over
+                      </button>
                     </div>
                   )}
                 </div>
               )}
-            </div>
 
-            {/* Footer */}
-            <div className="flex-shrink-0 p-4 border-t border-white/[0.06]">
-              <div className="flex items-center justify-between">
-                {state.step !== "start" && (
-                  <button onClick={reset} className="text-xs text-white/30 hover:text-white transition-colors">Start over</button>
-                )}
-                <Link href="/products" onClick={() => setIsOpen(false)} className="text-xs text-white/30 hover:text-[#EF6F29] transition-colors ml-auto">
-                  Browse all products →
-                </Link>
-              </div>
             </div>
           </div>
         </div>

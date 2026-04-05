@@ -2,18 +2,37 @@
 
 import { useState, useEffect } from "react"
 import Image from "next/image"
+import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { useCart } from "@/lib/cart-context"
 import {
   ShoppingCart, Zap, Star, Shield, Minus, Plus, Check,
-  CheckCircle2, MessageCircle, Lock, Clock, Globe
+  CheckCircle2, MessageCircle, Lock, Clock, Globe, ShoppingBag, Heart
 } from "lucide-react"
 import { getProductReviewCount } from "@/lib/review-counts"
 import { DiscordCheckoutModal } from "@/components/discord-checkout-modal"
 import { BitcoinIcon, EthereumIcon, LitecoinIcon, PayPalIcon } from "@/components/crypto-icons"
+import { PRODUCTS } from "@/lib/products"
+import { toggleWishlist, isInWishlist } from "@/lib/wishlist"
 import { toast } from "sonner"
+
+function getRelatedProducts(current: Product) {
+  const rules: Record<string, string[]> = {
+    "fortnite-external": ["perm-spoofer", "temp-spoofer", "blurred"],
+    "blurred": ["custom-dma-firmware", "perm-spoofer", "fortnite-external"],
+    "streck": ["custom-dma-firmware", "perm-spoofer", "blurred"],
+    "perm-spoofer": ["fortnite-external", "blurred", "temp-spoofer"],
+    "temp-spoofer": ["perm-spoofer", "fortnite-external", "blurred"],
+    "custom-dma-firmware": ["blurred", "streck", "dma-advanced"],
+    "dma-basic": ["dma-advanced", "perm-spoofer", "blurred"],
+    "dma-advanced": ["dma-elite", "perm-spoofer", "blurred"],
+    "dma-elite": ["perm-spoofer", "fortnite-external", "blurred"],
+  }
+  const ids = rules[current.id] || ["perm-spoofer", "fortnite-external", "blurred"]
+  return ids.map(id => PRODUCTS.find(p => p.id === id)).filter(Boolean).slice(0, 3) as typeof PRODUCTS
+}
 
 interface Variant {
   id: string
@@ -41,8 +60,15 @@ export function ProductDetailClient({ product }: { product: Product }) {
   const [quantity, setQuantity] = useState(1)
   const [showDiscordModal, setShowDiscordModal] = useState(false)
   const [viewingNow, setViewingNow] = useState(0)
+  const [wishlisted, setWishlisted] = useState(false)
+  const [showStickyBar, setShowStickyBar] = useState(false)
   const { addItem } = useCart()
   const router = useRouter()
+
+  const [lastPurchased] = useState(() => {
+    const seed = product.id.split("").reduce((a, c) => a + c.charCodeAt(0), 0)
+    return 2 + (seed % 25) + Math.floor(new Date().getMinutes() / 3)
+  })
 
   useEffect(() => {
     const seed = product.id.split("").reduce((a, c) => a + c.charCodeAt(0), 0)
@@ -51,6 +77,22 @@ export function ProductDetailClient({ product }: { product: Product }) {
     const interval = setInterval(() => setViewingNow(gen()), 30000)
     return () => clearInterval(interval)
   }, [product.id])
+
+  useEffect(() => {
+    setWishlisted(isInWishlist(product.id))
+  }, [product.id])
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const buyBtn = document.getElementById("buy-now-btn")
+      if (buyBtn) {
+        const rect = buyBtn.getBoundingClientRect()
+        setShowStickyBar(rect.bottom < 0)
+      }
+    }
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   const handleAddToCart = () => {
     toast.success(`${product.name} added to cart`)
@@ -99,6 +141,12 @@ export function ProductDetailClient({ product }: { product: Product }) {
               <Zap className="h-3 w-3 mr-1" />
               Instant Delivery
             </Badge>
+            <button
+              onClick={() => { const added = toggleWishlist(product.id); setWishlisted(added); toast.success(added ? "Added to wishlist" : "Removed from wishlist") }}
+              className="absolute top-4 right-4 z-10 p-2.5 rounded-full bg-black/40 backdrop-blur-sm hover:bg-black/60 transition-all"
+            >
+              <Heart className={`h-4 w-4 ${wishlisted ? "fill-red-500 text-red-500" : "text-white/50"}`} />
+            </button>
             <div className="absolute inset-0 flex items-center justify-center p-10">
               <Image
                 src={product.image || "/placeholder.svg"}
@@ -222,6 +270,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
           {/* CTA Buttons */}
           <div className="space-y-3 mb-6">
             <Button
+              id="buy-now-btn"
               onClick={handleBuyNow}
               size="lg"
               className="w-full h-14 text-base font-bold gap-2 rounded-xl bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all"
@@ -250,6 +299,12 @@ export function ProductDetailClient({ product }: { product: Product }) {
               </Button>
             </div>
           </div>
+
+          {/* Last purchased */}
+          <p className="text-center text-[11px] text-white/25 mt-3 flex items-center justify-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500/60" />
+            Last purchased {lastPurchased} minutes ago
+          </p>
 
         </div>
       </div>
@@ -295,6 +350,40 @@ export function ProductDetailClient({ product }: { product: Product }) {
           </div>
         ))}
       </div>
+
+      {/* ═══ Cross-sell ═══ */}
+      <div className="mt-12">
+        <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
+          <ShoppingBag className="h-5 w-5 text-primary/60" />
+          Customers also bought
+        </h3>
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          {getRelatedProducts(product).map((related) => (
+            <Link key={related.id} href={`/products/${related.id}`} className="group rounded-xl border border-border/30 bg-card/30 p-3 hover:border-primary/20 transition-all">
+              <div className="h-20 flex items-center justify-center mb-2">
+                <Image src={related.image} alt={related.name} width={80} height={60} className="object-contain group-hover:scale-105 transition-transform" />
+              </div>
+              <p className="text-xs font-semibold truncate group-hover:text-primary transition-colors">{related.name}</p>
+              <p className="text-xs text-primary font-bold">from {"£"}{(Math.min(...related.variants.map(v => v.priceInPence)) / 100).toFixed(0)}</p>
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      {/* Sticky Add to Cart bar (mobile) */}
+      {showStickyBar && (
+        <div className="fixed bottom-0 left-0 right-0 z-[70] bg-background/95 backdrop-blur-xl border-t border-border/30 px-4 py-3 lg:hidden">
+          <div className="flex items-center justify-between max-w-7xl mx-auto">
+            <div>
+              <p className="text-sm font-bold">{product.name}</p>
+              <p className="text-lg font-black text-primary">{"£"}{selectedVariant.price}</p>
+            </div>
+            <button onClick={handleBuyNow} className="px-6 py-3 rounded-xl bg-primary text-white font-bold text-sm">
+              Buy Now
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Discord Checkout Modal */}
       <DiscordCheckoutModal

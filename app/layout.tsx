@@ -8,6 +8,9 @@ import { GlobalBackground } from "@/components/global-background"
 import { MobileBottomBar } from "@/components/mobile-bottom-bar"
 import { CursorEffects } from "@/components/cursor-effects"
 import { FloatingConfigurator } from "@/components/floating-configurator"
+import { ChatWidget } from "@/components/chat-widget"
+import { AbandonedCartToast } from "@/components/abandoned-cart-toast"
+import { BundleBuilder } from "@/components/bundle-builder"
 import { CookieConsent } from "@/components/cookie-consent"
 import { CommandSearch } from "@/components/command-search"
 import { CheckoutProgress } from "@/components/checkout-progress"
@@ -97,13 +100,16 @@ export default function RootLayout({
             <ClientOverlays />
             <MobileBottomBar />
             <FloatingConfigurator />
+            <BundleBuilder />
+            <ChatWidget />
+            <AbandonedCartToast />
             <CookieConsent />
             <CommandSearch />
             <CheckoutProgress />
             <Toaster position="top-right" richColors />
             <SocialProofToast />
             <BackToTop />
-            <div className="relative z-10">{children}</div>
+            <div className="relative z-10 animate-in fade-in duration-300">{children}</div>
           </CartProvider>
         </ThemeProvider>
         <Analytics />

@@ -1,10 +1,12 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowRight, Sparkles, Tag, Zap } from "lucide-react"
+import { ArrowRight, Sparkles, Tag, Zap, Heart } from "lucide-react"
 import { type Product, formatPrice } from "@/lib/products"
+import { toggleWishlist, isInWishlist } from "@/lib/wishlist"
+import { toast } from "sonner"
 
 const categories = [
   { id: "all", name: "All Products" },
@@ -16,6 +18,20 @@ const categories = [
 
 export function ProductsGridDark({ products }: { products: Product[] }) {
   const [activeCategory, setActiveCategory] = useState("all")
+  const [wishlistState, setWishlistState] = useState<Record<string, boolean>>({})
+
+  useEffect(() => {
+    const state: Record<string, boolean> = {}
+    products.forEach(p => { state[p.id] = isInWishlist(p.id) })
+    setWishlistState(state)
+    const handler = () => {
+      const s: Record<string, boolean> = {}
+      products.forEach(p => { s[p.id] = isInWishlist(p.id) })
+      setWishlistState(s)
+    }
+    window.addEventListener("wishlist-update", handler)
+    return () => window.removeEventListener("wishlist-update", handler)
+  }, [products])
 
   const filteredProducts = activeCategory === "all" ? products : products.filter((p) => p.category === activeCategory)
 
@@ -92,6 +108,20 @@ export function ProductsGridDark({ products }: { products: Product[] }) {
                     {product.badge || "In Stock"}
                   </span>
                 </div>
+
+                {/* Wishlist button */}
+                <button
+                  onClick={(e) => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    const added = toggleWishlist(product.id)
+                    setWishlistState(prev => ({ ...prev, [product.id]: added }))
+                    toast.success(added ? "Added to wishlist" : "Removed from wishlist")
+                  }}
+                  className="absolute top-3.5 right-3.5 z-20 p-2 rounded-full bg-black/40 backdrop-blur-sm hover:bg-black/60 transition-all"
+                >
+                  <Heart className={`h-3.5 w-3.5 ${wishlistState[product.id] ? "fill-red-500 text-red-500" : "text-white/50"}`} />
+                </button>
 
                 {/* Image Area */}
                 <div className="relative aspect-[4/3] bg-gradient-to-b from-background/80 via-background/40 to-transparent flex items-center justify-center p-8 overflow-hidden">

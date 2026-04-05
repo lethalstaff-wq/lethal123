@@ -4,9 +4,10 @@ import Link from "next/link"
 import { Logo } from "@/components/logo"
 import { MobileMenu } from "@/components/mobile-menu"
 import { useState, useEffect, useRef } from "react"
-import { ShoppingCart, User, Search, X, ArrowRight, Package } from "lucide-react"
+import { ShoppingCart, User, Search, X, ArrowRight, Package, Heart } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useCart } from "@/lib/cart-context"
+import { getWishlist } from "@/lib/wishlist"
 import { useRouter, usePathname } from "next/navigation"
 
 interface SearchResult {
@@ -26,8 +27,16 @@ export function Navbar() {
   const searchRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const { itemCount } = useCart()
+  const [wishlistCount, setWishlistCount] = useState(0)
   const router = useRouter()
   const pathname = usePathname()
+
+  useEffect(() => {
+    setWishlistCount(getWishlist().length)
+    const handler = () => setWishlistCount(getWishlist().length)
+    window.addEventListener("wishlist-update", handler)
+    return () => window.removeEventListener("wishlist-update", handler)
+  }, [])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -226,6 +235,18 @@ export function Navbar() {
                 >
                   <User className="h-3.5 w-3.5" />
                   Customer Login
+                </Button>
+              </Link>
+
+              {/* Wishlist */}
+              <Link href="/wishlist">
+                <Button variant="ghost" size="icon" className="relative h-9 w-9 rounded-full hover:bg-white/[0.06] text-white/60" aria-label="Wishlist">
+                  <Heart className="h-4 w-4" />
+                  {wishlistCount > 0 && (
+                    <span className="absolute -top-0.5 -right-0.5 h-4 w-4 rounded-full bg-red-500 text-[10px] font-bold flex items-center justify-center text-white">
+                      {wishlistCount}
+                    </span>
+                  )}
                 </Button>
               </Link>
 

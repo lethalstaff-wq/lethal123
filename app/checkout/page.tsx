@@ -11,6 +11,7 @@ import {
 import Link from "next/link"
 import Image from "next/image"
 import { BitcoinIcon, EthereumIcon, TetherIcon, LitecoinIcon, PayPalIcon, DiscordIcon } from "@/components/crypto-icons"
+import { PRODUCTS } from "@/lib/products"
 import { createOrder } from "@/app/checkout/actions"
 import { cn } from "@/lib/utils"
 
@@ -46,10 +47,11 @@ function generateOrderId() {
 }
 
 export default function CheckoutPage() {
-  const { items, total, clearCart } = useCart()
+  const { items, total, clearCart, addItem } = useCart()
 
   const [email, setEmail] = useState("")
   const [discordUser, setDiscordUser] = useState("")
+  const [orderNotes, setOrderNotes] = useState("")
   const [couponCode, setCouponCode] = useState("")
   const [appliedCoupon, setAppliedCoupon] = useState<{ code: string; percent: number } | null>(null)
   const [couponError, setCouponError] = useState("")
@@ -583,6 +585,18 @@ export default function CheckoutPage() {
                           className="w-full h-12 px-4 rounded-xl bg-white/[0.03] border border-border/40 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all"
                         />
                       </div>
+                      <div>
+                        <label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground mb-2 block">
+                          Order Notes <span className="text-muted-foreground/40 font-normal normal-case tracking-normal">(optional)</span>
+                        </label>
+                        <textarea
+                          value={orderNotes}
+                          onChange={(e) => setOrderNotes(e.target.value)}
+                          placeholder="Any special requests..."
+                          rows={2}
+                          className="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-border/40 text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary resize-none"
+                        />
+                      </div>
                     </div>
                   </div>
 
@@ -705,6 +719,49 @@ export default function CheckoutPage() {
                     )}
                     {couponError && <p className="text-xs text-red-400 mt-2">{couponError}</p>}
                   </div>
+
+                  {/* Upsell */}
+                  {!items.some(i => (i.variant.product_id || i.variant.product?.id) === "perm-spoofer") && items.some(i => {
+                    const pid = i.variant.product_id || i.variant.product?.id
+                    return pid && ["fortnite-external", "blurred", "streck"].includes(pid)
+                  }) && (
+                    <div className="rounded-xl border border-primary/20 bg-primary/[0.04] p-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <Image src="/images/products/perm-spoofer.png" alt="" width={40} height={40} className="rounded-lg" />
+                          <div>
+                            <p className="text-sm font-semibold">Add Perm Spoofer</p>
+                            <p className="text-xs text-muted-foreground">
+                              <span className="line-through">{"£"}35</span>{" "}
+                              <span className="text-primary font-bold">{"£"}25</span>{" "}
+                              <span className="text-emerald-400 text-[10px]">save 28%</span>
+                            </p>
+                            <p className="text-[10px] text-white/30">67% of buyers add this</p>
+                          </div>
+                        </div>
+                        <button
+                          onClick={() => {
+                            const product = PRODUCTS.find(p => p.id === "perm-spoofer")
+                            if (!product) return
+                            const variant = product.variants[0]
+                            addItem({
+                              id: variant.id,
+                              name: variant.name,
+                              price: 25,
+                              product_id: product.id,
+                              is_lifetime: false,
+                              duration_days: null,
+                              created_at: "",
+                              product: { id: product.id, name: product.name, slug: product.id, description: product.description, category: product.category, image_url: product.image, image: product.image, created_at: "", updated_at: "" },
+                            })
+                          }}
+                          className="px-3 py-1.5 rounded-lg bg-primary/15 text-primary text-xs font-bold hover:bg-primary/25 transition-colors"
+                        >
+                          + Add
+                        </button>
+                      </div>
+                    </div>
+                  )}
 
                   {/* TOS */}
                   <label className="flex items-start gap-3 cursor-pointer group px-1 py-1">

@@ -79,7 +79,7 @@ export const PRODUCTS: Product[] = [
     category: "firmware",
     badge: "In Stock",
     variants: [
-      { id: "dma-fw-eac-be", name: "EAC / BE Emulated", priceInPence: 2000 },
+      { id: "dma-fw-eac-be", name: "EAC / BE Emulated", priceInPence: 20000 },
       { id: "dma-fw-slotted", name: "Slotted Edition", priceInPence: 45000 },
       { id: "dma-fw-faceit-vgk", name: "FaceIt / VGK", priceInPence: 97500 },
     ],

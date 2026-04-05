@@ -5,16 +5,67 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { useCart } from "@/lib/cart-context"
-import { Trash2, Plus, Minus, ShoppingBag, ArrowRight, Zap, MessageCircle, Shield, ArrowLeft, Bitcoin } from "lucide-react"
+import { Trash2, Plus, Minus, ShoppingBag, ArrowRight, Zap, MessageCircle, Shield, ArrowLeft, Bitcoin, Sparkles } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { DiscordCheckoutModal } from "@/components/discord-checkout-modal"
+import { PRODUCTS, formatPrice } from "@/lib/products"
+import { toast } from "sonner"
 
 export default function CartPage() {
-  const { items, removeItem, updateQuantity, total, clearCart } = useCart()
+  const { items, removeItem, updateQuantity, total, clearCart, addItem } = useCart()
   const [showDiscordModal, setShowDiscordModal] = useState(false)
   const router = useRouter()
+
+  // Cross-sell: find products NOT in cart
+  const cartProductIds = new Set(items.map(i => i.variant.product_id || i.variant.product?.id))
+  const crossSellRules: Record<string, string[]> = {
+    "fortnite-external": ["perm-spoofer", "temp-spoofer"],
+    "blurred": ["custom-dma-firmware", "perm-spoofer"],
+    "streck": ["custom-dma-firmware", "perm-spoofer"],
+    "perm-spoofer": ["fortnite-external", "blurred"],
+    "temp-spoofer": ["perm-spoofer", "fortnite-external"],
+    "custom-dma-firmware": ["blurred", "streck"],
+  }
+  const crossSellIds = new Set<string>()
+  cartProductIds.forEach(id => {
+    if (id && crossSellRules[id]) {
+      crossSellRules[id].forEach(rid => { if (!cartProductIds.has(rid)) crossSellIds.add(rid) })
+    }
+  })
+  const crossSellProducts = Array.from(crossSellIds).slice(0, 3).map(id => PRODUCTS.find(p => p.id === id)).filter(Boolean) as typeof PRODUCTS
+
+  // Volume discount
+  const uniqueProducts = new Set(items.map(i => i.variant.product_id || i.variant.product?.id)).size
+  const volumeDiscount = uniqueProducts >= 3 ? 0.15 : uniqueProducts >= 2 ? 0.10 : 0
+  const volumeDiscountAmount = total * volumeDiscount
+  const finalTotal = total - volumeDiscountAmount
+
+  const handleAddCrossSell = (product: typeof PRODUCTS[number]) => {
+    const variant = product.variants[0]
+    addItem({
+      id: variant.id,
+      name: variant.name,
+      price: variant.priceInPence / 100,
+      product_id: product.id,
+      is_lifetime: variant.name.toLowerCase().includes("lifetime"),
+      duration_days: null,
+      created_at: "",
+      product: {
+        id: product.id,
+        name: product.name,
+        slug: product.id,
+        description: product.description,
+        category: product.category,
+        image_url: product.image,
+        image: product.image,
+        created_at: "",
+        updated_at: "",
+      },
+    })
+    toast.success(`${product.name} added to cart`)
+  }
 
   const productList = items
     .map((item) => `${item.variant.product?.name} - ${item.variant.name} x${item.quantity}`)
@@ -109,6 +160,35 @@ export default function CartPage() {
               <button onClick={clearCart} className="text-xs text-muted-foreground hover:text-red-400 transition-colors mt-2">
                 Clear all items
               </button>
+
+              {/* Cross-sell */}
+              {crossSellProducts.length > 0 && (
+                <div className="mt-6 rounded-xl border border-border/40 bg-card/30 p-4">
+                  <h3 className="text-sm font-bold mb-3 flex items-center gap-2">
+                    <Sparkles className="h-4 w-4 text-primary/60" />
+                    Add to your order
+                  </h3>
+                  <div className="space-y-2">
+                    {crossSellProducts.map((product) => {
+                      const minPrice = Math.min(...product.variants.map(v => v.priceInPence))
+                      return (
+                        <div key={product.id} className="flex items-center gap-3 p-3 rounded-lg border border-border/30 hover:border-primary/20 transition-all">
+                          <div className="w-10 h-10 rounded-lg bg-muted/30 flex items-center justify-center flex-shrink-0 overflow-hidden">
+                            <Image src={product.image} alt={product.name} width={40} height={40} className="object-contain" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-xs font-semibold truncate">{product.name}</p>
+                            <p className="text-xs text-primary font-bold">from {formatPrice(minPrice)}</p>
+                          </div>
+                          <button onClick={() => handleAddCrossSell(product)} className="px-3 py-1.5 rounded-lg bg-primary/10 text-primary text-[11px] font-bold hover:bg-primary/20 transition-colors shrink-0">
+                            + Add
+                          </button>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Order summary */}
@@ -126,13 +206,19 @@ export default function CartPage() {
                       <span className="text-muted-foreground">Processing Fee</span>
                       <span className="text-green-400 font-medium">Free</span>
                     </div>
+                    {volumeDiscount > 0 && (
+                      <div className="flex justify-between text-sm">
+                        <span className="text-emerald-400 flex items-center gap-1"><Sparkles className="h-3 w-3" /> Bundle discount ({(volumeDiscount * 100).toFixed(0)}%)</span>
+                        <span className="text-emerald-400">-{"£"}{volumeDiscountAmount.toFixed(2)}</span>
+                      </div>
+                    )}
                   </div>
 
                   <div className="h-px bg-border mb-5" />
 
                   <div className="flex justify-between font-bold text-xl mb-6">
                     <span>Total</span>
-                    <span>{"£"}{total.toFixed(2)}</span>
+                    <span>{"£"}{finalTotal.toFixed(2)}</span>
                   </div>
 
                   {/* Checkout button */}
