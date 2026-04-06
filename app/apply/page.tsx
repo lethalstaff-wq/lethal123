@@ -310,12 +310,116 @@ export default function ApplyPage() {
   const [mousePos, setMousePos] = useState({ x: 50, y: 50 })
   const [showStickyBar, setShowStickyBar] = useState(false)
   const formRef = useRef<HTMLDivElement>(null)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
 
-  // Mouse-following spotlight
+  // Mouse position for spotlight + particles
+  const mousePosRef = useRef({ x: 0, y: 0 })
   useEffect(() => {
-    const handler = (e: MouseEvent) => setMousePos({ x: (e.clientX / window.innerWidth) * 100, y: (e.clientY / window.innerHeight) * 100 })
+    const handler = (e: MouseEvent) => {
+      setMousePos({ x: (e.clientX / window.innerWidth) * 100, y: (e.clientY / window.innerHeight) * 100 })
+      mousePosRef.current = { x: e.clientX, y: e.clientY }
+    }
     window.addEventListener("mousemove", handler)
     return () => window.removeEventListener("mousemove", handler)
+  }, [])
+
+  // Particle system on canvas
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext("2d")
+    if (!ctx) return
+
+    let animId: number
+    let particles: Array<{ x: number; y: number; vx: number; vy: number; r: number; alpha: number; color: string }> = []
+
+    const colors = ["#EF6F29", "#FF8C42", "#a855f7", "#3b82f6", "#22c55e"]
+
+    const resize = () => {
+      canvas.width = window.innerWidth
+      canvas.height = window.innerHeight
+    }
+    resize()
+    window.addEventListener("resize", resize)
+
+    // Init particles
+    for (let i = 0; i < 80; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        r: Math.random() * 2 + 0.5,
+        alpha: Math.random() * 0.4 + 0.1,
+        color: colors[Math.floor(Math.random() * colors.length)],
+      })
+    }
+
+    const draw = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      const mx = mousePosRef.current.x
+      const my = mousePosRef.current.y
+
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i]
+
+        // Mouse repulsion
+        const dx = p.x - mx
+        const dy = p.y - my
+        const dist = Math.sqrt(dx * dx + dy * dy)
+        if (dist < 150 && dist > 0) {
+          const force = (150 - dist) / 150 * 0.8
+          p.vx += (dx / dist) * force
+          p.vy += (dy / dist) * force
+        }
+
+        // Damping
+        p.vx *= 0.98
+        p.vy *= 0.98
+
+        // Move
+        p.x += p.vx
+        p.y += p.vy
+
+        // Wrap
+        if (p.x < 0) p.x = canvas.width
+        if (p.x > canvas.width) p.x = 0
+        if (p.y < 0) p.y = canvas.height
+        if (p.y > canvas.height) p.y = 0
+
+        // Draw particle
+        ctx.beginPath()
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
+        ctx.fillStyle = p.color
+        ctx.globalAlpha = p.alpha
+        ctx.fill()
+
+        // Draw connections
+        for (let j = i + 1; j < particles.length; j++) {
+          const p2 = particles[j]
+          const dx2 = p.x - p2.x
+          const dy2 = p.y - p2.y
+          const d = Math.sqrt(dx2 * dx2 + dy2 * dy2)
+          if (d < 120) {
+            ctx.beginPath()
+            ctx.moveTo(p.x, p.y)
+            ctx.lineTo(p2.x, p2.y)
+            ctx.strokeStyle = "#EF6F29"
+            ctx.globalAlpha = (1 - d / 120) * 0.08
+            ctx.lineWidth = 0.5
+            ctx.stroke()
+          }
+        }
+      }
+      ctx.globalAlpha = 1
+      animId = requestAnimationFrame(draw)
+    }
+    draw()
+
+    return () => {
+      cancelAnimationFrame(animId)
+      window.removeEventListener("resize", resize)
+    }
   }, [])
 
   // Sticky mobile bar
@@ -435,85 +539,12 @@ export default function ApplyPage() {
         </div>
 
 
-        {/* World map behind text */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <div className="relative w-[90vw] max-w-[1000px] aspect-[2/1] opacity-[0.07]">
-            <svg viewBox="0 0 1000 500" className="w-full h-full">
-              {/* Dot grid world map — simplified continents */}
-              {(() => {
-                // continent shapes as rough coordinate ranges [xMin, xMax, yMin, yMax, density]
-                const regions = [
-                  // North America
-                  ...[...Array(60)].map((_, i) => ({ x: 120 + (i % 10) * 12 + Math.sin(i) * 5, y: 100 + Math.floor(i / 10) * 14 + Math.cos(i) * 3 })),
-                  // South America
-                  ...[...Array(35)].map((_, i) => ({ x: 220 + (i % 5) * 12 + Math.sin(i * 2) * 4, y: 280 + Math.floor(i / 5) * 14 + Math.cos(i) * 3 })),
-                  // Europe
-                  ...[...Array(40)].map((_, i) => ({ x: 440 + (i % 8) * 11 + Math.sin(i) * 3, y: 90 + Math.floor(i / 8) * 13 + Math.cos(i * 2) * 2 })),
-                  // Africa
-                  ...[...Array(45)].map((_, i) => ({ x: 450 + (i % 6) * 13 + Math.sin(i) * 4, y: 220 + Math.floor(i / 6) * 14 + Math.cos(i) * 3 })),
-                  // Russia / Central Asia
-                  ...[...Array(50)].map((_, i) => ({ x: 530 + (i % 12) * 14 + Math.sin(i) * 4, y: 70 + Math.floor(i / 12) * 12 + Math.cos(i) * 3 })),
-                  // Middle East
-                  ...[...Array(15)].map((_, i) => ({ x: 560 + (i % 5) * 12, y: 180 + Math.floor(i / 5) * 13 })),
-                  // India
-                  ...[...Array(20)].map((_, i) => ({ x: 650 + (i % 4) * 12 + Math.sin(i) * 3, y: 200 + Math.floor(i / 4) * 14 })),
-                  // East Asia
-                  ...[...Array(40)].map((_, i) => ({ x: 720 + (i % 8) * 12 + Math.sin(i) * 3, y: 120 + Math.floor(i / 8) * 13 + Math.cos(i) * 2 })),
-                  // Southeast Asia
-                  ...[...Array(20)].map((_, i) => ({ x: 750 + (i % 5) * 13, y: 260 + Math.floor(i / 5) * 14 })),
-                  // Australia
-                  ...[...Array(20)].map((_, i) => ({ x: 800 + (i % 5) * 14 + Math.sin(i) * 3, y: 350 + Math.floor(i / 5) * 14 })),
-                ]
-                return regions.map((d, i) => (
-                  <circle key={i} cx={d.x} cy={d.y} r="1.8" fill="#EF6F29" opacity={0.3 + (i % 3) * 0.15} />
-                ))
-              })()}
-            </svg>
-          </div>
-          {/* City pings — absolute on top of map */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="relative w-[90vw] max-w-[1000px] aspect-[2/1]">
-              {[
-                { x: "16%", y: "28%", label: "New York", delay: "0s" },
-                { x: "24%", y: "68%", label: "São Paulo", delay: "0.5s" },
-                { x: "47%", y: "24%", label: "London", delay: "1s" },
-                { x: "50%", y: "20%", label: "Berlin", delay: "1.5s" },
-                { x: "55%", y: "32%", label: "Istanbul", delay: "2s" },
-                { x: "60%", y: "40%", label: "Dubai", delay: "2.5s" },
-                { x: "68%", y: "44%", label: "Mumbai", delay: "0.8s" },
-                { x: "77%", y: "30%", label: "Tokyo", delay: "1.3s" },
-                { x: "84%", y: "72%", label: "Sydney", delay: "1.8s" },
-              ].map((city, i) => (
-                <div key={i} className="absolute" style={{ left: city.x, top: city.y }}>
-                  {/* Ping ring */}
-                  <div className="absolute -inset-2 rounded-full border border-primary/30 animate-ping" style={{ animationDuration: "3s", animationDelay: city.delay }} />
-                  {/* Dot */}
-                  <div className="w-2 h-2 rounded-full bg-primary shadow-lg shadow-primary/50" />
-                  {/* Label */}
-                  <div className="absolute left-3 top-1/2 -translate-y-1/2 whitespace-nowrap text-[9px] text-primary/40 font-mono hidden sm:block">
-                    {city.label}
-                  </div>
-                </div>
-              ))}
-              {/* Connection lines between cities */}
-              <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-                {[
-                  { x1: 16, y1: 28, x2: 47, y2: 24 },
-                  { x1: 47, y1: 24, x2: 50, y2: 20 },
-                  { x1: 50, y1: 20, x2: 55, y2: 32 },
-                  { x1: 55, y1: 32, x2: 60, y2: 40 },
-                  { x1: 60, y1: 40, x2: 68, y2: 44 },
-                  { x1: 68, y1: 44, x2: 77, y2: 30 },
-                  { x1: 77, y1: 30, x2: 84, y2: 72 },
-                  { x1: 16, y1: 28, x2: 24, y2: 68 },
-                ].map((line, i) => (
-                  <line key={i} x1={line.x1} y1={line.y1} x2={line.x2} y2={line.y2}
-                    stroke="#EF6F29" strokeWidth="0.15" strokeDasharray="1 2" opacity="0.2" />
-                ))}
-              </svg>
-            </div>
-          </div>
-        </div>
+        {/* ═══ INTERACTIVE PARTICLE FIELD ═══ */}
+        <canvas
+          ref={canvasRef}
+          className="absolute inset-0 w-full h-full pointer-events-none"
+          style={{ opacity: 0.6 }}
+        />
 
         <div className="container mx-auto text-center max-w-4xl relative z-10 py-32">
           <div className="flex justify-center mb-10 animate-fade-in-up">
