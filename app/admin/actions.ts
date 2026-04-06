@@ -374,3 +374,24 @@ export async function updateSetting(key: string, value: unknown) {
   revalidatePath("/reviews")
   revalidatePath("/")
 }
+
+// ── STAFF APPLICATIONS ──
+
+export async function getStaffApplications() {
+  const db = await requireAdmin()
+  const { data, error } = await db
+    .from("staff_applications")
+    .select("*")
+    .order("created_at", { ascending: false })
+  if (error) throw new Error(error.message)
+  return data || []
+}
+
+export async function updateStaffApplication(id: number, status: string, adminNotes?: string) {
+  const db = await requireAdmin()
+  const updates: Record<string, unknown> = { status }
+  if (adminNotes !== undefined) updates.admin_notes = adminNotes
+  const { error } = await db.from("staff_applications").update(updates).eq("id", id)
+  if (error) throw new Error(error.message)
+  revalidatePath("/admin/staff")
+}

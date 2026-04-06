@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
-import { Package, Star, Settings, LayoutDashboard, LogOut, ChevronLeft, Users, ShoppingCart, Ticket } from "lucide-react"
+import { Package, Star, Settings, LayoutDashboard, LogOut, ChevronLeft, Users, ShoppingCart, Ticket, UserPlus } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
@@ -14,6 +14,7 @@ const navItems = [
   { label: "Products", href: "/admin/products", icon: Package },
   { label: "Coupons", href: "/admin/coupons", icon: Ticket },
   { label: "Reviews", href: "/admin/reviews", icon: Star },
+  { label: "Staff Apps", href: "/admin/staff", icon: UserPlus },
   { label: "Settings", href: "/admin/settings", icon: Settings },
 ]
 
