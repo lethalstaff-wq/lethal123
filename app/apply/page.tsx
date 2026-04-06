@@ -435,63 +435,92 @@ export default function ApplyPage() {
         </div>
 
 
-        <div className="container mx-auto max-w-6xl relative z-10 py-32">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        {/* 3D Globe behind text */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div className="relative w-[500px] h-[500px] sm:w-[600px] sm:h-[600px] lg:w-[700px] lg:h-[700px] opacity-[0.12]">
+            <svg viewBox="0 0 400 400" className="w-full h-full animate-[globeSpin_30s_linear_infinite]">
+              {/* Globe circle */}
+              <circle cx="200" cy="200" r="180" fill="none" stroke="#EF6F29" strokeWidth="0.5" />
+              {/* Latitude lines */}
+              {[-60, -30, 0, 30, 60].map(lat => {
+                const r = 180 * Math.cos((lat * Math.PI) / 180)
+                const y = 200 - 180 * Math.sin((lat * Math.PI) / 180)
+                return <ellipse key={lat} cx="200" cy={y} rx={r} ry={r * 0.3} fill="none" stroke="#EF6F29" strokeWidth="0.4" strokeDasharray="4 6" />
+              })}
+              {/* Longitude lines */}
+              {[0, 30, 60, 90, 120, 150].map(lon => (
+                <ellipse key={lon} cx="200" cy="200" rx={180 * Math.cos((lon * Math.PI) / 180)} ry="180" fill="none" stroke="#EF6F29" strokeWidth="0.4" strokeDasharray="4 6" />
+              ))}
+              {/* Glow dots — team locations */}
+              {[
+                { x: 120, y: 130 }, // US
+                { x: 230, y: 120 }, // EU
+                { x: 280, y: 140 }, // Istanbul
+                { x: 310, y: 180 }, // Dubai
+                { x: 340, y: 170 }, // India
+                { x: 160, y: 260 }, // Brazil
+                { x: 250, y: 110 }, // Scandinavia
+                { x: 350, y: 230 }, // Singapore
+              ].map((dot, i) => (
+                <g key={i}>
+                  <circle cx={dot.x} cy={dot.y} r="4" fill="#EF6F29" opacity="0.6">
+                    <animate attributeName="r" values="3;6;3" dur={`${2 + i * 0.3}s`} repeatCount="indefinite" />
+                    <animate attributeName="opacity" values="0.6;0.2;0.6" dur={`${2 + i * 0.3}s`} repeatCount="indefinite" />
+                  </circle>
+                  <circle cx={dot.x} cy={dot.y} r="1.5" fill="#EF6F29" />
+                </g>
+              ))}
+            </svg>
+          </div>
+        </div>
 
-            {/* LEFT — Text */}
-            <div className="text-center lg:text-left">
-              <div className="flex justify-center lg:justify-start mb-8 animate-fade-in-up">
-                <div className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
-                  <span className="relative flex h-2 w-2"><span className="animate-ping absolute h-full w-full rounded-full bg-emerald-400 opacity-75" /><span className="relative h-2 w-2 rounded-full bg-emerald-500" /></span>
-                  <span className="text-sm font-bold text-primary">{POSITIONS.reduce((s, p) => s + p.openSlots, 0)} Open Positions</span>
-                  <span className="text-white/15">·</span>
-                  <span className="text-sm text-white/40">Remote</span>
-                </div>
-              </div>
-
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black mb-6 tracking-tight leading-[0.9] animate-fade-in-up animate-delay-100">
-                <span className="text-white">Join the</span><br />
-                <span className="text-primary relative inline-block">
-                  Lethal Team
-                  <span className="absolute -inset-x-4 -inset-y-2 bg-primary/5 rounded-2xl blur-xl animate-pulse" style={{ animationDuration: "3s" }} />
-                </span>
-              </h1>
-
-              <p className="text-lg text-white/40 max-w-md mx-auto lg:mx-0 mb-10 leading-relaxed animate-fade-in-up animate-delay-200">
-                Work remotely. Set your own hours. Build the best gaming tools on the market.
-              </p>
-
-              <div className="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-4 mb-10 animate-fade-in-up animate-delay-300">
-                <button onClick={() => document.getElementById("positions")?.scrollIntoView({ behavior: "smooth" })}
-                  className="group relative bg-gradient-to-r from-primary to-[#FF8C42] text-white font-bold px-10 py-4 rounded-2xl flex items-center gap-2 transition-all hover:-translate-y-0.5 active:scale-[0.98] neon-btn">
-                  View Open Roles <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </button>
-                <button onClick={() => formRef.current?.scrollIntoView({ behavior: "smooth" })}
-                  className="border border-white/10 bg-white/5 hover:bg-white/10 text-white font-semibold px-10 py-4 rounded-2xl transition-all">
-                  Apply Directly
-                </button>
-              </div>
-
-              {/* Stats row */}
-              <div className="grid grid-cols-4 gap-3 max-w-md mx-auto lg:mx-0 animate-fade-in-up animate-delay-400">
-                {[
-                  { icon: Users, value: 10, suffix: "+", label: "Team" },
-                  { icon: Trophy, value: 774, suffix: "+", label: "Clients" },
-                  { icon: Star, value: 99, suffix: "%", label: "Uptime" },
-                  { icon: Zap, value: 24, suffix: "/7", label: "Support" },
-                ].map((s, i) => (
-                  <div key={i} className="text-center">
-                    <p className="text-xl font-black text-white"><AnimatedNumber value={s.value} suffix={s.suffix} /></p>
-                    <p className="text-[10px] text-white/25">{s.label}</p>
-                  </div>
-                ))}
-              </div>
+        <div className="container mx-auto text-center max-w-4xl relative z-10 py-32">
+          <div className="flex justify-center mb-10 animate-fade-in-up">
+            <div className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
+              <span className="relative flex h-2 w-2"><span className="animate-ping absolute h-full w-full rounded-full bg-emerald-400 opacity-75" /><span className="relative h-2 w-2 rounded-full bg-emerald-500" /></span>
+              <span className="text-sm font-bold text-primary">{POSITIONS.reduce((s, p) => s + p.openSlots, 0)} Open Positions</span>
+              <span className="text-white/15">·</span>
+              <span className="text-sm text-white/40">Remote · Flexible</span>
             </div>
+          </div>
 
-            {/* RIGHT — Terminal */}
-            <div className="hidden lg:flex justify-end animate-fade-in-up animate-delay-300">
-              <TerminalAnimation />
-            </div>
+          <h1 className="text-5xl sm:text-7xl md:text-8xl font-black mb-8 tracking-tight leading-[0.9] animate-fade-in-up animate-delay-100">
+            <span className="text-white">Join the</span><br />
+            <span className="text-primary relative inline-block">
+              Lethal Team
+              <span className="absolute -inset-x-4 -inset-y-2 bg-primary/5 rounded-2xl blur-xl animate-pulse" style={{ animationDuration: "3s" }} />
+            </span>
+          </h1>
+
+          <p className="text-lg sm:text-xl text-white/40 max-w-xl mx-auto mb-12 leading-relaxed animate-fade-in-up animate-delay-200">
+            Work remotely. Set your own hours. Build the best gaming tools on the market.
+          </p>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-14 animate-fade-in-up animate-delay-300">
+            <button onClick={() => document.getElementById("positions")?.scrollIntoView({ behavior: "smooth" })}
+              className="group relative bg-gradient-to-r from-primary to-[#FF8C42] text-white font-bold px-10 py-4 rounded-2xl flex items-center gap-2 transition-all hover:-translate-y-0.5 active:scale-[0.98] neon-btn">
+              View Open Roles <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            </button>
+            <button onClick={() => formRef.current?.scrollIntoView({ behavior: "smooth" })}
+              className="border border-white/10 bg-white/5 hover:bg-white/10 text-white font-semibold px-10 py-4 rounded-2xl transition-all">
+              Apply Directly
+            </button>
+          </div>
+
+          {/* Animated stats */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto animate-fade-in-up animate-delay-400">
+            {[
+              { icon: Users, value: 10, suffix: "+", label: "Team Members" },
+              { icon: Trophy, value: 774, suffix: "+", label: "Happy Clients" },
+              { icon: Star, value: 99, suffix: "%", label: "Satisfaction" },
+              { icon: Zap, value: 24, suffix: "/7", label: "Support" },
+            ].map((s, i) => (
+              <div key={i} className="rounded-2xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm p-4 text-center hover:border-white/[0.1] transition-all group">
+                <s.icon className="h-4 w-4 text-primary mx-auto mb-2 group-hover:scale-110 transition-transform" />
+                <p className="text-2xl font-black text-white"><AnimatedNumber value={s.value} suffix={s.suffix} /></p>
+                <p className="text-[10px] text-white/25 mt-0.5">{s.label}</p>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -930,6 +959,7 @@ export default function ApplyPage() {
           box-shadow: none;
         }
         @keyframes confettiFall{0%{transform:translateY(0) scale(0);opacity:1}15%{transform:translateX(calc(var(--dx)*0.3)) translateY(20vh) scale(1);opacity:1}100%{transform:translateX(var(--dx)) translateY(var(--fall)) scale(0.5) rotate(720deg);opacity:0}}
+        @keyframes globeSpin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
       `}</style>
     </main>
   )
