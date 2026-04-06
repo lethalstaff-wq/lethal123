@@ -70,6 +70,7 @@ export function Footer() {
                 { label: "Status", href: "/status" },
                 { label: "Changelog", href: "/changelog" },
                 { label: "Referrals", href: "/referrals" },
+                { label: "Join Our Team", href: "/apply" },
               ].map((item) => (
                 <li key={item.label}>
                   <Link href={item.href} className="text-sm text-white/30 hover:text-primary transition-colors">

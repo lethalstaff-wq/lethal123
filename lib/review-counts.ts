@@ -1,18 +1,17 @@
-// Review counts — single source of truth
-// After seed script: DB will have ~847 reviews matching these numbers
+// Review counts — matches seeded DB data (774 total)
 
-const TOTAL_REVIEWS = 847
+const TOTAL_REVIEWS = 774
 
 export const PRODUCT_REVIEW_COUNTS: Record<string, number> = {
-  "perm-spoofer": 152,
-  "temp-spoofer": 186,
-  "fortnite-external": 212,
-  "blurred": 102,
-  "streck": 68,
-  "custom-dma-firmware": 59,
-  "dma-basic": 34,
-  "dma-advanced": 21,
-  "dma-elite": 13,
+  "perm-spoofer": 137,
+  "temp-spoofer": 179,
+  "fortnite-external": 185,
+  "blurred": 93,
+  "streck": 62,
+  "custom-dma-firmware": 56,
+  "dma-basic": 30,
+  "dma-advanced": 15,
+  "dma-elite": 17,
 }
 
 export const PRODUCT_NAME_TO_SLUG: Record<string, string> = {

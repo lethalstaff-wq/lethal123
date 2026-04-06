@@ -1,312 +1,449 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { UserPlus, Send, Briefcase, MessageCircle, Globe, Clock } from "lucide-react"
+import {
+  Users, Code2, Crown, Headphones, Camera, Search, DollarSign,
+  Check, Minus, Plus, Send, CheckCircle2,
+} from "lucide-react"
+import Link from "next/link"
 import { toast } from "sonner"
 
-const TIMEZONES = [
-  "UTC-12", "UTC-11", "UTC-10", "UTC-9", "UTC-8", "UTC-7", "UTC-6", "UTC-5",
-  "UTC-4", "UTC-3", "UTC-2", "UTC-1", "UTC+0", "UTC+1", "UTC+2", "UTC+3",
-  "UTC+4", "UTC+5", "UTC+6", "UTC+7", "UTC+8", "UTC+9", "UTC+10", "UTC+11", "UTC+12",
+const POSITIONS = [
+  {
+    id: "developer",
+    title: "Developer",
+    icon: Code2,
+    color: "#a855f7",
+    description: "Build and maintain our tools, website, and backend systems",
+    requirements: ["Python, TypeScript, or C++ experience", "Understanding of anti-cheat systems is a plus", "Available for code reviews and patches"],
+    openSlots: 1,
+  },
+  {
+    id: "manager",
+    title: "Head Manager",
+    icon: Crown,
+    color: "#f97316",
+    description: "Oversee daily operations, team coordination, and business decisions",
+    requirements: ["Leadership experience", "Available 20+ hours/week", "Business/management background"],
+    openSlots: 1,
+  },
+  {
+    id: "support",
+    title: "Support Agent",
+    icon: Headphones,
+    color: "#22c55e",
+    description: "Help customers with setup, troubleshooting, and orders via Discord",
+    requirements: ["Fast response time", "Knowledge of DMA/spoofers/cheats", "Fluent English", "Patient with customers"],
+    openSlots: 3,
+  },
+  {
+    id: "media",
+    title: "Media Manager",
+    icon: Camera,
+    color: "#ec4899",
+    description: "Create content, manage social media, design graphics and videos",
+    requirements: ["Experience with Photoshop/Premiere/After Effects", "Social media management", "Creative portfolio"],
+    openSlots: 2,
+  },
+  {
+    id: "seo",
+    title: "SEO Specialist",
+    icon: Search,
+    color: "#3b82f6",
+    description: "Optimize search rankings, manage keywords, and drive organic traffic",
+    requirements: ["SEO tools experience (Ahrefs, SEMrush)", "Content strategy", "Technical SEO knowledge"],
+    openSlots: 1,
+  },
+  {
+    id: "sales",
+    title: "Sales / Reseller",
+    icon: DollarSign,
+    color: "#eab308",
+    description: "Drive sales, manage reseller partnerships, and grow revenue",
+    requirements: ["Sales experience in gaming/software", "Existing customer base is a plus", "Commission-based"],
+    openSlots: 2,
+  },
 ]
 
-const POSITIONS = [
-  { value: "support", label: "Support Agent", desc: "Help customers with setup and issues" },
-  { value: "moderator", label: "Moderator", desc: "Moderate Discord server and community" },
-  { value: "developer", label: "Developer", desc: "Help with site/tool development" },
-  { value: "reseller", label: "Reseller", desc: "Sell products on your own platform" },
-]
+const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 
 export default function ApplyPage() {
-  const [loading, setLoading] = useState(false)
-  const [form, setForm] = useState({
-    discord: "",
-    age: "",
-    timezone: "",
-    experience: "",
-    languages: "",
-    hours_per_week: "",
-    position: "",
-    why_hire: "",
-    how_found: "",
-  })
+  const [position, setPosition] = useState("")
+  const [discord, setDiscord] = useState("")
+  const [age, setAge] = useState(18)
+  const [timezone, setTimezone] = useState("")
+  const [hoursPerWeek, setHoursPerWeek] = useState("")
+  const [selectedDays, setSelectedDays] = useState<string[]>([])
+  const [preferredTime, setPreferredTime] = useState("")
+  const [experience, setExperience] = useState("")
+  const [whyLethal, setWhyLethal] = useState("")
+  const [portfolio, setPortfolio] = useState("")
+  const [agree16, setAgree16] = useState(false)
+  const [agreeActive, setAgreeActive] = useState(false)
+  const [agreeUnpaid, setAgreeUnpaid] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [submitted, setSubmitted] = useState(false)
+  const formRef = useRef<HTMLDivElement>(null)
 
-  function update(field: string, value: string) {
-    setForm((prev) => ({ ...prev, [field]: value }))
+  const toggleDay = (day: string) => {
+    setSelectedDays(prev => prev.includes(day) ? prev.filter(d => d !== day) : [...prev, day])
   }
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    if (!form.discord || !form.age || !form.position || !form.why_hire) {
-      toast.error("Please fill in all required fields")
-      return
-    }
-    setLoading(true)
+  const scrollToForm = (posId: string) => {
+    setPosition(posId)
+    formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
+  }
+
+  const isValid = position && discord.trim() && age >= 16 && timezone && hoursPerWeek
+    && selectedDays.length > 0 && preferredTime && experience.length >= 50
+    && whyLethal.length >= 30 && agree16 && agreeActive && agreeUnpaid
+
+  const handleSubmit = async () => {
+    if (!isValid || submitting) return
+    setSubmitting(true)
     try {
-      const res = await fetch("/api/staff-apply", {
+      const res = await fetch("/api/apply", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, age: Number(form.age) }),
+        body: JSON.stringify({
+          position, discord, age, timezone,
+          hoursPerWeek, availableDays: selectedDays, preferredTime,
+          experience, whyLethal, portfolio,
+        }),
       })
-      const data = await res.json()
-      if (!res.ok) throw new Error(data.error || "Failed to submit")
-      toast.success("Application submitted successfully! We'll review it soon.")
-      setForm({
-        discord: "",
-        age: "",
-        timezone: "",
-        experience: "",
-        languages: "",
-        hours_per_week: "",
-        position: "",
-        why_hire: "",
-        how_found: "",
-      })
-    } catch (err: unknown) {
-      toast.error(err instanceof Error ? err.message : "Something went wrong")
-    } finally {
-      setLoading(false)
+      if (!res.ok) throw new Error()
+      setSubmitted(true)
+    } catch {
+      toast.error("Failed to submit application")
     }
+    setSubmitting(false)
   }
 
-  const inputClass =
-    "w-full bg-[#0a0a0a] border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-[#EF6F29]/50 focus:border-[#EF6F29]/50 transition-all duration-200"
-  const labelClass = "block text-sm font-medium text-white/70 mb-2"
-
   return (
-    <>
+    <main className="flex min-h-screen flex-col bg-background">
       <Navbar />
-      <main className="min-h-screen bg-[#050505] pt-28 pb-20">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6">
-          {/* Header */}
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-[#EF6F29]/10 border border-[#EF6F29]/20 mb-6">
-              <UserPlus className="w-8 h-8 text-[#EF6F29]" />
+
+      {submitted ? (
+        <section className="flex-1 flex items-center justify-center py-32 px-4">
+          <div className="text-center max-w-md">
+            <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 flex items-center justify-center mx-auto mb-4">
+              <CheckCircle2 className="h-8 w-8 text-emerald-500" />
             </div>
-            <h1 className="text-4xl sm:text-5xl font-bold text-white tracking-tight mb-4">
-              Join Our Team
-            </h1>
-            <p className="text-lg text-white/50 max-w-xl mx-auto">
-              We&apos;re looking for passionate individuals to help us grow. Fill out the application below and we&apos;ll get back to you.
-            </p>
+            <h2 className="text-2xl font-bold mb-2">Application Sent!</h2>
+            <p className="text-muted-foreground mb-6">We'll review your application and contact you on Discord within 48 hours.</p>
+            <Link href="/" className="text-primary hover:underline text-sm">← Back to Home</Link>
           </div>
-
-          <form onSubmit={handleSubmit} className="space-y-8">
-            {/* Personal Info */}
-            <div className="bg-[#0d0d0d] border border-white/[0.06] rounded-2xl p-6 sm:p-8 space-y-6">
-              <div className="flex items-center gap-3 mb-2">
-                <MessageCircle className="w-5 h-5 text-[#EF6F29]" />
-                <h2 className="text-xl font-semibold text-white">Personal Info</h2>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div>
-                  <label className={labelClass}>
-                    Discord Username <span className="text-[#EF6F29]">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    value={form.discord}
-                    onChange={(e) => update("discord", e.target.value)}
-                    placeholder="username#0000"
-                    className={inputClass}
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className={labelClass}>
-                    Age <span className="text-[#EF6F29]">*</span>
-                  </label>
-                  <input
-                    type="number"
-                    value={form.age}
-                    onChange={(e) => update("age", e.target.value)}
-                    placeholder="18"
-                    min={13}
-                    max={99}
-                    className={inputClass}
-                    required
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className={labelClass}>
-                  <Globe className="w-4 h-4 inline mr-1.5 text-white/40" />
-                  Timezone
-                </label>
-                <select
-                  value={form.timezone}
-                  onChange={(e) => update("timezone", e.target.value)}
-                  className={inputClass}
-                >
-                  <option value="">Select timezone...</option>
-                  {TIMEZONES.map((tz) => (
-                    <option key={tz} value={tz}>
-                      {tz}
-                    </option>
-                  ))}
-                </select>
-              </div>
+        </section>
+      ) : (
+        <>
+          {/* Hero */}
+          <section className="py-20 px-4 text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-6">
+              <Users className="h-4 w-4" />
+              <span>We're Hiring</span>
             </div>
+            <h1 className="text-4xl sm:text-5xl font-black mb-4">
+              Join the <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-amber-400">Team</span>
+            </h1>
+            <p className="text-muted-foreground text-lg max-w-xl mx-auto">
+              Help us build the best gaming tools on the market. Remote, flexible, and rewarding.
+            </p>
+          </section>
 
-            {/* Experience */}
-            <div className="bg-[#0d0d0d] border border-white/[0.06] rounded-2xl p-6 sm:p-8 space-y-6">
-              <div className="flex items-center gap-3 mb-2">
-                <Briefcase className="w-5 h-5 text-[#EF6F29]" />
-                <h2 className="text-xl font-semibold text-white">Experience</h2>
-              </div>
-
-              <div>
-                <label className={labelClass}>
-                  Previous experience in gaming communities
-                </label>
-                <textarea
-                  value={form.experience}
-                  onChange={(e) => update("experience", e.target.value)}
-                  placeholder="Tell us about your previous roles, communities you've been part of, etc."
-                  rows={4}
-                  className={inputClass + " resize-none"}
-                />
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div>
-                  <label className={labelClass}>Languages Spoken</label>
-                  <input
-                    type="text"
-                    value={form.languages}
-                    onChange={(e) => update("languages", e.target.value)}
-                    placeholder="English, Spanish, etc."
-                    className={inputClass}
-                  />
-                </div>
-
-                <div>
-                  <label className={labelClass}>
-                    <Clock className="w-4 h-4 inline mr-1.5 text-white/40" />
-                    Available Hours per Week
-                  </label>
-                  <select
-                    value={form.hours_per_week}
-                    onChange={(e) => update("hours_per_week", e.target.value)}
-                    className={inputClass}
-                  >
-                    <option value="">Select hours...</option>
-                    <option value="5-10">5 - 10 hours</option>
-                    <option value="10-20">10 - 20 hours</option>
-                    <option value="20-30">20 - 30 hours</option>
-                    <option value="30+">30+ hours</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            {/* Position */}
-            <div className="bg-[#0d0d0d] border border-white/[0.06] rounded-2xl p-6 sm:p-8 space-y-6">
-              <div className="flex items-center gap-3 mb-2">
-                <Briefcase className="w-5 h-5 text-[#EF6F29]" />
-                <h2 className="text-xl font-semibold text-white">
-                  Position <span className="text-[#EF6F29]">*</span>
-                </h2>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* Positions Grid */}
+          <section className="px-4 pb-16">
+            <div className="container mx-auto max-w-6xl">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {POSITIONS.map((pos) => (
-                  <label
-                    key={pos.value}
-                    className={`relative flex items-start gap-4 p-4 rounded-xl border cursor-pointer transition-all duration-200 ${
-                      form.position === pos.value
-                        ? "border-[#EF6F29]/60 bg-[#EF6F29]/5 ring-1 ring-[#EF6F29]/30"
-                        : "border-white/[0.06] bg-[#0a0a0a] hover:border-white/10 hover:bg-[#0a0a0a]/80"
-                    }`}
-                  >
-                    <input
-                      type="radio"
-                      name="position"
-                      value={pos.value}
-                      checked={form.position === pos.value}
-                      onChange={(e) => update("position", e.target.value)}
-                      className="sr-only"
-                    />
-                    <div
-                      className={`mt-0.5 w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${
-                        form.position === pos.value
-                          ? "border-[#EF6F29] bg-[#EF6F29]"
-                          : "border-white/20"
-                      }`}
+                  <div key={pos.id} className="rounded-2xl border border-border/40 bg-card/50 p-6 hover:border-primary/20 transition-all group">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: `${pos.color}15` }}>
+                        <pos.icon className="h-5 w-5" style={{ color: pos.color }} />
+                      </div>
+                      <span className="text-[10px] px-2 py-1 rounded-full bg-emerald-500/10 text-emerald-400 font-bold">
+                        {pos.openSlots} open
+                      </span>
+                    </div>
+                    <h3 className="font-bold text-lg mb-1">{pos.title}</h3>
+                    <p className="text-sm text-muted-foreground mb-4">{pos.description}</p>
+                    <ul className="space-y-1.5 mb-5">
+                      {pos.requirements.map((req, i) => (
+                        <li key={i} className="flex items-start gap-2 text-xs text-white/40">
+                          <Check className="h-3 w-3 mt-0.5 shrink-0" style={{ color: pos.color }} />
+                          {req}
+                        </li>
+                      ))}
+                    </ul>
+                    <button
+                      onClick={() => scrollToForm(pos.id)}
+                      className="w-full py-2.5 rounded-xl border border-border/40 text-sm font-semibold hover:border-primary/40 hover:bg-primary/5 transition-all"
                     >
-                      {form.position === pos.value && (
-                        <div className="w-2 h-2 rounded-full bg-white" />
-                      )}
-                    </div>
-                    <div>
-                      <p className="text-white font-medium text-sm">{pos.label}</p>
-                      <p className="text-white/40 text-xs mt-0.5">{pos.desc}</p>
-                    </div>
-                  </label>
+                      Apply for {pos.title}
+                    </button>
+                  </div>
                 ))}
               </div>
             </div>
+          </section>
 
-            {/* Why & How */}
-            <div className="bg-[#0d0d0d] border border-white/[0.06] rounded-2xl p-6 sm:p-8 space-y-6">
-              <div className="flex items-center gap-3 mb-2">
-                <MessageCircle className="w-5 h-5 text-[#EF6F29]" />
-                <h2 className="text-xl font-semibold text-white">Almost Done</h2>
-              </div>
+          {/* Application Form */}
+          <section id="apply-form" ref={formRef} className="py-16 px-4">
+            <div className="container mx-auto max-w-2xl">
+              <div className="rounded-2xl border border-border/40 bg-card/50 p-8">
+                <h2 className="text-2xl font-bold mb-2">Apply Now</h2>
+                <p className="text-sm text-muted-foreground mb-8">Fill out the form below. We review applications within 48 hours.</p>
 
-              <div>
-                <label className={labelClass}>
-                  Why should we hire you? <span className="text-[#EF6F29]">*</span>
-                </label>
-                <textarea
-                  value={form.why_hire}
-                  onChange={(e) => update("why_hire", e.target.value)}
-                  placeholder="Tell us what makes you a great fit for this role..."
-                  rows={5}
-                  className={inputClass + " resize-none"}
-                  required
-                />
-              </div>
+                <div className="space-y-6">
 
-              <div>
-                <label className={labelClass}>How did you find us?</label>
-                <select
-                  value={form.how_found}
-                  onChange={(e) => update("how_found", e.target.value)}
-                  className={inputClass}
-                >
-                  <option value="">Select...</option>
-                  <option value="Discord">Discord</option>
-                  <option value="Google">Google</option>
-                  <option value="Friend">Friend</option>
-                  <option value="YouTube">YouTube</option>
-                  <option value="Other">Other</option>
-                </select>
+                  {/* ── Personal Info ── */}
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-4">Personal Info</p>
+                    <div className="space-y-4">
+
+                      {/* Position */}
+                      <div>
+                        <label className="text-sm font-semibold mb-2 block">Position <span className="text-primary">*</span></label>
+                        <select
+                          value={position}
+                          onChange={(e) => setPosition(e.target.value)}
+                          className="w-full h-11 px-4 rounded-xl bg-white/[0.03] border border-border/40 text-sm focus:outline-none focus:border-primary transition-all appearance-none cursor-pointer"
+                        >
+                          <option value="" className="bg-[#0c0c0e]">Select a position...</option>
+                          {POSITIONS.map(p => (
+                            <option key={p.id} value={p.id} className="bg-[#0c0c0e]">{p.title}</option>
+                          ))}
+                        </select>
+                      </div>
+
+                      {/* Discord */}
+                      <div>
+                        <label className="text-sm font-semibold mb-2 block">Discord Username <span className="text-primary">*</span></label>
+                        <input
+                          type="text"
+                          value={discord}
+                          onChange={(e) => setDiscord(e.target.value)}
+                          placeholder="username"
+                          className="w-full h-11 px-4 rounded-xl bg-white/[0.03] border border-border/40 text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary transition-all"
+                        />
+                      </div>
+
+                      {/* Age */}
+                      <div>
+                        <label className="text-sm font-semibold mb-2 block">Age <span className="text-primary">*</span></label>
+                        <div className="flex items-center gap-0">
+                          <button
+                            type="button"
+                            onClick={() => setAge(Math.max(16, age - 1))}
+                            className="w-11 h-11 rounded-l-xl border border-border/40 bg-white/[0.03] flex items-center justify-center text-muted-foreground hover:text-white hover:bg-white/[0.06] transition-all"
+                          >
+                            <Minus className="h-4 w-4" />
+                          </button>
+                          <input
+                            type="number"
+                            value={age}
+                            onChange={(e) => setAge(Math.min(50, Math.max(16, parseInt(e.target.value) || 16)))}
+                            className="w-16 h-11 text-center border-y border-border/40 bg-white/[0.03] text-sm font-bold focus:outline-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => setAge(Math.min(50, age + 1))}
+                            className="w-11 h-11 rounded-r-xl border border-border/40 bg-white/[0.03] flex items-center justify-center text-muted-foreground hover:text-white hover:bg-white/[0.06] transition-all"
+                          >
+                            <Plus className="h-4 w-4" />
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Timezone */}
+                      <div>
+                        <label className="text-sm font-semibold mb-2 block">Timezone <span className="text-primary">*</span></label>
+                        <select
+                          value={timezone}
+                          onChange={(e) => setTimezone(e.target.value)}
+                          className="w-full h-11 px-4 rounded-xl bg-white/[0.03] border border-border/40 text-sm focus:outline-none focus:border-primary transition-all appearance-none cursor-pointer"
+                        >
+                          <option value="" className="bg-[#0c0c0e]">Select timezone...</option>
+                          <optgroup label="🌎 Americas">
+                            <option value="UTC-8" className="bg-[#0c0c0e]">Los Angeles (UTC-8)</option>
+                            <option value="UTC-6" className="bg-[#0c0c0e]">Chicago (UTC-6)</option>
+                            <option value="UTC-5" className="bg-[#0c0c0e]">New York (UTC-5)</option>
+                            <option value="UTC-3" className="bg-[#0c0c0e]">São Paulo (UTC-3)</option>
+                          </optgroup>
+                          <optgroup label="🌍 Europe">
+                            <option value="UTC+0" className="bg-[#0c0c0e]">London (UTC+0)</option>
+                            <option value="UTC+1" className="bg-[#0c0c0e]">Berlin / Paris (UTC+1)</option>
+                            <option value="UTC+2" className="bg-[#0c0c0e]">Kyiv / Istanbul (UTC+2)</option>
+                            <option value="UTC+3" className="bg-[#0c0c0e]">Moscow (UTC+3)</option>
+                          </optgroup>
+                          <optgroup label="🌏 Asia & Oceania">
+                            <option value="UTC+4" className="bg-[#0c0c0e]">Dubai (UTC+4)</option>
+                            <option value="UTC+5:30" className="bg-[#0c0c0e]">Mumbai (UTC+5:30)</option>
+                            <option value="UTC+8" className="bg-[#0c0c0e]">Singapore / HK (UTC+8)</option>
+                            <option value="UTC+9" className="bg-[#0c0c0e]">Tokyo (UTC+9)</option>
+                            <option value="UTC+11" className="bg-[#0c0c0e]">Sydney (UTC+11)</option>
+                          </optgroup>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* ── Availability ── */}
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-4">Availability</p>
+                    <div className="space-y-4">
+
+                      {/* Hours/week */}
+                      <div>
+                        <label className="text-sm font-semibold mb-2 block">Hours per Week <span className="text-primary">*</span></label>
+                        <select
+                          value={hoursPerWeek}
+                          onChange={(e) => setHoursPerWeek(e.target.value)}
+                          className="w-full h-11 px-4 rounded-xl bg-white/[0.03] border border-border/40 text-sm focus:outline-none focus:border-primary transition-all appearance-none cursor-pointer"
+                        >
+                          <option value="" className="bg-[#0c0c0e]">Select...</option>
+                          <option value="5-10h" className="bg-[#0c0c0e]">5-10 hours</option>
+                          <option value="10-20h" className="bg-[#0c0c0e]">10-20 hours</option>
+                          <option value="20-30h" className="bg-[#0c0c0e]">20-30 hours</option>
+                          <option value="30-40h" className="bg-[#0c0c0e]">30-40 hours</option>
+                          <option value="40+" className="bg-[#0c0c0e]">40+ hours</option>
+                        </select>
+                      </div>
+
+                      {/* Days */}
+                      <div>
+                        <label className="text-sm font-semibold mb-2 block">Available Days <span className="text-primary">*</span></label>
+                        <div className="flex flex-wrap gap-2">
+                          {DAYS.map((day) => (
+                            <button
+                              key={day}
+                              type="button"
+                              onClick={() => toggleDay(day)}
+                              className={`px-3.5 py-2 rounded-lg text-xs font-semibold transition-all ${
+                                selectedDays.includes(day)
+                                  ? "bg-primary text-white"
+                                  : "bg-white/[0.03] border border-border/40 text-muted-foreground hover:border-primary/30"
+                              }`}
+                            >
+                              {day}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Preferred time */}
+                      <div>
+                        <label className="text-sm font-semibold mb-2 block">Preferred Time <span className="text-primary">*</span></label>
+                        <select
+                          value={preferredTime}
+                          onChange={(e) => setPreferredTime(e.target.value)}
+                          className="w-full h-11 px-4 rounded-xl bg-white/[0.03] border border-border/40 text-sm focus:outline-none focus:border-primary transition-all appearance-none cursor-pointer"
+                        >
+                          <option value="" className="bg-[#0c0c0e]">Select...</option>
+                          <option value="Morning (6-12)" className="bg-[#0c0c0e]">Morning (6:00 - 12:00)</option>
+                          <option value="Afternoon (12-18)" className="bg-[#0c0c0e]">Afternoon (12:00 - 18:00)</option>
+                          <option value="Evening (18-00)" className="bg-[#0c0c0e]">Evening (18:00 - 00:00)</option>
+                          <option value="Night (00-06)" className="bg-[#0c0c0e]">Night (00:00 - 06:00)</option>
+                          <option value="Flexible" className="bg-[#0c0c0e]">Flexible</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* ── Experience ── */}
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-4">Experience</p>
+                    <div className="space-y-4">
+
+                      <div>
+                        <label className="text-sm font-semibold mb-2 block">Previous Experience <span className="text-primary">*</span></label>
+                        <textarea
+                          value={experience}
+                          onChange={(e) => setExperience(e.target.value)}
+                          placeholder="Tell us about your relevant experience..."
+                          rows={4}
+                          className="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-border/40 text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary resize-none transition-all"
+                        />
+                        <p className={`text-[11px] mt-1 ${experience.length >= 50 ? "text-emerald-500" : "text-muted-foreground/40"}`}>
+                          {experience.length}/50 min characters
+                        </p>
+                      </div>
+
+                      <div>
+                        <label className="text-sm font-semibold mb-2 block">Why Lethal? <span className="text-primary">*</span></label>
+                        <textarea
+                          value={whyLethal}
+                          onChange={(e) => setWhyLethal(e.target.value)}
+                          placeholder="Why do you want to join Lethal Solutions?"
+                          rows={3}
+                          className="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-border/40 text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary resize-none transition-all"
+                        />
+                        <p className={`text-[11px] mt-1 ${whyLethal.length >= 30 ? "text-emerald-500" : "text-muted-foreground/40"}`}>
+                          {whyLethal.length}/30 min characters
+                        </p>
+                      </div>
+
+                      <div>
+                        <label className="text-sm font-semibold mb-2 block">Portfolio Link <span className="text-muted-foreground/40 font-normal">(optional)</span></label>
+                        <input
+                          type="url"
+                          value={portfolio}
+                          onChange={(e) => setPortfolio(e.target.value)}
+                          placeholder="https://..."
+                          className="w-full h-11 px-4 rounded-xl bg-white/[0.03] border border-border/40 text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary transition-all"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* ── Terms ── */}
+                  <div className="space-y-3 pt-2">
+                    {[
+                      { checked: agree16, set: setAgree16, label: "I confirm I'm at least 16 years old" },
+                      { checked: agreeActive, set: setAgreeActive, label: "I agree to be active and maintain professionalism" },
+                      { checked: agreeUnpaid, set: setAgreeUnpaid, label: "I understand this position is initially unpaid / commission-based" },
+                    ].map((item, i) => (
+                      <label key={i} className="flex items-start gap-3 cursor-pointer group">
+                        <div
+                          className={`mt-0.5 h-5 w-5 rounded-md border-2 flex items-center justify-center shrink-0 transition-all ${
+                            item.checked ? "bg-primary border-primary" : "border-border/40 group-hover:border-border/60"
+                          }`}
+                          onClick={() => item.set(!item.checked)}
+                        >
+                          {item.checked && <Check className="h-3 w-3 text-white" />}
+                        </div>
+                        <span className="text-xs text-muted-foreground/60 leading-relaxed" onClick={() => item.set(!item.checked)}>
+                          {item.label} <span className="text-primary">*</span>
+                        </span>
+                      </label>
+                    ))}
+                  </div>
+
+                  {/* Submit */}
+                  <button
+                    onClick={handleSubmit}
+                    disabled={!isValid || submitting}
+                    className="w-full h-13 py-3.5 rounded-xl bg-primary hover:bg-primary/90 text-white font-bold text-base flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30"
+                  >
+                    {submitting ? (
+                      <span className="animate-spin h-5 w-5 border-2 border-white/30 border-t-white rounded-full" />
+                    ) : (
+                      <>
+                        <Send className="h-4 w-4" />
+                        Submit Application
+                      </>
+                    )}
+                  </button>
+
+                </div>
               </div>
             </div>
+          </section>
+        </>
+      )}
 
-            {/* Submit */}
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full flex items-center justify-center gap-3 bg-[#EF6F29] hover:bg-[#EF6F29]/90 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold py-4 px-6 rounded-2xl text-lg transition-all duration-200 shadow-lg shadow-[#EF6F29]/20 hover:shadow-[#EF6F29]/30"
-            >
-              {loading ? (
-                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-              ) : (
-                <Send className="w-5 h-5" />
-              )}
-              {loading ? "Submitting..." : "Submit Application"}
-            </button>
-          </form>
-        </div>
-      </main>
       <Footer />
-    </>
+    </main>
   )
 }
