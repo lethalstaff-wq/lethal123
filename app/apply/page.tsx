@@ -7,7 +7,7 @@ import {
   Users, Code2, Crown, Headphones, Camera, Search, DollarSign,
   Check, Minus, Plus, Send, CheckCircle2, Sparkles, Shield, Zap, Globe,
   ArrowRight, Clock, Star, ChevronRight, Trophy, Rocket, Heart, ChevronDown,
-  MessageSquare, TrendingUp,
+  MessageSquare,
 } from "lucide-react"
 import Link from "next/link"
 import { toast } from "sonner"
@@ -253,26 +253,6 @@ export default function ApplyPage() {
         </button>
       </section>
 
-      {/* ═══ SOCIAL PROOF BAR ═══ */}
-      <section className="border-y border-white/[0.04] bg-white/[0.01]">
-        <div className="container mx-auto max-w-5xl py-5 px-4 flex flex-wrap items-center justify-center gap-6 sm:gap-10">
-          <div className="flex items-center gap-2 text-sm">
-            <TrendingUp className="h-4 w-4 text-emerald-500" />
-            <span className="text-white/50"><span className="text-white font-bold">12 people</span> applied this week</span>
-          </div>
-          <div className="hidden sm:block w-px h-4 bg-white/10" />
-          <div className="flex items-center gap-2 text-sm">
-            <Clock className="h-4 w-4 text-primary" />
-            <span className="text-white/50">Average response: <span className="text-white font-bold">24 hours</span></span>
-          </div>
-          <div className="hidden sm:block w-px h-4 bg-white/10" />
-          <div className="flex items-center gap-2 text-sm">
-            <Star className="h-4 w-4 text-amber-400" />
-            <span className="text-white/50">Team satisfaction: <span className="text-white font-bold">4.9/5</span></span>
-          </div>
-        </div>
-      </section>
-
       {/* ═══ POSITIONS ═══ */}
       <section id="positions" className="px-4 py-20">
         <div className="container mx-auto max-w-6xl">
@@ -329,6 +309,35 @@ export default function ApplyPage() {
                     Apply Now <ArrowRight className="h-4 w-4 text-white/30 group-hover:text-white/60 group-hover:translate-x-0.5 transition-all" />
                   </button>
                 </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ HOW IT WORKS ═══ */}
+      <section className="px-4 py-16">
+        <div className="container mx-auto max-w-3xl">
+          <div className="flex items-center justify-center gap-3 mb-10">
+            <div className="h-px flex-1 max-w-[60px] bg-gradient-to-r from-transparent to-primary/30" />
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-primary/60">How It Works</span>
+            <div className="h-px flex-1 max-w-[60px] bg-gradient-to-l from-transparent to-primary/30" />
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 relative">
+            {/* Connecting line */}
+            <div className="hidden sm:block absolute top-8 left-[16.6%] right-[16.6%] h-px bg-gradient-to-r from-primary/20 via-primary/40 to-primary/20" />
+            {[
+              { step: "01", title: "Apply", desc: "Fill out the form below. Takes less than 2 minutes.", icon: Send, color: "#EF6F29" },
+              { step: "02", title: "Interview", desc: "Quick Discord call to get to know you. 15-20 minutes.", icon: MessageSquare, color: "#a855f7" },
+              { step: "03", title: "Onboard", desc: "Get access, training, and start contributing immediately.", icon: Rocket, color: "#22c55e" },
+            ].map((s, i) => (
+              <div key={i} className="text-center relative">
+                <div className="w-16 h-16 rounded-2xl mx-auto mb-4 flex items-center justify-center border border-white/[0.06] relative z-10" style={{ background: `linear-gradient(135deg, ${s.color}20, ${s.color}05)` }}>
+                  <s.icon className="h-6 w-6" style={{ color: s.color }} />
+                </div>
+                <span className="text-[10px] font-black text-white/15 uppercase tracking-widest">{s.step}</span>
+                <h4 className="font-black text-lg mt-1 mb-2">{s.title}</h4>
+                <p className="text-xs text-white/30 leading-relaxed max-w-[200px] mx-auto">{s.desc}</p>
               </div>
             ))}
           </div>
@@ -484,13 +493,16 @@ export default function ApplyPage() {
 
                   <div>
                     <label className="text-sm font-bold mb-3 block text-white/70">Age <span className="text-primary">*</span></label>
-                    <div className="flex w-40">
+                    <div className="flex items-center gap-3 w-44">
                       <button type="button" onClick={() => setAge(Math.max(16, age - 1))}
-                        className="w-12 h-12 rounded-l-xl border border-white/[0.06] bg-white/[0.02] flex items-center justify-center text-white/30 hover:text-white hover:bg-white/[0.06] transition-all"><Minus className="h-4 w-4" /></button>
-                      <input type="number" value={age} onChange={(e) => setAge(Math.min(50, Math.max(16, parseInt(e.target.value) || 16)))}
-                        className="flex-1 h-12 text-center border-y border-white/[0.06] bg-white/[0.02] text-base font-black focus:outline-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none" />
+                        className="w-10 h-10 rounded-full border border-white/[0.08] bg-white/[0.03] flex items-center justify-center text-white/25 hover:text-white hover:bg-white/[0.08] hover:border-white/[0.15] active:scale-90 transition-all">
+                        <Minus className="h-3.5 w-3.5" />
+                      </button>
+                      <span className="flex-1 text-center text-2xl font-black tabular-nums">{age}</span>
                       <button type="button" onClick={() => setAge(Math.min(50, age + 1))}
-                        className="w-12 h-12 rounded-r-xl border border-white/[0.06] bg-white/[0.02] flex items-center justify-center text-white/30 hover:text-white hover:bg-white/[0.06] transition-all"><Plus className="h-4 w-4" /></button>
+                        className="w-10 h-10 rounded-full border border-white/[0.08] bg-white/[0.03] flex items-center justify-center text-white/25 hover:text-white hover:bg-white/[0.08] hover:border-white/[0.15] active:scale-90 transition-all">
+                        <Plus className="h-3.5 w-3.5" />
+                      </button>
                     </div>
                   </div>
 
