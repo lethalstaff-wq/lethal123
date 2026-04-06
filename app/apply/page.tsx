@@ -70,6 +70,109 @@ const FAQ = [
 ]
 
 /* ═══════════════════════════════════════════════════════════════════ */
+/* TERMINAL ANIMATION                                                 */
+/* ═══════════════════════════════════════════════════════════════════ */
+const TERMINAL_LINES = [
+  { type: "cmd", text: "$ lethal deploy --team" },
+  { type: "ok", text: "✓ 10 agents online across 6 timezones" },
+  { type: "ok", text: "✓ 774 orders processed this quarter" },
+  { type: "ok", text: "✓ 99.8% uptime — zero downtime incidents" },
+  { type: "ok", text: "✓ 0 detections — all products clean" },
+  { type: "blank", text: "" },
+  { type: "cmd", text: "$ hiring --open-positions 10" },
+  { type: "info", text: "Scanning for legends..." },
+  { type: "info", text: "Remote · Flexible · Commission-based" },
+  { type: "prompt", text: "> Your application starts here_" },
+]
+
+function TerminalAnimation() {
+  const [visibleLines, setVisibleLines] = useState(0)
+  const [charIndex, setCharIndex] = useState(0)
+  const [started, setStarted] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+
+  // Start when visible
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const obs = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && !started) { setStarted(true); obs.disconnect() }
+    }, { threshold: 0.3 })
+    obs.observe(el)
+    return () => obs.disconnect()
+  }, [started])
+
+  // Type effect
+  useEffect(() => {
+    if (!started) return
+    if (visibleLines >= TERMINAL_LINES.length) return
+
+    const currentLine = TERMINAL_LINES[visibleLines]
+    if (currentLine.type === "blank") {
+      const t = setTimeout(() => { setVisibleLines(v => v + 1); setCharIndex(0) }, 300)
+      return () => clearTimeout(t)
+    }
+
+    if (charIndex < currentLine.text.length) {
+      const speed = currentLine.type === "cmd" ? 40 : 20
+      const t = setTimeout(() => setCharIndex(c => c + 1), speed)
+      return () => clearTimeout(t)
+    } else {
+      const delay = currentLine.type === "cmd" ? 600 : 250
+      const t = setTimeout(() => { setVisibleLines(v => v + 1); setCharIndex(0) }, delay)
+      return () => clearTimeout(t)
+    }
+  }, [started, visibleLines, charIndex])
+
+  const getColor = (type: string) => {
+    if (type === "cmd") return "text-white/80"
+    if (type === "ok") return "text-emerald-400/80"
+    if (type === "info") return "text-primary/70"
+    if (type === "prompt") return "text-primary font-bold"
+    return ""
+  }
+
+  return (
+    <div ref={ref} className="w-full max-w-md">
+      <div className="rounded-2xl border border-white/[0.08] bg-[#0a0a0c] overflow-hidden shadow-2xl shadow-black/40">
+        {/* Title bar */}
+        <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06] bg-white/[0.02]">
+          <div className="flex gap-1.5">
+            <div className="w-3 h-3 rounded-full bg-red-500/60" />
+            <div className="w-3 h-3 rounded-full bg-yellow-500/60" />
+            <div className="w-3 h-3 rounded-full bg-emerald-500/60" />
+          </div>
+          <span className="text-[11px] text-white/20 font-mono ml-2">lethal@hq ~ /team</span>
+        </div>
+        {/* Terminal body */}
+        <div className="p-5 font-mono text-[13px] leading-relaxed min-h-[260px]">
+          {TERMINAL_LINES.slice(0, visibleLines + 1).map((line, i) => {
+            if (line.type === "blank") return <div key={i} className="h-3" />
+            const isCurrentLine = i === visibleLines
+            const displayText = isCurrentLine ? line.text.slice(0, charIndex) : line.text
+            return (
+              <div key={i} className={`${getColor(line.type)} ${i > 0 ? "mt-1" : ""}`}>
+                {displayText}
+                {isCurrentLine && visibleLines < TERMINAL_LINES.length && (
+                  <span className="inline-block w-[7px] h-[15px] bg-primary/80 ml-0.5 animate-pulse align-middle" style={{ animationDuration: "0.8s" }} />
+                )}
+              </div>
+            )
+          })}
+          {/* Blinking cursor at the end */}
+          {visibleLines >= TERMINAL_LINES.length && (
+            <div className="mt-2 text-white/30">
+              <span>$ </span>
+              <span className="inline-block w-[7px] h-[15px] bg-primary/60 ml-0.5 animate-pulse align-middle" style={{ animationDuration: "1s" }} />
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
 /* ANIMATED COUNTER                                                   */
 /* ═══════════════════════════════════════════════════════════════════ */
 function AnimatedNumber({ value, suffix = "" }: { value: number; suffix?: string }) {
@@ -331,82 +434,64 @@ export default function ApplyPage() {
           <div className="absolute w-[300px] h-[300px] bg-blue-500/6 rounded-full blur-[120px] bottom-[20%] left-[15%] animate-pulse" style={{ animationDuration: "5s" }} />
         </div>
 
-        {/* Rocket flying from bottom-right to top-left */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden hidden sm:block">
-          {/* Rocket trail */}
-          <div className="absolute bottom-[8%] right-[8%] w-[70%] h-[70%]">
-            {/* Trail glow line */}
-            <div className="absolute bottom-0 right-0 w-[500px] h-[2px] origin-bottom-right rotate-[225deg] opacity-20"
-              style={{ background: "linear-gradient(90deg, transparent 0%, #EF6F29 30%, #FF8C42 60%, transparent 100%)" }} />
-            {/* Trail particles */}
-            {[...Array(8)].map((_, i) => (
-              <div key={i} className="absolute rounded-full animate-pulse" style={{
-                width: `${2 + i * 0.5}px`, height: `${2 + i * 0.5}px`,
-                bottom: `${i * 8}%`, right: `${i * 8}%`,
-                backgroundColor: i % 2 === 0 ? "rgba(239,111,41,0.15)" : "rgba(255,140,66,0.1)",
-                animationDuration: `${1.5 + i * 0.3}s`,
-                animationDelay: `${i * 0.2}s`,
-              }} />
-            ))}
-            {/* Rocket emoji */}
-            <div className="absolute bottom-[15%] right-[15%] text-3xl sm:text-4xl opacity-[0.12] rotate-[225deg] animate-[rocketFloat_4s_ease-in-out_infinite]">
-              🚀
-            </div>
-            {/* Secondary smaller trail dots */}
-            <div className="absolute bottom-[25%] right-[25%] w-1 h-1 rounded-full bg-primary/10 animate-pulse" style={{ animationDuration: "2s" }} />
-            <div className="absolute bottom-[35%] right-[35%] w-0.5 h-0.5 rounded-full bg-amber-500/10 animate-pulse" style={{ animationDuration: "3s" }} />
-            <div className="absolute bottom-[45%] right-[45%] w-0.5 h-0.5 rounded-full bg-primary/8 animate-pulse" style={{ animationDuration: "2.5s" }} />
-          </div>
-        </div>
 
-        <div className="container mx-auto text-center max-w-4xl relative z-10 py-32">
-          <div className="flex justify-center mb-10 animate-fade-in-up">
-            <div className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
-              <span className="relative flex h-2 w-2"><span className="animate-ping absolute h-full w-full rounded-full bg-emerald-400 opacity-75" /><span className="relative h-2 w-2 rounded-full bg-emerald-500" /></span>
-              <span className="text-sm font-bold text-primary">{POSITIONS.reduce((s, p) => s + p.openSlots, 0)} Open Positions</span>
-              <span className="text-white/15">·</span>
-              <span className="text-sm text-white/40">Remote · Flexible</span>
-            </div>
-          </div>
+        <div className="container mx-auto max-w-6xl relative z-10 py-32">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
-          <h1 className="text-5xl sm:text-7xl md:text-8xl font-black mb-8 tracking-tight leading-[0.9] animate-fade-in-up animate-delay-100">
-            <span className="text-white">Join the</span><br />
-            <span className="text-primary relative inline-block">
-              Lethal Team
-              <span className="absolute -inset-x-4 -inset-y-2 bg-primary/5 rounded-2xl blur-xl animate-pulse" style={{ animationDuration: "3s" }} />
-            </span>
-          </h1>
-
-          <p className="text-lg sm:text-xl text-white/40 max-w-xl mx-auto mb-12 leading-relaxed animate-fade-in-up animate-delay-200">
-            Work remotely. Set your own hours. Build the best gaming tools on the market.
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-14 animate-fade-in-up animate-delay-300">
-            {/* Neon glow CTA */}
-            <button onClick={() => document.getElementById("positions")?.scrollIntoView({ behavior: "smooth" })}
-              className="group relative bg-gradient-to-r from-primary to-[#FF8C42] text-white font-bold px-10 py-4 rounded-2xl flex items-center gap-2 transition-all hover:-translate-y-0.5 active:scale-[0.98] neon-btn">
-              View Open Roles <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </button>
-            <button onClick={() => formRef.current?.scrollIntoView({ behavior: "smooth" })}
-              className="border border-white/10 bg-white/5 hover:bg-white/10 text-white font-semibold px-10 py-4 rounded-2xl transition-all">
-              Apply Directly
-            </button>
-          </div>
-
-          {/* Animated stats */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto animate-fade-in-up animate-delay-400">
-            {[
-              { icon: Users, value: 10, suffix: "+", label: "Team Members" },
-              { icon: Trophy, value: 774, suffix: "+", label: "Happy Clients" },
-              { icon: Star, value: 99, suffix: "%", label: "Satisfaction" },
-              { icon: Zap, value: 24, suffix: "/7", label: "Support" },
-            ].map((s, i) => (
-              <div key={i} className="rounded-2xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm p-4 text-center hover:border-white/[0.1] transition-all group">
-                <s.icon className="h-4 w-4 text-primary mx-auto mb-2 group-hover:scale-110 transition-transform" />
-                <p className="text-2xl font-black text-white"><AnimatedNumber value={s.value} suffix={s.suffix} /></p>
-                <p className="text-[10px] text-white/25 mt-0.5">{s.label}</p>
+            {/* LEFT — Text */}
+            <div className="text-center lg:text-left">
+              <div className="flex justify-center lg:justify-start mb-8 animate-fade-in-up">
+                <div className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
+                  <span className="relative flex h-2 w-2"><span className="animate-ping absolute h-full w-full rounded-full bg-emerald-400 opacity-75" /><span className="relative h-2 w-2 rounded-full bg-emerald-500" /></span>
+                  <span className="text-sm font-bold text-primary">{POSITIONS.reduce((s, p) => s + p.openSlots, 0)} Open Positions</span>
+                  <span className="text-white/15">·</span>
+                  <span className="text-sm text-white/40">Remote</span>
+                </div>
               </div>
-            ))}
+
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black mb-6 tracking-tight leading-[0.9] animate-fade-in-up animate-delay-100">
+                <span className="text-white">Join the</span><br />
+                <span className="text-primary relative inline-block">
+                  Lethal Team
+                  <span className="absolute -inset-x-4 -inset-y-2 bg-primary/5 rounded-2xl blur-xl animate-pulse" style={{ animationDuration: "3s" }} />
+                </span>
+              </h1>
+
+              <p className="text-lg text-white/40 max-w-md mx-auto lg:mx-0 mb-10 leading-relaxed animate-fade-in-up animate-delay-200">
+                Work remotely. Set your own hours. Build the best gaming tools on the market.
+              </p>
+
+              <div className="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-4 mb-10 animate-fade-in-up animate-delay-300">
+                <button onClick={() => document.getElementById("positions")?.scrollIntoView({ behavior: "smooth" })}
+                  className="group relative bg-gradient-to-r from-primary to-[#FF8C42] text-white font-bold px-10 py-4 rounded-2xl flex items-center gap-2 transition-all hover:-translate-y-0.5 active:scale-[0.98] neon-btn">
+                  View Open Roles <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                </button>
+                <button onClick={() => formRef.current?.scrollIntoView({ behavior: "smooth" })}
+                  className="border border-white/10 bg-white/5 hover:bg-white/10 text-white font-semibold px-10 py-4 rounded-2xl transition-all">
+                  Apply Directly
+                </button>
+              </div>
+
+              {/* Stats row */}
+              <div className="grid grid-cols-4 gap-3 max-w-md mx-auto lg:mx-0 animate-fade-in-up animate-delay-400">
+                {[
+                  { icon: Users, value: 10, suffix: "+", label: "Team" },
+                  { icon: Trophy, value: 774, suffix: "+", label: "Clients" },
+                  { icon: Star, value: 99, suffix: "%", label: "Uptime" },
+                  { icon: Zap, value: 24, suffix: "/7", label: "Support" },
+                ].map((s, i) => (
+                  <div key={i} className="text-center">
+                    <p className="text-xl font-black text-white"><AnimatedNumber value={s.value} suffix={s.suffix} /></p>
+                    <p className="text-[10px] text-white/25">{s.label}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* RIGHT — Terminal */}
+            <div className="hidden lg:flex justify-end animate-fade-in-up animate-delay-300">
+              <TerminalAnimation />
+            </div>
           </div>
         </div>
 
@@ -845,7 +930,6 @@ export default function ApplyPage() {
           box-shadow: none;
         }
         @keyframes confettiFall{0%{transform:translateY(0) scale(0);opacity:1}15%{transform:translateX(calc(var(--dx)*0.3)) translateY(20vh) scale(1);opacity:1}100%{transform:translateX(var(--dx)) translateY(var(--fall)) scale(0.5) rotate(720deg);opacity:0}}
-        @keyframes rocketFloat{0%,100%{transform:rotate(225deg) translate(0,0)}50%{transform:rotate(225deg) translate(-8px,-8px)}}
       `}</style>
     </main>
   )
