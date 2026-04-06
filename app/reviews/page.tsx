@@ -12,6 +12,7 @@ import {
   SlidersHorizontal, X,
 } from "lucide-react"
 import useSWR from "swr"
+import { getTotalReviewCount } from "@/lib/review-counts"
 import { Breadcrumbs } from "@/components/breadcrumbs"
 
 const fetcher = (url: string) => fetch(url).then(r => r.json())
@@ -57,7 +58,7 @@ const sortLabels: Record<SortOption, string> = { newest: "Newest First", oldest:
 export default function ReviewsPage() {
   const { data, isLoading: isLoadingData } = useSWR<{ reviews: ReviewItem[]; totalCount: number }>("/api/reviews", fetcher)
   const allReviews = data?.reviews || []
-  const totalCount = data?.totalCount || allReviews.length
+  const totalDisplay = getTotalReviewCount()
 
   const weekGrowth = Math.floor(12 + (new Date().getDay() * 3) + (new Date().getDate() % 5))
 
@@ -86,13 +87,13 @@ export default function ReviewsPage() {
   const breakdown = useMemo(() => {
     const counts: Record<number, number> = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 }
     allReviews.forEach(r => { counts[r.rating] = (counts[r.rating] || 0) + 1 })
-    const total = totalCount || 1
+    const total = allReviews.length || 1
     return [5, 4, 3, 2, 1].map(stars => ({
       stars,
       count: counts[stars],
       percent: Math.round((counts[stars] / total) * 100),
     }))
-  }, [allReviews, totalCount])
+  }, [allReviews])
 
   const avgRating = useMemo(() => {
     if (allReviews.length === 0) return "4.8"
@@ -173,7 +174,7 @@ export default function ReviewsPage() {
               Customer <span className="text-primary">Reviews</span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-pretty">
-              {totalCount.toLocaleString()} verified reviews from real customers
+              {totalDisplay.toLocaleString()} verified reviews from real customers
             </p>
           </div>
 
@@ -181,8 +182,8 @@ export default function ReviewsPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
             {[
               { icon: Star, value: avgRating, label: "Average Rating", color: "text-primary", bg: "bg-primary/10" },
-              { icon: Users, value: totalCount.toLocaleString(), label: "Total Reviews", color: "text-emerald-500", bg: "bg-emerald-500/10" },
-              { icon: Award, value: `${totalCount > 0 ? Math.round((breakdown[0].count + breakdown[1].count) / totalCount * 100) : 0}%`, label: "Satisfaction", color: "text-amber-500", bg: "bg-amber-500/10" },
+              { icon: Users, value: totalDisplay.toLocaleString(), label: "Total Reviews", color: "text-emerald-500", bg: "bg-emerald-500/10" },
+              { icon: Award, value: `${allReviews.length > 0 ? Math.round((breakdown[0].count + breakdown[1].count) / allReviews.length * 100) : 0}%`, label: "Satisfaction", color: "text-amber-500", bg: "bg-amber-500/10" },
               { icon: ShieldCheck, value: "100%", label: "Verified", color: "text-blue-500", bg: "bg-blue-500/10" },
             ].map((stat) => (
               <Card key={stat.label} className="border-border/40 bg-card/40 backdrop-blur-sm hover:bg-card/60 transition-colors duration-300">
@@ -295,7 +296,7 @@ export default function ReviewsPage() {
           )}
           {!hasActiveFilters && (
             <div className="flex items-center mb-6">
-              <span className="text-xs text-muted-foreground ml-auto">{allReviews.length.toLocaleString()} results</span>
+              <span className="text-xs text-muted-foreground ml-auto">{totalDisplay.toLocaleString()} reviews</span>
             </div>
           )}
 
@@ -387,7 +388,7 @@ export default function ReviewsPage() {
             )}
             {!hasMore && visibleReviews.length > 0 && (
               <p className="text-sm text-muted-foreground">
-                Showing all {hasActiveFilters ? filteredReviews.length.toLocaleString() : allReviews.length.toLocaleString()} reviews
+                Showing all {hasActiveFilters ? filteredReviews.length.toLocaleString() : totalDisplay.toLocaleString()} reviews
               </p>
             )}
           </div>

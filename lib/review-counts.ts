@@ -1,15 +1,18 @@
-// Review counts — source of truth (approximate, real counts come from DB)
+// Review counts — single source of truth
+// After seed script: DB will have ~847 reviews matching these numbers
+
+const TOTAL_REVIEWS = 847
 
 export const PRODUCT_REVIEW_COUNTS: Record<string, number> = {
-  "perm-spoofer": 156,
-  "temp-spoofer": 78,
-  "fortnite-external": 132,
-  "blurred": 168,
-  "streck": 52,
-  "custom-dma-firmware": 47,
-  "dma-basic": 32,
-  "dma-advanced": 41,
-  "dma-elite": 21,
+  "perm-spoofer": 152,
+  "temp-spoofer": 186,
+  "fortnite-external": 212,
+  "blurred": 102,
+  "streck": 68,
+  "custom-dma-firmware": 59,
+  "dma-basic": 34,
+  "dma-advanced": 21,
+  "dma-elite": 13,
 }
 
 export const PRODUCT_NAME_TO_SLUG: Record<string, string> = {
@@ -30,14 +33,10 @@ export function getProductReviewCount(slugOrName: string): number {
   return PRODUCT_REVIEW_COUNTS[slug] || 0
 }
 
-/** Sum of all product review counts */
 export function getTotalReviewCount(): number {
-  return Object.values(PRODUCT_REVIEW_COUNTS).reduce((sum, count) => sum + count, 0)
+  return TOTAL_REVIEWS
 }
 
-/**
- * Orders today — 15-20 per day, consistent for all users.
- */
 export function getOrdersToday(): number {
   const now = new Date()
   const day = now.getUTCDate()
