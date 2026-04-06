@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect, useCallback } from "react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import {
@@ -12,7 +12,9 @@ import {
 import Link from "next/link"
 import { toast } from "sonner"
 
-/* ═══ DATA ═══ */
+/* ═══════════════════════════════════════════════════════════════════ */
+/* DATA                                                               */
+/* ═══════════════════════════════════════════════════════════════════ */
 const POSITIONS = [
   { id: "developer", title: "Developer", icon: Code2, color: "#a855f7", popular: false,
     description: "Build and maintain our tools, website, and backend systems",
@@ -41,9 +43,9 @@ const POSITIONS = [
 ]
 
 const TEAM_QUOTES = [
-  { text: "Best team I've ever worked with. Fully remote, zero micromanagement, just ship good work.", name: "cipher", role: "Developer", time: "6 months on team" },
-  { text: "I make more here in commissions than my old 9-5. And I set my own hours.", name: "vex", role: "Sales", time: "4 months on team" },
-  { text: "The product is actually good which makes support easy. Customers are happy, I'm happy.", name: "nova", role: "Support", time: "3 months on team" },
+  { text: "Best team I've ever worked with. Fully remote, zero micromanagement, just ship good work.", name: "cipher", role: "Developer", time: "6 months" },
+  { text: "I make more here in commissions than my old 9-5. And I set my own hours.", name: "vex", role: "Sales", time: "4 months" },
+  { text: "The product is actually good which makes support easy. Customers are happy, I'm happy.", name: "nova", role: "Support", time: "3 months" },
 ]
 
 const TIMEZONES = [
@@ -66,7 +68,91 @@ const FAQ = [
   { q: "How fast do you respond?", a: "We review every application within 48 hours and contact you on Discord." },
 ]
 
-/* ═══ COMPONENT ═══ */
+/* ═══════════════════════════════════════════════════════════════════ */
+/* TILT CARD HOOK                                                     */
+/* ═══════════════════════════════════════════════════════════════════ */
+function useTilt(ref: React.RefObject<HTMLDivElement | null>) {
+  const handleMove = useCallback((e: React.MouseEvent) => {
+    if (!ref.current) return
+    const rect = ref.current.getBoundingClientRect()
+    const x = (e.clientX - rect.left) / rect.width - 0.5
+    const y = (e.clientY - rect.top) / rect.height - 0.5
+    ref.current.style.transform = `perspective(600px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg) scale(1.02)`
+    // light reflection
+    const shine = ref.current.querySelector("[data-shine]") as HTMLElement
+    if (shine) { shine.style.opacity = "1"; shine.style.background = `radial-gradient(circle at ${(x + 0.5) * 100}% ${(y + 0.5) * 100}%, rgba(255,255,255,0.06), transparent 60%)` }
+  }, [ref])
+  const handleLeave = useCallback(() => {
+    if (!ref.current) return
+    ref.current.style.transform = "perspective(600px) rotateY(0deg) rotateX(0deg) scale(1)"
+    const shine = ref.current.querySelector("[data-shine]") as HTMLElement
+    if (shine) shine.style.opacity = "0"
+  }, [ref])
+  return { onMouseMove: handleMove, onMouseLeave: handleLeave }
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* POSITION CARD                                                      */
+/* ═══════════════════════════════════════════════════════════════════ */
+function PositionCard({ pos, onApply }: { pos: typeof POSITIONS[number]; onApply: (id: string) => void }) {
+  const cardRef = useRef<HTMLDivElement>(null)
+  const tilt = useTilt(cardRef)
+  return (
+    <div ref={cardRef} {...tilt}
+      className="group relative rounded-[20px] border border-white/[0.06] bg-[#111113] overflow-hidden transition-all duration-300"
+      style={{ transformStyle: "preserve-3d", willChange: "transform" }}>
+      {/* Shine overlay */}
+      <div data-shine className="absolute inset-0 pointer-events-none z-10 opacity-0 transition-opacity duration-300 rounded-[20px]" />
+      {/* Top line */}
+      <div className="h-[2px] w-full" style={{ background: `linear-gradient(90deg, transparent, ${pos.color}, transparent)`, opacity: 0.5 }} />
+
+      <div className="p-7 relative z-0">
+        <div className="flex items-start justify-between mb-6">
+          <div className="w-14 h-14 rounded-2xl flex items-center justify-center border border-white/[0.06] group-hover:scale-110 transition-transform duration-300 relative" style={{ background: `linear-gradient(135deg, ${pos.color}20, ${pos.color}05)` }}>
+            <pos.icon className="h-6 w-6" style={{ color: pos.color }} />
+            <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" style={{ background: `${pos.color}20` }} />
+          </div>
+          <div className="flex items-center gap-2">
+            {pos.popular && <span className="text-[10px] px-2 py-1 rounded-full bg-primary/10 text-primary font-bold border border-primary/20">Most Applied</span>}
+            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="text-[11px] font-bold text-emerald-400">{pos.openSlots} open</span>
+            </div>
+          </div>
+        </div>
+        <h3 className="text-xl font-black mb-2 group-hover:text-white transition-colors">{pos.title}</h3>
+        <p className="text-sm text-white/35 mb-5 leading-relaxed">{pos.description}</p>
+        <div className="space-y-2 mb-5">
+          {pos.requirements.map((req, j) => (
+            <div key={j} className="flex items-center gap-3">
+              <div className="w-5 h-5 rounded-md flex items-center justify-center shrink-0" style={{ background: `${pos.color}15` }}>
+                <Check className="h-3 w-3" style={{ color: pos.color }} />
+              </div>
+              <span className="text-xs text-white/30">{req}</span>
+            </div>
+          ))}
+        </div>
+        <div className="flex gap-2 mb-5">
+          {pos.perks.map((p, j) => (
+            <span key={j} className="text-[10px] px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/[0.05] text-white/25 font-medium">{p}</span>
+          ))}
+        </div>
+        <button onClick={() => onApply(pos.id)}
+          className="relative w-full py-3.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 border border-white/[0.08] overflow-hidden transition-all duration-300 hover:border-white/[0.2] hover:shadow-lg group/btn"
+          style={{ ["--c" as string]: pos.color }}>
+          {/* Animated border glow on hover */}
+          <div className="absolute inset-0 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-500" style={{ boxShadow: `inset 0 0 20px ${pos.color}15, 0 0 20px ${pos.color}10` }} />
+          <span className="relative z-10">Apply Now</span>
+          <ArrowRight className="h-4 w-4 relative z-10 text-white/30 group-hover/btn:text-white/70 group-hover/btn:translate-x-0.5 transition-all" />
+        </button>
+      </div>
+    </div>
+  )
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* MAIN PAGE                                                          */
+/* ═══════════════════════════════════════════════════════════════════ */
 export default function ApplyPage() {
   const [position, setPosition] = useState("")
   const [discord, setDiscord] = useState("")
@@ -85,12 +171,27 @@ export default function ApplyPage() {
   const [submitted, setSubmitted] = useState(false)
   const [formStep, setFormStep] = useState(0)
   const [showConfetti, setShowConfetti] = useState(false)
+  const [mousePos, setMousePos] = useState({ x: 50, y: 50 })
+  const [showStickyBar, setShowStickyBar] = useState(false)
   const formRef = useRef<HTMLDivElement>(null)
+
+  // Mouse-following spotlight
+  useEffect(() => {
+    const handler = (e: MouseEvent) => setMousePos({ x: (e.clientX / window.innerWidth) * 100, y: (e.clientY / window.innerHeight) * 100 })
+    window.addEventListener("mousemove", handler)
+    return () => window.removeEventListener("mousemove", handler)
+  }, [])
+
+  // Sticky mobile bar
+  useEffect(() => {
+    const handler = () => setShowStickyBar(window.scrollY > window.innerHeight * 0.8)
+    window.addEventListener("scroll", handler, { passive: true })
+    return () => window.removeEventListener("scroll", handler)
+  }, [])
 
   // Auto-detect timezone
   useEffect(() => {
     try {
-      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone
       const offsetMin = new Date().getTimezoneOffset()
       const offsetH = -offsetMin / 60
       const sign = offsetH >= 0 ? "+" : ""
@@ -132,56 +233,55 @@ export default function ApplyPage() {
     setSubmitting(false)
   }
 
-  /* ═══ SUCCESS STATE ═══ */
+  /* ════ SUCCESS ════ */
   if (submitted) return (
     <main className="flex min-h-screen flex-col bg-background">
       <Navbar />
       <section className="flex-1 flex items-center justify-center py-32 px-4 relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-emerald-500/8 rounded-full blur-[200px]" />
-        </div>
-
-        {/* Confetti */}
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-emerald-500/8 rounded-full blur-[200px] pointer-events-none" />
         {showConfetti && (
           <div className="absolute inset-0 pointer-events-none overflow-hidden z-50">
-            {Array.from({ length: 50 }).map((_, i) => (
+            {Array.from({ length: 60 }).map((_, i) => (
               <div key={i} className="absolute w-2 h-2 rounded-full" style={{
                 left: `${Math.random() * 100}%`, top: "-5%",
                 backgroundColor: ["#EF6F29", "#22c55e", "#3b82f6", "#a855f7", "#eab308", "#ec4899"][i % 6],
                 animation: `confettiFall ${2 + Math.random() * 2}s ease-out forwards`,
-                animationDelay: `${Math.random() * 0.5}s`,
-                // @ts-expect-error CSS custom props
-                "--fall": `${window.innerHeight + 100}px`, "--dx": `${(Math.random() - 0.5) * 200}px`,
+                animationDelay: `${Math.random() * 0.8}s`,
+                // @ts-expect-error custom props
+                "--fall": `${typeof window !== "undefined" ? window.innerHeight + 100 : 1000}px`,
+                "--dx": `${(Math.random() - 0.5) * 300}px`,
               }} />
             ))}
           </div>
         )}
-
         <div className="relative text-center max-w-lg animate-in fade-in zoom-in-95 duration-700">
           <div className="w-24 h-24 rounded-[28px] bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center mx-auto mb-8 shadow-2xl shadow-emerald-500/30">
             <CheckCircle2 className="h-12 w-12 text-white" />
           </div>
           <h2 className="text-4xl font-black mb-4">You're In!</h2>
-          <p className="text-lg text-muted-foreground mb-2">Your application for <span className="text-white font-bold">{selectedPos?.title}</span> has been submitted.</p>
-          <p className="text-sm text-muted-foreground/50 mb-10">We'll review it and DM you on Discord within 48 hours.</p>
+          <p className="text-lg text-white/50 mb-2">Application for <span className="text-white font-bold">{selectedPos?.title}</span> submitted.</p>
+          <p className="text-sm text-white/25 mb-10">We'll DM you on Discord within 48 hours.</p>
           <div className="flex items-center justify-center gap-4">
-            <Link href="/" className="px-8 py-3.5 rounded-2xl border border-border/40 text-sm font-semibold hover:bg-white/[0.04] transition-all">Home</Link>
-            <Link href="/products" className="px-8 py-3.5 rounded-2xl bg-primary hover:bg-primary/90 text-white text-sm font-bold shadow-xl shadow-primary/25 transition-all">Browse Products</Link>
+            <Link href="/" className="px-8 py-3.5 rounded-2xl border border-white/10 text-sm font-semibold hover:bg-white/[0.04] transition-all">Home</Link>
+            <Link href="/products" className="px-8 py-3.5 rounded-2xl bg-primary text-white text-sm font-bold shadow-xl shadow-primary/25 transition-all">Browse Products</Link>
           </div>
         </div>
       </section>
       <Footer />
-      <style jsx global>{`@keyframes confettiFall { 0% { transform: translateY(0) scale(0); opacity:1; } 15% { transform: translateX(calc(var(--dx)*0.3)) translateY(20vh) scale(1); opacity:1; } 100% { transform: translateX(var(--dx)) translateY(var(--fall)) scale(0.5) rotate(720deg); opacity:0; } }`}</style>
+      <style jsx global>{`@keyframes confettiFall{0%{transform:translateY(0) scale(0);opacity:1}15%{transform:translateX(calc(var(--dx)*0.3)) translateY(20vh) scale(1);opacity:1}100%{transform:translateX(var(--dx)) translateY(var(--fall)) scale(0.5) rotate(720deg);opacity:0}}`}</style>
     </main>
   )
 
-  /* ═══ MAIN PAGE ═══ */
+  /* ════ MAIN ════ */
   return (
     <main className="flex min-h-screen flex-col bg-background">
       <Navbar />
 
       {/* ═══ HERO ═══ */}
       <section className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden">
+        {/* Mouse spotlight */}
+        <div className="absolute inset-0 pointer-events-none opacity-20 hidden lg:block"
+          style={{ background: `radial-gradient(600px circle at ${mousePos.x}% ${mousePos.y}%, rgba(239,111,41,0.12), transparent 60%)` }} />
         {/* Grid */}
         <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
           <div className="absolute inset-0" style={{
@@ -191,7 +291,6 @@ export default function ApplyPage() {
             WebkitMaskImage: "radial-gradient(ellipse at center, black 30%, transparent 70%)",
           }} />
         </div>
-
         {/* Orbs */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute w-[600px] h-[600px] bg-primary/15 rounded-full blur-[180px] -top-[200px] left-1/4 animate-pulse" style={{ animationDuration: "4s" }} />
@@ -222,8 +321,9 @@ export default function ApplyPage() {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-14 animate-fade-in-up animate-delay-300">
+            {/* Neon glow CTA */}
             <button onClick={() => document.getElementById("positions")?.scrollIntoView({ behavior: "smooth" })}
-              className="group bg-gradient-to-r from-primary to-[#FF8C42] hover:opacity-90 text-white font-bold px-10 py-4 rounded-2xl shadow-lg shadow-primary/25 flex items-center gap-2 transition-all btn-glow">
+              className="group relative bg-gradient-to-r from-primary to-[#FF8C42] text-white font-bold px-10 py-4 rounded-2xl flex items-center gap-2 transition-all hover:-translate-y-0.5 active:scale-[0.98] neon-btn">
               View Open Roles <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </button>
             <button onClick={() => formRef.current?.scrollIntoView({ behavior: "smooth" })}
@@ -262,82 +362,43 @@ export default function ApplyPage() {
             <div className="h-px flex-1 max-w-[60px] bg-gradient-to-l from-transparent to-primary/30" />
           </div>
           <h2 className="text-3xl sm:text-4xl font-black text-center mb-4">Find Your Role</h2>
-          <p className="text-center text-muted-foreground mb-12 max-w-md mx-auto">Every position is fully remote with flexible hours.</p>
+          <p className="text-center text-white/30 mb-12 max-w-md mx-auto">Every position is fully remote with flexible hours.</p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {POSITIONS.map((pos) => (
-              <div key={pos.id} className="group relative rounded-[20px] border border-white/[0.06] bg-[#111113] hover:bg-[#141416] overflow-hidden transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl">
-                <div className="h-[2px] w-full" style={{ background: `linear-gradient(90deg, transparent, ${pos.color}, transparent)`, opacity: 0.4 }} />
-                <div className="p-7">
-                  <div className="flex items-start justify-between mb-6">
-                    <div className="w-14 h-14 rounded-2xl flex items-center justify-center border border-white/[0.06] group-hover:scale-110 transition-transform duration-300" style={{ background: `linear-gradient(135deg, ${pos.color}20, ${pos.color}05)` }}>
-                      <pos.icon className="h-6 w-6" style={{ color: pos.color }} />
-                    </div>
-                    <div className="flex items-center gap-2">
-                      {pos.popular && (
-                        <span className="text-[10px] px-2 py-1 rounded-full bg-primary/10 text-primary font-bold border border-primary/20">Most Applied</span>
-                      )}
-                      <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                        <span className="text-[11px] font-bold text-emerald-400">{pos.openSlots} open</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <h3 className="text-xl font-black mb-2 group-hover:text-white transition-colors">{pos.title}</h3>
-                  <p className="text-sm text-white/35 mb-5 leading-relaxed">{pos.description}</p>
-
-                  <div className="space-y-2 mb-5">
-                    {pos.requirements.map((req, j) => (
-                      <div key={j} className="flex items-center gap-3">
-                        <div className="w-5 h-5 rounded-md flex items-center justify-center shrink-0" style={{ background: `${pos.color}15` }}>
-                          <Check className="h-3 w-3" style={{ color: pos.color }} />
-                        </div>
-                        <span className="text-xs text-white/30">{req}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="flex gap-2 mb-5">
-                    {pos.perks.map((p, j) => (
-                      <span key={j} className="text-[10px] px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/[0.05] text-white/25 font-medium">{p}</span>
-                    ))}
-                  </div>
-
-                  <button onClick={() => scrollToForm(pos.id)}
-                    className="w-full py-3.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 border-2 border-white/[0.06] hover:border-white/[0.15] group-hover:bg-white/[0.04] transition-all duration-300">
-                    Apply Now <ArrowRight className="h-4 w-4 text-white/30 group-hover:text-white/60 group-hover:translate-x-0.5 transition-all" />
-                  </button>
-                </div>
-              </div>
-            ))}
+            {POSITIONS.map((pos) => <PositionCard key={pos.id} pos={pos} onApply={scrollToForm} />)}
           </div>
         </div>
       </section>
 
       {/* ═══ HOW IT WORKS ═══ */}
-      <section className="px-4 py-16">
-        <div className="container mx-auto max-w-3xl">
-          <div className="flex items-center justify-center gap-3 mb-10">
+      <section className="px-4 py-20">
+        <div className="container mx-auto max-w-4xl">
+          <div className="flex items-center justify-center gap-3 mb-12">
             <div className="h-px flex-1 max-w-[60px] bg-gradient-to-r from-transparent to-primary/30" />
             <span className="text-xs font-bold uppercase tracking-[0.2em] text-primary/60">How It Works</span>
             <div className="h-px flex-1 max-w-[60px] bg-gradient-to-l from-transparent to-primary/30" />
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 relative">
-            {/* Connecting line */}
-            <div className="hidden sm:block absolute top-8 left-[16.6%] right-[16.6%] h-px bg-gradient-to-r from-primary/20 via-primary/40 to-primary/20" />
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             {[
               { step: "01", title: "Apply", desc: "Fill out the form below. Takes less than 2 minutes.", icon: Send, color: "#EF6F29" },
               { step: "02", title: "Interview", desc: "Quick Discord call to get to know you. 15-20 minutes.", icon: MessageSquare, color: "#a855f7" },
               { step: "03", title: "Onboard", desc: "Get access, training, and start contributing immediately.", icon: Rocket, color: "#22c55e" },
             ].map((s, i) => (
-              <div key={i} className="text-center relative">
-                <div className="w-16 h-16 rounded-2xl mx-auto mb-4 flex items-center justify-center border border-white/[0.06] relative z-10" style={{ background: `linear-gradient(135deg, ${s.color}20, ${s.color}05)` }}>
-                  <s.icon className="h-6 w-6" style={{ color: s.color }} />
+              <div key={i} className="relative">
+                {i < 2 && (
+                  <div className="hidden sm:flex absolute top-10 -right-[14px] z-20 items-center">
+                    <ChevronRight className="h-3.5 w-3.5" style={{ color: `${["#a855f7", "#22c55e"][i]}50` }} />
+                  </div>
+                )}
+                <div className="rounded-2xl border border-white/[0.04] bg-[#111113] p-6 text-center hover:border-white/[0.08] transition-all group">
+                  <span className="text-[10px] font-black uppercase tracking-widest mb-4 block" style={{ color: `${s.color}50` }}>Step {s.step}</span>
+                  <div className="w-14 h-14 rounded-2xl mx-auto mb-5 flex items-center justify-center border border-white/[0.06] group-hover:scale-110 transition-transform duration-300 relative" style={{ background: `linear-gradient(135deg, ${s.color}15, transparent)` }}>
+                    <s.icon className="h-6 w-6" style={{ color: s.color }} />
+                    <div className="absolute inset-0 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: `${s.color}15` }} />
+                  </div>
+                  <h4 className="font-black text-xl mb-2">{s.title}</h4>
+                  <p className="text-xs text-white/30 leading-relaxed max-w-[220px] mx-auto">{s.desc}</p>
                 </div>
-                <span className="text-[10px] font-black text-white/15 uppercase tracking-widest">{s.step}</span>
-                <h4 className="font-black text-lg mt-1 mb-2">{s.title}</h4>
-                <p className="text-xs text-white/30 leading-relaxed max-w-[200px] mx-auto">{s.desc}</p>
               </div>
             ))}
           </div>
@@ -353,15 +414,13 @@ export default function ApplyPage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {TEAM_QUOTES.map((q, i) => (
-              <div key={i} className="rounded-2xl border border-white/[0.06] bg-[#111113] p-6 hover:border-white/[0.1] transition-all">
+              <div key={i} className="rounded-2xl border border-white/[0.06] bg-[#111113] p-6 hover:border-white/[0.1] transition-all backdrop-blur-sm">
                 <div className="flex gap-0.5 mb-4">
                   {[...Array(5)].map((_, j) => <Star key={j} className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />)}
                 </div>
                 <p className="text-sm text-white/50 leading-relaxed mb-5 italic">&ldquo;{q.text}&rdquo;</p>
                 <div className="flex items-center gap-3 pt-4 border-t border-white/[0.04]">
-                  <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center text-xs font-bold text-primary">
-                    {q.name.slice(0, 2).toUpperCase()}
-                  </div>
+                  <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center text-xs font-bold text-primary">{q.name.slice(0, 2).toUpperCase()}</div>
                   <div>
                     <p className="text-sm font-bold">{q.name}</p>
                     <p className="text-[11px] text-white/25">{q.role} · {q.time}</p>
@@ -437,19 +496,15 @@ export default function ApplyPage() {
               const active = formStep === i
               return (
                 <button key={i} onClick={() => setFormStep(i)}
-                  className={`py-3.5 rounded-xl text-xs font-bold transition-all ${
-                    active ? "bg-primary/10 text-primary border border-primary/25" :
-                    done ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20" :
-                    "bg-white/[0.02] text-white/20 border border-white/[0.04]"
-                  }`}>
+                  className={`py-3.5 rounded-xl text-xs font-bold transition-all ${active ? "bg-primary/10 text-primary border border-primary/25" : done ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20" : "bg-white/[0.02] text-white/20 border border-white/[0.04]"}`}>
                   {done && !active ? <span className="flex items-center justify-center gap-1.5"><Check className="h-3 w-3" />{label}</span> : `${i + 1}. ${label}`}
                 </button>
               )
             })}
           </div>
 
-          {/* Form card */}
-          <div className="relative rounded-[24px] border border-white/[0.06] bg-[#111113] overflow-hidden">
+          {/* Glassmorphism form card */}
+          <div className="relative rounded-[24px] border border-white/[0.08] bg-white/[0.02] backdrop-blur-xl overflow-hidden shadow-2xl shadow-black/20">
             {selectedPos && <div className="h-[2px]" style={{ background: `linear-gradient(90deg, transparent, ${selectedPos.color}, transparent)` }} />}
             {selectedPos && (
               <div className="px-8 py-5 border-b border-white/[0.04]" style={{ background: `linear-gradient(135deg, ${selectedPos.color}08, transparent)` }}>
@@ -459,7 +514,7 @@ export default function ApplyPage() {
                   </div>
                   <div>
                     <p className="font-bold">{selectedPos.title}</p>
-                    <p className="text-[11px] text-white/25">{selectedPos.openSlots} position{selectedPos.openSlots > 1 ? "s" : ""} · Remote · Flexible</p>
+                    <p className="text-[11px] text-white/25">{selectedPos.openSlots} position{selectedPos.openSlots > 1 ? "s" : ""} · Remote</p>
                   </div>
                 </div>
               </div>
@@ -474,54 +529,41 @@ export default function ApplyPage() {
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                       {POSITIONS.map(p => (
                         <button key={p.id} type="button" onClick={() => setPosition(p.id)}
-                          className={`relative flex items-center gap-2.5 p-3.5 rounded-xl text-xs font-bold transition-all duration-200 ${
-                            position === p.id ? "border-2 bg-white/[0.03] shadow-lg" : "border border-white/[0.06] hover:border-white/[0.12] bg-white/[0.01]"
-                          }`} style={position === p.id ? { borderColor: p.color, boxShadow: `0 0 20px ${p.color}15` } : {}}>
+                          className={`relative flex items-center gap-2.5 p-3.5 rounded-xl text-xs font-bold transition-all duration-200 ${position === p.id ? "border-2 bg-white/[0.03] shadow-lg" : "border border-white/[0.06] hover:border-white/[0.12] bg-white/[0.01]"}`}
+                          style={position === p.id ? { borderColor: p.color, boxShadow: `0 0 20px ${p.color}15` } : {}}>
                           <p.icon className="h-4 w-4 shrink-0" style={{ color: p.color }} />
                           <span className="truncate">{p.title}</span>
-                          {p.popular && position !== p.id && <span className="absolute -top-1.5 -right-1.5 w-2 h-2 rounded-full bg-primary" />}
+                          {p.popular && position !== p.id && <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-primary" />}
                         </button>
                       ))}
                     </div>
                   </div>
-
                   <div>
                     <label className="text-sm font-bold mb-3 block text-white/70">Discord <span className="text-primary">*</span></label>
                     <input type="text" value={discord} onChange={(e) => setDiscord(e.target.value)} placeholder="your username"
                       className="w-full h-12 px-5 rounded-xl bg-white/[0.02] border border-white/[0.06] text-sm placeholder:text-white/15 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/10 transition-all" />
                   </div>
-
                   <div>
                     <label className="text-sm font-bold mb-3 block text-white/70">Age <span className="text-primary">*</span></label>
                     <div className="flex items-center gap-3 w-44">
                       <button type="button" onClick={() => setAge(Math.max(16, age - 1))}
-                        className="w-10 h-10 rounded-full border border-white/[0.08] bg-white/[0.03] flex items-center justify-center text-white/25 hover:text-white hover:bg-white/[0.08] hover:border-white/[0.15] active:scale-90 transition-all">
-                        <Minus className="h-3.5 w-3.5" />
-                      </button>
+                        className="w-10 h-10 rounded-full border border-white/[0.08] bg-white/[0.03] flex items-center justify-center text-white/25 hover:text-white hover:bg-white/[0.08] hover:border-white/[0.15] active:scale-90 transition-all"><Minus className="h-3.5 w-3.5" /></button>
                       <span className="flex-1 text-center text-2xl font-black tabular-nums">{age}</span>
                       <button type="button" onClick={() => setAge(Math.min(50, age + 1))}
-                        className="w-10 h-10 rounded-full border border-white/[0.08] bg-white/[0.03] flex items-center justify-center text-white/25 hover:text-white hover:bg-white/[0.08] hover:border-white/[0.15] active:scale-90 transition-all">
-                        <Plus className="h-3.5 w-3.5" />
-                      </button>
+                        className="w-10 h-10 rounded-full border border-white/[0.08] bg-white/[0.03] flex items-center justify-center text-white/25 hover:text-white hover:bg-white/[0.08] hover:border-white/[0.15] active:scale-90 transition-all"><Plus className="h-3.5 w-3.5" /></button>
                     </div>
                   </div>
-
                   <div>
                     <label className="text-sm font-bold mb-3 block text-white/70">Timezone <span className="text-primary">*</span></label>
                     <div className="flex flex-wrap gap-2">
                       {TIMEZONES.map((tz, i) => (
                         <button key={`${tz.l}-${i}`} type="button" onClick={() => setTimezone(`${tz.v}|${tz.l}`)}
-                          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 ${
-                            timezone === `${tz.v}|${tz.l}`
-                              ? "bg-primary/15 text-white border border-primary/30 shadow-lg shadow-primary/10"
-                              : "bg-white/[0.02] border border-white/[0.06] text-white/30 hover:bg-white/[0.05] hover:text-white/50"
-                          }`}>
+                          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 ${timezone === `${tz.v}|${tz.l}` ? "bg-primary/15 text-white border border-primary/30 shadow-lg shadow-primary/10" : "bg-white/[0.02] border border-white/[0.06] text-white/30 hover:bg-white/[0.05] hover:text-white/50"}`}>
                           <span className="text-base leading-none">{tz.flag}</span><span>{tz.l}</span>
                         </button>
                       ))}
                     </div>
                   </div>
-
                   <button onClick={() => s0 && setFormStep(1)} disabled={!s0}
                     className="w-full py-4 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.06] text-white font-bold text-sm flex items-center justify-center gap-2 disabled:opacity-20 disabled:cursor-not-allowed transition-all">
                     Continue <ArrowRight className="h-4 w-4" />
@@ -541,7 +583,6 @@ export default function ApplyPage() {
                       ))}
                     </div>
                   </div>
-
                   <div>
                     <label className="text-sm font-bold mb-3 block text-white/70">Available Days <span className="text-primary">*</span></label>
                     <div className="grid grid-cols-7 gap-2">
@@ -551,7 +592,6 @@ export default function ApplyPage() {
                       ))}
                     </div>
                   </div>
-
                   <div>
                     <label className="text-sm font-bold mb-3 block text-white/70">Preferred Time <span className="text-primary">*</span></label>
                     <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
@@ -569,7 +609,6 @@ export default function ApplyPage() {
                       ))}
                     </div>
                   </div>
-
                   <div className="flex gap-3">
                     <button onClick={() => setFormStep(0)} className="flex-1 py-4 rounded-xl border border-white/[0.06] text-sm font-semibold text-white/30 hover:text-white/60 hover:bg-white/[0.03] transition-all">Back</button>
                     <button onClick={() => s1 && setFormStep(2)} disabled={!s1}
@@ -592,7 +631,6 @@ export default function ApplyPage() {
                       {experience.length >= 50 ? <><Check className="h-3 w-3" /> Looks good</> : `${experience.length}/50 min`}
                     </p>
                   </div>
-
                   <div>
                     <label className="text-sm font-bold mb-3 block text-white/70">Why Lethal? <span className="text-primary">*</span></label>
                     <textarea value={whyLethal} onChange={(e) => setWhyLethal(e.target.value)}
@@ -602,13 +640,11 @@ export default function ApplyPage() {
                       {whyLethal.length >= 30 ? <><Check className="h-3 w-3" /> Looks good</> : `${whyLethal.length}/30 min`}
                     </p>
                   </div>
-
                   <div>
                     <label className="text-sm font-bold mb-3 block text-white/70">Portfolio <span className="text-white/15 font-normal text-xs">optional</span></label>
                     <input type="url" value={portfolio} onChange={(e) => setPortfolio(e.target.value)} placeholder="https://your-portfolio.com"
                       className="w-full h-12 px-5 rounded-xl bg-white/[0.02] border border-white/[0.06] text-sm placeholder:text-white/12 focus:outline-none focus:border-primary/40 focus:ring-1 focus:ring-primary/10 transition-all" />
                   </div>
-
                   <div className="rounded-2xl border border-white/[0.04] bg-white/[0.01] p-6 space-y-4">
                     <p className="text-[11px] font-bold uppercase tracking-widest text-white/15 mb-1">Agreements</p>
                     {[
@@ -624,11 +660,10 @@ export default function ApplyPage() {
                       </label>
                     ))}
                   </div>
-
                   <div className="flex gap-3 pt-2">
                     <button onClick={() => setFormStep(1)} className="flex-1 py-4 rounded-xl border border-white/[0.06] text-sm font-semibold text-white/30 hover:text-white/60 hover:bg-white/[0.03] transition-all">Back</button>
                     <button onClick={handleSubmit} disabled={!s2 || submitting}
-                      className="flex-[2] py-4 rounded-xl bg-gradient-to-b from-primary to-[#d45a1a] text-white font-bold text-base flex items-center justify-center gap-2.5 disabled:opacity-20 disabled:cursor-not-allowed shadow-2xl shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 active:scale-[0.98] transition-all">
+                      className="flex-[2] py-4 rounded-xl text-white font-bold text-base flex items-center justify-center gap-2.5 disabled:opacity-20 disabled:cursor-not-allowed hover:-translate-y-0.5 active:scale-[0.98] transition-all neon-btn">
                       {submitting ? <span className="animate-spin h-5 w-5 border-2 border-white/30 border-t-white rounded-full" /> : <><Send className="h-4 w-4" />Submit Application</>}
                     </button>
                   </div>
@@ -650,20 +685,38 @@ export default function ApplyPage() {
                   {f.q}
                   <ChevronRight className="h-4 w-4 text-white/20 group-open:rotate-90 transition-transform shrink-0 ml-4" />
                 </summary>
-                <div className="px-5 pb-5">
-                  <p className="text-sm text-white/40 leading-relaxed">{f.a}</p>
-                </div>
+                <div className="px-5 pb-5"><p className="text-sm text-white/40 leading-relaxed">{f.a}</p></div>
               </details>
             ))}
           </div>
         </div>
       </section>
 
+      {/* ═══ STICKY MOBILE BAR ═══ */}
+      {showStickyBar && (
+        <div className="fixed bottom-0 left-0 right-0 z-[70] bg-background/90 backdrop-blur-xl border-t border-white/[0.06] px-4 py-3 lg:hidden">
+          <button onClick={() => formRef.current?.scrollIntoView({ behavior: "smooth" })}
+            className="w-full py-3.5 rounded-xl text-white font-bold text-sm flex items-center justify-center gap-2 neon-btn">
+            <Send className="h-4 w-4" /> Apply Now
+          </button>
+        </div>
+      )}
+
       <Footer />
 
       <style jsx global>{`
-        @keyframes shimmer { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
-        @keyframes confettiFall { 0% { transform: translateY(0) scale(0); opacity:1; } 15% { transform: translateX(calc(var(--dx)*0.3)) translateY(20vh) scale(1); opacity:1; } 100% { transform: translateX(var(--dx)) translateY(var(--fall)) scale(0.5) rotate(720deg); opacity:0; } }
+        .neon-btn {
+          background: linear-gradient(135deg, #EF6F29, #FF8C42);
+          box-shadow: 0 0 15px rgba(239,111,41,0.3), 0 0 40px rgba(239,111,41,0.1);
+          transition: all 0.3s ease;
+        }
+        .neon-btn:hover {
+          box-shadow: 0 0 20px rgba(239,111,41,0.5), 0 0 60px rgba(239,111,41,0.2), 0 0 100px rgba(239,111,41,0.1);
+        }
+        .neon-btn:disabled {
+          box-shadow: none;
+        }
+        @keyframes confettiFall{0%{transform:translateY(0) scale(0);opacity:1}15%{transform:translateX(calc(var(--dx)*0.3)) translateY(20vh) scale(1);opacity:1}100%{transform:translateX(var(--dx)) translateY(var(--fall)) scale(0.5) rotate(720deg);opacity:0}}
       `}</style>
     </main>
   )
