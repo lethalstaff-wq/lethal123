@@ -331,6 +331,34 @@ export default function ApplyPage() {
           <div className="absolute w-[300px] h-[300px] bg-blue-500/6 rounded-full blur-[120px] bottom-[20%] left-[15%] animate-pulse" style={{ animationDuration: "5s" }} />
         </div>
 
+        {/* Rocket flying from bottom-right to top-left */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden hidden sm:block">
+          {/* Rocket trail */}
+          <div className="absolute bottom-[8%] right-[8%] w-[70%] h-[70%]">
+            {/* Trail glow line */}
+            <div className="absolute bottom-0 right-0 w-[500px] h-[2px] origin-bottom-right rotate-[225deg] opacity-20"
+              style={{ background: "linear-gradient(90deg, transparent 0%, #EF6F29 30%, #FF8C42 60%, transparent 100%)" }} />
+            {/* Trail particles */}
+            {[...Array(8)].map((_, i) => (
+              <div key={i} className="absolute rounded-full animate-pulse" style={{
+                width: `${2 + i * 0.5}px`, height: `${2 + i * 0.5}px`,
+                bottom: `${i * 8}%`, right: `${i * 8}%`,
+                backgroundColor: i % 2 === 0 ? "rgba(239,111,41,0.15)" : "rgba(255,140,66,0.1)",
+                animationDuration: `${1.5 + i * 0.3}s`,
+                animationDelay: `${i * 0.2}s`,
+              }} />
+            ))}
+            {/* Rocket emoji */}
+            <div className="absolute bottom-[15%] right-[15%] text-3xl sm:text-4xl opacity-[0.12] rotate-[225deg] animate-[rocketFloat_4s_ease-in-out_infinite]">
+              🚀
+            </div>
+            {/* Secondary smaller trail dots */}
+            <div className="absolute bottom-[25%] right-[25%] w-1 h-1 rounded-full bg-primary/10 animate-pulse" style={{ animationDuration: "2s" }} />
+            <div className="absolute bottom-[35%] right-[35%] w-0.5 h-0.5 rounded-full bg-amber-500/10 animate-pulse" style={{ animationDuration: "3s" }} />
+            <div className="absolute bottom-[45%] right-[45%] w-0.5 h-0.5 rounded-full bg-primary/8 animate-pulse" style={{ animationDuration: "2.5s" }} />
+          </div>
+        </div>
+
         <div className="container mx-auto text-center max-w-4xl relative z-10 py-32">
           <div className="flex justify-center mb-10 animate-fade-in-up">
             <div className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
@@ -817,6 +845,7 @@ export default function ApplyPage() {
           box-shadow: none;
         }
         @keyframes confettiFall{0%{transform:translateY(0) scale(0);opacity:1}15%{transform:translateX(calc(var(--dx)*0.3)) translateY(20vh) scale(1);opacity:1}100%{transform:translateX(var(--dx)) translateY(var(--fall)) scale(0.5) rotate(720deg);opacity:0}}
+        @keyframes rocketFloat{0%,100%{transform:rotate(225deg) translate(0,0)}50%{transform:rotate(225deg) translate(-8px,-8px)}}
       `}</style>
     </main>
   )
