@@ -65,7 +65,7 @@ export function KeeperDashboard() {
   const [tab, setTab] = useState<"overview" | "accounts" | "logs" | "dms">("overview")
   const [cmd, setCmd] = useState("")
   const wsRef = useRef<WebSocket | null>(null)
-  const reconnectRef = useRef<ReturnType<typeof setTimeout>>()
+  const reconnectRef = useRef<ReturnType<typeof setTimeout>>(undefined)
 
   const connect = useCallback((wsUrl: string) => {
     if (wsRef.current) {
