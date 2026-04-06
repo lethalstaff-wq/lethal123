@@ -17,35 +17,36 @@ import { toast } from "sonner"
 /* ═══════════════════════════════════════════════════════════════════ */
 const POSITIONS = [
   { id: "developer", title: "Developer", icon: Code2, color: "#a855f7", popular: false,
-    description: "Build and maintain our tools, website, and backend systems",
-    requirements: ["Python, TypeScript, or C++", "Anti-cheat knowledge is a plus", "Code reviews and patches"],
-    openSlots: 1, perks: ["Cutting-edge tech", "Flexible hours"] },
+    description: "Build and maintain our tools, website, and backend infrastructure",
+    requirements: ["Strong Python, TypeScript, or C++", "Reverse engineering / anti-cheat experience", "Self-driven, no hand-holding"],
+    openSlots: 1, perks: ["Cutting-edge tech", "Revenue share"] },
   { id: "manager", title: "Head Manager", icon: Crown, color: "#f97316", popular: false,
-    description: "Oversee daily operations, team coordination, and business decisions",
-    requirements: ["Leadership experience", "20+ hours/week", "Business background"],
+    description: "Oversee daily operations, team coordination, and strategic business decisions",
+    requirements: ["Proven leadership experience", "Available 20+ hours/week", "Business or management background"],
     openSlots: 1, perks: ["Revenue share", "Strategic role"] },
   { id: "support", title: "Support Agent", icon: Headphones, color: "#22c55e", popular: true,
     description: "Help customers with setup, troubleshooting, and orders via Discord",
-    requirements: ["Fast response time", "DMA/spoofer knowledge", "Fluent English"],
+    requirements: ["Deep knowledge of DMA / spoofers / cheats", "Fast response time under 5 minutes", "Fluent English, patient under pressure"],
     openSlots: 3, perks: ["Commission per ticket", "Flexible schedule"] },
   { id: "media", title: "Media Manager", icon: Camera, color: "#ec4899", popular: false,
-    description: "Create content, manage social media, design graphics and videos",
-    requirements: ["Photoshop/Premiere/AE", "Social media mgmt", "Creative portfolio"],
-    openSlots: 2, perks: ["Creative freedom", "Build your portfolio"] },
+    description: "Create content, manage social media, design thumbnails and edit videos. We provide all tools and software you need — zero cost to you",
+    requirements: ["Basic video editing (CapCut, Premiere, or AE)", "Willingness to learn — we'll train you", "We provide: Adobe Suite, footage, assets, templates"],
+    openSlots: 2, perks: ["Free Adobe Suite", "All assets provided"] },
   { id: "seo", title: "SEO Specialist", icon: Search, color: "#3b82f6", popular: false,
     description: "Optimize search rankings, manage keywords, and drive organic traffic",
-    requirements: ["Ahrefs/SEMrush experience", "Content strategy", "Technical SEO"],
+    requirements: ["Proven SEO results (show us rankings)", "Ahrefs / SEMrush / GSC experience", "Technical SEO + content strategy"],
     openSlots: 1, perks: ["Performance bonuses", "Own the strategy"] },
   { id: "sales", title: "Sales / Reseller", icon: DollarSign, color: "#eab308", popular: true,
-    description: "Drive sales, manage reseller partnerships, and grow revenue",
-    requirements: ["Gaming/software sales exp", "Customer base is a plus", "Commission-based"],
-    openSlots: 2, perks: ["High commission", "Uncapped earnings"] },
+    description: "Sell our products on your own platform and earn industry-leading margins. Bulk discounts up to 80% off retail — you set your own price and keep the difference",
+    requirements: ["Own Discord server, Telegram, or community", "Existing audience or customer base", "Hustle mentality — we provide everything else"],
+    openSlots: 2, perks: ["Up to 80% bulk discount", "Set your own prices"] },
 ]
 
 const TEAM_QUOTES = [
-  { text: "Best team I've ever worked with. Fully remote, zero micromanagement, just ship good work.", name: "cipher", role: "Developer", time: "6 months" },
-  { text: "I make more here in commissions than my old 9-5. And I set my own hours.", name: "vex", role: "Sales", time: "4 months" },
-  { text: "The product is actually good which makes support easy. Customers are happy, I'm happy.", name: "nova", role: "Support", time: "3 months" },
+  { text: "Joined as a dev 6 months ago. Zero micromanagement, full creative freedom. Best decision I made this year.", name: "cipher", role: "Developer", time: "6 months", color: "#a855f7" },
+  { text: "Left my 9-5 for this. Commission here beats a salary and I work from my couch. Not going back.", name: "vex", role: "Sales", time: "4 months", color: "#eab308" },
+  { text: "Product actually works which makes support easy. Customers thank me instead of yelling at me lol.", name: "nova", role: "Support", time: "3 months", color: "#22c55e" },
+  { text: "I handle all the socials and content. Full creative control, no approval chains, just ship it.", name: "flare", role: "Media", time: "2 months", color: "#ec4899" },
 ]
 
 const TIMEZONES = [
@@ -67,6 +68,38 @@ const FAQ = [
   { q: "Do I need experience?", a: "Depends on the role. Support needs product knowledge, Developer needs coding skills. Sales just needs hustle." },
   { q: "How fast do you respond?", a: "We review every application within 48 hours and contact you on Discord." },
 ]
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* ANIMATED COUNTER                                                   */
+/* ═══════════════════════════════════════════════════════════════════ */
+function AnimatedNumber({ value, suffix = "" }: { value: number; suffix?: string }) {
+  const [count, setCount] = useState(0)
+  const [visible, setVisible] = useState(false)
+  const ref = useRef<HTMLSpanElement>(null)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const obs = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect() } }, { threshold: 0.5 })
+    obs.observe(el)
+    return () => obs.disconnect()
+  }, [])
+
+  useEffect(() => {
+    if (!visible) return
+    const duration = 1500
+    const start = performance.now()
+    const tick = (now: number) => {
+      const p = Math.min((now - start) / duration, 1)
+      const ease = 1 - Math.pow(1 - p, 3) // ease-out cubic
+      setCount(Math.round(ease * value))
+      if (p < 1) requestAnimationFrame(tick)
+    }
+    requestAnimationFrame(tick)
+  }, [visible, value])
+
+  return <span ref={ref} className="tabular-nums">{count}{suffix}</span>
+}
 
 /* ═══════════════════════════════════════════════════════════════════ */
 /* TILT CARD HOOK                                                     */
@@ -332,15 +365,18 @@ export default function ApplyPage() {
             </button>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-8 animate-fade-in-up animate-delay-400">
+          {/* Animated stats */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto animate-fade-in-up animate-delay-400">
             {[
-              { icon: Users, label: "10+ Team Members" },
-              { icon: Globe, label: "24/7 Global Coverage" },
-              { icon: Zap, label: "100% Remote" },
-              { icon: Shield, label: "774+ Happy Clients" },
-            ].map((item, i) => (
-              <div key={i} className="flex items-center gap-2 text-white/40">
-                <item.icon className="h-4 w-4" /><span className="text-sm">{item.label}</span>
+              { icon: Users, value: 10, suffix: "+", label: "Team Members" },
+              { icon: Trophy, value: 774, suffix: "+", label: "Happy Clients" },
+              { icon: Star, value: 99, suffix: "%", label: "Satisfaction" },
+              { icon: Zap, value: 24, suffix: "/7", label: "Support" },
+            ].map((s, i) => (
+              <div key={i} className="rounded-2xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm p-4 text-center hover:border-white/[0.1] transition-all group">
+                <s.icon className="h-4 w-4 text-primary mx-auto mb-2 group-hover:scale-110 transition-transform" />
+                <p className="text-2xl font-black text-white"><AnimatedNumber value={s.value} suffix={s.suffix} /></p>
+                <p className="text-[10px] text-white/25 mt-0.5">{s.label}</p>
               </div>
             ))}
           </div>
@@ -408,22 +444,32 @@ export default function ApplyPage() {
       {/* ═══ TEAM QUOTES ═══ */}
       <section className="px-4 py-16">
         <div className="container mx-auto max-w-5xl">
-          <div className="flex items-center gap-3 mb-8 justify-center">
-            <MessageSquare className="h-5 w-5 text-primary/60" />
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <div className="h-px flex-1 max-w-[60px] bg-gradient-to-r from-transparent to-primary/30" />
             <span className="text-xs font-bold uppercase tracking-[0.2em] text-primary/60">From the Team</span>
+            <div className="h-px flex-1 max-w-[60px] bg-gradient-to-l from-transparent to-primary/30" />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <h2 className="text-2xl sm:text-3xl font-black text-center mb-4">What Our Team Says</h2>
+          <p className="text-center text-white/25 mb-10 text-sm max-w-md mx-auto">Real quotes from people who work here every day.</p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {TEAM_QUOTES.map((q, i) => (
-              <div key={i} className="rounded-2xl border border-white/[0.06] bg-[#111113] p-6 hover:border-white/[0.1] transition-all backdrop-blur-sm">
-                <div className="flex gap-0.5 mb-4">
-                  {[...Array(5)].map((_, j) => <Star key={j} className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />)}
-                </div>
-                <p className="text-sm text-white/50 leading-relaxed mb-5 italic">&ldquo;{q.text}&rdquo;</p>
-                <div className="flex items-center gap-3 pt-4 border-t border-white/[0.04]">
-                  <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center text-xs font-bold text-primary">{q.name.slice(0, 2).toUpperCase()}</div>
-                  <div>
-                    <p className="text-sm font-bold">{q.name}</p>
-                    <p className="text-[11px] text-white/25">{q.role} · {q.time}</p>
+              <div key={i} className="relative rounded-2xl border border-white/[0.06] bg-[#111113] overflow-hidden hover:border-white/[0.1] transition-all group">
+                {/* Color accent line */}
+                <div className="h-[2px] w-full" style={{ background: `linear-gradient(90deg, transparent, ${q.color}, transparent)`, opacity: 0.4 }} />
+                <div className="p-6">
+                  <div className="flex gap-0.5 mb-4">
+                    {[...Array(5)].map((_, j) => <Star key={j} className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />)}
+                  </div>
+                  <p className="text-sm text-white/50 leading-relaxed mb-5">&ldquo;{q.text}&rdquo;</p>
+                  <div className="flex items-center gap-3 pt-4 border-t border-white/[0.04]">
+                    <div className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold" style={{ background: `${q.color}15`, color: q.color }}>
+                      {q.name.slice(0, 2).toUpperCase()}
+                    </div>
+                    <div>
+                      <p className="text-sm font-bold">{q.name}</p>
+                      <p className="text-[11px] text-white/25">{q.role} · {q.time}</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -503,8 +549,13 @@ export default function ApplyPage() {
             })}
           </div>
 
-          {/* Glassmorphism form card */}
-          <div className="relative rounded-[24px] border border-white/[0.08] bg-white/[0.02] backdrop-blur-xl overflow-hidden shadow-2xl shadow-black/20">
+          {/* Glassmorphism form card with animated border */}
+          <div className="relative rounded-[24px] overflow-hidden shadow-2xl shadow-black/20">
+            {/* Animated gradient border */}
+            <div className="absolute inset-0 rounded-[24px] p-[1px] overflow-hidden">
+              <div className="absolute inset-[-200%] bg-[conic-gradient(from_0deg,transparent_0%,rgba(239,111,41,0.3)_10%,transparent_20%)] animate-[spin_6s_linear_infinite]" />
+            </div>
+          <div className="relative rounded-[23px] bg-[#0e0e10] backdrop-blur-xl overflow-hidden">
             {selectedPos && <div className="h-[2px]" style={{ background: `linear-gradient(90deg, transparent, ${selectedPos.color}, transparent)` }} />}
             {selectedPos && (
               <div className="px-8 py-5 border-b border-white/[0.04]" style={{ background: `linear-gradient(135deg, ${selectedPos.color}08, transparent)` }}>
@@ -669,6 +720,27 @@ export default function ApplyPage() {
                   </div>
                 </div>
               )}
+            </div>
+          </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ CTA BANNER ═══ */}
+      <section className="px-4 py-8">
+        <div className="container mx-auto max-w-3xl">
+          <div className="relative rounded-2xl overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-primary/10 to-amber-500/20" />
+            <div className="absolute inset-0 bg-[#0c0c0e]/80" />
+            <div className="relative flex flex-col sm:flex-row items-center justify-between gap-4 px-8 py-6">
+              <div>
+                <p className="font-black text-lg">Ready to join?</p>
+                <p className="text-sm text-white/40">Applications are reviewed within 48 hours.</p>
+              </div>
+              <button onClick={() => formRef.current?.scrollIntoView({ behavior: "smooth" })}
+                className="shrink-0 px-8 py-3 rounded-xl font-bold text-sm flex items-center gap-2 neon-btn text-white">
+                <Send className="h-4 w-4" /> Apply Now
+              </button>
             </div>
           </div>
         </div>
