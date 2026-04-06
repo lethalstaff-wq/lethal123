@@ -389,8 +389,36 @@ export default function ApplyPage() {
         </button>
       </section>
 
+      {/* ═══ GLOBAL GRID BACKGROUND ═══ */}
+      <div className="fixed inset-0 pointer-events-none z-0 opacity-[0.025]">
+        <div className="absolute inset-0" style={{
+          backgroundImage: "linear-gradient(rgba(239,111,41,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(239,111,41,0.4) 1px, transparent 1px)",
+          backgroundSize: "80px 80px",
+        }} />
+      </div>
+
+      {/* ═══ FLOATING DECORATIONS ═══ */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        {/* Orange glow top-right */}
+        <div className="absolute -top-[300px] -right-[200px] w-[600px] h-[600px] bg-primary/[0.04] rounded-full blur-[200px]" />
+        {/* Purple glow bottom-left */}
+        <div className="absolute -bottom-[300px] -left-[200px] w-[500px] h-[500px] bg-purple-500/[0.03] rounded-full blur-[200px]" />
+        {/* Small floating dots */}
+        <div className="absolute top-[15%] right-[8%] w-1.5 h-1.5 rounded-full bg-primary/20 animate-pulse" style={{ animationDuration: "3s" }} />
+        <div className="absolute top-[35%] left-[5%] w-1 h-1 rounded-full bg-purple-500/20 animate-pulse" style={{ animationDuration: "4s" }} />
+        <div className="absolute top-[55%] right-[12%] w-1 h-1 rounded-full bg-blue-500/20 animate-pulse" style={{ animationDuration: "5s" }} />
+        <div className="absolute top-[75%] left-[10%] w-1.5 h-1.5 rounded-full bg-primary/15 animate-pulse" style={{ animationDuration: "3.5s" }} />
+        <div className="absolute top-[45%] right-[25%] w-1 h-1 rounded-full bg-amber-500/15 animate-pulse" style={{ animationDuration: "4.5s" }} />
+        <div className="absolute top-[85%] right-[6%] w-1 h-1 rounded-full bg-emerald-500/15 animate-pulse" style={{ animationDuration: "5.5s" }} />
+        {/* Diagonal accent lines */}
+        <div className="absolute top-[20%] left-[3%] w-16 h-px bg-gradient-to-r from-primary/10 to-transparent rotate-45" />
+        <div className="absolute top-[60%] right-[4%] w-20 h-px bg-gradient-to-l from-primary/10 to-transparent -rotate-45" />
+        <div className="absolute top-[40%] left-[6%] w-12 h-px bg-gradient-to-r from-purple-500/10 to-transparent rotate-12" />
+        <div className="absolute top-[80%] right-[8%] w-14 h-px bg-gradient-to-l from-blue-500/8 to-transparent -rotate-12" />
+      </div>
+
       {/* ═══ POSITIONS ═══ */}
-      <section id="positions" className="px-4 py-20">
+      <section id="positions" className="relative z-10 px-4 py-20">
         <div className="container mx-auto max-w-6xl">
           <div className="flex items-center justify-center gap-3 mb-4">
             <div className="h-px flex-1 max-w-[60px] bg-gradient-to-r from-transparent to-primary/30" />
@@ -407,7 +435,7 @@ export default function ApplyPage() {
       </section>
 
       {/* ═══ HOW IT WORKS ═══ */}
-      <section className="px-4 py-20">
+      <section className="relative z-10 px-4 py-20">
         <div className="container mx-auto max-w-4xl">
           <div className="flex items-center justify-center gap-3 mb-12">
             <div className="h-px flex-1 max-w-[60px] bg-gradient-to-r from-transparent to-primary/30" />
@@ -442,7 +470,7 @@ export default function ApplyPage() {
       </section>
 
       {/* ═══ TEAM QUOTES ═══ */}
-      <section className="px-4 py-16">
+      <section className="relative z-10 px-4 py-16">
         <div className="container mx-auto max-w-5xl">
           <div className="flex items-center justify-center gap-3 mb-4">
             <div className="h-px flex-1 max-w-[60px] bg-gradient-to-r from-transparent to-primary/30" />
@@ -479,7 +507,7 @@ export default function ApplyPage() {
       </section>
 
       {/* ═══ WHY JOIN ═══ */}
-      <section className="px-4 py-16">
+      <section className="relative z-10 px-4 py-16">
         <div className="container mx-auto max-w-5xl">
           <div className="relative rounded-[28px] border border-white/[0.06] bg-[#111113] overflow-hidden">
             <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[150px] pointer-events-none" />
@@ -514,7 +542,7 @@ export default function ApplyPage() {
       </section>
 
       {/* ═══ FORM ═══ */}
-      <section id="apply-form" ref={formRef} className="py-20 px-4">
+      <section id="apply-form" ref={formRef} className="relative z-10 py-20 px-4">
         <div className="container mx-auto max-w-2xl">
           <div className="text-center mb-10">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold mb-5">
@@ -727,7 +755,7 @@ export default function ApplyPage() {
       </section>
 
       {/* ═══ CTA BANNER ═══ */}
-      <section className="px-4 py-8">
+      <section className="relative z-10 px-4 py-8">
         <div className="container mx-auto max-w-3xl">
           <div className="relative rounded-2xl overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-primary/10 to-amber-500/20" />
@@ -747,7 +775,7 @@ export default function ApplyPage() {
       </section>
 
       {/* ═══ FAQ ═══ */}
-      <section className="px-4 py-16">
+      <section className="relative z-10 px-4 py-16">
         <div className="container mx-auto max-w-2xl">
           <h3 className="text-xl font-black text-center mb-8">Common Questions</h3>
           <div className="space-y-3">
