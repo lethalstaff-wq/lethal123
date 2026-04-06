@@ -435,42 +435,83 @@ export default function ApplyPage() {
         </div>
 
 
-        {/* 3D Globe behind text */}
+        {/* World map behind text */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <div className="relative w-[500px] h-[500px] sm:w-[600px] sm:h-[600px] lg:w-[700px] lg:h-[700px] opacity-[0.12]">
-            <svg viewBox="0 0 400 400" className="w-full h-full animate-[globeSpin_30s_linear_infinite]">
-              {/* Globe circle */}
-              <circle cx="200" cy="200" r="180" fill="none" stroke="#EF6F29" strokeWidth="0.5" />
-              {/* Latitude lines */}
-              {[-60, -30, 0, 30, 60].map(lat => {
-                const r = 180 * Math.cos((lat * Math.PI) / 180)
-                const y = 200 - 180 * Math.sin((lat * Math.PI) / 180)
-                return <ellipse key={lat} cx="200" cy={y} rx={r} ry={r * 0.3} fill="none" stroke="#EF6F29" strokeWidth="0.4" strokeDasharray="4 6" />
-              })}
-              {/* Longitude lines */}
-              {[0, 30, 60, 90, 120, 150].map(lon => (
-                <ellipse key={lon} cx="200" cy="200" rx={180 * Math.cos((lon * Math.PI) / 180)} ry="180" fill="none" stroke="#EF6F29" strokeWidth="0.4" strokeDasharray="4 6" />
-              ))}
-              {/* Glow dots — team locations */}
-              {[
-                { x: 120, y: 130 }, // US
-                { x: 230, y: 120 }, // EU
-                { x: 280, y: 140 }, // Istanbul
-                { x: 310, y: 180 }, // Dubai
-                { x: 340, y: 170 }, // India
-                { x: 160, y: 260 }, // Brazil
-                { x: 250, y: 110 }, // Scandinavia
-                { x: 350, y: 230 }, // Singapore
-              ].map((dot, i) => (
-                <g key={i}>
-                  <circle cx={dot.x} cy={dot.y} r="4" fill="#EF6F29" opacity="0.6">
-                    <animate attributeName="r" values="3;6;3" dur={`${2 + i * 0.3}s`} repeatCount="indefinite" />
-                    <animate attributeName="opacity" values="0.6;0.2;0.6" dur={`${2 + i * 0.3}s`} repeatCount="indefinite" />
-                  </circle>
-                  <circle cx={dot.x} cy={dot.y} r="1.5" fill="#EF6F29" />
-                </g>
-              ))}
+          <div className="relative w-[90vw] max-w-[1000px] aspect-[2/1] opacity-[0.07]">
+            <svg viewBox="0 0 1000 500" className="w-full h-full">
+              {/* Dot grid world map — simplified continents */}
+              {(() => {
+                // continent shapes as rough coordinate ranges [xMin, xMax, yMin, yMax, density]
+                const regions = [
+                  // North America
+                  ...[...Array(60)].map((_, i) => ({ x: 120 + (i % 10) * 12 + Math.sin(i) * 5, y: 100 + Math.floor(i / 10) * 14 + Math.cos(i) * 3 })),
+                  // South America
+                  ...[...Array(35)].map((_, i) => ({ x: 220 + (i % 5) * 12 + Math.sin(i * 2) * 4, y: 280 + Math.floor(i / 5) * 14 + Math.cos(i) * 3 })),
+                  // Europe
+                  ...[...Array(40)].map((_, i) => ({ x: 440 + (i % 8) * 11 + Math.sin(i) * 3, y: 90 + Math.floor(i / 8) * 13 + Math.cos(i * 2) * 2 })),
+                  // Africa
+                  ...[...Array(45)].map((_, i) => ({ x: 450 + (i % 6) * 13 + Math.sin(i) * 4, y: 220 + Math.floor(i / 6) * 14 + Math.cos(i) * 3 })),
+                  // Russia / Central Asia
+                  ...[...Array(50)].map((_, i) => ({ x: 530 + (i % 12) * 14 + Math.sin(i) * 4, y: 70 + Math.floor(i / 12) * 12 + Math.cos(i) * 3 })),
+                  // Middle East
+                  ...[...Array(15)].map((_, i) => ({ x: 560 + (i % 5) * 12, y: 180 + Math.floor(i / 5) * 13 })),
+                  // India
+                  ...[...Array(20)].map((_, i) => ({ x: 650 + (i % 4) * 12 + Math.sin(i) * 3, y: 200 + Math.floor(i / 4) * 14 })),
+                  // East Asia
+                  ...[...Array(40)].map((_, i) => ({ x: 720 + (i % 8) * 12 + Math.sin(i) * 3, y: 120 + Math.floor(i / 8) * 13 + Math.cos(i) * 2 })),
+                  // Southeast Asia
+                  ...[...Array(20)].map((_, i) => ({ x: 750 + (i % 5) * 13, y: 260 + Math.floor(i / 5) * 14 })),
+                  // Australia
+                  ...[...Array(20)].map((_, i) => ({ x: 800 + (i % 5) * 14 + Math.sin(i) * 3, y: 350 + Math.floor(i / 5) * 14 })),
+                ]
+                return regions.map((d, i) => (
+                  <circle key={i} cx={d.x} cy={d.y} r="1.8" fill="#EF6F29" opacity={0.3 + (i % 3) * 0.15} />
+                ))
+              })()}
             </svg>
+          </div>
+          {/* City pings — absolute on top of map */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="relative w-[90vw] max-w-[1000px] aspect-[2/1]">
+              {[
+                { x: "16%", y: "28%", label: "New York", delay: "0s" },
+                { x: "24%", y: "68%", label: "São Paulo", delay: "0.5s" },
+                { x: "47%", y: "24%", label: "London", delay: "1s" },
+                { x: "50%", y: "20%", label: "Berlin", delay: "1.5s" },
+                { x: "55%", y: "32%", label: "Istanbul", delay: "2s" },
+                { x: "60%", y: "40%", label: "Dubai", delay: "2.5s" },
+                { x: "68%", y: "44%", label: "Mumbai", delay: "0.8s" },
+                { x: "77%", y: "30%", label: "Tokyo", delay: "1.3s" },
+                { x: "84%", y: "72%", label: "Sydney", delay: "1.8s" },
+              ].map((city, i) => (
+                <div key={i} className="absolute" style={{ left: city.x, top: city.y }}>
+                  {/* Ping ring */}
+                  <div className="absolute -inset-2 rounded-full border border-primary/30 animate-ping" style={{ animationDuration: "3s", animationDelay: city.delay }} />
+                  {/* Dot */}
+                  <div className="w-2 h-2 rounded-full bg-primary shadow-lg shadow-primary/50" />
+                  {/* Label */}
+                  <div className="absolute left-3 top-1/2 -translate-y-1/2 whitespace-nowrap text-[9px] text-primary/40 font-mono hidden sm:block">
+                    {city.label}
+                  </div>
+                </div>
+              ))}
+              {/* Connection lines between cities */}
+              <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                {[
+                  { x1: 16, y1: 28, x2: 47, y2: 24 },
+                  { x1: 47, y1: 24, x2: 50, y2: 20 },
+                  { x1: 50, y1: 20, x2: 55, y2: 32 },
+                  { x1: 55, y1: 32, x2: 60, y2: 40 },
+                  { x1: 60, y1: 40, x2: 68, y2: 44 },
+                  { x1: 68, y1: 44, x2: 77, y2: 30 },
+                  { x1: 77, y1: 30, x2: 84, y2: 72 },
+                  { x1: 16, y1: 28, x2: 24, y2: 68 },
+                ].map((line, i) => (
+                  <line key={i} x1={line.x1} y1={line.y1} x2={line.x2} y2={line.y2}
+                    stroke="#EF6F29" strokeWidth="0.15" strokeDasharray="1 2" opacity="0.2" />
+                ))}
+              </svg>
+            </div>
           </div>
         </div>
 
@@ -959,7 +1000,6 @@ export default function ApplyPage() {
           box-shadow: none;
         }
         @keyframes confettiFall{0%{transform:translateY(0) scale(0);opacity:1}15%{transform:translateX(calc(var(--dx)*0.3)) translateY(20vh) scale(1);opacity:1}100%{transform:translateX(var(--dx)) translateY(var(--fall)) scale(0.5) rotate(720deg);opacity:0}}
-        @keyframes globeSpin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
       `}</style>
     </main>
   )
