@@ -31,6 +31,7 @@ import {
   renderCategory,
   renderHelp,
   renderLangPicker,
+  renderPaymentPicker,
   renderPaymentSuccess,
   renderProduct,
   renderWelcome,
@@ -39,10 +40,12 @@ import {
 import { currencyForLang, detectLang, t, type Lang } from "@/lib/telegram/i18n"
 import {
   categoryKeyboard,
+  hasMultiplePaymentMethods,
   languagePickerKeyboard,
   localizedProductName,
   localizedVariantName,
   mainMenuKeyboard,
+  paymentMethodKeyboard,
   productKeyboard,
 } from "@/lib/telegram/keyboards"
 import { notifyOrder, notifyRaw } from "@/lib/telegram/notify"
@@ -224,6 +227,8 @@ async function showProduct(
   )
 }
 
+// Show the per-variant payment-method picker (Stars / Card / ...). If only
+// one method is configured, skip the picker and go straight to that invoice.
 async function sendVariantInvoice(
   chatId: number,
   product: Product,
@@ -236,10 +241,32 @@ async function sendVariantInvoice(
     return
   }
 
+  if (!hasMultiplePaymentMethods()) {
+    // Only Stars is configured — skip the picker for fewer taps.
+    await sendStarsInvoice(chatId, product, variant, lang)
+    return
+  }
+
+  const currency = currencyForLang(lang)
+  const priceLabel = formatBotPrice(variant.priceInPence, currency)
+  const variantName = localizedVariantName(product, variant, lang)
+  await sendMessage({
+    chat_id: chatId,
+    parse_mode: "HTML",
+    text: renderPaymentPicker(product, variantName, priceLabel, lang),
+    reply_markup: paymentMethodKeyboard(product.id, variant.id, variant.priceInPence, lang),
+  })
+}
+
+async function sendStarsInvoice(
+  chatId: number,
+  product: Product,
+  variant: Product["variants"][number],
+  lang: Lang,
+) {
   const stars = penceToStars(variant.priceInPence)
   const currency = currencyForLang(lang)
   const price = formatBotPrice(variant.priceInPence, currency)
-
   const name = localizedProductName(product, lang)
   const variantName = localizedVariantName(product, variant, lang)
 
@@ -247,14 +274,42 @@ async function sendVariantInvoice(
     chat_id: chatId,
     title: `${name} — ${variantName}`.slice(0, 32),
     description: renderInvoiceDescription(product, lang),
-    // Payload is the only state we get back in successful_payment, so we pack
-    // enough to identify the order and preserve language.
     payload: `buy:${product.id}:${variant.id}:${lang}`,
     provider_token: "", // Empty string selects Stars (XTR).
     currency: "XTR",
-    prices: [
-      { label: `${variantName} (${price})`.slice(0, 32), amount: stars },
-    ],
+    prices: [{ label: `${variantName} (${price})`.slice(0, 32), amount: stars }],
+  })
+}
+
+// Card invoice via Telegram's native payments API. Uses TELEGRAM_PROVIDER_TOKEN
+// from BotFather Payments (Redsys, Stripe, YooKassa, etc). Site prices are
+// stored in pence — for currencies whose minor unit is also 1/100 (EUR, USD,
+// GBP) we can pass the value directly. RUB also uses 1/100 (kopecks) so the
+// conversion factor is the same. Currency is configurable via env so the
+// operator can swap providers without code changes.
+async function sendCardInvoice(
+  chatId: number,
+  product: Product,
+  variant: Product["variants"][number],
+  lang: Lang,
+) {
+  const providerToken = process.env.TELEGRAM_PROVIDER_TOKEN
+  if (!providerToken) {
+    await sendMessage({ chat_id: chatId, text: t("variant_unavailable", lang) })
+    return
+  }
+  const currency = (process.env.TELEGRAM_PROVIDER_CURRENCY || "EUR").toUpperCase()
+  const name = localizedProductName(product, lang)
+  const variantName = localizedVariantName(product, variant, lang)
+
+  await sendInvoice({
+    chat_id: chatId,
+    title: `${name} — ${variantName}`.slice(0, 32),
+    description: renderInvoiceDescription(product, lang),
+    payload: `buy:${product.id}:${variant.id}:${lang}`,
+    provider_token: providerToken,
+    currency,
+    prices: [{ label: `${variantName}`.slice(0, 32), amount: variant.priceInPence }],
   })
 }
 
@@ -273,6 +328,18 @@ async function handleSuccessfulPayment(msg: TGMessage) {
 
   const orderId = `TG-${Date.now().toString(36).toUpperCase()}-${payment.telegram_payment_charge_id.slice(-6)}`
 
+  // Distinguish Stars (currency XTR) from card payments (EUR/USD/RUB/etc).
+  const isStars = payment.currency === "XTR"
+  const paymentMethod = isStars ? "Telegram Stars" : `Card (${payment.currency})`
+  // Convert paid amount to a sensible "total in major units" for the admin
+  // notification: Stars don't map cleanly to GBP, so fall back to the
+  // configured variant price in those cases.
+  const totalForNotify = isStars
+    ? variant
+      ? variant.priceInPence / 100
+      : payment.total_amount / starsPerUsd()
+    : payment.total_amount / 100
+
   await sendMessage({
     chat_id: msg.chat.id,
     parse_mode: "HTML",
@@ -289,8 +356,8 @@ async function handleSuccessfulPayment(msg: TGMessage) {
     source: "telegram-bot",
     orderId,
     telegramUser: userLabel(msg.from),
-    paymentMethod: "Telegram Stars",
-    total: variant ? variant.priceInPence / 100 : payment.total_amount / starsPerUsd(),
+    paymentMethod,
+    total: totalForNotify,
     items: [
       {
         name: product ? localizedProductName(product, "en") : "Unknown product",
@@ -393,7 +460,8 @@ async function handleCallbackQuery(cb: TGCallbackQuery) {
   }
 
   if (data.startsWith("buy:")) {
-    // buy:<productId>:<variantId>:<lang>
+    // buy:<productId>:<variantId>:<lang> — open the payment-method picker
+    // (or a Stars invoice directly if Stars is the only configured method).
     const parts = data.split(":")
     const product = parts[1] ? getProductById(parts[1]) : null
     if (!product) {
@@ -401,6 +469,24 @@ async function handleCallbackQuery(cb: TGCallbackQuery) {
       return
     }
     await sendVariantInvoice(chatId, product, parts[2] || "", lang)
+    return
+  }
+
+  if (data.startsWith("pay:")) {
+    // pay:<method>:<productId>:<variantId>:<lang>
+    const parts = data.split(":")
+    const method = parts[1]
+    const product = parts[2] ? getProductById(parts[2]) : null
+    const variant = product && parts[3] ? getVariantById(product.id, parts[3]) : null
+    if (!product || !variant) {
+      await sendMessage({ chat_id: chatId, text: t("variant_unavailable", lang) })
+      return
+    }
+    if (method === "stars") {
+      await sendStarsInvoice(chatId, product, variant, lang)
+    } else if (method === "card") {
+      await sendCardInvoice(chatId, product, variant, lang)
+    }
     return
   }
 }

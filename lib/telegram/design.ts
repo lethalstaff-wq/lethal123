@@ -82,6 +82,22 @@ export function renderProduct(product: Product, lang: Lang): string {
   return caption
 }
 
+// --- Payment method picker ----------------------------------------------------
+
+export function renderPaymentPicker(
+  product: Product,
+  variantName: string,
+  priceLabel: string,
+  lang: Lang,
+): string {
+  return [
+    `<b>${escapeHtml(localizedProductName(product, lang))}</b>`,
+    `<i>${escapeHtml(variantName)}  ·  ${escapeHtml(priceLabel)}</i>`,
+    "",
+    t("pay_method_title", lang),
+  ].join("\n")
+}
+
 // --- Payment success ----------------------------------------------------------
 
 export function renderPaymentSuccess(

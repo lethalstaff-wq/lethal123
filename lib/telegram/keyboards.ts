@@ -138,11 +138,10 @@ export function productKeyboard(product: Product, lang: Lang): InlineKeyboardMar
     inline_keyboard: [
       ...product.variants.map((v) => {
         const price = formatBotPrice(v.priceInPence, currency)
-        const stars = formatStars(penceToStars(v.priceInPence))
         const name = localizedVariantName(product, v, lang)
         return [
           {
-            text: `${name}  ·  ${price}  ·  ${stars}`,
+            text: `${name}  ·  ${price}`,
             callback_data: `buy:${product.id}:${v.id}:${lang}`,
           },
         ]
@@ -150,6 +149,47 @@ export function productKeyboard(product: Product, lang: Lang): InlineKeyboardMar
       [{ text: t("btn_back", lang), callback_data: `cat:${product.category}:${lang}` }],
     ],
   }
+}
+
+// Renders the per-variant payment-method picker. Methods that aren't
+// configured (no env token) are simply omitted, so the operator can enable
+// individual rails by setting the matching env vars.
+export function paymentMethodKeyboard(
+  productId: string,
+  variantId: string,
+  variantPriceInPence: number,
+  lang: Lang,
+): InlineKeyboardMarkup {
+  const rows: { text: string; callback_data: string }[][] = []
+  const stars = formatStars(penceToStars(variantPriceInPence))
+  rows.push([
+    {
+      text: `${t("pay_method_stars", lang)}  ·  ${stars}`,
+      callback_data: `pay:stars:${productId}:${variantId}:${lang}`,
+    },
+  ])
+  if (process.env.TELEGRAM_PROVIDER_TOKEN) {
+    rows.push([
+      {
+        text: t("pay_method_card", lang),
+        callback_data: `pay:card:${productId}:${variantId}:${lang}`,
+      },
+    ])
+  }
+  rows.push([
+    {
+      text: t("pay_method_back", lang),
+      callback_data: `prod:${productId}:${lang}`,
+    },
+  ])
+  return { inline_keyboard: rows }
+}
+
+// Returns true when at least one alternative payment rail (other than Stars)
+// is configured — drives whether the bot shows a picker or jumps straight to
+// a Stars invoice.
+export function hasMultiplePaymentMethods(): boolean {
+  return !!process.env.TELEGRAM_PROVIDER_TOKEN
 }
 
 export function languagePickerKeyboard(): InlineKeyboardMarkup {

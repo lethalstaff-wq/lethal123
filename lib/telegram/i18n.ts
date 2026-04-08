@@ -85,6 +85,22 @@ const STRINGS: Dict = {
   },
   breadcrumb_separator: { en: " › ", ru: " › " },
   breadcrumb_home: { en: "Home", ru: "Главная" },
+  pay_method_title: {
+    en: "<b>Choose payment method</b>",
+    ru: "<b>Выбери способ оплаты</b>",
+  },
+  pay_method_stars: {
+    en: "⭐ Telegram Stars",
+    ru: "⭐ Telegram Stars",
+  },
+  pay_method_card: {
+    en: "💳 Card",
+    ru: "💳 Картой",
+  },
+  pay_method_back: {
+    en: "« Back",
+    ru: "« Назад",
+  },
   btn_back: { en: "« Back", ru: "« Назад" },
   btn_website: { en: "🛒 Open website", ru: "🛒 Открыть сайт" },
   btn_support: { en: "💬 Support", ru: "💬 Поддержка" },
