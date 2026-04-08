@@ -23,6 +23,13 @@ export async function GET() {
     VERCEL_URL: !!process.env.VERCEL_URL,
   }
 
+  // Find any env var name that looks even remotely Telegram-related so we can
+  // catch typos (trailing spaces, wrong prefixes, underscores-vs-dashes, etc).
+  const allKeys = Object.keys(process.env)
+  const telegramLike = allKeys
+    .filter((k) => /telegram|teleg|t\.?me|chat_id|bot_token|webhook/i.test(k))
+    .sort()
+
   return NextResponse.json({
     ok: true,
     hint: "true = variable is set, false = missing",
@@ -35,5 +42,10 @@ export async function GET() {
       VERCEL_ENV: process.env.VERCEL_ENV || null,
       VERCEL_URL: process.env.VERCEL_URL || null,
     },
+    // Any env var name matching a Telegram-related regex. If you added the
+    // secrets with a typo or stray whitespace in the name, it should show up
+    // here even though the strict lookups above return false.
+    telegramLike,
+    totalEnvKeys: allKeys.length,
   })
 }
