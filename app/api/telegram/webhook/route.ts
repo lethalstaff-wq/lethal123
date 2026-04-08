@@ -20,10 +20,12 @@ import { getProductById, getVariantById, type Product } from "@/lib/products"
 import {
   answerCallbackQuery,
   answerPreCheckoutQuery,
-  editMessageText,
+  deleteMessage,
+  editMessageMedia,
   escapeHtml,
   sendInvoice,
   sendMessage,
+  sendPhoto,
 } from "@/lib/telegram/client"
 import {
   renderCategory,
@@ -121,25 +123,63 @@ function parseLangSuffix(data: string): Lang {
   return "en"
 }
 
-async function showMainMenu(chatId: number, lang: Lang, editMessageId?: number) {
-  const text = renderWelcome(lang)
-  const keyboard = mainMenuKeyboard(lang)
+// Build an absolute URL for a public asset so Telegram can fetch it.
+function assetUrl(path: string): string {
+  const base =
+    process.env.NEXT_PUBLIC_SITE_URL?.trim().replace(/^[<\s]+|[>\s]+$/g, "").replace(/\/+$/, "") ||
+    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://www.lethalsolutions.me")
+  return `${base}${path.startsWith("/") ? path : `/${path}`}`
+}
+
+const MAIN_BANNER = "/images/banner.png"
+
+// Core "render a photo card in place" primitive. If editMessageId is set it
+// swaps the photo+caption+keyboard in-place; otherwise sends a new photo
+// message. On edit failure (Telegram rejects editing a text-only message as
+// media) we fall back to delete + send.
+async function renderPhotoCard(
+  chatId: number,
+  photo: string,
+  caption: string,
+  keyboard: ReturnType<typeof mainMenuKeyboard>,
+  editMessageId?: number,
+) {
   if (editMessageId) {
-    await editMessageText({
-      chat_id: chatId,
-      message_id: editMessageId,
-      text,
-      parse_mode: "HTML",
-      reply_markup: keyboard,
-    })
-  } else {
-    await sendMessage({
-      chat_id: chatId,
-      text,
-      parse_mode: "HTML",
-      reply_markup: keyboard,
-    })
+    try {
+      await editMessageMedia({
+        chat_id: chatId,
+        message_id: editMessageId,
+        media: {
+          type: "photo",
+          media: photo,
+          caption,
+          parse_mode: "HTML",
+        },
+        reply_markup: keyboard,
+      })
+      return
+    } catch {
+      // Previous message wasn't a photo (e.g. /help text) — delete it and send fresh.
+      await deleteMessage({ chat_id: chatId, message_id: editMessageId }).catch(() => {})
+    }
   }
+  await sendPhoto({
+    chat_id: chatId,
+    photo,
+    caption,
+    parse_mode: "HTML",
+    reply_markup: keyboard,
+  })
+}
+
+async function showMainMenu(chatId: number, lang: Lang, editMessageId?: number) {
+  await renderPhotoCard(
+    chatId,
+    assetUrl(MAIN_BANNER),
+    renderWelcome(lang),
+    mainMenuKeyboard(lang),
+    editMessageId,
+  )
 }
 
 async function showCategory(
@@ -153,24 +193,13 @@ async function showCategory(
     return showMainMenu(chatId, lang, editMessageId)
   }
   const cat = category as (typeof valid)[number]
-  const text = renderCategory(cat, lang)
-  const keyboard = categoryKeyboard(cat, lang)
-  if (editMessageId) {
-    await editMessageText({
-      chat_id: chatId,
-      message_id: editMessageId,
-      text,
-      parse_mode: "HTML",
-      reply_markup: keyboard,
-    })
-  } else {
-    await sendMessage({
-      chat_id: chatId,
-      text,
-      parse_mode: "HTML",
-      reply_markup: keyboard,
-    })
-  }
+  await renderPhotoCard(
+    chatId,
+    assetUrl(MAIN_BANNER),
+    renderCategory(cat, lang),
+    categoryKeyboard(cat, lang),
+    editMessageId,
+  )
 }
 
 async function showProduct(
@@ -184,25 +213,15 @@ async function showProduct(
     await sendMessage({ chat_id: chatId, text: t("product_not_found", lang) })
     return
   }
-
-  const text = renderProduct(product, lang)
-  const keyboard = productKeyboard(product, lang)
-  if (editMessageId) {
-    await editMessageText({
-      chat_id: chatId,
-      message_id: editMessageId,
-      text,
-      parse_mode: "HTML",
-      reply_markup: keyboard,
-    })
-  } else {
-    await sendMessage({
-      chat_id: chatId,
-      text,
-      parse_mode: "HTML",
-      reply_markup: keyboard,
-    })
-  }
+  // Fall back to the main banner if the product image path is missing.
+  const photo = product.image ? assetUrl(product.image) : assetUrl(MAIN_BANNER)
+  await renderPhotoCard(
+    chatId,
+    photo,
+    renderProduct(product, lang),
+    productKeyboard(product, lang),
+    editMessageId,
+  )
 }
 
 async function sendVariantInvoice(

@@ -49,6 +49,31 @@ interface SendInvoiceOptions {
   start_parameter?: string
 }
 
+interface SendPhotoOptions {
+  chat_id: number | string
+  photo: string // public URL, file_id, or InputFile
+  caption?: string
+  parse_mode?: "HTML" | "Markdown" | "MarkdownV2"
+  reply_markup?: InlineKeyboardMarkup
+}
+
+interface EditMessageMediaOptions {
+  chat_id: number | string
+  message_id: number
+  media: {
+    type: "photo"
+    media: string
+    caption?: string
+    parse_mode?: "HTML" | "Markdown" | "MarkdownV2"
+  }
+  reply_markup?: InlineKeyboardMarkup
+}
+
+interface DeleteMessageOptions {
+  chat_id: number | string
+  message_id: number
+}
+
 interface AnswerCallbackQueryOptions {
   callback_query_id: string
   text?: string
@@ -107,6 +132,18 @@ export function editMessageText(options: EditMessageOptions) {
 
 export function sendInvoice(options: SendInvoiceOptions) {
   return callTelegram("sendInvoice", options)
+}
+
+export function sendPhoto(options: SendPhotoOptions) {
+  return callTelegram("sendPhoto", options)
+}
+
+export function editMessageMedia(options: EditMessageMediaOptions) {
+  return callTelegram("editMessageMedia", options)
+}
+
+export function deleteMessage(options: DeleteMessageOptions) {
+  return callTelegram("deleteMessage", options)
 }
 
 export function answerCallbackQuery(options: AnswerCallbackQueryOptions) {

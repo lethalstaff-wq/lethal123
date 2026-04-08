@@ -28,8 +28,8 @@ const STRINGS: Dict = {
     ru: "<b>Добро пожаловать в Lethal Solutions</b> 🖤",
   },
   welcome_body: {
-    en: "Premium DMA cheats, HWID spoofers & firmware — now available directly in Telegram.\n\nPick a category below to browse the catalog. Payments are processed in-app via Telegram Stars ⭐.\n\nNeed help? Message us any time and we'll reply.",
-    ru: "Премиум DMA-читы, HWID-спуферы и прошивки — теперь прямо в Telegram.\n\nВыбери категорию ниже, чтобы посмотреть каталог. Оплата проходит внутри Telegram через Stars ⭐.\n\nНужна помощь? Просто напиши нам в этот чат.",
+    en: "Premium DMA cheats, spoofers & firmware.\nPaid in ⭐ Telegram Stars.",
+    ru: "Премиум DMA-читы, спуферы и прошивки.\nОплата через ⭐ Telegram Stars.",
   },
   cat_cheat: { en: "🎯 Cheats", ru: "🎯 Читы" },
   cat_spoofer: { en: "🛡️ Spoofers", ru: "🛡️ Спуферы" },
@@ -40,8 +40,8 @@ const STRINGS: Dict = {
   cat_firmware_title: { en: "💾 <b>DMA Firmware</b>", ru: "💾 <b>DMA Прошивки</b>" },
   cat_bundle_title: { en: "📦 <b>Bundles</b>", ru: "📦 <b>Комплекты</b>" },
   category_body: {
-    en: "Select a product to see pricing and purchase options.",
-    ru: "Выбери товар, чтобы увидеть цены и оформить покупку.",
+    en: "Tap a product to see pricing.",
+    ru: "Выбери товар, чтобы увидеть цены.",
   },
   btn_back: { en: "« Back", ru: "« Назад" },
   btn_website: { en: "🛒 Open website", ru: "🛒 Открыть сайт" },
