@@ -22,16 +22,26 @@ function siteUrl(): string | null {
 }
 
 async function ensureAuthorized(request: Request): Promise<NextResponse | null> {
-  const adminSecret = process.env.ADMIN_SECRET
-  if (!adminSecret) {
+  // Accept either ADMIN_SECRET (shared site admin secret) or
+  // TELEGRAM_WEBHOOK_SECRET (the one we already use for the Telegram webhook
+  // itself). Whichever one is configured is good enough — this endpoint is
+  // only for the operator to register the bot webhook a single time after
+  // deploy.
+  const candidates = [process.env.ADMIN_SECRET, process.env.TELEGRAM_WEBHOOK_SECRET].filter(
+    Boolean,
+  ) as string[]
+  if (candidates.length === 0) {
     return NextResponse.json(
-      { ok: false, error: "ADMIN_SECRET not configured on the server" },
+      {
+        ok: false,
+        error: "Neither ADMIN_SECRET nor TELEGRAM_WEBHOOK_SECRET configured on the server",
+      },
       { status: 500 },
     )
   }
   const url = new URL(request.url)
   const provided = url.searchParams.get("secret") || request.headers.get("x-admin-secret")
-  if (provided !== adminSecret) {
+  if (!provided || !candidates.includes(provided)) {
     return NextResponse.json({ ok: false, error: "forbidden" }, { status: 403 })
   }
   return null
