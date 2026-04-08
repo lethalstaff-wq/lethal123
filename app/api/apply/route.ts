@@ -1,11 +1,25 @@
 import { NextResponse } from "next/server"
 
+import { notifyStaffApply } from "@/lib/telegram/notify"
+
 export async function POST(request: Request) {
   const data = await request.json()
 
   if (!data.position || !data.discord || !data.age || !data.experience || !data.whyLethal) {
     return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
   }
+
+  // Mirror to the Telegram admin chat.
+  await notifyStaffApply({
+    position: data.position,
+    discord: data.discord,
+    age: data.age,
+    timezone: data.timezone,
+    hoursPerWeek: data.hoursPerWeek,
+    experience: data.experience,
+    whyLethal: data.whyLethal,
+    portfolio: data.portfolio,
+  }).catch((err) => console.error("[apply] telegram notify failed:", err))
 
   // Send to Discord webhook
   const webhookUrl = process.env.DISCORD_WEBHOOK_URL || process.env.APPLY_WEBHOOK_URL
