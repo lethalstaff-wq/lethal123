@@ -434,21 +434,15 @@ export async function POST(request: Request) {
         return NextResponse.json({ ok: true })
       }
     } catch (err) {
-      const msg = err instanceof Error ? err.message : String(err)
-      const stack = err instanceof Error && err.stack ? err.stack.split("\n").slice(0, 3).join(" | ") : ""
-      console.error("[telegram/webhook] handler error:", msg, stack, err)
-      // Surface the failure to Telegram so it shows up in getWebhookInfo's
-      // last_error_message. We use 500 so Telegram records the error but it
-      // will still try to re-deliver, which is fine during debugging.
-      return new NextResponse(`inner: ${msg} | ${stack}`.slice(0, 250), { status: 500 })
+      console.error("[telegram/webhook] handler error:", err)
+      // Always return 200 so Telegram doesn't retry the same update forever.
+      return NextResponse.json({ ok: true })
     }
 
     return NextResponse.json({ ok: true })
   } catch (outerErr) {
-    const msg = outerErr instanceof Error ? outerErr.message : String(outerErr)
-    const stack = outerErr instanceof Error && outerErr.stack ? outerErr.stack.split("\n").slice(0, 3).join(" | ") : ""
-    console.error("[telegram/webhook] OUTER error:", msg, stack, outerErr)
-    return new NextResponse(`outer: ${msg} | ${stack}`.slice(0, 250), { status: 500 })
+    console.error("[telegram/webhook] OUTER error:", outerErr)
+    return NextResponse.json({ ok: true })
   }
 }
 

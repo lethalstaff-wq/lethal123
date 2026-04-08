@@ -69,15 +69,26 @@ function badgeEmoji(p: Product): string {
   return "◆"
 }
 
+// Strip any surrounding <>, whitespace or trailing slashes from an env-provided
+// URL. Vercel env vars are prone to getting <autolink> formatting when copied
+// from Markdown on mobile, which Telegram's inline keyboard then rejects with
+// "Unsupported URL protocol".
+function cleanUrl(raw: string | undefined): string | null {
+  if (!raw) return null
+  const trimmed = raw.trim().replace(/^[<\s]+|[>\s]+$/g, "")
+  if (!/^https?:\/\//i.test(trimmed)) return null
+  return trimmed.replace(/\/+$/, "")
+}
+
 function siteUrl(): string {
   return (
-    process.env.NEXT_PUBLIC_SITE_URL ||
+    cleanUrl(process.env.NEXT_PUBLIC_SITE_URL) ||
     (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://lethalsolutions.me")
   )
 }
 
 function supportUrl(): string {
-  return process.env.TELEGRAM_SUPPORT_URL || "https://t.me/lethalsolutions"
+  return cleanUrl(process.env.TELEGRAM_SUPPORT_URL) || "https://t.me/lethalsolutions"
 }
 
 export function mainMenuKeyboard(lang: Lang): InlineKeyboardMarkup {
