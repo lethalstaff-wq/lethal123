@@ -389,59 +389,67 @@ async function handleCallbackQuery(cb: TGCallbackQuery) {
 // --- Route handler ---
 
 export async function POST(request: Request) {
-  // Verify the secret token header so random posters can't drive the bot.
-  const expected = process.env.TELEGRAM_WEBHOOK_SECRET
-  if (expected) {
-    const got = request.headers.get("x-telegram-bot-api-secret-token")
-    if (got !== expected) {
-      return new NextResponse("forbidden", { status: 403 })
-    }
-  }
-
-  if (!process.env.TELEGRAM_BOT_TOKEN) {
-    return NextResponse.json({ ok: false, error: "bot not configured" }, { status: 200 })
-  }
-
-  let update: TGUpdate
   try {
-    update = (await request.json()) as TGUpdate
-  } catch {
-    return new NextResponse("bad json", { status: 400 })
-  }
-
-  try {
-    if (update.pre_checkout_query) {
-      // Always approve — we have no stock or coupon logic at this stage.
-      await answerPreCheckoutQuery({
-        pre_checkout_query_id: update.pre_checkout_query.id,
-        ok: true,
-      })
-      return NextResponse.json({ ok: true })
-    }
-
-    if (update.callback_query) {
-      await handleCallbackQuery(update.callback_query)
-      return NextResponse.json({ ok: true })
-    }
-
-    if (update.message) {
-      if (update.message.successful_payment) {
-        await handleSuccessfulPayment(update.message)
-      } else {
-        await handleTextMessage(update.message)
+    // Verify the secret token header so random posters can't drive the bot.
+    const expected = process.env.TELEGRAM_WEBHOOK_SECRET
+    if (expected) {
+      const got = request.headers.get("x-telegram-bot-api-secret-token")
+      if (got !== expected) {
+        return new NextResponse("forbidden", { status: 403 })
       }
-      return NextResponse.json({ ok: true })
     }
-  } catch (err) {
-    const msg = err instanceof Error ? err.message : String(err)
-    console.error("[telegram/webhook] handler error:", msg, err)
-    // Surface the failure to Telegram so it shows up in getWebhookInfo's
-    // last_error_message. We use 500 so Telegram records the error but it
-    // will still try to re-deliver, which is fine during debugging.
-    return new NextResponse(`handler error: ${msg}`.slice(0, 200), { status: 500 })
-  }
 
-  return NextResponse.json({ ok: true })
+    if (!process.env.TELEGRAM_BOT_TOKEN) {
+      return NextResponse.json({ ok: false, error: "bot not configured" }, { status: 200 })
+    }
+
+    let update: TGUpdate
+    try {
+      update = (await request.json()) as TGUpdate
+    } catch {
+      return new NextResponse("bad json", { status: 400 })
+    }
+
+    try {
+      if (update.pre_checkout_query) {
+        // Always approve — we have no stock or coupon logic at this stage.
+        await answerPreCheckoutQuery({
+          pre_checkout_query_id: update.pre_checkout_query.id,
+          ok: true,
+        })
+        return NextResponse.json({ ok: true })
+      }
+
+      if (update.callback_query) {
+        await handleCallbackQuery(update.callback_query)
+        return NextResponse.json({ ok: true })
+      }
+
+      if (update.message) {
+        if (update.message.successful_payment) {
+          await handleSuccessfulPayment(update.message)
+        } else {
+          await handleTextMessage(update.message)
+        }
+        return NextResponse.json({ ok: true })
+      }
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err)
+      const stack = err instanceof Error && err.stack ? err.stack.split("\n").slice(0, 3).join(" | ") : ""
+      console.error("[telegram/webhook] handler error:", msg, stack, err)
+      // Surface the failure to Telegram so it shows up in getWebhookInfo's
+      // last_error_message. We use 500 so Telegram records the error but it
+      // will still try to re-deliver, which is fine during debugging.
+      return new NextResponse(`inner: ${msg} | ${stack}`.slice(0, 250), { status: 500 })
+    }
+
+    return NextResponse.json({ ok: true })
+  } catch (outerErr) {
+    const msg = outerErr instanceof Error ? outerErr.message : String(outerErr)
+    const stack = outerErr instanceof Error && outerErr.stack ? outerErr.stack.split("\n").slice(0, 3).join(" | ") : ""
+    console.error("[telegram/webhook] OUTER error:", msg, stack, outerErr)
+    return new NextResponse(`outer: ${msg} | ${stack}`.slice(0, 250), { status: 500 })
+  }
 }
 
 // Keep GET available for quick health checks.
