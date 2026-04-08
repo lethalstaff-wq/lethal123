@@ -1,6 +1,8 @@
 import { createClient } from "@/lib/supabase/server"
 import { NextRequest, NextResponse } from "next/server"
 
+import { notifyDownload } from "@/lib/telegram/notify"
+
 export async function GET(request: NextRequest) {
   const key = request.nextUrl.searchParams.get("key")
 
@@ -130,6 +132,16 @@ export async function GET(request: NextRequest) {
         ]
       }
     }) || []
+
+    notifyDownload({
+      orderId: license.order.order_display_id || undefined,
+      email: license.order.user_email || undefined,
+      productName: products[0]?.name,
+      ipAddress:
+        request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+        request.headers.get("x-real-ip") ||
+        undefined,
+    }).catch((e) => console.error("[telegram/notify] download failed:", e))
 
     return NextResponse.json({
       orderId: license.order.id,

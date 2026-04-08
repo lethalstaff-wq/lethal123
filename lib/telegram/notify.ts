@@ -148,3 +148,174 @@ export async function notifyStaffApply(data: StaffApplyNotificationPayload) {
 export async function notifyRaw(text: string) {
   await safeSend(text)
 }
+
+// --- Site-wide event notifications -------------------------------------------
+
+export interface SignupNotification {
+  email: string
+  discord?: string
+  ipAddress?: string
+  country?: string
+  countryCode?: string
+  userAgent?: string
+}
+
+export async function notifySignup(data: SignupNotification) {
+  const lines = [
+    "🆕 <b>New signup</b>",
+    "",
+    `<b>Email:</b> <code>${escapeHtml(data.email)}</code>`,
+    data.discord ? `<b>Discord:</b> ${escapeHtml(data.discord)}` : null,
+    data.country
+      ? `<b>From:</b> ${flagEmoji(data.countryCode)} ${escapeHtml(data.country)}`
+      : null,
+    data.ipAddress ? `<b>IP:</b> <code>${escapeHtml(data.ipAddress)}</code>` : null,
+  ].filter(Boolean) as string[]
+  await safeSend(lines.join("\n"))
+}
+
+export interface LoginNotification {
+  email: string
+  ipAddress?: string
+  country?: string
+  countryCode?: string
+  city?: string
+  userAgent?: string
+  isAdmin?: boolean
+}
+
+export async function notifyLogin(data: LoginNotification) {
+  const title = data.isAdmin ? "🛡 <b>Admin login</b>" : "🔑 <b>User login</b>"
+  const lines = [
+    title,
+    "",
+    `<b>Email:</b> <code>${escapeHtml(data.email)}</code>`,
+    data.country
+      ? `<b>From:</b> ${flagEmoji(data.countryCode)} ${escapeHtml(
+          [data.city, data.country].filter(Boolean).join(", "),
+        )}`
+      : null,
+    data.ipAddress ? `<b>IP:</b> <code>${escapeHtml(data.ipAddress)}</code>` : null,
+  ].filter(Boolean) as string[]
+  await safeSend(lines.join("\n"))
+}
+
+export interface OrderStatusNotification {
+  orderId: string
+  email?: string
+  newStatus: string
+  total?: number
+  productName?: string
+}
+
+export async function notifyOrderStatus(data: OrderStatusNotification) {
+  const emoji =
+    data.newStatus === "confirmed" || data.newStatus === "completed"
+      ? "✅"
+      : data.newStatus === "cancelled" || data.newStatus === "refunded"
+        ? "❌"
+        : "🔄"
+  const lines = [
+    `${emoji} <b>Order ${escapeHtml(data.newStatus)}</b>`,
+    "",
+    `<b>Order:</b> <code>${escapeHtml(data.orderId)}</code>`,
+    data.email ? `<b>Email:</b> <code>${escapeHtml(data.email)}</code>` : null,
+    data.productName ? `<b>Product:</b> ${escapeHtml(data.productName)}` : null,
+    typeof data.total === "number" ? `<b>Total:</b> £${data.total.toFixed(2)}` : null,
+  ].filter(Boolean) as string[]
+  await safeSend(lines.join("\n"))
+}
+
+export interface ReviewNotification {
+  rating: number
+  content: string
+  productName?: string
+  authorName: string
+}
+
+export async function notifyReview(data: ReviewNotification) {
+  const stars = "⭐".repeat(Math.max(1, Math.min(5, Math.round(data.rating))))
+  const lines = [
+    `📝 <b>New review</b> ${stars}`,
+    "",
+    data.productName ? `<b>Product:</b> ${escapeHtml(data.productName)}` : null,
+    `<b>By:</b> ${escapeHtml(data.authorName)}`,
+    "",
+    escapeHtml(data.content.slice(0, 600)),
+  ].filter(Boolean) as string[]
+  await safeSend(lines.join("\n"))
+}
+
+export interface CouponNotification {
+  code: string
+  valid: boolean
+  reason?: string
+  ipAddress?: string
+}
+
+export async function notifyCoupon(data: CouponNotification) {
+  const emoji = data.valid ? "🎟️" : "⚠️"
+  const status = data.valid ? "valid" : "rejected"
+  const lines = [
+    `${emoji} <b>Coupon ${status}</b>`,
+    "",
+    `<b>Code:</b> <code>${escapeHtml(data.code)}</code>`,
+    data.reason ? `<b>Reason:</b> ${escapeHtml(data.reason)}` : null,
+    data.ipAddress ? `<b>IP:</b> <code>${escapeHtml(data.ipAddress)}</code>` : null,
+  ].filter(Boolean) as string[]
+  await safeSend(lines.join("\n"))
+}
+
+export interface DownloadNotification {
+  orderId?: string
+  email?: string
+  productName?: string
+  ipAddress?: string
+}
+
+export async function notifyDownload(data: DownloadNotification) {
+  const lines = [
+    "📥 <b>License downloaded</b>",
+    "",
+    data.orderId ? `<b>Order:</b> <code>${escapeHtml(data.orderId)}</code>` : null,
+    data.email ? `<b>Email:</b> <code>${escapeHtml(data.email)}</code>` : null,
+    data.productName ? `<b>Product:</b> ${escapeHtml(data.productName)}` : null,
+    data.ipAddress ? `<b>IP:</b> <code>${escapeHtml(data.ipAddress)}</code>` : null,
+  ].filter(Boolean) as string[]
+  await safeSend(lines.join("\n"))
+}
+
+export interface VisitorNotification {
+  path: string
+  ipAddress?: string
+  country?: string
+  countryCode?: string
+  city?: string
+  region?: string
+  userAgent?: string
+  referrer?: string
+}
+
+export async function notifyVisitor(data: VisitorNotification) {
+  // Compress user-agent to "Browser on OS · device" so it fits one line.
+  const ua = (data.userAgent || "").slice(0, 200)
+  const browser = /Chrome\/[\d.]+/.exec(ua)?.[0] || /Firefox\/[\d.]+/.exec(ua)?.[0] || /Safari\/[\d.]+/.exec(ua)?.[0] || ""
+  const platform = /Windows NT [\d.]+/.exec(ua)?.[0] || /Mac OS X [\d_]+/.exec(ua)?.[0] || /Android [\d.]+/.exec(ua)?.[0] || /iPhone OS [\d_]+/.exec(ua)?.[0] || /Linux/.exec(ua)?.[0] || ""
+  const isMobile = /Mobile|iPhone|Android/i.test(ua) ? "📱" : "💻"
+
+  const locParts = [data.city, data.region, data.country].filter(Boolean) as string[]
+  const lines = [
+    `${isMobile} <b>New visitor</b>`,
+    "",
+    `<b>Page:</b> <code>${escapeHtml(data.path)}</code>`,
+    locParts.length
+      ? `<b>From:</b> ${flagEmoji(data.countryCode)} ${escapeHtml(locParts.join(", "))}`
+      : null,
+    data.ipAddress ? `<b>IP:</b> <code>${escapeHtml(data.ipAddress)}</code>` : null,
+    browser || platform
+      ? `<b>UA:</b> ${escapeHtml([browser, platform].filter(Boolean).join(" · "))}`
+      : null,
+    data.referrer ? `<b>From:</b> ${escapeHtml(data.referrer.slice(0, 100))}` : null,
+  ].filter(Boolean) as string[]
+  await safeSend(lines.join("\n"))
+}

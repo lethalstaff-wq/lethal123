@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createClient } from "@/lib/supabase/server"
 
+import { notifyOrderStatus } from "@/lib/telegram/notify"
+
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams
   const orderId = searchParams.get("id")
@@ -104,7 +106,15 @@ export async function GET(request: NextRequest) {
     } catch (discordError) {
       console.error("[v0] Failed to send Discord notification:", discordError)
     }
-    
+
+    // Notify Telegram admin chat
+    notifyOrderStatus({
+      orderId: order.order_display_id || orderId,
+      email: order.user_email || undefined,
+      newStatus: "confirmed",
+      total: typeof order.total_pence === "number" ? order.total_pence / 100 : undefined,
+    }).catch((e) => console.error("[telegram/notify] order status failed:", e))
+
     return new NextResponse(
       renderHtml("Order Approved!", `Order ${orderId} has been approved. License email sent to ${order.user_email}.`, "success"),
       { headers: { "Content-Type": "text/html" } }

@@ -2,6 +2,8 @@ import { createServerClient } from "@supabase/ssr"
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 
+import { notifySignup } from "@/lib/telegram/notify"
+
 export async function POST(request: NextRequest) {
   let body: { email?: string; password?: string; discord?: string }
   try {
@@ -49,6 +51,18 @@ export async function POST(request: NextRequest) {
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 400 })
   }
+
+  notifySignup({
+    email,
+    discord,
+    ipAddress:
+      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+      request.headers.get("x-real-ip") ||
+      undefined,
+    country: request.headers.get("x-vercel-ip-country") || undefined,
+    countryCode: request.headers.get("x-vercel-ip-country") || undefined,
+    userAgent: request.headers.get("user-agent") || undefined,
+  }).catch((e) => console.error("[telegram/notify] signup failed:", e))
 
   return response
 }
