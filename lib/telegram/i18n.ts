@@ -17,7 +17,7 @@ export function detectLang(user?: { language_code?: string }): Lang {
 }
 
 export function currencyForLang(lang: Lang): BotCurrency {
-  return lang === "ru" ? "RUB" : "USD"
+  return lang === "ru" ? "RUB" : "EUR"
 }
 
 type Dict = Record<string, { en: string; ru: string }>

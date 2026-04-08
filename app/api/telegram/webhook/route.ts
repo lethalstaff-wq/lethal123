@@ -11,7 +11,7 @@
 //   TELEGRAM_WEBHOOK_SECRET      — secret header sent by Telegram (required)
 //   TELEGRAM_ADMIN_CHAT_ID       — chat that receives order/contact notifications
 //   RUB_PER_GBP_BOT              — optional RUB rate, default 75
-//   STARS_PER_USD_BOT            — optional Stars rate, default 50
+//   STARS_PER_EUR_BOT            — optional Stars rate, default 50
 //   NEXT_PUBLIC_SITE_URL         — used for "Open website" button
 
 import { NextResponse } from "next/server"
@@ -52,7 +52,7 @@ import { notifyOrder, notifyRaw } from "@/lib/telegram/notify"
 import {
   formatBotPrice,
   penceToStars,
-  starsPerUsd,
+  starsPerEur,
 } from "@/lib/telegram/pricing"
 
 export const runtime = "nodejs"
@@ -337,7 +337,7 @@ async function handleSuccessfulPayment(msg: TGMessage) {
   const totalForNotify = isStars
     ? variant
       ? variant.priceInPence / 100
-      : payment.total_amount / starsPerUsd()
+      : payment.total_amount / starsPerEur()
     : payment.total_amount / 100
 
   await sendMessage({
