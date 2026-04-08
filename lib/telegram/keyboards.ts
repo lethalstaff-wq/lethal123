@@ -119,19 +119,14 @@ export function categoryKeyboard(
   lang: Lang,
 ): InlineKeyboardMarkup {
   const items = PRODUCTS.filter((p) => p.category === category)
-  const currency = currencyForLang(lang)
   return {
     inline_keyboard: [
-      ...items.map((p) => {
-        const minPrice = Math.min(...p.variants.map((v) => v.priceInPence))
-        const price = formatBotPrice(minPrice, currency)
-        return [
-          {
-            text: `${badgeEmoji(p)}  ${localizedProductName(p, lang)}  ·  ${t("category_starting_from", lang)} ${price}`,
-            callback_data: `prod:${p.id}:${lang}`,
-          },
-        ]
-      }),
+      ...items.map((p) => [
+        {
+          text: localizedProductName(p, lang),
+          callback_data: `prod:${p.id}:${lang}`,
+        },
+      ]),
       [{ text: t("btn_back", lang), callback_data: `home:${lang}` }],
     ],
   }
