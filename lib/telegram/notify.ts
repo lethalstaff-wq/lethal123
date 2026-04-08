@@ -7,6 +7,7 @@
 // missing, so the rest of the site keeps working even before you configure it.
 
 import { escapeHtml, sendMessage } from "@/lib/telegram/client"
+import { parseUA } from "@/lib/telegram/ua-parser"
 
 function adminChatId(): string | null {
   return process.env.TELEGRAM_ADMIN_CHAT_ID || null
@@ -292,30 +293,160 @@ export interface VisitorNotification {
   countryCode?: string
   city?: string
   region?: string
+  timezone?: string
+  latitude?: string
+  longitude?: string
+  asn?: string
   userAgent?: string
+  acceptLanguage?: string
   referrer?: string
+  // Client Hints (from Sec-CH-UA-* headers)
+  chPlatform?: string
+  chPlatformVersion?: string
+  chArch?: string
+  chBitness?: string
+  chMobile?: string
+  chModel?: string
+}
+
+function decodeMaybe(value: string | undefined): string | undefined {
+  if (!value) return value
+  try {
+    return decodeURIComponent(value)
+  } catch {
+    return value
+  }
+}
+
+function trimAndStripQuotes(value: string | undefined): string | undefined {
+  if (!value) return value
+  return value.replace(/^"|"$/g, "")
 }
 
 export async function notifyVisitor(data: VisitorNotification) {
-  // Compress user-agent to "Browser on OS · device" so it fits one line.
-  const ua = (data.userAgent || "").slice(0, 200)
-  const browser = /Chrome\/[\d.]+/.exec(ua)?.[0] || /Firefox\/[\d.]+/.exec(ua)?.[0] || /Safari\/[\d.]+/.exec(ua)?.[0] || ""
-  const platform = /Windows NT [\d.]+/.exec(ua)?.[0] || /Mac OS X [\d_]+/.exec(ua)?.[0] || /Android [\d.]+/.exec(ua)?.[0] || /iPhone OS [\d_]+/.exec(ua)?.[0] || /Linux/.exec(ua)?.[0] || ""
-  const isMobile = /Mobile|iPhone|Android/i.test(ua) ? "📱" : "💻"
+  const ua = parseUA(data.userAgent)
+  const isMobile = ua.device === "Mobile" || ua.device === "Tablet"
+  const headEmoji = ua.device === "Bot" ? "🤖" : isMobile ? "📱" : "💻"
 
-  const locParts = [data.city, data.region, data.country].filter(Boolean) as string[]
+  const city = decodeMaybe(data.city)
+  const region = decodeMaybe(data.region)
+  const country = decodeMaybe(data.country)
+  const locParts = [city, region, country].filter(Boolean) as string[]
+
+  // Pretty preferred language ("en-US,ru;q=0.9" → "en-US, ru")
+  const langs = (data.acceptLanguage || "")
+    .split(",")
+    .map((p) => p.split(";")[0].trim())
+    .filter(Boolean)
+    .slice(0, 3)
+    .join(", ")
+
+  // Build the device line: "Chrome 121 · Windows 11 · Desktop"
+  const chPlatform = trimAndStripQuotes(data.chPlatform)
+  const chPlatformVersion = trimAndStripQuotes(data.chPlatformVersion)
+  const osWithVersion =
+    chPlatform && chPlatformVersion ? `${chPlatform} ${chPlatformVersion}` : ua.os
+  const deviceParts = [ua.browser, osWithVersion, ua.device].filter(Boolean) as string[]
+  if (ua.engine) deviceParts.push(ua.engine)
+  if (ua.vendor) deviceParts.push(ua.vendor)
+  const arch = trimAndStripQuotes(data.chArch)
+  const bitness = trimAndStripQuotes(data.chBitness)
+  if (arch || bitness) deviceParts.push([arch, bitness && `${bitness}-bit`].filter(Boolean).join(" "))
+  const model = trimAndStripQuotes(data.chModel)
+  if (model) deviceParts.push(model)
+
   const lines = [
-    `${isMobile} <b>New visitor</b>`,
+    `${headEmoji} <b>New visitor</b>`,
     "",
     `<b>Page:</b> <code>${escapeHtml(data.path)}</code>`,
     locParts.length
-      ? `<b>From:</b> ${flagEmoji(data.countryCode)} ${escapeHtml(locParts.join(", "))}`
+      ? `<b>Location:</b> ${flagEmoji(data.countryCode)} ${escapeHtml(locParts.join(", "))}`
       : null,
-    data.ipAddress ? `<b>IP:</b> <code>${escapeHtml(data.ipAddress)}</code>` : null,
-    browser || platform
-      ? `<b>UA:</b> ${escapeHtml([browser, platform].filter(Boolean).join(" · "))}`
+    data.timezone ? `<b>Timezone:</b> ${escapeHtml(data.timezone)}` : null,
+    data.latitude && data.longitude
+      ? `<b>Coords:</b> <code>${escapeHtml(data.latitude)}, ${escapeHtml(data.longitude)}</code>`
       : null,
-    data.referrer ? `<b>From:</b> ${escapeHtml(data.referrer.slice(0, 100))}` : null,
+    data.ipAddress
+      ? `<b>IP:</b> <code>${escapeHtml(data.ipAddress)}</code>${data.asn ? ` <i>(AS${escapeHtml(data.asn)})</i>` : ""}`
+      : null,
+    `<b>Device:</b> ${escapeHtml(deviceParts.join(" · "))}`,
+    langs ? `<b>Lang:</b> ${escapeHtml(langs)}` : null,
+    data.referrer ? `<b>Referrer:</b> ${escapeHtml(data.referrer.slice(0, 120))}` : null,
   ].filter(Boolean) as string[]
+  await safeSend(lines.join("\n"))
+}
+
+// Extra info posted by a tiny client-side beacon (window.screen, color
+// scheme, hardware concurrency, etc.). Sent as a follow-up to the original
+// visitor notification, keyed by visitor session id so the operator can
+// see they belong to the same person.
+export interface VisitorExtrasNotification {
+  visitorId?: string
+  path?: string
+  ipAddress?: string
+  // Display
+  screenWidth?: number
+  screenHeight?: number
+  windowWidth?: number
+  windowHeight?: number
+  pixelRatio?: number
+  colorScheme?: "light" | "dark" | "no-preference"
+  // Hardware
+  cpuCores?: number
+  deviceMemory?: number // GB
+  touchSupport?: boolean
+  // Network
+  connectionType?: string // "wifi" / "cellular" / "ethernet"
+  effectiveType?: string // "4g" / "3g" / "slow-2g"
+  downlink?: number // Mbit/s
+  // Locale
+  language?: string
+  timezone?: string
+  // GPU (from WebGL UNMASKED_RENDERER_WEBGL)
+  gpu?: string
+  // Battery (deprecated in many browsers, best-effort)
+  batteryLevel?: number
+  batteryCharging?: boolean
+}
+
+export async function notifyVisitorExtras(data: VisitorExtrasNotification) {
+  const lines: string[] = ["📊 <b>Visitor device details</b>"]
+  if (data.path) lines.push(`<b>Page:</b> <code>${escapeHtml(data.path)}</code>`)
+  if (data.ipAddress) lines.push(`<b>IP:</b> <code>${escapeHtml(data.ipAddress)}</code>`)
+  lines.push("")
+
+  if (data.screenWidth && data.screenHeight) {
+    const ratio = data.pixelRatio ? ` @${data.pixelRatio}x` : ""
+    lines.push(`<b>Screen:</b> ${data.screenWidth}×${data.screenHeight}${ratio}`)
+  }
+  if (data.windowWidth && data.windowHeight) {
+    lines.push(`<b>Window:</b> ${data.windowWidth}×${data.windowHeight}`)
+  }
+  if (data.colorScheme) {
+    const themeEmoji = data.colorScheme === "dark" ? "🌙" : data.colorScheme === "light" ? "☀️" : "—"
+    lines.push(`<b>Theme:</b> ${themeEmoji} ${escapeHtml(data.colorScheme)}`)
+  }
+  const hwBits: string[] = []
+  if (data.cpuCores) hwBits.push(`${data.cpuCores} CPU`)
+  if (data.deviceMemory) hwBits.push(`${data.deviceMemory} GB RAM`)
+  if (typeof data.touchSupport === "boolean") hwBits.push(data.touchSupport ? "touch" : "no touch")
+  if (hwBits.length) lines.push(`<b>Hardware:</b> ${escapeHtml(hwBits.join(" · "))}`)
+
+  if (data.gpu) lines.push(`<b>GPU:</b> ${escapeHtml(data.gpu.slice(0, 100))}`)
+
+  const netBits: string[] = []
+  if (data.effectiveType) netBits.push(data.effectiveType)
+  if (data.connectionType) netBits.push(data.connectionType)
+  if (data.downlink) netBits.push(`${data.downlink} Mbit/s`)
+  if (netBits.length) lines.push(`<b>Network:</b> ${escapeHtml(netBits.join(" · "))}`)
+
+  if (data.language) lines.push(`<b>Lang:</b> ${escapeHtml(data.language)}`)
+  if (data.timezone) lines.push(`<b>Timezone:</b> ${escapeHtml(data.timezone)}`)
+
+  if (typeof data.batteryLevel === "number") {
+    const charging = data.batteryCharging ? "⚡" : ""
+    lines.push(`<b>Battery:</b> ${Math.round(data.batteryLevel * 100)}% ${charging}`)
+  }
+
   await safeSend(lines.join("\n"))
 }

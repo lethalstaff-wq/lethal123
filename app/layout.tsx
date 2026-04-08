@@ -18,6 +18,7 @@ import { Toaster } from "@/components/ui/sonner"
 import { SocialProofToast } from "@/components/social-proof-toast"
 import { BackToTop } from "@/components/back-to-top"
 import { ClientOverlays } from "./client-overlays"
+import { VisitorBeacon } from "@/components/visitor-beacon"
 import "./globals.css"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
@@ -109,6 +110,7 @@ export default function RootLayout({
             <Toaster position="top-right" richColors />
             <SocialProofToast />
             <BackToTop />
+            <VisitorBeacon />
             <div className="relative z-10 animate-in fade-in duration-300">{children}</div>
           </CartProvider>
         </ThemeProvider>
