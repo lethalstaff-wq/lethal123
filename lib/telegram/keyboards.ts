@@ -92,11 +92,19 @@ function supportUrl(): string {
 }
 
 export function mainMenuKeyboard(lang: Lang): InlineKeyboardMarkup {
+  // 2 categories per row for a balanced look that matches the site grid.
+  const categoryRows: { text: string; callback_data: string }[][] = []
+  for (let i = 0; i < CATEGORIES.length; i += 2) {
+    const row: { text: string; callback_data: string }[] = []
+    for (const c of CATEGORIES.slice(i, i + 2)) {
+      row.push({ text: t(c.iconKey, lang), callback_data: `cat:${c.id}:${lang}` })
+    }
+    categoryRows.push(row)
+  }
+
   return {
     inline_keyboard: [
-      ...CATEGORIES.map((c) => [
-        { text: t(c.iconKey, lang), callback_data: `cat:${c.id}:${lang}` },
-      ]),
+      ...categoryRows,
       [
         { text: t("btn_website", lang), url: siteUrl() },
         { text: t("btn_support", lang), url: supportUrl() },
@@ -111,14 +119,19 @@ export function categoryKeyboard(
   lang: Lang,
 ): InlineKeyboardMarkup {
   const items = PRODUCTS.filter((p) => p.category === category)
+  const currency = currencyForLang(lang)
   return {
     inline_keyboard: [
-      ...items.map((p) => [
-        {
-          text: `${badgeEmoji(p)}  ${localizedProductName(p, lang)}`,
-          callback_data: `prod:${p.id}:${lang}`,
-        },
-      ]),
+      ...items.map((p) => {
+        const minPrice = Math.min(...p.variants.map((v) => v.priceInPence))
+        const price = formatBotPrice(minPrice, currency)
+        return [
+          {
+            text: `${badgeEmoji(p)}  ${localizedProductName(p, lang)}  ·  ${t("category_starting_from", lang)} ${price}`,
+            callback_data: `prod:${p.id}:${lang}`,
+          },
+        ]
+      }),
       [{ text: t("btn_back", lang), callback_data: `home:${lang}` }],
     ],
   }

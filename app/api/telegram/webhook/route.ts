@@ -16,7 +16,7 @@
 
 import { NextResponse } from "next/server"
 
-import { getProductById, getVariantById, type Product } from "@/lib/products"
+import { getProductById, getVariantById, PRODUCTS, type Product } from "@/lib/products"
 import {
   answerCallbackQuery,
   answerPreCheckoutQuery,
@@ -193,10 +193,11 @@ async function showCategory(
     return showMainMenu(chatId, lang, editMessageId)
   }
   const cat = category as (typeof valid)[number]
+  const items = PRODUCTS.filter((p) => p.category === cat)
   await renderPhotoCard(
     chatId,
     assetUrl(MAIN_BANNER),
-    renderCategory(cat, lang),
+    renderCategory(cat, lang, items),
     categoryKeyboard(cat, lang),
     editMessageId,
   )

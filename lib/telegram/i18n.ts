@@ -24,12 +24,36 @@ type Dict = Record<string, { en: string; ru: string }>
 
 const STRINGS: Dict = {
   welcome_title: {
-    en: "<b>Welcome to Lethal Solutions</b> 🖤",
-    ru: "<b>Добро пожаловать в Lethal Solutions</b> 🖤",
+    en: "<b>LETHAL SOLUTIONS</b>",
+    ru: "<b>LETHAL SOLUTIONS</b>",
+  },
+  welcome_tagline: {
+    en: "Premium DMA · Spoofers · Firmware",
+    ru: "Премиум DMA · Спуферы · Прошивки",
+  },
+  welcome_catalog_label: {
+    en: "Select a category below 👇",
+    ru: "Выбери категорию ниже 👇",
   },
   welcome_body: {
     en: "Premium DMA cheats, spoofers & firmware.\nPaid in ⭐ Telegram Stars.",
     ru: "Премиум DMA-читы, спуферы и прошивки.\nОплата через ⭐ Telegram Stars.",
+  },
+  stat_clients: {
+    en: "verified clients",
+    ru: "проверенных клиентов",
+  },
+  stat_reviews: {
+    en: "5★ reviews",
+    ru: "отзывов 5★",
+  },
+  stat_orders_today: {
+    en: "orders today",
+    ru: "заказов сегодня",
+  },
+  stat_uptime: {
+    en: "uptime",
+    ru: "аптайм",
   },
   cat_cheat: { en: "🎯 Cheats", ru: "🎯 Читы" },
   cat_spoofer: { en: "🛡️ Spoofers", ru: "🛡️ Спуферы" },
@@ -43,6 +67,24 @@ const STRINGS: Dict = {
     en: "Tap a product to see pricing.",
     ru: "Выбери товар, чтобы увидеть цены.",
   },
+  category_products_count: {
+    en: "products",
+    ru: "товаров",
+  },
+  category_starting_from: {
+    en: "from",
+    ru: "от",
+  },
+  product_rating: {
+    en: "reviews",
+    ru: "отзывов",
+  },
+  product_in_stock: {
+    en: "In stock · Instant delivery",
+    ru: "В наличии · Моментальная доставка",
+  },
+  breadcrumb_separator: { en: " › ", ru: " › " },
+  breadcrumb_home: { en: "Home", ru: "Главная" },
   btn_back: { en: "« Back", ru: "« Назад" },
   btn_website: { en: "🛒 Open website", ru: "🛒 Открыть сайт" },
   btn_support: { en: "💬 Support", ru: "💬 Поддержка" },
