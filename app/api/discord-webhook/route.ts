@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server"
 
+import { notifyOrder } from "@/lib/telegram/notify"
+
 const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL
 const ADMIN_BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://lethalsolutions.vercel.app"
 
@@ -80,13 +82,38 @@ function analyzeRisk(data: OrderNotification): { level: string; color: number; r
 }
 
 export async function POST(request: Request) {
+  let data: OrderNotification
+  try {
+    data = await request.json()
+  } catch {
+    return NextResponse.json({ error: "bad json" }, { status: 400 })
+  }
+
+  // Mirror the order to the Telegram admin chat regardless of whether
+  // Discord is configured — this keeps the TG side in sync with site orders.
+  await notifyOrder({
+    source: "site",
+    orderId: data.orderId,
+    email: data.email,
+    discord: data.discord,
+    paymentMethod: data.paymentMethod,
+    total: data.total,
+    items: data.items,
+    coupon: data.coupon,
+    discount: data.discount,
+    ipAddress: data.ipAddress,
+    country: data.country,
+    countryCode: data.countryCode,
+    city: data.city,
+    region: data.region,
+  }).catch((err) => console.error("[discord-webhook] telegram notify failed:", err))
+
   if (!DISCORD_WEBHOOK_URL) {
-    return NextResponse.json({ error: "Webhook not configured" }, { status: 500 })
+    // Still a success from the caller's POV — TG got the notification.
+    return NextResponse.json({ success: true, discord: false })
   }
 
   try {
-    const data: OrderNotification = await request.json()
-    
     // Risk analysis
     const risk = analyzeRisk(data)
     

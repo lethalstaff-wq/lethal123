@@ -1,13 +1,23 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createClient } from "@supabase/supabase-js"
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-)
+// Lazy init so the module can be imported at build time ("collect page data"
+// phase) even when Supabase env vars aren't available in the build environment.
+function getSupabase() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY
+  if (!url || !key) return null
+  return createClient(url, key)
+}
+
+export const dynamic = "force-dynamic"
 
 export async function GET(request: NextRequest) {
   try {
+    const supabase = getSupabase()
+    if (!supabase) {
+      return NextResponse.json({ error: "Service unavailable" }, { status: 503 })
+    }
     const searchParams = request.nextUrl.searchParams
     const orderId = searchParams.get("order_id")
     const email = searchParams.get("email")

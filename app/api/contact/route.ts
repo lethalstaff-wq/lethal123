@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server"
 
+import { notifyContact } from "@/lib/telegram/notify"
+
 export async function POST(request: Request) {
   try {
     const body = await request.json()
@@ -9,6 +11,11 @@ export async function POST(request: Request) {
     if (!name || !email || !message) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
     }
+
+    // Mirror to the Telegram admin chat.
+    await notifyContact({ name, email, discord, message }).catch((err) =>
+      console.error("[contact] telegram notify failed:", err),
+    )
 
     // Send to Discord webhook if configured
     const webhookUrl = process.env.DISCORD_CONTACT_WEBHOOK_URL
