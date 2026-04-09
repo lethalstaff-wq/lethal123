@@ -30,7 +30,6 @@ from database.models_crm import (
     SEGMENT_NAMES,
     add_note,
     add_tag,
-    count_by_segment,
     delete_note,
     find_by_tag,
     get_customer_by_id,
@@ -40,7 +39,12 @@ from database.models_crm import (
     list_tags,
     remove_tag,
     search_customers,
-    user_crm_summary,
+)
+from services.crm_cache import (
+    cached_count_by_segment as count_by_segment,
+)
+from services.crm_cache import (
+    cached_user_crm_summary as user_crm_summary,
 )
 from utils.helpers import escape_html, now_ts
 

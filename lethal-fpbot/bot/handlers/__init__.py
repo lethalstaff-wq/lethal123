@@ -14,8 +14,11 @@ from . import (
     billing,
     chat,
     crm,
+    crm_broadcast,
     dashboard,
+    help_center,
     lot_gen,
+    onboarding,
     profile,
     proxy,
     settings,
@@ -46,7 +49,10 @@ def get_root_router() -> Router:
     root.include_router(billing.router)
     root.include_router(profile.router)
     root.include_router(crm.router)
+    root.include_router(crm_broadcast.router)
     root.include_router(dashboard.router)
     root.include_router(lot_gen.router)
+    root.include_router(onboarding.router)
+    root.include_router(help_center.router)
     root.include_router(admin.router)
     return root

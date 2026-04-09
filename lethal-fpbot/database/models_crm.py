@@ -191,6 +191,15 @@ async def touch_customer(
 
     # Пересчёт сегмента и LTV
     await _recompute_metrics(customer_id)
+
+    # Сбрасываем CRM-кэш для этого пользователя
+    try:
+        from services.crm_cache import invalidate_user
+
+        invalidate_user(user_id)
+    except Exception:  # noqa: BLE001
+        pass
+
     return customer_id
 
 
