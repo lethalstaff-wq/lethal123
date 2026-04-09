@@ -30,17 +30,36 @@ def _lock_for(account_id: int) -> asyncio.Lock:
 
 
 async def _build_session(acc: dict[str, Any]) -> FunPaySession | None:
+    password = decrypt(acc.get("password") or "")
+    golden_key = decrypt(acc.get("golden_key") or "") or None
+
     sess = FunPaySession(
         login=acc["login"],
-        password=decrypt(acc.get("password") or ""),
+        password=password,
         proxy=acc.get("proxy"),
-        golden_key=decrypt(acc.get("golden_key") or "") or None,
+        golden_key=golden_key,
         user_agent=acc.get("user_agent"),
     )
     try:
         info = await sess.restore()
-        if not info:
+        if not info and password:
+            # Перелогин только если есть сохранённый пароль (аккаунт был
+            # добавлен по логину/паролю, а не через golden_key напрямую).
             info = await sess.login_with_password()
+        if not info:
+            # Golden key протух, а пароля нет — помечаем offline и просим
+            # юзера обновить ключ.
+            await update_fp_session(
+                account_id=acc["id"],
+                golden_key_enc=acc.get("golden_key") or "",
+                is_online=False,
+            )
+            logger.warning(
+                "FP сессия %s: golden_key протух, нужно обновить вручную",
+                acc["login"],
+            )
+            await sess.close()
+            return None
         await update_fp_session(
             account_id=acc["id"],
             golden_key_enc=encrypt(info.golden_key),

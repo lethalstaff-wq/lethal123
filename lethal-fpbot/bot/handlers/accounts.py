@@ -46,6 +46,8 @@ class AddAccount(StatesGroup):
     waiting_login = State()
     waiting_password = State()
     waiting_proxy = State()
+    waiting_golden_key = State()
+    waiting_gk_proxy = State()
 
 
 # --------------------------- Список аккаунтов ------------------------------
@@ -189,8 +191,14 @@ async def cb_reconnect(call: CallbackQuery) -> None:
         password = decrypt(acc.get("password") or "")
         if not password:
             await call.message.answer(
-                "❌ Сессия протухла, а пароль не сохранён. "
-                "Удали аккаунт и добавь заново."
+                "❌ <b>Golden key протух</b>\n\n"
+                "Аккаунт добавлен без пароля (по ключу), поэтому "
+                "авто-перелогин невозможен.\n\n"
+                "🔧 <b>Что делать:</b>\n"
+                "1. Зайди в FunPay в браузере\n"
+                "2. DevTools (F12) → Application → Cookies → funpay.com\n"
+                "3. Скопируй новое значение <code>golden_key</code>\n"
+                "4. Удали аккаунт в боте и добавь заново с новым ключом"
             )
             return
         result = await fp_login(
@@ -247,6 +255,8 @@ async def cb_delete_yes(call: CallbackQuery) -> None:
 
 @router.callback_query(F.data == "acc:add")
 async def cb_add(call: CallbackQuery, state: FSMContext) -> None:
+    """Показывает выбор способа добавления: golden_key (рабочий) или
+    логин/пароль (может не сработать из-за Cloudflare Turnstile)."""
     if not call.from_user or not isinstance(call.message, Message):
         return
     user = await get_or_create_user(
@@ -262,14 +272,165 @@ async def cb_add(call: CallbackQuery, state: FSMContext) -> None:
         )
         return
 
-    await state.set_state(AddAccount.waiting_login)
+    from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+
+    kb = InlineKeyboardMarkup(
+        inline_keyboard=[
+            [InlineKeyboardButton(text="🔑 По golden_key (рекомендуется)", callback_data="acc:add_gk")],
+            [InlineKeyboardButton(text="🔐 Логин + пароль", callback_data="acc:add_pw")],
+            [InlineKeyboardButton(text="❌ Отмена", callback_data="cancel")],
+        ]
+    )
     await call.message.answer(
-        "🔐 <b>Добавление аккаунта FunPay</b>\n\n"
-        "Шаг 1/3 · Отправь <b>логин</b> или email от аккаунта FunPay.\n\n"
-        "💡 Можно прервать в любой момент кнопкой ниже.",
+        "<b>Как добавить FunPay аккаунт?</b>\n\n"
+        "🔑 <b>По golden_key</b> — надёжный способ, работает всегда\n"
+        "   • В браузере FunPay → DevTools (F12) → Application → Cookies\n"
+        "   • Скопируй значение <code>golden_key</code>\n"
+        "   • Вставь сюда\n\n"
+        "🔐 <b>Логин + пароль</b> — <i>может не сработать</i>\n"
+        "   FunPay защищён Cloudflare Turnstile капчей, которую бот не "
+        "решает. Если повезёт (капча не покажется) — сработает, иначе нет.\n\n"
+        "Выбирай первый способ если бот не пустил с логином.",
+        reply_markup=kb,
+    )
+    await call.answer()
+
+
+@router.callback_query(F.data == "acc:add_gk")
+async def cb_add_gk(call: CallbackQuery, state: FSMContext) -> None:
+    if not isinstance(call.message, Message):
+        return
+    await state.set_state(AddAccount.waiting_golden_key)
+    await call.message.answer(
+        "🔑 <b>Golden Key</b>\n\n"
+        "<b>Как получить:</b>\n"
+        "1. Открой FunPay в браузере, залогинься\n"
+        "2. Нажми <b>F12</b> (DevTools)\n"
+        "3. Вкладка <b>Application</b> (Chrome) или <b>Storage</b> (Firefox)\n"
+        "4. Слева: <b>Cookies</b> → <code>https://funpay.com</code>\n"
+        "5. Найди строку <code>golden_key</code>\n"
+        "6. Скопируй значение (длинная строка вида <code>abc123def456...</code>)\n"
+        "7. Пришли его сюда <b>одним сообщением</b>\n\n"
+        "💡 Значение удалится из чата после получения.",
         reply_markup=cancel_inline(),
     )
     await call.answer()
+
+
+@router.callback_query(F.data == "acc:add_pw")
+async def cb_add_pw(call: CallbackQuery, state: FSMContext) -> None:
+    if not isinstance(call.message, Message):
+        return
+    await state.set_state(AddAccount.waiting_login)
+    await call.message.answer(
+        "🔐 <b>Логин + пароль</b>\n\n"
+        "⚠️ FunPay сейчас требует Cloudflare капчу при логине — бот её не "
+        "решает. Если капча появится — добавление не пройдёт, переходи на "
+        "golden_key.\n\n"
+        "Шаг 1/3 · Отправь <b>логин</b> или email от FunPay:",
+        reply_markup=cancel_inline(),
+    )
+    await call.answer()
+
+
+@router.message(StateFilter(AddAccount.waiting_golden_key))
+async def step_golden_key(message: Message, state: FSMContext) -> None:
+    if not message.text or not message.from_user:
+        return
+    gk = message.text.strip()
+
+    # Удалим сразу — ключ секретный
+    try:
+        await message.delete()
+    except Exception:
+        pass
+
+    # Валидация: golden_key обычно 32-64 символа из [a-z0-9]
+    if len(gk) < 16 or len(gk) > 256 or not all(c.isalnum() for c in gk):
+        await message.answer(
+            "❌ Это не похоже на golden_key. Он выглядит как длинная "
+            "строка из букв и цифр (32+ символов). Попробуй ещё раз."
+        )
+        return
+
+    await state.update_data(golden_key=gk)
+    await state.set_state(AddAccount.waiting_gk_proxy)
+    await message.answer(
+        "Шаг 2/2 · Пришли <b>прокси</b> (необязательно, но желательно):\n"
+        "<code>http://user:pass@host:port</code>\n"
+        "<code>socks5://host:port</code>\n"
+        "<code>host:port:user:pass</code>\n\n"
+        "Или <code>-</code> чтобы без прокси.",
+        reply_markup=cancel_inline(),
+    )
+
+
+@router.message(StateFilter(AddAccount.waiting_gk_proxy))
+async def step_gk_proxy(message: Message, state: FSMContext) -> None:
+    if not message.text or not message.from_user:
+        return
+    raw = message.text.strip()
+    proxy: str | None
+    if raw in {"-", "—", "нет", "no"}:
+        proxy = None
+    else:
+        parsed = parse_proxy(raw)
+        if not parsed:
+            await message.answer(
+                "❌ Не понял формат прокси. Попробуй ещё раз или <code>-</code>."
+            )
+            return
+        proxy = raw
+
+    data = await state.get_data()
+    gk = data["golden_key"]
+
+    status_msg = await message.answer("⏳ Проверяю golden_key…")
+
+    info = await verify_session(gk, proxy=proxy)
+    if not info or not info.user_id:
+        await status_msg.edit_text(
+            "❌ <b>Golden Key недействителен</b>\n\n"
+            "Возможные причины:\n"
+            "• Ключ истёк → получи новый в браузере\n"
+            "• Скопирован не целиком\n"
+            "• Прокси блокируется FunPay → попробуй другой или без прокси"
+        )
+        await state.clear()
+        return
+
+    user = await get_or_create_user(
+        message.from_user.id, message.from_user.username
+    )
+    acc_id = await add_fp_account(
+        user_id=user["id"],
+        login=info.username or "user",
+        password_enc="",  # пароля нет — авторизация через golden_key
+        proxy=proxy,
+        golden_key_enc=encrypt(gk),
+        user_agent=None,
+    )
+
+    from database.db import connect
+
+    async with connect() as db:
+        await db.execute(
+            "UPDATE fp_accounts SET is_online = 1 WHERE id = ?",
+            (acc_id,),
+        )
+        await db.commit()
+
+    await status_msg.edit_text(
+        "✅ <b>Аккаунт подключён!</b>\n\n"
+        f"👤 {escape_html(info.username or '')}\n"
+        f"🆔 FP ID: <code>{info.user_id}</code>\n"
+        f"🔑 Прокси: <code>{escape_html(proxy or 'не задан')}</code>\n\n"
+        "<i>Сессия активна пока FunPay не инвалидирует golden_key "
+        "(обычно 2-4 недели). Если бот напишет что сессия протухла — "
+        "обнови ключ в браузере.</i>"
+    )
+    await state.clear()
+    await _render_accounts_list(message, user["id"])
 
 
 @router.callback_query(F.data == "cancel")
