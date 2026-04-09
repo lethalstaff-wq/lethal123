@@ -23,10 +23,12 @@ from . import (
     onboarding,
     profile,
     proxy,
+    quick_actions,
     settings,
     start,
     stats,
     suggestions,
+    templates,
     texts,
 )
 
@@ -60,5 +62,7 @@ def get_root_router() -> Router:
     root.include_router(suggestions.router)
     root.include_router(export.router)
     root.include_router(forecast.router)
+    root.include_router(templates.router)
+    root.include_router(quick_actions.router)
     root.include_router(admin.router)
     return root
