@@ -21,7 +21,7 @@ from yarl import URL
 from config import FP_BASE_URL, FP_DEFAULT_UA, FP_REQUEST_TIMEOUT
 from utils.helpers import parse_proxy, proxy_to_url
 
-from .parser import find_form_field, parse_self_profile
+from .parser import parse_self_profile
 
 logger = logging.getLogger(__name__)
 
@@ -201,8 +201,9 @@ class FunPaySession:
                 )
 
             # 2. POST /account/login
+            # FunPay ожидает поле "csrf_token" (без подчёркивания) в payload.
             payload = {
-                "_csrf_token": csrf,
+                "csrf_token": csrf,
                 "login": self.login,
                 "password": self.password,
                 "next": "/",

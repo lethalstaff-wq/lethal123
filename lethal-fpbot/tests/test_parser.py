@@ -36,6 +36,24 @@ def test_parse_csrf_from_app_data():
     assert parse_csrf_token(html) == "deadbeef"
 
 
+def test_parse_csrf_base32_style():
+    """FunPay использует base32-подобный формат токена — не hex."""
+    html = (
+        '<body data-app-data=\'{"csrf-token":"4ocpq8onmfw4ebh5","userId":0}\'></body>'
+    )
+    assert parse_csrf_token(html) == "4ocpq8onmfw4ebh5"
+
+
+def test_extract_csrf_from_form_field():
+    """Старый способ: <input name='csrf_token'>."""
+    from funpay.parser import extract_csrf
+
+    html = (
+        '<form><input type="hidden" name="csrf_token" value="xyz789"></form>'
+    )
+    assert extract_csrf(html) == "xyz789"
+
+
 def test_parse_self_profile_authed():
     html = (
         '<body data-app-data=\'{"csrf-token":"x","userId":777}\'>'

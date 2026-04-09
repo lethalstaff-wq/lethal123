@@ -44,7 +44,11 @@ def _text(node) -> str:
 
 
 def parse_csrf_token(html: str) -> str | None:
-    """Достаёт data-app-data csrf токен / app data из <body>."""
+    """Достаёт csrf-token из атрибута data-app-data на <body>.
+
+    FunPay использует base32-подобный формат (например '4ocpq8onmfw4ebh5'),
+    не hex. Regex должен ловить любые буквенно-цифровые символы.
+    """
     soup = BeautifulSoup(html, "lxml")
     body = soup.find("body")
     if not body:
@@ -52,7 +56,9 @@ def parse_csrf_token(html: str) -> str | None:
     app_data = body.get("data-app-data")
     if not app_data:
         return None
-    m = re.search(r'"csrf-token"\s*:\s*"([a-f0-9]+)"', app_data)
+    # BeautifulSoup уже декодирует HTML entities в атрибутах, так что
+    # строка будет вида: {"locale":"ru","csrf-token":"4ocpq8onmfw4ebh5",...}
+    m = re.search(r'"csrf-token"\s*:\s*"([A-Za-z0-9_\-]+)"', app_data)
     return m.group(1) if m else None
 
 
@@ -164,31 +170,37 @@ def find_form_field(html: str, field_name: str) -> str | None:
 def extract_csrf(html: str) -> str | None:
     """Ищет CSRF-токен всеми известными способами.
 
-    FunPay за разные годы использовал 3-4 разных способа класть токен:
-      1. body[data-app-data]['csrf-token']  — современный (основной)
-      2. <input name="_csrf_token" value>    — старые формы
-      3. <input name="_tkn" value>           — некоторые формы
-      4. <meta name="csrf-token" content>    — если появится
+    FunPay за разные годы использовал несколько способов:
+      1. body[data-app-data]['csrf-token']    — современный, глобальный
+      2. <input name="csrf_token" value>       — основная форма логина (актуально)
+      3. <input name="_csrf_token" value>      — старый alias
+      4. <input name="_tkn" value>             — некоторые формы
+      5. <meta name="csrf-token" content>      — если появится
     """
     if not html:
         return None
 
-    # Способ 1 — data-app-data (самый актуальный)
+    # Способ 1 — data-app-data (самый актуальный, единый на всех страницах)
     token = parse_csrf_token(html)
     if token:
         return token
 
-    # Способ 2 — input name="_csrf_token"
+    # Способ 2 — input name="csrf_token" (основная форма FunPay)
+    token = find_form_field(html, "csrf_token")
+    if token:
+        return token
+
+    # Способ 3 — input name="_csrf_token" (старый alias)
     token = find_form_field(html, "_csrf_token")
     if token:
         return token
 
-    # Способ 3 — input name="_tkn"
+    # Способ 4 — input name="_tkn"
     token = find_form_field(html, "_tkn")
     if token:
         return token
 
-    # Способ 4 — meta tag
+    # Способ 5 — meta tag
     soup = BeautifulSoup(html, "lxml")
     meta = soup.find("meta", attrs={"name": "csrf-token"})
     if meta and meta.get("content"):
