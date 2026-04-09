@@ -12,12 +12,16 @@ from database.db import connect
 
 from .auth import auth_middleware
 from .routes import (
+    ab_tests_routes,
     accounts_routes,
+    admin_routes,
     ai_routes,
+    audit_routes,
     auth_routes,
     auto_delivery_routes,
     auto_response_routes,
     billing_routes,
+    blacklist_routes,
     bulk_routes,
     chats_routes,
     forecast_routes,
@@ -29,6 +33,7 @@ from .routes import (
     settings_routes,
     stats_routes,
     texts_routes,
+    webhooks_routes,
 )
 
 logger = logging.getLogger(__name__)
@@ -56,6 +61,11 @@ def create_app() -> web.Application:
     app.router.add_routes(bulk_routes)
     app.router.add_routes(forecast_routes)
     app.router.add_routes(notifications_routes)
+    app.router.add_routes(admin_routes)
+    app.router.add_routes(blacklist_routes)
+    app.router.add_routes(ab_tests_routes)
+    app.router.add_routes(audit_routes)
+    app.router.add_routes(webhooks_routes)
 
     # Health & metrics
     app.router.add_get("/healthz", _healthz)
