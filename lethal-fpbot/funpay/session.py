@@ -61,6 +61,9 @@ class FunPaySession:
         self.user_agent = user_agent or FP_DEFAULT_UA
         self._session: aiohttp.ClientSession | None = None
         self._lock = asyncio.Lock()
+        self._csrf: str | None = None
+        self._user_id: int | None = None
+        self._username: str | None = None
 
     # ---------------------------------------------------------------- HTTP
     async def _ensure_session(self) -> aiohttp.ClientSession:
@@ -120,7 +123,7 @@ class FunPaySession:
                 return resp.status, text
         except aiohttp.ClientError as exc:
             raise FunPayNetworkError(str(exc)) from exc
-        except asyncio.TimeoutError as exc:
+        except TimeoutError as exc:
             raise FunPayNetworkError("timeout") from exc
 
     async def get(self, path: str, **kwargs) -> tuple[int, str]:
@@ -223,11 +226,7 @@ class FunPaySession:
             username=profile.username,
         )
 
-    # ---------------------- внутренние свойства -----------------------------
-    _csrf: str | None = None
-    _user_id: int | None = None
-    _username: str | None = None
-
+    # ---------------------- свойства ----------------------------------------
     @property
     def csrf(self) -> str | None:
         return self._csrf

@@ -12,6 +12,11 @@ from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.types import CallbackQuery, Message
 
+from bot.keyboards.kb import (
+    BTN_PROXIES,
+    cancel_inline,
+    proxies_menu,
+)
 from database.models import (
     get_fp_account,
     get_or_create_user,
@@ -19,12 +24,6 @@ from database.models import (
     update_fp_proxy,
 )
 from utils.helpers import escape_html, parse_proxy
-
-from bot.keyboards.kb import (
-    BTN_PROXIES,
-    cancel_inline,
-    proxies_menu,
-)
 
 router = Router(name="proxy")
 

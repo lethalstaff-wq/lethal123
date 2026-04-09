@@ -11,7 +11,8 @@
 
 from __future__ import annotations
 
-from typing import Any, Awaitable, Callable
+from collections.abc import Awaitable, Callable
+from typing import Any
 
 from aiogram import BaseMiddleware
 from aiogram.types import CallbackQuery, Message, TelegramObject
@@ -19,7 +20,6 @@ from aiogram.types import CallbackQuery, Message, TelegramObject
 from config import TIER_NAMES, TIER_PRO, TIER_STANDARD, TIER_STARTER
 from database.models import get_or_create_user
 from utils.helpers import now_ts
-
 
 _TIER_RANK = {None: 0, TIER_STARTER: 1, TIER_STANDARD: 2, TIER_PRO: 3}
 

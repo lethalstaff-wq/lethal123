@@ -43,7 +43,7 @@ async def _tick() -> None:
         rows = [dict(r) for r in await cur.fetchall()]
 
     for row in rows:
-        settings = await get_settings(row["user_id"])
-        # сюда можно прицепить логику пополнения items, повышения цены и т.д.
-        # пока — просто логируем что нашли активную бичевку
+        # Сюда можно прицепить логику пополнения items, повышения цены и т.д.
+        # Пока — просто логируем что нашли активную бичевку.
+        await get_settings(row["user_id"])  # touch чтобы settings создались
         logger.debug("auto_bichevka active: %s", row.get("lot_name"))

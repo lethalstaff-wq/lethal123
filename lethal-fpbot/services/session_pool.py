@@ -11,7 +11,7 @@ import asyncio
 import logging
 from typing import Any
 
-from database.models import get_fp_account, list_active_fp_accounts, update_fp_session
+from database.models import list_active_fp_accounts, update_fp_session
 from funpay.session import FunPayAuthError, FunPayNetworkError, FunPaySession
 from utils.encryption import decrypt, encrypt
 

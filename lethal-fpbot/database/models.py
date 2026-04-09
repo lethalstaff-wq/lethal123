@@ -11,9 +11,9 @@ from __future__ import annotations
 import json
 from typing import Any
 
-from .db import connect
 from utils.helpers import gen_referral_code, now_ts
 
+from .db import connect
 
 # ----------------------------- USERS ---------------------------------------
 
@@ -34,6 +34,11 @@ async def get_or_create_user(
                     (username, row["id"]),
                 )
                 await db.commit()
+                # Перечитываем чтобы вернуть актуальный username
+                cur2 = await db.execute(
+                    "SELECT * FROM users WHERE id = ?", (row["id"],)
+                )
+                row = await cur2.fetchone()
             return dict(row)
 
         # Гарантируем уникальность реф-кода
@@ -256,6 +261,26 @@ async def add_balance(user_id: int, delta: int) -> None:
             (delta, user_id),
         )
         await db.commit()
+
+
+async def get_user_by_referral_code(code: str) -> dict[str, Any] | None:
+    if not code:
+        return None
+    async with connect() as db:
+        cur = await db.execute(
+            "SELECT * FROM users WHERE referral_code = ?", (code,)
+        )
+        row = await cur.fetchone()
+        return dict(row) if row else None
+
+
+async def list_referrals(user_id: int) -> list[dict[str, Any]]:
+    async with connect() as db:
+        cur = await db.execute(
+            "SELECT * FROM users WHERE referred_by = ? ORDER BY id",
+            (user_id,),
+        )
+        return [dict(r) for r in await cur.fetchall()]
 
 
 # -------------------------- AUTO RESPONSES ---------------------------------

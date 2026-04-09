@@ -8,8 +8,8 @@ FunPay не отдаёт публичный JSON API для большинств
 from __future__ import annotations
 
 import re
+from collections.abc import Iterable
 from dataclasses import dataclass
-from typing import Iterable
 
 from bs4 import BeautifulSoup
 
@@ -185,7 +185,8 @@ def parse_orders(html: str) -> list[FpOrder]:
     soup = BeautifulSoup(html, "lxml")
     out: list[FpOrder] = []
     for row in soup.select("a.tc-item"):
-        order_id = row.get("href", "").rsplit("/", 1)[-1].rstrip("/")
+        href = (row.get("href") or "").rstrip("/")
+        order_id = href.rsplit("/", 1)[-1] if href else ""
         if not order_id:
             order_id = row.get("data-id", "") or ""
         status_node = row.select_one(".tc-status")

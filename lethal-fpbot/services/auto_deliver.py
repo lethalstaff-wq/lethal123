@@ -14,8 +14,6 @@ from aiogram import Bot
 
 from database.models import (
     find_delivery_for_lot,
-    get_settings,
-    get_user_by_id,
     pop_auto_delivery_item,
 )
 from funpay.api import send_chat_message

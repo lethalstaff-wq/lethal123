@@ -36,7 +36,7 @@ async def run(bot: Bot) -> None:
 
 
 async def _tick(bot: Bot) -> None:
-    for account_id, sess, acc in await session_pool.iter_active():
+    for _account_id, sess, acc in await session_pool.iter_active():
         settings = await get_settings(acc["user_id"])
         if not settings.get("review_reply"):
             continue

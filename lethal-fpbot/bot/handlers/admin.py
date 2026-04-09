@@ -21,12 +21,15 @@ from bot.keyboards.kb import admin_menu, cancel_inline
 from config import ADMIN_IDS, TIER_NAMES
 from database.db import connect
 from database.models import (
+    add_balance,
     get_user_by_id,
     list_pending_payments,
     set_payment_status,
     update_user_subscription,
 )
 from utils.helpers import now_ts
+
+REFERRAL_PERCENT = 10  # 10% от суммы покупки реферала идёт пригласившему
 
 router = Router(name="admin")
 logger = logging.getLogger(__name__)
@@ -119,6 +122,22 @@ async def cb_pay_ok(call: CallbackQuery, bot: Bot) -> None:
             )
         except Exception:  # noqa: BLE001
             pass
+
+        # Реферальный бонус — пригласившему капает % от суммы на баланс
+        if user.get("referred_by"):
+            bonus = int(payment["amount"] * REFERRAL_PERCENT / 100)
+            await add_balance(user["referred_by"], bonus)
+            referrer = await get_user_by_id(user["referred_by"])
+            if referrer:
+                try:
+                    await bot.send_message(
+                        referrer["telegram_id"],
+                        f"🎁 <b>Реферальный бонус!</b>\n"
+                        f"Твой приглашённый купил {TIER_NAMES.get(payment['tier'], '')}.\n"
+                        f"+{bonus}₽ на баланс.",
+                    )
+                except Exception:  # noqa: BLE001
+                    pass
     await call.answer("Подтверждено")
 
 

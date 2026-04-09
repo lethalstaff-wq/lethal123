@@ -1,0 +1,16 @@
+services:
+  bot:
+    build: .
+    container_name: lethal-fpbot
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      # Персистентим базу и ключ шифрования между рестартами контейнера
+      - ./data:/app/data
+      - ./.secret_key:/app/.secret_key
+    environment:
+      DB_PATH: /app/data/lethal_fpbot.db
+      HEALTH_HOST: 0.0.0.0
+      HEALTH_PORT: "8080"
+    ports:
+      - "8080:8080"  # /healthz и /metrics

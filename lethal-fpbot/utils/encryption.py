@@ -12,20 +12,23 @@ from functools import lru_cache
 
 from cryptography.fernet import Fernet, InvalidToken
 
-from config import ENCRYPTION_KEY, SECRET_KEY_FILE
+import config
 
 
 def _load_or_create_key() -> bytes:
-    if ENCRYPTION_KEY:
-        return ENCRYPTION_KEY.encode()
+    # Читаем динамически из модуля config — чтобы тесты могли подменить
+    # ENCRYPTION_KEY через monkeypatch и получить новый Fernet после
+    # очистки lru_cache.
+    if config.ENCRYPTION_KEY:
+        return config.ENCRYPTION_KEY.encode()
 
-    if SECRET_KEY_FILE.exists():
-        return SECRET_KEY_FILE.read_bytes().strip()
+    if config.SECRET_KEY_FILE.exists():
+        return config.SECRET_KEY_FILE.read_bytes().strip()
 
     key = Fernet.generate_key()
-    SECRET_KEY_FILE.write_bytes(key)
+    config.SECRET_KEY_FILE.write_bytes(key)
     try:
-        os.chmod(SECRET_KEY_FILE, 0o600)
+        os.chmod(config.SECRET_KEY_FILE, 0o600)
     except OSError:
         pass
     return key
@@ -37,8 +40,12 @@ def _fernet() -> Fernet:
 
 
 def encrypt(plaintext: str) -> str:
-    """Шифрует строку и возвращает urlsafe-base64 токен."""
-    if plaintext is None:
+    """Шифрует строку и возвращает urlsafe-base64 токен.
+
+    Пустые/None значения короткозамыкаем в "" — для нашего use case
+    (пароли FunPay) пустая строка означает «не задано».
+    """
+    if not plaintext:
         return ""
     return _fernet().encrypt(plaintext.encode("utf-8")).decode("ascii")
 

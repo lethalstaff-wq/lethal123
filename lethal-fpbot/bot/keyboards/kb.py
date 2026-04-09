@@ -13,7 +13,6 @@ from aiogram.types import (
     ReplyKeyboardMarkup,
 )
 
-
 # ----- Подписи кнопок главного меню (используются в фильтрах) --------------
 
 BTN_ACCOUNTS = "📁 Мои аккаунты"

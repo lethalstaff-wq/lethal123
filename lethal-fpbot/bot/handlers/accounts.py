@@ -17,6 +17,13 @@ from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.types import CallbackQuery, Message
 
+from bot.keyboards.kb import (
+    BTN_ACCOUNTS,
+    account_card,
+    accounts_menu,
+    cancel_inline,
+    confirm_delete_account,
+)
 from config import TIER_FP_ACCOUNTS_LIMIT, TIER_NAMES, TIER_STARTER
 from database.models import (
     add_fp_account,
@@ -26,17 +33,10 @@ from database.models import (
     get_or_create_user,
     list_fp_accounts,
 )
-from funpay.api import login as fp_login, verify_session
+from funpay.api import login as fp_login
+from funpay.api import verify_session
 from utils.encryption import decrypt, encrypt
 from utils.helpers import escape_html, parse_proxy
-
-from bot.keyboards.kb import (
-    BTN_ACCOUNTS,
-    account_card,
-    accounts_menu,
-    cancel_inline,
-    confirm_delete_account,
-)
 
 router = Router(name="accounts")
 logger = logging.getLogger(__name__)

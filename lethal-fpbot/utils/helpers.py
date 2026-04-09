@@ -5,12 +5,12 @@ from __future__ import annotations
 import re
 import secrets
 import string
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from urllib.parse import urlparse
 
 
 def now_utc() -> datetime:
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 def now_ts() -> int:

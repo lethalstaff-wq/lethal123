@@ -10,13 +10,13 @@ from aiogram import F, Router
 from aiogram.filters import CommandObject, CommandStart
 from aiogram.types import Message
 
-from config import BRAND_NAME, BRAND_SHORT
-from database.models import get_or_create_user
 from bot.keyboards.kb import (
     BTN_ABOUT,
     BTN_HELP,
     main_menu,
 )
+from config import BRAND_NAME, BRAND_SHORT
+from database.models import get_or_create_user, get_user_by_referral_code
 
 router = Router(name="start")
 
@@ -65,12 +65,12 @@ HELP_TEXT = (
 async def cmd_start(message: Message, command: CommandObject) -> None:
     if not message.from_user:
         return
-    # Парсим реферальный код из /start REFCODE
+    # Парсим реферальный код из /start REFCODE и резолвим его в user_id
     referred_by: int | None = None
     if command.args:
-        # Тут можно резолвить реф-код в user_id, но БД создаём заранее.
-        # Phase 6 (биллинг/рефералка) допилит.
-        referred_by = None
+        referrer = await get_user_by_referral_code(command.args.strip().upper())
+        if referrer and referrer["telegram_id"] != message.from_user.id:
+            referred_by = referrer["id"]
 
     await get_or_create_user(
         telegram_id=message.from_user.id,

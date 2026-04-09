@@ -2,14 +2,14 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from aiogram import F, Router
 from aiogram.types import Message
 
 from bot.keyboards.kb import BTN_PROFILE, profile_menu
-from config import TIER_NAMES, TIER_STARTER
-from database.models import count_fp_accounts, get_or_create_user
+from config import TIER_NAMES
+from database.models import count_fp_accounts, get_or_create_user, list_referrals
 from utils.helpers import escape_html, now_ts
 
 router = Router(name="profile")
@@ -27,12 +27,14 @@ async def open_(message: Message) -> None:
         tier = None
 
     if tier:
-        expires_str = datetime.fromtimestamp(expires_ts, tz=timezone.utc).strftime(
+        expires_str = datetime.fromtimestamp(expires_ts, tz=UTC).strftime(
             "%Y-%m-%d"
         )
         sub_line = f"{TIER_NAMES.get(tier, tier)} · до {expires_str}"
     else:
         sub_line = "❌ нет активной подписки"
+
+    referrals = await list_referrals(user["id"])
 
     text = (
         "👤 <b>Профиль</b>\n\n"
@@ -41,7 +43,8 @@ async def open_(message: Message) -> None:
         f"💎 Подписка: {sub_line}\n"
         f"📁 ФП-аккаунтов: {fp_count}\n"
         f"💰 Баланс: {user.get('balance', 0)}₽\n"
-        f"🔗 Реф-код: <code>{escape_html(user.get('referral_code') or '')}</code>"
+        f"🔗 Реф-код: <code>{escape_html(user.get('referral_code') or '')}</code>\n"
+        f"👥 Приглашено: {len(referrals)}"
     )
     await message.answer(
         text,
