@@ -34,43 +34,21 @@ BTN_HELP = "🆘 Помощь"
 
 
 def main_menu() -> ReplyKeyboardMarkup:
-    """Главное reply-меню — минималистично, 3 кнопки в ряд.
+    """Главное reply-меню — 4 главные кнопки + справка.
 
-    Логика группировки:
-      • Ряд 1 — управление ФП: аккаунты + прокси + автоматизации
-      • Ряд 2 — основные фичи продаж: дэшборд, CRM, AI лот
-      • Ряд 3 — автоматизации чата и выдачи
-      • Ряд 4 — сервисные
-      • Ряд 5 — профиль/биллинг/настройки
+    Всё остальное — через /команды (см. /help или кнопку 🆘).
     """
     return ReplyKeyboardMarkup(
         keyboard=[
             [
                 KeyboardButton(text=BTN_ACCOUNTS),
-                KeyboardButton(text=BTN_PROXIES),
                 KeyboardButton(text=BTN_STATS),
             ],
             [
-                KeyboardButton(text=BTN_DASHBOARD),
-                KeyboardButton(text=BTN_CRM),
-                KeyboardButton(text=BTN_LOT_GEN),
-            ],
-            [
-                KeyboardButton(text=BTN_AUTO_RESPONSE),
-                KeyboardButton(text=BTN_AUTO_DELIVERY),
-                KeyboardButton(text=BTN_TEXTS),
-            ],
-            [
-                KeyboardButton(text=BTN_RAISE_ON),
-                KeyboardButton(text=BTN_RAISE_OFF),
-            ],
-            [
-                KeyboardButton(text=BTN_PROFILE),
-                KeyboardButton(text=BTN_BILLING),
                 KeyboardButton(text=BTN_SETTINGS),
+                KeyboardButton(text=BTN_BILLING),
             ],
             [
-                KeyboardButton(text=BTN_ABOUT),
                 KeyboardButton(text=BTN_HELP),
             ],
         ],
