@@ -16,7 +16,7 @@ from pathlib import Path
 
 import aiosqlite
 
-from config import DB_PATH
+import config
 
 logger = logging.getLogger(__name__)
 MIGRATIONS_DIR = Path(__file__).resolve().parent
@@ -56,7 +56,7 @@ async def _applied_versions(db: aiosqlite.Connection) -> set[str]:
 async def upgrade(target: str | None = None) -> int:
     """Применяет все недостающие миграции до target (или до конца)."""
     applied_count = 0
-    async with aiosqlite.connect(DB_PATH) as db:
+    async with aiosqlite.connect(config.DB_PATH) as db:
         db.row_factory = aiosqlite.Row
         await _ensure_table(db)
         applied = await _applied_versions(db)
@@ -81,7 +81,7 @@ async def upgrade(target: str | None = None) -> int:
 async def downgrade(target: str) -> int:
     """Откатывает миграции выше target."""
     rolled = 0
-    async with aiosqlite.connect(DB_PATH) as db:
+    async with aiosqlite.connect(config.DB_PATH) as db:
         db.row_factory = aiosqlite.Row
         await _ensure_table(db)
         applied = sorted(await _applied_versions(db), reverse=True)
@@ -106,7 +106,7 @@ async def downgrade(target: str) -> int:
 
 
 async def current_version() -> str | None:
-    async with aiosqlite.connect(DB_PATH) as db:
+    async with aiosqlite.connect(config.DB_PATH) as db:
         await _ensure_table(db)
         cur = await db.execute(
             "SELECT version FROM _migrations ORDER BY version DESC LIMIT 1"
@@ -116,7 +116,7 @@ async def current_version() -> str | None:
 
 
 async def list_applied() -> list[str]:
-    async with aiosqlite.connect(DB_PATH) as db:
+    async with aiosqlite.connect(config.DB_PATH) as db:
         await _ensure_table(db)
         cur = await db.execute(
             "SELECT version FROM _migrations ORDER BY version"
@@ -125,7 +125,7 @@ async def list_applied() -> list[str]:
 
 
 async def list_pending() -> list[str]:
-    async with aiosqlite.connect(DB_PATH) as db:
+    async with aiosqlite.connect(config.DB_PATH) as db:
         await _ensure_table(db)
         applied = await _applied_versions(db)
     return [v for v, _ in _scan() if v not in applied]

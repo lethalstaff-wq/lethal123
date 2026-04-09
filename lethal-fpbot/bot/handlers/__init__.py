@@ -13,6 +13,9 @@ from . import (
     auto_response,
     billing,
     chat,
+    crm,
+    dashboard,
+    lot_gen,
     profile,
     proxy,
     settings,
@@ -42,5 +45,8 @@ def get_root_router() -> Router:
     root.include_router(texts.router)
     root.include_router(billing.router)
     root.include_router(profile.router)
+    root.include_router(crm.router)
+    root.include_router(dashboard.router)
+    root.include_router(lot_gen.router)
     root.include_router(admin.router)
     return root

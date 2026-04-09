@@ -8,5 +8,9 @@ python-dotenv>=1.0.0
 aiohttp-socks>=0.8.4
 yarl>=1.9.0
 
-# Опционально — для ИИ-фич Pro-тарифа (ai_responder, arbitrage_assist)
+# Опционально — для графиков дэшборда (services/dashboard.py)
+matplotlib>=3.7.0
+Pillow>=10.0.0
+
+# Опционально — для ИИ-фич Pro-тарифа (ai_responder, arbitrage_assist, lot_ai_generator)
 anthropic>=0.34.0

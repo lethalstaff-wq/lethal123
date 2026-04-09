@@ -106,6 +106,20 @@ async def _process_account(bot: Bot, account_id: int, sess, acc: dict) -> None:
 
             last_buyer_ts = now_ts()
 
+            # CRM — отмечаем входящее сообщение в карточке клиента
+            try:
+                from database.models_crm import touch_customer
+
+                if author:
+                    await touch_customer(
+                        user_id=acc["user_id"],
+                        fp_username=author,
+                        kind="message_in",
+                        details=text[:200],
+                    )
+            except Exception:  # noqa: BLE001
+                logger.exception("CRM touch_customer on message failed")
+
             # Плагины могут перехватить и попросить не пересылать
             from plugins import get_manager
 

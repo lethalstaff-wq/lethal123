@@ -120,6 +120,21 @@ async def _on_new_paid_order(
         buyer=order.buyer,
     )
 
+    # CRM — отмечаем покупку в клиентской карточке
+    try:
+        from database.models_crm import touch_customer
+
+        if order.buyer:
+            await touch_customer(
+                user_id=acc["user_id"],
+                fp_username=order.buyer,
+                kind="order",
+                details=order.lot_name,
+                amount=int(order.amount or 0),
+            )
+    except Exception:  # noqa: BLE001
+        logger.exception("CRM touch_customer on order failed")
+
     # Автовыдача v2 — с валидацией, алёртами, задержкой
     if settings.get("auto_delivery"):
         try:

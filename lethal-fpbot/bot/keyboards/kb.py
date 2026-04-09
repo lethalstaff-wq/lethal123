@@ -15,38 +15,64 @@ from aiogram.types import (
 
 # ----- Подписи кнопок главного меню (используются в фильтрах) --------------
 
-BTN_ACCOUNTS = "📁 Мои аккаунты"
-BTN_PROXIES = "🔑 Мои прокси"
-BTN_AUTO_RESPONSE = "📨 Автоответчик"
+BTN_ACCOUNTS = "📁 Аккаунты"
+BTN_PROXIES = "🔑 Прокси"
+BTN_AUTO_RESPONSE = "📨 Автоответы"
 BTN_AUTO_DELIVERY = "🤖 Автовыдача"
 BTN_STATS = "📊 Статистика"
-BTN_RAISE_ON = "📈 Поднять предложения"
-BTN_RAISE_OFF = "⬇️ Отключить автоподнятие"
-BTN_TEXTS = "✍️ Заготовленные тексты"
-BTN_BILLING = "💳 Биллинг"
+BTN_DASHBOARD = "📈 Дэшборд"
+BTN_CRM = "📇 CRM"
+BTN_LOT_GEN = "✨ AI лот"
+BTN_RAISE_ON = "🚀 Поднять"
+BTN_RAISE_OFF = "⏸ Авто OFF"
+BTN_TEXTS = "✍️ Тексты"
+BTN_BILLING = "💳 Тарифы"
 BTN_PROFILE = "👤 Профиль"
 BTN_SETTINGS = "⚙️ Настройки"
 BTN_ABOUT = "ℹ️ О боте"
-BTN_HELP = "🏷 Помощь"
+BTN_HELP = "🆘 Помощь"
 
 
 def main_menu() -> ReplyKeyboardMarkup:
-    """Главная reply-клавиатура (видна всегда после /start)."""
+    """Главное reply-меню — минималистично, 3 кнопки в ряд.
+
+    Логика группировки:
+      • Ряд 1 — управление ФП: аккаунты + прокси + автоматизации
+      • Ряд 2 — основные фичи продаж: дэшборд, CRM, AI лот
+      • Ряд 3 — автоматизации чата и выдачи
+      • Ряд 4 — сервисные
+      • Ряд 5 — профиль/биллинг/настройки
+    """
     return ReplyKeyboardMarkup(
         keyboard=[
-            [KeyboardButton(text=BTN_ACCOUNTS), KeyboardButton(text=BTN_PROXIES)],
+            [
+                KeyboardButton(text=BTN_ACCOUNTS),
+                KeyboardButton(text=BTN_PROXIES),
+                KeyboardButton(text=BTN_STATS),
+            ],
+            [
+                KeyboardButton(text=BTN_DASHBOARD),
+                KeyboardButton(text=BTN_CRM),
+                KeyboardButton(text=BTN_LOT_GEN),
+            ],
             [
                 KeyboardButton(text=BTN_AUTO_RESPONSE),
                 KeyboardButton(text=BTN_AUTO_DELIVERY),
+                KeyboardButton(text=BTN_TEXTS),
             ],
-            [KeyboardButton(text=BTN_STATS)],
             [
                 KeyboardButton(text=BTN_RAISE_ON),
                 KeyboardButton(text=BTN_RAISE_OFF),
             ],
-            [KeyboardButton(text=BTN_TEXTS), KeyboardButton(text=BTN_BILLING)],
-            [KeyboardButton(text=BTN_PROFILE), KeyboardButton(text=BTN_SETTINGS)],
-            [KeyboardButton(text=BTN_ABOUT), KeyboardButton(text=BTN_HELP)],
+            [
+                KeyboardButton(text=BTN_PROFILE),
+                KeyboardButton(text=BTN_BILLING),
+                KeyboardButton(text=BTN_SETTINGS),
+            ],
+            [
+                KeyboardButton(text=BTN_ABOUT),
+                KeyboardButton(text=BTN_HELP),
+            ],
         ],
         resize_keyboard=True,
         is_persistent=True,
