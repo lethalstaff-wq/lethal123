@@ -31,6 +31,7 @@ async def start_all(bot: Bot) -> list[asyncio.Task]:
         session_restore,
         smart_pricing,
         web,
+        weekly_digest,
     )
 
     tasks: list[asyncio.Task] = []
@@ -52,6 +53,7 @@ async def start_all(bot: Bot) -> list[asyncio.Task]:
     _spawn(auto_bichevka.run(bot), "auto_bichevka")
     _spawn(backup.run(bot), "backup")
     _spawn(web.run(bot), "web")
+    _spawn(weekly_digest.run(bot), "weekly_digest")
 
     logger.info("Запущено фоновых сервисов: %d", len(tasks))
     return tasks

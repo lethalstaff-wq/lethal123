@@ -99,17 +99,30 @@ async def _on_new_paid_order(
 
     await get_manager().emit("on_new_order", bot, acc, order)
 
-    # Алёрт в Telegram
-    await bot.send_message(
-        user["telegram_id"],
-        (
-            f"🛒 <b>Новый заказ!</b>\n"
-            f"📦 {escape_html(order.lot_name or '')}\n"
-            f"👤 {escape_html(order.buyer or '')}\n"
-            f"💰 {order.amount} {escape_html(order.currency or '')}\n"
-            f"🏷 Аккаунт: {escape_html(acc['login'])}"
-        ),
-    )
+    # Rich-уведомление с карточкой клиента и кнопками
+    try:
+        from .order_notifier import send_order_notification
+
+        await send_order_notification(
+            bot,
+            user_tg_id=user["telegram_id"],
+            acc=acc,
+            order=order,
+            user_db_id=acc["user_id"],
+        )
+    except Exception:  # noqa: BLE001
+        # Fallback на простое сообщение
+        logger.exception("rich order notification failed, fallback")
+        await bot.send_message(
+            user["telegram_id"],
+            (
+                f"🛒 <b>Новый заказ!</b>\n"
+                f"📦 {escape_html(order.lot_name or '')}\n"
+                f"👤 {escape_html(order.buyer or '')}\n"
+                f"💰 {order.amount} {escape_html(order.currency or '')}\n"
+                f"🏷 Аккаунт: {escape_html(acc['login'])}"
+            ),
+        )
 
     # Статистика
     await add_stat(
