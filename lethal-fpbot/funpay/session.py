@@ -199,8 +199,17 @@ class FunPaySession:
         if status != 200:
             return None
         profile = parse_self_profile(html)
+        self._csrf = None
+        # Кэшируем csrf для последующих POST'ов
+        from .parser import parse_csrf_token
+
+        token = parse_csrf_token(html)
+        if token:
+            self._csrf = token
         if not profile.is_online or not profile.user_id:
             return None
+        self._user_id = profile.user_id
+        self._username = profile.username
         if not self.golden_key:
             jar = self._session.cookie_jar if self._session else None
             if jar:
@@ -213,3 +222,20 @@ class FunPaySession:
             user_id=profile.user_id,
             username=profile.username,
         )
+
+    # ---------------------- внутренние свойства -----------------------------
+    _csrf: str | None = None
+    _user_id: int | None = None
+    _username: str | None = None
+
+    @property
+    def csrf(self) -> str | None:
+        return self._csrf
+
+    @property
+    def user_id(self) -> int | None:
+        return self._user_id
+
+    @property
+    def username(self) -> str | None:
+        return self._username

@@ -167,3 +167,137 @@ def iter_error_messages(html: str) -> Iterable[str]:
         msg = _text(node)
         if msg:
             yield msg
+
+
+@dataclass
+class FpOrder:
+    order_id: str
+    status: str  # 'paid' / 'closed' / 'refunded'
+    buyer: str
+    amount: float | None
+    currency: str | None
+    lot_name: str
+    date: str | None
+
+
+def parse_orders(html: str) -> list[FpOrder]:
+    """Парсит /orders/trade → список ордеров продавца."""
+    soup = BeautifulSoup(html, "lxml")
+    out: list[FpOrder] = []
+    for row in soup.select("a.tc-item"):
+        order_id = row.get("href", "").rsplit("/", 1)[-1].rstrip("/")
+        if not order_id:
+            order_id = row.get("data-id", "") or ""
+        status_node = row.select_one(".tc-status")
+        status_class = " ".join(status_node.get("class", [])) if status_node else ""
+        if "paid" in status_class:
+            status = "paid"
+        elif "complete" in status_class or "closed" in status_class:
+            status = "closed"
+        elif "refund" in status_class:
+            status = "refunded"
+        else:
+            status = _text(status_node).lower() or "unknown"
+        buyer = _text(row.select_one(".media-user-name"))
+        amount = None
+        currency = None
+        price_node = row.select_one(".tc-price")
+        if price_node:
+            data_s = price_node.get("data-s")
+            if data_s:
+                try:
+                    amount = float(data_s)
+                except ValueError:
+                    pass
+            unit = price_node.select_one(".unit")
+            if unit:
+                currency = _text(unit)
+        lot_name = _text(row.select_one(".order-desc"))
+        date = _text(row.select_one(".tc-date-time"))
+        out.append(
+            FpOrder(
+                order_id=str(order_id),
+                status=status,
+                buyer=buyer,
+                amount=amount,
+                currency=currency,
+                lot_name=lot_name,
+                date=date or None,
+            )
+        )
+    return out
+
+
+@dataclass
+class FpReview:
+    order_id: str
+    rating: int
+    text: str
+    buyer: str
+    has_reply: bool
+
+
+def parse_reviews(html: str) -> list[FpReview]:
+    """Парсит блок отзывов на странице продавца /users/{id}/."""
+    soup = BeautifulSoup(html, "lxml")
+    out: list[FpReview] = []
+    for node in soup.select(".review-container"):
+        rating = 0
+        stars = node.select(".rating-full .rating-stars")
+        if stars:
+            cls = " ".join(stars[0].get("class", []))
+            for i in range(1, 6):
+                if f"rating{i}" in cls or f"stars{i}" in cls:
+                    rating = i
+                    break
+        text = _text(node.select_one(".review-item-text"))
+        buyer = _text(node.select_one(".review-item-user"))
+        order_id = node.get("data-order") or ""
+        has_reply = bool(node.select_one(".review-reply"))
+        out.append(
+            FpReview(
+                order_id=str(order_id),
+                rating=rating,
+                text=text,
+                buyer=buyer,
+                has_reply=has_reply,
+            )
+        )
+    return out
+
+
+@dataclass
+class FpBuyerProfile:
+    username: str | None
+    user_id: int | None
+    registered_text: str | None
+    reviews_count: int
+    is_suspicious: bool
+
+
+def parse_buyer_profile(html: str) -> FpBuyerProfile:
+    """Парсит профиль покупателя для антискам-проверки."""
+    soup = BeautifulSoup(html, "lxml")
+    username = _text(soup.select_one(".profile-header-name"))
+    registered = _text(soup.select_one(".profile-header-stats .label"))
+    reviews_count = 0
+    badge = soup.select_one(".rating-full .rating-mini-count")
+    if badge:
+        try:
+            reviews_count = int(re.sub(r"[^\d]", "", _text(badge)) or 0)
+        except ValueError:
+            pass
+    user_id = None
+    body = soup.find("body")
+    if body and body.get("data-app-data"):
+        m = re.search(r'"userId"\s*:\s*(\d+)', body["data-app-data"])
+        if m:
+            user_id = int(m.group(1))
+    suspicious = reviews_count == 0
+    return FpBuyerProfile(
+        username=username or None,
+        user_id=user_id,
+        registered_text=registered or None,
+        reviews_count=reviews_count,
+        is_suspicious=suspicious,
+    )

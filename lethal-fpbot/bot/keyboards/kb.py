@@ -143,6 +143,264 @@ def cancel_inline() -> InlineKeyboardMarkup:
 
 # -------------------------------- PROXIES ----------------------------------
 
+# ----------------------------- AUTO-RESPONSE -------------------------------
+
+def auto_response_menu(rules: list[dict]) -> InlineKeyboardMarkup:
+    rows: list[list[InlineKeyboardButton]] = []
+    for r in rules:
+        triggers = ", ".join(r.get("trigger_words") or [])[:30]
+        rows.append(
+            [
+                InlineKeyboardButton(
+                    text=f"📨 {triggers}",
+                    callback_data=f"ar:view:{r['id']}",
+                )
+            ]
+        )
+    rows.append(
+        [InlineKeyboardButton(text="➕ Добавить триггер", callback_data="ar:add")]
+    )
+    return InlineKeyboardMarkup(inline_keyboard=rows)
+
+
+def auto_response_card(rid: int) -> InlineKeyboardMarkup:
+    return InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                InlineKeyboardButton(text="🗑 Удалить", callback_data=f"ar:del:{rid}"),
+                InlineKeyboardButton(text="« Назад", callback_data="ar:list"),
+            ]
+        ]
+    )
+
+
+# ----------------------------- AUTO-DELIVERY -------------------------------
+
+def auto_delivery_menu(rules: list[dict]) -> InlineKeyboardMarkup:
+    rows: list[list[InlineKeyboardButton]] = []
+    for r in rules:
+        items_left = len(r.get("items") or [])
+        rows.append(
+            [
+                InlineKeyboardButton(
+                    text=f"🤖 {r['lot_name']} · {items_left}",
+                    callback_data=f"ad:view:{r['id']}",
+                )
+            ]
+        )
+    rows.append(
+        [InlineKeyboardButton(text="➕ Добавить лот", callback_data="ad:add")]
+    )
+    return InlineKeyboardMarkup(inline_keyboard=rows)
+
+
+def auto_delivery_card(rid: int) -> InlineKeyboardMarkup:
+    return InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                InlineKeyboardButton(text="🗑 Удалить", callback_data=f"ad:del:{rid}"),
+                InlineKeyboardButton(text="« Назад", callback_data="ad:list"),
+            ]
+        ]
+    )
+
+
+# ----------------------------- TEXTS ---------------------------------------
+
+def texts_menu(items: list[dict]) -> InlineKeyboardMarkup:
+    rows: list[list[InlineKeyboardButton]] = []
+    for t in items:
+        rows.append(
+            [
+                InlineKeyboardButton(
+                    text=f"✍️ {t['name']}",
+                    callback_data=f"txt:view:{t['id']}",
+                )
+            ]
+        )
+    rows.append(
+        [InlineKeyboardButton(text="➕ Добавить текст", callback_data="txt:add")]
+    )
+    return InlineKeyboardMarkup(inline_keyboard=rows)
+
+
+def text_card(tid: int) -> InlineKeyboardMarkup:
+    return InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                InlineKeyboardButton(text="🗑 Удалить", callback_data=f"txt:del:{tid}"),
+                InlineKeyboardButton(text="« Назад", callback_data="txt:list"),
+            ]
+        ]
+    )
+
+
+# ----------------------------- STATS ---------------------------------------
+
+def stats_menu() -> InlineKeyboardMarkup:
+    return InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                InlineKeyboardButton(text="🕐 День", callback_data="stats:day"),
+                InlineKeyboardButton(text="📅 Неделя", callback_data="stats:week"),
+            ],
+            [
+                InlineKeyboardButton(text="📆 Месяц", callback_data="stats:month"),
+                InlineKeyboardButton(text="🌐 Всё", callback_data="stats:all"),
+            ],
+        ]
+    )
+
+
+# ----------------------------- BILLING -------------------------------------
+
+def billing_menu() -> InlineKeyboardMarkup:
+    return InlineKeyboardMarkup(
+        inline_keyboard=[
+            [InlineKeyboardButton(text="🥉 Starter — 500₽", callback_data="bill:buy:starter")],
+            [InlineKeyboardButton(text="🥈 Standard — 1000₽", callback_data="bill:buy:standard")],
+            [InlineKeyboardButton(text="🥇 Pro — 1500₽", callback_data="bill:buy:pro")],
+        ]
+    )
+
+
+# ----------------------------- PROFILE -------------------------------------
+
+def profile_menu(referral_code: str) -> InlineKeyboardMarkup:
+    return InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                InlineKeyboardButton(
+                    text=f"🔗 Реф-код: {referral_code}",
+                    callback_data="profile:ref",
+                )
+            ],
+            [
+                InlineKeyboardButton(
+                    text="💳 Купить тариф", callback_data="bill:open"
+                )
+            ],
+        ]
+    )
+
+
+# ----------------------------- SETTINGS ------------------------------------
+
+SETTING_LABELS: dict[str, str] = {
+    "auto_raise": "📈 Автоподнятие",
+    "auto_delivery": "🤖 Автовыдача",
+    "auto_response": "📨 Автоответчик",
+    "always_online": "🟢 Вечный онлайн",
+    "ask_review": "⭐️ Просить отзыв",
+    "ask_confirm": "✅ Просить подтвердить",
+    "auto_complaint": "🚨 Авто-жалоба 24ч",
+    "review_reply": "💬 Ответ на отзывы",
+    "cross_sell": "🛒 Кросселл",
+    "funnel_enabled": "🎯 Воронка продаж",
+    "anti_scam": "🛡 Антискам",
+    "smart_pricing": "💸 Смарт-прайсинг",
+    "auto_price_adjust": "📉 Авто-снижение цены",
+}
+
+
+def settings_menu(settings: dict) -> InlineKeyboardMarkup:
+    rows: list[list[InlineKeyboardButton]] = []
+    for key, label in SETTING_LABELS.items():
+        on = bool(settings.get(key))
+        emoji = "🟢" if on else "⚪️"
+        rows.append(
+            [
+                InlineKeyboardButton(
+                    text=f"{emoji} {label}",
+                    callback_data=f"set:toggle:{key}",
+                )
+            ]
+        )
+    rows.append(
+        [InlineKeyboardButton(text="⏱ Интервал поднятия", callback_data="set:raise_interval")]
+    )
+    rows.append(
+        [InlineKeyboardButton(text="✍️ Тексты воронки/жалобы/кросселла", callback_data="set:texts")]
+    )
+    return InlineKeyboardMarkup(inline_keyboard=rows)
+
+
+# ----------------------------- ADMIN ---------------------------------------
+
+def admin_menu() -> InlineKeyboardMarkup:
+    return InlineKeyboardMarkup(
+        inline_keyboard=[
+            [InlineKeyboardButton(text="👥 Пользователи", callback_data="admin:users")],
+            [InlineKeyboardButton(text="💳 Платежи", callback_data="admin:payments")],
+            [InlineKeyboardButton(text="📢 Рассылка", callback_data="admin:broadcast")],
+        ]
+    )
+
+
+def payment_review(payment_id: int) -> InlineKeyboardMarkup:
+    return InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                InlineKeyboardButton(text="✅ Подтвердить", callback_data=f"admin:pay_ok:{payment_id}"),
+                InlineKeyboardButton(text="❌ Отклонить", callback_data=f"admin:pay_no:{payment_id}"),
+            ]
+        ]
+    )
+
+
+# ----------------------------- CHAT MESSAGE --------------------------------
+
+def chat_message_keyboard(account_id: int, fp_chat_id: str) -> InlineKeyboardMarkup:
+    return InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                InlineKeyboardButton(
+                    text="✍️ Ответить",
+                    callback_data=f"chat:reply:{account_id}:{fp_chat_id}",
+                ),
+                InlineKeyboardButton(
+                    text="📋 Заготовки",
+                    callback_data=f"chat:texts:{account_id}:{fp_chat_id}",
+                ),
+            ],
+            [
+                InlineKeyboardButton(
+                    text="🤖 ИИ-ответ",
+                    callback_data=f"chat:ai:{account_id}:{fp_chat_id}",
+                ),
+                InlineKeyboardButton(
+                    text="🛡 Арбитраж",
+                    callback_data=f"chat:arb:{account_id}:{fp_chat_id}",
+                ),
+            ],
+            [
+                InlineKeyboardButton(
+                    text="🚫 В чёрный список",
+                    callback_data=f"chat:black:{account_id}:{fp_chat_id}",
+                ),
+            ],
+        ]
+    )
+
+
+def texts_picker(account_id: int, fp_chat_id: str, items: list[dict]) -> InlineKeyboardMarkup:
+    rows: list[list[InlineKeyboardButton]] = []
+    for t in items:
+        rows.append(
+            [
+                InlineKeyboardButton(
+                    text=f"✍️ {t['name']}",
+                    callback_data=f"chat:send:{account_id}:{fp_chat_id}:{t['id']}",
+                )
+            ]
+        )
+    if not rows:
+        rows.append(
+            [InlineKeyboardButton(text="Нет заготовок", callback_data="cancel")]
+        )
+    return InlineKeyboardMarkup(inline_keyboard=rows)
+
+
 def proxies_menu(accounts: list[dict]) -> InlineKeyboardMarkup:
     """Inline-клавиатура для раздела «Мои прокси».
 

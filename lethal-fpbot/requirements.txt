@@ -6,3 +6,7 @@ lxml>=5.0.0
 cryptography>=42.0.0
 python-dotenv>=1.0.0
 aiohttp-socks>=0.8.4
+yarl>=1.9.0
+
+# Опционально — для ИИ-фич Pro-тарифа (ai_responder, arbitrage_assist)
+anthropic>=0.34.0

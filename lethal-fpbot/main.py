@@ -18,6 +18,7 @@ from aiogram.enums import ParseMode
 import config
 from bot.handlers import get_root_router
 from database.db import init_db
+from services import session_pool, start_all
 
 
 def _setup_logging() -> None:
@@ -40,13 +41,21 @@ async def main() -> None:
     dp = Dispatcher()
     dp.include_router(get_root_router())
 
-    logging.getLogger(__name__).info(
-        "%s запущен. Жду апдейты…", config.BRAND_NAME
-    )
+    log = logging.getLogger(__name__)
+    log.info("%s запущен. Жду апдейты…", config.BRAND_NAME)
+
+    # Поднимаем фоновые сервисы
+    bg_tasks = await start_all(bot)
+
     try:
         await bot.delete_webhook(drop_pending_updates=True)
         await dp.start_polling(bot)
     finally:
+        log.info("Останавливаю фоновые сервисы…")
+        for t in bg_tasks:
+            t.cancel()
+        await asyncio.gather(*bg_tasks, return_exceptions=True)
+        await session_pool.close_all()
         await bot.session.close()
 
 

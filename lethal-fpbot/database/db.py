@@ -117,6 +117,51 @@ SCHEMA: list[str] = [
     )
     """,
     """
+    CREATE TABLE IF NOT EXISTS chat_state (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        account_id INTEGER NOT NULL,
+        fp_chat_id TEXT NOT NULL,
+        interlocutor TEXT,
+        last_message_id TEXT,
+        last_buyer_msg_ts INTEGER,
+        funnel_sent INTEGER NOT NULL DEFAULT 0,
+        UNIQUE(account_id, fp_chat_id),
+        FOREIGN KEY (account_id) REFERENCES fp_accounts(id) ON DELETE CASCADE
+    )
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS orders_seen (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        account_id INTEGER NOT NULL,
+        order_id TEXT NOT NULL,
+        status TEXT,
+        buyer TEXT,
+        amount REAL,
+        lot_name TEXT,
+        first_seen INTEGER NOT NULL,
+        last_seen INTEGER NOT NULL,
+        confirm_asked INTEGER NOT NULL DEFAULT 0,
+        complaint_filed INTEGER NOT NULL DEFAULT 0,
+        review_asked INTEGER NOT NULL DEFAULT 0,
+        delivered INTEGER NOT NULL DEFAULT 0,
+        UNIQUE(account_id, order_id),
+        FOREIGN KEY (account_id) REFERENCES fp_accounts(id) ON DELETE CASCADE
+    )
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS pending_payments (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER NOT NULL,
+        tier TEXT NOT NULL,
+        amount INTEGER NOT NULL,
+        status TEXT NOT NULL DEFAULT 'pending',
+        created_at INTEGER NOT NULL,
+        approved_at INTEGER,
+        admin_note TEXT,
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    )
+    """,
+    """
     CREATE TABLE IF NOT EXISTS settings (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         user_id INTEGER NOT NULL UNIQUE,
@@ -150,6 +195,11 @@ INDEXES: list[str] = [
     "CREATE INDEX IF NOT EXISTS idx_fp_user ON fp_accounts(user_id)",
     "CREATE INDEX IF NOT EXISTS idx_stats_user ON stats(user_id)",
     "CREATE INDEX IF NOT EXISTS idx_users_tg ON users(telegram_id)",
+    "CREATE INDEX IF NOT EXISTS idx_chat_state_acc ON chat_state(account_id)",
+    "CREATE INDEX IF NOT EXISTS idx_orders_acc ON orders_seen(account_id)",
+    "CREATE INDEX IF NOT EXISTS idx_pending_user ON pending_payments(user_id)",
+    "CREATE INDEX IF NOT EXISTS idx_autoresp_user ON auto_responses(user_id)",
+    "CREATE INDEX IF NOT EXISTS idx_autodel_user ON auto_delivery(user_id)",
 ]
 
 
