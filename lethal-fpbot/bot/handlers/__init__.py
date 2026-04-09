@@ -17,6 +17,7 @@ from . import (
     crm_broadcast,
     dashboard,
     export,
+    forecast,
     help_center,
     lot_gen,
     onboarding,
@@ -58,5 +59,6 @@ def get_root_router() -> Router:
     root.include_router(help_center.router)
     root.include_router(suggestions.router)
     root.include_router(export.router)
+    root.include_router(forecast.router)
     root.include_router(admin.router)
     return root
