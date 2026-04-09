@@ -115,16 +115,59 @@ async def _process_account(bot: Bot, account_id: int, sess, acc: dict) -> None:
             if "stop" in plugin_results:
                 continue
 
-            # Пересылка в TG
+            # Hot leads detector — нужно до пересылки, чтобы приоритет
+            # отметить
+            from .hot_leads import format_alert as format_lead_alert
+            from .hot_leads import score_message, should_alert
+
+            lead = score_message(text)
+            is_hot_lead = should_alert(lead)
+
+            # Пересылка в TG (с меткой если горячий)
             try:
-                await _forward_to_tg(bot, user, acc, chat, author, text, settings)
+                await _forward_to_tg(
+                    bot, user, acc, chat, author, text, settings,
+                    is_hot=is_hot_lead, lead_score=lead,
+                )
             except Exception as exc:  # noqa: BLE001
                 logger.warning("forward to tg failed: %s", exc)
 
-            # Автоответчик
+            # Если горячий — отдельный алёрт
+            if is_hot_lead:
+                try:
+                    await bot.send_message(
+                        user["telegram_id"],
+                        format_lead_alert(lead, author, text, acc["login"]),
+                    )
+                except Exception:  # noqa: BLE001
+                    pass
+
+            # Автоответчик v2 — с переменными, часами, регексом
             if settings.get("auto_response"):
-                reply = await find_matching_response(acc["user_id"], text)
+                from . import auto_responder_v2
+
+                reply = await auto_responder_v2.find_response(
+                    user_id=acc["user_id"],
+                    text=text,
+                    account_id=acc["id"],
+                    chat_id=chat.chat_id,
+                    message_id=str(m.get("id", "")),
+                    buyer_username=author,
+                    self_username=sess.username,
+                )
+                if not reply:
+                    # Фоллбэк на старый matcher (обратная совместимость)
+                    reply = await find_matching_response(acc["user_id"], text)
                 if reply:
+                    # Content moderation — не допускаем блокировки аккаунта
+                    from .content_moderation import check_outgoing
+
+                    mod = check_outgoing(reply)
+                    if mod.blocked:
+                        logger.warning(
+                            "Auto-reply blocked by moderation: %s", mod.reason
+                        )
+                        reply = mod.safe_text
                     try:
                         await send_chat_message(sess, chat.chat_id, reply)
                     except Exception as exc:  # noqa: BLE001
@@ -147,24 +190,59 @@ async def _forward_to_tg(
     author: str,
     text: str,
     settings: dict,
+    is_hot: bool = False,
+    lead_score=None,
 ) -> None:
     from bot.keyboards.kb import chat_message_keyboard
 
-    suspicious = ""
+    # Антискам v2 — scoring по профилю + тексту
+    scam_block = ""
     if settings.get("anti_scam") and author:
         try:
-            sess = await session_pool.get(acc["id"])
-            if sess:
-                profile = await get_buyer_profile(sess, author)
-                if profile and profile.is_suspicious:
-                    suspicious = "\n⚠️ <b>Антискам:</b> подозрительный аккаунт (мало отзывов)"
+            from .anti_scam_v2 import (
+                cached_score,
+                combine,
+                get_cached_score,
+                score_from_message,
+                score_from_profile,
+            )
+
+            cached = get_cached_score(author)
+            if cached:
+                profile_score = cached
+            else:
+                sess = await session_pool.get(acc["id"])
+                profile = None
+                if sess:
+                    profile_raw = await get_buyer_profile(sess, author)
+                    if profile_raw:
+                        profile = {
+                            "username": profile_raw.username,
+                            "reviews_count": profile_raw.reviews_count,
+                            "registered_text": profile_raw.registered_text,
+                        }
+                profile_score = score_from_profile(profile)
+                cached_score(author, profile_score)
+
+            msg_score = score_from_message(text)
+            total_score = combine(profile_score, msg_score)
+            if total_score.level != "green":
+                scam_block = (
+                    f"\n{total_score.color_emoji} Антискам: "
+                    f"<b>{total_score.total}/100</b>"
+                )
         except Exception:  # noqa: BLE001
             pass
 
+    # Hot lead marker
+    hot_prefix = ""
+    if is_hot and lead_score:
+        hot_prefix = f"{lead_score.emoji} <b>ГОРЯЧИЙ ЛИД ({lead_score.capped_total}/100)</b>\n"
+
     msg = (
-        f"💬 <b>[{escape_html(acc['login'])}]</b> "
+        f"{hot_prefix}💬 <b>[{escape_html(acc['login'])}]</b> "
         f"<b>{escape_html(author or 'покупатель')}</b>:\n"
-        f"{escape_html(text)}{suspicious}"
+        f"{escape_html(text)}{scam_block}"
     )
     await bot.send_message(
         chat_id=user["telegram_id"],

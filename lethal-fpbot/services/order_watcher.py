@@ -120,13 +120,22 @@ async def _on_new_paid_order(
         buyer=order.buyer,
     )
 
-    # Автовыдача
+    # Автовыдача v2 — с валидацией, алёртами, задержкой
     if settings.get("auto_delivery"):
         try:
-            await auto_deliver.deliver(sess, acc, order, row)
-            await mark_order_flag(row["id"], "delivered")
+            from .delivery_v2 import smart_deliver
+
+            result = await smart_deliver(sess, bot, acc, order)
+            if result.get("ok"):
+                await mark_order_flag(row["id"], "delivered")
         except Exception:  # noqa: BLE001
-            logger.exception("auto_deliver failed")
+            logger.exception("smart_deliver failed")
+            # Fallback на базовый
+            try:
+                await auto_deliver.deliver(sess, acc, order, row)
+                await mark_order_flag(row["id"], "delivered")
+            except Exception:  # noqa: BLE001
+                logger.exception("auto_deliver fallback failed")
 
     # Просьба подтвердить
     if settings.get("ask_confirm"):
