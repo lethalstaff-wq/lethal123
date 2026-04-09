@@ -4,7 +4,7 @@
   • Парсит /orders/trade у каждого аккаунта раз в 30 секунд
   • Для новых заказов (paid):
       — добавляет статистику
-      — триггерит автовыдачу (services.auto_deliver)
+      — триггерит автовыдачу (services.delivery_v2.smart_deliver)
       — отправляет cross-sell, если включён
       — заводит «попроси подтвердить» через confirm_minutes
   • Для давно открытых заказов:
@@ -30,7 +30,7 @@ from database.models import (
 from funpay.api import file_complaint, get_orders, send_chat_message
 from utils.helpers import escape_html, now_ts
 
-from . import auto_deliver, cross_sell, session_pool
+from . import cross_sell, session_pool
 
 logger = logging.getLogger(__name__)
 INTERVAL = 30  # секунд
@@ -148,7 +148,7 @@ async def _on_new_paid_order(
     except Exception:  # noqa: BLE001
         logger.exception("CRM touch_customer on order failed")
 
-    # Автовыдача v2 — с валидацией, алёртами, задержкой
+    # Автовыдача (delivery_v2: валидация, алёрты, задержка, refund-возврат)
     if settings.get("auto_delivery"):
         try:
             from .delivery_v2 import smart_deliver
@@ -158,12 +158,6 @@ async def _on_new_paid_order(
                 await mark_order_flag(row["id"], "delivered")
         except Exception:  # noqa: BLE001
             logger.exception("smart_deliver failed")
-            # Fallback на базовый
-            try:
-                await auto_deliver.deliver(sess, acc, order, row)
-                await mark_order_flag(row["id"], "delivered")
-            except Exception:  # noqa: BLE001
-                logger.exception("auto_deliver fallback failed")
 
     # Просьба подтвердить
     if settings.get("ask_confirm"):

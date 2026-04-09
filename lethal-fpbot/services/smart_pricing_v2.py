@@ -1,26 +1,29 @@
-"""Продвинутый смарт-прайсинг.
+"""Смарт-прайсинг v2: стратегии + фоновый мониторинг.
 
-Стратегии ценообразования:
-  • "always_cheapest" — быть всегда на 1 рубль ниже самого дешёвого
-  • "top_3"          — держать цену в топ-3 по сортировке FunPay
-  • "average"        — держать цену на уровне медианы рынка
-  • "above_average_percent" — на X% выше средней (премиум)
-  • "below_average_percent" — на X% ниже средней (демпинг)
+**Стратегии** (для chat-команд и ручных проверок):
+  • "always_cheapest"  — на 1 рубль ниже минимальной
+  • "top_3"            — попасть в топ-3
+  • "average"          — медиана рынка
+  • "above_average_*"  — на X% выше медианы (премиум)
+  • "below_average_*"  — на X% ниже медианы (демпинг)
 
-Для каждой стратегии вычисляем target_price и возвращаем рекомендацию.
-Если включен auto_price_adjust — применяем автоматически (через
-funpay.api.update_lot_price, если он есть; иначе — только рекомендация).
+Статистика через quantiles, не mean — чтобы выбросы не искажали.
 
-Статистика собирается через quantiles, не через mean, чтобы выбросы
-(аномально дорогие/дешёвые лоты) не искажали картину.
+**Фоновый цикл** (run) — раз в час для каждого аккаунта с включённым
+smart_pricing проверяет свои лоты и шлёт алёрт если цена сильно
+отклоняется от рынка.
 """
 
 from __future__ import annotations
 
+import asyncio
 import logging
+import re
 import statistics
 from collections.abc import Iterable
 from dataclasses import dataclass
+
+from aiogram import Bot
 
 logger = logging.getLogger(__name__)
 
@@ -178,3 +181,75 @@ def format_recommendation(rec: PricingRecommendation) -> str:
         f"• Всего лотов: {rec.snapshot.total_lots}\n\n"
         f"📍 Твоя позиция: {rec.rank_before} → <b>{rec.rank_after}</b>"
     )
+
+
+# ----------------------------- background loop ----------------------------
+
+INTERVAL = 3600  # 1 час
+
+
+async def run(bot: Bot) -> None:
+    """Раз в час проверяет smart_pricing для пользователей у которых включено."""
+    while True:
+        try:
+            await _tick(bot)
+        except Exception:  # noqa: BLE001
+            logger.exception("smart_pricing tick failed")
+        await asyncio.sleep(INTERVAL)
+
+
+async def _tick(bot: Bot) -> None:
+    from database.models import get_settings, get_user_by_id
+    from funpay.api import get_lots
+    from utils.helpers import escape_html
+
+    from . import session_pool
+
+    for _account_id, sess, acc in await session_pool.iter_active():
+        settings = await get_settings(acc["user_id"])
+        if not settings.get("smart_pricing"):
+            continue
+        if not sess.user_id:
+            await sess.restore()
+        if not sess.user_id:
+            continue
+        my_lots = await get_lots(sess, sess.user_id)
+        user = await get_user_by_id(acc["user_id"])
+        if not user:
+            continue
+
+        strategy = settings.get("smart_pricing_strategy") or "top_3"
+
+        # Топ-5 лотов чтобы не перегружать FunPay
+        for lot in my_lots[:5]:
+            if not lot.id or not lot.price:
+                continue
+            try:
+                status, html = await sess.get(f"/lots/{lot.id}/")
+                if status != 200:
+                    continue
+                others = [
+                    float(x) for x in re.findall(r'data-s="([\d\.]+)"', html)
+                ]
+                others = [p for p in others if p > 0]
+                if len(others) < 3:
+                    continue
+
+                rec = recommend(
+                    current_price=float(lot.price),
+                    prices=others,
+                    strategy=strategy,
+                )
+                if not rec:
+                    continue
+
+                # Алёрт только если отклонение >10%
+                if abs(rec.delta_percent) >= 10:
+                    await bot.send_message(
+                        user["telegram_id"],
+                        f"💸 <b>Smart Pricing</b>\n"
+                        f"Лот: <b>{escape_html(lot.title)}</b>\n\n"
+                        + format_recommendation(rec),
+                    )
+            except Exception:  # noqa: BLE001
+                logger.exception("smart_pricing scan failed for lot %s", lot.id)

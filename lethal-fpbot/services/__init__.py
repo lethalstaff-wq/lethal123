@@ -20,16 +20,15 @@ async def start_all(bot: Bot) -> list[asyncio.Task]:
     from . import (
         always_online,
         auto_bichevka,
-        auto_deliver,
         auto_raise,
         backup,
         chat_watcher,
         competitor_watcher,
-        funnel,
+        funnel_v2,
         order_watcher,
         review_watcher,
         session_restore,
-        smart_pricing,
+        smart_pricing_v2,
         web,
         weekly_digest,
     )
@@ -45,11 +44,10 @@ async def start_all(bot: Bot) -> list[asyncio.Task]:
     _spawn(auto_raise.run(bot), "auto_raise")
     _spawn(chat_watcher.run(bot), "chat_watcher")
     _spawn(order_watcher.run(bot), "order_watcher")
-    _spawn(auto_deliver.run(bot), "auto_deliver")
     _spawn(review_watcher.run(bot), "review_watcher")
     _spawn(competitor_watcher.run(bot), "competitor_watcher")
-    _spawn(funnel.run(bot), "funnel")
-    _spawn(smart_pricing.run(bot), "smart_pricing")
+    _spawn(funnel_v2.run(bot), "funnel")
+    _spawn(smart_pricing_v2.run(bot), "smart_pricing")
     _spawn(auto_bichevka.run(bot), "auto_bichevka")
     _spawn(backup.run(bot), "backup")
     _spawn(web.run(bot), "web")

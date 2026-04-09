@@ -19,7 +19,6 @@ import logging
 from aiogram import Bot
 
 from database.models import (
-    find_matching_response,
     get_chat_state,
     get_settings,
     get_user_by_id,
@@ -169,9 +168,6 @@ async def _process_account(bot: Bot, account_id: int, sess, acc: dict) -> None:
                     buyer_username=author,
                     self_username=sess.username,
                 )
-                if not reply:
-                    # Фоллбэк на старый matcher (обратная совместимость)
-                    reply = await find_matching_response(acc["user_id"], text)
                 if reply:
                     # Content moderation — не допускаем блокировки аккаунта
                     from .content_moderation import check_outgoing

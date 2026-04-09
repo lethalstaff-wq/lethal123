@@ -1,22 +1,80 @@
-"""Многошаговая воронка продаж с A/B-тестами и персонализацией.
+"""Воронка продаж v2: фоновый догрев + multi-step сценарий.
 
-Отличия от базовой funnel.py:
-  • Multi-step: последовательность сообщений с разными интервалами
-    (1ч → 24ч → 72ч), каждый шаг останавливается если покупатель ответил/купил
-  • Персонализация: текст подставляется из шаблона с {buyer}, {lot}, {discount}
-  • A/B варианты: два шаблона для одного шага, случайный выбор
-  • Auto-stop: если детектим что покупатель написал «купил» / «не интересно»
-  • Генерация персонального промокода на 2-3 шаге
-  • Трекинг конверсии каждого шага
+Две ответственности:
+  1. **Background loop** (run) — раз в минуту перебирает chat_state,
+     ищет диалоги где покупатель писал N минут назад и мы не ответили,
+     отправляет настраиваемый текст и помечает funnel_sent=1.
+  2. **Multi-step scenario** (DEFAULT_FUNNEL + хелперы) — данные и
+     утилиты для будущего многоступенчатого сценария: A/B-шаблоны,
+     персональные промокоды, stop-keywords, переменные в тексте.
+
+Сейчас run() использует простой one-shot flow из v1. Multi-step часть
+лежит готовой, чтобы её можно было включить когда будет feature flag.
 """
 
 from __future__ import annotations
 
+import asyncio
 import logging
 import random
 from dataclasses import dataclass, field
 
+from aiogram import Bot
+
+from database.db import connect
+from database.models import (
+    get_settings,
+    list_funnel_candidates,
+    mark_funnel_sent,
+)
+from funpay.api import send_chat_message
+from utils.helpers import now_ts
+
+from . import session_pool
+
 logger = logging.getLogger(__name__)
+INTERVAL = 60
+
+
+async def run(bot: Bot) -> None:
+    while True:
+        try:
+            await _tick()
+        except Exception:  # noqa: BLE001
+            logger.exception("funnel tick failed")
+        await asyncio.sleep(INTERVAL)
+
+
+async def _tick() -> None:
+    candidates = await list_funnel_candidates(min_age_sec=60)
+    for cs in candidates:
+        async with connect() as db:
+            cur = await db.execute(
+                "SELECT * FROM fp_accounts WHERE id = ?", (cs["account_id"],)
+            )
+            acc_row = await cur.fetchone()
+        if not acc_row:
+            continue
+        acc = dict(acc_row)
+        settings = await get_settings(acc["user_id"])
+        if not settings.get("funnel_enabled"):
+            continue
+
+        delay = (settings.get("funnel_delay_minutes") or 60) * 60
+        if now_ts() - (cs["last_buyer_msg_ts"] or 0) < delay:
+            continue
+
+        text = settings.get("funnel_text") or (
+            "👋 Ещё актуально? Готов сделать вам скидку 5% — берите!"
+        )
+        sess = await session_pool.get(acc["id"])
+        if not sess:
+            continue
+        try:
+            await send_chat_message(sess, cs["fp_chat_id"], text)
+            await mark_funnel_sent(cs["id"])
+        except Exception:  # noqa: BLE001
+            logger.exception("funnel send failed")
 
 
 @dataclass
