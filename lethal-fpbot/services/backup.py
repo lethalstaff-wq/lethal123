@@ -30,6 +30,15 @@ async def run(bot: Bot) -> None:
         try:
             await _make_backup()
             _rotate()
+            # Опционально пушим в S3 если настроено
+            try:
+                from .s3_backup import upload_db_to_s3
+
+                key = await upload_db_to_s3()
+                if key:
+                    logger.info("S3 backup ok: %s", key)
+            except Exception:  # noqa: BLE001
+                logger.exception("S3 backup failed (non-fatal)")
         except Exception:  # noqa: BLE001
             logger.exception("backup tick failed")
         await asyncio.sleep(INTERVAL)

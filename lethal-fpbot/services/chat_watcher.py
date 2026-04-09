@@ -106,6 +106,15 @@ async def _process_account(bot: Bot, account_id: int, sess, acc: dict) -> None:
 
             last_buyer_ts = now_ts()
 
+            # Плагины могут перехватить и попросить не пересылать
+            from plugins import get_manager
+
+            plugin_results = await get_manager().emit(
+                "on_new_message", bot, acc, chat.chat_id, author, text
+            )
+            if "stop" in plugin_results:
+                continue
+
             # Пересылка в TG
             try:
                 await _forward_to_tg(bot, user, acc, chat, author, text, settings)

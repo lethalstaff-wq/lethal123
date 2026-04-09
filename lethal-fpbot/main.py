@@ -18,6 +18,8 @@ from aiogram.enums import ParseMode
 import config
 from bot.handlers import get_root_router
 from database.db import init_db
+from migrations import upgrade as run_migrations
+from plugins import install_default_plugins
 from services import session_pool, start_all
 
 
@@ -33,6 +35,15 @@ async def main() -> None:
     config.validate()
 
     await init_db()
+    try:
+        applied = await run_migrations()
+        if applied:
+            logging.getLogger(__name__).info("Applied %d migration(s)", applied)
+    except Exception:  # noqa: BLE001
+        logging.getLogger(__name__).exception("Migrations failed (non-fatal)")
+
+    plugin_count = install_default_plugins()
+    logging.getLogger(__name__).info("Loaded %d plugin(s)", plugin_count)
 
     bot = Bot(
         token=config.BOT_TOKEN,

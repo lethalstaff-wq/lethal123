@@ -880,3 +880,211 @@ async def set_payment_status(
         )
         row = await cur.fetchone()
         return dict(row) if row else None
+
+
+# -------------------------- PROMO CODES ------------------------------------
+
+async def create_promo_code(
+    code: str,
+    discount_percent: int,
+    max_uses: int = 0,
+    valid_until: int | None = None,
+) -> int:
+    async with connect() as db:
+        cur = await db.execute(
+            """
+            INSERT INTO promo_codes
+                (code, discount_percent, max_uses, valid_until, created_at)
+            VALUES (?, ?, ?, ?, ?)
+            """,
+            (code.upper(), discount_percent, max_uses, valid_until, now_ts()),
+        )
+        await db.commit()
+        return cur.lastrowid or 0
+
+
+async def get_promo_by_code(code: str) -> dict | None:
+    async with connect() as db:
+        cur = await db.execute(
+            "SELECT * FROM promo_codes WHERE code = ?", (code.upper(),)
+        )
+        row = await cur.fetchone()
+        return dict(row) if row else None
+
+
+async def list_promos() -> list[dict]:
+    async with connect() as db:
+        cur = await db.execute(
+            "SELECT * FROM promo_codes ORDER BY id DESC"
+        )
+        return [dict(r) for r in await cur.fetchall()]
+
+
+async def redeem_promo(promo_id: int, user_id: int) -> bool:
+    async with connect() as db:
+        try:
+            await db.execute(
+                """
+                INSERT INTO promo_redemptions
+                    (user_id, promo_id, redeemed_at)
+                VALUES (?, ?, ?)
+                """,
+                (user_id, promo_id, now_ts()),
+            )
+            await db.execute(
+                "UPDATE promo_codes SET used_count = used_count + 1 WHERE id = ?",
+                (promo_id,),
+            )
+            await db.commit()
+            return True
+        except Exception:  # noqa: BLE001
+            return False
+
+
+async def has_redeemed_promo(promo_id: int, user_id: int) -> bool:
+    async with connect() as db:
+        cur = await db.execute(
+            "SELECT 1 FROM promo_redemptions WHERE promo_id = ? AND user_id = ?",
+            (promo_id, user_id),
+        )
+        return bool(await cur.fetchone())
+
+
+async def delete_promo(promo_id: int) -> bool:
+    async with connect() as db:
+        cur = await db.execute(
+            "DELETE FROM promo_codes WHERE id = ?", (promo_id,)
+        )
+        await db.commit()
+        return (cur.rowcount or 0) > 0
+
+
+# -------------------------- NOTIFICATION PREFS -----------------------------
+
+async def get_notification_prefs(user_id: int) -> dict[str, Any]:
+    async with connect() as db:
+        cur = await db.execute(
+            "SELECT * FROM notification_prefs WHERE user_id = ?", (user_id,)
+        )
+        row = await cur.fetchone()
+        if row:
+            return dict(row)
+        await db.execute(
+            "INSERT INTO notification_prefs (user_id) VALUES (?)", (user_id,)
+        )
+        await db.commit()
+        cur2 = await db.execute(
+            "SELECT * FROM notification_prefs WHERE user_id = ?", (user_id,)
+        )
+        return dict(await cur2.fetchone())
+
+
+async def update_notification_pref(user_id: int, key: str, value: int) -> None:
+    allowed = {
+        "notify_new_order", "notify_new_message", "notify_new_review",
+        "notify_session_lost", "notify_payment",
+        "quiet_hours_start", "quiet_hours_end",
+    }
+    if key not in allowed:
+        raise ValueError(f"invalid pref: {key}")
+    # Сначала убедимся что запись существует
+    await get_notification_prefs(user_id)
+    async with connect() as db:
+        await db.execute(
+            f"UPDATE notification_prefs SET {key} = ? WHERE user_id = ?",
+            (value, user_id),
+        )
+        await db.commit()
+
+
+# -------------------------- AUDIT LOG --------------------------------------
+
+async def audit_log(
+    user_id: int | None,
+    action: str,
+    details: str | None = None,
+    ip: str | None = None,
+) -> None:
+    async with connect() as db:
+        await db.execute(
+            """
+            INSERT INTO audit_log (user_id, action, details, ip, created_at)
+            VALUES (?, ?, ?, ?, ?)
+            """,
+            (user_id, action, details, ip, now_ts()),
+        )
+        await db.commit()
+
+
+async def list_audit_log(user_id: int | None, limit: int = 100) -> list[dict]:
+    async with connect() as db:
+        if user_id is None:
+            cur = await db.execute(
+                "SELECT * FROM audit_log ORDER BY id DESC LIMIT ?",
+                (limit,),
+            )
+        else:
+            cur = await db.execute(
+                """
+                SELECT * FROM audit_log
+                 WHERE user_id = ?
+                 ORDER BY id DESC LIMIT ?
+                """,
+                (user_id, limit),
+            )
+        return [dict(r) for r in await cur.fetchall()]
+
+
+# -------------------------- A/B TESTS --------------------------------------
+
+async def create_ab_test(
+    user_id: int, name: str, variant_a: str, variant_b: str
+) -> int:
+    async with connect() as db:
+        cur = await db.execute(
+            """
+            INSERT INTO ab_tests
+                (user_id, name, variant_a, variant_b, created_at)
+            VALUES (?, ?, ?, ?, ?)
+            """,
+            (user_id, name, variant_a, variant_b, now_ts()),
+        )
+        await db.commit()
+        return cur.lastrowid or 0
+
+
+async def list_ab_tests(user_id: int) -> list[dict]:
+    async with connect() as db:
+        cur = await db.execute(
+            "SELECT * FROM ab_tests WHERE user_id = ? ORDER BY id DESC",
+            (user_id,),
+        )
+        return [dict(r) for r in await cur.fetchall()]
+
+
+async def increment_ab_variant(test_id: int, variant: str, conversion: bool) -> None:
+    if variant not in {"a", "b"}:
+        return
+    used_col = f"{variant}_used"
+    conv_col = f"{variant}_conversions"
+    async with connect() as db:
+        await db.execute(
+            f"UPDATE ab_tests SET {used_col} = {used_col} + 1 WHERE id = ?",
+            (test_id,),
+        )
+        if conversion:
+            await db.execute(
+                f"UPDATE ab_tests SET {conv_col} = {conv_col} + 1 WHERE id = ?",
+                (test_id,),
+            )
+        await db.commit()
+
+
+async def delete_ab_test(test_id: int, user_id: int) -> bool:
+    async with connect() as db:
+        cur = await db.execute(
+            "DELETE FROM ab_tests WHERE id = ? AND user_id = ?",
+            (test_id, user_id),
+        )
+        await db.commit()
+        return (cur.rowcount or 0) > 0

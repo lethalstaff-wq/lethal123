@@ -94,6 +94,11 @@ async def _process_account(bot: Bot, account_id: int, sess, acc: dict) -> None:
 async def _on_new_paid_order(
     bot: Bot, sess, acc: dict, user: dict, order, row: dict, settings: dict
 ) -> None:
+    # Дёргаем плагины
+    from plugins import get_manager
+
+    await get_manager().emit("on_new_order", bot, acc, order)
+
     # Алёрт в Telegram
     await bot.send_message(
         user["telegram_id"],

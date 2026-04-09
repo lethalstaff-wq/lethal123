@@ -149,6 +149,68 @@ SCHEMA: list[str] = [
     )
     """,
     """
+    CREATE TABLE IF NOT EXISTS promo_codes (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        code TEXT NOT NULL UNIQUE,
+        discount_percent INTEGER NOT NULL,
+        max_uses INTEGER NOT NULL DEFAULT 0,
+        used_count INTEGER NOT NULL DEFAULT 0,
+        valid_until INTEGER,
+        created_at INTEGER NOT NULL
+    )
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS promo_redemptions (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER NOT NULL,
+        promo_id INTEGER NOT NULL,
+        redeemed_at INTEGER NOT NULL,
+        UNIQUE(user_id, promo_id),
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+        FOREIGN KEY (promo_id) REFERENCES promo_codes(id) ON DELETE CASCADE
+    )
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS notification_prefs (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER NOT NULL UNIQUE,
+        notify_new_order INTEGER NOT NULL DEFAULT 1,
+        notify_new_message INTEGER NOT NULL DEFAULT 1,
+        notify_new_review INTEGER NOT NULL DEFAULT 1,
+        notify_session_lost INTEGER NOT NULL DEFAULT 1,
+        notify_payment INTEGER NOT NULL DEFAULT 1,
+        quiet_hours_start INTEGER NOT NULL DEFAULT 0,
+        quiet_hours_end INTEGER NOT NULL DEFAULT 0,
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    )
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS audit_log (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER,
+        action TEXT NOT NULL,
+        details TEXT,
+        ip TEXT,
+        created_at INTEGER NOT NULL
+    )
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS ab_tests (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER NOT NULL,
+        name TEXT NOT NULL,
+        variant_a TEXT NOT NULL,
+        variant_b TEXT NOT NULL,
+        a_used INTEGER NOT NULL DEFAULT 0,
+        b_used INTEGER NOT NULL DEFAULT 0,
+        a_conversions INTEGER NOT NULL DEFAULT 0,
+        b_conversions INTEGER NOT NULL DEFAULT 0,
+        is_active INTEGER NOT NULL DEFAULT 1,
+        created_at INTEGER NOT NULL,
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    )
+    """,
+    """
     CREATE TABLE IF NOT EXISTS pending_payments (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         user_id INTEGER NOT NULL,
