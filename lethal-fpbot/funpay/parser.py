@@ -161,6 +161,73 @@ def find_form_field(html: str, field_name: str) -> str | None:
     return None
 
 
+def extract_csrf(html: str) -> str | None:
+    """Ищет CSRF-токен всеми известными способами.
+
+    FunPay за разные годы использовал 3-4 разных способа класть токен:
+      1. body[data-app-data]['csrf-token']  — современный (основной)
+      2. <input name="_csrf_token" value>    — старые формы
+      3. <input name="_tkn" value>           — некоторые формы
+      4. <meta name="csrf-token" content>    — если появится
+    """
+    if not html:
+        return None
+
+    # Способ 1 — data-app-data (самый актуальный)
+    token = parse_csrf_token(html)
+    if token:
+        return token
+
+    # Способ 2 — input name="_csrf_token"
+    token = find_form_field(html, "_csrf_token")
+    if token:
+        return token
+
+    # Способ 3 — input name="_tkn"
+    token = find_form_field(html, "_tkn")
+    if token:
+        return token
+
+    # Способ 4 — meta tag
+    soup = BeautifulSoup(html, "lxml")
+    meta = soup.find("meta", attrs={"name": "csrf-token"})
+    if meta and meta.get("content"):
+        return str(meta["content"])
+
+    return None
+
+
+def detect_cloudflare_block(html: str) -> str | None:
+    """Возвращает причину блокировки если Cloudflare заблокировал, иначе None."""
+    if not html:
+        return None
+    low = html[:3000].lower()
+    markers = [
+        ("cf-browser-verification", "Cloudflare JS challenge"),
+        ("just a moment", "Cloudflare 'Just a moment...' challenge"),
+        ("attention required", "Cloudflare 'Attention Required'"),
+        ("cf-chl-opt", "Cloudflare challenge"),
+        ("ddos protection by cloudflare", "Cloudflare DDoS protection"),
+        ("access denied", "Cloudflare access denied"),
+        ("enable javascript and cookies", "Cloudflare JS check"),
+    ]
+    for marker, reason in markers:
+        if marker in low:
+            return reason
+    return None
+
+
+def is_login_page(html: str) -> bool:
+    """Проверяет что это страница логина FunPay."""
+    if not html:
+        return False
+    low = html[:5000].lower()
+    return (
+        "password" in low
+        and ("login" in low or "вход" in low or "войти" in low)
+    )
+
+
 def iter_error_messages(html: str) -> Iterable[str]:
     soup = BeautifulSoup(html, "lxml")
     for node in soup.select(".alert.alert-danger, .form-error"):

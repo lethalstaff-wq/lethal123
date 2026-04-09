@@ -26,6 +26,21 @@ from .parser import find_form_field, parse_self_profile
 logger = logging.getLogger(__name__)
 
 
+def _dump_debug_html(html: str, tag: str) -> None:
+    """Сохраняет HTML в .fp_debug_<tag>.html для разбора на что FunPay ответил.
+
+    Тихо игнорирует ошибки записи.
+    """
+    try:
+        from pathlib import Path
+
+        path = Path(__file__).resolve().parents[1] / f".fp_debug_{tag}.html"
+        path.write_text(html[:200_000], encoding="utf-8")
+        logger.info("FP debug HTML dumped: %s", path)
+    except Exception:  # noqa: BLE001
+        pass
+
+
 class FunPayAuthError(Exception):
     """Не удалось залогиниться (неверные креды/капча/блок IP)."""
 
@@ -136,15 +151,53 @@ class FunPaySession:
     async def login_with_password(self) -> SessionInfo:
         """Логинится логином+паролем, возвращает свежий golden_key."""
         async with self._lock:
-            # 1. GET /account/login — забираем csrf
+            from .parser import detect_cloudflare_block, extract_csrf
+
+            # 0. Сначала GET / — получить стартовые cookies (FunPay их ставит
+            #    на главной). Без этого страница логина иногда не отдаёт
+            #    корректный csrf.
+            status0, html0 = await self.get("/")
+            cf_reason = detect_cloudflare_block(html0)
+            if cf_reason:
+                _dump_debug_html(html0, "fp_home")
+                raise FunPayAuthError(
+                    f"Cloudflare заблокировал FunPay ({cf_reason}). "
+                    f"Попробуй без прокси или другой прокси (резидент РФ). "
+                    f"HTML дампнут в .fp_debug_fp_home.html"
+                )
+
+            # Если на главной уже виден csrf — сразу используем его
+            csrf = extract_csrf(html0)
+
+            # 1. GET /account/login — форма
             status, html = await self.get("/account/login")
             if status >= 500:
                 raise FunPayNetworkError(f"FunPay вернул {status}")
 
-            csrf = find_form_field(html, "_csrf_token")
-            if not csrf:
+            cf_reason = detect_cloudflare_block(html)
+            if cf_reason:
+                _dump_debug_html(html, "fp_login")
                 raise FunPayAuthError(
-                    "Не удалось получить CSRF-токен на странице логина"
+                    f"Cloudflare блокирует /account/login ({cf_reason}). "
+                    f"Нужен другой прокси. HTML дампнут в .fp_debug_fp_login.html"
+                )
+
+            # Пытаемся достать csrf из страницы логина, если ещё не нашли
+            if not csrf:
+                csrf = extract_csrf(html)
+
+            if not csrf:
+                _dump_debug_html(html, "fp_login_no_csrf")
+                logger.warning(
+                    "CSRF not found. status=%s html_len=%d preview=%r",
+                    status, len(html), html[:300].replace("\n", " "),
+                )
+                raise FunPayAuthError(
+                    f"Не удалось найти CSRF-токен на странице логина "
+                    f"(размер ответа: {len(html)} байт). "
+                    f"Скорее всего прокси блокируется FunPay или вернулась "
+                    f"не та страница. HTML дампнут в "
+                    f".fp_debug_fp_login_no_csrf.html — посмотри что там."
                 )
 
             # 2. POST /account/login
@@ -152,18 +205,33 @@ class FunPaySession:
                 "_csrf_token": csrf,
                 "login": self.login,
                 "password": self.password,
+                "next": "/",
+                "locale": "ru",
             }
-            status, _ = await self.post(
+            status, body = await self.post(
                 "/account/login", data=payload, allow_redirects=False
             )
 
             if status not in (302, 303):
-                # Перепроверим — может уже залогинены
+                # Может быть 200 с ошибкой в HTML, или 200 т.к. уже залогинены
                 info = await self._refresh_self_info()
                 if info:
                     return info
+
+                # Достаём текст ошибки из формы
+                from .parser import iter_error_messages
+
+                errors = list(iter_error_messages(body))
+                if errors:
+                    raise FunPayAuthError(
+                        f"FunPay вернул ошибку: {'; '.join(errors)}"
+                    )
+
+                _dump_debug_html(body, "fp_login_post")
                 raise FunPayAuthError(
-                    "Неверный логин/пароль или требуется капча"
+                    f"Неверный логин/пароль или нужна капча "
+                    f"(статус ответа: {status}). Дамп в "
+                    f".fp_debug_fp_login_post.html"
                 )
 
             # 3. Достаём golden_key из cookies
