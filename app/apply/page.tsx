@@ -519,33 +519,6 @@ export default function ApplyPage() {
 
       {/* ═══ HERO ═══ */}
       <section className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden">
-        {/* Mouse spotlight */}
-        <div className="absolute inset-0 pointer-events-none opacity-20 hidden lg:block"
-          style={{ background: `radial-gradient(600px circle at ${mousePos.x}% ${mousePos.y}%, rgba(239,111,41,0.12), transparent 60%)` }} />
-        {/* Grid */}
-        <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
-          <div className="absolute inset-0" style={{
-            backgroundImage: "linear-gradient(rgba(239,111,41,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(239,111,41,0.3) 1px, transparent 1px)",
-            backgroundSize: "60px 60px",
-            maskImage: "radial-gradient(ellipse at center, black 30%, transparent 70%)",
-            WebkitMaskImage: "radial-gradient(ellipse at center, black 30%, transparent 70%)",
-          }} />
-        </div>
-        {/* Orbs */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute w-[600px] h-[600px] bg-primary/15 rounded-full blur-[180px] -top-[200px] left-1/4 animate-pulse" style={{ animationDuration: "4s" }} />
-          <div className="absolute w-[400px] h-[400px] bg-purple-500/8 rounded-full blur-[150px] top-[20%] right-[10%] animate-pulse" style={{ animationDuration: "6s" }} />
-          <div className="absolute w-[300px] h-[300px] bg-blue-500/6 rounded-full blur-[120px] bottom-[20%] left-[15%] animate-pulse" style={{ animationDuration: "5s" }} />
-        </div>
-
-
-        {/* ═══ INTERACTIVE PARTICLE FIELD ═══ */}
-        <canvas
-          ref={canvasRef}
-          className="absolute inset-0 w-full h-full pointer-events-none"
-          style={{ opacity: 0.6 }}
-        />
-
         <div className="container mx-auto relative z-10 py-32 px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
             {/* ── Left: Text content ── */}
@@ -601,17 +574,17 @@ export default function ApplyPage() {
 
             {/* ── Right: 3D Isometric Cards (ynkidev-style) ── */}
             <div className="hidden lg:flex items-center justify-center animate-fade-in-up animate-delay-200">
-              <div className="relative" style={{ width: "clamp(320px, 50vw, 420px)", aspectRatio: "1", perspective: "2000px" }}>
+              <div className="relative" style={{ width: "clamp(380px, 55vw, 500px)", aspectRatio: "1", perspective: "1000px" }}>
 
                 {/* Ambient glow behind stack */}
                 <div className="absolute top-1/2 left-1/2 w-[75%] h-[75%] rounded-full pointer-events-none"
                   style={{ transform: "translate(-50%, -50%)", filter: "blur(100px)", background: "rgba(123,63,228,0.2)" }} />
 
                 {/* 3D scene */}
-                <div className="absolute inset-0" style={{ transformStyle: "preserve-3d", transform: "rotateX(30deg) rotateY(-30deg)" }}>
+                <div className="absolute inset-0" style={{ transformStyle: "preserve-3d", transform: "rotateX(45deg) rotateY(-25deg) rotateZ(25deg)" }}>
 
                   {/* ─── Layer 1 (back): Infrastructure — cyan ─── */}
-                  <div className="absolute inset-0" style={{ transformStyle: "preserve-3d", transform: "translateZ(-80px)" }}>
+                  <div className="absolute inset-0" style={{ transformStyle: "preserve-3d", transform: "translateZ(-200px)" }}>
                     <div style={{ animation: "isoFloat 6s ease-in-out infinite 1s" }} className="h-full">
                       <div className="h-full rounded-[18px] p-[22px] flex flex-col"
                         style={{
@@ -659,7 +632,7 @@ export default function ApplyPage() {
                   </div>
 
                   {/* ─── Layer 2 (middle): Backend / API — purple ─── */}
-                  <div className="absolute inset-0" style={{ transformStyle: "preserve-3d", transform: "translateZ(0px)" }}>
+                  <div className="absolute inset-0" style={{ transformStyle: "preserve-3d", transform: "translateZ(-100px)" }}>
                     <div style={{ animation: "isoFloat 6s ease-in-out infinite 0.5s" }} className="h-full">
                       <div className="h-full rounded-[18px] p-[22px] flex flex-col"
                         style={{
@@ -713,7 +686,7 @@ export default function ApplyPage() {
                   </div>
 
                   {/* ─── Layer 3 (front/top): UI Dashboard — white ─── */}
-                  <div className="absolute inset-0" style={{ transformStyle: "preserve-3d", transform: "translateZ(80px)" }}>
+                  <div className="absolute inset-0" style={{ transformStyle: "preserve-3d", transform: "translateZ(0px)" }}>
                     <div style={{ animation: "isoFloat 6s ease-in-out infinite" }} className="h-full">
                       <div className="h-full rounded-[18px] flex flex-col overflow-hidden"
                         style={{
@@ -790,34 +763,6 @@ export default function ApplyPage() {
           <ChevronDown className="h-5 w-5 animate-bounce group-hover:text-primary" />
         </button>
       </section>
-
-      {/* ═══ GLOBAL GRID BACKGROUND ═══ */}
-      <div className="fixed inset-0 pointer-events-none z-0 opacity-[0.025]">
-        <div className="absolute inset-0" style={{
-          backgroundImage: "linear-gradient(rgba(239,111,41,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(239,111,41,0.4) 1px, transparent 1px)",
-          backgroundSize: "80px 80px",
-        }} />
-      </div>
-
-      {/* ═══ FLOATING DECORATIONS ═══ */}
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        {/* Orange glow top-right */}
-        <div className="absolute -top-[300px] -right-[200px] w-[600px] h-[600px] bg-primary/[0.04] rounded-full blur-[200px]" />
-        {/* Purple glow bottom-left */}
-        <div className="absolute -bottom-[300px] -left-[200px] w-[500px] h-[500px] bg-purple-500/[0.03] rounded-full blur-[200px]" />
-        {/* Small floating dots */}
-        <div className="absolute top-[15%] right-[8%] w-1.5 h-1.5 rounded-full bg-primary/20 animate-pulse" style={{ animationDuration: "3s" }} />
-        <div className="absolute top-[35%] left-[5%] w-1 h-1 rounded-full bg-purple-500/20 animate-pulse" style={{ animationDuration: "4s" }} />
-        <div className="absolute top-[55%] right-[12%] w-1 h-1 rounded-full bg-blue-500/20 animate-pulse" style={{ animationDuration: "5s" }} />
-        <div className="absolute top-[75%] left-[10%] w-1.5 h-1.5 rounded-full bg-primary/15 animate-pulse" style={{ animationDuration: "3.5s" }} />
-        <div className="absolute top-[45%] right-[25%] w-1 h-1 rounded-full bg-amber-500/15 animate-pulse" style={{ animationDuration: "4.5s" }} />
-        <div className="absolute top-[85%] right-[6%] w-1 h-1 rounded-full bg-emerald-500/15 animate-pulse" style={{ animationDuration: "5.5s" }} />
-        {/* Diagonal accent lines */}
-        <div className="absolute top-[20%] left-[3%] w-16 h-px bg-gradient-to-r from-primary/10 to-transparent rotate-45" />
-        <div className="absolute top-[60%] right-[4%] w-20 h-px bg-gradient-to-l from-primary/10 to-transparent -rotate-45" />
-        <div className="absolute top-[40%] left-[6%] w-12 h-px bg-gradient-to-r from-purple-500/10 to-transparent rotate-12" />
-        <div className="absolute top-[80%] right-[8%] w-14 h-px bg-gradient-to-l from-blue-500/8 to-transparent -rotate-12" />
-      </div>
 
       {/* ═══ POSITIONS ═══ */}
       <section id="positions" className="relative z-10 px-4 py-20">
