@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from "react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
+import { FloatingTechStack } from "@/components/floating-tech-stack"
 import {
   Users, Code2, Crown, Headphones, Camera, Search, DollarSign,
   Check, Minus, Plus, Send, CheckCircle2, Shield, Zap, Globe,
@@ -2602,16 +2603,13 @@ export default function ApplyPage() {
             </div>
 
             {/* ── Right: Terminal + TextRing ── */}
-            <div className={`hidden lg:flex justify-center transition-all duration-1000 delay-400 relative ${heroTextVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}>
+            <div className={`hidden lg:block transition-all duration-1000 delay-400 relative ${heroTextVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}>
               {/* Morphing blob behind */}
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10">
-                <MorphBlob color="#EF6F29" size={500} />
+                <MorphBlob color="#EF6F29" size={550} />
               </div>
-              {/* Text ring */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-5 opacity-40">
-                <TextRing size={480} />
-              </div>
-              <TerminalAnimation />
+              {/* 3D Isometric Card Stack — ynkidev style */}
+              <FloatingTechStack />
             </div>
           </div>
         </div>
