@@ -532,7 +532,7 @@ function AnimatedNumber({ value, suffix = "" }: { value: number; suffix?: string
     requestAnimationFrame(tick)
   }, [inView, value])
 
-  return <span ref={ref as React.RefObject<HTMLSpanElement>} className="tabular-nums">{count}{suffix}</span>
+  return <span ref={ref as unknown as React.RefObject<HTMLSpanElement>} className="tabular-nums">{count}{suffix}</span>
 }
 
 
@@ -995,7 +995,7 @@ function ProcessStep({
   index,
   total,
 }: {
-  step: { step: string; title: string; desc: string; icon: React.ComponentType<{ className?: string }>; color: string }
+  step: { step: string; title: string; desc: string; icon: React.ComponentType<{ className?: string; style?: React.CSSProperties }>; color: string }
   index: number
   total: number
 }) {
@@ -1549,7 +1549,7 @@ function TypingText({ text, className = "" }: { text: string; className?: string
   }, [inView, text])
 
   return (
-    <span ref={ref as React.RefObject<HTMLSpanElement>} className={className}>
+    <span ref={ref as unknown as React.RefObject<HTMLSpanElement>} className={className}>
       {displayed}
       {displayed.length < text.length && inView && (
         <span className="inline-block w-[3px] h-[1em] bg-primary/70 ml-0.5 animate-pulse align-baseline" />
@@ -1669,7 +1669,7 @@ function NumberTicker({ value, className = "" }: { value: string; className?: st
   }, [inView])
 
   return (
-    <span ref={ref as React.RefObject<HTMLSpanElement>} className={`inline-flex overflow-hidden ${className}`}>
+    <span ref={ref as unknown as React.RefObject<HTMLSpanElement>} className={`inline-flex overflow-hidden ${className}`}>
       {value.split("").map((char, i) => (
         <span
           key={i}
@@ -1920,7 +1920,7 @@ function SkillBar({ label, value, color, delay = 0 }: { label: string; value: nu
       </div>
       <div className="h-2 bg-white/[0.04] rounded-full overflow-hidden relative">
         <div
-          className="h-full rounded-full transition-all duration-1500 ease-out relative"
+          className="h-full rounded-full transition-all duration-[1500ms] ease-out relative"
           style={{
             width: inView ? `${value}%` : "0%",
             background: `linear-gradient(90deg, ${color}, ${color}80)`,
@@ -1933,7 +1933,7 @@ function SkillBar({ label, value, color, delay = 0 }: { label: string; value: nu
         </div>
         {/* Glow */}
         <div
-          className="absolute top-0 h-full rounded-full blur-sm transition-all duration-1500 ease-out"
+          className="absolute top-0 h-full rounded-full blur-sm transition-all duration-[1500ms] ease-out"
           style={{
             width: inView ? `${value}%` : "0%",
             background: `${color}30`,
@@ -3957,8 +3957,8 @@ export default function ApplyPage() {
         }
 
         /* ─── Skill bar transition ─── */
-        .transition-all.duration-1500 {
-          transition-duration: 1.5s;
+        .duration-\[1500ms\] {
+          transition-duration: 1500ms;
         }
 
         /* ─── Morph blob ─── */
