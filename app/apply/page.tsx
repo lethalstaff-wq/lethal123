@@ -783,7 +783,7 @@ function StatCard({ stat, index }: { stat: typeof STATS[number]; index: number }
           {/* Icon */}
           <div className="w-10 h-10 rounded-xl mx-auto mb-3 flex items-center justify-center border border-white/[0.06] group-hover:scale-110 transition-transform duration-500"
             style={{ background: `linear-gradient(135deg, ${stat.color}15, ${stat.color}05)` }}>
-            <stat.icon className="h-4.5 w-4.5" style={{ color: stat.color }} />
+            <stat.icon className="h-[18px] w-[18px]" style={{ color: stat.color }} />
           </div>
           {/* Value */}
           <p className="text-2xl font-black text-white mb-1">
@@ -816,7 +816,7 @@ function PositionCard({ pos, onApply, index }: { pos: typeof POSITIONS[number]; 
         ref={cardRef}
         {...tilt}
         onMouseEnter={() => setHovered(true)}
-        onMouseLeave={(e) => { setHovered(false); tilt.onMouseLeave(e) }}
+        onMouseLeave={() => { setHovered(false); tilt.onMouseLeave() }}
         className="group relative rounded-[20px] border border-white/[0.06] bg-[#0c0c0e]/80 backdrop-blur-xl overflow-hidden transition-all duration-500 hover:border-white/[0.12]"
         style={{ transformStyle: "preserve-3d", willChange: "transform" }}
       >
@@ -2398,7 +2398,7 @@ export default function ApplyPage() {
                   className="group text-white font-bold px-8 py-4 rounded-2xl flex items-center gap-3 neon-btn hover:-translate-y-0.5 active:scale-[0.97]"
                 >
                   <span>View Open Roles</span>
-                  <ArrowRight className="h-4.5 w-4.5 group-hover:translate-x-1 transition-transform duration-300" />
+                  <ArrowRight className="h-[18px] w-[18px] group-hover:translate-x-1 transition-transform duration-300" />
                 </MagneticButton>
 
                 <MagneticButton
@@ -3132,7 +3132,7 @@ export default function ApplyPage() {
                       <div className="flex items-center gap-4">
                         <div className="w-12 h-12 rounded-xl flex items-center justify-center border border-white/[0.06]"
                           style={{ background: `linear-gradient(135deg, ${selectedPos.color}15, ${selectedPos.color}05)` }}>
-                          <selectedPos.icon className="h-5.5 w-5.5" style={{ color: selectedPos.color }} />
+                          <selectedPos.icon className="h-[22px] w-[22px]" style={{ color: selectedPos.color }} />
                         </div>
                         <div>
                           <p className="font-bold text-white/90">{selectedPos.title}</p>
@@ -3190,7 +3190,7 @@ export default function ApplyPage() {
                         <div className="relative">
                           <input type="text" value={discord} onChange={(e) => setDiscord(e.target.value)}
                             placeholder="your username"
-                            className="w-full h-13 px-5 rounded-xl bg-white/[0.02] border border-white/[0.06] text-sm placeholder:text-white/15 focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all duration-300" />
+                            className="w-full h-[52px] px-5 rounded-xl bg-white/[0.02] border border-white/[0.06] text-sm placeholder:text-white/15 focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all duration-300" />
                           {discord.length >= 2 && (
                             <div className="absolute right-4 top-1/2 -translate-y-1/2">
                               <Check className="h-4 w-4 text-emerald-400" />
@@ -3243,7 +3243,7 @@ export default function ApplyPage() {
 
                       {/* Continue */}
                       <button onClick={() => s0 && setFormStep(1)} disabled={!s0}
-                        className="w-full py-4.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2.5 transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed hover:-translate-y-0.5 active:scale-[0.98]"
+                        className="w-full py-[18px] rounded-xl font-bold text-sm flex items-center justify-center gap-2.5 transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed hover:-translate-y-0.5 active:scale-[0.98]"
                         style={{
                           background: s0 ? "linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04))" : "rgba(255,255,255,0.03)",
                           border: `1px solid ${s0 ? "rgba(255,255,255,0.15)" : "rgba(255,255,255,0.06)"}`,
@@ -3324,11 +3324,11 @@ export default function ApplyPage() {
                       {/* Navigation */}
                       <div className="flex gap-3">
                         <button onClick={() => setFormStep(0)}
-                          className="flex-1 py-4.5 rounded-xl border border-white/[0.06] text-sm font-semibold text-white/30 hover:text-white/60 hover:bg-white/[0.03] hover:border-white/[0.1] transition-all duration-300">
+                          className="flex-1 py-[18px] rounded-xl border border-white/[0.06] text-sm font-semibold text-white/30 hover:text-white/60 hover:bg-white/[0.03] hover:border-white/[0.1] transition-all duration-300">
                           Back
                         </button>
                         <button onClick={() => s1 && setFormStep(2)} disabled={!s1}
-                          className="flex-[2] py-4.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2.5 transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed hover:-translate-y-0.5"
+                          className="flex-[2] py-[18px] rounded-xl font-bold text-sm flex items-center justify-center gap-2.5 transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed hover:-translate-y-0.5"
                           style={{
                             background: s1 ? "linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04))" : "rgba(255,255,255,0.03)",
                             border: `1px solid ${s1 ? "rgba(255,255,255,0.15)" : "rgba(255,255,255,0.06)"}`,
@@ -3377,7 +3377,7 @@ export default function ApplyPage() {
                         </label>
                         <input type="url" value={portfolio} onChange={(e) => setPortfolio(e.target.value)}
                           placeholder="https://your-portfolio.com"
-                          className="w-full h-13 px-5 rounded-xl bg-white/[0.02] border border-white/[0.06] text-sm placeholder:text-white/12 focus:outline-none focus:border-primary/40 focus:ring-2 focus:ring-primary/10 transition-all duration-300" />
+                          className="w-full h-[52px] px-5 rounded-xl bg-white/[0.02] border border-white/[0.06] text-sm placeholder:text-white/12 focus:outline-none focus:border-primary/40 focus:ring-2 focus:ring-primary/10 transition-all duration-300" />
                       </div>
 
                       {/* Agreements */}
@@ -3404,16 +3404,16 @@ export default function ApplyPage() {
                       {/* Submit */}
                       <div className="flex gap-3 pt-2">
                         <button onClick={() => setFormStep(1)}
-                          className="flex-1 py-4.5 rounded-xl border border-white/[0.06] text-sm font-semibold text-white/30 hover:text-white/60 hover:bg-white/[0.03] hover:border-white/[0.1] transition-all duration-300">
+                          className="flex-1 py-[18px] rounded-xl border border-white/[0.06] text-sm font-semibold text-white/30 hover:text-white/60 hover:bg-white/[0.03] hover:border-white/[0.1] transition-all duration-300">
                           Back
                         </button>
                         <button onClick={handleSubmit} disabled={!s2 || submitting}
-                          className="flex-[2] py-4.5 rounded-xl text-white font-bold text-base flex items-center justify-center gap-3 disabled:opacity-20 disabled:cursor-not-allowed hover:-translate-y-0.5 active:scale-[0.97] transition-all duration-300 neon-btn">
+                          className="flex-[2] py-[18px] rounded-xl text-white font-bold text-base flex items-center justify-center gap-3 disabled:opacity-20 disabled:cursor-not-allowed hover:-translate-y-0.5 active:scale-[0.97] transition-all duration-300 neon-btn">
                           {submitting ? (
                             <span className="animate-spin h-5 w-5 border-2 border-white/30 border-t-white rounded-full" />
                           ) : (
                             <>
-                              <Send className="h-4.5 w-4.5" />
+                              <Send className="h-[18px] w-[18px]" />
                               Submit Application
                             </>
                           )}
