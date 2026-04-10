@@ -7,7 +7,7 @@ import {
   Users, Code2, Crown, Headphones, Camera, Search, DollarSign,
   Check, Minus, Plus, Send, CheckCircle2, Sparkles, Shield, Zap, Globe,
   ArrowRight, Clock, Star, ChevronRight, Trophy, Rocket, Heart, ChevronDown,
-  MessageSquare,
+  MessageSquare, Activity, PanelsTopLeft, Server,
 } from "lucide-react"
 import Link from "next/link"
 import { toast } from "sonner"
@@ -574,206 +574,147 @@ export default function ApplyPage() {
 
             {/* ── Right: 3D Isometric Cards ── */}
             <div className="hidden lg:flex items-center justify-center animate-fade-in-up animate-delay-200">
-              <div className="relative w-[520px] h-[520px]" style={{ perspective: "1500px" }}>
+              <div className="relative flex items-center justify-center" style={{ perspective: "2000px", width: "100%", maxWidth: 600, aspectRatio: "1", margin: "0 auto" }}>
 
                 {/* Ambient glow */}
-                <div className="absolute top-1/2 left-1/2 w-[80%] h-[80%] rounded-full pointer-events-none"
-                  style={{ transform: "translate(-50%, -50%)", filter: "blur(120px)", background: "rgba(123,63,228,0.15)" }} />
+                <div className="absolute top-1/2 left-1/2 w-[75%] h-[75%] rounded-full pointer-events-none"
+                  style={{ transform: "translate(-50%, -50%)", filter: "blur(100px)", background: "rgba(123,63,228,0.2)" }} />
 
-                {/* Floating particles */}
-                {[
-                  { x: "10%", y: "15%", s: 3, c: "#22c55e", d: "2.5s" },
-                  { x: "85%", y: "20%", s: 2, c: "#7b3fe4", d: "3.5s" },
-                  { x: "75%", y: "80%", s: 2.5, c: "#00d2ff", d: "4s" },
-                  { x: "20%", y: "75%", s: 2, c: "#22c55e", d: "3s" },
-                  { x: "50%", y: "10%", s: 1.5, c: "#7b3fe4", d: "5s" },
-                  { x: "90%", y: "50%", s: 2, c: "#00d2ff", d: "3.2s" },
-                  { x: "5%", y: "45%", s: 1.5, c: "#22c55e", d: "4.5s" },
-                  { x: "65%", y: "5%", s: 2, c: "#7b3fe4", d: "2.8s" },
-                ].map((p, i) => (
-                  <div key={i} className="absolute rounded-full pointer-events-none animate-pulse"
+                {/* Scene */}
+                <div className="relative" style={{ width: "clamp(300px, 55vw, 400px)", height: "clamp(300px, 55vw, 400px)" }}>
+
+                  {/* ─── Layer (back): Infrastructure — cyan ─── */}
+                  <div className="absolute inset-0 rounded-[18px] flex flex-col overflow-hidden"
                     style={{
-                      left: p.x, top: p.y,
-                      width: p.s, height: p.s,
-                      background: p.c,
-                      boxShadow: `0 0 ${p.s * 4}px ${p.c}`,
-                      animationDuration: p.d,
-                    }} />
-                ))}
-
-                {/* 3D scene */}
-                <div className="absolute inset-0 flex items-center justify-center" style={{
-                  transformStyle: "preserve-3d",
-                  transformOrigin: "center bottom",
-                  transform: "rotateX(35deg) rotateY(25deg) rotateZ(-10deg)",
-                }}>
-
-                  {/* ─── Layer 3 (back/bottom): Infrastructure — cyan ─── */}
-                  <div className="absolute" style={{
-                    transformStyle: "preserve-3d",
-                    transform: "translateZ(-300px) translateY(60px)",
-                    width: 280, height: 160,
-                  }}>
-                    <div style={{ animation: "isoFloat 4s ease-in-out infinite 1s" }} className="w-full h-full">
-                      {/* Glow under card */}
-                      <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-[80%] h-[30px] rounded-full"
-                        style={{ background: "rgba(0,210,255,0.3)", filter: "blur(20px)" }} />
-                      <div className="relative w-full h-full rounded-2xl p-5 flex flex-col overflow-hidden"
-                        style={{
-                          background: "linear-gradient(135deg, rgba(8,8,28,0.95), rgba(5,5,20,0.98))",
-                          border: "1px solid transparent",
-                          backgroundClip: "padding-box",
-                          boxShadow: "0 40px 80px rgba(0,0,0,0.3), 0 20px 40px rgba(0,210,255,0.15), 0 0 60px rgba(0,210,255,0.1), inset 0 1px 0 rgba(255,255,255,0.08)",
-                        }}>
-                        {/* Gradient border overlay */}
-                        <div className="absolute inset-0 rounded-2xl pointer-events-none"
-                          style={{ border: "1px solid transparent", background: "linear-gradient(135deg, rgba(0,210,255,0.4), rgba(0,210,255,0.05)) border-box", mask: "linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0)", maskComposite: "exclude", WebkitMaskComposite: "xor" }} />
-                        <div className="flex items-center gap-2 mb-3">
-                          <div className="w-6 h-6 rounded-lg flex items-center justify-center" style={{ background: "rgba(0,210,255,0.15)", boxShadow: "0 0 12px rgba(0,210,255,0.2)" }}>
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00d2ff" strokeWidth="2"><rect x="2" y="2" width="20" height="8" rx="2" /><rect x="2" y="14" width="20" height="8" rx="2" /><circle cx="6" cy="6" r="1" fill="#00d2ff" /><circle cx="6" cy="18" r="1" fill="#00d2ff" /></svg>
-                          </div>
-                          <span className="text-[11px] font-bold uppercase tracking-[0.15em] font-mono" style={{ color: "#00d2ff" }}>Infrastructure</span>
-                          <span className="ml-auto text-[9px] font-mono" style={{ color: "rgba(0,210,255,0.5)" }}>3 nodes</span>
-                        </div>
-                        <div className="flex-1 flex flex-col justify-center space-y-2.5">
-                          {[
-                            { label: "CPU", pct: 34 },
-                            { label: "MEM", pct: 67 },
-                            { label: "NET", pct: 52 },
-                          ].map((item, i) => (
-                            <div key={i} className="flex items-center gap-2">
-                              <span className="text-[9px] text-white/30 font-mono w-7">{item.label}</span>
-                              <div className="flex-1 h-2 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.06)" }}>
-                                <div className="h-full rounded-full" style={{
-                                  width: `${item.pct}%`,
-                                  background: "linear-gradient(90deg, #00d2ff, #00ffd5)",
-                                  boxShadow: "0 0 14px rgba(0,210,255,0.6)",
-                                }} />
-                              </div>
-                              <span className="text-[9px] font-mono font-bold" style={{ color: "#00d2ff" }}>{item.pct}%</span>
-                            </div>
-                          ))}
-                        </div>
-                        {/* Dot grid */}
-                        <div className="absolute inset-0 rounded-2xl pointer-events-none opacity-[0.08]"
-                          style={{ backgroundImage: "radial-gradient(rgba(0,210,255,0.6) 1px, transparent 1px)", backgroundSize: "16px 16px" }} />
+                      transformStyle: "preserve-3d",
+                      transform: "translateZ(0px)",
+                      animation: "isoFloat 6s ease-in-out infinite 1s",
+                      background: "rgba(0,0,0,0.4)",
+                      backdropFilter: "blur(10px)",
+                      WebkitBackdropFilter: "blur(10px)",
+                      border: "1px solid rgba(0,210,255,0.3)",
+                      boxShadow: "0 0 30px rgba(0,210,255,0.1)",
+                      padding: 22,
+                    }}>
+                    {/* Dot grid overlay */}
+                    <div className="absolute inset-0 pointer-events-none" style={{ opacity: 0.3, backgroundImage: "radial-gradient(circle, rgba(0,210,255,0.1) 1px, transparent 1px)", backgroundSize: "20px 20px" }} />
+                    {/* Header */}
+                    <div className="flex items-center justify-between mb-4 pb-4 relative" style={{ borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
+                      <div className="flex items-center gap-2">
+                        <Server className="w-5 h-5" style={{ color: "rgba(0,210,255,0.92)" }} />
+                        <span className="font-mono text-[11px] font-bold uppercase" style={{ letterSpacing: "0.12em", color: "rgba(0,210,255,0.92)" }}>Infrastructure</span>
                       </div>
                     </div>
-                  </div>
-
-                  {/* ─── Layer 2 (middle): Backend / API — purple ─── */}
-                  <div className="absolute" style={{
-                    transformStyle: "preserve-3d",
-                    transform: "translateZ(-150px) translateY(30px)",
-                    width: 300, height: 180,
-                  }}>
-                    <div style={{ animation: "isoFloat 4s ease-in-out infinite 0.5s" }} className="w-full h-full">
-                      {/* Glow under card */}
-                      <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-[80%] h-[30px] rounded-full"
-                        style={{ background: "rgba(123,63,228,0.35)", filter: "blur(20px)" }} />
-                      <div className="relative w-full h-full rounded-2xl p-5 flex flex-col overflow-hidden"
-                        style={{
-                          background: "linear-gradient(135deg, rgba(8,8,28,0.95), rgba(5,5,20,0.98))",
-                          boxShadow: "0 40px 80px rgba(0,0,0,0.3), 0 20px 40px rgba(123,63,228,0.2), 0 0 60px rgba(123,63,228,0.1), inset 0 1px 0 rgba(255,255,255,0.08)",
-                        }}>
-                        {/* Gradient border */}
-                        <div className="absolute inset-0 rounded-2xl pointer-events-none"
-                          style={{ border: "1px solid transparent", background: "linear-gradient(135deg, rgba(123,63,228,0.5), rgba(123,63,228,0.05)) border-box", mask: "linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0)", maskComposite: "exclude", WebkitMaskComposite: "xor" }} />
-                        <div className="flex items-center gap-2 mb-3">
-                          <div className="w-6 h-6 rounded-lg flex items-center justify-center" style={{ background: "rgba(123,63,228,0.2)", boxShadow: "0 0 12px rgba(123,63,228,0.2)" }}>
-                            <span className="text-[11px] font-bold" style={{ color: "#a855f7" }}>{'</>'}</span>
-                          </div>
-                          <span className="text-[11px] font-bold uppercase tracking-[0.15em] font-mono" style={{ color: "#a855f7" }}>Backend / API</span>
-                          <span className="ml-auto text-[9px] font-mono" style={{ color: "rgba(168,85,247,0.5)" }}>v2.4.1</span>
+                    {/* Badge + bars */}
+                    <div className="flex items-center gap-3.5 mt-auto relative">
+                      <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0" style={{ background: "rgba(0,210,255,0.1)", border: "1px solid rgba(0,210,255,0.4)" }}>
+                        <Server className="w-6 h-6" style={{ color: "rgba(0,210,255,0.92)" }} />
+                      </div>
+                      <div className="flex-1 space-y-2.5">
+                        {/* Bar 1 — 75% */}
+                        <div className="h-2 rounded-full overflow-hidden" style={{ background: "rgba(0,210,255,0.2)" }}>
+                          <div className="h-full rounded-full" style={{ width: "75%", background: "rgba(0,210,255,0.92)", boxShadow: "0 0 10px rgba(0,210,255,0.9)" }} />
                         </div>
-                        <div className="flex-1 space-y-2">
-                          {[
-                            { label: "auth.service", w: "92%" },
-                            { label: "license.api", w: "78%" },
-                            { label: "hwid.verify", w: "85%" },
-                            { label: "session.mgr", w: "65%" },
-                          ].map((item, i) => (
-                            <div key={i} className="flex items-center gap-2">
-                              <svg width="8" height="8" viewBox="0 0 10 10" fill="none"><path d="M3 1l4 4-4 4" stroke="#a855f7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                              <span className="text-[9px] text-white/35 font-mono w-[72px] shrink-0">{item.label}</span>
-                              <div className="flex-1 h-[5px] rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.05)" }}>
-                                <div className="h-full rounded-full" style={{
-                                  width: item.w,
-                                  background: "linear-gradient(90deg, #7b3fe4, #a855f7)",
-                                  boxShadow: "0 0 12px rgba(123,63,228,0.7)",
-                                }} />
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                        {/* Pulse bar */}
-                        <div className="mt-2 h-1 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.04)" }}>
-                          <div className="h-full rounded-full" style={{
-                            width: "33%", background: "#a855f7",
-                            boxShadow: "0 0 10px rgba(168,85,247,0.9)",
-                            animation: "apiPulse 3s ease-in-out infinite",
-                          }} />
+                        {/* Bar 2 — 50% */}
+                        <div className="h-2 rounded-full overflow-hidden" style={{ background: "rgba(0,210,255,0.2)" }}>
+                          <div className="h-full rounded-full" style={{ width: "50%", background: "rgba(0,210,255,0.5)" }} />
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  {/* ─── Layer 1 (front/top): Dashboard — green/white ─── */}
-                  <div className="absolute" style={{
-                    transformStyle: "preserve-3d",
-                    transform: "translateZ(0px) translateY(0px)",
-                    width: 320, height: 200,
-                  }}>
-                    <div style={{ animation: "isoFloat 4s ease-in-out infinite" }} className="w-full h-full">
-                      {/* Glow under card */}
-                      <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-[80%] h-[30px] rounded-full"
-                        style={{ background: "rgba(34,197,94,0.3)", filter: "blur(20px)" }} />
-                      <div className="relative w-full h-full rounded-2xl flex flex-col overflow-hidden"
-                        style={{
-                          background: "linear-gradient(135deg, rgba(10,10,30,0.96), rgba(5,5,20,0.98))",
-                          boxShadow: "0 40px 80px rgba(0,0,0,0.35), 0 20px 40px rgba(34,197,94,0.15), 0 0 60px rgba(34,197,94,0.08), inset 0 1px 0 rgba(255,255,255,0.1)",
-                        }}>
-                        {/* Gradient border */}
-                        <div className="absolute inset-0 rounded-2xl pointer-events-none"
-                          style={{ border: "1px solid transparent", background: "linear-gradient(135deg, rgba(255,255,255,0.3), rgba(255,255,255,0.05)) border-box", mask: "linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0)", maskComposite: "exclude", WebkitMaskComposite: "xor" }} />
-                        {/* macOS chrome */}
-                        <div className="flex items-center px-4 py-3" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-                          <div className="flex gap-[6px] mr-3">
-                            <div className="w-[9px] h-[9px] rounded-full bg-[#ff5f57] shadow-[0_0_4px_rgba(255,95,87,0.4)]" />
-                            <div className="w-[9px] h-[9px] rounded-full bg-[#febc2e] shadow-[0_0_4px_rgba(254,188,46,0.4)]" />
-                            <div className="w-[9px] h-[9px] rounded-full bg-[#28c840] shadow-[0_0_4px_rgba(40,200,64,0.4)]" />
-                          </div>
-                          <div className="flex-1 flex items-center justify-center gap-1.5">
-                            <div className="w-[6px] h-[6px] rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(34,197,94,0.9)]" />
-                            <span className="text-[10px] text-white/50 font-mono">app.lethal.dev</span>
-                          </div>
-                        </div>
-                        {/* Body */}
-                        <div className="flex-1 p-4 flex flex-col">
-                          <div className="grid grid-cols-2 gap-2 mb-3">
-                            <div className="rounded-lg p-2.5" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}>
-                              <span className="text-[8px] text-white/30 font-mono uppercase block mb-0.5">Users</span>
-                              <span className="text-lg font-black text-white leading-none">12.4k</span>
-                            </div>
-                            <div className="rounded-lg p-2.5" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}>
-                              <span className="text-[8px] text-white/30 font-mono uppercase block mb-0.5">Uptime</span>
-                              <span className="text-lg font-black leading-none" style={{ color: "#22c55e" }}>99.9%</span>
-                            </div>
-                          </div>
-                          {/* Mini bar chart */}
-                          <div className="flex-1 flex items-end gap-[4px]">
-                            {[30,50,35,65,45,80,55,90,68,82,55,72].map((h, i) => (
-                              <div key={i} className="flex-1 rounded-sm" style={{
-                                height: `${h}%`,
-                                background: `linear-gradient(180deg, rgba(34,197,94,${0.3 + (h / 300)}) 0%, rgba(34,197,94,0.05) 100%)`,
-                                boxShadow: h > 70 ? "0 0 6px rgba(34,197,94,0.3)" : "none",
-                              }} />
-                            ))}
+                  {/* ─── Layer (middle): Backend / API — purple ─── */}
+                  <div className="absolute inset-0 rounded-[18px] flex flex-col overflow-hidden"
+                    style={{
+                      transformStyle: "preserve-3d",
+                      transform: "translateZ(86px)",
+                      animation: "isoFloat 6s ease-in-out infinite 0.5s",
+                      background: "rgba(0,0,0,0.4)",
+                      backdropFilter: "blur(14px)",
+                      WebkitBackdropFilter: "blur(14px)",
+                      border: "1px solid rgba(123,63,228,0.4)",
+                      boxShadow: "0 0 40px rgba(123,63,228,0.15)",
+                      padding: 22,
+                    }}>
+                    {/* Header */}
+                    <div className="flex items-center justify-between mb-4 pb-4" style={{ borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
+                      <div className="flex items-center gap-2">
+                        <Zap className="w-5 h-5" style={{ color: "rgba(123,63,228,0.92)" }} />
+                        <span className="font-mono text-[11px] font-bold uppercase" style={{ letterSpacing: "0.12em", color: "rgba(123,63,228,0.92)" }}>Backend / API</span>
+                      </div>
+                    </div>
+                    {/* API rows */}
+                    <div className="flex-1 space-y-2.5">
+                      {[1,2,3,4].map((_, i) => (
+                        <div key={i} className="flex items-center gap-3 rounded-xl px-2.5 py-2" style={{ background: "rgba(123,63,228,0.05)", border: "1px solid rgba(123,63,228,0.1)" }}>
+                          <Zap className="w-4 h-4 shrink-0" style={{ color: "rgba(123,63,228,0.75)" }} />
+                          <div className="flex-1 h-1.5 rounded-full overflow-hidden relative" style={{ background: "rgba(123,63,228,0.2)" }}>
+                            <div className="absolute inset-y-0 rounded-full" style={{
+                              width: "33%",
+                              background: "rgba(123,63,228,0.92)",
+                              boxShadow: "0 0 10px rgba(123,63,228,0.9)",
+                              animation: `apiPulse 3s ease-in-out infinite ${i * 0.4}s`,
+                            }} />
                           </div>
                         </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* ─── Layer (front/top): UI Dashboard — white ─── */}
+                  <div className="absolute inset-0 rounded-[18px] flex flex-col overflow-hidden"
+                    style={{
+                      transformStyle: "preserve-3d",
+                      transform: "translateZ(172px)",
+                      animation: "isoFloat 6s ease-in-out infinite",
+                      background: "rgba(0,0,0,0.6)",
+                      backdropFilter: "blur(18px)",
+                      WebkitBackdropFilter: "blur(18px)",
+                      border: "1px solid rgba(255,255,255,0.2)",
+                      boxShadow: "0 18px 70px rgba(0,0,0,0.55)",
+                    }}>
+                    {/* macOS header */}
+                    <div className="flex items-center gap-2 h-8 px-3.5" style={{ background: "rgba(255,255,255,0.05)", borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
+                      <div className="w-2.5 h-2.5 rounded-full" style={{ background: "rgba(239,68,68,0.9)" }} />
+                      <div className="w-2.5 h-2.5 rounded-full" style={{ background: "rgba(245,158,11,0.9)" }} />
+                      <div className="w-2.5 h-2.5 rounded-full" style={{ background: "rgba(34,197,94,0.9)" }} />
+                      <span className="ml-auto font-mono text-[10px]" style={{ color: "rgba(156,163,175,0.95)" }}>app.lethal.dev</span>
+                    </div>
+                    {/* Body */}
+                    <div className="flex-1 flex flex-col gap-3.5 p-[22px]" style={{ height: "calc(100% - 32px)" }}>
+                      {/* Icons row */}
+                      <div className="flex items-center justify-between">
+                        <PanelsTopLeft className="w-[22px] h-[22px]" style={{ color: "rgba(255,255,255,0.92)" }} />
+                        <Activity className="w-[18px] h-[18px]" style={{ color: "rgba(34,197,94,0.92)" }} />
+                      </div>
+                      {/* Metrics 2x2 */}
+                      <div className="grid grid-cols-2 gap-3">
+                        <div className="rounded-[14px] flex flex-col justify-between p-3" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", height: 70 }}>
+                          <span className="font-mono text-[10px] uppercase" style={{ letterSpacing: "0.06em", color: "rgba(156,163,175,0.95)" }}>Users</span>
+                          <span className="text-lg font-bold tabular-nums" style={{ color: "rgba(255,255,255,0.92)", fontWeight: 750 }}>12.4k</span>
+                        </div>
+                        <div className="rounded-[14px] flex flex-col justify-between p-3" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", height: 70 }}>
+                          <span className="font-mono text-[10px] uppercase" style={{ letterSpacing: "0.06em", color: "rgba(156,163,175,0.95)" }}>Uptime</span>
+                          <span className="text-lg font-bold tabular-nums" style={{ color: "rgba(34,197,94,0.92)", fontWeight: 750 }}>99.9%</span>
+                        </div>
+                      </div>
+                      {/* Bar chart */}
+                      <div className="flex-1 rounded-[14px] flex items-end gap-1.5 p-3 mt-auto" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", height: 82 }}>
+                        {[40,70,45,90,65,85,50].map((h, i) => (
+                          <div key={i} className="flex-1 rounded-t overflow-hidden" style={{ height: `${h}%`, background: "rgba(255,255,255,0.2)", borderRadius: "4px 4px 2px 2px" }}>
+                            <div className="w-full h-full" style={{ background: "linear-gradient(transparent, rgba(255,255,255,0.4))" }} />
+                          </div>
+                        ))}
                       </div>
                     </div>
                   </div>
+
+                  {/* SVG decorative lines overlay */}
+                  <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ transform: "translateZ(200px)" }}>
+                    <line x1="10%" y1="20%" x2="90%" y2="20%" stroke="rgba(255,255,255,0.03)" strokeWidth="1" />
+                    <line x1="10%" y1="50%" x2="90%" y2="50%" stroke="rgba(255,255,255,0.03)" strokeWidth="1" />
+                    <line x1="10%" y1="80%" x2="90%" y2="80%" stroke="rgba(255,255,255,0.03)" strokeWidth="1" />
+                  </svg>
 
                 </div>
               </div>
@@ -1189,10 +1130,8 @@ export default function ApplyPage() {
         }
         @keyframes confettiFall{0%{transform:translateY(0) scale(0);opacity:1}15%{transform:translateX(calc(var(--dx)*0.3)) translateY(20vh) scale(1);opacity:1}100%{transform:translateX(var(--dx)) translateY(var(--fall)) scale(0.5) rotate(720deg);opacity:0}}
         @keyframes isoFloat {
-          0%, 100% { transform: translateY(8px) rotateZ(0deg); }
-          25% { transform: translateY(2px) rotateZ(1deg); }
-          50% { transform: translateY(-8px) rotateZ(0deg); }
-          75% { transform: translateY(2px) rotateZ(-1deg); }
+          0%, 100% { transform: translateY(4px); }
+          50% { transform: translateY(-4px); }
         }
         @keyframes apiPulse {
           0%, 100% { transform: translateX(0); }
