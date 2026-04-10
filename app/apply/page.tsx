@@ -662,92 +662,122 @@ function useTilt(ref: React.RefObject<HTMLDivElement | null>) {
 /* TERMINAL ANIMATION                                                 */
 /* ═══════════════════════════════════════════════════════════════════ */
 function TerminalAnimation() {
-  const [visibleLines, setVisibleLines] = useState(0)
-  const [charIndex, setCharIndex] = useState(0)
   const [started, setStarted] = useState(false)
+  const [tick, setTick] = useState(0)
   const { ref, inView } = useInView(0.3)
 
   useEffect(() => { if (inView && !started) setStarted(true) }, [inView, started])
 
+  // Animate tick for live counters
   useEffect(() => {
     if (!started) return
-    if (visibleLines >= TERMINAL_LINES.length) return
+    const interval = setInterval(() => setTick(t => t + 1), 2000)
+    return () => clearInterval(interval)
+  }, [started])
 
-    const currentLine = TERMINAL_LINES[visibleLines]
-    if (currentLine.type === "blank") {
-      const t = setTimeout(() => { setVisibleLines(v => v + 1); setCharIndex(0) }, 300)
-      return () => clearTimeout(t)
-    }
-
-    if (charIndex < currentLine.text.length) {
-      const speed = currentLine.type === "cmd" ? 35 : 18
-      const t = setTimeout(() => setCharIndex(c => c + 1), speed)
-      return () => clearTimeout(t)
-    } else {
-      const delay = currentLine.type === "cmd" ? 500 : 200
-      const t = setTimeout(() => { setVisibleLines(v => v + 1); setCharIndex(0) }, delay)
-      return () => clearTimeout(t)
-    }
-  }, [started, visibleLines, charIndex])
-
-  const getColor = (type: string) => {
-    if (type === "cmd") return "text-white/90"
-    if (type === "ok") return "text-emerald-400/90"
-    if (type === "info") return "text-primary/80"
-    if (type === "prompt") return "text-primary font-bold"
-    return ""
-  }
+  const metrics = [
+    { label: "UPTIME", value: "99.8%", color: "#22c55e", bar: 99.8 },
+    { label: "LOAD", value: `${(12 + (tick % 5)).toFixed(1)}%`, color: "#3b82f6", bar: 12 + (tick % 5) },
+    { label: "ORDERS", value: `${774 + tick}`, color: "#eab308", bar: 85 },
+    { label: "DETECT", value: "0", color: "#22c55e", bar: 0 },
+  ]
 
   return (
     <div ref={ref} className="w-full max-w-lg">
       <div className="relative group">
         {/* Outer glow */}
-        <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary/20 via-purple-500/10 to-cyan-500/20 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-700" />
+        <div className="absolute -inset-2 rounded-3xl opacity-0 group-hover:opacity-100 blur-2xl transition-opacity duration-1000"
+          style={{ background: "linear-gradient(135deg, rgba(239,111,41,0.15), rgba(168,85,247,0.1), rgba(59,130,246,0.1))" }} />
 
-        <div className="relative rounded-2xl border border-white/[0.08] bg-[#0a0a0c]/90 backdrop-blur-xl overflow-hidden shadow-2xl shadow-black/50">
+        <div className="relative rounded-2xl border border-white/[0.08] bg-[#08080a]/95 backdrop-blur-xl overflow-hidden shadow-2xl shadow-black/60">
           {/* Title bar */}
-          <div className="flex items-center gap-2 px-5 py-3.5 border-b border-white/[0.06] bg-white/[0.02]">
+          <div className="flex items-center gap-2 px-5 py-3 border-b border-white/[0.06] bg-white/[0.02]">
             <div className="flex gap-2">
-              <div className="w-3 h-3 rounded-full bg-red-500/70 hover:bg-red-500 transition-colors cursor-pointer" />
-              <div className="w-3 h-3 rounded-full bg-yellow-500/70 hover:bg-yellow-500 transition-colors cursor-pointer" />
-              <div className="w-3 h-3 rounded-full bg-emerald-500/70 hover:bg-emerald-500 transition-colors cursor-pointer" />
+              <div className="w-3 h-3 rounded-full bg-red-500/70" />
+              <div className="w-3 h-3 rounded-full bg-yellow-500/70" />
+              <div className="w-3 h-3 rounded-full bg-emerald-500/70" />
             </div>
             <div className="flex-1 text-center">
-              <span className="text-[11px] text-white/20 font-mono">lethal@hq ~ /team</span>
+              <span className="text-[11px] text-white/25 font-mono">LETHAL — System Dashboard</span>
             </div>
-            <div className="w-[52px]" /> {/* Spacer for centering */}
+            <div className="flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="text-[9px] text-emerald-400/70 font-mono">LIVE</span>
+            </div>
           </div>
 
-          {/* Terminal body */}
-          <div className="p-6 font-mono text-[13px] leading-[1.8] min-h-[280px]">
-            {TERMINAL_LINES.slice(0, visibleLines + 1).map((line, i) => {
-              if (line.type === "blank") return <div key={i} className="h-4" />
-              const isCurrentLine = i === visibleLines
-              const displayText = isCurrentLine ? line.text.slice(0, charIndex) : line.text
-              return (
-                <div key={i} className={`${getColor(line.type)} ${i > 0 ? "mt-0.5" : ""}`}>
-                  {displayText}
-                  {isCurrentLine && visibleLines < TERMINAL_LINES.length && (
-                    <span className="inline-block w-[8px] h-[16px] bg-primary/80 ml-0.5 animate-pulse align-middle rounded-sm" style={{ animationDuration: "0.7s" }} />
-                  )}
+          <div className="p-5 space-y-4">
+            {/* Live metrics grid */}
+            <div className="grid grid-cols-4 gap-2">
+              {metrics.map((m, i) => (
+                <div key={i} className="rounded-lg bg-white/[0.02] border border-white/[0.04] p-2.5 text-center"
+                  style={{
+                    opacity: started ? 1 : 0,
+                    transform: started ? "translateY(0)" : "translateY(10px)",
+                    transition: `all 0.5s ease ${200 + i * 100}ms`,
+                  }}>
+                  <p className="text-[8px] font-bold tracking-widest mb-1" style={{ color: `${m.color}60` }}>{m.label}</p>
+                  <p className="text-base font-black font-mono tabular-nums" style={{ color: m.color }}>{m.value}</p>
+                  <div className="h-0.5 bg-white/[0.04] rounded-full mt-1.5 overflow-hidden">
+                    <div className="h-full rounded-full transition-all duration-1000" style={{ width: `${m.bar}%`, background: m.color }} />
+                  </div>
                 </div>
-              )
-            })}
-            {visibleLines >= TERMINAL_LINES.length && (
-              <div className="mt-3 text-white/30">
-                <span>$ </span>
-                <span className="inline-block w-[8px] h-[16px] bg-primary/60 ml-0.5 animate-pulse align-middle rounded-sm" style={{ animationDuration: "1s" }} />
+              ))}
+            </div>
+
+            {/* Code preview */}
+            <div className="rounded-lg bg-white/[0.02] border border-white/[0.04] p-4 font-mono text-[11px] leading-[1.9]"
+              style={{
+                opacity: started ? 1 : 0,
+                transition: "opacity 0.8s ease 0.8s",
+              }}>
+              <div className="text-white/15 mb-1">// latest deployment</div>
+              <div><span className="text-purple-400/70">const</span> <span className="text-blue-400/70">status</span> <span className="text-white/30">=</span> <span className="text-emerald-400/70">&quot;operational&quot;</span><span className="text-white/20">;</span></div>
+              <div><span className="text-purple-400/70">const</span> <span className="text-blue-400/70">team</span> <span className="text-white/30">=</span> <span className="text-primary/70">await</span> <span className="text-yellow-400/60">deploy</span><span className="text-white/30">(</span><span className="text-emerald-400/70">&quot;v2.14&quot;</span><span className="text-white/30">);</span></div>
+              <div><span className="text-purple-400/70">const</span> <span className="text-blue-400/70">hiring</span> <span className="text-white/30">=</span> <span className="text-primary/80">true</span><span className="text-white/20">;</span> <span className="text-white/10">// you?</span></div>
+              <div className="mt-1 text-emerald-400/60">
+                <span>{'>'} </span>
+                <span className="text-white/40">Ready for new legends</span>
+                <span className="inline-block w-[7px] h-[14px] bg-primary/60 ml-0.5 animate-pulse align-middle rounded-sm" />
               </div>
-            )}
+            </div>
+
+            {/* Team activity */}
+            <div className="space-y-1.5"
+              style={{
+                opacity: started ? 1 : 0,
+                transition: "opacity 0.8s ease 1.2s",
+              }}>
+              {[
+                { name: "cipher", action: "deployed hotfix", time: "2m", color: "#a855f7" },
+                { name: "nova", action: "closed 3 tickets", time: "5m", color: "#22c55e" },
+                { name: "vex", action: "new reseller deal", time: "8m", color: "#eab308" },
+              ].map((e, i) => (
+                <div key={i} className="flex items-center gap-2.5 px-3 py-1.5 rounded-lg hover:bg-white/[0.02] transition-colors">
+                  <div className="w-5 h-5 rounded-md flex items-center justify-center text-[8px] font-black"
+                    style={{ background: `${e.color}15`, color: e.color }}>
+                    {e.name[0].toUpperCase()}
+                  </div>
+                  <span className="text-[11px] text-white/30 flex-1">
+                    <span className="text-white/50 font-semibold">{e.name}</span> {e.action}
+                  </span>
+                  <span className="text-[9px] text-white/15 font-mono">{e.time}</span>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Bottom status bar */}
           <div className="flex items-center justify-between px-5 py-2 border-t border-white/[0.04] bg-white/[0.01]">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-[10px] text-white/20 font-mono">connected</span>
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="text-[9px] text-white/20 font-mono">all systems go</span>
+              </div>
+              <div className="h-3 w-px bg-white/[0.06]" />
+              <span className="text-[9px] text-white/15 font-mono">{POSITIONS.reduce((s, p) => s + p.openSlots, 0)} open roles</span>
             </div>
-            <span className="text-[10px] text-white/15 font-mono">UTF-8 | bash</span>
+            <span className="text-[9px] text-primary/40 font-mono font-bold">HIRING</span>
           </div>
         </div>
       </div>
@@ -1870,35 +1900,38 @@ function FlipCard({
 
   return (
     <div
-      className="relative cursor-pointer group"
-      style={{ perspective: "1000px", minHeight: 220 }}
+      className="cursor-pointer group"
+      style={{ perspective: "1000px" }}
       onClick={() => setFlipped(!flipped)}
     >
       <div
-        className="relative w-full h-full transition-transform duration-700"
+        className="relative transition-transform duration-700"
         style={{
           transformStyle: "preserve-3d",
           transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)",
         }}
       >
-        {/* Front */}
+        {/* Front — this one sizes the container */}
         <div
-          className="absolute inset-0 rounded-2xl border border-white/[0.06] bg-[#0c0c0e]/90 backdrop-blur-sm overflow-hidden"
+          className="rounded-2xl border border-white/[0.06] bg-[#0c0c0e]/90 backdrop-blur-sm overflow-hidden"
           style={{ backfaceVisibility: "hidden" }}
         >
           <div className="h-[2px] w-full" style={{ background: `linear-gradient(90deg, transparent, ${color}, transparent)`, opacity: 0.4 }} />
-          <div className="p-6">{front}</div>
-          <div className="absolute bottom-3 right-3 text-[9px] text-white/15 font-mono">click to flip</div>
+          <div className="p-6 pb-8">{front}</div>
+          <div className="absolute bottom-3 right-3 text-[9px] text-white/15 font-mono flex items-center gap-1 group-hover:text-white/30 transition-colors">
+            <svg className="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 12h4l3-9 4 18 3-9h4" /></svg>
+            flip
+          </div>
         </div>
 
-        {/* Back */}
+        {/* Back — absolutely positioned on top */}
         <div
-          className="absolute inset-0 rounded-2xl border border-white/[0.06] bg-[#0c0c0e]/90 backdrop-blur-sm overflow-hidden"
+          className="absolute inset-0 rounded-2xl border border-white/[0.06] bg-[#0c0c0e]/95 backdrop-blur-sm overflow-hidden"
           style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
         >
           <div className="h-[2px] w-full" style={{ background: `linear-gradient(90deg, transparent, ${color}, transparent)`, opacity: 0.6 }} />
-          <div className="p-6">{back}</div>
-          <div className="absolute bottom-3 right-3 text-[9px] text-white/15 font-mono">click to flip back</div>
+          <div className="p-6 pb-8">{back}</div>
+          <div className="absolute bottom-3 right-3 text-[9px] text-white/15 font-mono">flip back</div>
         </div>
       </div>
     </div>
@@ -2176,12 +2209,24 @@ export default function ApplyPage() {
   const [showConfetti, setShowConfetti] = useState(false)
   const [showStickyBar, setShowStickyBar] = useState(false)
   const [heroTextVisible, setHeroTextVisible] = useState(false)
+  const [pageLoaded, setPageLoaded] = useState(false)
+  const [loaderDone, setLoaderDone] = useState(false)
+  const [scrollY, setScrollY] = useState(0)
   const formRef = useRef<HTMLDivElement>(null)
 
-  // Hero text entrance
+  // Page loader sequence
   useEffect(() => {
-    const t = setTimeout(() => setHeroTextVisible(true), 200)
-    return () => clearTimeout(t)
+    const t1 = setTimeout(() => setPageLoaded(true), 800)
+    const t2 = setTimeout(() => setLoaderDone(true), 1400)
+    const t3 = setTimeout(() => setHeroTextVisible(true), 1600)
+    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3) }
+  }, [])
+
+  // Scroll parallax tracking
+  useEffect(() => {
+    const handler = () => setScrollY(window.scrollY)
+    window.addEventListener("scroll", handler, { passive: true })
+    return () => window.removeEventListener("scroll", handler)
   }, [])
 
   // Sticky mobile bar
@@ -2288,13 +2333,34 @@ export default function ApplyPage() {
             <div className="absolute -inset-6 rounded-[40px] border border-emerald-500/10 animate-ripple-3" />
           </div>
 
-          <h2 className="text-5xl font-black mb-4 bg-gradient-to-r from-white to-white/70 bg-clip-text text-transparent">
+          <h2 className="text-5xl sm:text-6xl font-black mb-4 neon-text">
             You're In!
           </h2>
-          <p className="text-lg text-white/50 mb-2">
+          {/* Celebration particles burst */}
+          <div className="flex justify-center gap-1 mb-6">
+            {[...Array(5)].map((_, i) => (
+              <Star key={i} className="h-5 w-5 fill-amber-400 text-amber-400" style={{
+                animation: `starPop 0.5s cubic-bezier(0.34,1.56,0.64,1) ${0.3 + i * 0.1}s both`,
+              }} />
+            ))}
+          </div>
+          <p className="text-lg text-white/60 mb-2">
             Application for <span className="text-white font-bold">{selectedPos?.title}</span> submitted successfully.
           </p>
-          <p className="text-sm text-white/25 mb-12">We'll DM you on Discord within 48 hours.</p>
+          <p className="text-sm text-white/30 mb-4">We'll DM you on Discord within 48 hours.</p>
+
+          {/* Progress steps completed */}
+          <div className="flex items-center justify-center gap-3 mb-12">
+            {["Applied", "In Review", "Interview", "Onboard"].map((step, i) => (
+              <div key={i} className="flex items-center gap-2">
+                <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold ${i === 0 ? "bg-emerald-500 text-white" : "bg-white/[0.04] text-white/20 border border-white/[0.08]"}`}>
+                  {i === 0 ? <Check className="h-3 w-3" /> : i + 1}
+                </div>
+                <span className={`text-[11px] font-semibold ${i === 0 ? "text-emerald-400" : "text-white/20"}`}>{step}</span>
+                {i < 3 && <div className="w-6 h-px bg-white/[0.08]" />}
+              </div>
+            ))}
+          </div>
 
           <div className="flex items-center justify-center gap-4">
             <Link href="/"
@@ -2330,6 +2396,35 @@ export default function ApplyPage() {
   /* ══════════════════════════════════════════════════════════════ */
   return (
     <main className="flex min-h-screen flex-col bg-[#0a0a0a] relative">
+
+      {/* ═══════════════════════════════════════════════════════════ */}
+      {/* PAGE LOADER OVERLAY                                        */}
+      {/* ═══════════════════════════════════════════════════════════ */}
+      {!loaderDone && (
+        <div className="fixed inset-0 z-[9999] bg-[#0a0a0a] flex items-center justify-center transition-all duration-700"
+          style={{ opacity: pageLoaded ? 0 : 1, pointerEvents: pageLoaded ? "none" : "all" }}>
+          <div className="relative flex flex-col items-center">
+            {/* Spinning ring */}
+            <div className="w-20 h-20 rounded-full border-2 border-white/[0.06] border-t-primary animate-spin mb-6" />
+            {/* Logo */}
+            <div className="absolute top-5 left-1/2 -translate-x-1/2 text-2xl font-black text-primary neon-text">L</div>
+            {/* Loading text */}
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-mono text-white/30 tracking-widest uppercase">Initializing</span>
+              <span className="flex gap-0.5">
+                <span className="w-1 h-1 rounded-full bg-primary/60 animate-bounce" style={{ animationDelay: "0ms" }} />
+                <span className="w-1 h-1 rounded-full bg-primary/60 animate-bounce" style={{ animationDelay: "150ms" }} />
+                <span className="w-1 h-1 rounded-full bg-primary/60 animate-bounce" style={{ animationDelay: "300ms" }} />
+              </span>
+            </div>
+            {/* Progress line */}
+            <div className="w-48 h-0.5 bg-white/[0.04] rounded-full mt-4 overflow-hidden">
+              <div className="h-full bg-gradient-to-r from-primary to-amber-400 rounded-full animate-loader-progress" />
+            </div>
+          </div>
+        </div>
+      )}
+
       <Navbar />
       <ScrollProgress />
       <NoiseOverlay />
@@ -2342,14 +2437,23 @@ export default function ApplyPage() {
       {/* HERO SECTION                                               */}
       {/* ═══════════════════════════════════════════════════════════ */}
       <section className="relative min-h-screen flex items-center px-4 overflow-hidden">
-        {/* Background layers */}
-        <AuroraMesh />
-        <GridBackground />
-        <FloatingShapes />
+        {/* Background layers with parallax */}
+        <div style={{ transform: `translateY(${scrollY * 0.15}px)`, willChange: "transform" }}>
+          <AuroraMesh />
+        </div>
+        <div style={{ transform: `translateY(${scrollY * 0.05}px)`, willChange: "transform" }}>
+          <GridBackground />
+        </div>
+        <div style={{ transform: `translateY(${scrollY * 0.25}px)`, willChange: "transform" }}>
+          <FloatingShapes />
+        </div>
 
-        {/* Radial gradient overlay */}
+        {/* Radial gradient overlay with parallax */}
         <div className="absolute inset-0 pointer-events-none"
-          style={{ background: "radial-gradient(ellipse 60% 50% at 50% 30%, rgba(239,111,41,0.04) 0%, transparent 60%)" }} />
+          style={{
+            background: "radial-gradient(ellipse 60% 50% at 50% 30%, rgba(239,111,41,0.06) 0%, transparent 60%)",
+            transform: `translateY(${scrollY * 0.1}px)`,
+          }} />
 
         <div className="container mx-auto relative z-10 py-32 px-4" style={{ maxWidth: 1280 }}>
           <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-16 lg:gap-20">
@@ -2376,19 +2480,67 @@ export default function ApplyPage() {
                 <CountdownBadge />
               </div>
 
-              {/* Heading */}
-              <h1
-                className={`text-5xl sm:text-6xl lg:text-7xl xl:text-[5.5rem] font-black mb-7 tracking-tight leading-[1.05] transition-all duration-1000 delay-150 ${heroTextVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-              >
-                <span className="block text-white/95">Join the</span>
-                <span className="block bg-gradient-to-r from-primary via-amber-400 to-primary bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient-shift">
-                  Lethal Team
+              {/* Heading — Per-character stagger reveal */}
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-[5.5rem] font-black mb-7 tracking-tight leading-[1.05]">
+                <span className="block text-white/95 overflow-hidden">
+                  {"Join the".split("").map((char, i) => (
+                    <span
+                      key={i}
+                      className="inline-block transition-all"
+                      style={{
+                        opacity: heroTextVisible ? 1 : 0,
+                        transform: heroTextVisible ? "translateY(0) rotateX(0)" : "translateY(100%) rotateX(-80deg)",
+                        transition: `all 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${150 + i * 40}ms`,
+                      }}
+                    >
+                      {char === " " ? "\u00A0" : char}
+                    </span>
+                  ))}
+                </span>
+                <span className="block overflow-hidden">
+                  {"Lethal Team".split("").map((char, i) => (
+                    <span
+                      key={i}
+                      className="inline-block bg-gradient-to-r from-primary via-amber-400 to-primary bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient-shift transition-all"
+                      style={{
+                        opacity: heroTextVisible ? 1 : 0,
+                        transform: heroTextVisible ? "translateY(0) rotateX(0)" : "translateY(100%) rotateX(-80deg)",
+                        transition: `all 0.7s cubic-bezier(0.16, 1, 0.3, 1) ${500 + i * 45}ms`,
+                      }}
+                    >
+                      {char === " " ? "\u00A0" : char}
+                    </span>
+                  ))}
+                </span>
+                {/* Animated underline */}
+                <span className="block h-1 mt-2 rounded-full overflow-hidden max-w-[200px] lg:max-w-[260px]">
+                  <span
+                    className="block h-full rounded-full bg-gradient-to-r from-primary via-amber-400 to-primary"
+                    style={{
+                      width: heroTextVisible ? "100%" : "0%",
+                      transition: "width 1.2s cubic-bezier(0.16, 1, 0.3, 1) 1s",
+                      boxShadow: "0 0 20px rgba(239,111,41,0.5)",
+                    }}
+                  />
                 </span>
               </h1>
 
-              {/* Subtitle */}
-              <p className={`text-base sm:text-lg lg:text-xl mb-10 max-w-lg mx-auto lg:mx-0 leading-relaxed text-white/40 transition-all duration-1000 delay-300 ${heroTextVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-                Work remotely. Set your own hours. Build the best gaming tools on the market — with a team that actually ships.
+              {/* Subtitle — word-by-word reveal */}
+              <p className="text-base sm:text-lg lg:text-xl mb-10 max-w-lg mx-auto lg:mx-0 leading-relaxed">
+                {"Work remotely. Set your own hours. Build the best gaming tools on the market.".split(" ").map((word, i) => (
+                  <span
+                    key={i}
+                    className="inline-block text-white/40 mr-[0.3em] transition-all"
+                    style={{
+                      opacity: heroTextVisible ? 1 : 0,
+                      transform: heroTextVisible ? "translateY(0)" : "translateY(12px)",
+                      filter: heroTextVisible ? "blur(0)" : "blur(4px)",
+                      transition: `all 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${900 + i * 35}ms`,
+                    }}
+                  >
+                    {word}
+                  </span>
+                ))}
               </p>
 
               {/* CTA Buttons */}
@@ -3347,11 +3499,33 @@ export default function ApplyPage() {
                         <label className="text-sm font-bold mb-3.5 block text-white/70">
                           Experience <span className="text-primary">*</span>
                         </label>
-                        <textarea value={experience} onChange={(e) => setExperience(e.target.value)}
-                          placeholder="Tell us about your relevant experience, skills, past projects..."
-                          rows={5}
-                          className="w-full px-5 py-4 rounded-xl bg-white/[0.02] border border-white/[0.06] text-sm placeholder:text-white/12 focus:outline-none focus:border-primary/40 focus:ring-2 focus:ring-primary/10 resize-none transition-all duration-300 leading-relaxed" />
-                        <p className={`text-[11px] mt-2 flex items-center gap-1.5 ${experience.length >= 50 ? "text-emerald-400" : "text-white/15"}`}>
+                        <div className="relative">
+                          <textarea value={experience} onChange={(e) => setExperience(e.target.value)}
+                            placeholder="Tell us about your relevant experience, skills, past projects..."
+                            rows={5}
+                            className="w-full px-5 py-4 rounded-xl bg-white/[0.02] text-sm placeholder:text-white/12 focus:outline-none resize-none transition-all duration-300 leading-relaxed"
+                            style={{
+                              border: `1px solid ${experience.length >= 50 ? "rgba(34,197,94,0.3)" : "rgba(255,255,255,0.06)"}`,
+                              boxShadow: experience.length >= 50 ? "0 0 20px rgba(34,197,94,0.05)" : "none",
+                            }} />
+                          {/* Character progress ring */}
+                          <div className="absolute bottom-3 right-3">
+                            <svg width="28" height="28" className="transform -rotate-90">
+                              <circle cx="14" cy="14" r="11" fill="none" stroke="rgba(255,255,255,0.04)" strokeWidth="2" />
+                              <circle cx="14" cy="14" r="11" fill="none"
+                                stroke={experience.length >= 50 ? "#22c55e" : "#EF6F29"}
+                                strokeWidth="2"
+                                strokeDasharray={`${Math.min(experience.length / 50, 1) * 69.1} 69.1`}
+                                strokeLinecap="round"
+                                className="transition-all duration-300" />
+                            </svg>
+                            <span className="absolute inset-0 flex items-center justify-center text-[8px] font-bold"
+                              style={{ color: experience.length >= 50 ? "#22c55e" : "rgba(255,255,255,0.2)" }}>
+                              {experience.length >= 50 ? <Check className="h-2.5 w-2.5" /> : experience.length}
+                            </span>
+                          </div>
+                        </div>
+                        <p className={`text-[11px] mt-2 flex items-center gap-1.5 transition-all duration-300 ${experience.length >= 50 ? "text-emerald-400" : "text-white/15"}`}>
                           {experience.length >= 50 ? <><Check className="h-3 w-3" /> Looks good</> : `${experience.length}/50 min characters`}
                         </p>
                       </div>
@@ -3361,11 +3535,32 @@ export default function ApplyPage() {
                         <label className="text-sm font-bold mb-3.5 block text-white/70">
                           Why Lethal? <span className="text-primary">*</span>
                         </label>
-                        <textarea value={whyLethal} onChange={(e) => setWhyLethal(e.target.value)}
-                          placeholder="What excites you about this role and our team?"
-                          rows={4}
-                          className="w-full px-5 py-4 rounded-xl bg-white/[0.02] border border-white/[0.06] text-sm placeholder:text-white/12 focus:outline-none focus:border-primary/40 focus:ring-2 focus:ring-primary/10 resize-none transition-all duration-300 leading-relaxed" />
-                        <p className={`text-[11px] mt-2 flex items-center gap-1.5 ${whyLethal.length >= 30 ? "text-emerald-400" : "text-white/15"}`}>
+                        <div className="relative">
+                          <textarea value={whyLethal} onChange={(e) => setWhyLethal(e.target.value)}
+                            placeholder="What excites you about this role and our team?"
+                            rows={4}
+                            className="w-full px-5 py-4 rounded-xl bg-white/[0.02] text-sm placeholder:text-white/12 focus:outline-none resize-none transition-all duration-300 leading-relaxed"
+                            style={{
+                              border: `1px solid ${whyLethal.length >= 30 ? "rgba(34,197,94,0.3)" : "rgba(255,255,255,0.06)"}`,
+                              boxShadow: whyLethal.length >= 30 ? "0 0 20px rgba(34,197,94,0.05)" : "none",
+                            }} />
+                          <div className="absolute bottom-3 right-3">
+                            <svg width="28" height="28" className="transform -rotate-90">
+                              <circle cx="14" cy="14" r="11" fill="none" stroke="rgba(255,255,255,0.04)" strokeWidth="2" />
+                              <circle cx="14" cy="14" r="11" fill="none"
+                                stroke={whyLethal.length >= 30 ? "#22c55e" : "#EF6F29"}
+                                strokeWidth="2"
+                                strokeDasharray={`${Math.min(whyLethal.length / 30, 1) * 69.1} 69.1`}
+                                strokeLinecap="round"
+                                className="transition-all duration-300" />
+                            </svg>
+                            <span className="absolute inset-0 flex items-center justify-center text-[8px] font-bold"
+                              style={{ color: whyLethal.length >= 30 ? "#22c55e" : "rgba(255,255,255,0.2)" }}>
+                              {whyLethal.length >= 30 ? <Check className="h-2.5 w-2.5" /> : whyLethal.length}
+                            </span>
+                          </div>
+                        </div>
+                        <p className={`text-[11px] mt-2 flex items-center gap-1.5 transition-all duration-300 ${whyLethal.length >= 30 ? "text-emerald-400" : "text-white/15"}`>
                           {whyLethal.length >= 30 ? <><Check className="h-3 w-3" /> Looks good</> : `${whyLethal.length}/30 min characters`}
                         </p>
                       </div>
@@ -3728,6 +3923,22 @@ export default function ApplyPage() {
       {/* GLOBAL STYLES & ANIMATIONS                                 */}
       {/* ═══════════════════════════════════════════════════════════ */}
       <style jsx global>{`
+        /* ─── Page Loader ─── */
+        @keyframes loaderProgress {
+          0% { width: 0%; }
+          50% { width: 70%; }
+          100% { width: 100%; }
+        }
+        .animate-loader-progress {
+          animation: loaderProgress 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        /* ─── Star Pop ─── */
+        @keyframes starPop {
+          0% { transform: scale(0) rotate(-180deg); opacity: 0; }
+          100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
         /* ─── Neon Button ─── */
         .neon-btn {
           background: linear-gradient(135deg, #EF6F29, #FF8C42);
