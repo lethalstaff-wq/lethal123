@@ -546,53 +546,197 @@ export default function ApplyPage() {
           style={{ opacity: 0.6 }}
         />
 
-        <div className="container mx-auto text-center max-w-4xl relative z-10 py-32">
-          <div className="flex justify-center mb-10 animate-fade-in-up">
-            <div className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
-              <span className="relative flex h-2 w-2"><span className="animate-ping absolute h-full w-full rounded-full bg-emerald-400 opacity-75" /><span className="relative h-2 w-2 rounded-full bg-emerald-500" /></span>
-              <span className="text-sm font-bold text-primary">{POSITIONS.reduce((s, p) => s + p.openSlots, 0)} Open Positions</span>
-              <span className="text-white/15">·</span>
-              <span className="text-sm text-white/40">Remote · Flexible</span>
-            </div>
-          </div>
-
-          <h1 className="text-5xl sm:text-7xl md:text-8xl font-black mb-8 tracking-tight leading-[0.9] animate-fade-in-up animate-delay-100">
-            <span className="text-white">Join the</span><br />
-            <span className="text-primary relative inline-block">
-              Lethal Team
-              <span className="absolute -inset-x-4 -inset-y-2 bg-primary/5 rounded-2xl blur-xl animate-pulse" style={{ animationDuration: "3s" }} />
-            </span>
-          </h1>
-
-          <p className="text-lg sm:text-xl text-white/40 max-w-xl mx-auto mb-12 leading-relaxed animate-fade-in-up animate-delay-200">
-            Work remotely. Set your own hours. Build the best gaming tools on the market.
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-14 animate-fade-in-up animate-delay-300">
-            <button onClick={() => document.getElementById("positions")?.scrollIntoView({ behavior: "smooth" })}
-              className="group relative bg-gradient-to-r from-primary to-[#FF8C42] text-white font-bold px-10 py-4 rounded-2xl flex items-center gap-2 transition-all hover:-translate-y-0.5 active:scale-[0.98] neon-btn">
-              View Open Roles <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </button>
-            <button onClick={() => formRef.current?.scrollIntoView({ behavior: "smooth" })}
-              className="border border-white/10 bg-white/5 hover:bg-white/10 text-white font-semibold px-10 py-4 rounded-2xl transition-all">
-              Apply Directly
-            </button>
-          </div>
-
-          {/* Animated stats */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto animate-fade-in-up animate-delay-400">
-            {[
-              { icon: Users, value: 10, suffix: "+", label: "Team Members" },
-              { icon: Trophy, value: 774, suffix: "+", label: "Happy Clients" },
-              { icon: Star, value: 99, suffix: "%", label: "Satisfaction" },
-              { icon: Zap, value: 24, suffix: "/7", label: "Support" },
-            ].map((s, i) => (
-              <div key={i} className="rounded-2xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm p-4 text-center hover:border-white/[0.1] transition-all group">
-                <s.icon className="h-4 w-4 text-primary mx-auto mb-2 group-hover:scale-110 transition-transform" />
-                <p className="text-2xl font-black text-white"><AnimatedNumber value={s.value} suffix={s.suffix} /></p>
-                <p className="text-[10px] text-white/25 mt-0.5">{s.label}</p>
+        <div className="container mx-auto relative z-10 py-32 px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+            {/* ── Left: Text content ── */}
+            <div className="text-center lg:text-left">
+              <div className="flex justify-center lg:justify-start mb-10 animate-fade-in-up">
+                <div className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
+                  <span className="relative flex h-2 w-2"><span className="animate-ping absolute h-full w-full rounded-full bg-emerald-400 opacity-75" /><span className="relative h-2 w-2 rounded-full bg-emerald-500" /></span>
+                  <span className="text-sm font-bold text-primary">{POSITIONS.reduce((s, p) => s + p.openSlots, 0)} Open Positions</span>
+                  <span className="text-white/15">·</span>
+                  <span className="text-sm text-white/40">Remote · Flexible</span>
+                </div>
               </div>
-            ))}
+
+              <h1 className="text-5xl sm:text-7xl md:text-8xl font-black mb-8 tracking-tight leading-[0.9] animate-fade-in-up animate-delay-100">
+                <span className="text-white">Join the</span><br />
+                <span className="text-primary relative inline-block">
+                  Lethal Team
+                  <span className="absolute -inset-x-4 -inset-y-2 bg-primary/5 rounded-2xl blur-xl animate-pulse" style={{ animationDuration: "3s" }} />
+                </span>
+              </h1>
+
+              <p className="text-lg sm:text-xl text-white/40 max-w-xl mx-auto lg:mx-0 mb-12 leading-relaxed animate-fade-in-up animate-delay-200">
+                Work remotely. Set your own hours. Build the best gaming tools on the market.
+              </p>
+
+              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-14 animate-fade-in-up animate-delay-300">
+                <button onClick={() => document.getElementById("positions")?.scrollIntoView({ behavior: "smooth" })}
+                  className="group relative bg-gradient-to-r from-primary to-[#FF8C42] text-white font-bold px-10 py-4 rounded-2xl flex items-center gap-2 transition-all hover:-translate-y-0.5 active:scale-[0.98] neon-btn">
+                  View Open Roles <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                </button>
+                <button onClick={() => formRef.current?.scrollIntoView({ behavior: "smooth" })}
+                  className="border border-white/10 bg-white/5 hover:bg-white/10 text-white font-semibold px-10 py-4 rounded-2xl transition-all">
+                  Apply Directly
+                </button>
+              </div>
+
+              {/* Animated stats */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto lg:mx-0 animate-fade-in-up animate-delay-400">
+                {[
+                  { icon: Users, value: 10, suffix: "+", label: "Team Members" },
+                  { icon: Trophy, value: 774, suffix: "+", label: "Happy Clients" },
+                  { icon: Star, value: 99, suffix: "%", label: "Satisfaction" },
+                  { icon: Zap, value: 24, suffix: "/7", label: "Support" },
+                ].map((s, i) => (
+                  <div key={i} className="rounded-2xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm p-4 text-center hover:border-white/[0.1] transition-all group">
+                    <s.icon className="h-4 w-4 text-primary mx-auto mb-2 group-hover:scale-110 transition-transform" />
+                    <p className="text-2xl font-black text-white"><AnimatedNumber value={s.value} suffix={s.suffix} /></p>
+                    <p className="text-[10px] text-white/25 mt-0.5">{s.label}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* ── Right: 3D Isometric Cards ── */}
+            <div className="hidden lg:flex items-center justify-center animate-fade-in-up animate-delay-200">
+              <div className="relative" style={{ perspective: "1200px" }}>
+                {/* Glow under the stack */}
+                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/4 w-[320px] h-[200px] rounded-full blur-[80px] opacity-40"
+                  style={{ background: "radial-gradient(ellipse, rgba(239,111,41,0.3), rgba(56,189,248,0.15), transparent)" }} />
+
+                <div style={{
+                  transform: "rotateX(55deg) rotateY(-15deg) rotateZ(35deg)",
+                  transformStyle: "preserve-3d",
+                }}>
+                  {/* ─── Layer 1 (top): Dashboard ─── */}
+                  <div className="iso-card" style={{ transform: "translateZ(0px)", transformStyle: "preserve-3d" }}>
+                    <div style={{ animation: "isoFloat 6s ease-in-out infinite" }}>
+                      <div className="rounded-2xl border border-emerald-500/20 bg-[#1a1a2e]/90 backdrop-blur-md p-5 w-[300px]"
+                        style={{ boxShadow: "0 0 20px rgba(34,197,94,0.08), inset 0 1px 0 rgba(255,255,255,0.05)" }}>
+                        <div className="flex items-center justify-between mb-4">
+                          <div className="flex items-center gap-2">
+                            <div className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_6px_rgba(34,197,94,0.6)]" />
+                            <span className="text-[11px] font-bold text-white/60 tracking-widest uppercase">Dashboard</span>
+                          </div>
+                          <span className="text-[10px] text-emerald-400/60 font-mono">LIVE</span>
+                        </div>
+                        <div className="space-y-3">
+                          <div className="flex items-center justify-between">
+                            <span className="text-[10px] text-white/30 font-mono">USERS</span>
+                            <span className="text-sm font-black text-emerald-400">12.4k</span>
+                          </div>
+                          <div className="h-px bg-white/[0.04]" />
+                          <div className="flex items-center justify-between">
+                            <span className="text-[10px] text-white/30 font-mono">UPTIME</span>
+                            <span className="text-sm font-black text-primary">99.9%</span>
+                          </div>
+                          <div className="h-px bg-white/[0.04]" />
+                          <div className="flex items-center justify-between">
+                            <span className="text-[10px] text-white/30 font-mono">REVENUE</span>
+                            <div className="flex items-center gap-1.5">
+                              <div className="flex gap-px">
+                                {[40,65,45,80,60,90,75].map((h, i) => (
+                                  <div key={i} className="w-1 rounded-full bg-emerald-400/60" style={{ height: `${h / 6}px` }} />
+                                ))}
+                              </div>
+                              <span className="text-[10px] text-emerald-400/80">↑ 23%</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* ─── Layer 2 (middle): Code / API ─── */}
+                  <div className="iso-card" style={{ transform: "translateZ(-40px)", transformStyle: "preserve-3d", marginTop: "-8px" }}>
+                    <div style={{ animation: "isoFloat 6s ease-in-out infinite 0.8s" }}>
+                      <div className="rounded-2xl border border-purple-500/20 bg-[#1a1a2e]/90 backdrop-blur-md p-5 w-[300px]"
+                        style={{ boxShadow: "0 0 20px rgba(168,85,247,0.08), inset 0 1px 0 rgba(255,255,255,0.05)" }}>
+                        <div className="flex items-center justify-between mb-4">
+                          <div className="flex items-center gap-2">
+                            <div className="w-2 h-2 rounded-full bg-purple-400 shadow-[0_0_6px_rgba(168,85,247,0.6)]" />
+                            <span className="text-[11px] font-bold text-white/60 tracking-widest uppercase">API Engine</span>
+                          </div>
+                          <div className="flex gap-1">
+                            <div className="w-1.5 h-1.5 rounded-full bg-purple-400/40" />
+                            <div className="w-1.5 h-1.5 rounded-full bg-purple-400/60" />
+                            <div className="w-1.5 h-1.5 rounded-full bg-purple-400" />
+                          </div>
+                        </div>
+                        <div className="space-y-2 font-mono text-[10px]">
+                          <div className="flex gap-2">
+                            <span className="text-purple-400/50">01</span>
+                            <span className="text-purple-300/70">POST</span>
+                            <span className="text-white/40">/api/v2/auth</span>
+                          </div>
+                          <div className="flex gap-2">
+                            <span className="text-purple-400/50">02</span>
+                            <span className="text-emerald-300/70">GET&nbsp;</span>
+                            <span className="text-white/40">/api/v2/license</span>
+                          </div>
+                          <div className="flex gap-2">
+                            <span className="text-purple-400/50">03</span>
+                            <span className="text-primary/70">PUT&nbsp;</span>
+                            <span className="text-white/40">/api/v2/hwid</span>
+                          </div>
+                          <div className="mt-2 flex items-center gap-2 text-[9px]">
+                            <span className="px-1.5 py-0.5 rounded bg-purple-500/15 text-purple-300 border border-purple-500/20">200 OK</span>
+                            <span className="text-white/20">latency: 12ms</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* ─── Layer 3 (bottom): Infrastructure ─── */}
+                  <div className="iso-card" style={{ transform: "translateZ(-80px)", transformStyle: "preserve-3d", marginTop: "-8px" }}>
+                    <div style={{ animation: "isoFloat 6s ease-in-out infinite 1.6s" }}>
+                      <div className="rounded-2xl border border-cyan-500/20 bg-[#1a1a2e]/90 backdrop-blur-md p-5 w-[300px]"
+                        style={{ boxShadow: "0 0 20px rgba(56,189,248,0.08), inset 0 1px 0 rgba(255,255,255,0.05)" }}>
+                        <div className="flex items-center justify-between mb-4">
+                          <div className="flex items-center gap-2">
+                            <div className="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_6px_rgba(56,189,248,0.6)]" />
+                            <span className="text-[11px] font-bold text-white/60 tracking-widest uppercase">Infrastructure</span>
+                          </div>
+                          <span className="text-[10px] text-cyan-400/60 font-mono">3 NODES</span>
+                        </div>
+                        <div className="space-y-3">
+                          <div>
+                            <div className="flex items-center justify-between mb-1">
+                              <span className="text-[10px] text-white/30 font-mono">CPU LOAD</span>
+                              <span className="text-[10px] text-cyan-400 font-mono">34%</span>
+                            </div>
+                            <div className="h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
+                              <div className="h-full rounded-full bg-gradient-to-r from-cyan-500 to-cyan-400" style={{ width: "34%" }} />
+                            </div>
+                          </div>
+                          <div>
+                            <div className="flex items-center justify-between mb-1">
+                              <span className="text-[10px] text-white/30 font-mono">MEMORY</span>
+                              <span className="text-[10px] text-cyan-400 font-mono">67%</span>
+                            </div>
+                            <div className="h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
+                              <div className="h-full rounded-full bg-gradient-to-r from-cyan-500 to-teal-400" style={{ width: "67%" }} />
+                            </div>
+                          </div>
+                          <div>
+                            <div className="flex items-center justify-between mb-1">
+                              <span className="text-[10px] text-white/30 font-mono">BANDWIDTH</span>
+                              <span className="text-[10px] text-cyan-400 font-mono">52%</span>
+                            </div>
+                            <div className="h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
+                              <div className="h-full rounded-full bg-gradient-to-r from-teal-500 to-cyan-400" style={{ width: "52%" }} />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -1031,6 +1175,11 @@ export default function ApplyPage() {
           box-shadow: none;
         }
         @keyframes confettiFall{0%{transform:translateY(0) scale(0);opacity:1}15%{transform:translateX(calc(var(--dx)*0.3)) translateY(20vh) scale(1);opacity:1}100%{transform:translateX(var(--dx)) translateY(var(--fall)) scale(0.5) rotate(720deg);opacity:0}}
+        @keyframes isoFloat {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-4px); }
+        }
+        .iso-card { transform-style: preserve-3d; }
       `}</style>
     </main>
   )
