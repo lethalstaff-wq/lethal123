@@ -3923,19 +3923,6 @@ export default function ApplyPage() {
 
 
       {/* ═══════════════════════════════════════════════════════════ */}
-      {/* STICKY MOBILE BAR                                          */}
-      {/* ═══════════════════════════════════════════════════════════ */}
-      {showStickyBar && (
-        <div className="fixed bottom-0 left-0 right-0 z-[70] bg-[#0a0a0a]/95 backdrop-blur-xl border-t border-white/[0.06] px-4 py-3 lg:hidden"
-          style={{ animation: "slideUp 0.3s ease-out" }}>
-          <button onClick={() => formRef.current?.scrollIntoView({ behavior: "smooth" })}
-            className="w-full py-4 rounded-xl text-white font-bold text-sm flex items-center justify-center gap-2.5 neon-btn active:scale-[0.97] transition-transform">
-            <Send className="h-4 w-4" /> Apply Now
-          </button>
-        </div>
-      )}
-
-
       <Footer />
 
 

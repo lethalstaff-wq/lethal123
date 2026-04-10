@@ -12,7 +12,7 @@ import { Server, Zap, Activity, PanelsTopLeft } from "lucide-react"
 // ── Config ──
 const PERSPECTIVE  = 2000
 const ROT_X        = 28
-const ROT_Y        = -22
+const ROT_Y        = 22
 const MOUSE_RANGE  = 8  // max tilt degrees from mouse
 const FLOAT_PX     = 5  // float amplitude in px
 const FLOAT_SEC    = 6  // float cycle in seconds
