@@ -2461,13 +2461,13 @@ export default function ApplyPage() {
       {/* ═══════════════════════════════════════════════════════════ */}
       <section className="relative min-h-screen flex items-center px-4 overflow-hidden">
         {/* Background layers with parallax */}
-        <div style={{ transform: `translateY(${scrollY * 0.15}px)`, willChange: "transform" }}>
+        <div className="absolute inset-0 pointer-events-none" style={{ transform: `translateY(${scrollY * 0.15}px)`, willChange: "transform" }}>
           <AuroraMesh />
         </div>
-        <div style={{ transform: `translateY(${scrollY * 0.05}px)`, willChange: "transform" }}>
+        <div className="absolute inset-0 pointer-events-none" style={{ transform: `translateY(${scrollY * 0.05}px)`, willChange: "transform" }}>
           <GridBackground />
         </div>
-        <div style={{ transform: `translateY(${scrollY * 0.25}px)`, willChange: "transform" }}>
+        <div className="absolute inset-0 pointer-events-none" style={{ transform: `translateY(${scrollY * 0.25}px)`, willChange: "transform" }}>
           <FloatingShapes />
         </div>
 
