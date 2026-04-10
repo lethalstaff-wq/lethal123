@@ -602,9 +602,6 @@ export default function ApplyPage() {
             {/* ── Right: 3D Isometric Cards ── */}
             <div className="hidden lg:flex items-center justify-center animate-fade-in-up animate-delay-200">
               <div className="relative" style={{ perspective: "1200px" }}>
-                {/* Glow under the stack */}
-                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/4 w-[320px] h-[200px] rounded-full blur-[80px] opacity-40"
-                  style={{ background: "radial-gradient(ellipse, rgba(239,111,41,0.3), rgba(56,189,248,0.15), transparent)" }} />
 
                 <div style={{
                   transform: "rotateX(55deg) rotateY(-15deg) rotateZ(35deg)",
@@ -613,121 +610,155 @@ export default function ApplyPage() {
                   {/* ─── Layer 1 (top): Dashboard ─── */}
                   <div className="iso-card" style={{ transform: "translateZ(0px)", transformStyle: "preserve-3d" }}>
                     <div style={{ animation: "isoFloat 6s ease-in-out infinite" }}>
-                      <div className="rounded-2xl border border-emerald-500/20 bg-[#1a1a2e]/90 backdrop-blur-md p-5 w-[300px]"
-                        style={{ boxShadow: "0 0 20px rgba(34,197,94,0.08), inset 0 1px 0 rgba(255,255,255,0.05)" }}>
-                        <div className="flex items-center justify-between mb-4">
+                      <div className="relative rounded-2xl bg-[#0d0d1a]/95 backdrop-blur-xl w-[370px] overflow-hidden"
+                        style={{
+                          border: "1px solid rgba(255,255,255,0.1)",
+                          boxShadow: "0 0 40px rgba(34,197,94,0.12), 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)",
+                        }}>
+                        {/* Title bar */}
+                        <div className="flex items-center justify-between px-5 pt-4 pb-3">
                           <div className="flex items-center gap-2">
-                            <div className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_6px_rgba(34,197,94,0.6)]" />
-                            <span className="text-[11px] font-bold text-white/60 tracking-widest uppercase">Dashboard</span>
-                          </div>
-                          <span className="text-[10px] text-emerald-400/60 font-mono">LIVE</span>
-                        </div>
-                        <div className="space-y-3">
-                          <div className="flex items-center justify-between">
-                            <span className="text-[10px] text-white/30 font-mono">USERS</span>
-                            <span className="text-sm font-black text-emerald-400">12.4k</span>
-                          </div>
-                          <div className="h-px bg-white/[0.04]" />
-                          <div className="flex items-center justify-between">
-                            <span className="text-[10px] text-white/30 font-mono">UPTIME</span>
-                            <span className="text-sm font-black text-primary">99.9%</span>
-                          </div>
-                          <div className="h-px bg-white/[0.04]" />
-                          <div className="flex items-center justify-between">
-                            <span className="text-[10px] text-white/30 font-mono">REVENUE</span>
-                            <div className="flex items-center gap-1.5">
-                              <div className="flex gap-px">
-                                {[40,65,45,80,60,90,75].map((h, i) => (
-                                  <div key={i} className="w-1 rounded-full bg-emerald-400/60" style={{ height: `${h / 6}px` }} />
-                                ))}
-                              </div>
-                              <span className="text-[10px] text-emerald-400/80">↑ 23%</span>
+                            <div className="flex gap-1.5">
+                              <div className="w-[10px] h-[10px] rounded-full bg-[#ff5f57]" />
+                              <div className="w-[10px] h-[10px] rounded-full bg-[#febc2e]" />
+                              <div className="w-[10px] h-[10px] rounded-full bg-[#28c840]" />
                             </div>
+                          </div>
+                          <div className="flex items-center gap-1.5">
+                            <div className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(34,197,94,0.8)]" />
+                            <span className="text-[11px] text-white/50 font-mono">lethal.dev</span>
+                          </div>
+                          <div className="w-4 h-4 rounded bg-white/[0.06] flex items-center justify-center">
+                            <span className="text-[8px] text-white/30">⌘</span>
+                          </div>
+                        </div>
+                        <div className="h-px bg-white/[0.06]" />
+                        {/* Content */}
+                        <div className="px-5 py-4 space-y-4">
+                          {/* Stats row */}
+                          <div className="flex gap-3">
+                            <div className="flex-1 rounded-xl bg-white/[0.04] border border-white/[0.06] p-3">
+                              <div className="flex items-center gap-2 mb-2">
+                                <div className="w-5 h-5 rounded-md bg-emerald-500/15 flex items-center justify-center">
+                                  <span className="text-[10px] text-emerald-400">▸</span>
+                                </div>
+                                <span className="text-[9px] text-white/30 uppercase tracking-wider font-mono">Users</span>
+                              </div>
+                              <span className="text-xl font-black text-white">12.4k</span>
+                            </div>
+                            <div className="flex-1 rounded-xl bg-white/[0.04] border border-white/[0.06] p-3">
+                              <div className="flex items-center gap-2 mb-2">
+                                <div className="w-5 h-5 rounded-md bg-emerald-500/15 flex items-center justify-center">
+                                  <span className="text-[10px] text-emerald-400">●</span>
+                                </div>
+                                <span className="text-[9px] text-white/30 uppercase tracking-wider font-mono">Uptime</span>
+                              </div>
+                              <span className="text-xl font-black text-emerald-400">99.9%</span>
+                            </div>
+                          </div>
+                          {/* Grid blocks */}
+                          <div className="grid grid-cols-6 gap-1.5">
+                            {[0.08,0.12,0.06,0.10,0.14,0.08,0.10,0.06,0.12,0.08,0.14,0.10].map((o, i) => (
+                              <div key={i} className="aspect-square rounded-lg border border-white/[0.06]"
+                                style={{ background: `rgba(255,255,255,${o})` }} />
+                            ))}
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  {/* ─── Layer 2 (middle): Code / API ─── */}
-                  <div className="iso-card" style={{ transform: "translateZ(-40px)", transformStyle: "preserve-3d", marginTop: "-8px" }}>
+                  {/* ─── Layer 2 (middle): Backend / API ─── */}
+                  <div className="iso-card" style={{ transform: "translateZ(-60px)", transformStyle: "preserve-3d", marginTop: "6px" }}>
                     <div style={{ animation: "isoFloat 6s ease-in-out infinite 0.8s" }}>
-                      <div className="rounded-2xl border border-purple-500/20 bg-[#1a1a2e]/90 backdrop-blur-md p-5 w-[300px]"
-                        style={{ boxShadow: "0 0 20px rgba(168,85,247,0.08), inset 0 1px 0 rgba(255,255,255,0.05)" }}>
-                        <div className="flex items-center justify-between mb-4">
+                      <div className="relative rounded-2xl bg-[#0d0d1a]/95 backdrop-blur-xl w-[370px] overflow-hidden"
+                        style={{
+                          border: "1px solid rgba(255,255,255,0.1)",
+                          boxShadow: "0 0 40px rgba(168,85,247,0.12), 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)",
+                        }}>
+                        {/* Title bar */}
+                        <div className="flex items-center justify-between px-5 pt-4 pb-3">
                           <div className="flex items-center gap-2">
-                            <div className="w-2 h-2 rounded-full bg-purple-400 shadow-[0_0_6px_rgba(168,85,247,0.6)]" />
-                            <span className="text-[11px] font-bold text-white/60 tracking-widest uppercase">API Engine</span>
+                            <div className="w-5 h-5 rounded-md bg-purple-500/15 flex items-center justify-center">
+                              <span className="text-[10px] text-purple-400">{'</>'}</span>
+                            </div>
+                            <span className="text-[11px] font-bold text-white/50 tracking-widest uppercase">Backend</span>
                           </div>
-                          <div className="flex gap-1">
-                            <div className="w-1.5 h-1.5 rounded-full bg-purple-400/40" />
-                            <div className="w-1.5 h-1.5 rounded-full bg-purple-400/60" />
-                            <div className="w-1.5 h-1.5 rounded-full bg-purple-400" />
-                          </div>
+                          <span className="text-[10px] text-purple-400/50 font-mono">v2.4.1</span>
                         </div>
-                        <div className="space-y-2 font-mono text-[10px]">
-                          <div className="flex gap-2">
-                            <span className="text-purple-400/50">01</span>
-                            <span className="text-purple-300/70">POST</span>
-                            <span className="text-white/40">/api/v2/auth</span>
-                          </div>
-                          <div className="flex gap-2">
-                            <span className="text-purple-400/50">02</span>
-                            <span className="text-emerald-300/70">GET&nbsp;</span>
-                            <span className="text-white/40">/api/v2/license</span>
-                          </div>
-                          <div className="flex gap-2">
-                            <span className="text-purple-400/50">03</span>
-                            <span className="text-primary/70">PUT&nbsp;</span>
-                            <span className="text-white/40">/api/v2/hwid</span>
-                          </div>
-                          <div className="mt-2 flex items-center gap-2 text-[9px]">
-                            <span className="px-1.5 py-0.5 rounded bg-purple-500/15 text-purple-300 border border-purple-500/20">200 OK</span>
-                            <span className="text-white/20">latency: 12ms</span>
-                          </div>
+                        <div className="h-px bg-white/[0.06]" />
+                        {/* Content — progress lines with chevrons */}
+                        <div className="px-5 py-4 space-y-3">
+                          {[
+                            { w: "92%", label: "auth.service" },
+                            { w: "78%", label: "license.api" },
+                            { w: "85%", label: "hwid.verify" },
+                            { w: "65%", label: "session.mgr" },
+                            { w: "95%", label: "webhook.out" },
+                          ].map((item, i) => (
+                            <div key={i} className="flex items-center gap-2.5">
+                              <span className="text-[10px] text-purple-400/60">›</span>
+                              <span className="text-[9px] text-white/25 font-mono w-[80px] shrink-0">{item.label}</span>
+                              <div className="flex-1 h-[6px] rounded-full bg-white/[0.04] overflow-hidden">
+                                <div className="h-full rounded-full"
+                                  style={{
+                                    width: item.w,
+                                    background: "linear-gradient(90deg, rgba(168,85,247,0.6), rgba(168,85,247,0.9))",
+                                    boxShadow: "0 0 12px rgba(168,85,247,0.4)",
+                                  }} />
+                              </div>
+                            </div>
+                          ))}
                         </div>
                       </div>
                     </div>
                   </div>
 
                   {/* ─── Layer 3 (bottom): Infrastructure ─── */}
-                  <div className="iso-card" style={{ transform: "translateZ(-80px)", transformStyle: "preserve-3d", marginTop: "-8px" }}>
+                  <div className="iso-card" style={{ transform: "translateZ(-120px)", transformStyle: "preserve-3d", marginTop: "6px" }}>
                     <div style={{ animation: "isoFloat 6s ease-in-out infinite 1.6s" }}>
-                      <div className="rounded-2xl border border-cyan-500/20 bg-[#1a1a2e]/90 backdrop-blur-md p-5 w-[300px]"
-                        style={{ boxShadow: "0 0 20px rgba(56,189,248,0.08), inset 0 1px 0 rgba(255,255,255,0.05)" }}>
-                        <div className="flex items-center justify-between mb-4">
+                      <div className="relative rounded-2xl bg-[#0d0d1a]/95 backdrop-blur-xl w-[370px] overflow-hidden"
+                        style={{
+                          border: "1px solid rgba(255,255,255,0.1)",
+                          boxShadow: "0 0 40px rgba(56,189,248,0.12), 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)",
+                        }}>
+                        {/* Title bar */}
+                        <div className="flex items-center justify-between px-5 pt-4 pb-3">
                           <div className="flex items-center gap-2">
-                            <div className="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_6px_rgba(56,189,248,0.6)]" />
-                            <span className="text-[11px] font-bold text-white/60 tracking-widest uppercase">Infrastructure</span>
+                            <div className="w-5 h-5 rounded-md bg-cyan-500/15 flex items-center justify-center">
+                              <span className="text-[10px] text-cyan-400">◆</span>
+                            </div>
+                            <span className="text-[11px] font-bold text-white/50 tracking-widest uppercase">Infrastructure</span>
                           </div>
-                          <span className="text-[10px] text-cyan-400/60 font-mono">3 NODES</span>
+                          <span className="text-[10px] text-cyan-400/50 font-mono">3 nodes</span>
                         </div>
-                        <div className="space-y-3">
-                          <div>
-                            <div className="flex items-center justify-between mb-1">
-                              <span className="text-[10px] text-white/30 font-mono">CPU LOAD</span>
-                              <span className="text-[10px] text-cyan-400 font-mono">34%</span>
+                        <div className="h-px bg-white/[0.06]" />
+                        {/* Content — progress bars */}
+                        <div className="px-5 py-4 space-y-4">
+                          {[
+                            { label: "CPU CLUSTER", pct: 34 },
+                            { label: "MEMORY POOL", pct: 67 },
+                            { label: "NETWORK I/O", pct: 52 },
+                          ].map((item, i) => (
+                            <div key={i}>
+                              <div className="flex items-center justify-between mb-1.5">
+                                <span className="text-[9px] text-white/25 font-mono tracking-wider">{item.label}</span>
+                                <span className="text-[10px] text-cyan-400 font-mono font-bold">{item.pct}%</span>
+                              </div>
+                              <div className="h-2 rounded-full bg-white/[0.04] overflow-hidden">
+                                <div className="h-full rounded-full"
+                                  style={{
+                                    width: `${item.pct}%`,
+                                    background: "linear-gradient(90deg, rgba(56,189,248,0.6), rgba(45,212,191,0.9))",
+                                    boxShadow: "0 0 16px rgba(56,189,248,0.5)",
+                                  }} />
+                              </div>
                             </div>
-                            <div className="h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
-                              <div className="h-full rounded-full bg-gradient-to-r from-cyan-500 to-cyan-400" style={{ width: "34%" }} />
-                            </div>
-                          </div>
-                          <div>
-                            <div className="flex items-center justify-between mb-1">
-                              <span className="text-[10px] text-white/30 font-mono">MEMORY</span>
-                              <span className="text-[10px] text-cyan-400 font-mono">67%</span>
-                            </div>
-                            <div className="h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
-                              <div className="h-full rounded-full bg-gradient-to-r from-cyan-500 to-teal-400" style={{ width: "67%" }} />
-                            </div>
-                          </div>
-                          <div>
-                            <div className="flex items-center justify-between mb-1">
-                              <span className="text-[10px] text-white/30 font-mono">BANDWIDTH</span>
-                              <span className="text-[10px] text-cyan-400 font-mono">52%</span>
-                            </div>
-                            <div className="h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
-                              <div className="h-full rounded-full bg-gradient-to-r from-teal-500 to-cyan-400" style={{ width: "52%" }} />
+                          ))}
+                          {/* Bottom icon */}
+                          <div className="flex justify-center pt-1">
+                            <div className="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center">
+                              <span className="text-cyan-400 text-xs">⬡</span>
                             </div>
                           </div>
                         </div>
