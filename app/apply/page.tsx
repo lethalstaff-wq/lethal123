@@ -2014,17 +2014,39 @@ function SpotlightCard({ children, className = "" }: { children: React.ReactNode
 function CountdownBadge() {
   const [time, setTime] = useState({ h: 47, m: 59, s: 59 })
 
+  // Persist deadline across sessions via localStorage
   useEffect(() => {
-    const interval = setInterval(() => {
-      setTime(prev => {
-        let { h, m, s } = prev
-        s--
-        if (s < 0) { s = 59; m-- }
-        if (m < 0) { m = 59; h-- }
-        if (h < 0) { h = 47; m = 59; s = 59 } // reset
-        return { h, m, s }
-      })
-    }, 1000)
+    const STORAGE_KEY = "lethal_apply_deadline"
+    let deadline: number
+
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY)
+      if (stored) {
+        deadline = parseInt(stored, 10)
+        // If deadline passed, set a new one 48h from now
+        if (deadline <= Date.now()) {
+          deadline = Date.now() + 48 * 60 * 60 * 1000
+          localStorage.setItem(STORAGE_KEY, deadline.toString())
+        }
+      } else {
+        deadline = Date.now() + 48 * 60 * 60 * 1000
+        localStorage.setItem(STORAGE_KEY, deadline.toString())
+      }
+    } catch {
+      deadline = Date.now() + 48 * 60 * 60 * 1000
+    }
+
+    const tick = () => {
+      const diff = Math.max(0, deadline - Date.now())
+      const totalSec = Math.floor(diff / 1000)
+      const h = Math.floor(totalSec / 3600)
+      const m = Math.floor((totalSec % 3600) / 60)
+      const s = totalSec % 60
+      setTime({ h, m, s })
+    }
+
+    tick()
+    const interval = setInterval(tick, 1000)
     return () => clearInterval(interval)
   }, [])
 
@@ -3560,7 +3582,7 @@ export default function ApplyPage() {
                             </span>
                           </div>
                         </div>
-                        <p className={`text-[11px] mt-2 flex items-center gap-1.5 transition-all duration-300 ${whyLethal.length >= 30 ? "text-emerald-400" : "text-white/15"}`>
+                        <p className={`text-[11px] mt-2 flex items-center gap-1.5 transition-all duration-300 ${whyLethal.length >= 30 ? "text-emerald-400" : "text-white/15"}`}>
                           {whyLethal.length >= 30 ? <><Check className="h-3 w-3" /> Looks good</> : `${whyLethal.length}/30 min characters`}
                         </p>
                       </div>
