@@ -581,10 +581,10 @@ export default function ApplyPage() {
                   style={{ transform: "translate(-50%, -50%)", filter: "blur(100px)", background: "rgba(123,63,228,0.2)" }} />
 
                 {/* 3D scene */}
-                <div className="absolute inset-0" style={{ transformStyle: "preserve-3d", transform: "rotateX(45deg) rotateY(-25deg) rotateZ(25deg)" }}>
+                <div className="absolute inset-0" style={{ transformStyle: "preserve-3d", transform: "rotateX(45deg) rotateY(25deg) rotateZ(-25deg)" }}>
 
                   {/* ─── Layer 1 (back): Infrastructure — cyan ─── */}
-                  <div className="absolute inset-0" style={{ transformStyle: "preserve-3d", transform: "translateZ(-200px)" }}>
+                  <div className="absolute inset-0" style={{ transformStyle: "preserve-3d", transform: "translateZ(-240px)" }}>
                     <div style={{ animation: "isoFloat 6s ease-in-out infinite 1s" }} className="h-full">
                       <div className="h-full rounded-[18px] p-[22px] flex flex-col"
                         style={{
@@ -632,7 +632,7 @@ export default function ApplyPage() {
                   </div>
 
                   {/* ─── Layer 2 (middle): Backend / API — purple ─── */}
-                  <div className="absolute inset-0" style={{ transformStyle: "preserve-3d", transform: "translateZ(-100px)" }}>
+                  <div className="absolute inset-0" style={{ transformStyle: "preserve-3d", transform: "translateZ(-120px)" }}>
                     <div style={{ animation: "isoFloat 6s ease-in-out infinite 0.5s" }} className="h-full">
                       <div className="h-full rounded-[18px] p-[22px] flex flex-col"
                         style={{
