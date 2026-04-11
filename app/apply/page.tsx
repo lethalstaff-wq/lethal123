@@ -139,7 +139,7 @@ const WHY_FEATURES = [
   { icon: Clock, title: "Flexible Hours", desc: "We measure output, not hours. Work when you're productive.", size: "normal" as const },
   { icon: Zap, title: "Ship Fast", desc: "Ideas to production in days, not months of meetings.", size: "normal" as const },
   { icon: TrendingUp, title: "Uncapped Earnings", desc: "Commission + bonuses with no ceiling. Top performers earn more than most salaries.", size: "wide" as const },
-  { icon: Shield, title: "Trusted Brand", desc: "774+ reviews, 99.8% uptime. Customers love us.", size: "normal" as const },
+  { icon: Shield, title: "Trusted Brand", desc: "860+ reviews, 99.8% uptime. Customers love us.", size: "normal" as const },
   { icon: Heart, title: "Great Culture", desc: "Zero toxicity, mutual respect, no micromanagement.", size: "normal" as const },
   { icon: Rocket, title: "Growth Path", desc: "Top performers get promoted fast. Start support, become team lead in months.", size: "wide" as const },
   { icon: Coffee, title: "Real Impact", desc: "Small team = your work directly shapes the product.", size: "normal" as const },
