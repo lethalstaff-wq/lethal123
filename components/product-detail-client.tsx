@@ -174,21 +174,21 @@ export function ProductDetailClient({ product }: { product: Product }) {
           </div>
 
           {/* Trust badges under image */}
-          <div className="grid grid-cols-3 gap-4 mt-6">
-            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-4 text-center">
-              <Shield className="h-6 w-6 mx-auto mb-2 text-white/40" />
-              <p className="font-semibold text-sm">Secure</p>
-              <p className="text-xs text-white/40">Encrypted</p>
+          <div className="grid grid-cols-3 gap-2 sm:gap-4 mt-4 sm:mt-6">
+            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-3 sm:p-4 text-center">
+              <Shield className="h-5 w-5 sm:h-6 sm:w-6 mx-auto mb-1.5 sm:mb-2 text-white/40" />
+              <p className="font-semibold text-xs sm:text-sm">Secure</p>
+              <p className="text-[10px] sm:text-xs text-white/40">Encrypted</p>
             </div>
-            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-4 text-center">
-              <Zap className="h-6 w-6 mx-auto mb-2 text-white/40" />
-              <p className="font-semibold text-sm">Instant</p>
-              <p className="text-xs text-white/40">Delivery</p>
+            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-3 sm:p-4 text-center">
+              <Zap className="h-5 w-5 sm:h-6 sm:w-6 mx-auto mb-1.5 sm:mb-2 text-white/40" />
+              <p className="font-semibold text-xs sm:text-sm">Instant</p>
+              <p className="text-[10px] sm:text-xs text-white/40">Delivery</p>
             </div>
-            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-4 text-center">
-              <Globe className="h-6 w-6 mx-auto mb-2 text-white/40" />
-              <p className="font-semibold text-sm">Global</p>
-              <p className="text-xs text-white/40">Support</p>
+            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-3 sm:p-4 text-center">
+              <Globe className="h-5 w-5 sm:h-6 sm:w-6 mx-auto mb-1.5 sm:mb-2 text-white/40" />
+              <p className="font-semibold text-xs sm:text-sm">Global</p>
+              <p className="text-[10px] sm:text-xs text-white/40">Support</p>
             </div>
           </div>
         </div>
@@ -196,7 +196,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
         {/* ═══ RIGHT: Info ═══ */}
         <div className="flex flex-col">
 
-          <h1 className="text-4xl sm:text-5xl font-black tracking-tight lowercase mb-3 text-white">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight lowercase mb-3 text-white">
             {(() => {
               const words = product.name.split(" ")
               if (words.length < 2) return product.name
@@ -212,25 +212,25 @@ export function ProductDetailClient({ product }: { product: Product }) {
           )}
 
           {/* Rating */}
-          <div className="flex items-center gap-3 mb-6">
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-yellow-500/10 border border-yellow-500/20">
-              <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-              <span className="font-bold text-sm text-yellow-400">5.0</span>
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-6">
+            <div className="flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full bg-yellow-500/10 border border-yellow-500/20">
+              <Star className="h-3.5 w-3.5 sm:h-4 sm:w-4 fill-yellow-400 text-yellow-400" />
+              <span className="font-bold text-xs sm:text-sm text-yellow-400">5.0</span>
             </div>
-            <span className="text-sm text-white/40">{reviewCount} Verified Reviews</span>
-            <span className="text-white/40/30">·</span>
+            <span className="text-xs sm:text-sm text-white/40">{reviewCount} Verified Reviews</span>
+            <span className="hidden sm:inline text-white/40/30">·</span>
             <div className="flex items-center gap-1.5">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500" />
               </span>
-              <span className="text-sm text-white/40">{viewingNow} viewing now</span>
+              <span className="text-xs sm:text-sm text-white/40">{viewingNow} viewing now</span>
             </div>
           </div>
 
           {/* Price */}
-          <div className="flex items-baseline gap-2 mb-8">
-            <span className="text-4xl font-black">{"£"}{selectedVariant.price}</span>
+          <div className="flex items-baseline gap-2 mb-6 sm:mb-8">
+            <span className="text-3xl sm:text-4xl font-black">{"£"}{selectedVariant.price}</span>
           </div>
 
           {/* Variant Selection */}
@@ -286,22 +286,22 @@ export function ProductDetailClient({ product }: { product: Product }) {
           </div>
 
           {/* CTA Buttons */}
-          <div className="space-y-3 mb-6">
+          <div className="space-y-2.5 sm:space-y-3 mb-6">
             <Button
               id="buy-now-btn"
               onClick={handleBuyNow}
               size="lg"
-              className="w-full h-14 text-base font-bold gap-2 rounded-xl bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all"
+              className="w-full h-12 sm:h-14 text-sm sm:text-base font-bold gap-2 rounded-xl bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all"
             >
               <Zap className="h-4 w-4" />
               Buy Now — {"£"}{total.toFixed(2)}
             </Button>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-2 sm:gap-3">
               <Button
                 onClick={handleAddToCart}
                 variant="outline"
                 size="lg"
-                className="h-12 font-semibold gap-2 rounded-xl border-white/[0.06]/50 hover:border-primary/40 hover:bg-primary/5"
+                className="h-11 sm:h-12 text-xs sm:text-sm font-semibold gap-1.5 sm:gap-2 rounded-xl border-white/[0.06]/50 hover:border-primary/40 hover:bg-primary/5"
               >
                 <ShoppingCart className="h-4 w-4" />
                 Add to Cart
@@ -310,7 +310,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
                 onClick={() => setShowDiscordModal(true)}
                 variant="outline"
                 size="lg"
-                className="h-12 font-semibold gap-2 rounded-xl border-[#5865F2]/30 text-[#5865F2] hover:bg-[#5865F2]/10 hover:border-[#5865F2]/50"
+                className="h-11 sm:h-12 text-xs sm:text-sm font-semibold gap-1.5 sm:gap-2 rounded-xl border-[#5865F2]/30 text-[#5865F2] hover:bg-[#5865F2]/10 hover:border-[#5865F2]/50"
               >
                 <MessageCircle className="h-4 w-4" />
                 Discord Order

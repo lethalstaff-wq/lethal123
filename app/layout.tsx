@@ -7,10 +7,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { GlobalBackground } from "@/components/global-background"
 import { MobileBottomBar } from "@/components/mobile-bottom-bar"
 import { CursorEffects } from "@/components/cursor-effects"
-import { FloatingConfigurator } from "@/components/floating-configurator"
-import { ChatWidget } from "@/components/chat-widget"
 import { AbandonedCartToast } from "@/components/abandoned-cart-toast"
-import { BundleBuilder } from "@/components/bundle-builder"
 import { CookieConsent } from "@/components/cookie-consent"
 import { CommandSearch } from "@/components/command-search"
 import { CheckoutProgress } from "@/components/checkout-progress"
@@ -99,9 +96,6 @@ export default function RootLayout({
           <CartProvider>
             <ClientOverlays />
             <MobileBottomBar />
-            <FloatingConfigurator />
-            <BundleBuilder />
-            <ChatWidget />
             <AbandonedCartToast />
             <CookieConsent />
             <CommandSearch />
