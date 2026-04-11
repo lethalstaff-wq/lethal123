@@ -7,6 +7,9 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { GlobalBackground } from "@/components/global-background"
 import { MobileBottomBar } from "@/components/mobile-bottom-bar"
 import { CursorEffects } from "@/components/cursor-effects"
+import { FloatingConfigurator } from "@/components/floating-configurator"
+import { ChatWidget } from "@/components/chat-widget"
+import { BundleBuilder } from "@/components/bundle-builder"
 import { AbandonedCartToast } from "@/components/abandoned-cart-toast"
 import { CookieConsent } from "@/components/cookie-consent"
 import { CommandSearch } from "@/components/command-search"
@@ -96,6 +99,11 @@ export default function RootLayout({
           <CartProvider>
             <ClientOverlays />
             <MobileBottomBar />
+            <div className="hidden md:block">
+              <FloatingConfigurator />
+              <BundleBuilder />
+              <ChatWidget />
+            </div>
             <AbandonedCartToast />
             <CookieConsent />
             <CommandSearch />
