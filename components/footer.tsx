@@ -13,7 +13,12 @@ export function Footer() {
   }
 
   return (
-    <footer className="border-t border-border/50 mt-auto relative overflow-hidden">
+    <footer className="border-t border-white/[0.04] mt-auto relative overflow-hidden bg-black">
+      {/* Shimmer line */}
+      <div className="absolute top-0 left-0 right-0 h-px overflow-hidden">
+        <div className="absolute top-0 left-[-40%] w-[40%] h-full bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" style={{ animation: "footerShimmer 6s ease-in-out infinite" }} />
+      </div>
+      <style dangerouslySetInnerHTML={{ __html: "@keyframes footerShimmer { 0%,100% { left: -40%; } 50% { left: 100%; } }" }} />
       {/* Subtle top glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
 

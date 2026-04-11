@@ -1,114 +1,81 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
-import { ArrowRight, Star, Sparkles } from "lucide-react"
+import { ArrowRight, Star } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { getProductReviewCount } from "@/lib/review-counts"
 
-const featuredProducts = [
-  {
-    name: "Perm Spoofer",
-    image: "/images/products/perm-spoofer.png",
-    price: 35,
-    slug: "perm-spoofer",
-    tag: "Best Seller",
-  },
-  {
-    name: "Blurred DMA",
-    image: "/images/products/blurred-dma.png",
-    price: 22,
-    slug: "blurred",
-    tag: "Popular",
-  },
-  {
-    name: "DMA Elite Bundle",
-    image: "/images/products/dma-firmware.png",
-    price: 1500,
-    slug: "dma-elite",
-    tag: "Premium",
-  },
+const products = [
+  { name: "Perm Spoofer", image: "/images/products/perm-spoofer.png", price: 35, slug: "perm-spoofer", tag: "Best Seller" },
+  { name: "Blurred DMA", image: "/images/products/blurred-dma.png", price: 22, slug: "blurred", tag: "Popular" },
+  { name: "DMA Elite Bundle", image: "/images/products/dma-firmware.png", price: 1500, slug: "dma-elite", tag: "Premium" },
 ]
 
 export function AboutSection() {
   return (
-    <section id="products" className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] -top-40 -left-40" />
-        <div className="absolute w-[300px] h-[300px] bg-accent/10 rounded-full blur-[120px] bottom-20 right-20" />
-      </div>
-
-      <div className="container mx-auto max-w-6xl relative z-10">
+    <section id="products" className="py-24 px-6 sm:px-10 relative z-10">
+      <div className="max-w-[1100px] mx-auto">
         {/* Header */}
-        <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-14 gap-6">
-          <div>
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-4">
-              <Sparkles className="h-4 w-4" />
-              <span>Top Sellers</span>
-            </div>
-            <h2 className="text-4xl sm:text-5xl font-bold">
-              Featured <span className="gradient-text">Products</span>
-            </h2>
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/[0.06] bg-white/[0.02] mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-white/40 animate-pulse" />
+            <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">Top Sellers</span>
           </div>
-          <Link href="/products">
-            <Button variant="outline" size="lg" className="gap-2 group border-border hover:border-primary/50 hover:bg-primary/5 rounded-xl">
-              View All Products
-              <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </Button>
-          </Link>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-[-0.03em] leading-[1.1] mb-4">
+            Featured <span className="about-text-orange">Products</span>
+          </h2>
         </div>
 
-        {/* Product cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {featuredProducts.map((product, index) => (
-            <Link key={index} href={`/products/${product.slug}`} className="group">
-              <div className="relative rounded-2xl glass overflow-hidden card-hover hover:border-primary/40 card-glow-border hover:shadow-2xl hover:shadow-primary/10">
-                {/* Tag */}
-                <div className="absolute top-5 left-5 z-10">
-                  <span className="px-3 py-1.5 rounded-full text-[11px] font-bold bg-primary text-primary-foreground shadow-lg">
-                    {product.tag}
-                  </span>
-                </div>
+        {/* Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {products.map((p, i) => (
+            <Link key={p.slug} href={`/products/${p.slug}`} className="about-card about-shine group block relative overflow-hidden rounded-xl">
+              {/* Tag */}
+              <div className="absolute top-4 left-4 z-10">
+                <span className="text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full bg-[#f97316]/10 border border-[#f97316]/15 text-[#f97316]/80">{p.tag}</span>
+              </div>
 
-                {/* Image */}
-                <div className="relative h-56 bg-gradient-to-b from-muted/20 to-transparent flex items-center justify-center p-8 shine-effect">
-                  <Image
-                    src={product.image}
-                    alt={product.name}
-                    width={320}
-                    height={200}
-                    loading="lazy"
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    className="object-contain max-h-44 w-auto group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
+              {/* Image */}
+              <div className="relative h-52 overflow-hidden bg-white/[0.01]">
+                <Image src={p.image} alt={p.name} fill className="object-contain p-6 group-hover:scale-105 transition-transform duration-700" sizes="(max-width: 768px) 100vw, 33vw" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              </div>
 
-                {/* Info */}
-                <div className="p-6 border-t border-border/50">
-                  <div className="flex items-center gap-1 mb-3">
-                    {[1, 2, 3, 4, 5].map((i) => (
-                      <Star key={i} className="h-3.5 w-3.5 fill-primary text-primary" />
-                    ))}
-                    <span className="text-xs text-muted-foreground ml-2">{getProductReviewCount(product.slug)} reviews</span>
+              {/* Info */}
+              <div className="p-5 border-t border-white/[0.04]">
+                <div className="flex items-center gap-1 mb-2">
+                  {[...Array(5)].map((_, j) => <Star key={j} className="h-3 w-3 fill-[#fbbf24] text-[#fbbf24]" />)}
+                  <span className="text-[11px] text-white/25 ml-1">({getProductReviewCount(p.slug)})</span>
+                </div>
+                <div className="flex items-end justify-between">
+                  <div>
+                    <h3 className="font-bold text-[16px] text-white/85 group-hover:text-white transition-colors">{p.name}</h3>
+                    <p className="text-[10px] text-white/20 mt-1">From</p>
                   </div>
-                  
-                  <div className="flex items-end justify-between">
-                    <div>
-                      <h3 className="font-bold text-lg group-hover:text-primary transition-colors">{product.name}</h3>
-                      <p className="text-xs text-muted-foreground mt-1">From</p>
-                      <p className="text-2xl font-bold mt-0.5">£{product.price}</p>
-                    </div>
-                    <div className="p-3 rounded-xl bg-primary/10 group-hover:bg-primary/20 transition-colors">
-                      <ArrowRight className="h-5 w-5 text-primary" />
-                    </div>
-                  </div>
+                  <span className="text-xl font-bold text-[#f97316]">£{p.price}</span>
                 </div>
               </div>
             </Link>
           ))}
         </div>
+
+        <div className="text-center mt-10">
+          <Link href="/products" className="about-ghost px-6 py-3 rounded-xl text-[13px] font-semibold inline-flex items-center gap-2 group">
+            View All Products <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
+          </Link>
+        </div>
       </div>
+
+      <style jsx>{`
+        .about-text-orange { background: linear-gradient(135deg, #f97316, #fb923c, #f97316); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .about-card { background: rgba(255,255,255,0.012); border: 1px solid rgba(255,255,255,0.04); transition: all 0.3s ease; }
+        .about-card:hover { background: rgba(255,255,255,0.025); border-color: rgba(255,255,255,0.08); transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .about-shine { position: relative; overflow: hidden; }
+        .about-shine::after { content: ""; position: absolute; top: -50%; left: -80%; width: 50%; height: 200%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.02), transparent); transform: rotate(25deg); transition: left 0.7s ease; pointer-events: none; z-index: 5; }
+        .about-shine:hover::after { left: 130%; }
+        .about-ghost { border: 1px solid rgba(255,255,255,0.05); background: rgba(255,255,255,0.015); color: rgba(255,255,255,0.4); transition: all 0.2s ease; }
+        .about-ghost:hover { border-color: rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); color: rgba(255,255,255,0.7); }
+      `}</style>
     </section>
   )
 }

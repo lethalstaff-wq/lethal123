@@ -176,38 +176,38 @@ export default function FAQPage() {
   })
 
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-black">
       <Navbar />
 
       {/* Hero */}
       <section className="relative pt-32 pb-16 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[150px] opacity-30" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#f97316]/10 rounded-full blur-[150px] opacity-30" />
 
         <div className="container mx-auto px-4 relative">
           <Breadcrumbs items={[{ label: "FAQ" }]} />
           <div className="max-w-2xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
-              <HelpCircle className="h-4 w-4 text-primary" />
-              <span className="text-sm font-bold text-primary">Help Center</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#f97316]/10 border border-primary/20 mb-6">
+              <HelpCircle className="h-4 w-4 text-[#f97316]" />
+              <span className="text-sm font-bold text-[#f97316]">Help Center</span>
             </div>
 
             <h1 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">
               Frequently Asked Questions
             </h1>
-            <p className="text-lg text-muted-foreground mb-8">
+            <p className="text-lg text-white/40 mb-8">
               Find answers to common questions about our products and services
             </p>
 
             {/* Search */}
             <div className="relative max-w-md mx-auto">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-white/40" />
               <input
                 type="text"
                 placeholder="Search questions..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full h-14 pl-12 pr-4 rounded-2xl border border-border/50 bg-card/60 backdrop-blur-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="w-full h-14 pl-12 pr-4 rounded-2xl border border-white/[0.06]/50 bg-white/[0.02]/60 backdrop-blur-xl text-foreground placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-primary/50"
               />
             </div>
           </div>
@@ -225,8 +225,8 @@ export default function FAQPage() {
                 className={cn(
                   "px-4 py-2 rounded-full text-sm font-bold transition-all",
                   selectedCategory === category
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-muted/30 text-muted-foreground hover:bg-muted/50 hover:text-foreground"
+                    ? "bg-[#f97316] text-[#f97316]-foreground"
+                    : "bg-white/[0.03]/30 text-white/40 hover:bg-white/[0.03]/50 hover:text-foreground"
                 )}
               >
                 {category}
@@ -243,37 +243,37 @@ export default function FAQPage() {
             {filteredFAQ.map((item, index) => (
               <div
                 key={index}
-                className="rounded-2xl border border-border/50 bg-card/60 backdrop-blur-xl overflow-hidden"
+                className="rounded-2xl border border-white/[0.06]/50 bg-white/[0.02]/60 backdrop-blur-xl overflow-hidden"
               >
                 <button
                   onClick={() => toggleItem(index)}
                   className="w-full flex items-center justify-between p-5 text-left"
                 >
                   <div className="flex items-start gap-4 pr-4">
-                    <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
-                      <HelpCircle className="h-4 w-4 text-primary" />
+                    <div className="w-8 h-8 rounded-lg bg-[#f97316]/10 flex items-center justify-center shrink-0 mt-0.5">
+                      <HelpCircle className="h-4 w-4 text-[#f97316]" />
                     </div>
                     <div>
-                      <span className="text-[10px] text-primary font-bold uppercase tracking-wider">{item.category}</span>
+                      <span className="text-[10px] text-[#f97316] font-bold uppercase tracking-wider">{item.category}</span>
                       <h3 className="font-bold text-foreground">{item.question}</h3>
                     </div>
                   </div>
                   <ChevronDown className={cn(
-                    "h-5 w-5 text-muted-foreground shrink-0 transition-transform",
+                    "h-5 w-5 text-white/40 shrink-0 transition-transform",
                     openItems.has(index) && "rotate-180"
                   )} />
                 </button>
                 
                 {openItems.has(index) && (
                   <div className="px-5 pb-5 pl-[4.5rem]">
-                    <p className="text-muted-foreground leading-relaxed mb-4">{item.answer}</p>
-                    <div className="flex items-center gap-3 pt-3 border-t border-border/30">
-                      <span className="text-xs text-muted-foreground/60">Was this helpful?</span>
+                    <p className="text-white/40 leading-relaxed mb-4">{item.answer}</p>
+                    <div className="flex items-center gap-3 pt-3 border-t border-white/[0.06]/30">
+                      <span className="text-xs text-white/40/60">Was this helpful?</span>
                       <button
                         onClick={(e) => { e.stopPropagation(); setHelpfulVotes(prev => ({ ...prev, [index]: "yes" })) }}
                         className={cn(
                           "inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs transition-colors",
-                          helpfulVotes[index] === "yes" ? "bg-emerald-500/15 text-emerald-400" : "bg-muted/20 text-muted-foreground hover:bg-muted/40"
+                          helpfulVotes[index] === "yes" ? "bg-emerald-500/15 text-emerald-400" : "bg-white/[0.03]/20 text-white/40 hover:bg-white/[0.03]/40"
                         )}
                       >
                         <ThumbsUp className="h-3 w-3" /> Yes
@@ -282,13 +282,13 @@ export default function FAQPage() {
                         onClick={(e) => { e.stopPropagation(); setHelpfulVotes(prev => ({ ...prev, [index]: "no" })) }}
                         className={cn(
                           "inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs transition-colors",
-                          helpfulVotes[index] === "no" ? "bg-red-500/15 text-red-400" : "bg-muted/20 text-muted-foreground hover:bg-muted/40"
+                          helpfulVotes[index] === "no" ? "bg-red-500/15 text-red-400" : "bg-white/[0.03]/20 text-white/40 hover:bg-white/[0.03]/40"
                         )}
                       >
                         <ThumbsDown className="h-3 w-3" /> No
                       </button>
                       {helpfulVotes[index] === "no" && (
-                        <Link href="https://discord.gg/lethaldma" target="_blank" className="text-xs text-primary hover:underline ml-auto">
+                        <Link href="https://discord.gg/lethaldma" target="_blank" className="text-xs text-[#f97316] hover:underline ml-auto">
                           Ask on Discord →
                         </Link>
                       )}
@@ -300,8 +300,8 @@ export default function FAQPage() {
 
             {filteredFAQ.length === 0 && (
               <div className="text-center py-12">
-                <HelpCircle className="h-12 w-12 text-muted-foreground/30 mx-auto mb-4" />
-                <p className="text-muted-foreground">No questions found matching your search.</p>
+                <HelpCircle className="h-12 w-12 text-white/40/30 mx-auto mb-4" />
+                <p className="text-white/40">No questions found matching your search.</p>
               </div>
             )}
           </div>
@@ -313,25 +313,25 @@ export default function FAQPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="grid md:grid-cols-3 gap-4">
-              <Link href="/track" className="group p-6 rounded-2xl border border-border/50 bg-card/60 hover:bg-card transition-all hover:border-primary/30">
-                <Clock className="h-8 w-8 text-primary mb-4" />
+              <Link href="/track" className="group p-6 rounded-2xl border border-white/[0.06]/50 bg-white/[0.02]/60 hover:bg-white/[0.02] transition-all hover:border-primary/30">
+                <Clock className="h-8 w-8 text-[#f97316] mb-4" />
                 <h3 className="font-bold text-foreground mb-2">Track Order</h3>
-                <p className="text-sm text-muted-foreground">Check your order status and download products</p>
+                <p className="text-sm text-white/40">Check your order status and download products</p>
               </Link>
               
-              <Link href="/status" className="group p-6 rounded-2xl border border-border/50 bg-card/60 hover:bg-card transition-all hover:border-primary/30">
+              <Link href="/status" className="group p-6 rounded-2xl border border-white/[0.06]/50 bg-white/[0.02]/60 hover:bg-white/[0.02] transition-all hover:border-primary/30">
                 <ShieldCheck className="h-8 w-8 text-emerald-500 mb-4" />
                 <h3 className="font-bold text-foreground mb-2">Status Page</h3>
-                <p className="text-sm text-muted-foreground">View real-time detection status of products</p>
+                <p className="text-sm text-white/40">View real-time detection status of products</p>
               </Link>
               
-              <Link href="https://discord.gg/lethaldma" target="_blank" className="group p-6 rounded-2xl border border-border/50 bg-card/60 hover:bg-card transition-all hover:border-primary/30">
+              <Link href="https://discord.gg/lethaldma" target="_blank" className="group p-6 rounded-2xl border border-white/[0.06]/50 bg-white/[0.02]/60 hover:bg-white/[0.02] transition-all hover:border-primary/30">
                 <MessageCircle className="h-8 w-8 text-[#5865F2] mb-4" />
                 <h3 className="font-bold text-foreground mb-2 flex items-center gap-2">
                   Discord Support
-                  <ExternalLink className="h-4 w-4 text-muted-foreground" />
+                  <ExternalLink className="h-4 w-4 text-white/40" />
                 </h3>
-                <p className="text-sm text-muted-foreground">Get help from our support team</p>
+                <p className="text-sm text-white/40">Get help from our support team</p>
               </Link>
             </div>
           </div>

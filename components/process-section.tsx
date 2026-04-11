@@ -1,69 +1,48 @@
 "use client"
 
-import { ShoppingCart, CreditCard, Zap, Clock } from "lucide-react"
+import { ShoppingCart, CreditCard, Zap } from "lucide-react"
 
 const steps = [
-  {
-    icon: ShoppingCart,
-    title: "Choose Your Edge",
-    description: "Pick from DMA cheats, external software, HWID spoofers, or complete hardware bundles.",
-    number: "01",
-    time: "2 min",
-    color: "text-blue-400 bg-blue-400/10",
-  },
-  {
-    icon: CreditCard,
-    title: "Secure Checkout",
-    description: "Pay with crypto or PayPal. All transactions are encrypted and your identity stays private.",
-    number: "02",
-    time: "1 min",
-    color: "text-primary bg-primary/10",
-  },
-  {
-    icon: Zap,
-    title: "Play Instantly",
-    description: "License key and download delivered to your email in seconds. Full setup support on Discord.",
-    number: "03",
-    time: "30 sec",
-    color: "text-emerald-400 bg-emerald-400/10",
-  },
+  { icon: ShoppingCart, title: "Choose", desc: "Pick your product from DMA cheats, spoofers, or hardware bundles.", num: "1", color: "#3b82f6" },
+  { icon: CreditCard, title: "Pay", desc: "Crypto or PayPal. Encrypted, private, instant confirmation.", num: "2", color: "#f97316" },
+  { icon: Zap, title: "Play", desc: "License key delivered in seconds. Full setup support on Discord.", num: "3", color: "#22c55e" },
 ]
 
 export function ProcessSection() {
   return (
-    <section className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-      <div className="container mx-auto max-w-5xl relative z-10">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-balance">
-            How it <span className="text-primary">works</span>
+    <section className="py-24 px-6 sm:px-10 relative z-10">
+      <div className="max-w-[900px] mx-auto">
+        <div className="text-center mb-14">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-[-0.03em] mb-3 text-white">
+            How it <span style={{ background: "linear-gradient(135deg, #f97316, #fb923c)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>works</span>
           </h2>
-          <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-            From checkout to gameplay in under 4 minutes.
-          </p>
+          <p className="text-white/30 text-[15px]">Checkout to gameplay in under 4 minutes.</p>
         </div>
 
-        {/* Steps */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 relative">
-          {/* Connecting line on desktop */}
-          <div className="hidden md:block absolute top-14 left-[20%] right-[20%] h-px bg-gradient-to-r from-transparent via-border to-transparent z-0" />
+        <div className="flex flex-col sm:flex-row items-stretch gap-3">
+          {steps.map((s, i) => (
+            <div key={i} className="flex-1 group relative">
+              <div className="h-full rounded-2xl p-6 sm:p-7 bg-white/[0.015] border border-white/[0.04] hover:border-white/[0.08] transition-all duration-300 relative overflow-hidden">
+                {/* Top accent */}
+                <div className="absolute top-0 left-0 right-0 h-px" style={{ background: `linear-gradient(90deg, transparent, ${s.color}25, transparent)` }} />
 
-          {steps.map((step, index) => (
-            <div key={step.number} className="group relative z-10">
-              <div className="rounded-2xl border border-border/40 bg-card/30 backdrop-blur-sm p-7 hover:border-primary/40 hover:bg-primary/[0.02] transition-all duration-300 h-full">
-                {/* Number + time */}
-                <div className="flex items-center justify-between mb-6">
-                  <div className={`w-14 h-14 rounded-2xl ${step.color} flex items-center justify-center text-lg font-black group-hover:scale-110 transition-transform duration-300`}>
-                    {step.number}
-                  </div>
-                  <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-muted/30 border border-border/30">
-                    <Clock className="h-3 w-3 text-muted-foreground" />
-                    <span className="text-[11px] font-bold text-muted-foreground">{step.time}</span>
+                {/* Number + Icon row */}
+                <div className="flex items-center justify-between mb-5">
+                  <span className="text-[48px] font-black leading-none tracking-tighter" style={{ color: `${s.color}08` }}>{s.num}</span>
+                  <div className="w-11 h-11 rounded-xl flex items-center justify-center border group-hover:scale-110 transition-transform duration-300"
+                    style={{ background: `${s.color}08`, borderColor: `${s.color}12` }}>
+                    <s.icon className="h-5 w-5" style={{ color: `${s.color}50` }} />
                   </div>
                 </div>
 
-                <h3 className="text-lg font-bold mb-2 group-hover:text-primary transition-colors">{step.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{step.description}</p>
+                <h4 className="font-bold text-[18px] mb-2 text-white/90">{s.title}</h4>
+                <p className="text-[13px] text-white/30 leading-relaxed">{s.desc}</p>
               </div>
+
+              {/* Arrow connector */}
+              {i < 2 && <div className="hidden sm:flex absolute -right-[10px] top-1/2 -translate-y-1/2 z-10 w-5 h-5 rounded-full bg-black border border-white/[0.06] items-center justify-center">
+                <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1 4h6M5 2l2 2-2 2" stroke="rgba(255,255,255,0.2)" strokeWidth="1" strokeLinecap="round" /></svg>
+              </div>}
             </div>
           ))}
         </div>

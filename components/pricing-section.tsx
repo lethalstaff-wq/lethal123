@@ -1,243 +1,140 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
-import { Check, Crown, ArrowRight, ShoppingCart } from "lucide-react"
+import { Check, Crown, ShoppingCart } from "lucide-react"
 import Link from "next/link"
 import { useCart } from "@/lib/cart-context"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
-import { useEffect, useRef, useState } from "react"
+import { useState, useEffect, useRef } from "react"
+
+function AnimPrice({ value }: { value: number }) {
+  const [count, setCount] = useState(0)
+  const ref = useRef<HTMLSpanElement>(null)
+  const started = useRef(false)
+  useEffect(() => {
+    const el = ref.current; if (!el) return
+    const obs = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && !started.current) {
+        started.current = true
+        const t0 = performance.now()
+        const tick = (now: number) => {
+          const p = Math.min((now - t0) / 1500, 1)
+          setCount(Math.round((1 - Math.pow(1 - p, 3)) * value))
+          if (p < 1) requestAnimationFrame(tick)
+        }
+        requestAnimationFrame(tick)
+        obs.disconnect()
+      }
+    }, { threshold: 0.3 })
+    obs.observe(el); return () => obs.disconnect()
+  }, [value])
+  return <span ref={ref} className="tabular-nums">{count}</span>
+}
 
 const bundles = [
-  {
-    id: "dma-basic",
-    name: "DMA Basic Bundle",
-    price: 425,
-    features: ["Captain DMA 100T-7th", "EAC/BE Emulated", "Mini DP Fuser V2", "Blurred (30 Days)", "Macku (Free)"],
-    description: "Reliable foundation for everyday use.",
-    highlighted: false,
-  },
-  {
-    id: "dma-advanced",
-    name: "DMA Advanced Bundle",
-    price: 675,
-    features: [
-      "Captain DMA 100T-7th",
-      "Dichen D60 Fuser",
-      "Teensy (Firmware Included)",
-      "EAC/BE Emulated Slotted",
-      "Blurred DMA (Quarterly)",
-    ],
-    description: "Balanced config for semi-pro gamers.",
-    highlighted: true,
-  },
-  {
-    id: "dma-elite",
-    name: "DMA Elite Bundle",
-    price: 1500,
-    features: [
-      "Captain DMA 100T-7th",
-      "Dichen DC500 Fuser",
-      "Teensy (Firmware Included)",
-      "Blurred Lifetime DMA Cheat",
-      "EAC/BE, FaceIt, VGK Emulated",
-    ],
-    description: "Maximum performance. Lifetime access.",
-    highlighted: false,
-  },
+  { id: "dma-basic", name: "Basic", price: 425, features: ["Captain DMA 100T-7th", "EAC/BE Emulated", "Mini DP Fuser V2", "Blurred (30 Days)", "Macku (Free)"], description: "Reliable foundation for everyday use.", highlighted: false },
+  { id: "dma-advanced", name: "Advanced", price: 675, features: ["Captain DMA 100T-7th", "Dichen D60 Fuser", "Teensy (Firmware Included)", "EAC/BE Emulated Slotted", "Blurred DMA (Quarterly)"], description: "Balanced config for semi-pro gamers.", highlighted: true },
+  { id: "dma-elite", name: "Elite", price: 1500, features: ["Captain DMA 100T-7th", "Dichen DC500 Fuser", "Teensy (Firmware Included)", "Blurred Lifetime DMA Cheat", "EAC/BE, FaceIt, VGK Emulated"], description: "Maximum performance. Lifetime access.", highlighted: false },
 ]
-
-function AnimatedPrice({ price, visible }: { price: number; visible: boolean }) {
-  const [displayed, setDisplayed] = useState(0)
-  const hasAnimated = useRef(false)
-
-  useEffect(() => {
-    if (!visible || hasAnimated.current) return
-    hasAnimated.current = true
-    const duration = 1200
-    const start = performance.now()
-
-    const tick = (now: number) => {
-      const elapsed = now - start
-      const progress = Math.min(elapsed / duration, 1)
-      const eased = 1 - Math.pow(1 - progress, 3)
-      setDisplayed(Math.round(eased * price))
-      if (progress < 1) requestAnimationFrame(tick)
-    }
-    requestAnimationFrame(tick)
-  }, [visible, price])
-
-  return <span>£{displayed}</span>
-}
 
 export function PricingSection() {
   const { addItem } = useCart()
   const router = useRouter()
-  const sectionRef = useRef<HTMLElement>(null)
-  const [isVisible, setIsVisible] = useState(false)
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.15 }
-    )
-    if (sectionRef.current) observer.observe(sectionRef.current)
-    return () => observer.disconnect()
-  }, [])
-
-  const handleAddToCart = (bundle: (typeof bundles)[0]) => {
-    addItem(
-      {
-        id: bundle.id,
-        name: bundle.name,
-        price: bundle.price,
-        product_id: bundle.id,
-        is_lifetime: bundle.name.toLowerCase().includes("lifetime"),
-        duration_days: null,
-        created_at: "",
-        product: {
-          id: bundle.id,
-          name: bundle.name,
-          slug: bundle.id,
-          description: bundle.description,
-          image_url: "/images/products/dma-firmware.png",
-          image: "/images/products/dma-firmware.png",
-          category: "bundle",
-          created_at: "",
-          updated_at: "",
-        },
-      },
-      1
-    )
-    toast.success(`${bundle.name} added to cart`)
+  const handleAdd = (b: typeof bundles[number]) => {
+    addItem({ id: b.id, name: `DMA ${b.name} Bundle`, price: b.price, product_id: b.id, is_lifetime: b.name === "Elite", duration_days: null, created_at: "", product: { id: b.id, name: `DMA ${b.name} Bundle`, slug: b.id, description: b.description, image_url: "/images/products/dma-firmware.png", image: "/images/products/dma-firmware.png", category: "bundle", created_at: "", updated_at: "" } } as any, 1)
+    toast.success(`DMA ${b.name} Bundle added to cart`)
     router.push("/cart")
   }
 
   return (
-    <section ref={sectionRef} id="pricing" className="py-24 px-4 sm:px-6 lg:px-8 relative pricing-noise">
-      {/* Background blurs */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute w-[500px] h-[500px] bg-[#EF6F29]/8 rounded-full blur-[140px] top-0 -left-[200px]" />
-        <div className="absolute w-[400px] h-[400px] bg-[#FFB347]/8 rounded-full blur-[140px] bottom-0 -right-[150px]" />
-      </div>
-
-      <div className="container mx-auto max-w-6xl relative z-10">
-        {/* Header */}
+    <section id="pricing" className="py-28 px-6 sm:px-10 relative z-10">
+      <div className="max-w-[1100px] mx-auto">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#EF6F29]/10 border border-[#EF6F29]/20 text-[#EF6F29] text-sm font-medium mb-6">
-            <Crown className="h-4 w-4" />
-            <span>Complete Bundles</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/[0.06] bg-white/[0.02] mb-6">
+            <Crown className="h-3.5 w-3.5 text-white/20" />
+            <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">DMA Bundles</span>
           </div>
-          <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-            Choose your <span className="gradient-text">package</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-[-0.03em] leading-[1.1] mb-4 text-white">
+            Choose your <span style={{ background: "linear-gradient(135deg, #f97316, #fb923c)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>package</span>
           </h2>
-          <p className="text-[#999] text-lg max-w-xl mx-auto">
-            Complete DMA setups with premium hardware and cheats. All prices in GBP.
-          </p>
+          <p className="text-white/30 text-[15px] max-w-md mx-auto">Complete setups with premium hardware. One purchase, everything included.</p>
         </div>
 
-        {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
-          {bundles.map((bundle, index) => (
-            <div
-              key={bundle.id}
-              className={`pricing-card relative flex flex-col rounded-2xl overflow-hidden transition-all duration-300 ${
-                isVisible ? "pricing-card-enter" : "opacity-0"
-              } ${
-                bundle.highlighted
-                  ? "gradient-border-popular popular-glow md:scale-[1.04] bg-[#1a1a1a]"
-                  : "bg-[#1a1a1a] border border-[rgba(239,111,41,0.15)] hover:border-[rgba(239,111,41,0.4)] hover:shadow-[0_0_30px_rgba(239,111,41,0.08)]"
-              }`}
-              style={{ animationDelay: isVisible ? `${0.1 + index * 0.15}s` : undefined }}
-            >
-              {/* Top accent bar */}
-              {bundle.highlighted && (
-                <div className="h-1 bg-gradient-to-r from-[#EF6F29] via-[#FFB347] to-[#EF6F29]" />
-              )}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-stretch">
+          {bundles.map((b) => (
+            <div key={b.id} className={`group rounded-2xl relative overflow-hidden flex flex-col transition-all duration-300 hover:-translate-y-1 ${
+              b.highlighted
+                ? "bg-white/[0.02] border-2 border-[#f97316]/20 shadow-[0_0_60px_rgba(249,115,22,0.04)] md:scale-[1.03] hover:shadow-[0_0_80px_rgba(249,115,22,0.06)]"
+                : "bg-white/[0.012] border border-white/[0.04] hover:border-white/[0.08] hover:shadow-[0_20px_40px_rgba(0,0,0,0.3)]"
+            }`}>
+              {/* Shine sweep */}
+              <div className="absolute top-[-50%] left-[-80%] w-[50%] h-[200%] bg-gradient-to-r from-transparent via-white/[0.015] to-transparent rotate-[25deg] group-hover:left-[130%] transition-[left] duration-700 pointer-events-none z-10" />
+              {/* Top accent */}
+              {b.highlighted && <div className="h-[2px] bg-gradient-to-r from-transparent via-[#f97316]/60 to-transparent" />}
 
               {/* Popular badge */}
-              {bundle.highlighted && (
-                <div className="absolute -top-px left-1/2 -translate-x-1/2 z-10">
-                  <span className="bg-gradient-to-r from-[#EF6F29] to-[#FF8C42] text-white px-6 py-2 rounded-b-xl text-xs font-bold tracking-wide flex items-center gap-1.5 shadow-lg shadow-[#EF6F29]/30 uppercase">
-                    <Crown className="h-3.5 w-3.5" />
-                    Most Popular
-                  </span>
+              {b.highlighted && (
+                <div className="absolute top-5 right-5 z-10">
+                  <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#f97316]/10 border border-[#f97316]/20">
+                    <Crown className="h-3 w-3 text-[#f97316]" />
+                    <span className="text-[9px] font-bold uppercase tracking-wider text-[#f97316]">Popular</span>
+                  </div>
                 </div>
               )}
 
-              <div className="p-8 flex flex-col flex-1">
-                {/* Name + Description */}
-                <div className="mb-6 pt-4">
-                  <h3 className="text-xl font-bold text-white mb-1">{bundle.name}</h3>
-                  <p className="text-sm text-[#666]">{bundle.description}</p>
+              <div className="p-8 sm:p-9 flex flex-col flex-1">
+                {/* Name */}
+                <div className="mb-6">
+                  <p className="text-[11px] text-white/20 uppercase tracking-[0.15em] mb-1">DMA Bundle</p>
+                  <h3 className="text-2xl font-bold text-white/90">{b.name}</h3>
+                  <p className="text-[13px] text-white/25 mt-1">{b.description}</p>
                 </div>
 
                 {/* Price */}
-                <div className="mb-6">
+                <div className="mb-8">
                   <div className="flex items-baseline gap-1">
-                    <span className="text-[3rem] font-extrabold text-white leading-none">
-                      <AnimatedPrice price={bundle.price} visible={isVisible} />
-                    </span>
+                    <span className="text-[11px] text-white/20 font-medium self-start mt-3">£</span>
+                    <span className="text-[52px] font-bold text-white/90 tracking-tight leading-none"><AnimPrice value={b.price} /></span>
                   </div>
-                  <span className="text-sm text-[#666] mt-1 block">one-time payment</span>
+                  <p className="text-[12px] text-white/15 mt-1">one-time payment</p>
                 </div>
 
-                <div className="h-px bg-white/[0.06] mb-6" />
+                {/* Divider */}
+                <div className="h-px bg-white/[0.04] mb-7" />
 
                 {/* Features */}
-                <ul className="space-y-3.5 mb-8 flex-1">
-                  {bundle.features.map((feature, i) => (
-                    <li key={i} className="flex items-start gap-3">
-                      <div className="check-icon mt-0.5 flex-shrink-0 rounded-full p-1 bg-[#EF6F29]/10">
-                        <Check className="h-3.5 w-3.5 text-[#EF6F29]" />
+                <div className="space-y-4 mb-8 flex-1">
+                  {b.features.map((f, j) => (
+                    <div key={j} className="flex items-start gap-3">
+                      <div className={`mt-0.5 w-5 h-5 rounded-md flex items-center justify-center shrink-0 ${b.highlighted ? "bg-[#f97316]/10" : "bg-white/[0.03]"}`}>
+                        <Check className={`h-3 w-3 ${b.highlighted ? "text-[#f97316]/70" : "text-white/25"}`} />
                       </div>
-                      <span className="text-sm text-white/90">{feature}</span>
-                    </li>
+                      <span className="text-[14px] text-white/50">{f}</span>
+                    </div>
                   ))}
-                </ul>
+                </div>
 
-                {/* CTA Button */}
-                {bundle.highlighted ? (
-                  <Button
-                    onClick={() => handleAddToCart(bundle)}
-                    size="lg"
-                    className="w-full h-13 gap-2 font-bold rounded-xl bg-gradient-to-r from-[#EF6F29] to-[#FF8C42] text-white shadow-lg shadow-[#EF6F29]/25 hover:shadow-xl hover:shadow-[#EF6F29]/35 hover:brightness-110 transition-all duration-300 btn-glow"
-                  >
-                    <ShoppingCart className="h-4 w-4" />
-                    Get Started
-                    <ArrowRight className="h-4 w-4" />
-                  </Button>
-                ) : (
-                  <button
-                    onClick={() => handleAddToCart(bundle)}
-                    className="w-full h-13 gap-2 font-bold rounded-xl btn-ghost-orange flex items-center justify-center text-sm"
-                  >
-                    <ShoppingCart className="h-4 w-4" />
-                    Add to Cart
-                    <ArrowRight className="h-4 w-4" />
-                  </button>
-                )}
+                {/* Button */}
+                <button onClick={() => handleAdd(b)}
+                  className={`w-full py-4 rounded-xl font-bold text-[15px] flex items-center justify-center gap-2.5 cursor-pointer transition-all duration-300 ${
+                    b.highlighted
+                      ? "text-white"
+                      : "border border-white/[0.06] bg-white/[0.02] text-white/40 hover:border-white/[0.12] hover:text-white/70 hover:bg-white/[0.03]"
+                  }`}
+                  style={b.highlighted ? { background: "linear-gradient(135deg, #f97316, #ea580c)", boxShadow: "0 0 30px rgba(249,115,22,0.2)" } : {}}>
+                  <ShoppingCart className="h-4 w-4" />
+                  {b.highlighted ? "Get Started" : "Add to Cart"}
+                </button>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Footer */}
-        <div className="mt-12 text-center">
-          <p className="text-sm text-[#666] mb-2">
-            All bundles include discreet shipping and lifetime Discord support.
-          </p>
-          <Link
-            href="/products"
-            className="inline-flex items-center gap-2 text-sm text-[#EF6F29] font-medium hover:underline"
-          >
-            View all individual products
-            <ArrowRight className="h-3.5 w-3.5" />
+        <div className="mt-10 text-center">
+          <p className="text-[12px] text-white/15 mb-2">All bundles include discreet shipping and lifetime Discord support.</p>
+          <Link href="/products" className="inline-flex items-center gap-1.5 text-[13px] text-[#f97316]/50 hover:text-[#f97316] transition-colors">
+            View all individual products →
           </Link>
         </div>
       </div>

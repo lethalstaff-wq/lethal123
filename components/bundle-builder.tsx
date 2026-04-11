@@ -85,9 +85,9 @@ export function BundleBuilder() {
     return (
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-20 right-6 z-[79] flex items-center gap-2.5 pl-4 pr-5 py-3 rounded-2xl bg-white/[0.06] border border-white/[0.08] text-white/70 text-sm font-semibold hover:bg-white/[0.1] hover:text-white hover:-translate-y-0.5 transition-all duration-300"
+        className="fixed bottom-20 right-6 z-[79] flex items-center gap-2.5 pl-4 pr-5 py-3 rounded-xl bg-black/80 backdrop-blur-md border border-white/[0.06] text-white/50 text-sm font-semibold hover:border-white/[0.1] hover:text-white/70 hover:-translate-y-0.5 transition-all duration-300 group"
       >
-        <Wrench className="h-4 w-4" />
+        <Wrench className="h-4 w-4 text-white/20 group-hover:text-[#f97316] transition-all" />
         Build a Bundle
       </button>
     )
@@ -97,20 +97,20 @@ export function BundleBuilder() {
     <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center">
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={() => setIsOpen(false)} />
 
-      <div className="relative w-full sm:max-w-md rounded-t-2xl sm:rounded-2xl border border-white/[0.08] bg-[#0c0c0e] shadow-2xl overflow-hidden max-h-[90vh] flex flex-col animate-in slide-in-from-bottom-4 fade-in duration-300">
+      <div className="relative w-full sm:max-w-md rounded-t-2xl sm:rounded-2xl bg-black/95 backdrop-blur-xl border border-white/[0.06] shadow-[0_30px_60px_rgba(0,0,0,0.5)] overflow-hidden max-h-[90vh] flex flex-col animate-in slide-in-from-bottom-4 fade-in duration-300">
 
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-white/[0.06]">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-amber-500/10 flex items-center justify-center">
-              <Wrench className="h-4 w-4 text-amber-500" />
+            <div className="w-9 h-9 rounded-xl bg-[#f97316]/10 flex items-center justify-center">
+              <Wrench className="h-4 w-4 text-[#f97316]" />
             </div>
             <div>
-              <h3 className="font-bold text-[15px]">Bundle Builder</h3>
-              <p className="text-[11px] text-white/30">Pick your combo, save up to 10%</p>
+              <h3 className="text-white font-bold text-[15px]">Bundle Builder</h3>
+              <p className="text-[11px] text-white/40">Pick your combo, save up to 10%</p>
             </div>
           </div>
-          <button onClick={() => setIsOpen(false)} className="p-2 rounded-xl text-white/25 hover:text-white hover:bg-white/[0.06] transition-all">
+          <button onClick={() => setIsOpen(false)} className="p-2 rounded-xl text-white/30 hover:text-white/60 hover:bg-white/[0.06] transition-all">
             <X className="h-5 w-5" />
           </button>
         </div>
@@ -136,12 +136,12 @@ export function BundleBuilder() {
                   <button key={String(opt.val)} onClick={() => {
                     setSelections(prev => ({ ...prev, hasDMA: opt.val }))
                     setStep(opt.val ? "firmware" : "cheat")
-                  }} className="w-full flex items-center justify-between p-4 rounded-xl border border-white/[0.06] hover:border-amber-500/30 hover:bg-amber-500/[0.03] transition-all group">
+                  }} className="w-full flex items-center justify-between p-4 rounded-xl bg-white/[0.012] border border-white/[0.04] hover:border-white/[0.08] hover:bg-white/[0.02] transition-all group">
                     <div>
-                      <p className="text-sm font-semibold group-hover:text-amber-400 transition-colors">{opt.label}</p>
+                      <p className="text-sm font-semibold group-hover:text-[#f97316] transition-colors">{opt.label}</p>
                       <p className="text-[11px] text-white/25">{opt.desc}</p>
                     </div>
-                    <ChevronRight className="h-4 w-4 text-white/10 group-hover:text-amber-500/50 transition-all" />
+                    <ChevronRight className="h-4 w-4 text-white/10 group-hover:text-[#f97316]/50 transition-all" />
                   </button>
                 ))}
               </div>
@@ -160,19 +160,19 @@ export function BundleBuilder() {
                     <button key={v.id} onClick={() => {
                       setSelections(prev => ({ ...prev, firmware: "custom-dma-firmware" }))
                       setStep("cheat")
-                    }} className="w-full flex items-center justify-between p-4 rounded-xl border border-white/[0.06] hover:border-amber-500/30 hover:bg-amber-500/[0.03] transition-all group">
+                    }} className="w-full flex items-center justify-between p-4 rounded-xl bg-white/[0.012] border border-white/[0.04] hover:border-white/[0.08] hover:bg-white/[0.02] transition-all group">
                       <div>
-                        <p className="text-sm font-semibold group-hover:text-amber-400 transition-colors">{v.name}</p>
+                        <p className="text-sm font-semibold group-hover:text-[#f97316] transition-colors">{v.name}</p>
                         <p className="text-[11px] text-white/25">{formatPrice(v.priceInPence)}</p>
                       </div>
-                      <ChevronRight className="h-4 w-4 text-white/10 group-hover:text-amber-500/50 transition-all" />
+                      <ChevronRight className="h-4 w-4 text-white/10 group-hover:text-[#f97316]/50 transition-all" />
                     </button>
                   ))
                 })()}
                 <button onClick={() => {
                   setSelections(prev => ({ ...prev, firmware: null }))
                   setStep("cheat")
-                }} className="w-full p-3 rounded-xl border border-white/[0.04] text-[11px] text-white/25 hover:text-white/50 transition-colors">
+                }} className="w-full p-3 rounded-xl border border-white/[0.06] bg-white/[0.02] text-[11px] text-white/40 hover:text-white/70 transition-colors">
                   Skip firmware
                 </button>
               </div>
@@ -188,18 +188,18 @@ export function BundleBuilder() {
                   <button key={p.id} onClick={() => {
                     setSelections(prev => ({ ...prev, cheat: p.id }))
                     setStep("spoofer")
-                  }} className="w-full flex items-center justify-between p-4 rounded-xl border border-white/[0.06] hover:border-amber-500/30 hover:bg-amber-500/[0.03] transition-all group">
+                  }} className="w-full flex items-center justify-between p-4 rounded-xl bg-white/[0.012] border border-white/[0.04] hover:border-white/[0.08] hover:bg-white/[0.02] transition-all group">
                     <div>
-                      <p className="text-sm font-semibold group-hover:text-amber-400 transition-colors">{p.name}</p>
+                      <p className="text-sm font-semibold group-hover:text-[#f97316] transition-colors">{p.name}</p>
                       <p className="text-[11px] text-white/25">from {formatPrice(Math.min(...p.variants.map(v => v.priceInPence)))}</p>
                     </div>
-                    <ChevronRight className="h-4 w-4 text-white/10 group-hover:text-amber-500/50 transition-all" />
+                    <ChevronRight className="h-4 w-4 text-white/10 group-hover:text-[#f97316]/50 transition-all" />
                   </button>
                 ))}
                 <button onClick={() => {
                   setSelections(prev => ({ ...prev, cheat: null }))
                   setStep("spoofer")
-                }} className="w-full p-3 rounded-xl border border-white/[0.04] text-[11px] text-white/25 hover:text-white/50 transition-colors">
+                }} className="w-full p-3 rounded-xl border border-white/[0.06] bg-white/[0.02] text-[11px] text-white/40 hover:text-white/70 transition-colors">
                   Skip cheat
                 </button>
               </div>
@@ -215,18 +215,18 @@ export function BundleBuilder() {
                   <button key={p.id} onClick={() => {
                     setSelections(prev => ({ ...prev, spoofer: p.id }))
                     setStep("result")
-                  }} className="w-full flex items-center justify-between p-4 rounded-xl border border-white/[0.06] hover:border-amber-500/30 hover:bg-amber-500/[0.03] transition-all group">
+                  }} className="w-full flex items-center justify-between p-4 rounded-xl bg-white/[0.012] border border-white/[0.04] hover:border-white/[0.08] hover:bg-white/[0.02] transition-all group">
                     <div>
-                      <p className="text-sm font-semibold group-hover:text-amber-400 transition-colors">{p.name}</p>
+                      <p className="text-sm font-semibold group-hover:text-[#f97316] transition-colors">{p.name}</p>
                       <p className="text-[11px] text-white/25">from {formatPrice(Math.min(...p.variants.map(v => v.priceInPence)))}</p>
                     </div>
-                    <ChevronRight className="h-4 w-4 text-white/10 group-hover:text-amber-500/50 transition-all" />
+                    <ChevronRight className="h-4 w-4 text-white/10 group-hover:text-[#f97316]/50 transition-all" />
                   </button>
                 ))}
                 <button onClick={() => {
                   setSelections(prev => ({ ...prev, spoofer: null }))
                   setStep("result")
-                }} className="w-full p-3 rounded-xl border border-white/[0.04] text-[11px] text-white/25 hover:text-white/50 transition-colors">
+                }} className="w-full p-3 rounded-xl border border-white/[0.06] bg-white/[0.02] text-[11px] text-white/40 hover:text-white/70 transition-colors">
                   No spoofer needed
                 </button>
               </div>
@@ -239,7 +239,7 @@ export function BundleBuilder() {
               {selectedIds.length === 0 ? (
                 <div className="text-center py-8">
                   <p className="text-sm text-white/40 mb-4">You didn't select anything</p>
-                  <button onClick={reset} className="px-4 py-2 rounded-lg bg-amber-500/10 text-amber-400 text-xs font-semibold hover:bg-amber-500/20 transition-colors">
+                  <button onClick={reset} className="px-4 py-2 rounded-xl bg-[#f97316]/10 text-[#f97316] text-xs font-semibold hover:bg-[#f97316]/20 transition-colors">
                     Start Over
                   </button>
                 </div>
@@ -250,7 +250,7 @@ export function BundleBuilder() {
                     {selectedIds.map(id => {
                       const p = getProduct(id)!
                       return (
-                        <div key={id} className="flex items-center justify-between p-3 rounded-xl border border-white/[0.06] bg-white/[0.02]">
+                        <div key={id} className="flex items-center justify-between p-3 rounded-xl bg-white/[0.012] border border-white/[0.04]">
                           <div className="flex items-center gap-2">
                             <Check className="h-4 w-4 text-emerald-500" />
                             <p className="text-sm font-semibold">{p.name}</p>
@@ -274,11 +274,11 @@ export function BundleBuilder() {
                     )}
                     <div className="flex justify-between font-bold text-lg pt-1">
                       <span>Total</span>
-                      <span className="text-primary">{formatPrice(finalTotal)}</span>
+                      <span className="text-[#f97316]">{formatPrice(finalTotal)}</span>
                     </div>
                   </div>
 
-                  <button onClick={addBundleToCart} className="w-full py-3 rounded-xl bg-primary hover:bg-primary/90 text-white font-bold text-sm flex items-center justify-center gap-2 transition-colors shadow-lg shadow-primary/20">
+                  <button onClick={addBundleToCart} className="w-full py-3 rounded-xl bg-gradient-to-r from-[#f97316] to-[#ea580c] text-white font-bold text-sm flex items-center justify-center gap-2 transition-colors shadow-lg shadow-[#f97316]/20 hover:shadow-[#f97316]/30">
                     <ShoppingCart className="h-4 w-4" />
                     Add Bundle to Cart
                   </button>

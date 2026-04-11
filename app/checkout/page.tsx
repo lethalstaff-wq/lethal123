@@ -221,27 +221,27 @@ export default function CheckoutPage() {
       <div className="space-y-4 mb-6">
         {items.map((item) => (
           <div key={item.variant.id} className="flex items-center gap-3">
-            <div className="w-14 h-14 rounded-xl bg-white/[0.03] border border-border/30 flex items-center justify-center overflow-hidden flex-shrink-0">
+            <div className="w-14 h-14 rounded-xl bg-white/[0.03] border border-white/[0.04] flex items-center justify-center overflow-hidden flex-shrink-0">
               {item.variant.product?.image ? (
                 <Image src={item.variant.product.image} alt="" width={48} height={48} className="object-contain" />
               ) : (
-                <Package className="w-5 h-5 text-muted-foreground/30" />
+                <Package className="w-5 h-5 text-white/20" />
               )}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold truncate">{item.variant.product?.name || item.variant.name}</p>
-              <p className="text-xs text-muted-foreground">{item.variant.name} &times; {item.quantity}</p>
+              <p className="text-sm font-semibold truncate text-white/90">{item.variant.product?.name || item.variant.name}</p>
+              <p className="text-xs text-white/40">{item.variant.name} &times; {item.quantity}</p>
             </div>
-            <p className="text-sm font-bold tabular-nums">{"£"}{(item.variant.price * item.quantity).toFixed(2)}</p>
+            <p className="text-sm font-bold tabular-nums text-white/90">{"£"}{(item.variant.price * item.quantity).toFixed(2)}</p>
           </div>
         ))}
       </div>
 
       {/* Totals */}
-      <div className="border-t border-border/30 pt-4 space-y-2">
+      <div className="border-t border-white/[0.06] pt-4 space-y-2">
         <div className="flex justify-between text-sm">
-          <span className="text-muted-foreground">Subtotal</span>
-          <span className="tabular-nums">{"£"}{total.toFixed(2)}</span>
+          <span className="text-white/40">Subtotal</span>
+          <span className="tabular-nums text-white/90">{"£"}{total.toFixed(2)}</span>
         </div>
         {appliedCoupon && (
           <div className="flex justify-between text-sm">
@@ -249,26 +249,26 @@ export default function CheckoutPage() {
             <span className="text-emerald-400 tabular-nums">-{"£"}{discount.toFixed(2)}</span>
           </div>
         )}
-        <div className="border-t border-border/30 pt-3 mt-3">
+        <div className="border-t border-white/[0.06] pt-3 mt-3">
           <div className="flex justify-between">
-            <span className="font-bold">Total</span>
-            <span className="text-xl font-black tabular-nums">{"£"}{finalTotal.toFixed(2)}</span>
+            <span className="font-bold text-white/90">Total</span>
+            <span className="text-xl font-black tabular-nums text-white">{"£"}{finalTotal.toFixed(2)}</span>
           </div>
         </div>
       </div>
 
       {/* Trust badges */}
-      <div className="mt-6 pt-4 border-t border-border/30 space-y-2">
-        <div className="flex items-center gap-2 text-xs text-muted-foreground">
-          <Lock className="h-3 w-3 text-primary/60" />
+      <div className="mt-6 pt-4 border-t border-white/[0.06] space-y-2">
+        <div className="flex items-center gap-2 text-xs text-white/30">
+          <Lock className="h-3 w-3 text-[#f97316]/60" />
           <span>Secure &amp; encrypted checkout</span>
         </div>
-        <div className="flex items-center gap-2 text-xs text-muted-foreground">
-          <Zap className="h-3 w-3 text-primary/60" />
+        <div className="flex items-center gap-2 text-xs text-white/30">
+          <Zap className="h-3 w-3 text-[#f97316]/60" />
           <span>Instant digital delivery</span>
         </div>
-        <div className="flex items-center gap-2 text-xs text-muted-foreground">
-          <Shield className="h-3 w-3 text-primary/60" />
+        <div className="flex items-center gap-2 text-xs text-white/30">
+          <Shield className="h-3 w-3 text-[#f97316]/60" />
           <span>Buyer protection guaranteed</span>
         </div>
       </div>
@@ -278,19 +278,19 @@ export default function CheckoutPage() {
   /* ---- EMPTY CART ---- */
   if (items.length === 0 && step !== "confirming" && step !== "done") {
     return (
-      <main className="flex min-h-screen flex-col bg-background">
+      <main className="flex min-h-screen flex-col bg-black">
         <Navbar />
         <section className="flex-1 flex items-center justify-center px-4 py-32">
           <div className="text-center max-w-md">
             <div className="relative mx-auto w-24 h-24 mb-8">
-              <div className="absolute inset-0 rounded-3xl bg-primary/10 blur-xl animate-pulse" />
-              <div className="relative w-24 h-24 rounded-3xl bg-gradient-to-br from-card to-card/50 border border-border/50 flex items-center justify-center">
-                <Package className="w-10 h-10 text-muted-foreground/40" />
+              <div className="absolute inset-0 rounded-3xl bg-[#f97316]/10 blur-xl animate-pulse" />
+              <div className="relative w-24 h-24 rounded-3xl bg-white/[0.012] border border-white/[0.04] flex items-center justify-center">
+                <Package className="w-10 h-10 text-white/20" />
               </div>
             </div>
-            <h1 className="text-3xl font-bold text-foreground mb-3 tracking-tight">Your cart is empty</h1>
-            <p className="text-muted-foreground mb-10">Add some products to get started.</p>
-            <Link href="/products" className="inline-flex items-center gap-2.5 px-8 py-4 bg-primary hover:bg-primary/90 text-primary-foreground rounded-2xl text-sm font-bold transition-all hover:shadow-[0_0_30px_rgba(var(--primary-rgb),0.3)] hover:scale-[1.02] active:scale-[0.98]">
+            <h1 className="text-3xl font-bold text-white/90 mb-3 tracking-tight">Your cart is <span className="text-[#f97316]">empty</span></h1>
+            <p className="text-white/40 mb-10">Add some products to get started.</p>
+            <Link href="/products" className="inline-flex items-center gap-2.5 px-8 py-4 text-white rounded-xl text-sm font-bold transition-all hover:shadow-[0_0_30px_rgba(249,115,22,0.3)] hover:scale-[1.02] active:scale-[0.98]" style={{ background: "linear-gradient(135deg, #f97316, #ea580c)" }}>
               Browse Products <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
@@ -303,52 +303,52 @@ export default function CheckoutPage() {
   /* ---- CONFIRMING / DONE ---- */
   if (step === "confirming" || step === "done") {
     return (
-      <main className="flex min-h-screen flex-col bg-background">
+      <main className="flex min-h-screen flex-col bg-black">
         <Navbar />
         <section className="flex-1 flex items-center justify-center px-4 py-16">
           <div className="max-w-lg w-full">
             {step === "confirming" ? (
               <div className="relative">
                 {/* Background glow effects */}
-                <div className="absolute -inset-12 bg-gradient-to-br from-primary/10 via-amber-500/5 to-transparent rounded-[3rem] blur-3xl" />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary/10 rounded-full blur-[100px]" />
+                <div className="absolute -inset-12 bg-gradient-to-br from-[#f97316]/10 via-amber-500/5 to-transparent rounded-[3rem] blur-3xl" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-[#f97316]/10 rounded-full blur-[100px]" />
 
-                <div className="relative rounded-3xl border border-primary/20 bg-card/95 backdrop-blur-xl overflow-hidden">
+                <div className="relative rounded-3xl border border-[#f97316]/20 bg-white/[0.012] backdrop-blur-xl overflow-hidden">
                   {/* Header with gradient */}
-                  <div className="relative px-8 pt-10 pb-8 text-center bg-gradient-to-b from-primary/5 to-transparent">
+                  <div className="relative px-8 pt-10 pb-8 text-center bg-gradient-to-b from-[#f97316]/5 to-transparent">
                     {/* Animated icon */}
                     <div className="relative mx-auto w-28 h-28 mb-6">
-                      <div className="absolute inset-0 rounded-full bg-primary/20 animate-ping" style={{ animationDuration: "2s" }} />
-                      <div className="absolute inset-2 rounded-full bg-primary/10 animate-pulse" style={{ animationDuration: "1.5s" }} />
-                      <div className="relative w-28 h-28 rounded-full bg-gradient-to-br from-primary/30 via-primary/10 to-transparent flex items-center justify-center border-2 border-primary/30 shadow-[0_0_40px_rgba(239,111,41,0.3)]">
-                        <Clock className="h-12 w-12 text-primary" />
+                      <div className="absolute inset-0 rounded-full bg-[#f97316]/20 animate-ping" style={{ animationDuration: "2s" }} />
+                      <div className="absolute inset-2 rounded-full bg-[#f97316]/10 animate-pulse" style={{ animationDuration: "1.5s" }} />
+                      <div className="relative w-28 h-28 rounded-full flex items-center justify-center border-2 border-[#f97316]/30 shadow-[0_0_40px_rgba(249,115,22,0.3)]" style={{ background: "linear-gradient(to bottom right, rgba(249,115,22,0.3), rgba(249,115,22,0.1), transparent)" }}>
+                        <Clock className="h-12 w-12 text-[#f97316]" />
                       </div>
                     </div>
 
-                    <h2 className="text-3xl font-black text-foreground tracking-tight mb-2">Payment Processing</h2>
-                    <p className="text-sm text-muted-foreground max-w-xs mx-auto">
+                    <h2 className="text-3xl font-black text-white/90 tracking-tight mb-2">Payment <span className="text-[#f97316]">Processing</span></h2>
+                    <p className="text-sm text-white/40 max-w-xs mx-auto">
                       {"Our team is verifying your transaction. This typically takes up to 1 hour."}
                     </p>
                   </div>
 
                   {/* Timer section */}
                   <div className="px-8 pb-6">
-                    <div className="relative rounded-2xl bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border border-primary/20 p-6 overflow-hidden">
-                      <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-3xl" />
+                    <div className="relative rounded-2xl border border-[#f97316]/20 p-6 overflow-hidden" style={{ background: "linear-gradient(to bottom right, rgba(249,115,22,0.1), rgba(249,115,22,0.05), transparent)" }}>
+                      <div className="absolute top-0 right-0 w-32 h-32 bg-[#f97316]/10 rounded-full blur-3xl" />
                       <div className="relative flex items-center justify-center gap-6">
                         <div className="text-center">
-                          <div className="font-mono text-5xl font-black text-foreground tracking-wider tabular-nums">
+                          <div className="font-mono text-5xl font-black text-white tracking-wider tabular-nums">
                             {formatTime(verifyTimeLeft)}
                           </div>
-                          <p className="text-xs text-primary font-bold uppercase tracking-widest mt-2">Estimated Time</p>
+                          <p className="text-xs text-[#f97316] font-bold uppercase tracking-widest mt-2">Estimated Time</p>
                         </div>
                       </div>
 
                       {/* Progress bar */}
-                      <div className="mt-6 h-2 rounded-full bg-background/50 overflow-hidden">
+                      <div className="mt-6 h-2 rounded-full bg-white/[0.04] overflow-hidden">
                         <div
-                          className="h-full rounded-full bg-gradient-to-r from-primary via-primary/80 to-amber-500 transition-all duration-1000 ease-linear shadow-[0_0_20px_rgba(239,111,41,0.5)]"
-                          style={{ width: `${Math.min(((VERIFY_SECONDS - verifyTimeLeft) / VERIFY_SECONDS) * 100, 100)}%` }}
+                          className="h-full rounded-full transition-all duration-1000 ease-linear shadow-[0_0_20px_rgba(249,115,22,0.5)]"
+                          style={{ width: `${Math.min(((VERIFY_SECONDS - verifyTimeLeft) / VERIFY_SECONDS) * 100, 100)}%`, background: "linear-gradient(to right, #f97316, rgba(249,115,22,0.8), #f59e0b)" }}
                         />
                       </div>
                     </div>
@@ -356,9 +356,9 @@ export default function CheckoutPage() {
 
                   {/* Order ID badge */}
                   <div className="px-8 pb-6">
-                    <div className="flex items-center justify-center gap-3 px-6 py-4 rounded-2xl bg-muted/10 border border-border/50">
-                      <span className="text-xs text-muted-foreground uppercase tracking-widest font-medium">Order</span>
-                      <span className="font-mono font-black text-lg text-foreground tracking-wider">{orderId}</span>
+                    <div className="flex items-center justify-center gap-3 px-6 py-4 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
+                      <span className="text-xs text-white/30 uppercase tracking-widest font-medium">Order</span>
+                      <span className="font-mono font-black text-lg text-white tracking-wider">{orderId}</span>
                     </div>
                   </div>
 
@@ -373,22 +373,22 @@ export default function CheckoutPage() {
                       ].map((s, i) => (
                         <div key={i} className={cn(
                           "flex items-center gap-4 p-4 rounded-xl transition-all",
-                          s.active ? "bg-primary/10 border border-primary/20" : "bg-muted/5"
+                          s.active ? "bg-[#f97316]/10 border border-[#f97316]/20" : "bg-white/[0.01]"
                         )}>
                           <div className={cn(
                             "w-10 h-10 rounded-xl flex items-center justify-center shrink-0",
-                            s.done ? "bg-emerald-500/20" : s.active ? "bg-primary/20" : "bg-muted/20"
+                            s.done ? "bg-emerald-500/20" : s.active ? "bg-[#f97316]/20" : "bg-white/[0.03]"
                           )}>
                             {s.done ? <CheckCircle2 className="h-5 w-5 text-emerald-500" /> :
-                             s.active ? <s.icon className="h-5 w-5 text-primary animate-spin" /> :
-                             <s.icon className="h-5 w-5 text-muted-foreground/30" />}
+                             s.active ? <s.icon className="h-5 w-5 text-[#f97316] animate-spin" /> :
+                             <s.icon className="h-5 w-5 text-white/20" />}
                           </div>
                           <span className={cn(
                             "text-sm font-medium",
-                            s.done ? "text-foreground" : s.active ? "text-primary font-bold" : "text-muted-foreground/40"
+                            s.done ? "text-white/90" : s.active ? "text-[#f97316] font-bold" : "text-white/20"
                           )}>
                             {s.label}
-                            {s.active && <span className="text-primary/60 ml-1">...</span>}
+                            {s.active && <span className="text-[#f97316]/60 ml-1">...</span>}
                           </span>
                           {s.done && <CheckCircle2 className="h-4 w-4 text-emerald-500 ml-auto" />}
                         </div>
@@ -398,10 +398,10 @@ export default function CheckoutPage() {
 
                   {/* Footer info */}
                   <div className="px-8 pb-8 space-y-4">
-                    <div className="rounded-2xl border border-border/30 bg-gradient-to-br from-muted/10 to-transparent p-5">
-                      <p className="text-sm text-muted-foreground leading-relaxed text-center">
+                    <div className="rounded-2xl border border-white/[0.04] bg-white/[0.012] p-5">
+                      <p className="text-sm text-white/40 leading-relaxed text-center">
                         {"You can safely close this page. Delivery details will be sent to "}
-                        <span className="text-primary font-bold">{email}</span>
+                        <span className="text-[#f97316] font-bold">{email}</span>
                         {" once verified."}
                       </p>
                     </div>
@@ -420,43 +420,43 @@ export default function CheckoutPage() {
               </div>
             ) : (
               <div className="relative">
-                <div className="absolute -inset-8 bg-primary/8 rounded-[2rem] blur-3xl animate-pulse" style={{ animationDuration: "3s" }} />
-                <div className="relative rounded-3xl border border-primary/30 bg-card/95 backdrop-blur-xl p-10 text-center space-y-8">
+                <div className="absolute -inset-8 bg-[#f97316]/[0.08] rounded-[2rem] blur-3xl animate-pulse" style={{ animationDuration: "3s" }} />
+                <div className="relative rounded-3xl border border-[#f97316]/30 bg-white/[0.012] backdrop-blur-xl p-10 text-center space-y-8">
                   <div className="relative mx-auto w-24 h-24">
-                    <div className="absolute inset-0 rounded-full bg-primary/10 animate-pulse" style={{ animationDuration: "2s" }} />
-                    <div className="relative w-24 h-24 rounded-full bg-gradient-to-br from-primary/30 to-primary/5 flex items-center justify-center border border-primary/30">
-                      <CheckCircle2 className="h-12 w-12 text-primary" />
+                    <div className="absolute inset-0 rounded-full bg-[#f97316]/10 animate-pulse" style={{ animationDuration: "2s" }} />
+                    <div className="relative w-24 h-24 rounded-full flex items-center justify-center border border-[#f97316]/30" style={{ background: "linear-gradient(to bottom right, rgba(249,115,22,0.3), rgba(249,115,22,0.05))" }}>
+                      <CheckCircle2 className="h-12 w-12 text-[#f97316]" />
                     </div>
                   </div>
 
                   <div>
-                    <h2 className="text-3xl font-black text-foreground tracking-tight">Order Submitted</h2>
-                    <p className="text-sm text-muted-foreground mt-3">{"We're verifying your payment. You'll receive delivery once confirmed."}</p>
+                    <h2 className="text-3xl font-black text-white/90 tracking-tight">Order <span className="text-[#f97316]">Submitted</span></h2>
+                    <p className="text-sm text-white/40 mt-3">{"We're verifying your payment. You'll receive delivery once confirmed."}</p>
                   </div>
 
-                  <div className="inline-flex items-center gap-3 px-6 py-3.5 rounded-2xl bg-primary/10 border border-primary/20">
-                    <span className="text-xs text-primary/70 font-medium">Order ID</span>
-                    <span className="font-mono font-black text-lg text-primary">{orderId}</span>
+                  <div className="inline-flex items-center gap-3 px-6 py-3.5 rounded-2xl bg-[#f97316]/10 border border-[#f97316]/20">
+                    <span className="text-xs text-[#f97316]/70 font-medium">Order ID</span>
+                    <span className="font-mono font-black text-lg text-[#f97316]">{orderId}</span>
                   </div>
 
-                  <div className="space-y-2 text-sm text-muted-foreground">
-                    <p>{"Delivery details sent to "}<span className="text-foreground font-semibold">{email}</span></p>
-                    {discordUser && <p>{"Discord: "}<span className="text-foreground font-semibold">{discordUser}</span></p>}
+                  <div className="space-y-2 text-sm text-white/40">
+                    <p>{"Delivery details sent to "}<span className="text-white/90 font-semibold">{email}</span></p>
+                    {discordUser && <p>{"Discord: "}<span className="text-white/90 font-semibold">{discordUser}</span></p>}
                   </div>
 
-                  <p className="text-xs text-muted-foreground/60 leading-relaxed px-4">
+                  <p className="text-xs text-white/20 leading-relaxed px-4">
                     {"Save your order ID. Join our Discord for updates and support."}
                   </p>
 
                   <div className="flex gap-3 pt-2">
                     <Link href="https://discord.gg/lethaldma" target="_blank" className="flex-1">
-                      <button className="w-full h-13 py-3.5 flex items-center justify-center gap-2.5 rounded-2xl border border-border/60 bg-card/50 text-sm font-semibold text-foreground hover:bg-muted/30 transition-all">
+                      <button className="w-full h-13 py-3.5 flex items-center justify-center gap-2.5 rounded-xl border border-white/[0.06] bg-white/[0.02] text-sm font-semibold text-white/40 hover:bg-white/[0.04] transition-all">
                         <DiscordIcon className="h-4 w-4" />
                         Discord
                       </button>
                     </Link>
                     <Link href="/" className="flex-1">
-                      <button className="w-full h-13 py-3.5 flex items-center justify-center gap-2.5 rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-bold transition-all hover:shadow-[0_0_20px_rgba(var(--primary-rgb),0.3)]">
+                      <button className="w-full h-13 py-3.5 flex items-center justify-center gap-2.5 rounded-xl text-white text-sm font-bold transition-all hover:shadow-[0_0_20px_rgba(249,115,22,0.3)]" style={{ background: "linear-gradient(135deg, #f97316, #ea580c)" }}>
                         Home
                       </button>
                     </Link>
@@ -475,7 +475,7 @@ export default function CheckoutPage() {
   const cryptoAmount = getCryptoAmount(selectedCrypto.id, finalTotal)
 
   return (
-    <main className="flex min-h-screen flex-col bg-background">
+    <main className="flex min-h-screen flex-col bg-black">
       <Navbar />
 
       <section className="flex-1 pt-28 pb-16 px-4 sm:px-6 lg:px-8">
@@ -484,21 +484,21 @@ export default function CheckoutPage() {
           {/* Header row */}
           <div className="flex items-center justify-between mb-8">
             {step === "form" ? (
-              <Link href="/products" className="inline-flex items-center gap-2.5 text-sm text-muted-foreground hover:text-foreground transition-colors group">
-                <div className="w-8 h-8 rounded-lg bg-card border border-border/50 flex items-center justify-center group-hover:border-border transition-colors">
-                  <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-0.5" />
+              <Link href="/products" className="inline-flex items-center gap-2.5 text-sm text-white/40 hover:text-white/90 transition-colors group">
+                <div className="w-8 h-8 rounded-lg bg-white/[0.012] border border-white/[0.06] flex items-center justify-center group-hover:border-white/[0.1] transition-colors">
+                  <ArrowLeft className="h-3.5 w-3.5 text-white/60 transition-transform group-hover:-translate-x-0.5" />
                 </div>
                 <span className="hidden sm:inline font-medium">Back to Cart</span>
               </Link>
             ) : (
-              <button onClick={() => { setStep("form"); setTimeLeft(TIMER_SECONDS) }} className="inline-flex items-center gap-2.5 text-sm text-muted-foreground hover:text-foreground transition-colors group">
-                <div className="w-8 h-8 rounded-lg bg-card border border-border/50 flex items-center justify-center group-hover:border-border transition-colors">
-                  <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-0.5" />
+              <button onClick={() => { setStep("form"); setTimeLeft(TIMER_SECONDS) }} className="inline-flex items-center gap-2.5 text-sm text-white/40 hover:text-white/90 transition-colors group">
+                <div className="w-8 h-8 rounded-lg bg-white/[0.012] border border-white/[0.06] flex items-center justify-center group-hover:border-white/[0.1] transition-colors">
+                  <ArrowLeft className="h-3.5 w-3.5 text-white/60 transition-transform group-hover:-translate-x-0.5" />
                 </div>
                 <span className="hidden sm:inline font-medium">Back to Details</span>
               </button>
             )}
-            <div className="flex items-center gap-2 text-xs text-muted-foreground/50 bg-card/50 border border-border/30 px-3 py-1.5 rounded-full">
+            <div className="flex items-center gap-2 text-xs text-white/20 bg-white/[0.02] border border-white/[0.04] px-3 py-1.5 rounded-full">
               <Lock className="h-3 w-3" />
               <span className="hidden sm:inline">Encrypted &amp; Secure</span>
             </div>
@@ -506,28 +506,28 @@ export default function CheckoutPage() {
 
           {/* Progress Steps */}
           <div className="flex items-center gap-4 mb-8">
-            <div className={`flex items-center gap-2 ${step === "form" ? "text-primary" : "text-emerald-500"}`}>
+            <div className={`flex items-center gap-2 ${step === "form" ? "text-[#f97316]" : "text-emerald-500"}`}>
               <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${
-                step === "form" ? "bg-primary text-white" : "bg-emerald-500 text-white"
+                step === "form" ? "bg-[#f97316] text-white" : "bg-emerald-500 text-white"
               }`}>
                 {step !== "form" ? <Check className="h-4 w-4" /> : "1"}
               </div>
               <span className="text-sm font-semibold">Details &amp; Payment</span>
             </div>
-            <div className="flex-1 h-px bg-border/50 relative">
-              <div className={`absolute inset-y-0 left-0 bg-primary transition-all duration-500 ${step !== "form" ? "w-full" : "w-0"}`} />
+            <div className="flex-1 h-px bg-white/[0.06] relative">
+              <div className={`absolute inset-y-0 left-0 bg-[#f97316] transition-all duration-500 ${step !== "form" ? "w-full" : "w-0"}`} />
             </div>
-            <div className={`flex items-center gap-2 ${step !== "form" ? "text-primary" : "text-muted-foreground"}`}>
+            <div className={`flex items-center gap-2 ${step !== "form" ? "text-[#f97316]" : "text-white/30"}`}>
               <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${
-                step !== "form" ? "bg-primary text-white" : "bg-muted/50 text-muted-foreground"
+                step !== "form" ? "bg-[#f97316] text-white" : "bg-white/[0.04] text-white/30"
               }`}>2</div>
               <span className="text-sm font-semibold">Send Payment</span>
             </div>
           </div>
 
           {/* Mobile Collapsible Order Summary */}
-          <details className="lg:hidden rounded-2xl border border-border/40 bg-card/50 mb-6">
-            <summary className="flex items-center justify-between p-4 cursor-pointer">
+          <details className="lg:hidden rounded-2xl border border-white/[0.04] bg-white/[0.012] mb-6">
+            <summary className="flex items-center justify-between p-4 cursor-pointer text-white/90">
               <span className="font-bold text-sm">Order Summary ({items.length} {items.length === 1 ? "item" : "items"})</span>
               <span className="font-bold tabular-nums">{"£"}{finalTotal.toFixed(2)}</span>
             </summary>
@@ -547,15 +547,15 @@ export default function CheckoutPage() {
                 <div className="space-y-6">
 
                   {/* Contact Information */}
-                  <div className="rounded-2xl border border-border/40 bg-card/50 p-6">
+                  <div className="rounded-2xl border border-white/[0.04] bg-white/[0.012] p-6">
                     <div className="flex items-center gap-3 mb-5">
-                      <div className="w-7 h-7 rounded-lg bg-primary/15 flex items-center justify-center text-xs font-bold text-primary">1</div>
-                      <h2 className="text-base font-bold">Contact Information</h2>
+                      <div className="w-7 h-7 rounded-lg bg-[#f97316]/15 flex items-center justify-center text-xs font-bold text-[#f97316]">1</div>
+                      <h2 className="text-base font-bold text-white/90">Contact Information</h2>
                     </div>
                     <div className="space-y-5">
                       <div>
-                        <label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground mb-2 block">
-                          Email <span className="text-primary">*</span>
+                        <label className="text-[11px] font-semibold uppercase tracking-widest text-white/40 mb-2 block">
+                          Email <span className="text-[#f97316]">*</span>
                         </label>
                         <input
                           type="email" value={email}
@@ -563,48 +563,48 @@ export default function CheckoutPage() {
                           onBlur={() => setEmailTouched(true)}
                           placeholder="your@email.com"
                           className={cn(
-                            "w-full h-12 px-4 rounded-xl bg-white/[0.03] border text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-primary/20 transition-all",
+                            "w-full h-12 px-4 rounded-xl bg-white/[0.015] border text-sm text-white placeholder:text-white/20 focus:outline-none focus:ring-1 focus:ring-[#f97316]/20 transition-all",
                             emailTouched && !email.trim().includes("@")
-                              ? "border-destructive/40 focus:border-destructive"
-                              : "border-border/40 focus:border-primary"
+                              ? "border-red-500/40 focus:border-red-500"
+                              : "border-white/[0.05] focus:border-[#f97316]"
                           )}
                         />
                         {emailTouched && !email.trim().includes("@") ? (
-                          <p className="text-[11px] text-destructive mt-2 flex items-center gap-1"><AlertTriangle className="w-3 h-3" /> Please enter a valid email</p>
+                          <p className="text-[11px] text-red-400 mt-2 flex items-center gap-1"><AlertTriangle className="w-3 h-3" /> Please enter a valid email</p>
                         ) : (
-                          <p className="text-[11px] text-muted-foreground mt-2 flex items-center gap-1"><Zap className="h-3 w-3 text-primary/60" /> License key delivered instantly</p>
+                          <p className="text-[11px] text-white/30 mt-2 flex items-center gap-1"><Zap className="h-3 w-3 text-[#f97316]/60" /> License key delivered instantly</p>
                         )}
                       </div>
                       <div>
-                        <label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground mb-2 flex items-center gap-1.5">
-                          <DiscordIcon className="w-3.5 h-3.5" /> Discord <span className="text-muted-foreground/40 font-normal normal-case tracking-normal">(optional)</span>
+                        <label className="text-[11px] font-semibold uppercase tracking-widest text-white/40 mb-2 flex items-center gap-1.5">
+                          <DiscordIcon className="w-3.5 h-3.5" /> Discord <span className="text-white/20 font-normal normal-case tracking-normal">(optional)</span>
                         </label>
                         <input
                           type="text" value={discordUser} onChange={(e) => setDiscordUser(e.target.value)}
                           placeholder="username"
-                          className="w-full h-12 px-4 rounded-xl bg-white/[0.03] border border-border/40 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all"
+                          className="w-full h-12 px-4 rounded-xl bg-white/[0.015] border border-white/[0.05] text-sm text-white placeholder:text-white/20 focus:outline-none focus:border-[#f97316] focus:ring-1 focus:ring-[#f97316]/20 transition-all"
                         />
                       </div>
                       <div>
-                        <label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground mb-2 block">
-                          Order Notes <span className="text-muted-foreground/40 font-normal normal-case tracking-normal">(optional)</span>
+                        <label className="text-[11px] font-semibold uppercase tracking-widest text-white/40 mb-2 block">
+                          Order Notes <span className="text-white/20 font-normal normal-case tracking-normal">(optional)</span>
                         </label>
                         <textarea
                           value={orderNotes}
                           onChange={(e) => setOrderNotes(e.target.value)}
                           placeholder="Any special requests..."
                           rows={2}
-                          className="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-border/40 text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary resize-none"
+                          className="w-full px-4 py-3 rounded-xl bg-white/[0.015] border border-white/[0.05] text-sm text-white placeholder:text-white/20 focus:outline-none focus:border-[#f97316] resize-none"
                         />
                       </div>
                     </div>
                   </div>
 
                   {/* Payment Method */}
-                  <div className="rounded-2xl border border-border/40 bg-card/50 p-6">
+                  <div className="rounded-2xl border border-white/[0.04] bg-white/[0.012] p-6">
                     <div className="flex items-center gap-3 mb-5">
-                      <div className="w-7 h-7 rounded-lg bg-primary/15 flex items-center justify-center text-xs font-bold text-primary">2</div>
-                      <h2 className="text-base font-bold">Payment Method</h2>
+                      <div className="w-7 h-7 rounded-lg bg-[#f97316]/15 flex items-center justify-center text-xs font-bold text-[#f97316]">2</div>
+                      <h2 className="text-base font-bold text-white/90">Payment Method</h2>
                     </div>
                     <div className="space-y-2.5">
                       {CRYPTO_OPTIONS.map((option) => {
@@ -615,22 +615,22 @@ export default function CheckoutPage() {
                           <button key={option.id} onClick={() => { setPaymentMethod("crypto"); setSelectedCrypto(option) }}
                             className={`w-full flex items-center gap-4 p-4 rounded-xl border transition-all ${
                               isSelected
-                                ? "border-primary bg-primary/[0.06]"
-                                : "border-border/30 hover:border-primary/30 hover:bg-white/[0.02]"
+                                ? "border-[#f97316] bg-[#f97316]/[0.06]"
+                                : "border-white/[0.04] hover:border-[#f97316]/30 hover:bg-white/[0.02]"
                             }`}>
                             <div className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0" style={{ backgroundColor: option.color + "15" }}>
                               <Icon className="h-5 w-5" />
                             </div>
                             <div className="text-left flex-1">
-                              <p className="font-semibold text-sm">{option.name}</p>
-                              <p className="text-xs text-muted-foreground font-mono">
+                              <p className="font-semibold text-sm text-white/90">{option.name}</p>
+                              <p className="text-xs text-white/40 font-mono">
                                 {option.ticker} {amt ? `~${amt} ${option.ticker}` : ""}
                               </p>
                             </div>
                             <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                              isSelected ? "border-primary" : "border-border/40"
+                              isSelected ? "border-[#f97316]" : "border-white/[0.1]"
                             }`}>
-                              {isSelected && <div className="w-2.5 h-2.5 rounded-full bg-primary" />}
+                              {isSelected && <div className="w-2.5 h-2.5 rounded-full bg-[#f97316]" />}
                             </div>
                           </button>
                         )
@@ -640,18 +640,18 @@ export default function CheckoutPage() {
                       <button onClick={() => setPaymentMethod("paypal")}
                         className={`w-full flex items-center gap-4 p-4 rounded-xl border transition-all ${
                           paymentMethod === "paypal"
-                            ? "border-primary bg-primary/[0.06]"
-                            : "border-border/30 hover:border-primary/30 hover:bg-white/[0.02]"
+                            ? "border-[#f97316] bg-[#f97316]/[0.06]"
+                            : "border-white/[0.04] hover:border-[#f97316]/30 hover:bg-white/[0.02]"
                         }`}>
                         <PayPalIcon className="h-10 w-10" />
                         <div className="text-left flex-1">
-                          <p className="font-semibold text-sm">PayPal</p>
-                          <p className="text-xs text-muted-foreground">Friends &amp; Family only</p>
+                          <p className="font-semibold text-sm text-white/90">PayPal</p>
+                          <p className="text-xs text-white/40">Friends &amp; Family only</p>
                         </div>
                         <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                          paymentMethod === "paypal" ? "border-primary" : "border-border/40"
+                          paymentMethod === "paypal" ? "border-[#f97316]" : "border-white/[0.1]"
                         }`}>
-                          {paymentMethod === "paypal" && <div className="w-2.5 h-2.5 rounded-full bg-primary" />}
+                          {paymentMethod === "paypal" && <div className="w-2.5 h-2.5 rounded-full bg-[#f97316]" />}
                         </div>
                       </button>
 
@@ -659,18 +659,18 @@ export default function CheckoutPage() {
                       <button onClick={() => setPaymentMethod("discord")}
                         className={`w-full flex items-center gap-4 p-4 rounded-xl border transition-all ${
                           paymentMethod === "discord"
-                            ? "border-primary bg-primary/[0.06]"
-                            : "border-border/30 hover:border-primary/30 hover:bg-white/[0.02]"
+                            ? "border-[#f97316] bg-[#f97316]/[0.06]"
+                            : "border-white/[0.04] hover:border-[#f97316]/30 hover:bg-white/[0.02]"
                         }`}>
                         <DiscordIcon className="h-10 w-10" />
                         <div className="text-left flex-1">
-                          <p className="font-semibold text-sm">Via Discord</p>
-                          <p className="text-xs text-muted-foreground">Open a ticket</p>
+                          <p className="font-semibold text-sm text-white/90">Via Discord</p>
+                          <p className="text-xs text-white/40">Open a ticket</p>
                         </div>
                         <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                          paymentMethod === "discord" ? "border-primary" : "border-border/40"
+                          paymentMethod === "discord" ? "border-[#f97316]" : "border-white/[0.1]"
                         }`}>
-                          {paymentMethod === "discord" && <div className="w-2.5 h-2.5 rounded-full bg-primary" />}
+                          {paymentMethod === "discord" && <div className="w-2.5 h-2.5 rounded-full bg-[#f97316]" />}
                         </div>
                       </button>
                     </div>
@@ -678,26 +678,26 @@ export default function CheckoutPage() {
 
                   {paymentMethod === "paypal" && (
                     <div className="rounded-2xl border border-[#003087]/20 bg-[#003087]/5 p-5">
-                      <p className="text-sm font-bold mb-3 flex items-center gap-2"><DiscordIcon className="w-4 h-4" /> Discord Username Required</p>
+                      <p className="text-sm font-bold mb-3 flex items-center gap-2 text-white/90"><DiscordIcon className="w-4 h-4" /> Discord Username Required</p>
                       <input type="text" value={discordUser} onChange={(e) => setDiscordUser(e.target.value)} placeholder="Enter Discord username"
-                        className="w-full h-12 px-4 rounded-xl bg-white/[0.03] border border-[#003087]/15 text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-[#003087]/20 transition-all" />
+                        className="w-full h-12 px-4 rounded-xl bg-white/[0.015] border border-[#003087]/15 text-sm text-white placeholder:text-white/20 focus:outline-none focus:ring-1 focus:ring-[#003087]/20 transition-all" />
                     </div>
                   )}
 
                   {/* Discount Code */}
-                  <div className="rounded-2xl border border-border/40 bg-card/50 p-6">
+                  <div className="rounded-2xl border border-white/[0.04] bg-white/[0.012] p-6">
                     <div className="flex items-center gap-2 mb-4">
-                      <Tag className="h-4 w-4 text-primary" />
-                      <h3 className="text-sm font-bold">Discount Code</h3>
+                      <Tag className="h-4 w-4 text-[#f97316]" />
+                      <h3 className="text-sm font-bold text-white/90">Discount Code</h3>
                     </div>
                     {appliedCoupon ? (
-                      <div className="flex items-center gap-3 rounded-xl border border-primary/20 bg-primary/5 px-4 py-3.5">
-                        <Sparkles className="w-4 h-4 text-primary" />
+                      <div className="flex items-center gap-3 rounded-xl border border-[#f97316]/20 bg-[#f97316]/5 px-4 py-3.5">
+                        <Sparkles className="w-4 h-4 text-[#f97316]" />
                         <div className="flex-1">
-                          <p className="text-sm font-black text-primary">{appliedCoupon.code}</p>
-                          <p className="text-[11px] text-primary/60">{appliedCoupon.percent}% discount applied</p>
+                          <p className="text-sm font-black text-[#f97316]">{appliedCoupon.code}</p>
+                          <p className="text-[11px] text-[#f97316]/60">{appliedCoupon.percent}% discount applied</p>
                         </div>
-                        <button onClick={() => { setAppliedCoupon(null); setCouponCode("") }} className="p-1.5 hover:bg-muted/30 rounded-lg transition-colors"><X className="h-4 w-4 text-muted-foreground" /></button>
+                        <button onClick={() => { setAppliedCoupon(null); setCouponCode("") }} className="p-1.5 hover:bg-white/[0.04] rounded-lg transition-colors"><X className="h-4 w-4 text-white/30" /></button>
                       </div>
                     ) : (
                       <div className="flex gap-2">
@@ -705,9 +705,9 @@ export default function CheckoutPage() {
                           onChange={(e) => { setCouponCode(e.target.value); setCouponError("") }}
                           onKeyDown={(e) => e.key === "Enter" && applyCoupon()}
                           placeholder="Enter code"
-                          className="flex-1 h-11 px-4 rounded-xl bg-white/[0.03] border border-border/40 text-sm font-mono placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary transition-all" />
+                          className="flex-1 h-11 px-4 rounded-xl bg-white/[0.015] border border-white/[0.05] text-sm font-mono text-white placeholder:text-white/20 focus:outline-none focus:border-[#f97316] transition-all" />
                         <button onClick={applyCoupon}
-                          className="px-5 h-11 rounded-xl bg-white/[0.06] border border-border/40 text-sm font-semibold hover:bg-white/[0.1] transition-all">
+                          className="px-5 h-11 rounded-xl bg-white/[0.04] border border-white/[0.06] text-sm font-semibold text-white/60 hover:bg-white/[0.08] hover:text-white/90 transition-all">
                           Apply
                         </button>
                       </div>
@@ -725,18 +725,18 @@ export default function CheckoutPage() {
                     const pid = i.variant.product_id || i.variant.product?.id
                     return pid && ["fortnite-external", "blurred", "streck"].includes(pid)
                   }) && (
-                    <div className="rounded-xl border border-primary/20 bg-primary/[0.04] p-4">
+                    <div className="rounded-xl border border-[#f97316]/20 bg-[#f97316]/[0.04] p-4">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
                           <Image src="/images/products/perm-spoofer.png" alt="" width={40} height={40} className="rounded-lg" />
                           <div>
-                            <p className="text-sm font-semibold">Add Perm Spoofer</p>
-                            <p className="text-xs text-muted-foreground">
+                            <p className="text-sm font-semibold text-white/90">Add Perm Spoofer</p>
+                            <p className="text-xs text-white/40">
                               <span className="line-through">{"£"}35</span>{" "}
-                              <span className="text-primary font-bold">{"£"}25</span>{" "}
+                              <span className="text-[#f97316] font-bold">{"£"}25</span>{" "}
                               <span className="text-emerald-400 text-[10px]">save 28%</span>
                             </p>
-                            <p className="text-[10px] text-white/30">67% of buyers add this</p>
+                            <p className="text-[10px] text-white/20">67% of buyers add this</p>
                           </div>
                         </div>
                         <button
@@ -755,7 +755,7 @@ export default function CheckoutPage() {
                               product: { id: product.id, name: product.name, slug: product.id, description: product.description, category: product.category, image_url: product.image, image: product.image, created_at: "", updated_at: "" },
                             })
                           }}
-                          className="px-3 py-1.5 rounded-lg bg-primary/15 text-primary text-xs font-bold hover:bg-primary/25 transition-colors"
+                          className="px-3 py-1.5 rounded-lg bg-[#f97316]/15 text-[#f97316] text-xs font-bold hover:bg-[#f97316]/25 transition-colors"
                         >
                           + Add
                         </button>
@@ -767,19 +767,20 @@ export default function CheckoutPage() {
                   <label className="flex items-start gap-3 cursor-pointer group px-1 py-1">
                     <div className={cn(
                       "mt-0.5 h-5 w-5 rounded-md border-2 flex items-center justify-center shrink-0 transition-all duration-200",
-                      agreedTos ? "bg-primary border-primary shadow-[0_0_10px_rgba(var(--primary-rgb),0.3)]" : "border-border/40 group-hover:border-border/60"
+                      agreedTos ? "bg-[#f97316] border-[#f97316] shadow-[0_0_10px_rgba(249,115,22,0.3)]" : "border-white/[0.1] group-hover:border-white/[0.2]"
                     )}>
-                      {agreedTos && <Check className="h-3 w-3 text-primary-foreground" />}
+                      {agreedTos && <Check className="h-3 w-3 text-white" />}
                     </div>
                     <input type="checkbox" checked={agreedTos} onChange={(e) => setAgreedTos(e.target.checked)} className="sr-only" />
-                    <span className="text-xs text-muted-foreground/60 leading-relaxed">
+                    <span className="text-xs text-white/30 leading-relaxed">
                       {"I agree to the Terms of Service. All sales are final. Products are delivered digitally."}
                     </span>
                   </label>
 
                   {/* Continue Button */}
                   <button disabled={!canProceed} onClick={handleProceed}
-                    className="w-full h-14 rounded-xl bg-primary hover:bg-primary/90 text-white font-bold text-base flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 mt-6">
+                    className="w-full h-14 rounded-xl text-white font-bold text-base flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-lg shadow-orange-500/20 hover:shadow-xl hover:shadow-orange-500/30 mt-6"
+                    style={{ background: canProceed ? "linear-gradient(135deg, #f97316, #ea580c)" : "rgba(249,115,22,0.3)" }}>
                     {paymentMethod === "discord" ? (
                       <>Open Discord <ExternalLink className="h-4 w-4" /></>
                     ) : (
@@ -794,41 +795,41 @@ export default function CheckoutPage() {
                 <div className="space-y-6">
 
                   {/* Timer bar */}
-                  <div className="rounded-2xl border border-border/40 bg-card/50 p-5">
+                  <div className="rounded-2xl border border-white/[0.04] bg-white/[0.012] p-5">
                     <div className="flex items-center gap-3 mb-3">
-                      <Clock className={cn("h-4 w-4", timeLeft < 300 ? "text-destructive" : "text-primary")} />
-                      <span className={cn("text-xl font-mono font-bold", timeLeft < 300 ? "text-destructive" : "text-primary")}>{formatTime(timeLeft)}</span>
-                      <span className="text-sm text-muted-foreground">remaining</span>
+                      <Clock className={cn("h-4 w-4", timeLeft < 300 ? "text-red-500" : "text-[#f97316]")} />
+                      <span className={cn("text-xl font-mono font-bold", timeLeft < 300 ? "text-red-500" : "text-[#f97316]")}>{formatTime(timeLeft)}</span>
+                      <span className="text-sm text-white/40">remaining</span>
                     </div>
-                    <div className="w-full h-2 rounded-full bg-white/[0.06] overflow-hidden">
+                    <div className="w-full h-2 rounded-full bg-white/[0.04] overflow-hidden">
                       <div
-                        className={cn("h-full rounded-full transition-all duration-1000", timeLeft < 300 ? "bg-destructive" : "bg-gradient-to-r from-primary to-accent")}
-                        style={{ width: `${(timeLeft / TIMER_SECONDS) * 100}%` }}
+                        className={cn("h-full rounded-full transition-all duration-1000", timeLeft < 300 ? "bg-red-500" : "")}
+                        style={{ width: `${(timeLeft / TIMER_SECONDS) * 100}%`, background: timeLeft < 300 ? undefined : "linear-gradient(to right, #f97316, #f59e0b)" }}
                       />
                     </div>
                   </div>
 
                   {/* Crypto payment details */}
                   {paymentMethod === "crypto" && (
-                    <div className="rounded-2xl border border-border/40 bg-card/50 p-6">
+                    <div className="rounded-2xl border border-white/[0.04] bg-white/[0.012] p-6">
                       {/* Crypto name */}
                       <div className="flex items-center gap-3 mb-6">
                         {(() => { const Icon = selectedCrypto.icon; return <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ backgroundColor: selectedCrypto.color + "15" }}><Icon className="h-5 w-5" /></div> })()}
                         <div>
-                          <p className="font-bold">{selectedCrypto.name}</p>
-                          <p className="text-xs text-muted-foreground">{selectedCrypto.name.includes("TRC") ? "TRON Network" : selectedCrypto.name.includes("Ethereum") ? "Ethereum Network" : `${selectedCrypto.name} Mainnet`}</p>
+                          <p className="font-bold text-white/90">{selectedCrypto.name}</p>
+                          <p className="text-xs text-white/40">{selectedCrypto.name.includes("TRC") ? "TRON Network" : selectedCrypto.name.includes("Ethereum") ? "Ethereum Network" : `${selectedCrypto.name} Mainnet`}</p>
                         </div>
                       </div>
 
                       {/* Amount */}
-                      <div className="rounded-xl bg-white/[0.03] border border-border/30 p-5 text-center mb-6">
-                        <p className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1">Amount Due</p>
-                        <p className="text-3xl font-black text-foreground">
-                          {cryptoAmount} <span className="text-lg text-muted-foreground">{selectedCrypto.ticker}</span>
+                      <div className="rounded-xl bg-white/[0.02] border border-white/[0.04] p-5 text-center mb-6">
+                        <p className="text-[10px] uppercase tracking-widest text-white/30 mb-1">Amount Due</p>
+                        <p className="text-3xl font-black text-white">
+                          {cryptoAmount} <span className="text-lg text-white/40">{selectedCrypto.ticker}</span>
                         </p>
                         <button onClick={() => copyToClipboard(cryptoAmount || "", "amount")}
                           className={cn("mt-3 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all",
-                            copiedField === "amount" ? "bg-emerald-500/15 text-emerald-400" : "bg-muted/10 text-muted-foreground/60 hover:text-foreground hover:bg-muted/20"
+                            copiedField === "amount" ? "bg-emerald-500/15 text-emerald-400" : "bg-white/[0.04] text-white/40 hover:text-white/90 hover:bg-white/[0.08]"
                           )}>{copiedField === "amount" ? <><Check className="h-3 w-3" /> Copied</> : <><Copy className="h-3 w-3" /> Copy Amount</>}</button>
                       </div>
 
@@ -841,12 +842,12 @@ export default function CheckoutPage() {
 
                       {/* Wallet Address */}
                       <div className="mb-6">
-                        <p className="text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Wallet Address</p>
-                        <div className="flex items-center gap-2 p-3 rounded-xl bg-white/[0.03] border border-border/30">
-                          <code className="text-xs text-muted-foreground flex-1 truncate">{selectedCrypto.address}</code>
+                        <p className="text-[10px] uppercase tracking-widest text-white/30 mb-2">Wallet Address</p>
+                        <div className="flex items-center gap-2 p-3 rounded-xl bg-white/[0.02] border border-white/[0.04]">
+                          <code className="text-xs text-white/40 flex-1 truncate">{selectedCrypto.address}</code>
                           <button onClick={() => copyToClipboard(selectedCrypto.address, "wallet")}
                             className={cn("shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[10px] font-bold transition-all",
-                              copiedField === "wallet" ? "bg-emerald-500/15 text-emerald-400" : "bg-muted/10 text-muted-foreground/60 hover:text-foreground"
+                              copiedField === "wallet" ? "bg-emerald-500/15 text-emerald-400" : "bg-white/[0.04] text-white/40 hover:text-white/90"
                             )}>{copiedField === "wallet" ? <><Check className="h-3 w-3" /> Copied</> : <><Copy className="h-3 w-3" /> Copy</>}</button>
                         </div>
                       </div>
@@ -854,19 +855,20 @@ export default function CheckoutPage() {
                       {/* Warning */}
                       <div className="flex items-start gap-2 p-3 rounded-xl bg-yellow-500/5 border border-yellow-500/10 mb-6">
                         <AlertTriangle className="h-4 w-4 text-yellow-500 mt-0.5 shrink-0" />
-                        <p className="text-xs text-muted-foreground">
+                        <p className="text-xs text-white/40">
                           Send only <span className="text-yellow-500 font-bold">{selectedCrypto.ticker}</span> on the correct network. Other assets will be lost.
                         </p>
                       </div>
 
                       {/* Confirm button */}
                       <button onClick={handleConfirmPayment} disabled={timeLeft <= 0}
-                        className="w-full h-14 rounded-xl bg-primary hover:bg-primary/90 text-white font-bold text-base flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30">
+                        className="w-full h-14 rounded-xl text-white font-bold text-base flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-lg shadow-orange-500/20 hover:shadow-xl hover:shadow-orange-500/30"
+                        style={{ background: timeLeft <= 0 ? "rgba(249,115,22,0.3)" : "linear-gradient(135deg, #f97316, #ea580c)" }}>
                         {timeLeft <= 0 ? "Session Expired" : <><CheckCircle2 className="h-4 w-4" /> Confirm Payment Sent</>}
                       </button>
 
                       <button onClick={() => { setStep("form"); setTimeLeft(TIMER_SECONDS) }}
-                        className="w-full text-center mt-3 text-sm text-muted-foreground hover:text-primary transition-colors">
+                        className="w-full text-center mt-3 text-sm text-white/30 hover:text-[#f97316] transition-colors">
                         Change payment method
                       </button>
                     </div>
@@ -874,43 +876,44 @@ export default function CheckoutPage() {
 
                   {/* PayPal payment details */}
                   {paymentMethod === "paypal" && (
-                    <div className="rounded-2xl border border-border/40 bg-card/50 p-6">
+                    <div className="rounded-2xl border border-white/[0.04] bg-white/[0.012] p-6">
                       <div className="flex items-center gap-3 mb-6">
                         <PayPalIcon className="h-8 w-8" />
                         <div>
-                          <p className="font-bold">PayPal</p>
-                          <p className="text-xs text-muted-foreground">Friends &amp; Family only</p>
+                          <p className="font-bold text-white/90">PayPal</p>
+                          <p className="text-xs text-white/40">Friends &amp; Family only</p>
                         </div>
                       </div>
 
-                      <div className="rounded-xl bg-white/[0.03] border border-border/30 p-5 text-center mb-6">
-                        <p className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1">Send To</p>
-                        <p className="text-lg font-bold">{PAYPAL_EMAIL}</p>
+                      <div className="rounded-xl bg-white/[0.02] border border-white/[0.04] p-5 text-center mb-6">
+                        <p className="text-[10px] uppercase tracking-widest text-white/30 mb-1">Send To</p>
+                        <p className="text-lg font-bold text-white/90">{PAYPAL_EMAIL}</p>
                         <button onClick={() => copyToClipboard(PAYPAL_EMAIL, "paypal")}
                           className={cn("mt-2 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all",
-                            copiedField === "paypal" ? "bg-emerald-500/15 text-emerald-400" : "bg-muted/10 text-muted-foreground/60 hover:text-foreground hover:bg-muted/20"
+                            copiedField === "paypal" ? "bg-emerald-500/15 text-emerald-400" : "bg-white/[0.04] text-white/40 hover:text-white/90 hover:bg-white/[0.08]"
                           )}>{copiedField === "paypal" ? <><Check className="h-3 w-3" /> Copied</> : <><Copy className="h-3 w-3" /> Copy</>}</button>
                       </div>
 
-                      <div className="rounded-xl bg-white/[0.03] border border-border/30 p-5 text-center mb-6">
-                        <p className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1">Amount</p>
-                        <p className="text-3xl font-black">{"£"}{finalTotal.toFixed(2)}</p>
+                      <div className="rounded-xl bg-white/[0.02] border border-white/[0.04] p-5 text-center mb-6">
+                        <p className="text-[10px] uppercase tracking-widest text-white/30 mb-1">Amount</p>
+                        <p className="text-3xl font-black text-white">{"£"}{finalTotal.toFixed(2)}</p>
                       </div>
 
                       <div className="flex items-start gap-2 p-3 rounded-xl bg-yellow-500/5 border border-yellow-500/10 mb-6">
                         <AlertTriangle className="h-4 w-4 text-yellow-500 mt-0.5 shrink-0" />
-                        <p className="text-xs text-muted-foreground">
-                          Send as <span className="text-yellow-500 font-bold">Friends &amp; Family</span>. Include order ID <span className="font-mono font-bold text-foreground">{orderId}</span> in the note.
+                        <p className="text-xs text-white/40">
+                          Send as <span className="text-yellow-500 font-bold">Friends &amp; Family</span>. Include order ID <span className="font-mono font-bold text-white/90">{orderId}</span> in the note.
                         </p>
                       </div>
 
                       <button onClick={handleConfirmPayment} disabled={timeLeft <= 0}
-                        className="w-full h-14 rounded-xl bg-primary hover:bg-primary/90 text-white font-bold text-base flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30">
+                        className="w-full h-14 rounded-xl text-white font-bold text-base flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-lg shadow-orange-500/20 hover:shadow-xl hover:shadow-orange-500/30"
+                        style={{ background: timeLeft <= 0 ? "rgba(249,115,22,0.3)" : "linear-gradient(135deg, #f97316, #ea580c)" }}>
                         {timeLeft <= 0 ? "Session Expired" : <><CheckCircle2 className="h-4 w-4" /> Confirm Payment Sent</>}
                       </button>
 
                       <button onClick={() => { setStep("form"); setTimeLeft(TIMER_SECONDS) }}
-                        className="w-full text-center mt-3 text-sm text-muted-foreground hover:text-primary transition-colors">
+                        className="w-full text-center mt-3 text-sm text-white/30 hover:text-[#f97316] transition-colors">
                         Change payment method
                       </button>
                     </div>
@@ -922,11 +925,11 @@ export default function CheckoutPage() {
             {/* ======= RIGHT COLUMN (40%) — Order Summary (sticky, hidden on mobile) ======= */}
             <div className="lg:col-span-2 order-2 hidden lg:block">
               <div className="lg:sticky lg:top-24">
-                <div className="rounded-2xl border border-border/40 bg-card/50 p-6">
+                <div className="rounded-2xl border border-white/[0.04] bg-white/[0.012] p-6">
                   <div className="flex items-center gap-2 mb-5">
-                    <Package className="h-4 w-4 text-muted-foreground" />
-                    <h3 className="text-base font-bold">Order Summary</h3>
-                    <span className="ml-auto text-xs text-muted-foreground font-mono">{orderId}</span>
+                    <Package className="h-4 w-4 text-white/30" />
+                    <h3 className="text-base font-bold text-white/90">Order Summary</h3>
+                    <span className="ml-auto text-xs text-white/30 font-mono">{orderId}</span>
                   </div>
                   <OrderSummaryContent />
                 </div>

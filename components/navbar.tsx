@@ -96,7 +96,7 @@ export function Navbar() {
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           isScrolled
-            ? "py-2.5 bg-background/80 backdrop-blur-xl border-b border-border/30"
+            ? "py-2.5 bg-black/70 backdrop-blur-xl border-b border-white/[0.04]"
             : "py-4 bg-transparent"
         }`}
       >
@@ -157,23 +157,23 @@ export function Navbar() {
 
                 {/* Search Dropdown */}
                 {searchOpen && (
-                  <div className="absolute right-0 top-full mt-2 w-[320px] sm:w-[400px] rounded-2xl border border-border/50 bg-card/95 backdrop-blur-xl shadow-2xl shadow-black/20 overflow-hidden z-50">
-                    <div className="p-3 border-b border-border/30">
+                  <div className="absolute right-0 top-full mt-2 w-[320px] sm:w-[400px] rounded-2xl border border-white/[0.06]/50 bg-white/[0.02]/95 backdrop-blur-xl shadow-2xl shadow-black/20 overflow-hidden z-50">
+                    <div className="p-3 border-b border-white/[0.06]/30">
                       <div className="relative">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/40" />
                         <input
                           ref={inputRef}
                           type="text"
                           placeholder="Search products..."
                           value={searchQuery}
                           onChange={(e) => setSearchQuery(e.target.value)}
-                          className="w-full h-10 pl-10 pr-4 rounded-xl bg-muted/30 border-0 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
+                          className="w-full h-10 pl-10 pr-4 rounded-xl bg-muted/30 border-0 text-sm text-foreground placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-primary/50"
                         />
                       </div>
                     </div>
                     <div className="max-h-[300px] overflow-y-auto">
                       {searching ? (
-                        <div className="p-8 text-center text-sm text-muted-foreground">Searching...</div>
+                        <div className="p-8 text-center text-sm text-white/40">Searching...</div>
                       ) : searchResults.length > 0 ? (
                         <div className="p-2">
                           {searchResults.map((product) => (
@@ -187,24 +187,24 @@ export function Navbar() {
                               </div>
                               <div className="flex-1 min-w-0">
                                 <p className="font-bold text-foreground truncate">{product.name}</p>
-                                <p className="text-xs text-muted-foreground">{product.category}</p>
+                                <p className="text-xs text-white/40">{product.category}</p>
                               </div>
                               <span className="text-sm font-bold text-primary">{"£"}{(product.price / 100).toFixed(2)}</span>
-                              <ArrowRight className="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                              <ArrowRight className="h-4 w-4 text-white/40 opacity-0 group-hover:opacity-100 transition-opacity" />
                             </button>
                           ))}
                         </div>
                       ) : searchQuery ? (
                         <div className="p-8 text-center">
-                          <p className="text-sm text-muted-foreground">No products found</p>
+                          <p className="text-sm text-white/40">No products found</p>
                         </div>
                       ) : (
                         <div className="p-8 text-center">
-                          <p className="text-sm text-muted-foreground">Start typing to search...</p>
+                          <p className="text-sm text-white/40">Start typing to search...</p>
                         </div>
                       )}
                     </div>
-                    <div className="p-3 border-t border-border/30 bg-muted/5">
+                    <div className="p-3 border-t border-white/[0.06]/30 bg-muted/5">
                       <Link
                         href="/products"
                         onClick={() => setSearchOpen(false)}

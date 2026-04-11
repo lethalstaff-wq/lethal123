@@ -1,20 +1,14 @@
 "use client"
 
 import { useState } from "react"
-import { Navbar } from "@/components/navbar"
-import { Footer } from "@/components/footer"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { 
-  Search, 
-  Package, 
-  Clock, 
-  CheckCircle2, 
-  XCircle, 
-  Loader2, 
+import {
+  Search,
+  Package,
+  Clock,
+  CheckCircle2,
+  XCircle,
+  Loader2,
   ArrowRight,
-  Mail,
-  Hash,
   Shield,
   Zap,
   Download,
@@ -23,8 +17,10 @@ import {
   Check,
   ExternalLink
 } from "lucide-react"
-import { cn } from "@/lib/utils"
 import Link from "next/link"
+import Image from "next/image"
+import { Navbar } from "@/components/navbar"
+import { Footer } from "@/components/footer"
 
 type OrderStatus = "pending" | "processing" | "completed" | "cancelled" | "refunded"
 
@@ -113,11 +109,11 @@ export default function TrackOrderPage() {
     const statusOrder = ["pending", "processing", "completed"]
     const currentIndex = statusOrder.indexOf(order.status)
     const stepIndex = statusOrder.indexOf(stepKey)
-    
+
     if (order.status === "cancelled" || order.status === "refunded") {
       return stepIndex === 0 ? "complete" : "cancelled"
     }
-    
+
     if (stepIndex < currentIndex) return "complete"
     if (stepIndex === currentIndex) return "current"
     return "upcoming"
@@ -133,181 +129,68 @@ export default function TrackOrderPage() {
     })
   }
 
-  return (
-    <main className="flex min-h-screen flex-col bg-background">
-      <Navbar />
-      
-      {/* Hero */}
-      <section className="relative pt-32 pb-16 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[150px] opacity-30" />
-        
-        <div className="container mx-auto px-4 relative">
-          <div className="max-w-2xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
-              <Package className="h-4 w-4 text-primary" />
-              <span className="text-sm font-bold text-primary">Order Tracking</span>
-            </div>
-            
-            <h1 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">
-              Track Your Order
-            </h1>
-            <p className="text-lg text-muted-foreground">
-              Enter your order ID or email to check the status of your purchase
-            </p>
-          </div>
-        </div>
-      </section>
+  const inputClass =
+    "w-full rounded-xl border border-white/[0.06] bg-white/[0.03] px-4 py-3 text-sm text-white placeholder:text-white/20 outline-none transition-all focus:border-[#f97316]/30 focus:bg-white/[0.04]"
 
-      {/* Search Form */}
-      <section className="pb-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-xl mx-auto">
-            <div className="rounded-3xl border border-border/50 bg-card/60 backdrop-blur-xl p-8 shadow-xl">
-              {/* Search Type Tabs */}
-              <div className="flex gap-2 p-1.5 rounded-2xl bg-muted/30 mb-6">
-                <button
-                  onClick={() => setSearchType("order_id")}
-                  className={cn(
-                    "flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-bold transition-all",
-                    searchType === "order_id"
-                      ? "bg-primary text-primary-foreground shadow-lg"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-                  )}
-                >
-                  <Hash className="h-4 w-4" />
-                  Order ID
-                </button>
-                <button
-                  onClick={() => setSearchType("email")}
-                  className={cn(
-                    "flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-bold transition-all",
-                    searchType === "email"
-                      ? "bg-primary text-primary-foreground shadow-lg"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-                  )}
-                >
-                  <Mail className="h-4 w-4" />
-                  Email
-                </button>
-              </div>
+  // Order results view — with navbar
+  if (orders && orders.length > 0) {
+    return (
+      <main className="flex min-h-screen flex-col bg-black">
+        <Navbar />
+        <section className="flex-1 pt-28 pb-20 px-4">
+          <div className="container mx-auto max-w-3xl">
+            <Link href="/track" className="inline-flex items-center gap-1.5 text-[13px] text-white/25 hover:text-white/50 transition-colors mb-8">
+              <Search className="h-3.5 w-3.5" />
+              New Search
+            </Link>
 
-              {/* Search Input */}
-              <form onSubmit={handleSearch} className="space-y-4">
-                <div className="relative">
-                  <Input
-                    type={searchType === "email" ? "email" : "text"}
-                    placeholder={searchType === "order_id" ? "e.g. LS-ABC123XY" : "your@email.com"}
-                    value={searchValue}
-                    onChange={(e) => setSearchValue(e.target.value)}
-                    className="h-14 pl-5 pr-14 rounded-2xl border-border/50 bg-background/60 text-base"
-                  />
-                  <Button
-                    type="submit"
-                    disabled={loading || !searchValue.trim()}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 h-10 w-10 p-0 rounded-xl"
-                  >
-                    {loading ? (
-                      <Loader2 className="h-5 w-5 animate-spin" />
-                    ) : (
-                      <Search className="h-5 w-5" />
-                    )}
-                  </Button>
-                </div>
-
-                {error && (
-                  <div className="flex items-center gap-3 p-4 rounded-xl bg-red-500/10 border border-red-500/20">
-                    <XCircle className="h-5 w-5 text-red-500 shrink-0" />
-                    <p className="text-sm text-red-500">{error}</p>
-                  </div>
-                )}
-              </form>
-
-              {/* Help text */}
-              <p className="text-xs text-muted-foreground/60 text-center mt-4">
-                Your order ID was sent to your email after checkout
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Order Results */}
-      {orders && orders.length > 0 && (
-        <section className="pb-24">
-          <div className="container mx-auto px-4">
-            <div className="max-w-3xl mx-auto space-y-6">
+            <div className="space-y-6">
               {orders.map((order) => {
                 const statusConfig = STATUS_CONFIG[order.status] || STATUS_CONFIG.pending
                 const StatusIcon = statusConfig.icon
 
                 return (
-                  <div
-                    key={order.id}
-                    className="rounded-3xl border border-border/50 bg-card/60 backdrop-blur-xl overflow-hidden shadow-xl"
-                  >
-                    {/* Order Header */}
-                    <div className="p-6 border-b border-border/30">
+                  <div key={order.id} className="rounded-2xl border border-white/[0.04] bg-white/[0.012] overflow-hidden">
+                    <div className="p-6 border-b border-white/[0.03]">
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <div>
                           <div className="flex items-center gap-3 mb-2">
-                            <span className="text-xs text-muted-foreground uppercase tracking-wider">Order</span>
-                            <span className="font-mono font-black text-lg text-foreground">{order.display_id}</span>
+                            <span className="text-xs text-white/40 uppercase tracking-wider">Order</span>
+                            <span className="font-mono font-black text-lg text-white">{order.display_id}</span>
                           </div>
-                          <p className="text-sm text-muted-foreground">
-                            Placed on {formatDate(order.created_at)}
-                          </p>
+                          <p className="text-sm text-white/40">Placed on {formatDate(order.created_at)}</p>
                         </div>
-                        <div className={cn(
-                          "inline-flex items-center gap-2 px-4 py-2 rounded-full",
-                          statusConfig.bg
-                        )}>
-                          <StatusIcon className={cn("h-4 w-4", statusConfig.color, order.status === "processing" && "animate-spin")} />
-                          <span className={cn("text-sm font-bold", statusConfig.color)}>
-                            {statusConfig.label}
-                          </span>
+                        <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full ${statusConfig.bg}`}>
+                          <StatusIcon className={`h-4 w-4 ${statusConfig.color} ${order.status === "processing" ? "animate-spin" : ""}`} />
+                          <span className={`text-sm font-bold ${statusConfig.color}`}>{statusConfig.label}</span>
                         </div>
                       </div>
                     </div>
 
-                    {/* Progress Steps */}
                     {order.status !== "cancelled" && order.status !== "refunded" && (
-                      <div className="p-6 border-b border-border/30 bg-muted/5">
+                      <div className="p-6 border-b border-white/[0.03] bg-white/[0.005]">
                         <div className="flex items-center justify-between relative">
-                          {/* Progress Line */}
-                          <div className="absolute top-5 left-0 right-0 h-0.5 bg-border/30" />
-                          <div 
-                            className="absolute top-5 left-0 h-0.5 bg-primary transition-all duration-500"
-                            style={{ 
-                              width: order.status === "completed" ? "100%" : 
-                                     order.status === "processing" ? "50%" : "0%" 
-                            }}
-                          />
-
+                          <div className="absolute top-5 left-0 right-0 h-0.5 bg-white/[0.06]" />
+                          <div className="absolute top-5 left-0 h-0.5 bg-[#f97316] transition-all duration-500" style={{
+                            width: order.status === "completed" ? "100%" : order.status === "processing" ? "50%" : "0%"
+                          }} />
                           {STEPS.map((step, index) => {
                             const stepStatus = getStepStatus(order, step.key)
                             return (
                               <div key={step.key} className="relative flex flex-col items-center z-10">
-                                <div className={cn(
-                                  "w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all",
-                                  stepStatus === "complete" ? "bg-primary border-primary text-primary-foreground" :
-                                  stepStatus === "current" ? "bg-primary/20 border-primary text-primary" :
-                                  "bg-background border-border/50 text-muted-foreground/50"
-                                )}>
-                                  {stepStatus === "complete" ? (
-                                    <CheckCircle2 className="h-5 w-5" />
-                                  ) : stepStatus === "current" ? (
-                                    <Loader2 className="h-5 w-5 animate-spin" />
-                                  ) : (
-                                    <span className="text-sm font-bold">{index + 1}</span>
-                                  )}
+                                <div className={`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all ${
+                                  stepStatus === "complete" ? "bg-emerald-500 border-emerald-500 text-white" :
+                                  stepStatus === "current" ? "bg-yellow-500/20 border-yellow-500 text-yellow-400" :
+                                  "bg-black border-white/20 text-white/30"
+                                }`}>
+                                  {stepStatus === "complete" ? <CheckCircle2 className="h-5 w-5" /> :
+                                   stepStatus === "current" ? <Loader2 className="h-5 w-5 animate-spin" /> :
+                                   <span className="text-sm font-bold">{index + 1}</span>}
                                 </div>
-                                <span className={cn(
-                                  "text-xs font-bold mt-2 text-center",
-                                  stepStatus === "complete" || stepStatus === "current" ? "text-foreground" : "text-muted-foreground/50"
-                                )}>
-                                  {step.label}
-                                </span>
+                                <span className={`text-xs font-bold mt-2 ${
+                                  stepStatus === "complete" ? "text-emerald-400" :
+                                  stepStatus === "current" ? "text-yellow-400" : "text-white/30"
+                                }`}>{step.label}</span>
                               </div>
                             )
                           })}
@@ -315,101 +198,50 @@ export default function TrackOrderPage() {
                       </div>
                     )}
 
-                    {/* Order Items */}
-                    <div className="p-6 border-b border-border/30">
-                      <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-4">Items</h3>
+                    <div className="p-6 border-b border-white/[0.03]">
                       <div className="space-y-3">
                         {order.items.map((item, index) => (
-                          <div key={index} className="flex items-center justify-between p-4 rounded-xl bg-muted/10">
-                            <div className="flex items-center gap-3">
-                              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                                <Package className="h-5 w-5 text-primary" />
-                              </div>
-                              <div>
-                                <p className="font-bold text-foreground">{item.name}</p>
-                                <p className="text-xs text-muted-foreground">{item.variant} x{item.quantity}</p>
-                              </div>
+                          <div key={index} className="flex items-center justify-between">
+                            <div>
+                              <p className="font-semibold text-sm text-white/80">{item.name}</p>
+                              <p className="text-xs text-white/30">{item.variant} x{item.quantity}</p>
                             </div>
-                            <p className="font-bold text-foreground">£{(item.price / 100).toFixed(2)}</p>
+                            <p className="font-semibold text-sm text-white/60">&pound;{(item.price / 100).toFixed(2)}</p>
                           </div>
                         ))}
                       </div>
                     </div>
 
-                    {/* Order Details */}
-                    <div className="p-6 border-b border-border/30">
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="p-4 rounded-xl bg-muted/10">
-                          <p className="text-xs text-muted-foreground/60 uppercase tracking-wider mb-1">Payment</p>
-                          <p className="font-bold text-foreground capitalize">{order.payment_method}</p>
-                        </div>
-                        <div className="p-4 rounded-xl bg-muted/10">
-                          <p className="text-xs text-muted-foreground/60 uppercase tracking-wider mb-1">Total</p>
-                          <p className="font-bold text-foreground">£{(order.total / 100).toFixed(2)}</p>
-                        </div>
-                      </div>
+                    <div className="p-6 border-b border-white/[0.03] flex items-center justify-between text-sm">
+                      <span className="text-white/30">Payment: <span className="text-white/60 capitalize">{order.payment_method}</span></span>
+                      <span className="text-white/30">Total: <span className="font-bold text-white">&pound;{(order.total / 100).toFixed(2)}</span></span>
                     </div>
 
-                    {/* License & Download (if completed) */}
                     {order.status === "completed" && (
                       <div className="p-6 bg-emerald-500/5">
-                        <div className="flex items-center gap-3 mb-4">
-                          <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
-                            <Zap className="h-5 w-5 text-emerald-500" />
-                          </div>
-                          <div>
-                            <p className="font-bold text-emerald-500">Order Complete!</p>
-                            <p className="text-xs text-muted-foreground">Your license is ready</p>
-                          </div>
-                        </div>
-
                         <div className="space-y-3">
                           {order.license_key && (
                             <div className="flex items-center gap-3">
-                              <div className="flex-1 p-4 rounded-xl bg-background/60 border border-border/50">
-                                <p className="text-xs text-muted-foreground/60 uppercase tracking-wider mb-1">License Key</p>
-                                <p className="font-mono font-bold text-foreground break-all">{order.license_key}</p>
+                              <div className="flex-1 p-3 rounded-xl bg-black/60 border border-white/[0.05]">
+                                <p className="text-[10px] text-white/30 uppercase tracking-wider mb-1">License Key</p>
+                                <p className="font-mono text-sm font-bold text-white/80 break-all">{order.license_key}</p>
                               </div>
-                              <Button
-                                variant="outline"
-                                size="icon"
-                                onClick={() => copyToClipboard(order.license_key!)}
-                                className="shrink-0 h-12 w-12"
-                              >
-                                {copied ? <Check className="h-5 w-5 text-emerald-500" /> : <Copy className="h-5 w-5" />}
-                              </Button>
+                              <button onClick={() => copyToClipboard(order.license_key!)} className="shrink-0 h-11 w-11 rounded-xl border border-white/[0.06] bg-white/[0.02] flex items-center justify-center hover:bg-white/[0.04] transition-colors">
+                                {copied ? <Check className="h-4 w-4 text-emerald-500" /> : <Copy className="h-4 w-4 text-white/50" />}
+                              </button>
                             </div>
                           )}
-
-                          <Link
-                            href={`/download/${order.display_id}`}
-                            className="flex items-center justify-center gap-3 w-full py-4 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold transition-all group"
-                          >
-                            <Download className="h-5 w-5" />
+                          <Link href={`/download/${order.display_id}`} className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm transition-all">
+                            <Download className="h-4 w-4" />
                             Go to Download Center
-                            <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                           </Link>
                         </div>
                       </div>
                     )}
 
-                    {/* Help Footer */}
-                    <div className="p-6 bg-muted/5">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                          <Shield className="h-4 w-4" />
-                          <span>Secure Transaction</span>
-                        </div>
-                        <Link
-                          href="https://discord.gg/lethaldma"
-                          target="_blank"
-                          className="flex items-center gap-2 text-sm text-primary hover:underline"
-                        >
-                          <MessageCircle className="h-4 w-4" />
-                          Need help?
-                          <ExternalLink className="h-3 w-3" />
-                        </Link>
-                      </div>
+                    <div className="px-6 py-4 flex items-center justify-between text-[12px] text-white/20">
+                      <span className="flex items-center gap-1.5"><Shield className="h-3 w-3" /> Secure</span>
+                      <a href="https://discord.gg/lethaldma" target="_blank" rel="noopener noreferrer" className="text-[#f97316]/50 hover:text-[#f97316] transition-colors">Need help?</a>
                     </div>
                   </div>
                 )
@@ -417,32 +249,171 @@ export default function TrackOrderPage() {
             </div>
           </div>
         </section>
-      )}
+        <Footer />
+      </main>
+    )
+  }
 
-      {/* No Results */}
-      {orders && orders.length === 0 && (
-        <section className="pb-24">
-          <div className="container mx-auto px-4">
-            <div className="max-w-md mx-auto text-center">
-              <div className="w-20 h-20 rounded-full bg-muted/20 flex items-center justify-center mx-auto mb-6">
-                <Package className="h-10 w-10 text-muted-foreground/40" />
+  // No results
+  if (orders && orders.length === 0) {
+    return (
+      <main className="flex h-screen bg-black items-center justify-center">
+        <div className="text-center">
+          <Package className="h-12 w-12 text-white/10 mx-auto mb-4" />
+          <h3 className="text-xl font-bold text-white mb-2">No Orders Found</h3>
+          <p className="text-sm text-white/30 mb-6 max-w-sm">Check your order ID or email and try again.</p>
+          <button onClick={() => setOrders(null)} className="text-[#f97316]/60 hover:text-[#f97316] text-sm transition-colors">Try again</button>
+        </div>
+      </main>
+    )
+  }
+
+  // Main: fullscreen split — no navbar
+  return (
+    <main className="flex h-screen bg-black overflow-hidden relative">
+      {/* Top minimal bar: back + online */}
+      <div className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-3">
+        <Link
+          href="/"
+          className="flex items-center gap-2 text-white/20 hover:text-white/50 transition-colors text-[13px] group"
+        >
+          <ArrowRight className="h-3.5 w-3.5 rotate-180 group-hover:-translate-x-0.5 transition-transform" />
+          <span className="hidden sm:inline">Back</span>
+        </Link>
+
+        <Link href="/status" className="flex items-center gap-1.5 text-[12px] text-white/20 hover:text-white/40 transition-colors">
+          <span className="relative flex h-1.5 w-1.5">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
+          </span>
+          <span className="hidden sm:inline">Online</span>
+        </Link>
+      </div>
+
+      {/* Left — branding */}
+      <div className="hidden lg:flex flex-col justify-between w-[45%] p-12 xl:p-16 relative overflow-hidden border-r border-white/[0.04]">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#f97316]/[0.03] via-transparent to-transparent" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#f97316]/[0.02] rounded-full blur-[120px]" />
+
+        <Link href="/" className="relative inline-flex items-center gap-2.5">
+          <Image src="/images/logo.png" alt="Lethal Solutions" width={32} height={32} className="h-8 w-8 object-contain" />
+          <span className="text-white font-bold text-lg">Lethal Solutions</span>
+        </Link>
+
+        <div className="relative">
+          <p className="text-[13px] font-medium text-[#f97316]/60 tracking-wide uppercase mb-4">
+            Order Tracking
+          </p>
+          <h1 className="text-[44px] xl:text-[52px] font-bold text-white leading-[1.05] tracking-tight">
+            Track your<br />
+            <span className="bg-gradient-to-r from-[#f97316] to-[#fb923c] bg-clip-text text-transparent">
+              order.
+            </span>
+          </h1>
+          <p className="mt-6 text-[15px] text-white/20 leading-relaxed max-w-[340px]">
+            Enter your order ID or email to check status, view license keys, and access downloads.
+          </p>
+        </div>
+
+        <div className="relative flex items-center gap-6 ml-4 xl:ml-8">
+          {[
+            { value: "Instant", label: "Delivery" },
+            { value: "Secure", label: "Encrypted" },
+            { value: "24/7", label: "Support" },
+          ].map((stat, i) => (
+            <div key={stat.label} className="flex items-center gap-6">
+              {i > 0 && <div className="w-px h-8 bg-white/[0.06]" />}
+              <div>
+                <p className="text-xl font-bold text-white tracking-tight">{stat.value}</p>
+                <p className="text-[10px] text-white/25 mt-0.5 uppercase tracking-wider">{stat.label}</p>
               </div>
-              <h3 className="text-xl font-bold text-foreground mb-2">No Orders Found</h3>
-              <p className="text-muted-foreground mb-6">
-                We couldn't find any orders matching your search. Please check your order ID or email and try again.
-              </p>
-              <Link href="/products">
-                <Button className="gap-2">
-                  Browse Products
-                  <ArrowRight className="h-4 w-4" />
-                </Button>
-              </Link>
             </div>
-          </div>
-        </section>
-      )}
+          ))}
+        </div>
+      </div>
 
-      <Footer />
+      {/* Right — form */}
+      <div className="flex-1 flex items-center justify-center p-6 md:p-12">
+        <div className="w-full max-w-[400px]">
+          {/* Mobile logo */}
+          <div className="lg:hidden mb-10">
+            <Link href="/" className="inline-flex items-center gap-2.5">
+              <Image src="/images/logo.png" alt="Lethal Solutions" width={32} height={32} className="h-8 w-8 object-contain" />
+              <span className="text-white font-bold text-lg">Lethal Solutions</span>
+            </Link>
+          </div>
+
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold text-white">
+              Find your <span className="bg-gradient-to-r from-[#f97316] to-[#ea580c] bg-clip-text text-transparent">order</span>
+            </h2>
+            <p className="mt-1.5 text-[13px] text-white/25">
+              Search by order ID or email address.
+            </p>
+          </div>
+
+          {/* Tabs */}
+          <div className="flex gap-1 mb-8 p-1 rounded-xl bg-white/[0.03] border border-white/[0.04]">
+            <button
+              onClick={() => setSearchType("order_id")}
+              className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all ${
+                searchType === "order_id" ? "bg-white/[0.08] text-white" : "text-white/25 hover:text-white/40"
+              }`}
+            >
+              Order ID
+            </button>
+            <button
+              onClick={() => setSearchType("email")}
+              className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all ${
+                searchType === "email" ? "bg-white/[0.08] text-white" : "text-white/25 hover:text-white/40"
+              }`}
+            >
+              Email
+            </button>
+          </div>
+
+          <form onSubmit={handleSearch} className="space-y-5">
+            <div className="space-y-1.5">
+              <label className="text-xs font-medium text-white/35">
+                {searchType === "order_id" ? "Order ID" : "Email Address"}
+              </label>
+              <input
+                type={searchType === "email" ? "email" : "text"}
+                placeholder={searchType === "order_id" ? "e.g. LS-ABC123XY" : "you@example.com"}
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
+                className={inputClass}
+              />
+            </div>
+
+            {error && (
+              <div className="rounded-xl border border-red-500/20 bg-red-500/[0.06] p-3 text-sm text-red-400">
+                {error}
+              </div>
+            )}
+
+            <button
+              type="submit"
+              disabled={loading || !searchValue.trim()}
+              className="group flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#f97316] to-[#ea580c] px-4 py-3 text-sm font-bold text-white shadow-[0_4px_16px_rgba(249,115,22,0.2)] transition-all hover:shadow-[0_8px_24px_rgba(249,115,22,0.3)] hover:-translate-y-px active:translate-y-0 disabled:opacity-50"
+            >
+              {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : (
+                <>
+                  Track Order
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                </>
+              )}
+            </button>
+          </form>
+
+          <p className="mt-6 text-center text-[11px] text-white/15">
+            Order ID was sent to your email after checkout.{" "}
+            <a href="https://discord.gg/lethaldma" target="_blank" rel="noopener noreferrer" className="text-white/25 hover:text-white/40 transition-colors">
+              Need help?
+            </a>
+          </p>
+        </div>
+      </div>
     </main>
   )
 }

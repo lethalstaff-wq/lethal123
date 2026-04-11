@@ -1,0 +1,15 @@
+import { readFileSync, writeFileSync, mkdirSync } from 'fs';
+const p = new URL('./', import.meta.url).pathname.replace(/^\/([A-Z]:)/, '$1');
+let a = readFileSync(p + 'tmp_part_a.tsx', 'utf8');
+let b = readFileSync(p + 'tmp_part_b.tsx', 'utf8');
+let c = readFileSync(p + 'tmp_part_c.tsx', 'utf8');
+a = a.replace(/\n?\/\* === END PART A === \*\/\s*$/, '');
+b = b.replace(/\n?\/\* === END PART B === \*\/\s*$/, '');
+const r = a.trimEnd() + '\n\n' + b.trimEnd() + '\n\n' + c.trimEnd() + '\n';
+mkdirSync(p + 'app/apply', { recursive: true });
+writeFileSync(p + 'app/apply/page.tsx', r, 'utf8');
+const lines = r.split('\n');
+console.log('Lines:', lines.length);
+console.log('First:', JSON.stringify(lines[0]));
+console.log('Last:', JSON.stringify(lines.filter(x => x.trim()).pop()));
+console.log('Bytes:', r.length);

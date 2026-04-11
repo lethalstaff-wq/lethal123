@@ -1,9 +1,10 @@
 "use client"
 
 import { useState, useEffect, useCallback } from "react"
-import { ShoppingBag, CheckCircle2 } from "lucide-react"
+import { PRODUCTS } from "@/lib/products"
+import Link from "next/link"
+import Image from "next/image"
 
-// Masked emails — looks like real user data from the dashboard
 const MASKED_EMAILS = [
   "koi***@yahoo.com",
   "arc***@gmail.com",
@@ -31,16 +32,7 @@ const MASKED_EMAILS = [
   "ash***@outlook.com",
 ]
 
-const PRODUCTS = [
-  { name: "Perm Spoofer", price: "£35" },
-  { name: "Temp Spoofer", price: "£20" },
-  { name: "Fortnite External", price: "£10" },
-  { name: "Blurred DMA", price: "£22" },
-  { name: "Streck DMA", price: "£8" },
-  { name: "DMA Basic Bundle", price: "£425" },
-  { name: "DMA Advanced Bundle", price: "£675" },
-  { name: "Custom DMA Firmware", price: "£200" },
-]
+const MINUTES = [2, 4, 6, 8, 10, 14, 21]
 
 function seededPick<T>(arr: T[], seed: number): T {
   return arr[Math.abs(seed) % arr.length]
@@ -48,23 +40,21 @@ function seededPick<T>(arr: T[], seed: number): T {
 
 export function SocialProofToast() {
   const [visible, setVisible] = useState(false)
-  const [notification, setNotification] = useState({ email: "", product: "", time: "" })
+  const [email, setEmail] = useState("")
+  const [product, setProduct] = useState(PRODUCTS[0])
+  const [minutes, setMinutes] = useState(2)
+  const [dismissed, setDismissed] = useState(false)
 
   const showNotification = useCallback(() => {
     const now = Date.now()
     const seed = Math.floor(now / 30000)
-    const email = seededPick(MASKED_EMAILS, seed)
-    const product = seededPick(PRODUCTS, seed * 13 + 7)
-    const minutes = 1 + (seed % 12)
-
-    setNotification({
-      email,
-      product: product.name,
-      time: `${minutes} min ago`,
-    })
+    setEmail(seededPick(MASKED_EMAILS, seed))
+    setProduct(seededPick(PRODUCTS, seed * 13 + 7))
+    setMinutes(seededPick(MINUTES, seed * 3 + 2))
+    setDismissed(false)
     setVisible(true)
 
-    const hideTimer = setTimeout(() => setVisible(false), 5000)
+    const hideTimer = setTimeout(() => setVisible(false), 5500)
     return () => clearTimeout(hideTimer)
   }, [])
 
@@ -74,7 +64,7 @@ export function SocialProofToast() {
 
     const interval = setInterval(() => {
       showNotification()
-    }, 25000 + Math.random() * 20000)
+    }, 28000 + Math.random() * 20000)
 
     return () => {
       clearTimeout(firstTimer)
@@ -82,37 +72,62 @@ export function SocialProofToast() {
     }
   }, [showNotification])
 
+  const isShown = visible && !dismissed
+
   return (
     <div
-      className={`fixed bottom-24 left-5 z-[70] max-w-[320px] transition-all duration-500 ${
-        visible
-          ? "translate-x-0 opacity-100"
-          : "-translate-x-full opacity-0 pointer-events-none"
+      className={`fixed top-20 right-6 z-[80] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+        isShown
+          ? "opacity-100 translate-x-0"
+          : "opacity-0 translate-x-[calc(100%+2rem)] pointer-events-none"
       }`}
     >
-      <div className="flex items-start gap-3 p-3.5 rounded-xl bg-card/95 border border-border/50 backdrop-blur-md shadow-xl shadow-black/20">
-        <div className="p-2 rounded-lg bg-emerald-500/10 shrink-0">
-          <ShoppingBag className="h-4 w-4 text-emerald-400" />
+      <Link
+        href={`/products/${product.id}`}
+        onClick={() => setDismissed(true)}
+        className="group relative flex items-center gap-3 p-2.5 pr-5 rounded-xl bg-black/80 backdrop-blur-md border border-white/[0.06] shadow-[0_4px_24px_rgba(0,0,0,0.4)] hover:border-white/[0.1] transition-all duration-300 w-[300px]"
+      >
+        {/* Product image */}
+        <div className="w-11 h-11 rounded-lg overflow-hidden flex-shrink-0 ring-1 ring-white/[0.06] group-hover:ring-[#f97316]/30 transition-all">
+          <Image
+            src={product.image}
+            alt={product.name}
+            width={44}
+            height={44}
+            className="object-cover w-full h-full"
+          />
         </div>
+
+        {/* Content */}
         <div className="min-w-0 flex-1">
-          <p className="text-sm font-medium text-foreground leading-tight font-mono">
-            {notification.email}
+          <p className="text-[11px] font-mono text-white/25 truncate">{email}</p>
+          <p className="text-[13px] font-semibold text-white/90 truncate mt-0.5 group-hover:text-[#f97316] transition-colors">
+            {product.name}
           </p>
-          <p className="text-xs text-muted-foreground mt-0.5">
-            purchased <span className="text-[#EF6F29] font-medium">{notification.product}</span>
-          </p>
-          <div className="flex items-center gap-1.5 mt-1.5">
-            <CheckCircle2 className="h-3 w-3 text-emerald-400" />
-            <span className="text-[10px] text-muted-foreground">{notification.time}</span>
+          <div className="flex items-center gap-2 mt-1">
+            <span className="flex items-center gap-1 text-[10px] text-emerald-400/60 font-medium">
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-40" />
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
+              </span>
+              Verified
+            </span>
+            <span className="text-[10px] text-white/15">{minutes}m ago</span>
           </div>
         </div>
+
+        {/* Dismiss */}
         <button
-          onClick={() => setVisible(false)}
-          className="text-white/20 hover:text-white/50 text-xs mt-0.5 shrink-0"
+          onClick={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            setDismissed(true)
+          }}
+          className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-[#222] border border-white/[0.1] text-white/30 hover:text-white/70 transition-all flex items-center justify-center text-[9px] opacity-0 group-hover:opacity-100"
         >
           ×
         </button>
-      </div>
+      </Link>
     </div>
   )
 }

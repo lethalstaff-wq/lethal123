@@ -156,7 +156,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
 
         {/* ═══ LEFT: Image ═══ */}
         <div>
-          <div className="relative aspect-square rounded-2xl bg-gradient-to-br from-card/80 to-secondary/20 border border-border/40 overflow-hidden group">
+          <div className="relative aspect-square rounded-2xl bg-gradient-to-br from-card/80 to-secondary/20 border border-white/[0.06]/40 overflow-hidden group">
             <Badge className="absolute top-4 left-4 z-10 bg-emerald-500/15 text-emerald-400 border-emerald-500/20 backdrop-blur-sm">
               <Zap className="h-3 w-3 mr-1" />
               Instant Delivery
@@ -175,20 +175,20 @@ export function ProductDetailClient({ product }: { product: Product }) {
 
           {/* Trust badges under image */}
           <div className="grid grid-cols-3 gap-4 mt-6">
-            <div className="rounded-xl border border-border/40 bg-card/40 p-4 text-center">
-              <Shield className="h-6 w-6 mx-auto mb-2 text-muted-foreground" />
+            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-4 text-center">
+              <Shield className="h-6 w-6 mx-auto mb-2 text-white/40" />
               <p className="font-semibold text-sm">Secure</p>
-              <p className="text-xs text-muted-foreground">Encrypted</p>
+              <p className="text-xs text-white/40">Encrypted</p>
             </div>
-            <div className="rounded-xl border border-border/40 bg-card/40 p-4 text-center">
-              <Zap className="h-6 w-6 mx-auto mb-2 text-muted-foreground" />
+            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-4 text-center">
+              <Zap className="h-6 w-6 mx-auto mb-2 text-white/40" />
               <p className="font-semibold text-sm">Instant</p>
-              <p className="text-xs text-muted-foreground">Delivery</p>
+              <p className="text-xs text-white/40">Delivery</p>
             </div>
-            <div className="rounded-xl border border-border/40 bg-card/40 p-4 text-center">
-              <Globe className="h-6 w-6 mx-auto mb-2 text-muted-foreground" />
+            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-4 text-center">
+              <Globe className="h-6 w-6 mx-auto mb-2 text-white/40" />
               <p className="font-semibold text-sm">Global</p>
-              <p className="text-xs text-muted-foreground">Support</p>
+              <p className="text-xs text-white/40">Support</p>
             </div>
           </div>
         </div>
@@ -196,13 +196,17 @@ export function ProductDetailClient({ product }: { product: Product }) {
         {/* ═══ RIGHT: Info ═══ */}
         <div className="flex flex-col">
 
-          <h1 className="text-4xl sm:text-5xl font-black tracking-tight lowercase mb-3 text-foreground">
-            {product.name}
+          <h1 className="text-4xl sm:text-5xl font-black tracking-tight lowercase mb-3 text-white">
+            {(() => {
+              const words = product.name.split(" ")
+              if (words.length < 2) return product.name
+              return <>{words.slice(0, -1).join(" ")}{" "}<span className="text-[#f97316]">{words[words.length - 1]}</span></>
+            })()}
           </h1>
 
           {/* Description */}
           {product.longDescription && (
-            <p className="text-muted-foreground text-sm leading-relaxed mb-5 max-w-lg">
+            <p className="text-white/40 text-sm leading-relaxed mb-5 max-w-lg">
               {product.longDescription}
             </p>
           )}
@@ -213,14 +217,14 @@ export function ProductDetailClient({ product }: { product: Product }) {
               <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
               <span className="font-bold text-sm text-yellow-400">5.0</span>
             </div>
-            <span className="text-sm text-muted-foreground">{reviewCount} Verified Reviews</span>
-            <span className="text-muted-foreground/30">·</span>
+            <span className="text-sm text-white/40">{reviewCount} Verified Reviews</span>
+            <span className="text-white/40/30">·</span>
             <div className="flex items-center gap-1.5">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500" />
               </span>
-              <span className="text-sm text-muted-foreground">{viewingNow} viewing now</span>
+              <span className="text-sm text-white/40">{viewingNow} viewing now</span>
             </div>
           </div>
 
@@ -232,7 +236,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
           {/* Variant Selection */}
           {product.variants.length > 1 && (
             <div className="mb-8">
-              <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">Select Option</p>
+              <p className="text-xs font-semibold uppercase tracking-widest text-white/40 mb-3">Select Option</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {product.variants.map((variant) => (
                   <button
@@ -241,14 +245,14 @@ export function ProductDetailClient({ product }: { product: Product }) {
                     className={`relative p-4 rounded-xl border-2 text-left transition-all duration-200 ${
                       selectedVariant.id === variant.id
                         ? "border-primary bg-primary/[0.06] shadow-lg shadow-primary/5"
-                        : "border-border/50 hover:border-primary/40 bg-card/30"
+                        : "border-white/[0.06]/50 hover:border-primary/40 bg-white/[0.02]/30"
                     }`}
                   >
                     {selectedVariant.id === variant.id && (
                       <Check className="absolute top-3.5 right-3.5 h-4 w-4 text-primary" />
                     )}
                     <p className="font-semibold text-sm">{variant.name}</p>
-                    <p className="text-muted-foreground text-sm mt-0.5">{"£"}{variant.price}</p>
+                    <p className="text-white/40 text-sm mt-0.5">{"£"}{variant.price}</p>
                   </button>
                 ))}
               </div>
@@ -257,17 +261,17 @@ export function ProductDetailClient({ product }: { product: Product }) {
 
           {/* Quantity & Stock */}
           <div className="flex items-center gap-5 mb-6">
-            <div className="flex items-center border border-border/50 rounded-xl overflow-hidden">
+            <div className="flex items-center border border-white/[0.06]/50 rounded-xl overflow-hidden">
               <button
                 onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                className="p-3 hover:bg-white/[0.04] transition-colors text-muted-foreground hover:text-foreground"
+                className="p-3 hover:bg-white/[0.04] transition-colors text-white/40 hover:text-white"
               >
                 <Minus className="h-4 w-4" />
               </button>
               <span className="w-12 text-center font-bold text-sm">{quantity}</span>
               <button
                 onClick={() => setQuantity(quantity + 1)}
-                className="p-3 hover:bg-white/[0.04] transition-colors text-muted-foreground hover:text-foreground"
+                className="p-3 hover:bg-white/[0.04] transition-colors text-white/40 hover:text-white"
               >
                 <Plus className="h-4 w-4" />
               </button>
@@ -297,7 +301,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
                 onClick={handleAddToCart}
                 variant="outline"
                 size="lg"
-                className="h-12 font-semibold gap-2 rounded-xl border-border/50 hover:border-primary/40 hover:bg-primary/5"
+                className="h-12 font-semibold gap-2 rounded-xl border-white/[0.06]/50 hover:border-primary/40 hover:bg-primary/5"
               >
                 <ShoppingCart className="h-4 w-4" />
                 Add to Cart
@@ -326,22 +330,12 @@ export function ProductDetailClient({ product }: { product: Product }) {
       {/* ═══ FEATURES — Full width below ═══ */}
       {product.features && product.features.length > 0 && (
         <div className="mt-16">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-8 h-8 rounded-lg bg-primary/15 flex items-center justify-center">
-              <CheckCircle2 className="h-4 w-4 text-primary" />
-            </div>
-            <h2 className="text-xl font-bold">What&apos;s Included</h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <h2 className="text-lg font-bold text-white mb-5">What&apos;s Included</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-3">
             {product.features.map((feature, idx) => (
-              <div
-                key={idx}
-                className="flex items-center gap-3 px-5 py-4 rounded-xl bg-card/50 border border-border/30 hover:border-primary/20 hover:bg-primary/[0.02] transition-all duration-200"
-              >
-                <div className="w-6 h-6 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-primary" />
-                </div>
-                <span className="text-sm text-foreground/90">{feature}</span>
+              <div key={idx} className="flex items-center gap-2.5">
+                <Check className="h-3.5 w-3.5 text-[#f97316]/60 shrink-0" />
+                <span className="text-[14px] text-white/50">{feature}</span>
               </div>
             ))}
           </div>
@@ -349,20 +343,20 @@ export function ProductDetailClient({ product }: { product: Product }) {
       )}
 
       {/* ═══ Trust Section ═══ */}
-      <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-4">
-        {[
-          { icon: Shield, title: "Undetected Since Day 1", desc: "Zero detections across all anti-cheat engines. We update within 2 hours of every game patch." },
-          { icon: Zap, title: "Instant Digital Delivery", desc: "License key and download link arrive in seconds. No waiting, no manual verification." },
-          { icon: Clock, title: "Priority Discord Support", desc: "Dedicated team available 24/7. Setup help, config optimization, troubleshooting." },
-        ].map((item, i) => (
-          <div key={i} className="rounded-2xl border border-border/30 bg-card/30 p-6 hover:border-primary/20 transition-colors">
-            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-              <item.icon className="h-5 w-5 text-primary" />
+      <div className="mt-14 pt-10 border-t border-white/[0.04]">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {[
+            { icon: Shield, title: "Undetected", desc: "Zero detections. Updated within 2h of every patch." },
+            { icon: Zap, title: "Instant Delivery", desc: "License key arrives in seconds. No waiting." },
+            { icon: Clock, title: "24/7 Support", desc: "Dedicated Discord team for setup and troubleshooting." },
+          ].map((item, i) => (
+            <div key={i}>
+              <item.icon className="h-4 w-4 text-[#f97316]/50 mb-2.5" />
+              <h3 className="font-semibold text-sm text-white/80 mb-1">{item.title}</h3>
+              <p className="text-[13px] text-white/25 leading-relaxed">{item.desc}</p>
             </div>
-            <h3 className="font-bold mb-2">{item.title}</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
       {/* ═══ What Buyers Say ═══ */}
@@ -375,7 +369,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
               </div>
               <div>
                 <h2 className="text-xl font-bold">What Buyers Say</h2>
-                <p className="text-xs text-muted-foreground">{reviewCount} verified reviews</p>
+                <p className="text-xs text-white/40">{reviewCount} verified reviews</p>
               </div>
             </div>
             <Link href={`/reviews`} className="text-xs text-primary hover:text-primary/80 flex items-center gap-1 transition-colors">
@@ -384,7 +378,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {productReviews.map((review) => (
-              <div key={review.id} className="rounded-xl border border-border/30 bg-card/30 p-5 hover:border-border/50 transition-colors">
+              <div key={review.id} className="rounded-xl border border-white/[0.06]/30 bg-white/[0.02]/30 p-5 hover:border-white/[0.06]/50 transition-colors">
                 {/* Stars */}
                 <div className="flex items-center gap-2 mb-3">
                   <div className="flex gap-0.5">
@@ -398,26 +392,26 @@ export function ProductDetailClient({ product }: { product: Product }) {
                 </div>
 
                 {/* Text */}
-                <p className="text-sm text-foreground/85 leading-relaxed mb-3">{review.text}</p>
+                <p className="text-sm text-white/85 leading-relaxed mb-3">{review.text}</p>
 
                 {/* Team response */}
                 {review.team_response && (
                   <div className="mb-3 rounded-lg bg-primary/[0.04] border border-primary/10 p-3">
                     <p className="text-[11px] font-semibold text-primary mb-1">Lethal Team</p>
-                    <p className="text-xs text-foreground/60 leading-relaxed">{review.team_response}</p>
+                    <p className="text-xs text-white/60 leading-relaxed">{review.team_response}</p>
                   </div>
                 )}
 
                 {/* Footer */}
-                <div className="flex items-center justify-between pt-3 border-t border-border/20">
-                  <span className="text-xs text-muted-foreground font-mono">{maskEmail(review.email)}</span>
+                <div className="flex items-center justify-between pt-3 border-t border-white/[0.06]/20">
+                  <span className="text-xs text-white/40 font-mono">{maskEmail(review.email)}</span>
                   <div className="flex items-center gap-3">
                     {review.helpful > 0 && (
-                      <span className="text-[10px] text-muted-foreground flex items-center gap-1">
+                      <span className="text-[10px] text-white/40 flex items-center gap-1">
                         <ThumbsUp className="h-3 w-3" /> {review.helpful}
                       </span>
                     )}
-                    <span className="text-[10px] text-muted-foreground">{formatTimeAgo(review.created_at)}</span>
+                    <span className="text-[10px] text-white/40">{formatTimeAgo(review.created_at)}</span>
                   </div>
                 </div>
               </div>
@@ -428,7 +422,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
 
       {/* Sticky Add to Cart bar (mobile) */}
       {showStickyBar && (
-        <div className="fixed bottom-0 left-0 right-0 z-[70] bg-background/95 backdrop-blur-xl border-t border-border/30 px-4 py-3 lg:hidden">
+        <div className="fixed bottom-0 left-0 right-0 z-[70] bg-black/95 backdrop-blur-xl border-t border-white/[0.06]/30 px-4 py-3 lg:hidden">
           <div className="flex items-center justify-between max-w-7xl mx-auto">
             <div>
               <p className="text-sm font-bold">{product.name}</p>

@@ -17,7 +17,32 @@
       "Bash(git commit -m ':*)",
       "Bash(git push:*)",
       "Bash(git commit -m 'feat: checkout two-column premium redesign:*)",
-      "WebSearch"
+      "WebSearch",
+      "WebFetch(domain:ynkidev.com)",
+      "Bash(curl -s -L \"https://ynkidev.com\")",
+      "Bash(powershell -Command \"Invoke-WebRequest -Uri 'https://ynkidev.com' -UseBasicParsing | Select-Object -ExpandProperty Content\")",
+      "WebFetch(domain:github.com)",
+      "Bash(powershell:*)",
+      "Bash(gh api:*)",
+      "WebFetch(domain:api.github.com)",
+      "WebFetch(domain:web.archive.org)",
+      "Bash(curl -s https://ynkidev.com)",
+      "Bash(curl -sL https://ynkidev.com)",
+      "Bash(curl -s -L \"https://ynkidev.com/en\")",
+      "Bash(git:*)",
+      "Bash(BASH_ENV= HOME= git -C \"C:/Users/кир/Desktop/сайт\" add app/apply/page.tsx)",
+      "Bash(BASH_ENV= HOME= git -C \"C:/Users/кир/Desktop/сайт\" push)",
+      "Bash(BASH_ENV= node:*)",
+      "Bash(cat tmp_part_a.tsx)",
+      "Bash(echo \"\")",
+      "Bash(cat tmp_part_b.tsx)",
+      "Bash(cat tmp_part_c.tsx)",
+      "Bash(cmd.exe:*)",
+      "Bash(npm run:*)",
+      "WebFetch(domain:www.razorcap.cc)",
+      "WebFetch(domain:www.lethalsolutions.me)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(taskkill /F /IM node.exe)"
     ]
   }
 }

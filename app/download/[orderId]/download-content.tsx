@@ -197,7 +197,7 @@ export function DownloadContent({ orderId }: { orderId: string }) {
                   <div className="p-5">
                     <p className="text-xs text-muted-foreground uppercase tracking-wider mb-2">License Key</p>
                     <div className="flex items-center gap-3">
-                      <div className="flex-1 p-4 rounded-xl bg-background/60 border border-border/50 font-mono text-sm break-all select-all">
+                      <div className="flex-1 p-4 rounded-xl bg-black/60 border border-border/50 font-mono text-sm break-all select-all">
                         {license.key}
                       </div>
                       <Button

@@ -66,7 +66,7 @@ export default async function DashboardPage() {
   })
 
   return (
-    <main className="flex min-h-screen flex-col bg-background">
+    <main className="flex min-h-screen flex-col bg-black">
       <Navbar />
       <DashboardClient 
         user={{

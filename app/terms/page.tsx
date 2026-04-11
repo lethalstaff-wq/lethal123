@@ -11,17 +11,17 @@ export default function TermsPage() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen pt-32 pb-20 px-4 relative">
+      <main className="min-h-screen bg-black pt-32 pb-20 px-4 relative">
         <div className="container mx-auto max-w-3xl">
           <h1 className="text-5xl font-bold mb-4">
-            Terms of <span className="text-primary">Service</span>
+            Terms of <span className="text-[#f97316]">Service</span>
           </h1>
-          <p className="text-muted-foreground mb-12">Last updated: January 2025</p>
+          <p className="text-white/40 mb-12">Last updated: January 2025</p>
 
           <div className="space-y-10">
-            <section className="p-6 rounded-2xl bg-card/50 border border-border">
+            <section className="p-6 rounded-2xl bg-white/[0.02]/50 border border-white/[0.06]">
               <h2 className="text-xl font-bold mb-3">1. Refund Policy</h2>
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="text-white/40 leading-relaxed">
                 Refunds are available within 24 hours of purchase if the product fails to function on your setup and our 
                 support team cannot resolve the issue. Refund requests must be submitted via Discord ticket with your order ID. 
                 No refunds for change of mind or successfully activated products. Subscription products may receive partial 
@@ -29,52 +29,52 @@ export default function TermsPage() {
               </p>
             </section>
 
-            <section className="p-6 rounded-2xl bg-card/50 border border-border">
+            <section className="p-6 rounded-2xl bg-white/[0.02]/50 border border-white/[0.06]">
               <h2 className="text-xl font-bold mb-3">2. Virtual Goods</h2>
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="text-white/40 leading-relaxed">
                 Products provided are virtual goods and digital licenses. Once activated, they cannot be transferred, sold, 
                 or resold. License is personal and non-transferable.
               </p>
             </section>
 
-            <section className="p-6 rounded-2xl bg-card/50 border border-border">
+            <section className="p-6 rounded-2xl bg-white/[0.02]/50 border border-white/[0.06]">
               <h2 className="text-xl font-bold mb-3">3. Account Safety</h2>
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="text-white/40 leading-relaxed">
                 You are responsible for protecting your account credentials. We are not liable for unauthorized access or 
                 account compromise. Use strong, unique passwords.
               </p>
             </section>
 
-            <section className="p-6 rounded-2xl bg-card/50 border border-border">
+            <section className="p-6 rounded-2xl bg-white/[0.02]/50 border border-white/[0.06]">
               <h2 className="text-xl font-bold mb-3">4. Usage Terms</h2>
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="text-white/40 leading-relaxed">
                 Products are provided for authorized use only. Violation of game ToS or applicable laws may result in account 
                 suspension or ban. We cannot provide assistance if your account is banned.
               </p>
             </section>
 
-            <section className="p-6 rounded-2xl bg-card/50 border border-border">
+            <section className="p-6 rounded-2xl bg-white/[0.02]/50 border border-white/[0.06]">
               <h2 className="text-xl font-bold mb-3">5. Limitation of Liability</h2>
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="text-white/40 leading-relaxed">
                 We are not responsible for any loss, damage, or consequences resulting from the use of our products, including 
                 but not limited to account bans, VAC bans, or other punitive measures.
               </p>
             </section>
 
-            <section className="p-6 rounded-2xl bg-card/50 border border-border">
+            <section className="p-6 rounded-2xl bg-white/[0.02]/50 border border-white/[0.06]">
               <h2 className="text-xl font-bold mb-3">6. Changes to Terms</h2>
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="text-white/40 leading-relaxed">
                 We reserve the right to modify these terms at any time. Continued use of the service following any changes 
                 constitutes acceptance of the new terms.
               </p>
             </section>
 
-            <div className="p-6 rounded-2xl bg-primary/5 border border-primary/20 flex gap-4">
-              <AlertCircle className="h-6 w-6 text-primary flex-shrink-0" />
+            <div className="p-6 rounded-2xl bg-[#f97316]/5 border border-primary/20 flex gap-4">
+              <AlertCircle className="h-6 w-6 text-[#f97316] flex-shrink-0" />
               <div>
                 <p className="font-bold mb-2">Questions?</p>
-                <p className="text-sm text-muted-foreground">
-                  Join our Discord server: <a href="https://discord.gg/lethaldma" className="text-primary hover:underline">discord.gg/lethaldma</a>
+                <p className="text-sm text-white/40">
+                  Join our Discord server: <a href="https://discord.gg/lethaldma" className="text-[#f97316] hover:underline">discord.gg/lethaldma</a>
                 </p>
               </div>
             </div>

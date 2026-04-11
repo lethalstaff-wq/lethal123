@@ -5,13 +5,13 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { 
-  User, 
-  Package, 
-  Download, 
-  Key, 
-  Settings, 
-  LogOut, 
+import {
+  User,
+  Package,
+  Download,
+  Key,
+  Settings,
+  LogOut,
   Clock,
   CheckCircle2,
   XCircle,
@@ -67,7 +67,7 @@ export default function ProfilePage() {
   useEffect(() => {
     const fetchProfile = async () => {
       const { data: { user } } = await supabase.auth.getUser()
-      
+
       if (!user) {
         router.push("/login")
         return
@@ -173,8 +173,8 @@ export default function ProfilePage() {
 
   if (loading) {
     return (
-      <main className="min-h-screen bg-background flex items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      <main className="min-h-screen bg-black flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-[#f97316]" />
       </main>
     )
   }
@@ -184,7 +184,7 @@ export default function ProfilePage() {
   const completedOrders = orders.filter(o => o.status === "completed")
 
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-black">
       <Navbar />
 
       <section className="pt-32 pb-24 px-4">
@@ -192,41 +192,41 @@ export default function ProfilePage() {
           {/* Profile Header */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
             <div className="flex items-center gap-4">
-              <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center">
-                <User className="h-8 w-8 text-primary" />
+              <div className="w-16 h-16 rounded-2xl bg-[#f97316]/10 flex items-center justify-center">
+                <User className="h-8 w-8 text-[#f97316]" />
               </div>
               <div>
-                <h1 className="text-2xl font-black text-foreground">{profile.email}</h1>
-                <p className="text-sm text-muted-foreground">Member since {formatDate(profile.created_at)}</p>
+                <h1 className="text-2xl font-black text-white">{profile.email}</h1>
+                <p className="text-sm text-white/40">Member since {formatDate(profile.created_at)}</p>
               </div>
             </div>
-            <Button variant="outline" onClick={handleLogout} className="gap-2 rounded-xl">
+            <button onClick={handleLogout} className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-white/[0.06] bg-white/[0.02] text-white/40 hover:text-white hover:bg-white/[0.04] transition-all text-sm font-medium">
               <LogOut className="h-4 w-4" />
               Logout
-            </Button>
+            </button>
           </div>
 
           {/* Stats */}
           <div className="grid grid-cols-3 gap-4 mb-8">
-            <div className="p-5 rounded-2xl border border-border/50 bg-card/60">
-              <Package className="h-5 w-5 text-primary mb-2" />
-              <p className="text-2xl font-black text-foreground">{orders.length}</p>
-              <p className="text-xs text-muted-foreground">Total Orders</p>
+            <div className="p-5 rounded-2xl border border-white/[0.04] bg-white/[0.012]">
+              <Package className="h-5 w-5 text-[#f97316] mb-2" />
+              <p className="text-2xl font-black text-white">{orders.length}</p>
+              <p className="text-xs text-white/40">Total Orders</p>
             </div>
-            <div className="p-5 rounded-2xl border border-border/50 bg-card/60">
+            <div className="p-5 rounded-2xl border border-white/[0.04] bg-white/[0.012]">
               <Key className="h-5 w-5 text-emerald-500 mb-2" />
-              <p className="text-2xl font-black text-foreground">{completedOrders.length}</p>
-              <p className="text-xs text-muted-foreground">Active Licenses</p>
+              <p className="text-2xl font-black text-white">{completedOrders.length}</p>
+              <p className="text-xs text-white/40">Active Licenses</p>
             </div>
-            <div className="p-5 rounded-2xl border border-border/50 bg-card/60">
+            <div className="p-5 rounded-2xl border border-white/[0.04] bg-white/[0.012]">
               <Gift className="h-5 w-5 text-purple-500 mb-2" />
-              <p className="text-2xl font-black text-foreground">0</p>
-              <p className="text-xs text-muted-foreground">Referrals</p>
+              <p className="text-2xl font-black text-white">0</p>
+              <p className="text-xs text-white/40">Referrals</p>
             </div>
           </div>
 
           {/* Tabs */}
-          <div className="flex gap-2 p-1.5 rounded-2xl bg-muted/30 mb-6">
+          <div className="flex gap-2 p-1.5 rounded-2xl bg-white/[0.02] border border-white/[0.04] mb-6">
             {[
               { id: "orders", label: "Orders", icon: Package },
               { id: "licenses", label: "Licenses", icon: Key },
@@ -240,8 +240,8 @@ export default function ProfilePage() {
                   className={cn(
                     "flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-bold transition-all",
                     activeTab === tab.id
-                      ? "bg-primary text-primary-foreground shadow-lg"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                      ? "bg-white/[0.06] text-white shadow-lg"
+                      : "text-white/40 hover:text-white hover:bg-white/[0.03]"
                   )}
                 >
                   <Icon className="h-4 w-4" />
@@ -255,11 +255,11 @@ export default function ProfilePage() {
           {activeTab === "orders" && (
             <div className="space-y-4">
               {orders.length === 0 ? (
-                <div className="text-center py-16 rounded-2xl border border-border/50 bg-card/60">
-                  <Package className="h-12 w-12 text-muted-foreground/30 mx-auto mb-4" />
-                  <p className="text-muted-foreground mb-4">No orders yet</p>
+                <div className="text-center py-16 rounded-2xl border border-white/[0.04] bg-white/[0.012]">
+                  <Package className="h-12 w-12 text-white/20 mx-auto mb-4" />
+                  <p className="text-white/40 mb-4">No orders yet</p>
                   <Link href="/products">
-                    <Button className="rounded-xl">Browse Products</Button>
+                    <button className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#f97316] to-[#ea580c] text-white font-medium hover:opacity-90 transition-opacity">Browse Products</button>
                   </Link>
                 </div>
               ) : (
@@ -268,29 +268,29 @@ export default function ProfilePage() {
                   const StatusIcon = statusConfig.icon
 
                   return (
-                    <div key={order.id} className="rounded-2xl border border-border/50 bg-card/60 overflow-hidden">
+                    <div key={order.id} className="rounded-2xl border border-white/[0.04] bg-white/[0.012] overflow-hidden">
                       <div className="p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div>
                           <div className="flex items-center gap-3 mb-2">
-                            <span className="font-mono font-bold text-foreground">{order.display_id}</span>
+                            <span className="font-mono font-bold text-white">{order.display_id}</span>
                             <span className={cn("flex items-center gap-1 text-xs font-bold", statusConfig.color)}>
                               <StatusIcon className={cn("h-3 w-3", order.status === "processing" && "animate-spin")} />
                               {order.status}
                             </span>
                           </div>
-                          <p className="text-sm text-muted-foreground">
+                          <p className="text-sm text-white/40">
                             {order.items.map(i => `${i.name} (${i.variant})`).join(", ")}
                           </p>
-                          <p className="text-xs text-muted-foreground/60 mt-1">{formatDate(order.created_at)}</p>
+                          <p className="text-xs text-white/30 mt-1">{formatDate(order.created_at)}</p>
                         </div>
                         <div className="flex items-center gap-3">
-                          <span className="font-bold text-foreground">£{(order.total / 100).toFixed(2)}</span>
+                          <span className="font-bold text-white">&pound;{(order.total / 100).toFixed(2)}</span>
                           {order.status === "completed" && (
                             <Link href="/downloads">
-                              <Button size="sm" className="gap-2 rounded-xl">
+                              <button className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-[#f97316] to-[#ea580c] text-white text-sm font-medium hover:opacity-90 transition-opacity">
                                 <Download className="h-4 w-4" />
                                 Download
-                              </Button>
+                              </button>
                             </Link>
                           )}
                         </div>
@@ -306,17 +306,17 @@ export default function ProfilePage() {
           {activeTab === "licenses" && (
             <div className="space-y-4">
               {completedOrders.length === 0 ? (
-                <div className="text-center py-16 rounded-2xl border border-border/50 bg-card/60">
-                  <Key className="h-12 w-12 text-muted-foreground/30 mx-auto mb-4" />
-                  <p className="text-muted-foreground">No active licenses</p>
+                <div className="text-center py-16 rounded-2xl border border-white/[0.04] bg-white/[0.012]">
+                  <Key className="h-12 w-12 text-white/20 mx-auto mb-4" />
+                  <p className="text-white/40">No active licenses</p>
                 </div>
               ) : (
                 completedOrders.map((order) => (
                   <div key={order.id} className="rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-5">
                     <div className="flex items-start justify-between gap-4 mb-4">
                       <div>
-                        <p className="font-bold text-foreground">{order.items[0]?.name}</p>
-                        <p className="text-sm text-muted-foreground">{order.items[0]?.variant}</p>
+                        <p className="font-bold text-white">{order.items[0]?.name}</p>
+                        <p className="text-sm text-white/40">{order.items[0]?.variant}</p>
                       </div>
                       <span className="text-xs text-emerald-500 font-bold flex items-center gap-1">
                         <CheckCircle2 className="h-3 w-3" />
@@ -325,21 +325,19 @@ export default function ProfilePage() {
                     </div>
                     {order.license_key && (
                       <div className="flex items-center gap-2">
-                        <code className="flex-1 p-3 rounded-xl bg-background/50 font-mono text-sm text-foreground break-all">
+                        <code className="flex-1 p-3 rounded-xl bg-white/[0.015] border border-white/[0.05] font-mono text-sm text-white break-all">
                           {order.license_key}
                         </code>
-                        <Button
-                          variant="outline"
-                          size="icon"
+                        <button
                           onClick={() => copyKey(order.license_key!)}
-                          className="shrink-0"
+                          className="shrink-0 p-2.5 rounded-xl border border-white/[0.06] bg-white/[0.02] text-white/40 hover:text-white hover:bg-white/[0.04] transition-all"
                         >
                           {copiedKey === order.license_key ? (
                             <Check className="h-4 w-4 text-emerald-500" />
                           ) : (
                             <Copy className="h-4 w-4" />
                           )}
-                        </Button>
+                        </button>
                       </div>
                     )}
                   </div>
@@ -350,63 +348,63 @@ export default function ProfilePage() {
 
           {/* Settings Tab */}
           {activeTab === "settings" && (
-            <div className="rounded-2xl border border-border/50 bg-card/60 p-6">
-              <h2 className="font-bold text-foreground mb-6 flex items-center gap-2">
-                <Settings className="h-5 w-5 text-primary" />
+            <div className="rounded-2xl border border-white/[0.04] bg-white/[0.012] p-6">
+              <h2 className="font-bold text-white mb-6 flex items-center gap-2">
+                <Settings className="h-5 w-5 text-[#f97316]" />
                 Account Settings
               </h2>
 
               <div className="space-y-6">
                 <div>
-                  <label className="text-xs text-muted-foreground font-bold uppercase mb-2 block">
+                  <label className="text-xs text-white/50 font-bold uppercase mb-2 block">
                     Email Address
                   </label>
-                  <div className="flex items-center gap-3 p-4 rounded-xl bg-muted/20">
-                    <Mail className="h-5 w-5 text-muted-foreground" />
-                    <span className="text-foreground">{profile.email}</span>
+                  <div className="flex items-center gap-3 p-4 rounded-xl bg-white/[0.015] border border-white/[0.05]">
+                    <Mail className="h-5 w-5 text-white/40" />
+                    <span className="text-white">{profile.email}</span>
                     <Shield className="h-4 w-4 text-emerald-500 ml-auto" />
                   </div>
                 </div>
 
                 <div>
-                  <label className="text-xs text-muted-foreground font-bold uppercase mb-2 block">
+                  <label className="text-xs text-white/50 font-bold uppercase mb-2 block">
                     Discord Username
                   </label>
                   <Input
                     value={discord}
                     onChange={(e) => setDiscord(e.target.value)}
                     placeholder="username#0000"
-                    className="rounded-xl"
+                    className="rounded-xl bg-white/[0.015] border border-white/[0.05] text-white placeholder:text-white/20"
                   />
-                  <p className="text-xs text-muted-foreground mt-2">Used for support and notifications</p>
+                  <p className="text-xs text-white/40 mt-2">Used for support and notifications</p>
                 </div>
 
-                <Button onClick={handleSave} disabled={saving} className="rounded-xl">
-                  {saving ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
+                <button onClick={handleSave} disabled={saving} className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#f97316] to-[#ea580c] text-white font-medium hover:opacity-90 transition-opacity disabled:opacity-50">
+                  {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
                   Save Changes
-                </Button>
+                </button>
               </div>
 
-              <hr className="my-8 border-border/30" />
+              <hr className="my-8 border-white/[0.04]" />
 
               <div>
-                <h3 className="font-bold text-foreground mb-4">Quick Links</h3>
+                <h3 className="font-bold text-white mb-4">Quick Links</h3>
                 <div className="grid grid-cols-2 gap-3">
-                  <Link href="/downloads" className="flex items-center gap-3 p-4 rounded-xl bg-muted/10 hover:bg-muted/20 transition-colors">
-                    <Download className="h-5 w-5 text-primary" />
-                    <span className="font-medium text-foreground">Downloads</span>
+                  <Link href="/downloads" className="flex items-center gap-3 p-4 rounded-xl bg-white/[0.02] border border-white/[0.04] hover:bg-white/[0.04] transition-colors">
+                    <Download className="h-5 w-5 text-[#f97316]" />
+                    <span className="font-medium text-white">Downloads</span>
                   </Link>
-                  <Link href="/track" className="flex items-center gap-3 p-4 rounded-xl bg-muted/10 hover:bg-muted/20 transition-colors">
-                    <Package className="h-5 w-5 text-primary" />
-                    <span className="font-medium text-foreground">Track Order</span>
+                  <Link href="/track" className="flex items-center gap-3 p-4 rounded-xl bg-white/[0.02] border border-white/[0.04] hover:bg-white/[0.04] transition-colors">
+                    <Package className="h-5 w-5 text-[#f97316]" />
+                    <span className="font-medium text-white">Track Order</span>
                   </Link>
-                  <Link href="/referrals" className="flex items-center gap-3 p-4 rounded-xl bg-muted/10 hover:bg-muted/20 transition-colors">
+                  <Link href="/referrals" className="flex items-center gap-3 p-4 rounded-xl bg-white/[0.02] border border-white/[0.04] hover:bg-white/[0.04] transition-colors">
                     <Gift className="h-5 w-5 text-purple-500" />
-                    <span className="font-medium text-foreground">Referrals</span>
+                    <span className="font-medium text-white">Referrals</span>
                   </Link>
-                  <Link href="https://discord.gg/lethaldma" target="_blank" className="flex items-center gap-3 p-4 rounded-xl bg-muted/10 hover:bg-muted/20 transition-colors">
+                  <Link href="https://discord.gg/lethaldma" target="_blank" className="flex items-center gap-3 p-4 rounded-xl bg-white/[0.02] border border-white/[0.04] hover:bg-white/[0.04] transition-colors">
                     <ExternalLink className="h-5 w-5 text-[#5865F2]" />
-                    <span className="font-medium text-foreground">Discord</span>
+                    <span className="font-medium text-white">Discord</span>
                   </Link>
                 </div>
               </div>

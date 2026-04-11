@@ -156,11 +156,11 @@ export function FloatingConfigurator() {
       {/* Floating Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 z-[80] flex items-center gap-2.5 pl-4 pr-5 py-3 rounded-2xl bg-primary text-white text-sm font-semibold shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/35 hover:-translate-y-0.5 active:scale-95 transition-all duration-300 group ${
+        className={`fixed bottom-6 right-6 z-[80] flex items-center gap-2.5 pl-4 pr-5 py-3 rounded-xl bg-black/80 backdrop-blur-md border border-white/[0.06] text-white/50 text-sm font-semibold hover:border-white/[0.1] hover:text-white/70 hover:-translate-y-0.5 active:scale-95 transition-all duration-300 group ${
           isOpen ? "opacity-0 pointer-events-none scale-90" : "opacity-100"
         }`}
       >
-        <Sparkles className="h-4 w-4 group-hover:rotate-12 transition-transform" />
+        <Sparkles className="h-4 w-4 text-white/20 group-hover:text-[#f97316] group-hover:rotate-12 transition-all" />
         Need help choosing?
       </button>
 
@@ -169,28 +169,28 @@ export function FloatingConfigurator() {
         <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center">
           <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={() => setIsOpen(false)} />
 
-          <div className="relative w-full sm:max-w-md rounded-t-2xl sm:rounded-2xl border border-white/[0.08] bg-[#0c0c0e] shadow-2xl overflow-hidden max-h-[90vh] flex flex-col animate-in slide-in-from-bottom-4 sm:slide-in-from-bottom-0 fade-in duration-300">
+          <div className="relative w-full sm:max-w-md rounded-t-2xl sm:rounded-2xl bg-black/95 backdrop-blur-xl border border-white/[0.06] rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] overflow-hidden max-h-[90vh] flex flex-col animate-in slide-in-from-bottom-4 sm:slide-in-from-bottom-0 fade-in duration-300">
 
             {/* Header */}
             <div className="flex items-center justify-between px-5 py-4 border-b border-white/[0.06]">
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center">
-                  <Sparkles className="h-4 w-4 text-primary" />
+                <div className="w-9 h-9 rounded-xl bg-[#f97316]/10 flex items-center justify-center">
+                  <Sparkles className="h-4 w-4 text-[#f97316]" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-[15px]">Product Finder</h3>
-                  <p className="text-[11px] text-white/30">Step {currentStepNum} of {totalSteps}</p>
+                  <h3 className="text-white font-bold text-[15px]">Product Finder</h3>
+                  <p className="text-[11px] text-white/40">Step {currentStepNum} of {totalSteps}</p>
                 </div>
               </div>
-              <button onClick={() => setIsOpen(false)} className="p-2 rounded-xl text-white/25 hover:text-white hover:bg-white/[0.06] transition-all">
+              <button onClick={() => setIsOpen(false)} className="p-2 rounded-xl text-white/30 hover:text-white/60 hover:bg-white/[0.06] transition-all">
                 <X className="h-5 w-5" />
               </button>
             </div>
 
             {/* Progress bar */}
-            <div className="h-0.5 bg-white/[0.04]">
+            <div className="h-0.5 bg-white/[0.06]">
               <div
-                className="h-full bg-primary transition-all duration-500"
+                className="h-full bg-[#f97316] transition-all duration-500"
                 style={{ width: `${(currentStepNum / totalSteps) * 100}%` }}
               />
             </div>
@@ -213,16 +213,16 @@ export function FloatingConfigurator() {
                       <button
                         key={opt.id}
                         onClick={() => selectPurpose(opt.id)}
-                        className="w-full flex items-center gap-3 p-3.5 rounded-xl border border-white/[0.06] hover:border-primary/30 hover:bg-primary/[0.03] transition-all group"
+                        className="w-full flex items-center gap-3 p-3.5 rounded-xl bg-white/[0.012] border border-white/[0.04] hover:border-white/[0.08] hover:bg-white/[0.02] transition-all group"
                       >
-                        <div className="w-9 h-9 rounded-lg bg-white/[0.04] group-hover:bg-primary/10 flex items-center justify-center transition-colors">
-                          <opt.icon className="h-4 w-4 text-white/40 group-hover:text-primary transition-colors" />
+                        <div className="w-9 h-9 rounded-lg bg-white/[0.04] group-hover:bg-[#f97316]/10 flex items-center justify-center transition-colors">
+                          <opt.icon className="h-4 w-4 text-white/40 group-hover:text-[#f97316] transition-colors" />
                         </div>
                         <div className="flex-1 text-left">
-                          <p className="text-sm font-semibold group-hover:text-primary transition-colors">{opt.label}</p>
+                          <p className="text-sm font-semibold group-hover:text-[#f97316] transition-colors">{opt.label}</p>
                           <p className="text-[11px] text-white/25">{opt.desc}</p>
                         </div>
-                        <ChevronRight className="h-4 w-4 text-white/10 group-hover:text-primary/50 group-hover:translate-x-0.5 transition-all" />
+                        <ChevronRight className="h-4 w-4 text-white/10 group-hover:text-[#f97316]/50 group-hover:translate-x-0.5 transition-all" />
                       </button>
                     ))}
                   </div>
@@ -239,42 +239,42 @@ export function FloatingConfigurator() {
                   <div className="space-y-2">
                     <button
                       onClick={() => selectDMA(true)}
-                      className="w-full flex items-center gap-3 p-4 rounded-xl border border-white/[0.06] hover:border-primary/30 hover:bg-primary/[0.03] transition-all group"
+                      className="w-full flex items-center gap-3 p-4 rounded-xl bg-white/[0.012] border border-white/[0.04] hover:border-white/[0.08] hover:bg-white/[0.02] transition-all group"
                     >
-                      <div className="w-9 h-9 rounded-lg bg-white/[0.04] group-hover:bg-primary/10 flex items-center justify-center transition-colors">
-                        <Cpu className="h-4 w-4 text-white/40 group-hover:text-primary transition-colors" />
+                      <div className="w-9 h-9 rounded-lg bg-white/[0.04] group-hover:bg-[#f97316]/10 flex items-center justify-center transition-colors">
+                        <Cpu className="h-4 w-4 text-white/40 group-hover:text-[#f97316] transition-colors" />
                       </div>
                       <div className="flex-1 text-left">
-                        <p className="text-sm font-semibold group-hover:text-primary transition-colors">Yes, I have DMA hardware</p>
+                        <p className="text-sm font-semibold group-hover:text-[#f97316] transition-colors">Yes, I have DMA hardware</p>
                         <p className="text-[11px] text-white/25">Show DMA cheats & firmware</p>
                       </div>
-                      <ChevronRight className="h-4 w-4 text-white/10 group-hover:text-primary/50 group-hover:translate-x-0.5 transition-all" />
+                      <ChevronRight className="h-4 w-4 text-white/10 group-hover:text-[#f97316]/50 group-hover:translate-x-0.5 transition-all" />
                     </button>
                     <button
                       onClick={() => selectDMA(false)}
-                      className="w-full flex items-center gap-3 p-4 rounded-xl border border-white/[0.06] hover:border-primary/30 hover:bg-primary/[0.03] transition-all group"
+                      className="w-full flex items-center gap-3 p-4 rounded-xl bg-white/[0.012] border border-white/[0.04] hover:border-white/[0.08] hover:bg-white/[0.02] transition-all group"
                     >
-                      <div className="w-9 h-9 rounded-lg bg-white/[0.04] group-hover:bg-primary/10 flex items-center justify-center transition-colors">
-                        <Monitor className="h-4 w-4 text-white/40 group-hover:text-primary transition-colors" />
+                      <div className="w-9 h-9 rounded-lg bg-white/[0.04] group-hover:bg-[#f97316]/10 flex items-center justify-center transition-colors">
+                        <Monitor className="h-4 w-4 text-white/40 group-hover:text-[#f97316] transition-colors" />
                       </div>
                       <div className="flex-1 text-left">
-                        <p className="text-sm font-semibold group-hover:text-primary transition-colors">No, single PC only</p>
+                        <p className="text-sm font-semibold group-hover:text-[#f97316] transition-colors">No, single PC only</p>
                         <p className="text-[11px] text-white/25">Show external cheats (no extra hardware)</p>
                       </div>
-                      <ChevronRight className="h-4 w-4 text-white/10 group-hover:text-primary/50 group-hover:translate-x-0.5 transition-all" />
+                      <ChevronRight className="h-4 w-4 text-white/10 group-hover:text-[#f97316]/50 group-hover:translate-x-0.5 transition-all" />
                     </button>
                     <button
                       onClick={() => { setAnswers(prev => ({ ...prev, hasDMA: null })); setStep("budget") }}
-                      className="w-full flex items-center gap-3 p-4 rounded-xl border border-white/[0.06] hover:border-primary/30 hover:bg-primary/[0.03] transition-all group"
+                      className="w-full flex items-center gap-3 p-4 rounded-xl bg-white/[0.012] border border-white/[0.04] hover:border-white/[0.08] hover:bg-white/[0.02] transition-all group"
                     >
-                      <div className="w-9 h-9 rounded-lg bg-white/[0.04] group-hover:bg-primary/10 flex items-center justify-center transition-colors">
-                        <Sparkles className="h-4 w-4 text-white/40 group-hover:text-primary transition-colors" />
+                      <div className="w-9 h-9 rounded-lg bg-white/[0.04] group-hover:bg-[#f97316]/10 flex items-center justify-center transition-colors">
+                        <Sparkles className="h-4 w-4 text-white/40 group-hover:text-[#f97316] transition-colors" />
                       </div>
                       <div className="flex-1 text-left">
-                        <p className="text-sm font-semibold group-hover:text-primary transition-colors">Not sure / show both</p>
+                        <p className="text-sm font-semibold group-hover:text-[#f97316] transition-colors">Not sure / show both</p>
                         <p className="text-[11px] text-white/25">We'll show all options</p>
                       </div>
-                      <ChevronRight className="h-4 w-4 text-white/10 group-hover:text-primary/50 group-hover:translate-x-0.5 transition-all" />
+                      <ChevronRight className="h-4 w-4 text-white/10 group-hover:text-[#f97316]/50 group-hover:translate-x-0.5 transition-all" />
                     </button>
                   </div>
                 </div>
@@ -298,13 +298,13 @@ export function FloatingConfigurator() {
                       <button
                         key={range.label}
                         onClick={() => selectBudget(range.max)}
-                        className="w-full flex items-center justify-between p-3.5 rounded-xl border border-white/[0.06] hover:border-primary/30 hover:bg-primary/[0.03] transition-all group"
+                        className="w-full flex items-center justify-between p-3.5 rounded-xl bg-white/[0.012] border border-white/[0.04] hover:border-white/[0.08] hover:bg-white/[0.02] transition-all group"
                       >
                         <div>
-                          <p className="text-sm font-semibold group-hover:text-primary transition-colors">{range.label}</p>
+                          <p className="text-sm font-semibold group-hover:text-[#f97316] transition-colors">{range.label}</p>
                           <p className="text-[11px] text-white/25">{range.desc}</p>
                         </div>
-                        <ChevronRight className="h-4 w-4 text-white/10 group-hover:text-primary/50 group-hover:translate-x-0.5 transition-all" />
+                        <ChevronRight className="h-4 w-4 text-white/10 group-hover:text-[#f97316]/50 group-hover:translate-x-0.5 transition-all" />
                       </button>
                     ))}
                   </div>
@@ -329,29 +329,29 @@ export function FloatingConfigurator() {
                             key={rec.product.id}
                             href={`/products/${rec.product.id}?variant=${rec.variant.id}`}
                             onClick={() => setIsOpen(false)}
-                            className="block rounded-xl border border-white/[0.06] hover:border-primary/30 overflow-hidden transition-all group"
+                            className="block rounded-xl bg-white/[0.012] border border-white/[0.04] hover:border-white/[0.08] overflow-hidden transition-all group"
                           >
                             {i === 0 && (
-                              <div className="bg-primary/[0.06] border-b border-primary/10 px-3.5 py-1.5">
-                                <p className="text-[10px] font-bold text-primary uppercase tracking-widest flex items-center gap-1">
+                              <div className="bg-[#f97316]/[0.06] border-b border-[#f97316]/10 px-3.5 py-1.5">
+                                <p className="text-[10px] font-bold text-[#f97316] uppercase tracking-widest flex items-center gap-1">
                                   <Sparkles className="h-3 w-3" /> Best match
                                 </p>
                               </div>
                             )}
                             <div className="flex items-center gap-3 p-3.5">
-                              <div className="w-11 h-11 rounded-lg overflow-hidden border border-white/[0.06] flex-shrink-0 bg-white/[0.02]">
+                              <div className="w-11 h-11 rounded-lg overflow-hidden border border-white/[0.04] flex-shrink-0 bg-white/[0.012]">
                                 <Image src={rec.product.image} alt={rec.product.name} width={44} height={44} className="object-cover w-full h-full" />
                               </div>
                               <div className="flex-1 min-w-0">
                                 <div className="flex items-center gap-1.5">
-                                  <p className="text-sm font-bold truncate group-hover:text-primary transition-colors">{rec.product.name}</p>
+                                  <p className="text-sm font-bold truncate group-hover:text-[#f97316] transition-colors">{rec.product.name}</p>
                                   {rec.product.popular && (
-                                    <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-primary/10 text-primary font-bold shrink-0">HOT</span>
+                                    <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-[#f97316]/10 text-[#f97316] font-bold shrink-0">HOT</span>
                                   )}
                                 </div>
                                 <p className="text-[11px] text-white/25 truncate">{rec.variant.name} — {rec.reason}</p>
                               </div>
-                              <p className="text-sm font-bold text-primary shrink-0">{formatPrice(rec.variant.priceInPence)}</p>
+                              <p className="text-sm font-bold text-[#f97316] shrink-0">{formatPrice(rec.variant.priceInPence)}</p>
                             </div>
                           </Link>
                         ))}
@@ -365,7 +365,7 @@ export function FloatingConfigurator() {
                         <Link
                           href="/products"
                           onClick={() => setIsOpen(false)}
-                          className="text-[11px] text-primary/60 hover:text-primary transition-colors"
+                          className="text-[11px] text-[#f97316]/60 hover:text-[#f97316] transition-colors"
                         >
                           Browse all products →
                         </Link>
@@ -378,7 +378,7 @@ export function FloatingConfigurator() {
                       </div>
                       <p className="text-sm text-white/40 mb-1">Nothing in this range</p>
                       <p className="text-[11px] text-white/20 mb-4">Try a higher budget</p>
-                      <button onClick={reset} className="px-4 py-2 rounded-lg bg-primary/10 text-primary text-xs font-semibold hover:bg-primary/20 transition-colors">
+                      <button onClick={reset} className="px-4 py-2 rounded-xl bg-[#f97316]/10 text-[#f97316] text-xs font-semibold hover:bg-[#f97316]/20 transition-colors">
                         Start Over
                       </button>
                     </div>

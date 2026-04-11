@@ -220,26 +220,26 @@ export default function ComparePage() {
   }
 
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-black">
       <Navbar />
 
       {/* Hero */}
       <section className="relative pt-32 pb-12 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[150px] opacity-30" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#f97316]/10 rounded-full blur-[150px] opacity-30" />
 
         <div className="container mx-auto px-4 relative">
           <Breadcrumbs items={[{ label: "Compare" }]} />
           <div className="max-w-2xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
-              <GitCompare className="h-4 w-4 text-primary" />
-              <span className="text-sm font-bold text-primary">Product Comparison</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#f97316]/10 border border-primary/20 mb-6">
+              <GitCompare className="h-4 w-4 text-[#f97316]" />
+              <span className="text-sm font-bold text-[#f97316]">Product Comparison</span>
             </div>
 
             <h1 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">
               Compare Products
             </h1>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-lg text-white/40">
               Find the perfect product for your needs with our detailed comparison
             </p>
           </div>
@@ -250,14 +250,14 @@ export default function ComparePage() {
       <section className="pb-8">
         <div className="container mx-auto px-4">
           <div className="flex justify-center">
-            <div className="inline-flex p-1 rounded-2xl bg-muted/30 border border-border/50">
+            <div className="inline-flex p-1 rounded-2xl bg-white/[0.03]/30 border border-white/[0.06]/50">
               <button
                 onClick={() => setCategory("cheats")}
                 className={cn(
                   "flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all",
                   category === "cheats"
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:text-foreground"
+                    ? "bg-[#f97316] text-[#f97316]-foreground"
+                    : "text-white/40 hover:text-foreground"
                 )}
               >
                 <Crosshair className="h-4 w-4" />
@@ -268,8 +268,8 @@ export default function ComparePage() {
                 className={cn(
                   "flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all",
                   category === "spoofers"
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:text-foreground"
+                    ? "bg-[#f97316] text-[#f97316]-foreground"
+                    : "text-white/40 hover:text-foreground"
                 )}
               >
                 <Shield className="h-4 w-4" />
@@ -280,8 +280,8 @@ export default function ComparePage() {
                 className={cn(
                   "flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all",
                   category === "bundles"
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:text-foreground"
+                    ? "bg-[#f97316] text-[#f97316]-foreground"
+                    : "text-white/40 hover:text-foreground"
                 )}
               >
                 <Package className="h-4 w-4" />
@@ -303,17 +303,17 @@ export default function ComparePage() {
                   <thead>
                     <tr>
                       <th className="text-left p-4 w-[200px]">
-                        <div className="flex items-center gap-2 text-muted-foreground">
+                        <div className="flex items-center gap-2 text-white/40">
                           <Crosshair className="h-4 w-4" />
                           <span className="font-medium">Features</span>
                         </div>
                       </th>
                       {Object.entries(CHEATS_DATA).map(([id, cheat]) => (
                         <th key={id} className="p-4 text-center min-w-[180px]">
-                          <div className="rounded-2xl border border-border/50 bg-card/60 p-6">
+                          <div className="rounded-2xl border border-white/[0.06]/50 bg-white/[0.02]/60 p-6">
                             <span className={cn(
                               "inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase mb-2",
-                              cheat.badge === "Premium" ? "bg-primary/10 text-primary" :
+                              cheat.badge === "Premium" ? "bg-[#f97316]/10 text-[#f97316]" :
                               cheat.badge === "Value" ? "bg-emerald-500/10 text-emerald-500" :
                               "bg-blue-500/10 text-blue-500"
                             )}>
@@ -323,10 +323,10 @@ export default function ComparePage() {
                               <p className="text-[10px] text-amber-400 font-bold mb-2">{(cheat as any).bestFor}</p>
                             )}
                             <h3 className="font-black text-foreground text-lg mb-1">{cheat.name}</h3>
-                            <p className="text-2xl font-black text-primary mb-1">
+                            <p className="text-2xl font-black text-[#f97316] mb-1">
                               £{(cheat.price / 100).toFixed(0)}
                             </p>
-                            <p className="text-xs text-muted-foreground">{cheat.pricePer}</p>
+                            <p className="text-xs text-white/40">{cheat.pricePer}</p>
                           </div>
                         </th>
                       ))}
@@ -334,11 +334,11 @@ export default function ComparePage() {
                   </thead>
                   <tbody>
                     {CHEAT_FEATURES.map((feature, index) => (
-                      <tr key={feature.key} className={cn(index % 2 === 0 && "bg-muted/5")}>
+                      <tr key={feature.key} className={cn(index % 2 === 0 && "bg-white/[0.03]/5")}>
                         <td className="p-4">
                           <div>
                             <p className="font-medium text-foreground">{feature.label}</p>
-                            <p className="text-xs text-muted-foreground">{feature.description}</p>
+                            <p className="text-xs text-white/40">{feature.description}</p>
                           </div>
                         </td>
                         {Object.entries(CHEATS_DATA).map(([id, cheat]) => (
@@ -348,8 +348,8 @@ export default function ComparePage() {
                                 <Check className="h-5 w-5 text-emerald-500" />
                               </div>
                             ) : (
-                              <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-muted/30">
-                                <X className="h-5 w-5 text-muted-foreground/50" />
+                              <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/[0.03]/30">
+                                <X className="h-5 w-5 text-white/40/50" />
                               </div>
                             )}
                           </td>
@@ -384,17 +384,17 @@ export default function ComparePage() {
                   <thead>
                     <tr>
                       <th className="text-left p-4 w-[200px]">
-                        <div className="flex items-center gap-2 text-muted-foreground">
+                        <div className="flex items-center gap-2 text-white/40">
                           <Shield className="h-4 w-4" />
                           <span className="font-medium">Features</span>
                         </div>
                       </th>
                       {Object.entries(SPOOFERS_DATA).map(([id, spoofer]) => (
                         <th key={id} className="p-4 text-center min-w-[200px]">
-                          <div className="rounded-2xl border border-border/50 bg-card/60 p-6">
+                          <div className="rounded-2xl border border-white/[0.06]/50 bg-white/[0.02]/60 p-6">
                             <span className={cn(
                               "inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase mb-2",
-                              spoofer.badge === "Permanent" ? "bg-primary/10 text-primary" : "bg-blue-500/10 text-blue-500"
+                              spoofer.badge === "Permanent" ? "bg-[#f97316]/10 text-[#f97316]" : "bg-blue-500/10 text-blue-500"
                             )}>
                               {spoofer.badge}
                             </span>
@@ -402,10 +402,10 @@ export default function ComparePage() {
                               <p className="text-[10px] text-amber-400 font-bold mb-2">{(spoofer as any).bestFor}</p>
                             )}
                             <h3 className="font-black text-foreground text-lg mb-1">{spoofer.name}</h3>
-                            <p className="text-2xl font-black text-primary mb-1">
+                            <p className="text-2xl font-black text-[#f97316] mb-1">
                               £{(spoofer.price / 100).toFixed(0)}
                             </p>
-                            <p className="text-xs text-muted-foreground">{spoofer.pricePer}</p>
+                            <p className="text-xs text-white/40">{spoofer.pricePer}</p>
                           </div>
                         </th>
                       ))}
@@ -413,11 +413,11 @@ export default function ComparePage() {
                   </thead>
                   <tbody>
                     {SPOOFER_FEATURES.map((feature, index) => (
-                      <tr key={feature.key} className={cn(index % 2 === 0 && "bg-muted/5")}>
+                      <tr key={feature.key} className={cn(index % 2 === 0 && "bg-white/[0.03]/5")}>
                         <td className="p-4">
                           <div>
                             <p className="font-medium text-foreground">{feature.label}</p>
-                            <p className="text-xs text-muted-foreground">{feature.description}</p>
+                            <p className="text-xs text-white/40">{feature.description}</p>
                           </div>
                         </td>
                         {Object.entries(SPOOFERS_DATA).map(([id, spoofer]) => (
@@ -427,8 +427,8 @@ export default function ComparePage() {
                                 <Check className="h-5 w-5 text-emerald-500" />
                               </div>
                             ) : (
-                              <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-muted/30">
-                                <X className="h-5 w-5 text-muted-foreground/50" />
+                              <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/[0.03]/30">
+                                <X className="h-5 w-5 text-white/40/50" />
                               </div>
                             )}
                           </td>
@@ -463,7 +463,7 @@ export default function ComparePage() {
                   <thead>
                     <tr>
                       <th className="text-left p-4 w-[200px]">
-                        <div className="flex items-center gap-2 text-muted-foreground">
+                        <div className="flex items-center gap-2 text-white/40">
                           <Package className="h-4 w-4" />
                           <span className="font-medium">Includes</span>
                         </div>
@@ -473,19 +473,19 @@ export default function ComparePage() {
                           <div className={cn(
                             "rounded-2xl border p-6",
                             bundle.badge === "Popular" 
-                              ? "border-primary/50 bg-primary/5" 
-                              : "border-border/50 bg-card/60"
+                              ? "border-primary/50 bg-[#f97316]/5" 
+                              : "border-white/[0.06]/50 bg-white/[0.02]/60"
                           )}>
                             {bundle.badge === "Popular" && (
                               <div className="flex items-center justify-center gap-1 mb-2">
-                                <Crown className="h-4 w-4 text-primary" />
-                                <span className="text-xs font-bold text-primary">MOST POPULAR</span>
+                                <Crown className="h-4 w-4 text-[#f97316]" />
+                                <span className="text-xs font-bold text-[#f97316]">MOST POPULAR</span>
                               </div>
                             )}
                             <span className={cn(
                               "inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase mb-2",
-                              bundle.badge === "Starter" ? "bg-muted/30 text-muted-foreground" :
-                              bundle.badge === "Popular" ? "bg-primary/10 text-primary" :
+                              bundle.badge === "Starter" ? "bg-white/[0.03]/30 text-white/40" :
+                              bundle.badge === "Popular" ? "bg-[#f97316]/10 text-[#f97316]" :
                               "bg-amber-500/10 text-amber-500"
                             )}>
                               {bundle.badge}
@@ -494,10 +494,10 @@ export default function ComparePage() {
                               <p className="text-[10px] text-amber-400 font-bold mb-2">{(bundle as any).bestFor}</p>
                             )}
                             <h3 className="font-black text-foreground text-lg mb-1">{bundle.name}</h3>
-                            <p className="text-2xl font-black text-primary mb-1">
+                            <p className="text-2xl font-black text-[#f97316] mb-1">
                               £{(bundle.price / 100).toFixed(0)}
                             </p>
-                            <p className="text-xs text-muted-foreground">one-time</p>
+                            <p className="text-xs text-white/40">one-time</p>
                           </div>
                         </th>
                       ))}
@@ -505,11 +505,11 @@ export default function ComparePage() {
                   </thead>
                   <tbody>
                     {BUNDLE_FEATURES.map((feature, index) => (
-                      <tr key={feature.key} className={cn(index % 2 === 0 && "bg-muted/5")}>
+                      <tr key={feature.key} className={cn(index % 2 === 0 && "bg-white/[0.03]/5")}>
                         <td className="p-4">
                           <div>
                             <p className="font-medium text-foreground">{feature.label}</p>
-                            <p className="text-xs text-muted-foreground">{feature.description}</p>
+                            <p className="text-xs text-white/40">{feature.description}</p>
                           </div>
                         </td>
                         {Object.entries(BUNDLES_DATA).map(([id, bundle]) => {
@@ -521,8 +521,8 @@ export default function ComparePage() {
                                   <Check className="h-5 w-5 text-emerald-500" />
                                 </div>
                               ) : value === false ? (
-                                <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-muted/30">
-                                  <X className="h-5 w-5 text-muted-foreground/50" />
+                                <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/[0.03]/30">
+                                  <X className="h-5 w-5 text-white/40/50" />
                                 </div>
                               ) : (
                                 <span className="text-sm font-medium text-foreground">{value}</span>
@@ -540,7 +540,7 @@ export default function ComparePage() {
                             onClick={() => handleAddToCart(id, bundle.name, bundle.price, "Complete Bundle")}
                             className={cn(
                               "gap-2 rounded-xl w-full",
-                              bundle.badge === "Popular" && "bg-primary hover:bg-primary/90"
+                              bundle.badge === "Popular" && "bg-[#f97316] hover:bg-[#f97316]/90"
                             )}
                           >
                             <ShoppingCart className="h-4 w-4" />
@@ -554,11 +554,11 @@ export default function ComparePage() {
               </div>
 
               {/* Bundle Info */}
-              <div className="mt-8 p-6 rounded-2xl border border-border/50 bg-card/30 text-center">
-                <p className="text-muted-foreground">
+              <div className="mt-8 p-6 rounded-2xl border border-white/[0.06]/50 bg-white/[0.02]/30 text-center">
+                <p className="text-white/40">
                   All bundles include discreet shipping, lifetime Discord support, and remote firmware installation.
                 </p>
-                <Link href="/products" className="inline-flex items-center gap-2 mt-4 text-primary font-bold hover:underline">
+                <Link href="/products" className="inline-flex items-center gap-2 mt-4 text-[#f97316] font-bold hover:underline">
                   View all individual products
                   <Zap className="h-4 w-4" />
                 </Link>

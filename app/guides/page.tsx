@@ -4,10 +4,9 @@ import { useState } from "react"
 import Link from "next/link"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { Button } from "@/components/ui/button"
-import { 
-  BookOpen, Search, ChevronRight, Cpu, Monitor, Settings, Wrench,
-  Zap, Shield, Clock, ArrowRight, Play, ExternalLink, Download, FileText
+import {
+  Search, ChevronRight, Play, ExternalLink, ArrowRight, Download,
+  Settings, Wrench, Cpu, FileText
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Breadcrumbs } from "@/components/breadcrumbs"
@@ -22,7 +21,6 @@ const SETUP_GUIDES = [
     difficulty: "Beginner",
     hasVideo: false,
     hasTool: false,
-    icon: Cpu,
   },
   {
     id: "second-pc-setup",
@@ -33,7 +31,6 @@ const SETUP_GUIDES = [
     difficulty: "Intermediate",
     hasVideo: true,
     hasTool: false,
-    icon: Monitor,
   },
   {
     id: "memory-map",
@@ -44,7 +41,6 @@ const SETUP_GUIDES = [
     difficulty: "Intermediate",
     hasVideo: true,
     hasTool: true,
-    icon: Settings,
   },
   {
     id: "troubleshooting",
@@ -55,7 +51,6 @@ const SETUP_GUIDES = [
     difficulty: "All Levels",
     hasVideo: false,
     hasTool: false,
-    icon: Wrench,
   },
   {
     id: "kmbox-net",
@@ -66,7 +61,6 @@ const SETUP_GUIDES = [
     difficulty: "Intermediate",
     hasVideo: true,
     hasTool: false,
-    icon: Zap,
   },
   {
     id: "kmbox-b-plus",
@@ -77,7 +71,6 @@ const SETUP_GUIDES = [
     difficulty: "Intermediate",
     hasVideo: false,
     hasTool: false,
-    icon: Zap,
   },
   {
     id: "system-time-sync",
@@ -88,7 +81,6 @@ const SETUP_GUIDES = [
     difficulty: "Beginner",
     hasVideo: false,
     hasTool: false,
-    icon: Clock,
   },
   {
     id: "fuser-setup",
@@ -99,7 +91,6 @@ const SETUP_GUIDES = [
     difficulty: "Advanced",
     hasVideo: false,
     hasTool: false,
-    icon: Shield,
   },
 ]
 
@@ -113,6 +104,26 @@ const RESOURCES = [
     icon: Download,
     externalUrl: "https://rustdesk.com/",
     buttonText: "Download RustDesk",
+  },
+  {
+    id: "cpp-redist",
+    title: "Visual C++ Redistributables",
+    description: "Required C++ runtime libraries for the Lethal Solutions loader.",
+    badge: "Required",
+    badgeColor: "red",
+    icon: Download,
+    externalUrl: "https://aka.ms/vs/17/release/vc_redist.x64.exe",
+    buttonText: "Download",
+  },
+  {
+    id: "webview2",
+    title: "WebView2 Runtime",
+    description: "Required for the loader UI. Pre-installed on Windows 11.",
+    badge: "Required",
+    badgeColor: "red",
+    icon: Download,
+    externalUrl: "https://go.microsoft.com/fwlink/p/?LinkId=2124703",
+    buttonText: "Download",
   },
   {
     id: "dna-id",
@@ -137,6 +148,16 @@ const RESOURCES = [
     isInternal: true,
   },
   {
+    id: "rammap",
+    title: "RamMap Tool",
+    description: "Microsoft Sysinternals RamMap for generating MMAP files.",
+    badge: "Tool",
+    badgeColor: "orange",
+    icon: Settings,
+    externalUrl: "https://download.sysinternals.com/files/RAMMap.zip",
+    buttonText: "Download RAMMap",
+  },
+  {
     id: "kmbox-driver",
     title: "KMBox Net Driver",
     description: "Official WCHUSBNIC driver for KMBox Net network adapter setup.",
@@ -145,26 +166,6 @@ const RESOURCES = [
     icon: Download,
     externalUrl: "https://discord.gg/lethaldma",
     buttonText: "Get from Discord",
-  },
-  {
-    id: "cpp-redist",
-    title: "Visual C++ Redistributables",
-    description: "Required C++ runtime libraries for the Lethal Solutions loader.",
-    badge: "Required",
-    badgeColor: "red",
-    icon: Download,
-    externalUrl: "https://aka.ms/vs/17/release/vc_redist.x64.exe",
-    buttonText: "Download",
-  },
-  {
-    id: "webview2",
-    title: "WebView2 Runtime",
-    description: "Required for the loader UI. Pre-installed on Windows 11.",
-    badge: "Required",
-    badgeColor: "red",
-    icon: Download,
-    externalUrl: "https://go.microsoft.com/fwlink/p/?LinkId=2124703",
-    buttonText: "Download",
   },
   {
     id: "dichen-pdf",
@@ -177,24 +178,24 @@ const RESOURCES = [
     buttonText: "Get from Discord",
   },
   {
-    id: "rammap",
-    title: "RamMap Tool",
-    description: "Microsoft Sysinternals RamMap for generating MMAP files.",
-    badge: "Tool",
-    badgeColor: "orange",
-    icon: Settings,
-    externalUrl: "https://download.sysinternals.com/files/RAMMap.zip",
-    buttonText: "Download RAMMap",
+    id: "all-downloads",
+    title: "All Downloads & Files",
+    description: "Full archive of drivers, tools, firmware flashers, and setup files.",
+    badge: "Archive",
+    badgeColor: "blue",
+    icon: Download,
+    externalUrl: "https://discord.gg/lethaldma",
+    buttonText: "Open Discord",
   },
 ]
 
 const CATEGORIES = ["All", "Getting Started", "Setup", "Configuration", "Hardware", "Troubleshooting"]
 
 const DIFFICULTY_COLORS: Record<string, string> = {
-  "Beginner": "bg-emerald-500/10 text-emerald-400",
-  "Intermediate": "bg-amber-500/10 text-amber-400",
-  "Advanced": "bg-red-500/10 text-red-400",
-  "All Levels": "bg-blue-500/10 text-blue-400",
+  "Beginner": "text-emerald-400",
+  "Intermediate": "text-amber-400",
+  "Advanced": "text-red-400",
+  "All Levels": "text-blue-400",
 }
 
 const BADGE_COLORS: Record<string, string> = {
@@ -222,59 +223,65 @@ export default function GuidesPage() {
   })
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-black flex flex-col">
       <Navbar />
-      
+
       <main className="flex-1 pt-32 pb-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
           <Breadcrumbs items={[{ label: "Guides" }]} />
+
           {/* Hero */}
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
-              <BookOpen className="h-4 w-4 text-primary" />
-              <span className="text-sm font-medium text-primary">Guides & Resources</span>
+          <div className="text-center mb-14 relative">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[300px] bg-[#f97316]/[0.02] rounded-full blur-[100px] pointer-events-none" />
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/[0.06] bg-white/[0.02] mb-6">
+              <div className="w-1.5 h-1.5 rounded-full bg-[#f97316]" />
+              <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">Guides & Resources</span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-black mb-4">
-              Everything You <span className="text-primary">Need</span>
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-white">
+              Everything You{" "}
+              <span className="bg-gradient-to-r from-[#f97316] to-[#fb923c] bg-clip-text text-transparent">
+                Need
+              </span>
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-              Setup guides, downloads, and documentation for all Lethal Solutions products. 
-              Need help? <a href="https://discord.gg/lethaldma" target="_blank" className="text-primary hover:underline">Open a ticket on Discord</a>.
+            <p className="text-[15px] text-white/30 max-w-lg mx-auto mb-10 leading-relaxed">
+              Setup guides, downloads, and docs for all products.{" "}
+              <a href="https://discord.gg/lethaldma" target="_blank" className="text-[#f97316]/60 hover:text-[#f97316] transition-colors">
+                Open a Discord ticket
+              </a>{" "}
+              if you need help.
             </p>
 
             {/* Search */}
             <div className="max-w-md mx-auto relative">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-white/20" />
               <input
                 type="text"
                 placeholder="Search guides and resources..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full h-12 pl-12 pr-4 rounded-full bg-card border border-border/50 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="w-full h-11 pl-11 pr-4 rounded-xl bg-white/[0.02] border border-white/[0.06] text-sm text-white placeholder:text-white/20 focus:outline-none focus:border-[#f97316]/30 transition-colors"
               />
             </div>
           </div>
 
-          {/* Section 1: Setup Guides */}
+          {/* Section: Setup Guides */}
           <section className="mb-20">
-            <div className="flex items-center gap-3 mb-6">
-              <h2 className="text-2xl font-bold">Setup Guides</h2>
-              <span className="px-2.5 py-1 rounded-full bg-muted/50 text-xs font-medium text-muted-foreground">
-                {filteredGuides.length} guides
-              </span>
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-xl font-bold text-white">Setup Guides</h2>
+              <span className="text-xs text-white/20">{filteredGuides.length} guides</span>
             </div>
 
-            {/* Category filters */}
-            <div className="flex flex-wrap gap-2 mb-8">
+            {/* Category tabs */}
+            <div className="inline-flex flex-wrap gap-1 p-1 rounded-xl border border-white/[0.04] bg-white/[0.015] mb-8">
               {CATEGORIES.map((cat) => (
                 <button
                   key={cat}
                   onClick={() => setCategory(cat)}
                   className={cn(
-                    "px-4 py-2 rounded-full text-sm font-medium transition-all",
+                    "px-4 py-2 rounded-lg text-xs font-medium transition-all",
                     category === cat
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-muted/30 text-muted-foreground hover:bg-muted/50 hover:text-foreground"
+                      ? "bg-white/[0.08] text-white shadow-sm"
+                      : "text-white/25 hover:text-white/45"
                   )}
                 >
                   {cat}
@@ -282,63 +289,61 @@ export default function GuidesPage() {
               ))}
             </div>
 
-            {/* Guide cards grid */}
-            <div className="grid md:grid-cols-2 gap-4">
+            {/* Guide cards */}
+            <div className="grid md:grid-cols-2 gap-3">
               {filteredGuides.map((guide) => {
-                const Icon = guide.icon
+                const globalIndex = SETUP_GUIDES.indexOf(guide)
+                const num = String(globalIndex + 1).padStart(2, "0")
+
                 return (
                   <Link
                     key={guide.id}
                     href={`/guides/${guide.id}`}
-                    className="group relative p-6 rounded-2xl bg-card/50 border border-border/50 hover:border-[rgba(239,111,41,0.4)] hover:bg-card/80 hover:shadow-[0_0_30px_rgba(239,111,41,0.08)] transition-all duration-300 overflow-hidden"
+                    className="group relative flex gap-4 p-5 rounded-xl border border-white/[0.04] hover:border-white/[0.08] bg-white/[0.01] hover:bg-white/[0.015] transition-all duration-300 overflow-hidden"
                   >
-                    {/* Orange accent bar */}
-                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
+                    {/* Left accent bar */}
+                    <div className="absolute left-0 top-3 bottom-3 w-[2px] rounded-full bg-white/[0.04] group-hover:bg-[#f97316]/50 transition-colors duration-300" />
 
-                    <div className="flex gap-4">
-                      <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-                        <Icon className="h-6 w-6 text-primary" />
-                      </div>
+                    {/* Number */}
+                    <span className="text-[28px] font-bold text-white/[0.04] group-hover:text-[#f97316]/15 transition-colors tabular-nums leading-none mt-0.5 shrink-0 w-9 ml-1">
+                      {num}
+                    </span>
 
-                      <div className="flex-1 min-w-0">
-                        <span className="inline-block px-2 py-0.5 rounded text-[10px] font-medium bg-muted/50 text-muted-foreground mb-2">
-                          {guide.category}
+                    {/* Content */}
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-semibold text-[15px] text-white/80 group-hover:text-white transition-colors line-clamp-1 mb-1">
+                        {guide.title}
+                      </h3>
+                      <p className="text-[13px] text-white/25 line-clamp-2 mb-3">
+                        {guide.description}
+                      </p>
+
+                      <div className="flex items-center gap-3 text-[11px]">
+                        <span className={cn("font-medium", DIFFICULTY_COLORS[guide.difficulty])}>
+                          {guide.difficulty}
                         </span>
-
-                        <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-1 mb-1">
-                          {guide.title}
-                        </h3>
-                        <p className="text-sm text-muted-foreground line-clamp-2 mb-3">
-                          {guide.description}
-                        </p>
-
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <span className={cn("px-2 py-0.5 rounded text-[10px] font-medium", DIFFICULTY_COLORS[guide.difficulty])}>
-                            {guide.difficulty}
+                        <span className="text-white/15">{guide.readTime}</span>
+                        {guide.hasVideo && (
+                          <span className="flex items-center gap-1 text-red-400/70">
+                            <Play className="h-2.5 w-2.5 fill-current" /> Video
                           </span>
-                          <span className="text-xs text-muted-foreground">{guide.readTime}</span>
-                          {guide.hasVideo && (
-                            <span className="flex items-center gap-1 text-xs text-red-400">
-                              <Play className="h-3 w-3 fill-current" /> Video
-                            </span>
-                          )}
-                          {guide.hasTool && (
-                            <span className="flex items-center gap-1 text-xs text-blue-400">
-                              <Settings className="h-3 w-3" /> Tool
-                            </span>
-                          )}
-                        </div>
+                        )}
+                        {guide.hasTool && (
+                          <span className="flex items-center gap-1 text-blue-400/70">
+                            <Settings className="h-2.5 w-2.5" /> Tool
+                          </span>
+                        )}
                       </div>
-
-                      <ChevronRight className="h-5 w-5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity self-center" />
                     </div>
+
+                    <ChevronRight className="h-4 w-4 text-white/0 group-hover:text-white/20 transition-all self-center shrink-0" />
                   </Link>
                 )
               })}
             </div>
 
             {filteredGuides.length === 0 && (
-              <div className="text-center py-12 text-muted-foreground">
+              <div className="text-center py-12 text-white/25 text-sm">
                 No guides found matching your search.
               </div>
             )}
@@ -346,52 +351,43 @@ export default function GuidesPage() {
 
           {/* Divider */}
           <div className="flex items-center gap-4 mb-12">
-            <div className="flex-1 h-px bg-border/50" />
-            <span className="px-4 py-2 rounded-full bg-muted/30 text-sm font-medium text-muted-foreground">
-              Resources & Downloads
+            <div className="flex-1 h-px bg-white/[0.04]" />
+            <span className="text-[11px] font-medium text-white/20 uppercase tracking-wider">
+              Downloads & Resources
             </span>
-            <div className="flex-1 h-px bg-border/50" />
+            <div className="flex-1 h-px bg-white/[0.04]" />
           </div>
 
-          {/* Section 2: Resources */}
+          {/* Section: Resources */}
           <section className="mb-20">
-            <div className="flex items-center gap-3 mb-4">
-              <h2 className="text-2xl font-bold">Downloads & Resources</h2>
-              <span className="px-2.5 py-1 rounded-full bg-muted/50 text-xs font-medium text-muted-foreground">
-                {filteredResources.length} items
-              </span>
-            </div>
-            <p className="text-muted-foreground mb-8">
-              Required files, drivers, and tools. External links open in a new tab.
-            </p>
-
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {filteredResources.map((resource) => {
                 const Icon = resource.icon
                 const isRequired = resource.badge === "Required"
-                
+
                 return (
                   <div
                     key={resource.id}
-                    className="p-5 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/30 transition-all flex flex-col"
+                    className="group p-5 rounded-xl border border-white/[0.04] hover:border-white/[0.08] bg-white/[0.01] hover:bg-white/[0.015] transition-all duration-300 flex flex-col"
                   >
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-3">
-                      <Icon className="h-6 w-6 text-primary" />
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="w-9 h-9 rounded-lg bg-white/[0.03] border border-white/[0.04] flex items-center justify-center">
+                        <Icon className="h-4 w-4 text-white/25" />
+                      </div>
+                      <span className={cn("px-2 py-0.5 rounded text-[10px] font-medium", BADGE_COLORS[resource.badgeColor])}>
+                        {resource.badge}
+                      </span>
                     </div>
 
-                    <span className={cn("self-start px-2 py-0.5 rounded text-[10px] font-medium mb-2", BADGE_COLORS[resource.badgeColor])}>
-                      {resource.badge}
-                    </span>
-
-                    <h3 className="font-semibold text-sm mb-1">{resource.title}</h3>
-                    <p className="text-xs text-muted-foreground mb-4 flex-1 line-clamp-2">
+                    <h3 className="font-semibold text-sm text-white/80 mb-1">{resource.title}</h3>
+                    <p className="text-xs text-white/25 mb-4 flex-1 line-clamp-2">
                       {resource.description}
                     </p>
 
                     {resource.isInternal ? (
                       <Link
                         href={`/guides/${resource.slug}`}
-                        className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl border border-primary/50 text-primary font-medium text-xs hover:bg-primary/10 transition-colors"
+                        className="flex items-center justify-center gap-2 w-full py-2 rounded-lg border border-white/[0.06] text-white/40 font-medium text-xs hover:bg-white/[0.03] hover:text-white/60 transition-colors"
                       >
                         {resource.buttonText}
                         <ArrowRight className="h-3 w-3" />
@@ -402,10 +398,10 @@ export default function GuidesPage() {
                         target="_blank"
                         rel="noopener noreferrer"
                         className={cn(
-                          "flex items-center justify-center gap-2 w-full py-2.5 rounded-xl font-medium text-xs transition-colors",
+                          "flex items-center justify-center gap-2 w-full py-2 rounded-lg font-medium text-xs transition-colors",
                           isRequired
-                            ? "bg-primary text-primary-foreground hover:bg-primary/90"
-                            : "border border-primary/50 text-primary hover:bg-primary/10"
+                            ? "bg-gradient-to-r from-[#f97316] to-[#ea580c] text-white hover:opacity-90"
+                            : "border border-white/[0.06] text-white/40 hover:bg-white/[0.03] hover:text-white/60"
                         )}
                       >
                         {resource.buttonText}
@@ -419,24 +415,31 @@ export default function GuidesPage() {
           </section>
 
           {/* CTA */}
-          <section className="rounded-3xl bg-gradient-to-br from-primary/10 via-card to-primary/5 border border-primary/20 p-10 text-center">
-            <h2 className="text-2xl md:text-3xl font-bold mb-3">Still need help?</h2>
-            <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
-              Our support team is available 24/7 on Discord.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link href="https://discord.gg/lethaldma" target="_blank">
-                <Button size="lg" className="h-12 px-8 gap-2">
+          <section className="relative rounded-2xl border border-white/[0.06] p-12 md:p-16 text-center overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-b from-[#f97316]/[0.03] via-transparent to-transparent pointer-events-none" />
+            <div className="relative">
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">Still need help?</h2>
+              <p className="text-white/25 mb-8 max-w-md mx-auto text-sm">
+                Our support team is available 24/7 on Discord.
+              </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+                <a
+                  href="https://discord.gg/lethaldma"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 h-11 px-7 rounded-xl bg-gradient-to-r from-[#f97316] to-[#ea580c] text-white font-semibold text-sm shadow-[0_4px_16px_rgba(249,115,22,0.2)] hover:shadow-[0_8px_24px_rgba(249,115,22,0.3)] hover:-translate-y-px transition-all"
+                >
                   Open Discord Ticket
-                  <ExternalLink className="h-4 w-4" />
-                </Button>
-              </Link>
-              <Link href="/products">
-                <Button size="lg" variant="outline" className="h-12 px-8 gap-2">
+                  <ExternalLink className="h-3.5 w-3.5" />
+                </a>
+                <Link
+                  href="/products"
+                  className="inline-flex items-center justify-center gap-2 h-11 px-7 rounded-xl border border-white/[0.06] text-white/40 font-medium text-sm hover:bg-white/[0.03] hover:text-white/60 transition-colors"
+                >
                   View Products
-                  <ArrowRight className="h-4 w-4" />
-                </Button>
-              </Link>
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
+              </div>
             </div>
           </section>
         </div>

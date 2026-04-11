@@ -82,29 +82,29 @@ function MmapTool() {
   }
 
   return (
-    <div className="rounded-2xl glass neon-border p-8 my-8">
+    <div className="rounded-2xl neon-border p-8 my-8">
       <div className="flex items-center justify-center mb-6">
-        <div className="p-3 rounded-xl bg-primary/20 neon-glow">
-          <Settings className="h-6 w-6 text-primary" />
+        <div className="p-3 rounded-xl bg-[#f97316]/20 neon-glow">
+          <Settings className="h-6 w-6 text-[#f97316]" />
         </div>
       </div>
       
       <h3 className="text-2xl font-bold text-center mb-2">
         How to generate a memory map (MMAP) for DMA cheats
       </h3>
-      <div className="w-16 h-1 bg-primary mx-auto rounded-full mb-8" />
+      <div className="w-16 h-1 bg-[#f97316] mx-auto rounded-full mb-8" />
       
       {/* Instructions */}
       <div className="space-y-4 mb-8 text-sm">
-        <p><span className="text-primary font-bold">1)</span> Download and extract <Link href="https://learn.microsoft.com/en-us/sysinternals/downloads/rammap" target="_blank" className="text-primary hover:underline">RamMap</Link> onto your gaming/main PC. Make sure all games and anti-cheats are closed. You must either visit this website on incognito mode or clear website history after.</p>
-        <p><span className="text-primary font-bold">2)</span> Inside the zip file, open RAMMap64.exe and run it as admin. Make sure it{"'"}s running on your main PC, not on your 2nd.</p>
-        <p><span className="text-primary font-bold">3)</span> At the top left of the opened program, click File → Save.</p>
-        <p><span className="text-primary font-bold">4)</span> Save the .RMP file to somewhere easily accessible, like your desktop.</p>
-        <p><span className="text-primary font-bold">5)</span> Attach your .RMP file to this website. The file processing is done all locally and the file isn{"'"}t shared online, even though it doesn{"'"}t contain any personal information anyway.</p>
-        <p><span className="text-primary font-bold">6)</span> Click either <strong>copy</strong> or <strong>download</strong> and send it to your 2nd PC. You can do this however you want, eg. Discord, USB Drive, etc.</p>
-        <p><span className="text-primary font-bold">7)</span> If you don{"'"}t already have one, create a folder on your desktop where you put the <strong>Lethal</strong> loader in.</p>
-        <p><span className="text-primary font-bold">8)</span> Place a file called <strong className="text-primary">mmap.txt</strong> in the same folder as the loader. Put the MMap contents from this page into it. Make sure it{"'"}s called exactly <strong className="text-primary">mmap.txt</strong> or else it won{"'"}t be recognised</p>
-        <p><span className="text-primary font-bold">9)</span> Now launch <strong>Lethal</strong>, it should say {"\""}Loading MMap...{"\""} in the CMD window. If it doesn{"'"}t say that, it means you didn{"'"}t name it or place it correctly.</p>
+        <p><span className="text-[#f97316] font-bold">1)</span> Download and extract <Link href="https://learn.microsoft.com/en-us/sysinternals/downloads/rammap" target="_blank" className="text-[#f97316] hover:underline">RamMap</Link> onto your gaming/main PC. Make sure all games and anti-cheats are closed. You must either visit this website on incognito mode or clear website history after.</p>
+        <p><span className="text-[#f97316] font-bold">2)</span> Inside the zip file, open RAMMap64.exe and run it as admin. Make sure it{"'"}s running on your main PC, not on your 2nd.</p>
+        <p><span className="text-[#f97316] font-bold">3)</span> At the top left of the opened program, click File → Save.</p>
+        <p><span className="text-[#f97316] font-bold">4)</span> Save the .RMP file to somewhere easily accessible, like your desktop.</p>
+        <p><span className="text-[#f97316] font-bold">5)</span> Attach your .RMP file to this website. The file processing is done all locally and the file isn{"'"}t shared online, even though it doesn{"'"}t contain any personal information anyway.</p>
+        <p><span className="text-[#f97316] font-bold">6)</span> Click either <strong>copy</strong> or <strong>download</strong> and send it to your 2nd PC. You can do this however you want, eg. Discord, USB Drive, etc.</p>
+        <p><span className="text-[#f97316] font-bold">7)</span> If you don{"'"}t already have one, create a folder on your desktop where you put the <strong>Lethal</strong> loader in.</p>
+        <p><span className="text-[#f97316] font-bold">8)</span> Place a file called <strong className="text-[#f97316]">mmap.txt</strong> in the same folder as the loader. Put the MMap contents from this page into it. Make sure it{"'"}s called exactly <strong className="text-[#f97316]">mmap.txt</strong> or else it won{"'"}t be recognised</p>
+        <p><span className="text-[#f97316] font-bold">9)</span> Now launch <strong>Lethal</strong>, it should say {"\""}Loading MMap...{"\""} in the CMD window. If it doesn{"'"}t say that, it means you didn{"'"}t name it or place it correctly.</p>
       </div>
       
       {/* File Upload Zone */}
@@ -121,17 +121,17 @@ function MmapTool() {
           id="rmp-upload"
         />
         <label htmlFor="rmp-upload" className="cursor-pointer">
-          <div className="p-4 rounded-xl bg-primary/10 w-fit mx-auto mb-4">
-            <Settings className="h-8 w-8 text-primary" />
+          <div className="p-4 rounded-xl bg-[#f97316]/10 w-fit mx-auto mb-4">
+            <Settings className="h-8 w-8 text-[#f97316]" />
           </div>
           {processing ? (
-            <p className="text-muted-foreground font-mono">
+            <p className="text-white/40 font-mono">
               <span className="terminal-cursor">Processing {fileName}</span>
             </p>
           ) : fileName ? (
-            <p className="text-primary font-medium">{fileName} loaded</p>
+            <p className="text-[#f97316] font-medium">{fileName} loaded</p>
           ) : (
-            <p className="text-muted-foreground">Click here to select your .RMP file or drag it here</p>
+            <p className="text-white/40">Click here to select your .RMP file or drag it here</p>
           )}
         </label>
       </div>
@@ -140,7 +140,7 @@ function MmapTool() {
       <div className="flex justify-center gap-4">
         <Button 
           variant="outline" 
-          className="border-border hover:border-primary/50 gap-2"
+          className="border-white/[0.06] hover:border-primary/50 gap-2"
           onClick={copyToClipboard}
           disabled={!mmapContent}
         >
@@ -149,7 +149,7 @@ function MmapTool() {
         </Button>
         <Button 
           variant="outline" 
-          className="border-border hover:border-primary/50 gap-2"
+          className="border-white/[0.06] hover:border-primary/50 gap-2"
           onClick={downloadFile}
           disabled={!mmapContent}
         >
@@ -630,7 +630,7 @@ export default function GuidePage() {
 
   if (!guide) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-black">
         <Navbar />
         <div className="pt-32 pb-20 px-4 text-center">
           <h1 className="text-2xl font-bold mb-4">Guide not found</h1>
@@ -644,60 +644,46 @@ export default function GuidePage() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-black">
       <Navbar />
-      
+
       <article className="pt-28 pb-20 px-4 sm:px-6 lg:px-8">
-        <div className="container mx-auto max-w-3xl">
-          {/* Breadcrumb */}
-          <div className="flex items-center gap-2 text-sm text-muted-foreground mb-8">
-            <Link href="/guides" className="hover:text-primary transition-colors flex items-center gap-1">
-              <ArrowLeft className="h-4 w-4" />
-              Guides
-            </Link>
-            <ChevronRight className="h-4 w-4" />
-            <span className="text-foreground truncate max-w-[200px]">{guide.title}</span>
-          </div>
+        <div className="container mx-auto max-w-[680px]">
+          {/* Back link */}
+          <Link href="/guides" className="inline-flex items-center gap-1.5 text-[13px] text-white/25 hover:text-white/50 transition-colors mb-10">
+            <ArrowLeft className="h-3.5 w-3.5" />
+            Back to Guides
+          </Link>
 
           {/* Header */}
-          <header className="mb-10">
-            <div className="flex flex-wrap items-center gap-3 mb-4">
-              <span className={`text-xs font-semibold px-3 py-1.5 rounded-full ${
-                guide.difficulty === "Beginner" ? "bg-green-500/10 text-green-500" :
-                guide.difficulty === "Intermediate" ? "bg-yellow-500/10 text-yellow-500" :
-                guide.difficulty === "Advanced" ? "bg-red-500/10 text-red-500" :
-                "bg-primary/10 text-primary"
+          <header className="mb-10 pb-10 border-b border-white/[0.06]">
+            <div className="flex flex-wrap items-center gap-2.5 mb-4">
+              <span className={`text-[11px] font-semibold px-2.5 py-1 rounded-md ${
+                guide.difficulty === "Beginner" ? "bg-emerald-500/10 text-emerald-400" :
+                guide.difficulty === "Intermediate" ? "bg-amber-500/10 text-amber-400" :
+                guide.difficulty === "Advanced" ? "bg-red-500/10 text-red-400" :
+                "bg-blue-500/10 text-blue-400"
               }`}>
                 {guide.difficulty}
               </span>
-              <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                <Clock className="h-3.5 w-3.5" />
-                {guide.readTime}
-              </span>
+              <span className="text-[11px] text-white/20">{guide.readTime}</span>
               {guide.videoId && (
-                <span className="flex items-center gap-1.5 text-xs text-red-500 font-medium">
-                  <Play className="h-3.5 w-3.5 fill-current" />
-                  Video Tutorial
-                </span>
-              )}
-              {guide.hasTool && (
-                <span className="flex items-center gap-1.5 text-xs text-blue-500 font-medium">
-                  <Settings className="h-3.5 w-3.5" />
-                  Interactive Tool
+                <span className="flex items-center gap-1 text-[11px] text-red-400/60">
+                  <Play className="h-2.5 w-2.5 fill-current" /> Video included
                 </span>
               )}
             </div>
-            <h1 className="text-3xl sm:text-4xl font-bold mb-4 tracking-tight">
+            <h1 className="text-[26px] sm:text-[32px] font-bold leading-[1.2] tracking-tight text-white mb-3">
               {guide.title}
             </h1>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-[15px] text-white/40 leading-relaxed">
               {guide.description}
             </p>
           </header>
 
           {/* Video Embed */}
           {guide.videoId && (
-            <div className="mb-10 rounded-2xl overflow-hidden border border-border bg-card">
+            <div className="mb-10 rounded-xl overflow-hidden border border-white/[0.06]">
               <div className="relative pb-[56.25%] h-0">
                 <iframe
                   className="absolute top-0 left-0 w-full h-full"
@@ -713,59 +699,58 @@ export default function GuidePage() {
           {/* MMAP Tool */}
           {guide.hasTool && slug === "memory-map" && <MmapTool />}
 
-          {/* Content */}
-          <div className="space-y-6">
+          {/* Content — blog-style prose */}
+          <div className="guide-prose">
             {guide.sections.map((section, index) => (
-              <section key={index} className={`rounded-2xl p-6 ${
-                section.type === "info" ? "bg-blue-500/5 border border-blue-500/20" :
-                section.type === "warning" ? "bg-yellow-500/5 border border-yellow-500/20" :
-                section.type === "tip" ? "bg-green-500/5 border border-green-500/20" :
-                "bg-card border border-border"
-              }`}>
-                <div className="flex items-start gap-3 mb-3">
-                  {section.type === "info" && <AlertCircle className="h-5 w-5 text-blue-500 mt-0.5 flex-shrink-0" />}
-                  {section.type === "warning" && <AlertCircle className="h-5 w-5 text-yellow-500 mt-0.5 flex-shrink-0" />}
-                  {section.type === "tip" && <Lightbulb className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />}
-                  {!section.type && <BookOpen className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />}
-                  <h2 className="text-lg font-semibold">{section.title}</h2>
-                </div>
-                <p className="text-muted-foreground leading-relaxed">
+              <div key={index} className="mb-8">
+                {/* Section title */}
+                <h2 className="text-[18px] font-bold text-white mb-3 flex items-center gap-2.5">
+                  {section.type === "warning" && <span className="text-amber-400 text-sm">⚠</span>}
+                  {section.type === "tip" && <span className="text-emerald-400 text-sm">💡</span>}
+                  {section.type === "info" && <span className="text-blue-400 text-sm">ℹ</span>}
+                  {section.title}
+                </h2>
+
+                {/* Section content */}
+                <p className="text-[15px] text-white/50 leading-[1.8] mb-0">
                   {section.content}
                 </p>
+
+                {/* Steps / list */}
                 {section.steps && (
-                  <ul className="space-y-2.5 mt-4">
-                    {section.steps.map((step, stepIndex) => (
-                      <li key={stepIndex} className="flex items-start gap-3">
-                        <CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                        <span className="text-sm text-foreground">{step}</span>
+                  <ul className="mt-4 space-y-1.5 pl-1">
+                    {section.steps.map((step, i) => (
+                      <li key={i} className="flex items-baseline gap-3 text-[14px]">
+                        <span className="text-[#f97316] font-semibold shrink-0">&bull;</span>
+                        <span className="text-white/55 leading-relaxed">{step}</span>
                       </li>
                     ))}
                   </ul>
                 )}
-              </section>
+
+                {/* Visual divider between sections */}
+                {index < guide.sections.length - 1 && (
+                  <div className="mt-8 h-px bg-white/[0.03]" />
+                )}
+              </div>
             ))}
           </div>
 
-          {/* Footer CTA */}
-          <div className="mt-16 p-8 rounded-2xl bg-gradient-to-br from-primary/10 via-card to-primary/5 border border-primary/20 text-center">
-            <h3 className="text-xl font-bold mb-3">Need more help?</h3>
-            <p className="text-muted-foreground mb-6">
-              Join our Discord server for live support and additional resources.
+          {/* Footer */}
+          <div className="mt-12 pt-8 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p className="text-[13px] text-white/20">
+              Still stuck?{" "}
+              <a href="https://discord.gg/lethaldma" target="_blank" rel="noopener noreferrer" className="text-[#f97316]/60 hover:text-[#f97316] transition-colors">
+                Open a ticket on Discord
+              </a>
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-              <Link href="https://discord.gg/lethaldma" target="_blank">
-                <Button className="gap-2 bg-primary hover:bg-primary/90 shadow-lg shadow-primary/25">
-                  Join Discord
-                  <ExternalLink className="h-4 w-4" />
-                </Button>
-              </Link>
-              <Link href="/guides">
-                <Button variant="outline" className="gap-2">
-                  <ArrowLeft className="h-4 w-4" />
-                  Back to Guides
-                </Button>
-              </Link>
-            </div>
+            <Link
+              href="/guides"
+              className="inline-flex items-center gap-1.5 text-[13px] text-white/25 hover:text-white/50 transition-colors"
+            >
+              <ArrowLeft className="h-3.5 w-3.5" />
+              All Guides
+            </Link>
           </div>
         </div>
       </article>

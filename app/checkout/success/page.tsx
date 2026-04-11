@@ -13,35 +13,35 @@ function DiscordIcon({ className }: { className?: string }) {
 
 export default function CheckoutSuccessPage() {
   return (
-    <main className="flex min-h-screen flex-col bg-background">
+    <main className="flex min-h-screen flex-col bg-black">
       <Navbar />
 
       <section className="flex-1 flex items-center justify-center py-20 px-4">
         <div className="w-full max-w-lg relative">
           {/* Background glow */}
-          <div className="absolute -inset-12 bg-primary/5 rounded-[3rem] blur-3xl" />
+          <div className="absolute -inset-12 bg-[#f97316]/5 rounded-[3rem] blur-3xl" />
 
-          <div className="relative rounded-3xl border border-primary/20 bg-card/95 backdrop-blur-xl overflow-hidden">
+          <div className="relative rounded-3xl border border-[#f97316]/20 bg-white/[0.012] backdrop-blur-xl overflow-hidden">
             {/* Top gradient */}
-            <div className="h-1 bg-gradient-to-r from-primary via-accent to-primary" />
+            <div className="h-1" style={{ background: "linear-gradient(to right, #f97316, #f59e0b, #f97316)" }} />
 
             <div className="p-10 text-center">
               {/* Success icon */}
               <div className="relative mx-auto w-20 h-20 mb-6">
                 <div className="absolute inset-0 rounded-full bg-emerald-500/20 animate-ping" style={{ animationDuration: "2s" }} />
-                <div className="relative w-20 h-20 rounded-full bg-gradient-to-br from-emerald-500/30 to-emerald-500/5 flex items-center justify-center border border-emerald-500/30">
+                <div className="relative w-20 h-20 rounded-full flex items-center justify-center border border-emerald-500/30" style={{ background: "linear-gradient(to bottom right, rgba(16,185,129,0.3), rgba(16,185,129,0.05))" }}>
                   <CheckCircle2 className="h-10 w-10 text-emerald-500" />
                 </div>
               </div>
 
-              <h1 className="text-3xl font-black tracking-tight mb-2">Order Confirmed</h1>
-              <p className="text-muted-foreground mb-8 max-w-sm mx-auto">
+              <h1 className="text-3xl font-black tracking-tight mb-2 text-white/90">Order <span className="text-[#f97316]">Confirmed</span></h1>
+              <p className="text-white/40 mb-8 max-w-sm mx-auto">
                 Your order is locked in. Check your email for your license key and setup guide — you&apos;ll be ready in minutes.
               </p>
 
               {/* Next steps */}
-              <div className="rounded-2xl bg-muted/20 border border-border/30 p-5 mb-8 text-left">
-                <p className="text-sm font-bold mb-3">Your next steps:</p>
+              <div className="rounded-2xl bg-white/[0.02] border border-white/[0.04] p-5 mb-8 text-left">
+                <p className="text-sm font-bold mb-3 text-white/90">Your next steps:</p>
                 <div className="space-y-3">
                   {[
                     "Check your email for order confirmation",
@@ -49,10 +49,10 @@ export default function CheckoutSuccessPage() {
                     "Follow the setup guide included",
                   ].map((step, i) => (
                     <div key={i} className="flex items-center gap-3">
-                      <div className="w-6 h-6 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                        <span className="text-xs font-bold text-primary">{i + 1}</span>
+                      <div className="w-6 h-6 rounded-lg bg-[#f97316]/10 flex items-center justify-center flex-shrink-0">
+                        <span className="text-xs font-bold text-[#f97316]">{i + 1}</span>
                       </div>
-                      <span className="text-sm text-muted-foreground">{step}</span>
+                      <span className="text-sm text-white/40">{step}</span>
                     </div>
                   ))}
                 </div>
@@ -61,13 +61,16 @@ export default function CheckoutSuccessPage() {
               {/* Buttons */}
               <div className="flex gap-3">
                 <Link href="/dashboard" className="flex-1">
-                  <button className="w-full h-12 flex items-center justify-center gap-2 rounded-2xl bg-primary hover:bg-primary/90 text-white text-sm font-bold transition-all hover:shadow-lg hover:shadow-primary/25">
+                  <button
+                    className="w-full h-12 flex items-center justify-center gap-2 rounded-xl text-white text-sm font-bold transition-all hover:shadow-lg hover:shadow-orange-500/25"
+                    style={{ background: "linear-gradient(135deg, #f97316, #ea580c)" }}
+                  >
                     Dashboard
                     <ArrowRight className="h-4 w-4" />
                   </button>
                 </Link>
                 <Link href="https://discord.gg/lethaldma" target="_blank" className="flex-1">
-                  <button className="w-full h-12 flex items-center justify-center gap-2 rounded-2xl border border-border/50 bg-card/50 text-sm font-semibold hover:bg-muted/30 transition-all">
+                  <button className="w-full h-12 flex items-center justify-center gap-2 rounded-xl border border-white/[0.06] bg-white/[0.02] text-sm font-semibold text-white/40 hover:bg-white/[0.04] transition-all">
                     <DiscordIcon className="h-4 w-4" />
                     Discord
                   </button>

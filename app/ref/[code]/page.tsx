@@ -19,7 +19,7 @@ export default function ReferralRedirectPage() {
   }, [code, router])
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
+    <div className="min-h-screen flex items-center justify-center bg-black">
       <div className="text-center">
         <Loader2 className="h-8 w-8 animate-spin text-primary mx-auto mb-4" />
         <p className="text-muted-foreground">Applying referral code...</p>

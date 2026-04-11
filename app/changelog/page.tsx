@@ -516,7 +516,7 @@ const TYPE_CONFIG = {
   fix: { icon: Bug, color: "text-amber-500", bg: "bg-amber-500/10", label: "Bug Fix" },
   security: { icon: Shield, color: "text-blue-500", bg: "bg-blue-500/10", label: "Security" },
   improvement: { icon: Zap, color: "text-purple-500", bg: "bg-purple-500/10", label: "Improvement" },
-  patch: { icon: RefreshCw, color: "text-primary", bg: "bg-primary/10", label: "Game Patch" },
+  patch: { icon: RefreshCw, color: "text-[#f97316]", bg: "bg-[#f97316]/10", label: "Game Patch" },
 }
 
 const PRODUCTS = ["All", "Blurred DMA Cheat", "Streck DMA Cheat", "Fortnite External", "Perm Spoofer", "Temp Spoofer", "Custom DMA Firmware", "Website"]
@@ -556,25 +556,25 @@ export default function ChangelogPage() {
   })
 
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-black">
       <Navbar />
 
       {/* Hero */}
       <section className="relative pt-32 pb-16 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[150px] opacity-30" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#f97316]/10 rounded-full blur-[150px] opacity-30" />
 
         <div className="container mx-auto px-4 relative">
           <div className="max-w-2xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
-              <Clock className="h-4 w-4 text-primary" />
-              <span className="text-sm font-bold text-primary">Changelog</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#f97316]/10 border border-primary/20 mb-6">
+              <Clock className="h-4 w-4 text-[#f97316]" />
+              <span className="text-sm font-bold text-[#f97316]">Changelog</span>
             </div>
 
             <h1 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">
               Product Updates
             </h1>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-lg text-white/40">
               Track all updates, patches, and improvements across our products
             </p>
           </div>
@@ -586,7 +586,7 @@ export default function ChangelogPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="flex items-center gap-4 flex-wrap">
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <div className="flex items-center gap-2 text-sm text-white/40">
                 <Filter className="h-4 w-4" />
                 <span>Filter:</span>
               </div>
@@ -598,8 +598,8 @@ export default function ChangelogPage() {
                     className={cn(
                       "px-4 py-2 rounded-full text-sm font-bold transition-all",
                       selectedProduct === product
-                        ? "bg-primary text-primary-foreground"
-                        : "bg-muted/30 text-muted-foreground hover:bg-muted/50"
+                        ? "bg-[#f97316] text-[#f97316]-foreground"
+                        : "bg-white/[0.03]/30 text-white/40 hover:bg-white/[0.03]/50"
                     )}
                   >
                     {product}
@@ -618,12 +618,12 @@ export default function ChangelogPage() {
             {Object.entries(groupedChangelog).map(([month, entries]) => (
               <div key={month} className="mb-12">
                 <h2 className="text-xl font-bold text-foreground mb-6 flex items-center gap-3">
-                  <div className="w-3 h-3 rounded-full bg-primary" />
+                  <div className="w-3 h-3 rounded-full bg-[#f97316]" />
                   {month}
-                  <span className="text-sm font-normal text-muted-foreground">({entries.length} updates)</span>
+                  <span className="text-sm font-normal text-white/40">({entries.length} updates)</span>
                 </h2>
 
-                <div className="space-y-4 pl-6 border-l-2 border-border/50">
+                <div className="space-y-4 pl-6 border-l-2 border-white/[0.06]/50">
                   {entries.map((entry, index) => {
                     const typeConfig = TYPE_CONFIG[entry.type]
                     const TypeIcon = typeConfig.icon
@@ -639,7 +639,7 @@ export default function ChangelogPage() {
                         )} />
 
                         {/* Card */}
-                        <div className="rounded-2xl border border-border/50 bg-card/60 backdrop-blur-xl overflow-hidden">
+                        <div className="rounded-2xl border border-white/[0.06]/50 bg-white/[0.02]/60 backdrop-blur-xl overflow-hidden">
                           <button
                             onClick={() => toggleItem(itemId)}
                             className="w-full p-5 text-left"
@@ -652,29 +652,29 @@ export default function ChangelogPage() {
                                 <div>
                                   <div className="flex items-center gap-3 mb-1">
                                     <span className="font-bold text-foreground">{entry.product}</span>
-                                    <span className="font-mono text-sm text-muted-foreground">v{entry.version}</span>
+                                    <span className="font-mono text-sm text-white/40">v{entry.version}</span>
                                   </div>
                                   <div className="flex items-center gap-3">
                                     <span className={cn("px-2 py-0.5 rounded-full text-[10px] font-bold uppercase", typeConfig.bg, typeConfig.color)}>
                                       {typeConfig.label}
                                     </span>
-                                    <span className="text-xs text-muted-foreground">{formatDate(entry.date)}</span>
+                                    <span className="text-xs text-white/40">{formatDate(entry.date)}</span>
                                   </div>
                                 </div>
                               </div>
                               <ChevronDown className={cn(
-                                "h-5 w-5 text-muted-foreground shrink-0 transition-transform mt-2",
+                                "h-5 w-5 text-white/40 shrink-0 transition-transform mt-2",
                                 isExpanded && "rotate-180"
                               )} />
                             </div>
                           </button>
 
                           {isExpanded && (
-                            <div className="px-5 pb-5 pt-2 border-t border-border/30">
+                            <div className="px-5 pb-5 pt-2 border-t border-white/[0.06]/30">
                               <ul className="space-y-2 pl-14">
                                 {entry.changes.map((change, i) => (
-                                  <li key={i} className="flex items-start gap-3 text-sm text-muted-foreground">
-                                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
+                                  <li key={i} className="flex items-start gap-3 text-sm text-white/40">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-[#f97316] mt-2 shrink-0" />
                                     {change}
                                   </li>
                                 ))}
@@ -691,8 +691,8 @@ export default function ChangelogPage() {
 
             {filteredChangelog.length === 0 && (
               <div className="text-center py-12">
-                <Clock className="h-12 w-12 text-muted-foreground/30 mx-auto mb-4" />
-                <p className="text-muted-foreground">No updates found for this product.</p>
+                <Clock className="h-12 w-12 text-white/40/30 mx-auto mb-4" />
+                <p className="text-white/40">No updates found for this product.</p>
               </div>
             )}
           </div>
