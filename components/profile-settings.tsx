@@ -342,15 +342,15 @@ function Toggle({
         onClick={() => !required && onChange(!checked)}
         disabled={required}
         className={cn(
-          "relative mt-0.5 h-5 w-9 rounded-full transition-colors shrink-0",
+          "relative mt-0.5 h-6 w-11 rounded-full p-0.5 transition-colors shrink-0",
           checked ? "bg-[#f97316]" : "bg-white/[0.08]",
           required && "opacity-60 cursor-not-allowed"
         )}
       >
         <span
           className={cn(
-            "absolute top-0.5 h-4 w-4 rounded-full bg-white transition-transform",
-            checked ? "translate-x-[18px]" : "translate-x-0.5"
+            "block h-5 w-5 rounded-full bg-white shadow-sm transition-transform duration-200",
+            checked ? "translate-x-5" : "translate-x-0"
           )}
         />
       </button>

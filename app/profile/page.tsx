@@ -165,8 +165,8 @@ export default function ProfilePage() {
   const completedOrders = orders.filter((o) => o.status === "completed")
   const totalSpentPence = completedOrders.reduce((sum, o) => sum + (o.total || 0), 0)
   const loyalty = getLoyaltyStatus(totalSpentPence)
-  const greetingName = profile.display_name?.trim() || profile.email.split("@")[0]
-  const initials = greetingName.slice(0, 2).toUpperCase()
+  const displayName = profile.display_name?.trim() || ""
+  const initials = (displayName || profile.email).slice(0, 2).toUpperCase()
 
   const tabs: Array<{ id: TabId; label: string; icon: typeof Package; badge?: number }> = [
     { id: "overview", label: "Overview", icon: Crown },
@@ -203,7 +203,7 @@ export default function ProfilePage() {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap mb-1">
                     <h1 className="text-2xl md:text-3xl font-black text-white truncate">
-                      Welcome back, {greetingName}
+                      {displayName ? displayName : "My Profile"}
                     </h1>
                     <span
                       className={cn(

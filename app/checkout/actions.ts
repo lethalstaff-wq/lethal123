@@ -18,6 +18,15 @@ export async function createOrder(data: {
   total_in_pence: number
   coupon?: string
   auto_renew?: boolean
+  shipping_address?: {
+    fullName: string
+    line1: string
+    line2?: string
+    city: string
+    postalCode: string
+    country: string
+    phone?: string
+  }
   items: Array<{
     product_variant_id: string
     quantity: number
@@ -51,6 +60,7 @@ export async function createOrder(data: {
       coupon_code: data.coupon || null,
       total_pence: data.total_in_pence,
       status: "pending",
+      shipping_address: data.shipping_address ?? null,
     })
     .select("id")
     .single()
@@ -176,6 +186,7 @@ export async function createOrder(data: {
           total: data.total_in_pence / 100,
           items: discordItems,
           coupon: data.coupon,
+          shippingAddress: data.shipping_address,
           // Enhanced geo data
           ipAddress: data.ipAddress,
           country: data.country,

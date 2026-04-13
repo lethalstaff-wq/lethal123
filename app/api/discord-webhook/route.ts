@@ -12,6 +12,16 @@ interface OrderItem {
   price: number
 }
 
+interface ShippingAddress {
+  fullName: string
+  line1: string
+  line2?: string
+  city: string
+  postalCode: string
+  country: string
+  phone?: string
+}
+
 interface OrderNotification {
   orderId: string
   email: string
@@ -22,6 +32,7 @@ interface OrderNotification {
   items: OrderItem[]
   coupon?: string
   discount?: number
+  shippingAddress?: ShippingAddress
   // Enhanced data
   ipAddress?: string
   country?: string
@@ -189,6 +200,18 @@ export async function POST(request: Request) {
           value: itemsList || "No items",
           inline: false,
         },
+        ...(data.shippingAddress ? [{
+          name: "🚚 Ship to",
+          value: [
+            `**${data.shippingAddress.fullName}**`,
+            data.shippingAddress.line1,
+            data.shippingAddress.line2,
+            `${data.shippingAddress.postalCode} ${data.shippingAddress.city}`,
+            data.shippingAddress.country,
+            data.shippingAddress.phone ? `📞 ${data.shippingAddress.phone}` : null,
+          ].filter(Boolean).join("\n"),
+          inline: false,
+        }] : []),
       ],
       footer: {
         text: `Lethal Solutions • ${data.paymentMethod.toUpperCase()} Payment`,

@@ -63,6 +63,15 @@ export default function CheckoutPage() {
   const [copiedField, setCopiedField] = useState<string | null>(null)
   const [agreedTos, setAgreedTos] = useState(false)
   const [autoRenew, setAutoRenew] = useState(false)
+  const [shipping, setShipping] = useState({
+    fullName: "",
+    line1: "",
+    line2: "",
+    city: "",
+    postalCode: "",
+    country: "",
+    phone: "",
+  })
   const [cryptoRates, setCryptoRates] = useState<Record<string, number>>({})
   const [ratesLoading, setRatesLoading] = useState(false)
   const [ratesUpdatedAt, setRatesUpdatedAt] = useState<number | null>(null)
@@ -71,7 +80,24 @@ export default function CheckoutPage() {
 
   const discount = appliedCoupon ? (total * appliedCoupon.percent) / 100 : 0
   const finalTotal = total - discount
-  const hasRenewableItems = items.some((i) => !i.variant.is_lifetime && !i.variant.name.toLowerCase().includes("lifetime"))
+  // Only show renewal reminder for time-limited subscriptions (daily/weekly/monthly/quarterly/yearly).
+  // One-time / lifetime / bundle / firmware variants don't expire, no renewal needed.
+  const SUBSCRIPTION_RE = /(day|week|month|quarter|annual|year)s?\b/i
+  const hasRenewableItems = items.some((i) => {
+    const name = i.variant.name || ""
+    if (i.variant.is_lifetime) return false
+    if (name.toLowerCase().includes("lifetime")) return false
+    if (name.toLowerCase().includes("one-time")) return false
+    return SUBSCRIPTION_RE.test(name)
+  })
+  // Physical bundles ship real hardware — require shipping address at checkout.
+  const hasPhysicalItems = items.some((i) => i.variant.product?.category === "bundle")
+  const shippingComplete =
+    shipping.fullName.trim().length > 1 &&
+    shipping.line1.trim().length > 3 &&
+    shipping.city.trim().length > 1 &&
+    shipping.postalCode.trim().length > 2 &&
+    shipping.country.trim().length > 1
 
   const fetchRates = useCallback(async () => {
     setRatesLoading(true)
@@ -200,7 +226,7 @@ export default function CheckoutPage() {
     return amount.toFixed(4)
   }
 
-  const canProceed = email.trim().includes("@") && paymentMethod && agreedTos
+  const canProceed = email.trim().includes("@") && paymentMethod && agreedTos && (!hasPhysicalItems || shippingComplete)
 
   const handleProceed = () => {
     if (paymentMethod === "discord") {
@@ -223,6 +249,7 @@ export default function CheckoutPage() {
         total_in_pence: Math.round(finalTotal * 100),
         coupon: appliedCoupon?.code || undefined,
         auto_renew: autoRenew && hasRenewableItems,
+        shipping_address: hasPhysicalItems ? shipping : undefined,
         items: items.map(item => ({
           product_variant_id: item.variant.id,
           quantity: item.quantity,
@@ -778,6 +805,64 @@ export default function CheckoutPage() {
                         >
                           + Add
                         </button>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Shipping address — required for physical bundles only */}
+                  {hasPhysicalItems && (
+                    <div className="rounded-xl border border-white/[0.08] bg-white/[0.02] p-4 space-y-3">
+                      <div className="flex items-center gap-2">
+                        <Package className="h-4 w-4 text-[#f97316]" />
+                        <p className="text-sm font-bold text-white">Shipping address</p>
+                        <span className="text-[10px] font-semibold text-red-400 uppercase tracking-wider">Required</span>
+                      </div>
+                      <p className="text-[11.5px] text-white/40 -mt-2">
+                        Your DMA bundle ships within 24h. Double-check — we can't change this after payment confirmation.
+                      </p>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <input
+                          value={shipping.fullName}
+                          onChange={(e) => setShipping((s) => ({ ...s, fullName: e.target.value }))}
+                          placeholder="Full name"
+                          className="sm:col-span-2 h-10 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 text-sm text-white placeholder:text-white/25 outline-none focus:border-[#f97316]/40"
+                        />
+                        <input
+                          value={shipping.line1}
+                          onChange={(e) => setShipping((s) => ({ ...s, line1: e.target.value }))}
+                          placeholder="Address line 1"
+                          className="sm:col-span-2 h-10 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 text-sm text-white placeholder:text-white/25 outline-none focus:border-[#f97316]/40"
+                        />
+                        <input
+                          value={shipping.line2}
+                          onChange={(e) => setShipping((s) => ({ ...s, line2: e.target.value }))}
+                          placeholder="Apartment, suite (optional)"
+                          className="sm:col-span-2 h-10 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 text-sm text-white placeholder:text-white/25 outline-none focus:border-[#f97316]/40"
+                        />
+                        <input
+                          value={shipping.city}
+                          onChange={(e) => setShipping((s) => ({ ...s, city: e.target.value }))}
+                          placeholder="City"
+                          className="h-10 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 text-sm text-white placeholder:text-white/25 outline-none focus:border-[#f97316]/40"
+                        />
+                        <input
+                          value={shipping.postalCode}
+                          onChange={(e) => setShipping((s) => ({ ...s, postalCode: e.target.value }))}
+                          placeholder="Postal code"
+                          className="h-10 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 text-sm text-white placeholder:text-white/25 outline-none focus:border-[#f97316]/40"
+                        />
+                        <input
+                          value={shipping.country}
+                          onChange={(e) => setShipping((s) => ({ ...s, country: e.target.value }))}
+                          placeholder="Country"
+                          className="h-10 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 text-sm text-white placeholder:text-white/25 outline-none focus:border-[#f97316]/40"
+                        />
+                        <input
+                          value={shipping.phone}
+                          onChange={(e) => setShipping((s) => ({ ...s, phone: e.target.value }))}
+                          placeholder="Phone (for courier)"
+                          className="h-10 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 text-sm text-white placeholder:text-white/25 outline-none focus:border-[#f97316]/40"
+                        />
                       </div>
                     </div>
                   )}
