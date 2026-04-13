@@ -9,9 +9,11 @@ import { Badge } from "@/components/ui/badge"
 import { useCart } from "@/lib/cart-context"
 import {
   ShoppingCart, Zap, Star, Shield, Minus, Plus, Check,
-  CheckCircle2, MessageCircle, Lock, Clock, Globe, ThumbsUp, ArrowRight
+  CheckCircle2, MessageCircle, Lock, Clock, Globe, ThumbsUp, ArrowRight,
+  ShieldCheck, Sparkles, Wrench, Flame
 } from "lucide-react"
 import { getProductReviewCount } from "@/lib/review-counts"
+import { getProductMeta, type ChangelogEntry } from "@/lib/product-meta"
 import { DiscordCheckoutModal } from "@/components/discord-checkout-modal"
 import { BitcoinIcon, EthereumIcon, LitecoinIcon, PayPalIcon } from "@/components/crypto-icons"
 import { toast } from "sonner"
@@ -24,6 +26,41 @@ function maskEmail(email: string) {
   const [local, domain] = email.split("@")
   const masked = local.length <= 3 ? local[0] + "***" : local.substring(0, 3) + "***"
   return `${masked}@${domain}`
+}
+
+function formatChangelogDate(iso: string) {
+  const d = new Date(iso)
+  if (Number.isNaN(d.getTime())) return iso
+  return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })
+}
+
+const CHANGELOG_STYLES: Record<string, { bg: string; text: string; label: string; icon: typeof CheckCircle2 }> = {
+  feature:  { bg: "bg-emerald-500/10", text: "text-emerald-400", label: "Feature",  icon: Sparkles },
+  update:   { bg: "bg-blue-500/10",    text: "text-blue-400",    label: "Update",   icon: Wrench },
+  fix:      { bg: "bg-amber-500/10",   text: "text-amber-400",   label: "Fix",      icon: CheckCircle2 },
+  security: { bg: "bg-purple-500/10",  text: "text-purple-400",  label: "Security", icon: Shield },
+}
+
+function ChangelogRow({ entry }: { entry: ChangelogEntry }) {
+  const style = CHANGELOG_STYLES[entry.type] ?? CHANGELOG_STYLES.update
+  const Icon = style.icon
+  return (
+    <div className="flex gap-4 rounded-xl border border-white/[0.06] bg-white/[0.02] p-4 hover:border-white/[0.12] transition-colors">
+      <div className={`shrink-0 w-9 h-9 rounded-lg flex items-center justify-center ${style.bg}`}>
+        <Icon className={`h-4 w-4 ${style.text}`} />
+      </div>
+      <div className="flex-1 min-w-0">
+        <div className="flex items-center gap-2 mb-1 flex-wrap">
+          <span className={`text-[10px] font-bold uppercase tracking-wider ${style.text}`}>{style.label}</span>
+          <span className="text-[11px] text-white/30">{formatChangelogDate(entry.date)}</span>
+        </div>
+        <p className="text-sm font-semibold text-white/90">{entry.title}</p>
+        {entry.description && (
+          <p className="text-[12.5px] text-white/45 leading-relaxed mt-1">{entry.description}</p>
+        )}
+      </div>
+    </div>
+  )
 }
 
 function formatTimeAgo(dateStr: string) {
@@ -115,6 +152,10 @@ export function ProductDetailClient({ product }: { product: Product }) {
   }, [])
 
   const handleAddToCart = () => {
+    if (!selectedVariant) {
+      toast.error("Please select an option first")
+      return
+    }
     toast.success(`${product.name} added to cart`)
     addItem(
       {
@@ -149,6 +190,10 @@ export function ProductDetailClient({ product }: { product: Product }) {
   }
 
   const total = selectedVariant.price * quantity
+  const meta = getProductMeta(product.id)
+  const effectiveStock = meta.weeklySlots ? Math.min(product.stock, meta.weeklySlots) : product.stock
+  const isLowStock = effectiveStock <= 5
+  const isMediumStock = effectiveStock > 5 && effectiveStock <= 10
 
   return (
     <>
@@ -278,12 +323,26 @@ export function ProductDetailClient({ product }: { product: Product }) {
             </div>
             <div className="flex items-center gap-2 text-sm">
               <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
+                <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${isLowStock ? "bg-red-400" : isMediumStock ? "bg-amber-400" : "bg-emerald-400"}`} />
+                <span className={`relative inline-flex rounded-full h-2.5 w-2.5 ${isLowStock ? "bg-red-500" : isMediumStock ? "bg-amber-500" : "bg-emerald-500"}`} />
               </span>
-              <span className="text-emerald-400 font-medium">{product.stock} in stock</span>
+              <span className={`font-medium ${isLowStock ? "text-red-400" : isMediumStock ? "text-amber-400" : "text-emerald-400"}`}>
+                {isLowStock
+                  ? `Only ${effectiveStock} left — selling fast`
+                  : isMediumStock
+                  ? `${effectiveStock} left this week`
+                  : `${effectiveStock} in stock`}
+              </span>
             </div>
           </div>
+          {meta.weeklySlots && isLowStock && (
+            <div className="flex items-center gap-2 -mt-3 mb-5 px-3 py-2 rounded-lg bg-red-500/[0.06] border border-red-500/15">
+              <Flame className="h-3.5 w-3.5 text-red-400 shrink-0" />
+              <span className="text-[12px] text-red-300/90">
+                Weekly slot cap — {meta.weeklySlots} per week to keep detection risk low
+              </span>
+            </div>
+          )}
 
           {/* CTA Buttons */}
           <div className="space-y-2.5 sm:space-y-3 mb-6">
@@ -342,22 +401,83 @@ export function ProductDetailClient({ product }: { product: Product }) {
         </div>
       )}
 
-      {/* ═══ Trust Section ═══ */}
+      {/* ═══ Proof of Work — Undetected / Patch Response / Support ═══ */}
       <div className="mt-14 pt-10 border-t border-white/[0.04]">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {[
-            { icon: Shield, title: "Undetected", desc: "Zero detections. Updated within 2h of every patch." },
-            { icon: Zap, title: "Instant Delivery", desc: "License key arrives in seconds. No waiting." },
-            { icon: Clock, title: "24/7 Support", desc: "Dedicated Discord team for setup and troubleshooting." },
-          ].map((item, i) => (
-            <div key={i}>
-              <item.icon className="h-4 w-4 text-[#f97316]/50 mb-2.5" />
-              <h3 className="font-semibold text-sm text-white/80 mb-1">{item.title}</h3>
-              <p className="text-[13px] text-white/25 leading-relaxed">{item.desc}</p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {meta.undetectedSinceDays ? (
+            <div className="rounded-xl border border-emerald-500/15 bg-emerald-500/[0.03] p-5">
+              <div className="flex items-center gap-2 mb-3">
+                <ShieldCheck className="h-4 w-4 text-emerald-400" />
+                <span className="text-[11px] font-semibold uppercase tracking-wider text-emerald-400">Undetected</span>
+              </div>
+              <div className="flex items-baseline gap-1.5 mb-1">
+                <span className="text-3xl font-black text-white">{meta.undetectedSinceDays}</span>
+                <span className="text-sm text-white/40">days</span>
+              </div>
+              <p className="text-[12px] text-white/40 leading-relaxed">Zero detections across EAC, BattlEye, Vanguard, FaceIt, Ricochet.</p>
             </div>
-          ))}
+          ) : (
+            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-5">
+              <Shield className="h-4 w-4 text-[#f97316]/60 mb-2.5" />
+              <h3 className="font-semibold text-sm text-white/80 mb-1">Proven Safe</h3>
+              <p className="text-[13px] text-white/30 leading-relaxed">Thousands of verified clean sessions.</p>
+            </div>
+          )}
+          {meta.lastPatchResponseHours ? (
+            <div className="rounded-xl border border-primary/15 bg-primary/[0.03] p-5">
+              <div className="flex items-center gap-2 mb-3">
+                <Zap className="h-4 w-4 text-primary" />
+                <span className="text-[11px] font-semibold uppercase tracking-wider text-primary">Patch Response</span>
+              </div>
+              <div className="flex items-baseline gap-1.5 mb-1">
+                <span className="text-3xl font-black text-white">&lt;{meta.lastPatchResponseHours}h</span>
+              </div>
+              <p className="text-[12px] text-white/40 leading-relaxed">Average downtime after a game patch. You're back online fast.</p>
+            </div>
+          ) : (
+            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-5">
+              <Zap className="h-4 w-4 text-[#f97316]/60 mb-2.5" />
+              <h3 className="font-semibold text-sm text-white/80 mb-1">Instant Delivery</h3>
+              <p className="text-[13px] text-white/30 leading-relaxed">License key arrives in seconds.</p>
+            </div>
+          )}
+          <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-5">
+            <div className="flex items-center gap-2 mb-3">
+              <Clock className="h-4 w-4 text-white/50" />
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-white/50">Support</span>
+            </div>
+            <div className="flex items-baseline gap-1.5 mb-1">
+              <span className="text-3xl font-black text-white">24/7</span>
+            </div>
+            <p className="text-[12px] text-white/40 leading-relaxed">Dedicated Discord team for setup and troubleshooting.</p>
+          </div>
         </div>
       </div>
+
+      {/* ═══ Recent Updates / Per-product Changelog ═══ */}
+      {meta.changelog && meta.changelog.length > 0 && (
+        <div className="mt-12 pt-10 border-t border-white/[0.04]">
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-lg bg-primary/15 flex items-center justify-center">
+                <Sparkles className="h-4 w-4 text-primary" />
+              </div>
+              <div>
+                <h2 className="text-xl font-bold">Recent Updates</h2>
+                <p className="text-xs text-white/40">What shipped lately for {product.name}</p>
+              </div>
+            </div>
+            <Link href="/changelog" className="text-xs text-primary hover:text-primary/80 flex items-center gap-1 transition-colors">
+              Full changelog <ArrowRight className="h-3 w-3" />
+            </Link>
+          </div>
+          <div className="space-y-3">
+            {meta.changelog.slice(0, 5).map((entry, i) => (
+              <ChangelogRow key={i} entry={entry} />
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* ═══ What Buyers Say ═══ */}
       {productReviews.length > 0 && (

@@ -1,15 +1,34 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import { Menu, ShoppingCart, User } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet"
 import { useCart } from "@/lib/cart-context"
+import { createClient } from "@/lib/supabase/client"
 
 export function MobileMenu() {
   const [open, setOpen] = useState(false)
   const { itemCount } = useCart()
+  const [isAuthed, setIsAuthed] = useState(false)
+
+  useEffect(() => {
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) return
+    let mounted = true
+    let unsubscribe: (() => void) | null = null
+    try {
+      const supabase = createClient()
+      supabase.auth.getSession().then(({ data }) => { if (mounted) setIsAuthed(!!data.session) })
+      const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
+        if (mounted) setIsAuthed(!!session)
+      })
+      unsubscribe = () => sub.subscription.unsubscribe()
+    } catch (e) {
+      console.error("[mobile-menu] auth init failed:", e)
+    }
+    return () => { mounted = false; unsubscribe?.() }
+  }, [])
 
   const menuItems = [
     { href: "/", label: "Home" },
@@ -52,10 +71,10 @@ export function MobileMenu() {
                 Cart {itemCount > 0 && `(${itemCount})`}
               </Button>
             </Link>
-            <Link href="/login" onClick={() => setOpen(false)} className="flex-1">
+            <Link href={isAuthed ? "/profile" : "/login"} onClick={() => setOpen(false)} className="flex-1">
               <Button variant="outline" className="w-full gap-2 bg-transparent">
                 <User className="h-4 w-4" />
-                Account
+                {isAuthed ? "Profile" : "Account"}
               </Button>
             </Link>
           </div>

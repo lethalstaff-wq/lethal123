@@ -17,6 +17,7 @@ export async function createOrder(data: {
   payment_method: string
   total_in_pence: number
   coupon?: string
+  auto_renew?: boolean
   items: Array<{
     product_variant_id: string
     quantity: number
@@ -70,10 +71,42 @@ export async function createOrder(data: {
   // Get product names for notifications
   const { data: variants } = await supabase
     .from("product_variants")
-    .select("id, name, price_in_pence, product:products(name)")
+    .select("id, name, price_in_pence, duration_days, product_id, product:products(name)")
     .in("id", data.items.map(i => i.product_variant_id))
 
   const variantMap = new Map(variants?.map(v => [v.id, v]) || [])
+
+  // Opt-in renewal reminders: schedule 3 days before expiry for each time-limited variant
+  if (data.auto_renew) {
+    try {
+      const REMIND_BEFORE_DAYS = 3
+      const reminders = data.items
+        .map((item) => {
+          const v = variantMap.get(item.product_variant_id) as
+            | { id: string; name?: string; duration_days?: number | null; product_id?: string }
+            | undefined
+          if (!v || !v.duration_days) return null
+          const reminderAt = new Date()
+          reminderAt.setDate(reminderAt.getDate() + Math.max(1, v.duration_days - REMIND_BEFORE_DAYS))
+          return {
+            order_id: order.id,
+            user_email: data.email,
+            discord_username: data.discord || null,
+            product_id: v.product_id || "",
+            variant_id: v.id,
+            variant_name: v.name || null,
+            duration_days: v.duration_days,
+            reminder_at: reminderAt.toISOString(),
+          }
+        })
+        .filter(Boolean)
+      if (reminders.length > 0) {
+        await supabase.from("renewal_reminders").insert(reminders as object[])
+      }
+    } catch (e) {
+      console.error("[v0] Renewal reminder creation failed:", e)
+    }
+  }
 
   // Send order confirmation email
   try {

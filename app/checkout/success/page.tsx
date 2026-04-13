@@ -60,12 +60,12 @@ export default function CheckoutSuccessPage() {
 
               {/* Buttons */}
               <div className="flex gap-3">
-                <Link href="/dashboard" className="flex-1">
+                <Link href="/profile" className="flex-1">
                   <button
                     className="w-full h-12 flex items-center justify-center gap-2 rounded-xl text-white text-sm font-bold transition-all hover:shadow-lg hover:shadow-orange-500/25"
                     style={{ background: "linear-gradient(135deg, #f97316, #ea580c)" }}
                   >
-                    Dashboard
+                    My Profile
                     <ArrowRight className="h-4 w-4" />
                   </button>
                 </Link>

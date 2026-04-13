@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/admin", "/api", "/checkout", "/dashboard"],
+        disallow: ["/admin", "/api", "/checkout", "/dashboard", "/profile"],
       },
     ],
     sitemap: "https://www.lethalsolutions.me/sitemap.xml",

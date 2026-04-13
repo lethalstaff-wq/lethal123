@@ -42,6 +42,13 @@ interface OrderStatusData {
   message?: string
 }
 
+interface RenewalReminderData {
+  productId: string
+  variantName?: string
+  durationDays?: number
+  renewLink: string
+}
+
 const baseStyles = `
   body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #0a0a0b; color: #fafafa; }
   .container { max-width: 600px; margin: 0 auto; padding: 40px 20px; }
@@ -249,6 +256,32 @@ export function generateLicenseDeliveryEmail(data: LicenseDeliveryData): { subje
 }
 
 export const licenseDeliveryEmail = generateLicenseDeliveryEmail
+
+// Renewal Reminder Email (sent 3 days before expiration for opt-in users)
+export function generateRenewalReminderEmail(data: RenewalReminderData): { subject: string; html: string } {
+  const content = `
+    <div class="card">
+      <div class="logo">LETHAL SOLUTIONS</div>
+      <span class="badge" style="background: #f59e0b;">Expiring Soon</span>
+      <h1 class="heading" style="margin-top: 16px;">Your license expires in 3 days</h1>
+      <p class="text">Heads up — your <span class="highlight">${data.variantName || 'license'}</span> ${data.durationDays ? `(${data.durationDays}-day plan)` : ''} is winding down. Renew now to stay online without interruption.</p>
+
+      <div class="info-box">
+        <h3 class="subheading" style="margin-top: 0;">One-click renewal</h3>
+        <p style="color: #a1a1aa; margin: 0;">We've pre-selected the same plan you used last time. Adjust at checkout if you'd prefer a different option.</p>
+      </div>
+
+      <a href="${data.renewLink}" class="button">Renew My License</a>
+
+      <hr class="divider">
+      <p class="text" style="font-size: 13px;">You opted in to renewal reminders at checkout. No auto-billing happens — you choose whether to renew. Not interested anymore? Reply to this email and we'll cancel the reminder.</p>
+    </div>
+  `
+  return {
+    subject: `Your Lethal Solutions license expires in 3 days`,
+    html: wrapHtml(content, `Your ${data.variantName || 'license'} expires soon — one-click renewal inside.`),
+  }
+}
 
 // Order Status Update Email
 export function generateOrderStatusEmail(data: OrderStatusData): { subject: string; html: string } {

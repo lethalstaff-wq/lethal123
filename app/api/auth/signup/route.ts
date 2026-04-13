@@ -64,5 +64,24 @@ export async function POST(request: NextRequest) {
     userAgent: request.headers.get("user-agent") || undefined,
   }).catch((e) => console.error("[telegram/notify] signup failed:", e))
 
+  // Fire welcome email (best-effort — don't block signup on email failure)
+  try {
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
+      || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null)
+      || new URL(request.url).origin
+
+    fetch(`${siteUrl}/api/send-email`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        type: "welcome",
+        to: email,
+        data: { customerName: email.split("@")[0], email },
+      }),
+    }).catch((e) => console.error("[welcome-email] fetch failed:", e))
+  } catch (e) {
+    console.error("[welcome-email] setup failed:", e)
+  }
+
   return response
 }

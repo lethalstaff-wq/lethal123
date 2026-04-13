@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { 
-  generateOrderConfirmationEmail, 
+import {
+  generateOrderConfirmationEmail,
   generateWelcomeEmail,
   generatePasswordResetEmail,
   generateLicenseDeliveryEmail,
-  generateOrderStatusEmail
+  generateOrderStatusEmail,
+  generateRenewalReminderEmail,
 } from '@/lib/email-templates'
 
 // Email sending API route
@@ -45,6 +46,11 @@ export async function POST(request: NextRequest) {
           const statusEmail = generateOrderStatusEmail(data)
           subject = statusEmail.subject
           html = statusEmail.html
+          break
+        case 'renewal_reminder':
+          const renewalEmail = generateRenewalReminderEmail(data)
+          subject = renewalEmail.subject
+          html = renewalEmail.html
           break
         default:
           return NextResponse.json({ error: 'Unknown email type' }, { status: 400 })

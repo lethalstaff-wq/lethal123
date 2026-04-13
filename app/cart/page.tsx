@@ -137,11 +137,21 @@ export default function CartPage() {
                     </div>
 
                     <div className="flex items-center rounded-lg border border-white/[0.06]">
-                      <button onClick={() => updateQuantity(item.variant.id, item.quantity - 1)} className="p-2 hover:bg-white/[0.04] transition-colors rounded-l-lg text-white/60">
+                      <button
+                        onClick={() => updateQuantity(item.variant.id, item.quantity - 1)}
+                        disabled={item.quantity <= 1}
+                        aria-label="Decrease quantity"
+                        className="p-2 hover:bg-white/[0.04] transition-colors rounded-l-lg text-white/60 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent"
+                      >
                         <Minus className="h-3 w-3" />
                       </button>
                       <span className="w-8 text-center text-sm font-medium text-white/90">{item.quantity}</span>
-                      <button onClick={() => updateQuantity(item.variant.id, item.quantity + 1)} className="p-2 hover:bg-white/[0.04] transition-colors rounded-r-lg text-white/60">
+                      <button
+                        onClick={() => updateQuantity(item.variant.id, item.quantity + 1)}
+                        disabled={item.quantity >= 10}
+                        aria-label="Increase quantity"
+                        className="p-2 hover:bg-white/[0.04] transition-colors rounded-r-lg text-white/60 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent"
+                      >
                         <Plus className="h-3 w-3" />
                       </button>
                     </div>

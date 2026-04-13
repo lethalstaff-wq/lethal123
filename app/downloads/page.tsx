@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { toast } from "sonner"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
@@ -85,11 +86,18 @@ export default function DownloadsPage() {
   }
 
   const handleDownload = async (item: DownloadItem) => {
+    if (!item.downloadUrl) {
+      toast.error("Download link is not ready yet. Contact support if this persists.")
+      return
+    }
     setDownloadingId(item.id)
-    // Simulate download start
-    await new Promise(r => setTimeout(r, 1000))
-    window.open(item.downloadUrl, "_blank")
-    setDownloadingId(null)
+    try {
+      await new Promise(r => setTimeout(r, 1000))
+      const opened = window.open(item.downloadUrl, "_blank", "noopener,noreferrer")
+      if (!opened) toast.error("Your browser blocked the download. Allow pop-ups and retry.")
+    } finally {
+      setDownloadingId(null)
+    }
   }
 
   return (

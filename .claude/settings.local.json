@@ -42,7 +42,10 @@
       "WebFetch(domain:www.razorcap.cc)",
       "WebFetch(domain:www.lethalsolutions.me)",
       "mcp__Claude_Preview__preview_start",
-      "Bash(taskkill /F /IM node.exe)"
+      "Bash(taskkill /F /IM node.exe)",
+      "Bash(grep -E \"\\\\.\\(tsx?|json\\)$\")",
+      "Bash(npm install:*)",
+      "Bash(del:*)"
     ]
   }
 }

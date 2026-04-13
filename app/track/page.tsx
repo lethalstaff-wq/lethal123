@@ -13,8 +13,6 @@ import {
   Zap,
   Download,
   MessageCircle,
-  Copy,
-  Check,
   ExternalLink
 } from "lucide-react"
 import Link from "next/link"
@@ -66,7 +64,6 @@ export default function TrackOrderPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [orders, setOrders] = useState<Order[] | null>(null)
-  const [copied, setCopied] = useState(false)
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -97,12 +94,6 @@ export default function TrackOrderPage() {
     } finally {
       setLoading(false)
     }
-  }
-
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
   }
 
   const getStepStatus = (order: Order, stepKey: string) => {
@@ -221,14 +212,14 @@ export default function TrackOrderPage() {
                       <div className="p-6 bg-emerald-500/5">
                         <div className="space-y-3">
                           {order.license_key && (
-                            <div className="flex items-center gap-3">
+                            <div>
                               <div className="flex-1 p-3 rounded-xl bg-black/60 border border-white/[0.05]">
-                                <p className="text-[10px] text-white/30 uppercase tracking-wider mb-1">License Key</p>
+                                <p className="text-[10px] text-white/30 uppercase tracking-wider mb-1">License Key (masked)</p>
                                 <p className="font-mono text-sm font-bold text-white/80 break-all">{order.license_key}</p>
                               </div>
-                              <button onClick={() => copyToClipboard(order.license_key!)} className="shrink-0 h-11 w-11 rounded-xl border border-white/[0.06] bg-white/[0.02] flex items-center justify-center hover:bg-white/[0.04] transition-colors">
-                                {copied ? <Check className="h-4 w-4 text-emerald-500" /> : <Copy className="h-4 w-4 text-white/50" />}
-                              </button>
+                              <p className="text-[11px] text-white/40 mt-2">
+                                Full key was emailed to you and is available in the Download Center below or in your <Link href="/profile" className="text-[#f97316]/80 hover:text-[#f97316]">profile</Link>.
+                              </p>
                             </div>
                           )}
                           <Link href={`/download/${order.display_id}`} className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm transition-all">

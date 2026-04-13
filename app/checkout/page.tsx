@@ -62,12 +62,16 @@ export default function CheckoutPage() {
   const [timeLeft, setTimeLeft] = useState(TIMER_SECONDS)
   const [copiedField, setCopiedField] = useState<string | null>(null)
   const [agreedTos, setAgreedTos] = useState(false)
+  const [autoRenew, setAutoRenew] = useState(false)
   const [cryptoRates, setCryptoRates] = useState<Record<string, number>>({})
   const [ratesLoading, setRatesLoading] = useState(false)
+  const [ratesUpdatedAt, setRatesUpdatedAt] = useState<number | null>(null)
+  const [ratesNextRefresh, setRatesNextRefresh] = useState(60)
   const [emailTouched, setEmailTouched] = useState(false)
 
   const discount = appliedCoupon ? (total * appliedCoupon.percent) / 100 : 0
   const finalTotal = total - discount
+  const hasRenewableItems = items.some((i) => !i.variant.is_lifetime && !i.variant.name.toLowerCase().includes("lifetime"))
 
   const fetchRates = useCallback(async () => {
     setRatesLoading(true)
@@ -78,9 +82,23 @@ export default function CheckoutPage() {
       else setCryptoRates({ btc: 78000, eth: 2100, usdt: 1, ltc: 75 })
     } catch { setCryptoRates({ btc: 78000, eth: 2100, usdt: 1, ltc: 75 }) }
     setRatesLoading(false)
+    setRatesUpdatedAt(Date.now())
+    setRatesNextRefresh(60)
   }, [])
 
   useEffect(() => { fetchRates() }, [fetchRates])
+
+  // Auto-refresh crypto rates every 60s while on the pay step, with visible countdown
+  useEffect(() => {
+    if (step !== "pay" || paymentMethod !== "crypto") return
+    const tick = setInterval(() => {
+      setRatesNextRefresh((s) => {
+        if (s <= 1) { fetchRates(); return 60 }
+        return s - 1
+      })
+    }, 1000)
+    return () => clearInterval(tick)
+  }, [step, paymentMethod, fetchRates])
 
   // Load referral code from localStorage if present
   useEffect(() => {
@@ -204,6 +222,7 @@ export default function CheckoutPage() {
         payment_method: paymentMethod === "crypto" ? selectedCrypto.id : (paymentMethod || "crypto"),
         total_in_pence: Math.round(finalTotal * 100),
         coupon: appliedCoupon?.code || undefined,
+        auto_renew: autoRenew && hasRenewableItems,
         items: items.map(item => ({
           product_variant_id: item.variant.id,
           quantity: item.quantity,
@@ -763,6 +782,28 @@ export default function CheckoutPage() {
                     </div>
                   )}
 
+                  {/* Auto-renew reminder (only for time-limited items) */}
+                  {hasRenewableItems && (
+                    <label className="flex items-start gap-3 cursor-pointer group rounded-xl border border-emerald-500/15 bg-emerald-500/[0.03] p-4 hover:bg-emerald-500/[0.06] transition-colors">
+                      <div className={cn(
+                        "mt-0.5 h-5 w-5 rounded-md border-2 flex items-center justify-center shrink-0 transition-all duration-200",
+                        autoRenew ? "bg-emerald-500 border-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.3)]" : "border-white/[0.15] group-hover:border-white/[0.3]"
+                      )}>
+                        {autoRenew && <Check className="h-3 w-3 text-white" />}
+                      </div>
+                      <input type="checkbox" checked={autoRenew} onChange={(e) => setAutoRenew(e.target.checked)} className="sr-only" />
+                      <div className="flex-1">
+                        <p className="text-sm font-semibold text-white/90 flex items-center gap-1.5">
+                          <RefreshCw className="h-3.5 w-3.5 text-emerald-400" />
+                          Remind me before my license expires
+                        </p>
+                        <p className="text-[11.5px] text-white/40 mt-1 leading-relaxed">
+                          We'll email you 3 days before expiration with a one-click checkout link. No auto-billing — you stay in control. Cancel anytime.
+                        </p>
+                      </div>
+                    </label>
+                  )}
+
                   {/* TOS */}
                   <label className="flex items-start gap-3 cursor-pointer group px-1 py-1">
                     <div className={cn(
@@ -827,29 +868,47 @@ export default function CheckoutPage() {
                         <p className="text-3xl font-black text-white">
                           {cryptoAmount} <span className="text-lg text-white/40">{selectedCrypto.ticker}</span>
                         </p>
+                        <p className="text-[11px] text-white/30 mt-1.5">
+                          Rate locked at {cryptoRates[RATE_KEY_MAP[selectedCrypto.id]]?.toLocaleString("en-US", { maximumFractionDigits: 2 })} USD
+                        </p>
                         <button onClick={() => copyToClipboard(cryptoAmount || "", "amount")}
                           className={cn("mt-3 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all",
                             copiedField === "amount" ? "bg-emerald-500/15 text-emerald-400" : "bg-white/[0.04] text-white/40 hover:text-white/90 hover:bg-white/[0.08]"
                           )}>{copiedField === "amount" ? <><Check className="h-3 w-3" /> Copied</> : <><Copy className="h-3 w-3" /> Copy Amount</>}</button>
+                        <div className="mt-3 flex items-center justify-center gap-2 text-[10.5px] text-white/30">
+                          <RefreshCw className={cn("h-3 w-3", ratesLoading && "animate-spin")} />
+                          <span>
+                            {ratesLoading ? "Refreshing rate…" : <>Auto-refresh in <span className="text-white/60 font-mono">{ratesNextRefresh}s</span></>}
+                          </span>
+                          <button onClick={fetchRates} disabled={ratesLoading} className="ml-1 text-primary hover:text-primary/80 disabled:opacity-40 font-medium">Refresh now</button>
+                        </div>
                       </div>
 
-                      {/* QR Code */}
+                      {/* QR Code — encodes the wallet address only (universally scannable by every wallet) */}
                       <div className="flex justify-center mb-6">
                         <div className="p-4 bg-white rounded-2xl">
-                          <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(selectedCrypto.address)}&bgcolor=FFFFFF&color=000000&format=png&margin=1`} alt="QR" width={200} height={200} className="rounded-lg" unoptimized crossOrigin="anonymous" />
+                          <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(selectedCrypto.address)}&bgcolor=FFFFFF&color=000000&format=png&margin=1`} alt="QR" width={220} height={220} className="rounded-lg" unoptimized crossOrigin="anonymous" />
                         </div>
                       </div>
 
                       {/* Wallet Address */}
                       <div className="mb-6">
                         <p className="text-[10px] uppercase tracking-widest text-white/30 mb-2">Wallet Address</p>
-                        <div className="flex items-center gap-2 p-3 rounded-xl bg-white/[0.02] border border-white/[0.04]">
-                          <code className="text-xs text-white/40 flex-1 truncate">{selectedCrypto.address}</code>
-                          <button onClick={() => copyToClipboard(selectedCrypto.address, "wallet")}
-                            className={cn("shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[10px] font-bold transition-all",
-                              copiedField === "wallet" ? "bg-emerald-500/15 text-emerald-400" : "bg-white/[0.04] text-white/40 hover:text-white/90"
-                            )}>{copiedField === "wallet" ? <><Check className="h-3 w-3" /> Copied</> : <><Copy className="h-3 w-3" /> Copy</>}</button>
-                        </div>
+                        <button
+                          onClick={() => copyToClipboard(selectedCrypto.address, "wallet")}
+                          className={cn(
+                            "w-full flex items-center gap-2 p-3 rounded-xl border transition-all text-left",
+                            copiedField === "wallet"
+                              ? "bg-emerald-500/[0.06] border-emerald-500/20"
+                              : "bg-white/[0.02] border-white/[0.04] hover:border-white/[0.12]"
+                          )}
+                          aria-label="Copy wallet address"
+                        >
+                          <code className="text-xs text-white/60 flex-1 truncate font-mono">{selectedCrypto.address}</code>
+                          <span className={cn("shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[10px] font-bold transition-all",
+                            copiedField === "wallet" ? "bg-emerald-500/15 text-emerald-400" : "bg-white/[0.06] text-white/50"
+                          )}>{copiedField === "wallet" ? <><Check className="h-3 w-3" /> Copied</> : <><Copy className="h-3 w-3" /> Tap to copy</>}</span>
+                        </button>
                       </div>
 
                       {/* Warning */}

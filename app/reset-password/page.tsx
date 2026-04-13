@@ -40,7 +40,7 @@ export default function ResetPasswordPage() {
     } else {
       setSuccess(true)
       setTimeout(() => {
-        router.push("/dashboard")
+        router.push("/profile")
       }, 2000)
     }
     setIsLoading(false)

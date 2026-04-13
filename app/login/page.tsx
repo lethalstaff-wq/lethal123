@@ -31,7 +31,7 @@ export default function LoginPage() {
       if (error) throw error
       router.refresh()
       await new Promise(r => setTimeout(r, 100))
-      window.location.href = "/dashboard"
+      window.location.href = "/profile"
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "An error occurred")
     } finally {
@@ -59,7 +59,7 @@ export default function LoginPage() {
         options: {
           emailRedirectTo:
             process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL ||
-            `${window.location.origin}/dashboard`,
+            `${window.location.origin}/profile`,
           data: discord ? { discord_username: discord } : {},
         },
       })

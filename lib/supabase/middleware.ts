@@ -65,10 +65,12 @@ export async function updateSession(request: NextRequest) {
   const pathname = request.nextUrl.pathname
   const isAdminLogin = pathname === "/admin/login"
   const isAdmin = pathname.startsWith("/admin") && !isAdminLogin
-  const isDashboard = pathname.startsWith("/dashboard")
+  const isUserArea =
+    pathname.startsWith("/dashboard") ||
+    pathname.startsWith("/profile")
 
   // Only redirect on protected routes when definitely no session
-  if ((isDashboard || isAdmin) && !user) {
+  if ((isUserArea || isAdmin) && !user) {
     const url = request.nextUrl.clone()
     url.pathname = isAdmin ? "/admin/login" : "/login"
     return NextResponse.redirect(url)

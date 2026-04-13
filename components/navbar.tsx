@@ -8,6 +8,7 @@ import { ShoppingCart, User, Search, X, ArrowRight, Package } from "lucide-react
 import { Button } from "@/components/ui/button"
 import { useCart } from "@/lib/cart-context"
 import { useRouter, usePathname } from "next/navigation"
+import { createClient } from "@/lib/supabase/client"
 
 interface SearchResult {
   id: string
@@ -28,6 +29,24 @@ export function Navbar() {
   const { itemCount } = useCart()
   const router = useRouter()
   const pathname = usePathname()
+  const [isAuthed, setIsAuthed] = useState(false)
+
+  useEffect(() => {
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) return
+    let mounted = true
+    let unsubscribe: (() => void) | null = null
+    try {
+      const supabase = createClient()
+      supabase.auth.getSession().then(({ data }) => { if (mounted) setIsAuthed(!!data.session) })
+      const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
+        if (mounted) setIsAuthed(!!session)
+      })
+      unsubscribe = () => sub.subscription.unsubscribe()
+    } catch (e) {
+      console.error("[navbar] auth init failed:", e)
+    }
+    return () => { mounted = false; unsubscribe?.() }
+  }, [])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -218,14 +237,14 @@ export function Navbar() {
                 )}
               </div>
 
-              {/* Login */}
-              <Link href="/login">
+              {/* Login or My Account */}
+              <Link href={isAuthed ? "/profile" : "/login"}>
                 <Button
                   size="sm"
                   className="hidden sm:inline-flex bg-primary hover:bg-primary/90 text-white text-xs font-semibold rounded-full px-4 h-8 gap-1.5 shadow-lg shadow-primary/20"
                 >
                   <User className="h-3.5 w-3.5" />
-                  Customer Login
+                  {isAuthed ? "My Account" : "Customer Login"}
                 </Button>
               </Link>
 

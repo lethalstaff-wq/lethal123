@@ -79,29 +79,42 @@ export async function GET(request: NextRequest) {
 
     const variantMap = new Map(variants?.map(v => [v.id, v]) || [])
 
+    // Fetch real license keys (track is public — we only return a masked form)
+    const { data: licenses } = await supabase
+      .from("licenses")
+      .select("order_id, license_key")
+      .in("order_id", orders.map(o => o.id))
+
+    const licenseMap = new Map(
+      (licenses || []).map((l: { order_id: string; license_key: string }) => [l.order_id, l.license_key])
+    )
+
     // Format orders for response
-    const formattedOrders = orders.map(order => ({
-      id: order.id,
-      display_id: order.order_display_id,
-      status: order.status,
-      created_at: order.created_at,
-      updated_at: order.updated_at,
-      email: order.user_email,
-      discord: order.discord_username,
-      payment_method: order.payment_method,
-      total: order.total_pence,
-      items: (order.order_items || []).map((item: { product_variant_id: string; quantity: number; price_pence: number }) => {
-        const variant = variantMap.get(item.product_variant_id)
-        return {
-          name: (variant?.product as { name?: string })?.name || "Product",
-          variant: variant?.name || "Standard",
-          quantity: item.quantity,
-          price: item.price_pence,
-        }
-      }),
-      // Only include license for completed orders
-      license_key: order.status === "completed" ? generateMaskedLicense() : undefined,
-    }))
+    const formattedOrders = orders.map(order => {
+      const realKey = licenseMap.get(order.id)
+      return {
+        id: order.id,
+        display_id: order.order_display_id,
+        status: order.status,
+        created_at: order.created_at,
+        updated_at: order.updated_at,
+        email: order.user_email,
+        discord: order.discord_username,
+        payment_method: order.payment_method,
+        total: order.total_pence,
+        items: (order.order_items || []).map((item: { product_variant_id: string; quantity: number; price_pence: number }) => {
+          const variant = variantMap.get(item.product_variant_id)
+          return {
+            name: (variant?.product as { name?: string })?.name || "Product",
+            variant: variant?.name || "Standard",
+            quantity: item.quantity,
+            price: item.price_pence,
+          }
+        }),
+        // Public endpoint — show only a stable masked license. Full key lives in /profile and /download/[orderId].
+        license_key: order.status === "completed" && realKey ? maskLicense(realKey) : undefined,
+      }
+    })
 
     return NextResponse.json({ orders: formattedOrders })
   } catch (error) {
@@ -110,15 +123,17 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// Generate a masked/partial license for display
-function generateMaskedLicense() {
-  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-  let license = "LS-"
-  for (let i = 0; i < 4; i++) {
-    for (let j = 0; j < 4; j++) {
-      license += chars[Math.floor(Math.random() * chars.length)]
-    }
-    if (i < 3) license += "-"
+// Stably mask a license key — preserves prefix and last group only.
+// "LS-ABCD-EFGH-IJKL-MNOP" → "LS-****-****-****-MNOP"
+function maskLicense(key: string): string {
+  if (!key) return ""
+  const parts = key.split("-")
+  if (parts.length >= 3) {
+    const head = parts[0]
+    const tail = parts[parts.length - 1]
+    const middle = parts.slice(1, -1).map(() => "****").join("-")
+    return `${head}-${middle}-${tail}`
   }
-  return license
+  if (key.length <= 6) return "****"
+  return key.slice(0, 3) + "****" + key.slice(-4)
 }

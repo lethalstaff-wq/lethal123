@@ -8,5 +8,6 @@ Disallow: /checkout
 Disallow: /login
 Disallow: /profile
 Disallow: /dashboard
+Disallow: /profile
 
 Sitemap: https://www.lethalsolutions.me/sitemap.xml
