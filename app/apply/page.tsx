@@ -196,18 +196,6 @@ function Spotlight() {
 }
 
 
-// ─── Scroll progress ─────────────────────────────────────────────────────────
-
-function Progress() {
-  const [p, setP] = useState(0)
-  useEffect(() => {
-    const h = () => { const t = document.documentElement.scrollHeight - window.innerHeight; setP(t > 0 ? (window.scrollY / t) * 100 : 0) }
-    window.addEventListener("scroll", h, { passive: true }); return () => window.removeEventListener("scroll", h)
-  }, [])
-  return <div className="fixed top-0 left-0 right-0 z-[100] h-[2px]"><div className="h-full" style={{ width: `${p}%`, background: "linear-gradient(90deg, #f97316, #fff)", transition: "width 150ms" }} /></div>
-}
-
-
 // ─── Floating particles ──────────────────────────────────────────────────────
 
 function Particles() {
@@ -490,7 +478,6 @@ export default function ApplyPage() {
 
   return (
     <main className="min-h-screen bg-black text-white lx-page relative overflow-x-hidden">
-      <Progress />
       <Spotlight />
       <Particles />
       <div className="fixed inset-0 pointer-events-none z-[1] lx-noise" />
