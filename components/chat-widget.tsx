@@ -35,32 +35,33 @@ export function ChatWidget() {
 
       {/* Panel */}
       {isOpen && (
-        <div className="fixed bottom-6 left-6 z-[100] w-[340px] bg-black/95 backdrop-blur-xl border border-white/[0.06] rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] overflow-hidden animate-in slide-in-from-bottom-4 fade-in duration-300">
+        <div className="fixed bottom-6 left-6 z-[100] w-[calc(100vw-3rem)] sm:w-[360px] bg-black/95 backdrop-blur-xl border border-white/[0.10] rounded-2xl shadow-[0_30px_80px_rgba(0,0,0,0.7),0_0_60px_rgba(249,115,22,0.10)] overflow-hidden animate-in slide-in-from-bottom-4 fade-in duration-300">
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f97316]/60 to-transparent pointer-events-none" />
           {/* Header */}
-          <div className="flex items-center justify-between p-4 border-b border-white/[0.06]">
+          <div className="flex items-center justify-between p-4 border-b border-white/[0.06] bg-gradient-to-b from-[#f97316]/[0.04] to-transparent">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-[#f97316]/10 flex items-center justify-center">
-                <MessageCircle className="h-4 w-4 text-[#f97316]" />
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#f97316]/25 to-[#ea580c]/15 border border-[#f97316]/30 flex items-center justify-center shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_18px_rgba(249,115,22,0.18)]">
+                <MessageCircle className="h-[18px] w-[18px] text-[#f97316]" style={{ filter: "drop-shadow(0 0 8px rgba(249,115,22,0.6))" }} />
               </div>
               <div>
-                <p className="text-white font-bold text-sm">Need help?</p>
-                <p className="text-[11px] text-white/40">Quick answers below or chat on Discord</p>
+                <p className="font-display text-white font-bold text-[15px] tracking-tight">Need help?</p>
+                <p className="text-[11px] text-white/55 font-medium">Quick answers below or chat on Discord</p>
               </div>
             </div>
-            <button onClick={() => setIsOpen(false)} className="p-1.5 rounded-xl text-white/30 hover:text-white/60 hover:bg-white/[0.06] transition-all">
-              <X className="h-4 w-4" />
+            <button onClick={() => setIsOpen(false)} aria-label="Close chat" className="p-2 rounded-full text-white/45 hover:text-white hover:bg-white/[0.06] transition-all">
+              <X className="h-[18px] w-[18px]" />
             </button>
           </div>
 
           {/* FAQ */}
-          <div className="p-3 max-h-[300px] overflow-y-auto space-y-1.5">
+          <div className="p-3 max-h-[300px] overflow-y-auto space-y-2">
             {QUICK_FAQ.map((faq, i) => (
-              <details key={i} className="group rounded-xl bg-white/[0.012] border border-white/[0.04] overflow-hidden">
-                <summary className="flex items-center justify-between p-3 cursor-pointer text-sm text-white/50 font-medium hover:bg-white/[0.02] hover:text-white/70 transition-colors list-none">
+              <details key={i} className="group rounded-xl bg-white/[0.025] border border-white/[0.07] overflow-hidden hover:border-[#f97316]/25 transition-colors">
+                <summary className="flex items-center justify-between p-3 cursor-pointer text-[13px] text-white/75 font-semibold hover:bg-white/[0.03] hover:text-white transition-colors list-none">
                   {faq.q}
-                  <ChevronRight className="h-3.5 w-3.5 text-white/20 group-open:rotate-90 group-open:text-[#f97316] transition-all shrink-0 ml-2" />
+                  <ChevronRight className="h-3.5 w-3.5 text-white/30 group-open:rotate-90 group-open:text-[#f97316] transition-all shrink-0 ml-2" />
                 </summary>
-                <p className="px-3 pb-3 text-xs text-white/40 leading-relaxed">{faq.a}</p>
+                <p className="px-3 pb-3 text-[12px] text-white/55 leading-relaxed">{faq.a}</p>
               </details>
             ))}
           </div>
@@ -71,9 +72,9 @@ export function ChatWidget() {
               href="https://discord.gg/lethaldma"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-gradient-to-r from-[#f97316] to-[#ea580c] text-white text-sm font-semibold transition-colors hover:shadow-lg hover:shadow-[#f97316]/20"
+              className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white text-[14px] font-bold transition-all hover:scale-[1.02] hover:brightness-110 shadow-[0_8px_24px_rgba(249,115,22,0.32),inset_0_1px_0_rgba(255,255,255,0.08)]"
             >
-              <ExternalLink className="h-3.5 w-3.5" />
+              <ExternalLink className="h-4 w-4" />
               Open Discord Ticket
             </a>
           </div>
