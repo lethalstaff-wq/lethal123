@@ -44,43 +44,45 @@ const features = [
 
 export function ServicesSection() {
   return (
-    <section id="features" className="py-24 px-6 sm:px-10 relative z-10">
+    <section id="features" className="py-24 px-6 sm:px-10 relative z-10 bg-black">
       <div className="max-w-[1100px] mx-auto">
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/[0.06] bg-white/[0.02] mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-white/40 animate-pulse" />
-            <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">Why Choose Us</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#f97316] animate-pulse" />
+            <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/45">Why Choose Us</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-[-0.03em] leading-[1.1] mb-4 text-white">
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-[-0.035em] leading-[1.1] mb-4 text-white">
             Why choose <span style={{ background: "linear-gradient(135deg, #f97316, #fb923c)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Lethal</span>
           </h2>
-          <p className="text-white/35 text-[15px] max-w-lg mx-auto">Superior technology. Relentless execution.</p>
+          <p className="text-white/45 text-[15px] max-w-lg mx-auto">Superior technology. Relentless execution.</p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {features.map((f, i) => (
-            <div key={i} className="group p-6 rounded-xl bg-white/[0.012] border border-white/[0.04] hover:bg-white/[0.02] hover:border-white/[0.07] transition-all duration-300 relative overflow-hidden">
+            <div key={i} className="group p-7 rounded-2xl bg-black border border-white/[0.05] hover:border-[#f97316]/30 transition-all duration-300 relative overflow-hidden hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(0,0,0,0.5),0_0_40px_rgba(249,115,22,0.08)]">
               {/* Shine */}
-              <div className="absolute top-[-50%] left-[-80%] w-[50%] h-[200%] bg-gradient-to-r from-transparent via-white/[0.02] to-transparent rotate-[25deg] group-hover:left-[130%] transition-[left] duration-700 pointer-events-none z-10" />
+              <div className="absolute top-[-50%] left-[-80%] w-[50%] h-[200%] bg-gradient-to-r from-transparent via-white/[0.03] to-transparent rotate-[25deg] group-hover:left-[130%] transition-[left] duration-700 pointer-events-none z-10" />
               {/* Hover glow */}
-              <div className="absolute top-0 left-0 w-[200px] h-[200px] rounded-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700" style={{ background: "radial-gradient(circle, rgba(249,115,22,0.04), transparent 70%)", transform: "translate(-30%, -30%)" }} />
+              <div className="absolute top-0 right-0 w-[260px] h-[260px] rounded-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700" style={{ background: "radial-gradient(circle, rgba(249,115,22,0.10), transparent 70%)", transform: "translate(35%, -35%)" }} />
 
               <div className="relative z-[2]">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="w-10 h-10 rounded-xl flex items-center justify-center border border-white/[0.04] bg-white/[0.02] group-hover:bg-[#f97316]/[0.04] group-hover:border-[#f97316]/15 transition-all duration-500">
-                    <f.icon className="h-4 w-4 text-white/20 group-hover:text-[#f97316]/70 transition-colors duration-500" />
+                <div className="flex items-center justify-between mb-5">
+                  <div className="w-11 h-11 rounded-xl flex items-center justify-center border border-white/[0.06] bg-white/[0.02] group-hover:bg-[#f97316]/10 group-hover:border-[#f97316]/30 group-hover:scale-110 transition-all duration-500" style={{ filter: "drop-shadow(0 0 0 transparent)" }}>
+                    <f.icon className="h-[18px] w-[18px] text-white/35 group-hover:text-[#f97316] transition-colors duration-500" style={{ filter: "drop-shadow(0 0 12px rgba(249,115,22,0))" }} />
                   </div>
                   <div className="text-right">
-                    <p className="text-[18px] font-bold text-white/70"><AnimNum value={f.num} prefix={f.prefix} suffix={f.suffix} decimals={f.num === 99.8 ? 1 : 0} /></p>
-                    <p className="text-[9px] text-white/15 uppercase tracking-wider">{f.label}</p>
+                    <p className="font-display text-[22px] font-bold tracking-tight" style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(200,200,210,0.75))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                      <AnimNum value={f.num} prefix={f.prefix} suffix={f.suffix} decimals={f.num === 99.8 ? 1 : 0} />
+                    </p>
+                    <p className="text-[9px] text-white/25 uppercase tracking-[0.15em] mt-0.5">{f.label}</p>
                   </div>
                 </div>
-                <h4 className="font-bold text-[15px] mb-2 text-white/85 group-hover:text-white transition-colors">{f.title}</h4>
-                <p className="text-[13px] text-white/30 leading-relaxed group-hover:text-white/40 transition-colors">{f.desc}</p>
+                <h4 className="font-display font-bold text-[16px] mb-2 text-white/95 group-hover:text-white transition-colors tracking-tight">{f.title}</h4>
+                <p className="text-[13px] text-white/40 leading-[1.65] group-hover:text-white/55 transition-colors">{f.desc}</p>
               </div>
 
               {/* Bottom accent on hover */}
-              <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f97316]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+              <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f97316]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
             </div>
           ))}
         </div>

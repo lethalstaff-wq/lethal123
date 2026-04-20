@@ -22,7 +22,7 @@ const ReviewCard = memo(function ReviewCard({ t }: { t: typeof testimonials[numb
   return (
     <div className="flex-shrink-0 w-[280px] sm:w-[340px] rounded-xl p-6 bg-white/[0.012] border border-white/[0.04] hover:border-white/[0.07] transition-all">
       <div className="flex gap-0.5 mb-4">
-        {[...Array(5)].map((_, j) => <Star key={j} className="h-3 w-3 fill-[#fbbf24] text-[#fbbf24]" />)}
+        {[...Array(5)].map((_, j) => <Star key={j} className="h-3.5 w-3.5 gold-star" style={{ animationDelay: `${j * 0.15}s` }} />)}
       </div>
       <p className="text-[13px] text-white/40 leading-[1.8] mb-5">&ldquo;{t.quote}&rdquo;</p>
       <div className="flex items-center gap-3 pt-4 border-t border-white/[0.03]">

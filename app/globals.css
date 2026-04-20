@@ -183,6 +183,18 @@ html { scroll-behavior: smooth; }
 .animate-marquee { animation: marquee 35s linear infinite; }
 .animate-marquee-reverse { animation: marquee-reverse 35s linear infinite; }
 
+/* Animated gold rating stars — pulses gold, staggered per child */
+.gold-star {
+  fill: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.18);
+  animation: goldStarLoop 4.2s ease infinite;
+}
+@keyframes goldStarLoop {
+  0%, 8%   { fill: rgba(255, 255, 255, 0.10); color: rgba(255, 255, 255, 0.14); filter: none; }
+  22%, 68% { fill: #fbbf24; color: #fbbf24; filter: drop-shadow(0 0 4px rgba(251, 191, 36, 0.55)); }
+  85%, 100% { fill: rgba(255, 255, 255, 0.10); color: rgba(255, 255, 255, 0.14); filter: none; }
+}
+
 /* Wheel spin */
 @keyframes wheel-spin {
   0% { transform: rotate(0deg); }
