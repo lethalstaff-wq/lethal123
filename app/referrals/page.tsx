@@ -114,20 +114,20 @@ export default function ReferralsPage() {
 
       {/* Hero */}
       <section className="relative pt-32 pb-16 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#f97316]/5 via-transparent to-transparent" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#f97316]/10 rounded-full blur-[150px] opacity-30" />
-
         <div className="container mx-auto px-4 relative">
           <div className="max-w-2xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#f97316]/10 border border-[#f97316]/20 mb-6">
-              <Gift className="h-4 w-4 text-[#f97316]" />
-              <span className="text-sm font-bold text-[#f97316]">Referral Program</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/[0.08] bg-white/[0.03] backdrop-blur-md mb-6">
+              <Gift className="h-3.5 w-3.5 text-[#f97316]" />
+              <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/55">Referral Program</span>
             </div>
-
-            <h1 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">
-              Earn <span className="text-[#f97316]">Rewards</span>
+            <div className="relative h-px w-44 mx-auto mb-7 bg-white/[0.05] overflow-hidden">
+              <div className="absolute inset-y-0 w-24 bg-gradient-to-r from-transparent via-[#f97316]/70 to-transparent" style={{ animation: "heroScan 4s ease-in-out infinite" }} />
+            </div>
+            <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-bold tracking-[-0.04em] leading-[0.95] mb-6">
+              <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Earn </span>
+              <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249,115,22,0.3))" }}>Rewards</span>
             </h1>
-            <p className="text-lg text-white/40 mb-8">
+            <p className="text-[17px] text-white/55 max-w-xl mx-auto leading-relaxed mb-8">
               Invite friends and earn 10% commission on every purchase they make
             </p>
 

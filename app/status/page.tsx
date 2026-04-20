@@ -220,17 +220,21 @@ export default function StatusPage() {
 
           {/* Header */}
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.04] border border-white/[0.06] text-white/60 text-sm font-medium mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-emerald-500/30 bg-emerald-500/[0.06] backdrop-blur-md mb-6">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" style={{ animation: "statusPulse 2s ease-in-out infinite" }}></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
               </span>
-              All Systems Operational
+              <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-emerald-400">All Systems Operational</span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-black mb-4 text-white">
-              System <span style={{ color: "#f97316" }}>Status</span>
+            <div className="relative h-px w-44 mx-auto mb-7 bg-white/[0.05] overflow-hidden">
+              <div className="absolute inset-y-0 w-24 bg-gradient-to-r from-transparent via-[#f97316]/70 to-transparent" style={{ animation: "heroScan 4s ease-in-out infinite" }} />
+            </div>
+            <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-bold tracking-[-0.04em] leading-[0.95] mb-6">
+              <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>System </span>
+              <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249,115,22,0.3))" }}>Status</span>
             </h1>
-            <p className="text-white/40 max-w-lg mx-auto">
+            <p className="text-[17px] text-white/55 max-w-xl mx-auto leading-relaxed">
               Real-time detection status for all products. Updated every minute.
             </p>
           </div>

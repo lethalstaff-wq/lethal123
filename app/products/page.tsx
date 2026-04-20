@@ -13,27 +13,23 @@ export default async function ProductsPage() {
 
   return (
     <main className="flex min-h-screen flex-col bg-transparent relative overflow-x-hidden">
-      {/* Noise texture */}
-      <div className="fixed inset-0 pointer-events-none z-[1] opacity-[0.015]"
-        style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")` }} />
-
       <Navbar />
 
-      <section className="relative pt-32 pb-16 px-6 sm:px-10 z-10">
-        {/* Aurora blob */}
-        <div className="absolute top-[-100px] left-1/2 -translate-x-1/2 w-[600px] h-[400px] rounded-full blur-[140px] pointer-events-none"
-          style={{ background: "radial-gradient(circle, rgba(249,115,22,0.06), transparent 70%)" }} />
-
+      <section className="relative pt-36 pb-20 px-6 sm:px-10 z-10">
         <div className="max-w-7xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full border border-white/[0.06] bg-white/[0.02]">
-            <span className="w-1.5 h-1.5 rounded-full bg-white/40 animate-pulse" />
-            <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">Full Catalog</span>
+          <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full border border-white/[0.08] bg-white/[0.03] backdrop-blur-md">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#f97316] animate-pulse" />
+            <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/55">Full Catalog</span>
           </div>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-[-0.03em] mb-6 text-white">
-            Our{" "}
-            <span style={{ background: "linear-gradient(135deg, #f97316, #fb923c)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Products</span>
+          {/* Scan line divider */}
+          <div className="relative h-px w-44 mx-auto mb-7 bg-white/[0.05] overflow-hidden">
+            <div className="absolute inset-y-0 w-24 bg-gradient-to-r from-transparent via-[#f97316]/70 to-transparent" style={{ animation: "heroScan 4s ease-in-out infinite" }} />
+          </div>
+          <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-bold tracking-[-0.04em] leading-[0.95] mb-6">
+            <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Our </span>
+            <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249,115,22,0.3))" }}>Products</span>
           </h1>
-          <p className="text-[17px] text-white/35 max-w-xl mx-auto leading-relaxed">
+          <p className="text-[17px] text-white/55 max-w-xl mx-auto leading-relaxed">
             Premium gaming solutions designed for competitive players.
           </p>
         </div>

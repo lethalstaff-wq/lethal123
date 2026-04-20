@@ -232,20 +232,20 @@ export default function GuidesPage() {
 
           {/* Hero */}
           <div className="text-center mb-14 relative">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[300px] bg-[#f97316]/[0.02] rounded-full blur-[100px] pointer-events-none" />
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/[0.06] bg-white/[0.02] mb-6">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#f97316]" />
-              <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">Guides & Resources</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/[0.08] bg-white/[0.03] backdrop-blur-md mb-6">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#f97316] animate-pulse" />
+              <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/55">Guides &amp; Resources</span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-white">
-              Everything You{" "}
-              <span className="bg-gradient-to-r from-[#f97316] to-[#fb923c] bg-clip-text text-transparent">
-                Need
-              </span>
+            <div className="relative h-px w-44 mx-auto mb-7 bg-white/[0.05] overflow-hidden">
+              <div className="absolute inset-y-0 w-24 bg-gradient-to-r from-transparent via-[#f97316]/70 to-transparent" style={{ animation: "heroScan 4s ease-in-out infinite" }} />
+            </div>
+            <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-bold tracking-[-0.04em] leading-[0.95] mb-6">
+              <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Everything You </span>
+              <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249,115,22,0.3))" }}>Need</span>
             </h1>
-            <p className="text-[15px] text-white/30 max-w-lg mx-auto mb-10 leading-relaxed">
+            <p className="text-[15px] text-white/55 max-w-lg mx-auto mb-10 leading-relaxed">
               Setup guides, downloads, and docs for all products.{" "}
-              <a href="https://discord.gg/lethaldma" target="_blank" className="text-[#f97316]/60 hover:text-[#f97316] transition-colors">
+              <a href="https://discord.gg/lethaldma" target="_blank" className="text-[#f97316]/70 hover:text-[#f97316] transition-colors">
                 Open a Discord ticket
               </a>{" "}
               if you need help.

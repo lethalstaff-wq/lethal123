@@ -181,21 +181,21 @@ export default function FAQPage() {
 
       {/* Hero */}
       <section className="relative pt-32 pb-16 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#f97316]/10 rounded-full blur-[150px] opacity-30" />
-
         <div className="container mx-auto px-4 relative">
           <Breadcrumbs items={[{ label: "FAQ" }]} />
           <div className="max-w-2xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#f97316]/10 border border-primary/20 mb-6">
-              <HelpCircle className="h-4 w-4 text-[#f97316]" />
-              <span className="text-sm font-bold text-[#f97316]">Help Center</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/[0.08] bg-white/[0.03] backdrop-blur-md mb-6">
+              <HelpCircle className="h-3.5 w-3.5 text-[#f97316]" />
+              <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/55">Help Center</span>
             </div>
-
-            <h1 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">
-              Frequently Asked Questions
+            <div className="relative h-px w-44 mx-auto mb-7 bg-white/[0.05] overflow-hidden">
+              <div className="absolute inset-y-0 w-24 bg-gradient-to-r from-transparent via-[#f97316]/70 to-transparent" style={{ animation: "heroScan 4s ease-in-out infinite" }} />
+            </div>
+            <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-bold tracking-[-0.04em] leading-[0.95] mb-6">
+              <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Common </span>
+              <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249,115,22,0.3))" }}>Questions</span>
             </h1>
-            <p className="text-lg text-white/40 mb-8">
+            <p className="text-[17px] text-white/55 max-w-xl mx-auto leading-relaxed mb-8">
               Find answers to common questions about our products and services
             </p>
 
