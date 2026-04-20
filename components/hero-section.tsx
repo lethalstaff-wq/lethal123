@@ -1,8 +1,9 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import { ArrowRight, ChevronDown } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 import { getTotalReviewCount, getOrdersToday } from "@/lib/review-counts"
 import { FALLBACK_STATS } from "@/lib/fallback-stats"
 
@@ -52,34 +53,26 @@ export function HeroSection() {
   }, [])
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0a0a0f]">
+    <section className="relative min-h-[88vh] flex items-center justify-center overflow-hidden bg-black">
       {/* Layered background */}
       <div className="absolute inset-0 z-0" aria-hidden="true">
-        {/* Mesh gradient orbs — drift */}
+        {/* Mesh gradient orbs — subtle on pure black */}
         <div
-          className="absolute top-[-100px] left-[15%] w-[700px] h-[700px] rounded-full opacity-70"
+          className="absolute top-[-120px] left-[12%] w-[780px] h-[780px] rounded-full opacity-50"
           style={{
-            background: "radial-gradient(circle, rgba(249,115,22,0.22) 0%, transparent 60%)",
-            filter: "blur(110px)",
+            background: "radial-gradient(circle, rgba(249,115,22,0.14) 0%, transparent 60%)",
+            filter: "blur(140px)",
             animation: "heroOrb1 42s ease-in-out infinite",
             willChange: "transform",
           }}
         />
         <div
-          className="absolute bottom-[-80px] right-[10%] w-[600px] h-[600px] rounded-full opacity-70"
+          className="absolute bottom-[-100px] right-[8%] w-[680px] h-[680px] rounded-full opacity-50"
           style={{
-            background: "radial-gradient(circle, rgba(234,88,12,0.16) 0%, transparent 60%)",
-            filter: "blur(120px)",
+            background: "radial-gradient(circle, rgba(234,88,12,0.10) 0%, transparent 60%)",
+            filter: "blur(150px)",
             animation: "heroOrb2 58s ease-in-out infinite reverse",
             willChange: "transform",
-          }}
-        />
-        <div
-          className="absolute top-[35%] left-[45%] w-[500px] h-[500px] rounded-full opacity-40"
-          style={{
-            background: "radial-gradient(circle, rgba(139,92,246,0.10) 0%, transparent 60%)",
-            filter: "blur(120px)",
-            animation: "heroOrb3 48s ease-in-out infinite",
           }}
         />
         {/* Dot grid */}
@@ -100,8 +93,8 @@ export function HeroSection() {
               "radial-gradient(ellipse 100% 80% at 50% 40%, transparent 40%, rgba(0,0,0,0.55) 100%)",
           }}
         />
-        {/* Film grain */}
-        <svg className="absolute inset-0 w-full h-full opacity-[0.035] pointer-events-none mix-blend-overlay" aria-hidden="true">
+        {/* Film grain — subtle on black */}
+        <svg className="absolute inset-0 w-full h-full opacity-[0.02] pointer-events-none mix-blend-overlay" aria-hidden="true">
           <filter id="hero-noise">
             <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch" />
             <feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.5 0" />
@@ -111,9 +104,9 @@ export function HeroSection() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 w-full max-w-[1200px] mx-auto px-6 sm:px-10 py-32 lg:py-40 text-center">
+      <div className="relative z-10 w-full max-w-[1200px] mx-auto px-6 sm:px-10 py-24 lg:py-28 text-center">
         {/* Live status pill */}
-        <div className={`mb-10 transition-all duration-700 ${ready ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"}`}>
+        <div className={`mb-6 transition-all duration-700 ${ready ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"}`}>
           <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-white/[0.08] bg-white/[0.03] backdrop-blur-md">
             <span className="relative flex items-center justify-center">
               <span className="absolute w-3 h-3 rounded-full bg-emerald-400/40 animate-ping" />
@@ -129,9 +122,14 @@ export function HeroSection() {
           </div>
         </div>
 
+        {/* Scan line divider */}
+        <div className={`relative h-px w-48 mx-auto mb-8 bg-white/[0.04] overflow-hidden transition-opacity duration-700 ${ready ? "opacity-100" : "opacity-0"}`} style={{ transitionDelay: "100ms" }}>
+          <div className="absolute inset-y-0 w-24 bg-gradient-to-r from-transparent via-[#f97316]/70 to-transparent" style={{ animation: "heroScan 4s ease-in-out infinite" }} />
+        </div>
+
         {/* Headline */}
         <h1
-          className={`font-display text-[clamp(3rem,8vw,8rem)] font-bold tracking-[-0.045em] leading-[0.9] mb-8 transition-all duration-1000 ${
+          className={`font-display text-[clamp(3rem,8vw,7.5rem)] font-bold tracking-[-0.045em] leading-[0.92] mb-8 transition-all duration-1000 ${
             ready ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
           style={{ transitionDelay: "200ms" }}
@@ -202,51 +200,30 @@ export function HeroSection() {
           </Link>
         </div>
 
-        {/* Crypto bar */}
+        {/* Crypto bar — branded icons */}
         <div
           className={`flex items-center justify-center gap-3 text-sm transition-all duration-1000 ${
             ready ? "opacity-100" : "opacity-0"
           }`}
           style={{ transitionDelay: "900ms" }}
         >
-          <span className="text-[10px] text-white/25 uppercase tracking-[0.2em]">Accepted</span>
-          <div className="flex items-center gap-2">
+          <span className="text-[10px] text-white/30 uppercase tracking-[0.2em]">Accepted</span>
+          <div className="flex items-center gap-2.5">
             {[
-              { s: "₿", l: "BTC", c: "#f7931a" },
-              { s: "Ξ", l: "ETH", c: "#627eea" },
-              { s: "Ł", l: "LTC", c: "#a6a9aa" },
-              { s: "₮", l: "USDT", c: "#26a17b" },
+              { src: "/images/icons/bitcoin.svg", l: "Bitcoin" },
+              { src: "/images/icons/ethereum.svg", l: "Ethereum" },
+              { src: "/images/icons/litecoin.svg", l: "Litecoin" },
+              { src: "/images/icons/tether.svg", l: "Tether" },
+              { src: "/images/icons/paypal.svg", l: "PayPal" },
             ].map((c) => (
               <div
                 key={c.l}
                 title={c.l}
-                className="w-8 h-8 rounded-full bg-white/[0.04] border border-white/[0.08] flex items-center justify-center hover:bg-[#f97316]/10 hover:border-[#f97316]/30 transition-colors"
+                className="w-9 h-9 rounded-full bg-white/[0.03] border border-white/[0.08] flex items-center justify-center hover:bg-white/[0.06] hover:border-white/[0.15] hover:scale-110 transition-all"
               >
-                <span className="text-[13px] font-bold" style={{ color: c.c, opacity: 0.8 }}>{c.s}</span>
+                <Image src={c.src} alt={c.l} width={22} height={22} className="w-5 h-5" />
               </div>
             ))}
-            <span className="ml-2 text-[11px] text-white/40">+ PayPal</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Terminal status (desktop only) */}
-      <div className="absolute bottom-28 right-8 hidden lg:block z-10 animate-in fade-in duration-1000 slide-in-from-bottom-4"
-           style={{ animationDelay: "1100ms", animationFillMode: "backwards" }}>
-        <div className="p-4 pr-5 rounded-xl bg-black/55 border border-white/[0.08] backdrop-blur-xl font-mono text-[11px] shadow-2xl">
-          <div className="flex items-center gap-2.5 pb-2.5 mb-2.5 border-b border-white/[0.05]">
-            <div className="flex gap-1.5">
-              <div className="w-[9px] h-[9px] rounded-full bg-red-500/70" />
-              <div className="w-[9px] h-[9px] rounded-full bg-yellow-500/70" />
-              <div className="w-[9px] h-[9px] rounded-full bg-green-500/70" />
-            </div>
-            <span className="text-white/45 text-[10px]">system.status</span>
-          </div>
-          <div className="space-y-[5px]">
-            <div><span className="text-green-400">✓</span> <span className="text-white/50">spoofer:</span> <span className="text-white/90">OPERATIONAL</span></div>
-            <div><span className="text-green-400">✓</span> <span className="text-white/50">dma:</span> <span className="text-white/90">UNDETECTED</span></div>
-            <div><span className="text-green-400">✓</span> <span className="text-white/50">firmware:</span> <span className="text-white/90">ACTIVE</span></div>
-            <div><span className="text-green-400">✓</span> <span className="text-white/50">uptime:</span> <span className="text-[#f97316]">99.8%</span></div>
           </div>
         </div>
       </div>
@@ -254,7 +231,7 @@ export function HeroSection() {
       {/* Scroll indicator */}
       <button
         onClick={() => document.getElementById("products")?.scrollIntoView({ behavior: "smooth" })}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2.5 cursor-pointer group z-10"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer group z-10"
         aria-label="Scroll to products"
       >
         <div className="w-[22px] h-[34px] border-2 border-white/20 rounded-full flex justify-center py-1.5 group-hover:border-[#f97316]/50 transition-colors">
@@ -282,6 +259,10 @@ export function HeroSection() {
           0% { transform: translateY(0); opacity: 1; }
           60% { transform: translateY(12px); opacity: 0; }
           100% { transform: translateY(0); opacity: 0; }
+        }
+        @keyframes heroScan {
+          0%, 100% { transform: translateX(-120%); }
+          50% { transform: translateX(220%); }
         }
       `}</style>
     </section>

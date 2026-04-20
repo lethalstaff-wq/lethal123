@@ -36,10 +36,10 @@ function AnimNum({ value, prefix = "", suffix = "", decimals = 0 }: { value: num
 const features = [
   { icon: Shield, title: "Kernel-Level Dominance", desc: "We operate at the system's deepest level. While others get detected, we stay invisible.", num: 99.8, prefix: "", suffix: "%", label: "undetected" },
   { icon: Zap, title: "Zero-Hour Response", desc: "Game updated? We're already on it. Average patch time under 2 hours.", num: 2, prefix: "<", suffix: "h", label: "patch time" },
-  { icon: Cpu, title: "Ghost Technology", desc: "Every build is unique. Your software has its own signature, making detection impossible.", num: 2400, prefix: "", suffix: "+", label: "unique builds" },
+  { icon: Cpu, title: "Ghost Technology", desc: "Every build is unique. Your software has its own signature, making detection impossible.", num: 2147, prefix: "", suffix: "+", label: "unique builds" },
   { icon: RefreshCw, title: "Live Protection", desc: "Real-time threat detection and automatic updates. Always ahead of anti-cheat.", num: 24, prefix: "", suffix: "/7", label: "monitoring" },
   { icon: Headphones, title: "Elite Support", desc: "Dedicated team on Discord. Screen share setup help. We don't sleep.", num: 5, prefix: "<", suffix: "m", label: "response" },
-  { icon: Globe, title: "Worldwide Network", desc: "Infrastructure on 6 continents. Discreet worldwide operations.", num: 73, prefix: "", suffix: "+", label: "countries" },
+  { icon: Globe, title: "Worldwide Network", desc: "Infrastructure on 6 continents. Discreet worldwide operations.", num: 67, prefix: "", suffix: "+", label: "countries" },
 ]
 
 export function ServicesSection() {

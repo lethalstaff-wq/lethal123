@@ -524,35 +524,12 @@ export default function ApplyPage() {
           1 · HERO
           ═══════════════════════════════════════════════════════════ */}
 
-      <section className="relative min-h-screen flex items-center overflow-hidden bg-[#0a0a0f]">
+      <section className="relative min-h-screen flex items-center overflow-hidden bg-black">
         {/* Aurora background */}
         <div className="absolute inset-0 z-0">
           <div className="lx-aurora lx-a1" />
           <div className="lx-aurora lx-a2" />
           <div className="lx-aurora lx-a3" />
-        </div>
-
-        {/* Floating code snippets */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-[0.05] font-mono text-white select-none z-0 hidden md:block" aria-hidden="true">
-          <pre className="absolute top-[12%] left-[3%] text-[11px] leading-[1.7] lx-float-code" style={{ animationDelay: "0s" }}>
-{`async function deploy() {
-  const status = await checkEAC()
-  if (status.clean) return ship()
-  await patch(); retry()
-}`}
-          </pre>
-          <pre className="absolute top-[60%] left-[2%] text-[11px] leading-[1.7] lx-float-code" style={{ animationDelay: "4s" }}>
-{`// dma.firmware.v7.2
-const spoof = await kernel.inject({
-  target: "EAC",
-  ghost: true,
-})`}
-          </pre>
-          <pre className="absolute top-[18%] right-[4%] text-[11px] leading-[1.7] lx-float-code" style={{ animationDelay: "2s" }}>
-{`git commit -m "ship it"
-git push origin main
-// deploying to prod...`}
-          </pre>
         </div>
 
         <div className="relative z-10 w-full max-w-[1280px] mx-auto px-6 sm:px-10 lg:px-16 py-32 lg:py-40">
@@ -1406,9 +1383,9 @@ git push origin main
 
         /* Aurora */
         .lx-aurora { position: absolute; border-radius: 50%; filter: blur(120px); will-change: transform; }
-        .lx-a1 { width: 800px; height: 600px; top: -200px; right: -100px; background: radial-gradient(circle, rgba(249,115,22,0.06), transparent 70%); animation: aDrift1 20s ease-in-out infinite; }
-        .lx-a2 { width: 600px; height: 500px; bottom: -100px; left: -100px; background: radial-gradient(circle, rgba(168,85,247,0.035), transparent 70%); animation: aDrift2 25s ease-in-out infinite; }
-        .lx-a3 { width: 500px; height: 400px; top: 30%; right: 20%; background: radial-gradient(circle, rgba(255,255,255,0.012), transparent 60%); animation: aDrift3 18s ease-in-out infinite; }
+        .lx-a1 { width: 800px; height: 600px; top: -200px; right: -100px; background: radial-gradient(circle, rgba(249,115,22,0.08), transparent 70%); animation: aDrift1 20s ease-in-out infinite; }
+        .lx-a2 { width: 600px; height: 500px; bottom: -100px; left: -100px; background: radial-gradient(circle, rgba(234,88,12,0.05), transparent 70%); animation: aDrift2 25s ease-in-out infinite; }
+        .lx-a3 { width: 500px; height: 400px; top: 30%; right: 20%; background: radial-gradient(circle, rgba(255,255,255,0.010), transparent 60%); animation: aDrift3 18s ease-in-out infinite; }
         @keyframes aDrift1 { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(-3%,4%) scale(1.05); } 66% { transform: translate(4%,-2%) scale(0.97); } }
         @keyframes aDrift2 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(5%,-3%) scale(1.08); } }
         @keyframes aDrift3 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-4%,5%); } }

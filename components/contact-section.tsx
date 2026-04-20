@@ -14,7 +14,7 @@ export function ContactSection() {
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-[-0.03em] leading-[1.1] mb-4 text-white">
             Join the <span style={{ background: "linear-gradient(135deg, #f97316, #fb923c)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>community</span>
           </h2>
-          <p className="text-white/35 text-[15px] max-w-lg mx-auto">9,200+ members. Get support, share configs, stay ahead.</p>
+          <p className="text-white/35 text-[15px] max-w-lg mx-auto">8,700+ members. Get support, share configs, stay ahead.</p>
         </div>
 
         {/* Discord card */}
@@ -31,7 +31,7 @@ export function ContactSection() {
                   <div className="flex items-center gap-3 mt-1">
                     <span className="flex items-center gap-1.5 text-sm"><span className="w-2 h-2 rounded-full bg-emerald-500/60 animate-pulse" /><span className="text-emerald-400/60 font-medium text-[13px]">3,147 online</span></span>
                     <span className="text-white/10">&bull;</span>
-                    <span className="text-[13px] text-white/25">9,248 members</span>
+                    <span className="text-[13px] text-white/25">8,734 members</span>
                   </div>
                 </div>
               </div>
