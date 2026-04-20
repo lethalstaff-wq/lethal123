@@ -246,13 +246,13 @@ export default function ReviewsPage() {
           {/* Filter Bar */}
           <div className="flex flex-col sm:flex-row gap-3 mb-4">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/30" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/55" />
               <input
                 type="text"
                 placeholder="Search reviews..."
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
-                className="w-full pl-9 pr-4 py-2.5 bg-white/[0.015] border border-white/[0.05] rounded-xl text-white text-sm placeholder:text-white/20 outline-none focus:border-white/[0.1] transition-colors"
+                className="w-full pl-9 pr-4 py-2.5 bg-white/[0.015] border border-white/[0.05] rounded-xl text-white text-sm placeholder:text-white/45 outline-none focus:border-white/[0.1] transition-colors"
               />
             </div>
             <div className="relative" ref={prodRef}>
@@ -327,8 +327,8 @@ export default function ReviewsPage() {
           {/* Reviews Grid */}
           {visibleReviews.length === 0 ? (
             <div className="text-center py-20">
-              <Search className="h-12 w-12 text-white/30 mx-auto mb-4" />
-              <p className="text-lg text-white/30">No reviews match your filters</p>
+              <Search className="h-12 w-12 text-white/55 mx-auto mb-4" />
+              <p className="text-lg text-white/55">No reviews match your filters</p>
               <button onClick={clearFilters} className="mt-4 px-5 py-2 rounded-xl border border-white/[0.04] bg-white/[0.02] text-sm text-white/50 hover:bg-white/[0.04] transition-colors">Clear Filters</button>
             </div>
           ) : (
@@ -411,7 +411,7 @@ export default function ReviewsPage() {
               </div>
             )}
             {!hasMore && visibleReviews.length > 0 && (
-              <p className="text-sm text-white/30">
+              <p className="text-sm text-white/55">
                 Showing all {hasActiveFilters ? filteredReviews.length.toLocaleString() : totalDisplay.toLocaleString()} reviews
               </p>
             )}

@@ -155,7 +155,7 @@ export default function ProfilePage() {
 
   if (loading) {
     return (
-      <main className="min-h-screen bg-black flex items-center justify-center">
+      <main className="min-h-screen bg-transparent flex items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin text-[#f97316]" />
       </main>
     )
@@ -177,7 +177,7 @@ export default function ProfilePage() {
   ]
 
   return (
-    <main className="min-h-screen bg-black">
+    <main className="min-h-screen bg-transparent">
       <Navbar />
 
       <section className="pt-28 md:pt-32 pb-16 px-4 sm:px-6">
@@ -407,7 +407,7 @@ function QuickLink({
         <p className="text-sm font-bold text-white">{label}</p>
         <p className="text-xs text-white/40 mt-0.5 truncate">{description}</p>
       </div>
-      <ExternalLink className="h-3.5 w-3.5 text-white/20 group-hover:text-white/40 transition-colors" />
+      <ExternalLink className="h-3.5 w-3.5 text-white/45 group-hover:text-white/40 transition-colors" />
     </div>
   )
   return external ? (
@@ -432,7 +432,7 @@ function EmptyState({
 }) {
   return (
     <div className="text-center py-16 rounded-2xl border border-white/[0.06] bg-white/[0.012]">
-      <Icon className="h-12 w-12 text-white/20 mx-auto mb-4" />
+      <Icon className="h-12 w-12 text-white/45 mx-auto mb-4" />
       <p className="text-white/70 font-semibold mb-1">{title}</p>
       <p className="text-xs text-white/40 mb-5 max-w-sm mx-auto leading-relaxed">{description}</p>
       <Link href={ctaHref}>

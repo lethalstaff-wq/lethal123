@@ -6,7 +6,7 @@ export const metadata = {
 
 export default function KeeperPage() {
   return (
-    <main className="min-h-screen bg-black">
+    <main className="min-h-screen bg-transparent">
       <KeeperDashboard />
     </main>
   )

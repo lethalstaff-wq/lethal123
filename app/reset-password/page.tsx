@@ -49,7 +49,7 @@ export default function ResetPasswordPage() {
   return (
     <>
       <Navbar />
-      <main className="flex min-h-screen flex-col items-center justify-center bg-black px-4 pb-20 pt-32">
+      <main className="flex min-h-screen flex-col items-center justify-center bg-transparent px-4 pb-20 pt-32">
         <div className="w-full max-w-md">
           {/* Badge */}
           <div className="flex justify-center mb-6">

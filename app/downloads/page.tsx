@@ -143,7 +143,7 @@ export default function DownloadsPage() {
                   value={searchValue}
                   onChange={(e) => setSearchValue(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                  className="h-14 rounded-xl bg-white/[0.015] border border-white/[0.05] text-white placeholder:text-white/20"
+                  className="h-14 rounded-xl bg-white/[0.015] border border-white/[0.05] text-white placeholder:text-white/45"
                 />
                 <button
                   onClick={handleSearch}
@@ -321,7 +321,7 @@ export default function DownloadsPage() {
           <div className="container mx-auto px-4">
             <div className="max-w-md mx-auto text-center py-12">
               <div className="w-20 h-20 rounded-full bg-white/[0.04] flex items-center justify-center mx-auto mb-6">
-                <Key className="h-10 w-10 text-white/20" />
+                <Key className="h-10 w-10 text-white/45" />
               </div>
               <h3 className="text-xl font-bold text-white mb-2">Enter Your License</h3>
               <p className="text-white/40">

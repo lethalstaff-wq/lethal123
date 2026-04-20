@@ -224,7 +224,7 @@ export function DashboardClient({ user, orders, totalSpent, activeLicenses, memb
                 <div className="p-6">
                   {orders.length === 0 ? (
                     <div className="text-center py-12">
-                      <ShoppingBag className="h-16 w-16 mx-auto mb-4 text-white/20" />
+                      <ShoppingBag className="h-16 w-16 mx-auto mb-4 text-white/45" />
                       <p className="text-lg font-medium mb-2 text-white">No orders yet</p>
                       <p className="text-sm mb-6 text-white/40">Your purchases will appear here once you make your first order.</p>
                       <Link href="/products">
@@ -275,7 +275,7 @@ export function DashboardClient({ user, orders, totalSpent, activeLicenses, memb
                 <div className="p-6">
                   {activeLicenses.length === 0 ? (
                     <div className="text-center py-12">
-                      <Key className="h-16 w-16 mx-auto mb-4 text-white/20" />
+                      <Key className="h-16 w-16 mx-auto mb-4 text-white/45" />
                       <p className="text-lg font-medium mb-2 text-white">No active licenses</p>
                       <p className="text-sm text-white/40">Purchase a product to receive your license key.</p>
                     </div>
@@ -404,7 +404,7 @@ export function DashboardClient({ user, orders, totalSpent, activeLicenses, memb
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-medium text-white/50">Discord Username</label>
-                    <Input placeholder="Enter your Discord username" className="bg-white/[0.015] border border-white/[0.05] text-white rounded-xl placeholder:text-white/20" />
+                    <Input placeholder="Enter your Discord username" className="bg-white/[0.015] border border-white/[0.05] text-white rounded-xl placeholder:text-white/45" />
                     <p className="text-xs text-white/40">Link your Discord for faster support</p>
                   </div>
                   <div className="pt-4 border-t border-white/[0.04]">

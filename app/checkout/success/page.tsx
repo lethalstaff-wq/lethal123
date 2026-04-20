@@ -13,7 +13,7 @@ function DiscordIcon({ className }: { className?: string }) {
 
 export default function CheckoutSuccessPage() {
   return (
-    <main className="flex min-h-screen flex-col bg-black">
+    <main className="flex min-h-screen flex-col bg-transparent">
       <Navbar />
 
       <section className="flex-1 flex items-center justify-center py-20 px-4">

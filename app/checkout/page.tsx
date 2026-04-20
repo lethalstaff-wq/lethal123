@@ -271,7 +271,7 @@ export default function CheckoutPage() {
               {item.variant.product?.image ? (
                 <Image src={item.variant.product.image} alt="" width={48} height={48} className="object-contain" />
               ) : (
-                <Package className="w-5 h-5 text-white/20" />
+                <Package className="w-5 h-5 text-white/45" />
               )}
             </div>
             <div className="flex-1 min-w-0">
@@ -305,15 +305,15 @@ export default function CheckoutPage() {
 
       {/* Trust badges */}
       <div className="mt-6 pt-4 border-t border-white/[0.06] space-y-2">
-        <div className="flex items-center gap-2 text-xs text-white/30">
+        <div className="flex items-center gap-2 text-xs text-white/55">
           <Lock className="h-3 w-3 text-[#f97316]/60" />
           <span>Secure &amp; encrypted checkout</span>
         </div>
-        <div className="flex items-center gap-2 text-xs text-white/30">
+        <div className="flex items-center gap-2 text-xs text-white/55">
           <Zap className="h-3 w-3 text-[#f97316]/60" />
           <span>Instant digital delivery</span>
         </div>
-        <div className="flex items-center gap-2 text-xs text-white/30">
+        <div className="flex items-center gap-2 text-xs text-white/55">
           <Shield className="h-3 w-3 text-[#f97316]/60" />
           <span>Buyer protection guaranteed</span>
         </div>
@@ -324,14 +324,14 @@ export default function CheckoutPage() {
   /* ---- EMPTY CART ---- */
   if (items.length === 0 && step !== "confirming" && step !== "done") {
     return (
-      <main className="flex min-h-screen flex-col bg-black">
+      <main className="flex min-h-screen flex-col bg-transparent">
         <Navbar />
         <section className="flex-1 flex items-center justify-center px-4 py-32">
           <div className="text-center max-w-md">
             <div className="relative mx-auto w-24 h-24 mb-8">
               <div className="absolute inset-0 rounded-3xl bg-[#f97316]/10 blur-xl animate-pulse" />
               <div className="relative w-24 h-24 rounded-3xl bg-white/[0.012] border border-white/[0.04] flex items-center justify-center">
-                <Package className="w-10 h-10 text-white/20" />
+                <Package className="w-10 h-10 text-white/45" />
               </div>
             </div>
             <h1 className="text-3xl font-bold text-white/90 mb-3 tracking-tight">Your cart is <span className="text-[#f97316]">empty</span></h1>
@@ -349,7 +349,7 @@ export default function CheckoutPage() {
   /* ---- CONFIRMING / DONE ---- */
   if (step === "confirming" || step === "done") {
     return (
-      <main className="flex min-h-screen flex-col bg-black">
+      <main className="flex min-h-screen flex-col bg-transparent">
         <Navbar />
         <section className="flex-1 flex items-center justify-center px-4 py-16">
           <div className="max-w-lg w-full">
@@ -403,7 +403,7 @@ export default function CheckoutPage() {
                   {/* Order ID badge */}
                   <div className="px-8 pb-6">
                     <div className="flex items-center justify-center gap-3 px-6 py-4 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
-                      <span className="text-xs text-white/30 uppercase tracking-widest font-medium">Order</span>
+                      <span className="text-xs text-white/55 uppercase tracking-widest font-medium">Order</span>
                       <span className="font-mono font-black text-lg text-white tracking-wider">{orderId}</span>
                     </div>
                   </div>
@@ -427,11 +427,11 @@ export default function CheckoutPage() {
                           )}>
                             {s.done ? <CheckCircle2 className="h-5 w-5 text-emerald-500" /> :
                              s.active ? <s.icon className="h-5 w-5 text-[#f97316] animate-spin" /> :
-                             <s.icon className="h-5 w-5 text-white/20" />}
+                             <s.icon className="h-5 w-5 text-white/45" />}
                           </div>
                           <span className={cn(
                             "text-sm font-medium",
-                            s.done ? "text-white/90" : s.active ? "text-[#f97316] font-bold" : "text-white/20"
+                            s.done ? "text-white/90" : s.active ? "text-[#f97316] font-bold" : "text-white/45"
                           )}>
                             {s.label}
                             {s.active && <span className="text-[#f97316]/60 ml-1">...</span>}
@@ -490,7 +490,7 @@ export default function CheckoutPage() {
                     {discordUser && <p>{"Discord: "}<span className="text-white/90 font-semibold">{discordUser}</span></p>}
                   </div>
 
-                  <p className="text-xs text-white/20 leading-relaxed px-4">
+                  <p className="text-xs text-white/45 leading-relaxed px-4">
                     {"Save your order ID. Join our Discord for updates and support."}
                   </p>
 
@@ -521,7 +521,7 @@ export default function CheckoutPage() {
   const cryptoAmount = getCryptoAmount(selectedCrypto.id, finalTotal)
 
   return (
-    <main className="flex min-h-screen flex-col bg-black">
+    <main className="flex min-h-screen flex-col bg-transparent">
       <Navbar />
 
       <section className="flex-1 pt-28 pb-16 px-4 sm:px-6 lg:px-8">
@@ -544,7 +544,7 @@ export default function CheckoutPage() {
                 <span className="hidden sm:inline font-medium">Back to Details</span>
               </button>
             )}
-            <div className="flex items-center gap-2 text-xs text-white/20 bg-white/[0.02] border border-white/[0.04] px-3 py-1.5 rounded-full">
+            <div className="flex items-center gap-2 text-xs text-white/45 bg-white/[0.02] border border-white/[0.04] px-3 py-1.5 rounded-full">
               <Lock className="h-3 w-3" />
               <span className="hidden sm:inline">Encrypted &amp; Secure</span>
             </div>
@@ -563,9 +563,9 @@ export default function CheckoutPage() {
             <div className="flex-1 h-px bg-white/[0.06] relative">
               <div className={`absolute inset-y-0 left-0 bg-[#f97316] transition-all duration-500 ${step !== "form" ? "w-full" : "w-0"}`} />
             </div>
-            <div className={`flex items-center gap-2 ${step !== "form" ? "text-[#f97316]" : "text-white/30"}`}>
+            <div className={`flex items-center gap-2 ${step !== "form" ? "text-[#f97316]" : "text-white/55"}`}>
               <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${
-                step !== "form" ? "bg-[#f97316] text-white" : "bg-white/[0.04] text-white/30"
+                step !== "form" ? "bg-[#f97316] text-white" : "bg-white/[0.04] text-white/55"
               }`}>2</div>
               <span className="text-sm font-semibold">Send Payment</span>
             </div>
@@ -609,7 +609,7 @@ export default function CheckoutPage() {
                           onBlur={() => setEmailTouched(true)}
                           placeholder="your@email.com"
                           className={cn(
-                            "w-full h-12 px-4 rounded-xl bg-white/[0.015] border text-sm text-white placeholder:text-white/20 focus:outline-none focus:ring-1 focus:ring-[#f97316]/20 transition-all",
+                            "w-full h-12 px-4 rounded-xl bg-white/[0.015] border text-sm text-white placeholder:text-white/45 focus:outline-none focus:ring-1 focus:ring-[#f97316]/20 transition-all",
                             emailTouched && !email.trim().includes("@")
                               ? "border-red-500/40 focus:border-red-500"
                               : "border-white/[0.05] focus:border-[#f97316]"
@@ -618,29 +618,29 @@ export default function CheckoutPage() {
                         {emailTouched && !email.trim().includes("@") ? (
                           <p className="text-[11px] text-red-400 mt-2 flex items-center gap-1"><AlertTriangle className="w-3 h-3" /> Please enter a valid email</p>
                         ) : (
-                          <p className="text-[11px] text-white/30 mt-2 flex items-center gap-1"><Zap className="h-3 w-3 text-[#f97316]/60" /> License key delivered instantly</p>
+                          <p className="text-[11px] text-white/55 mt-2 flex items-center gap-1"><Zap className="h-3 w-3 text-[#f97316]/60" /> License key delivered instantly</p>
                         )}
                       </div>
                       <div>
                         <label className="text-[11px] font-semibold uppercase tracking-widest text-white/40 mb-2 flex items-center gap-1.5">
-                          <DiscordIcon className="w-3.5 h-3.5" /> Discord <span className="text-white/20 font-normal normal-case tracking-normal">(optional)</span>
+                          <DiscordIcon className="w-3.5 h-3.5" /> Discord <span className="text-white/45 font-normal normal-case tracking-normal">(optional)</span>
                         </label>
                         <input
                           type="text" value={discordUser} onChange={(e) => setDiscordUser(e.target.value)}
                           placeholder="username"
-                          className="w-full h-12 px-4 rounded-xl bg-white/[0.015] border border-white/[0.05] text-sm text-white placeholder:text-white/20 focus:outline-none focus:border-[#f97316] focus:ring-1 focus:ring-[#f97316]/20 transition-all"
+                          className="w-full h-12 px-4 rounded-xl bg-white/[0.015] border border-white/[0.05] text-sm text-white placeholder:text-white/45 focus:outline-none focus:border-[#f97316] focus:ring-1 focus:ring-[#f97316]/20 transition-all"
                         />
                       </div>
                       <div>
                         <label className="text-[11px] font-semibold uppercase tracking-widest text-white/40 mb-2 block">
-                          Order Notes <span className="text-white/20 font-normal normal-case tracking-normal">(optional)</span>
+                          Order Notes <span className="text-white/45 font-normal normal-case tracking-normal">(optional)</span>
                         </label>
                         <textarea
                           value={orderNotes}
                           onChange={(e) => setOrderNotes(e.target.value)}
                           placeholder="Any special requests..."
                           rows={2}
-                          className="w-full px-4 py-3 rounded-xl bg-white/[0.015] border border-white/[0.05] text-sm text-white placeholder:text-white/20 focus:outline-none focus:border-[#f97316] resize-none"
+                          className="w-full px-4 py-3 rounded-xl bg-white/[0.015] border border-white/[0.05] text-sm text-white placeholder:text-white/45 focus:outline-none focus:border-[#f97316] resize-none"
                         />
                       </div>
                     </div>
@@ -726,7 +726,7 @@ export default function CheckoutPage() {
                     <div className="rounded-2xl border border-[#003087]/20 bg-[#003087]/5 p-5">
                       <p className="text-sm font-bold mb-3 flex items-center gap-2 text-white/90"><DiscordIcon className="w-4 h-4" /> Discord Username Required</p>
                       <input type="text" value={discordUser} onChange={(e) => setDiscordUser(e.target.value)} placeholder="Enter Discord username"
-                        className="w-full h-12 px-4 rounded-xl bg-white/[0.015] border border-[#003087]/15 text-sm text-white placeholder:text-white/20 focus:outline-none focus:ring-1 focus:ring-[#003087]/20 transition-all" />
+                        className="w-full h-12 px-4 rounded-xl bg-white/[0.015] border border-[#003087]/15 text-sm text-white placeholder:text-white/45 focus:outline-none focus:ring-1 focus:ring-[#003087]/20 transition-all" />
                     </div>
                   )}
 
@@ -743,7 +743,7 @@ export default function CheckoutPage() {
                           <p className="text-sm font-black text-[#f97316]">{appliedCoupon.code}</p>
                           <p className="text-[11px] text-[#f97316]/60">{appliedCoupon.percent}% discount applied</p>
                         </div>
-                        <button onClick={() => { setAppliedCoupon(null); setCouponCode("") }} className="p-1.5 hover:bg-white/[0.04] rounded-lg transition-colors"><X className="h-4 w-4 text-white/30" /></button>
+                        <button onClick={() => { setAppliedCoupon(null); setCouponCode("") }} className="p-1.5 hover:bg-white/[0.04] rounded-lg transition-colors"><X className="h-4 w-4 text-white/55" /></button>
                       </div>
                     ) : (
                       <div className="flex gap-2">
@@ -751,7 +751,7 @@ export default function CheckoutPage() {
                           onChange={(e) => { setCouponCode(e.target.value); setCouponError("") }}
                           onKeyDown={(e) => e.key === "Enter" && applyCoupon()}
                           placeholder="Enter code"
-                          className="flex-1 h-11 px-4 rounded-xl bg-white/[0.015] border border-white/[0.05] text-sm font-mono text-white placeholder:text-white/20 focus:outline-none focus:border-[#f97316] transition-all" />
+                          className="flex-1 h-11 px-4 rounded-xl bg-white/[0.015] border border-white/[0.05] text-sm font-mono text-white placeholder:text-white/45 focus:outline-none focus:border-[#f97316] transition-all" />
                         <button onClick={applyCoupon}
                           className="px-5 h-11 rounded-xl bg-white/[0.04] border border-white/[0.06] text-sm font-semibold text-white/60 hover:bg-white/[0.08] hover:text-white/90 transition-all">
                           Apply
@@ -782,7 +782,7 @@ export default function CheckoutPage() {
                               <span className="text-[#f97316] font-bold">{"£"}25</span>{" "}
                               <span className="text-emerald-400 text-[10px]">save 28%</span>
                             </p>
-                            <p className="text-[10px] text-white/20">67% of buyers add this</p>
+                            <p className="text-[10px] text-white/45">67% of buyers add this</p>
                           </div>
                         </div>
                         <button
@@ -825,43 +825,43 @@ export default function CheckoutPage() {
                           value={shipping.fullName}
                           onChange={(e) => setShipping((s) => ({ ...s, fullName: e.target.value }))}
                           placeholder="Full name"
-                          className="sm:col-span-2 h-10 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 text-sm text-white placeholder:text-white/25 outline-none focus:border-[#f97316]/40"
+                          className="sm:col-span-2 h-10 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 text-sm text-white placeholder:text-white/55 outline-none focus:border-[#f97316]/40"
                         />
                         <input
                           value={shipping.line1}
                           onChange={(e) => setShipping((s) => ({ ...s, line1: e.target.value }))}
                           placeholder="Address line 1"
-                          className="sm:col-span-2 h-10 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 text-sm text-white placeholder:text-white/25 outline-none focus:border-[#f97316]/40"
+                          className="sm:col-span-2 h-10 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 text-sm text-white placeholder:text-white/55 outline-none focus:border-[#f97316]/40"
                         />
                         <input
                           value={shipping.line2}
                           onChange={(e) => setShipping((s) => ({ ...s, line2: e.target.value }))}
                           placeholder="Apartment, suite (optional)"
-                          className="sm:col-span-2 h-10 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 text-sm text-white placeholder:text-white/25 outline-none focus:border-[#f97316]/40"
+                          className="sm:col-span-2 h-10 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 text-sm text-white placeholder:text-white/55 outline-none focus:border-[#f97316]/40"
                         />
                         <input
                           value={shipping.city}
                           onChange={(e) => setShipping((s) => ({ ...s, city: e.target.value }))}
                           placeholder="City"
-                          className="h-10 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 text-sm text-white placeholder:text-white/25 outline-none focus:border-[#f97316]/40"
+                          className="h-10 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 text-sm text-white placeholder:text-white/55 outline-none focus:border-[#f97316]/40"
                         />
                         <input
                           value={shipping.postalCode}
                           onChange={(e) => setShipping((s) => ({ ...s, postalCode: e.target.value }))}
                           placeholder="Postal code"
-                          className="h-10 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 text-sm text-white placeholder:text-white/25 outline-none focus:border-[#f97316]/40"
+                          className="h-10 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 text-sm text-white placeholder:text-white/55 outline-none focus:border-[#f97316]/40"
                         />
                         <input
                           value={shipping.country}
                           onChange={(e) => setShipping((s) => ({ ...s, country: e.target.value }))}
                           placeholder="Country"
-                          className="h-10 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 text-sm text-white placeholder:text-white/25 outline-none focus:border-[#f97316]/40"
+                          className="h-10 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 text-sm text-white placeholder:text-white/55 outline-none focus:border-[#f97316]/40"
                         />
                         <input
                           value={shipping.phone}
                           onChange={(e) => setShipping((s) => ({ ...s, phone: e.target.value }))}
                           placeholder="Phone (for courier)"
-                          className="h-10 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 text-sm text-white placeholder:text-white/25 outline-none focus:border-[#f97316]/40"
+                          className="h-10 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 text-sm text-white placeholder:text-white/55 outline-none focus:border-[#f97316]/40"
                         />
                       </div>
                     </div>
@@ -898,7 +898,7 @@ export default function CheckoutPage() {
                       {agreedTos && <Check className="h-3 w-3 text-white" />}
                     </div>
                     <input type="checkbox" checked={agreedTos} onChange={(e) => setAgreedTos(e.target.checked)} className="sr-only" />
-                    <span className="text-xs text-white/30 leading-relaxed">
+                    <span className="text-xs text-white/55 leading-relaxed">
                       {"I agree to the Terms of Service. All sales are final. Products are delivered digitally."}
                     </span>
                   </label>
@@ -949,18 +949,18 @@ export default function CheckoutPage() {
 
                       {/* Amount */}
                       <div className="rounded-xl bg-white/[0.02] border border-white/[0.04] p-5 text-center mb-6">
-                        <p className="text-[10px] uppercase tracking-widest text-white/30 mb-1">Amount Due</p>
+                        <p className="text-[10px] uppercase tracking-widest text-white/55 mb-1">Amount Due</p>
                         <p className="text-3xl font-black text-white">
                           {cryptoAmount} <span className="text-lg text-white/40">{selectedCrypto.ticker}</span>
                         </p>
-                        <p className="text-[11px] text-white/30 mt-1.5">
+                        <p className="text-[11px] text-white/55 mt-1.5">
                           Rate locked at {cryptoRates[RATE_KEY_MAP[selectedCrypto.id]]?.toLocaleString("en-US", { maximumFractionDigits: 2 })} USD
                         </p>
                         <button onClick={() => copyToClipboard(cryptoAmount || "", "amount")}
                           className={cn("mt-3 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all",
                             copiedField === "amount" ? "bg-emerald-500/15 text-emerald-400" : "bg-white/[0.04] text-white/40 hover:text-white/90 hover:bg-white/[0.08]"
                           )}>{copiedField === "amount" ? <><Check className="h-3 w-3" /> Copied</> : <><Copy className="h-3 w-3" /> Copy Amount</>}</button>
-                        <div className="mt-3 flex items-center justify-center gap-2 text-[10.5px] text-white/30">
+                        <div className="mt-3 flex items-center justify-center gap-2 text-[10.5px] text-white/55">
                           <RefreshCw className={cn("h-3 w-3", ratesLoading && "animate-spin")} />
                           <span>
                             {ratesLoading ? "Refreshing rate…" : <>Auto-refresh in <span className="text-white/60 font-mono">{ratesNextRefresh}s</span></>}
@@ -978,7 +978,7 @@ export default function CheckoutPage() {
 
                       {/* Wallet Address */}
                       <div className="mb-6">
-                        <p className="text-[10px] uppercase tracking-widest text-white/30 mb-2">Wallet Address</p>
+                        <p className="text-[10px] uppercase tracking-widest text-white/55 mb-2">Wallet Address</p>
                         <button
                           onClick={() => copyToClipboard(selectedCrypto.address, "wallet")}
                           className={cn(
@@ -1012,7 +1012,7 @@ export default function CheckoutPage() {
                       </button>
 
                       <button onClick={() => { setStep("form"); setTimeLeft(TIMER_SECONDS) }}
-                        className="w-full text-center mt-3 text-sm text-white/30 hover:text-[#f97316] transition-colors">
+                        className="w-full text-center mt-3 text-sm text-white/55 hover:text-[#f97316] transition-colors">
                         Change payment method
                       </button>
                     </div>
@@ -1030,7 +1030,7 @@ export default function CheckoutPage() {
                       </div>
 
                       <div className="rounded-xl bg-white/[0.02] border border-white/[0.04] p-5 text-center mb-6">
-                        <p className="text-[10px] uppercase tracking-widest text-white/30 mb-1">Send To</p>
+                        <p className="text-[10px] uppercase tracking-widest text-white/55 mb-1">Send To</p>
                         <p className="text-lg font-bold text-white/90">{PAYPAL_EMAIL}</p>
                         <button onClick={() => copyToClipboard(PAYPAL_EMAIL, "paypal")}
                           className={cn("mt-2 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all",
@@ -1039,7 +1039,7 @@ export default function CheckoutPage() {
                       </div>
 
                       <div className="rounded-xl bg-white/[0.02] border border-white/[0.04] p-5 text-center mb-6">
-                        <p className="text-[10px] uppercase tracking-widest text-white/30 mb-1">Amount</p>
+                        <p className="text-[10px] uppercase tracking-widest text-white/55 mb-1">Amount</p>
                         <p className="text-3xl font-black text-white">{"£"}{finalTotal.toFixed(2)}</p>
                       </div>
 
@@ -1057,7 +1057,7 @@ export default function CheckoutPage() {
                       </button>
 
                       <button onClick={() => { setStep("form"); setTimeLeft(TIMER_SECONDS) }}
-                        className="w-full text-center mt-3 text-sm text-white/30 hover:text-[#f97316] transition-colors">
+                        className="w-full text-center mt-3 text-sm text-white/55 hover:text-[#f97316] transition-colors">
                         Change payment method
                       </button>
                     </div>
@@ -1071,9 +1071,9 @@ export default function CheckoutPage() {
               <div className="lg:sticky lg:top-24">
                 <div className="rounded-2xl border border-white/[0.04] bg-white/[0.012] p-6">
                   <div className="flex items-center gap-2 mb-5">
-                    <Package className="h-4 w-4 text-white/30" />
+                    <Package className="h-4 w-4 text-white/55" />
                     <h3 className="text-base font-bold text-white/90">Order Summary</h3>
-                    <span className="ml-auto text-xs text-white/30 font-mono">{orderId}</span>
+                    <span className="ml-auto text-xs text-white/55 font-mono">{orderId}</span>
                   </div>
                   <OrderSummaryContent />
                 </div>

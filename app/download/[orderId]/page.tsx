@@ -4,7 +4,7 @@ import { DownloadContent } from "./download-content"
 
 export default function DownloadPage({ params }: { params: { orderId: string } }) {
   return (
-    <main className="flex min-h-screen flex-col bg-black">
+    <main className="flex min-h-screen flex-col bg-transparent">
       <Navbar />
       <DownloadContent orderId={params.orderId} />
       <Footer />
