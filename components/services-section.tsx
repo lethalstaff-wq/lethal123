@@ -59,30 +59,36 @@ export function ServicesSection() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {features.map((f, i) => (
-            <div key={i} className="group p-7 rounded-2xl bg-white/[0.022] border border-white/[0.06] backdrop-blur-xl hover:border-[#f97316]/30 hover:bg-white/[0.04] transition-all duration-300 relative overflow-hidden hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(0,0,0,0.5),0_0_44px_rgba(249,115,22,0.12)]">
+            <div key={i} className="group p-7 rounded-2xl bg-white/[0.025] border border-white/[0.07] backdrop-blur-xl hover:border-[#f97316]/35 hover:bg-white/[0.045] transition-all duration-300 relative overflow-hidden hover:-translate-y-1.5 hover:shadow-[0_28px_70px_rgba(0,0,0,0.55),0_0_50px_rgba(249,115,22,0.14)]">
+              {/* Top gradient accent line — always visible, subtle */}
+              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f97316]/15 to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
               {/* Shine */}
-              <div className="absolute top-[-50%] left-[-80%] w-[50%] h-[200%] bg-gradient-to-r from-transparent via-white/[0.03] to-transparent rotate-[25deg] group-hover:left-[130%] transition-[left] duration-700 pointer-events-none z-10" />
-              {/* Hover glow */}
-              <div className="absolute top-0 right-0 w-[260px] h-[260px] rounded-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700" style={{ background: "radial-gradient(circle, rgba(249,115,22,0.10), transparent 70%)", transform: "translate(35%, -35%)" }} />
+              <div className="absolute top-[-50%] left-[-80%] w-[50%] h-[200%] bg-gradient-to-r from-transparent via-white/[0.04] to-transparent rotate-[25deg] group-hover:left-[130%] transition-[left] duration-700 pointer-events-none z-10" />
+              {/* Hover glow — corner orange */}
+              <div className="absolute top-0 right-0 w-[260px] h-[260px] rounded-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700" style={{ background: "radial-gradient(circle, rgba(249,115,22,0.14), transparent 70%)", transform: "translate(35%, -35%)" }} />
+              {/* Big faded number background */}
+              <div className="absolute -top-3 -left-2 text-[120px] font-black leading-none pointer-events-none select-none opacity-[0.025] group-hover:opacity-[0.05] transition-opacity duration-500 font-display text-[#f97316]">
+                {(i + 1).toString().padStart(2, "0")}
+              </div>
 
               <div className="relative z-[2]">
                 <div className="flex items-center justify-between mb-5">
-                  <div className="w-11 h-11 rounded-xl flex items-center justify-center border border-white/[0.06] bg-white/[0.02] group-hover:bg-[#f97316]/10 group-hover:border-[#f97316]/30 group-hover:scale-110 transition-all duration-500" style={{ filter: "drop-shadow(0 0 0 transparent)" }}>
-                    <f.icon className="h-[18px] w-[18px] text-white/35 group-hover:text-[#f97316] transition-colors duration-500" style={{ filter: "drop-shadow(0 0 12px rgba(249,115,22,0))" }} />
+                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center border border-white/[0.06] bg-white/[0.02] group-hover:bg-gradient-to-br group-hover:from-[#f97316]/25 group-hover:to-[#ea580c]/15 group-hover:border-[#f97316]/35 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
+                    <f.icon className="h-[20px] w-[20px] text-white/45 group-hover:text-[#f97316] transition-all duration-500" style={{ filter: "drop-shadow(0 0 0 transparent)" }} />
                   </div>
                   <div className="text-right">
-                    <p className="font-display text-[22px] font-bold tracking-tight" style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(200,200,210,0.75))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                    <p className="font-display text-[28px] font-black tracking-[-0.02em] leading-none" style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(200,200,210,0.7))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
                       <AnimNum value={f.num} prefix={f.prefix} suffix={f.suffix} decimals={f.num === 99.8 ? 1 : 0} />
                     </p>
-                    <p className="text-[9px] text-white/25 uppercase tracking-[0.15em] mt-0.5">{f.label}</p>
+                    <p className="text-[9px] text-[#f97316]/70 group-hover:text-[#f97316] uppercase tracking-[0.18em] mt-1.5 font-bold transition-colors">{f.label}</p>
                   </div>
                 </div>
-                <h4 className="font-display font-bold text-[16px] mb-2 text-white/95 group-hover:text-white transition-colors tracking-tight">{f.title}</h4>
-                <p className="text-[13px] text-white/40 leading-[1.65] group-hover:text-white/55 transition-colors">{f.desc}</p>
+                <h4 className="font-display font-bold text-[17px] mb-2 text-white tracking-tight">{f.title}</h4>
+                <p className="text-[13px] text-white/55 leading-[1.65] group-hover:text-white/70 transition-colors">{f.desc}</p>
               </div>
 
               {/* Bottom accent on hover */}
-              <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f97316]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+              <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f97316]/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
             </div>
           ))}
         </div>

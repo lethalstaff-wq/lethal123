@@ -23,41 +23,38 @@ export function ProcessSection() {
           <p className="text-white/45 text-[15px]">Checkout to gameplay in under 4 minutes.</p>
         </div>
 
-        {/* Animated SVG connector line (desktop) */}
+        {/* Connector line — runs between consecutive badge centers */}
         <div className="relative">
-          <svg className="absolute top-[60px] left-[16.66%] right-[16.66%] h-1 hidden md:block pointer-events-none" viewBox="0 0 100 1" preserveAspectRatio="none" aria-hidden="true">
-            <defs>
-              <linearGradient id="proc-flow" x1="0%" y1="0" x2="100%" y2="0">
-                <stop offset="0%" stopColor="rgba(249,115,22,0)" />
-                <stop offset="50%" stopColor="rgba(249,115,22,0.6)" />
-                <stop offset="100%" stopColor="rgba(249,115,22,0)" />
-                <animateTransform attributeName="gradientTransform" type="translate" from="-1 0" to="1 0" dur="3.5s" repeatCount="indefinite" />
-              </linearGradient>
-            </defs>
-            <line x1="0" y1="0.5" x2="100" y2="0.5" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
-            <line x1="0" y1="0.5" x2="100" y2="0.5" stroke="url(#proc-flow)" strokeWidth="1" />
-          </svg>
-
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 relative">
             {steps.map((s, i) => (
               <div key={i} className="group relative">
+                {/* Connector segment to next badge (renders to right of all badges except last) */}
+                {i < steps.length - 1 && (
+                  <div className="hidden md:block absolute top-[60px] left-[calc(50%+62px)] right-[calc(-50%+62px)] h-px pointer-events-none overflow-hidden">
+                    <div className="absolute inset-0 bg-[#f97316]/15" />
+                    <div className="absolute inset-y-0 w-1/2 bg-gradient-to-r from-transparent via-[#f97316] to-transparent" style={{ animation: "procFlow 3s ease-in-out infinite", animationDelay: `${i * 0.6}s` }} />
+                  </div>
+                )}
+
                 {/* Step number badge — big circular gradient */}
                 <div className="relative z-[2] flex flex-col items-center mb-6">
                   <div className="relative w-[120px] h-[120px] rounded-full flex items-center justify-center"
-                       style={{ background: "radial-gradient(circle at 30% 30%, rgba(249,115,22,0.18), rgba(0,0,0,0.9) 70%)", boxShadow: "inset 0 0 0 1px rgba(249,115,22,0.25), 0 0 60px rgba(249,115,22,0.12)" }}>
+                       style={{ background: "radial-gradient(circle at 30% 30%, rgba(249,115,22,0.22), rgba(0,0,0,0.95) 70%)", boxShadow: "inset 0 0 0 1px rgba(249,115,22,0.30), 0 0 60px rgba(249,115,22,0.14)" }}>
                     {/* Pulsing ring */}
-                    <div className="absolute inset-[-6px] rounded-full border border-[#f97316]/15 group-hover:border-[#f97316]/40 transition-all" style={{ animation: "stepPulse 2.6s ease-in-out infinite" }} />
+                    <div className="absolute inset-[-6px] rounded-full border border-[#f97316]/20 group-hover:border-[#f97316]/50 transition-all" style={{ animation: "stepPulse 2.6s ease-in-out infinite" }} />
+                    {/* Outer rotating dashes */}
+                    <div className="absolute inset-[-12px] rounded-full border border-dashed border-[#f97316]/15 group-hover:border-[#f97316]/30 transition-all" style={{ animation: "stepRotate 18s linear infinite" }} />
                     {/* Inner icon */}
                     <s.icon className="h-9 w-9 text-[#f97316] group-hover:scale-110 transition-transform duration-300" style={{ filter: "drop-shadow(0 0 16px rgba(249,115,22,0.6))" }} />
                     {/* Step number bottom-right */}
-                    <span className="absolute -bottom-1 -right-1 px-2.5 py-1 rounded-full bg-black border border-[#f97316]/30 text-[10px] font-black text-[#f97316] tracking-[0.1em]">{s.num}</span>
+                    <span className="absolute -bottom-1 -right-1 px-2.5 py-1 rounded-full bg-black border border-[#f97316]/40 text-[10px] font-black text-[#f97316] tracking-[0.1em] shadow-[0_4px_12px_rgba(249,115,22,0.25)]">{s.num}</span>
                   </div>
                 </div>
 
                 {/* Card */}
-                <div className="rounded-2xl p-6 bg-white/[0.02] border border-white/[0.06] hover:border-[#f97316]/25 transition-all duration-300 text-center hover:bg-white/[0.04]">
+                <div className="rounded-2xl p-6 bg-white/[0.025] border border-white/[0.06] backdrop-blur-xl hover:border-[#f97316]/30 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249,115,22,0.08)] transition-all duration-300 text-center hover:bg-white/[0.04]">
                   <h4 className="font-display font-bold text-[20px] mb-2 text-white tracking-tight">{s.title}</h4>
-                  <p className="text-[13px] text-white/45 leading-relaxed">{s.desc}</p>
+                  <p className="text-[13px] text-white/55 leading-relaxed">{s.desc}</p>
                 </div>
               </div>
             ))}
@@ -68,6 +65,13 @@ export function ProcessSection() {
         @keyframes stepPulse {
           0%, 100% { transform: scale(1); opacity: 0.5; }
           50% { transform: scale(1.06); opacity: 1; }
+        }
+        @keyframes stepRotate {
+          to { transform: rotate(360deg); }
+        }
+        @keyframes procFlow {
+          0%   { transform: translateX(-100%); }
+          100% { transform: translateX(200%); }
         }
       `}</style>
     </section>

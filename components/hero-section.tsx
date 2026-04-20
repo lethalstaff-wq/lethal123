@@ -69,20 +69,28 @@ export function HeroSection() {
 
       {/* Content */}
       <div className="relative z-10 w-full max-w-[1200px] mx-auto px-6 sm:px-10 py-32 lg:py-36 text-center">
-        {/* Live status pill */}
+        {/* Live status pill — premium glass with two segments */}
         <div className={`mb-6 transition-all duration-700 ${ready ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"}`}>
-          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-white/[0.08] bg-white/[0.03] backdrop-blur-md">
-            <span className="relative flex items-center justify-center">
-              <span className="absolute w-3 h-3 rounded-full bg-emerald-400/40 animate-ping" />
-              <span className="relative w-2 h-2 rounded-full bg-emerald-400" />
-            </span>
-            <span className="text-[12px] text-white/75 font-medium">
-              <Counter value={FALLBACK_STATS.discordOnline} /> online right now
-            </span>
-            <span className="text-white/20">&bull;</span>
-            <span className="text-[12px] text-white/60">
-              <Counter value={ordersToday} /> <span className="text-[#f97316]">orders today</span>
-            </span>
+          <div className="inline-flex items-center gap-1 p-1 rounded-full border border-white/[0.10] bg-black/55 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_8px_24px_rgba(0,0,0,0.35)]">
+            {/* Online segment */}
+            <div className="inline-flex items-center gap-2 pl-3 pr-3.5 py-1.5 rounded-full bg-emerald-500/[0.08] border border-emerald-500/15">
+              <span className="relative flex items-center justify-center">
+                <span className="absolute w-3 h-3 rounded-full bg-emerald-400/45 animate-ping" />
+                <span className="relative w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.7)]" />
+              </span>
+              <span className="text-[12px] text-white font-bold tabular-nums">
+                <Counter value={FALLBACK_STATS.discordOnline} />
+              </span>
+              <span className="text-[11px] text-emerald-400/80 font-medium">online</span>
+            </div>
+            {/* Orders segment */}
+            <div className="inline-flex items-center gap-2 pl-3 pr-3.5 py-1.5 rounded-full bg-[#f97316]/[0.10] border border-[#f97316]/20">
+              <svg className="w-3.5 h-3.5 text-[#f97316]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l-1 12H6L5 9z" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              <span className="text-[12px] text-white font-bold tabular-nums">
+                <Counter value={ordersToday} />
+              </span>
+              <span className="text-[11px] text-[#f97316]/85 font-medium">orders today</span>
+            </div>
           </div>
         </div>
 
