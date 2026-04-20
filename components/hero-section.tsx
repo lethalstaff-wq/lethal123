@@ -183,10 +183,7 @@ export function HeroSection() {
         >
           <Link
             href="/products"
-            className="group relative inline-flex items-center gap-2.5 px-8 py-4 rounded-xl overflow-hidden
-                       bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white font-bold text-[15px]
-                       shadow-[0_0_40px_rgba(249,115,22,0.28)] hover:shadow-[0_0_60px_rgba(249,115,22,0.48)]
-                       hover:scale-[1.02] transition-all duration-300"
+            className="group relative inline-flex items-center gap-2.5 px-8 py-4 rounded-xl overflow-hidden bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white font-bold text-[15px] shadow-[0_0_40px_rgba(249,115,22,0.28)] hover:shadow-[0_0_60px_rgba(249,115,22,0.48)] hover:scale-[1.02] transition-all duration-300"
           >
             <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
             <span className="relative z-10">Browse Products</span>
@@ -195,11 +192,7 @@ export function HeroSection() {
 
           <Link
             href="/reviews"
-            className="group inline-flex items-center gap-2.5 px-8 py-4 rounded-xl
-                       border border-white/[0.12] bg-white/[0.02] text-white/85 font-semibold text-[15px]
-                       backdrop-blur-sm
-                       hover:bg-white/[0.04] hover:border-[#f97316]/40 hover:text-white
-                       transition-all duration-300"
+            className="group inline-flex items-center gap-2.5 px-8 py-4 rounded-xl border border-white/[0.12] bg-white/[0.02] text-white/85 font-semibold text-[15px] backdrop-blur-sm hover:bg-white/[0.04] hover:border-[#f97316]/40 hover:text-white transition-all duration-300"
           >
             <span>View Reviews</span>
             <span className="text-[#f97316]">&bull;</span>
@@ -227,8 +220,7 @@ export function HeroSection() {
               <div
                 key={c.l}
                 title={c.l}
-                className="w-8 h-8 rounded-full bg-white/[0.04] border border-white/[0.08] flex items-center justify-center
-                           hover:bg-[#f97316]/10 hover:border-[#f97316]/30 transition-colors"
+                className="w-8 h-8 rounded-full bg-white/[0.04] border border-white/[0.08] flex items-center justify-center hover:bg-[#f97316]/10 hover:border-[#f97316]/30 transition-colors"
               >
                 <span className="text-[13px] font-bold" style={{ color: c.c, opacity: 0.8 }}>{c.s}</span>
               </div>

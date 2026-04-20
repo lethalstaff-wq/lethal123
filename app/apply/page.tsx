@@ -8,10 +8,11 @@ import {
   Check, Minus, Plus, Send, CheckCircle2, Shield, Zap, Globe,
   ArrowRight, Clock, Star, ChevronRight, Copy,
   MessageSquare, Rocket, Heart, Sparkles, TrendingUp, Coffee,
-  Flame, Video, Landmark,
+  Flame, Video, Landmark, Briefcase,
 } from "lucide-react"
 import Link from "next/link"
 import { toast } from "sonner"
+import { FALLBACK_STATS } from "@/lib/fallback-stats"
 
 
 /* ═══════════════════════════════════════════════════════════════════════════════
@@ -144,6 +145,41 @@ const WHY_FEATURES = [
   { icon: Rocket, title: "Growth Path", desc: "Top performers get promoted fast. Start support, become team lead in months.", size: "wide" as const },
   { icon: Coffee, title: "Real Impact", desc: "Small team = your work directly shapes the product.", size: "normal" as const },
 ]
+
+
+// ─── Hero counter (never displays 0 before IO fires) ────────────────────────
+
+function HeroCounter({ value }: { value: number }) {
+  const [count, setCount] = useState(value)
+  const [animating, setAnimating] = useState(false)
+  const ref = useRef<HTMLSpanElement>(null)
+  const done = useRef(false)
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    if (typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return
+    const obs = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && !done.current) {
+        done.current = true
+        setAnimating(true)
+        setCount(0)
+        const t0 = performance.now()
+        const tick = (now: number) => {
+          const p = Math.min((now - t0) / 1800, 1)
+          setCount(Math.round((1 - Math.pow(1 - p, 4)) * value))
+          if (p < 1) requestAnimationFrame(tick)
+          else setCount(value)
+        }
+        requestAnimationFrame(tick)
+        obs.disconnect()
+      }
+    }, { threshold: 0 })
+    obs.observe(el)
+    return () => obs.disconnect()
+  }, [value])
+  const shown = animating ? count : value
+  return <span ref={ref} className="tabular-nums">{shown.toLocaleString()}</span>
+}
 
 
 // ─── Hooks ───────────────────────────────────────────────────────────────────
@@ -488,7 +524,7 @@ export default function ApplyPage() {
           1 · HERO
           ═══════════════════════════════════════════════════════════ */}
 
-      <section className="relative min-h-screen flex items-center overflow-hidden">
+      <section className="relative min-h-screen flex items-center overflow-hidden bg-[#0a0a0f]">
         {/* Aurora background */}
         <div className="absolute inset-0 z-0">
           <div className="lx-aurora lx-a1" />
@@ -496,32 +532,67 @@ export default function ApplyPage() {
           <div className="lx-aurora lx-a3" />
         </div>
 
+        {/* Floating code snippets */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-[0.05] font-mono text-white select-none z-0 hidden md:block" aria-hidden="true">
+          <pre className="absolute top-[12%] left-[3%] text-[11px] leading-[1.7] lx-float-code" style={{ animationDelay: "0s" }}>
+{`async function deploy() {
+  const status = await checkEAC()
+  if (status.clean) return ship()
+  await patch(); retry()
+}`}
+          </pre>
+          <pre className="absolute top-[60%] left-[2%] text-[11px] leading-[1.7] lx-float-code" style={{ animationDelay: "4s" }}>
+{`// dma.firmware.v7.2
+const spoof = await kernel.inject({
+  target: "EAC",
+  ghost: true,
+})`}
+          </pre>
+          <pre className="absolute top-[18%] right-[4%] text-[11px] leading-[1.7] lx-float-code" style={{ animationDelay: "2s" }}>
+{`git commit -m "ship it"
+git push origin main
+// deploying to prod...`}
+          </pre>
+        </div>
+
         <div className="relative z-10 w-full max-w-[1280px] mx-auto px-6 sm:px-10 lg:px-16 py-32 lg:py-40">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center max-w-[1280px] mx-auto text-left">
           {/* Left — Text */}
           <div>
             <div className={`mb-8 tr ${heroReady ? "o1 ty0" : "o0 ty1"}`}>
-              <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm">
-                <Rocket className="h-3.5 w-3.5 text-white/20 -rotate-45" />
-                <span className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.1em]">Now Hiring</span>
+              <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-[#f97316]/20 bg-[#f97316]/[0.06] backdrop-blur-sm">
+                <span className="relative flex items-center justify-center">
+                  <span className="absolute w-2.5 h-2.5 rounded-full bg-[#f97316]/40 animate-ping" />
+                  <span className="relative w-1.5 h-1.5 rounded-full bg-[#f97316]" />
+                </span>
+                <Zap className="h-3.5 w-3.5 text-[#f97316]" />
+                <span className="text-[11px] font-semibold text-[#f97316] uppercase tracking-[0.1em]">
+                  Now Hiring &middot; {FALLBACK_STATS.openPositions}+ open positions
+                </span>
               </div>
             </div>
 
-            <h1 className="mb-7">
+            <h1 className="mb-7 font-display">
               {["Join Our Team", "And Build"].map((line, i) => (
-                <span key={i} className={`block text-[clamp(2.5rem,6vw,4.5rem)] font-bold tracking-[-0.03em] leading-[1.1] text-white tr ${heroReady ? "o1 ty0" : "o0 ty2"}`}
-                  style={{ transitionDelay: `${200 + i * 150}ms` }}>{line}</span>
+                <span key={i} className={`block text-[clamp(2.5rem,6vw,4.75rem)] font-bold tracking-[-0.035em] leading-[1.05] tr ${heroReady ? "o1 ty0" : "o0 ty2"}`}
+                  style={{
+                    transitionDelay: `${200 + i * 150}ms`,
+                    background: "linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(180,180,195,0.85) 100%)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                  }}>{line}</span>
               ))}
-              <span className={`block text-[clamp(2.5rem,6vw,4.5rem)] font-bold tracking-[-0.03em] leading-[1.1] tr lx-text-orange ${heroReady ? "o1 ty0" : "o0 ty2"}`}
-                style={{ transitionDelay: "500ms", filter: "drop-shadow(0 0 40px rgba(249,115,22,0.2))" }}>Lethal Solutions</span>
+              <span className={`block text-[clamp(2.5rem,6vw,4.75rem)] font-bold tracking-[-0.035em] leading-[1.05] tr lx-text-orange ${heroReady ? "o1 ty0" : "o0 ty2"}`}
+                style={{ transitionDelay: "500ms", filter: "drop-shadow(0 0 60px rgba(249,115,22,0.3))" }}>Lethal Solutions</span>
             </h1>
 
-            <p className={`text-[15px] sm:text-[17px] text-white/40 leading-[1.75] mb-8 max-w-[480px] tr ${heroReady ? "o1 ty0" : "o0 ty1"}`} style={{ transitionDelay: "650ms" }}>
+            <p className={`text-[15px] sm:text-[17px] text-white/55 leading-[1.75] mb-8 max-w-[480px] tr ${heroReady ? "o1 ty0" : "o0 ty1"}`} style={{ transitionDelay: "650ms" }}>
               Work remotely with a team that ships fast. Set your own hours, earn uncapped commissions, and build the best gaming tools on the market.
             </p>
 
             <div className={`flex flex-wrap gap-2.5 mb-8 tr ${heroReady ? "o1 ty0" : "o0 ty1"}`} style={{ transitionDelay: "800ms" }}>
-              {["8 open roles", "100% remote", "Flexible hours"].map((s, i) => <span key={i} className="lx-pill">{s}</span>)}
+              {[`${FALLBACK_STATS.openPositions}+ open roles`, "100% remote", "Flexible hours"].map((s, i) => <span key={i} className="lx-pill">{s}</span>)}
             </div>
 
             <div className={`flex items-center gap-3 tr ${heroReady ? "o1 ty0" : "o0 ty2"}`} style={{ transitionDelay: "950ms" }}>
@@ -573,6 +644,33 @@ export default function ApplyPage() {
             </Tilt>
           </div>
         </div>
+
+        {/* Stat cards row */}
+        <div className={`mt-16 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 tr ${heroReady ? "o1 ty0" : "o0 ty2"}`} style={{ transitionDelay: "1100ms" }}>
+          {[
+            { icon: Users, value: FALLBACK_STATS.teamMembers, suffix: "+", label: "Team Members" },
+            { icon: Heart, value: FALLBACK_STATS.happyClients, suffix: "+", label: "Happy Clients" },
+            { icon: Star, value: FALLBACK_STATS.satisfactionPercent, suffix: "%", label: "Satisfaction" },
+            { icon: Clock, display: "24/7", label: "Support" },
+          ].map((stat, i) => (
+            <div key={stat.label} className="group p-5 sm:p-6 rounded-2xl bg-white/[0.02] border border-white/[0.08] backdrop-blur-xl hover:border-[#f97316]/30 hover:bg-white/[0.04] hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(249,115,22,0.15)] transition-all duration-300">
+              <stat.icon className="h-5 w-5 text-[#f97316] mb-3 group-hover:scale-110 transition-transform"
+                         style={{ filter: "drop-shadow(0 0 10px rgba(249,115,22,0.4))" }} />
+              <div className="font-display text-3xl sm:text-4xl font-black tracking-tight leading-none text-white/90">
+                {stat.display ? (
+                  <span>{stat.display}</span>
+                ) : (
+                  <>
+                    <HeroCounter value={stat.value!} />
+                    <span className="text-[#f97316]">{stat.suffix}</span>
+                  </>
+                )}
+              </div>
+              <p className="mt-2 text-[11px] text-white/45 uppercase tracking-[0.12em] font-medium">{stat.label}</p>
+            </div>
+          ))}
+        </div>
+
         </div>
       </section>
 
