@@ -302,7 +302,7 @@ export default function StatusPage() {
               return (
                 <div
                   key={product.id}
-                  className="flex flex-col md:flex-row md:items-center gap-4 p-5 rounded-xl bg-white/[0.012] border border-white/[0.04] hover:border-orange-500/20 transition-all"
+                  className="group flex flex-col md:flex-row md:items-center gap-4 p-5 rounded-2xl bg-white/[0.025] border border-white/[0.07] backdrop-blur-xl hover:border-[#f97316]/30 hover:bg-white/[0.04] hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249,115,22,0.10)] transition-all duration-300"
                 >
                   {/* Product Info */}
                   <div className="flex items-center gap-4 flex-1 min-w-0">
@@ -315,8 +315,8 @@ export default function StatusPage() {
                       />
                     </div>
                     <div className="min-w-0">
-                      <h3 className="font-bold text-white/80 truncate">{product.name}</h3>
-                      <p className="text-sm text-white/55">{product.category}</p>
+                      <h3 className="font-display font-bold text-white truncate tracking-tight">{product.name}</h3>
+                      <p className="text-[13px] text-white/55">{product.category}</p>
                     </div>
                   </div>
 
@@ -329,9 +329,9 @@ export default function StatusPage() {
                   </div>
 
                   {/* Uptime % + Days */}
-                  <div className="hidden md:flex flex-col items-center min-w-[80px]">
-                    <span className="text-lg font-black text-emerald-400">{getUptimePercent(product.id)}%</span>
-                    <span className="text-[10px] text-white/30">uptime</span>
+                  <div className="hidden md:flex flex-col items-center min-w-[80px] whitespace-nowrap">
+                    <span className="font-display text-xl font-black text-emerald-400 tracking-tight">{getUptimePercent(product.id)}%</span>
+                    <span className="text-[10px] text-white/55 uppercase tracking-[0.12em] font-bold mt-0.5">uptime</span>
                   </div>
 
                   {/* 30-day Uptime Bar */}
@@ -348,7 +348,7 @@ export default function StatusPage() {
                         />
                       ))}
                     </div>
-                    <p className="text-[10px] text-white/30 mt-1">30-day uptime</p>
+                    <p className="text-[10px] text-white/55 uppercase tracking-[0.12em] font-bold mt-1.5">30-day uptime</p>
                   </div>
 
                   {/* Days Undetected */}
@@ -381,26 +381,29 @@ export default function StatusPage() {
           </div>
 
           {/* Recent Updates */}
-          <div className="mb-16">
-            <h2 className="text-lg font-bold text-white mb-5">Recent Updates</h2>
-            <div className="space-y-0 divide-y divide-white/[0.03]">
+          <div className="mb-16 rounded-2xl border border-white/[0.07] bg-white/[0.025] backdrop-blur-xl p-6">
+            <h2 className="font-display text-lg font-bold text-white mb-5 tracking-tight">Recent Updates</h2>
+            <div className="space-y-1">
               {RECENT_UPDATES.map((update, index) => (
-                <div key={index} className="flex items-center gap-4 py-3.5">
-                  <div className={`w-1.5 h-1.5 rounded-full shrink-0 ${
-                    update.type === "update" ? "bg-emerald-400" : "bg-blue-400"
-                  }`} />
-                  <span className="text-[12px] text-white/20 min-w-[90px] tabular-nums">{update.date}</span>
-                  <span className="text-[13px] font-semibold text-white/60 min-w-[110px]">{update.product}</span>
-                  <span className="text-[13px] text-white/30">{update.message}</span>
+                <div key={index} className="flex items-center gap-4 py-3 px-3 rounded-lg hover:bg-white/[0.03] transition-colors">
+                  <div className={`relative flex items-center justify-center shrink-0 ${
+                    update.type === "update" ? "" : ""
+                  }`}>
+                    <span className={`absolute w-2.5 h-2.5 rounded-full ${update.type === "update" ? "bg-emerald-400/40" : "bg-blue-400/40"} animate-ping`} />
+                    <span className={`relative w-1.5 h-1.5 rounded-full ${update.type === "update" ? "bg-emerald-400" : "bg-blue-400"}`} />
+                  </div>
+                  <span className="text-[12px] text-white/55 min-w-[100px] tabular-nums font-medium">{update.date}</span>
+                  <span className="text-[13px] font-bold text-white min-w-[140px]">{update.product}</span>
+                  <span className="text-[13px] text-white/65">{update.message}</span>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Footer */}
-          <div className="text-center text-[13px] text-white/20">
+          <div className="text-center text-[13px] text-white/55">
             Updates every minute.{" "}
-            <a href="https://discord.gg/lethaldma" target="_blank" rel="noopener noreferrer" className="text-[#f97316]/50 hover:text-[#f97316] transition-colors">
+            <a href="https://discord.gg/lethaldma" target="_blank" rel="noopener noreferrer" className="text-[#f97316] font-bold hover:text-[#fbbf24] transition-colors">
               Join Discord
             </a>{" "}
             for instant alerts.
