@@ -69,27 +69,33 @@ export function HeroSection() {
 
       {/* Content */}
       <div className="relative z-10 w-full max-w-[1200px] mx-auto px-6 sm:px-10 py-32 lg:py-36 text-center">
-        {/* Live status pill — premium glass with two segments */}
+        {/* Live status pill — single pill, green→orange gradient flow */}
         <div className={`mb-6 transition-all duration-700 ${ready ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"}`}>
-          <div className="inline-flex items-center gap-1 p-1 rounded-full border border-white/[0.10] bg-black/55 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_8px_24px_rgba(0,0,0,0.35)]">
-            {/* Online segment */}
-            <div className="inline-flex items-center gap-2 pl-3 pr-3.5 py-1.5 rounded-full bg-emerald-500/[0.08] border border-emerald-500/15">
+          <div className="relative inline-flex items-center rounded-full border border-white/[0.12] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_10px_30px_rgba(0,0,0,0.4)] overflow-hidden"
+               style={{ background: "linear-gradient(90deg, rgba(16,185,129,0.10) 0%, rgba(16,185,129,0.06) 35%, rgba(0,0,0,0.45) 50%, rgba(249,115,22,0.06) 65%, rgba(249,115,22,0.10) 100%)" }}>
+            {/* Magical flowing divider — sweeps light across the seam */}
+            <div className="pointer-events-none absolute inset-y-0 left-1/2 w-px -translate-x-1/2" style={{ background: "linear-gradient(to bottom, transparent, rgba(255,255,255,0.18), transparent)" }} />
+            <div className="pointer-events-none absolute inset-y-0 left-1/2 w-px -translate-x-1/2" style={{ background: "linear-gradient(to bottom, transparent, rgba(255,255,255,0.6), transparent)", animation: "pillFlow 3s ease-in-out infinite", filter: "blur(1px)" }} />
+
+            {/* Online (left) */}
+            <div className="relative inline-flex items-center gap-2 pl-4 pr-3.5 py-2">
               <span className="relative flex items-center justify-center">
                 <span className="absolute w-3 h-3 rounded-full bg-emerald-400/45 animate-ping" />
-                <span className="relative w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.7)]" />
+                <span className="relative w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.85)]" />
               </span>
               <span className="text-[12px] text-white font-bold tabular-nums">
                 <Counter value={FALLBACK_STATS.discordOnline} />
               </span>
-              <span className="text-[11px] text-emerald-400/80 font-medium">online</span>
+              <span className="text-[11px] text-emerald-400/85 font-semibold uppercase tracking-wider">online</span>
             </div>
-            {/* Orders segment */}
-            <div className="inline-flex items-center gap-2 pl-3 pr-3.5 py-1.5 rounded-full bg-[#f97316]/[0.10] border border-[#f97316]/20">
-              <svg className="w-3.5 h-3.5 text-[#f97316]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l-1 12H6L5 9z" strokeLinecap="round" strokeLinejoin="round" /></svg>
+
+            {/* Orders (right) */}
+            <div className="relative inline-flex items-center gap-2 pl-3.5 pr-4 py-2">
+              <svg className="w-3.5 h-3.5 text-[#f97316]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" style={{ filter: "drop-shadow(0 0 6px rgba(249,115,22,0.5))" }}><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l-1 12H6L5 9z" strokeLinecap="round" strokeLinejoin="round" /></svg>
               <span className="text-[12px] text-white font-bold tabular-nums">
                 <Counter value={ordersToday} />
               </span>
-              <span className="text-[11px] text-[#f97316]/85 font-medium">orders today</span>
+              <span className="text-[11px] text-[#f97316]/90 font-semibold uppercase tracking-wider">orders today</span>
             </div>
           </div>
         </div>
@@ -235,6 +241,10 @@ export function HeroSection() {
         @keyframes heroScan {
           0%, 100% { transform: translateX(-120%); }
           50% { transform: translateX(220%); }
+        }
+        @keyframes pillFlow {
+          0%, 100% { opacity: 0.2; transform: translate(-50%, 0) scaleY(0.5); }
+          50%      { opacity: 1;   transform: translate(-50%, 0) scaleY(1.2); }
         }
       `}</style>
     </section>

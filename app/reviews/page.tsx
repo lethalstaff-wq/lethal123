@@ -196,47 +196,48 @@ export default function ReviewsPage() {
           {/* Stats Cards */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
             {[
-              { icon: Star, value: avgRating, label: "Average Rating", color: "text-[#f97316]", bg: "bg-[#f97316]/10" },
-              { icon: Users, value: totalDisplay.toLocaleString(), label: "Total Reviews", color: "text-emerald-500", bg: "bg-emerald-500/10" },
-              { icon: Award, value: `${allReviews.length > 0 ? Math.round((breakdown[0].count + breakdown[1].count) / allReviews.length * 100) : 0}%`, label: "Satisfaction", color: "text-amber-500", bg: "bg-amber-500/10" },
-              { icon: ShieldCheck, value: "100%", label: "Verified", color: "text-blue-500", bg: "bg-blue-500/10" },
+              { icon: Star, value: avgRating, label: "Average Rating", color: "#f97316", bg: "rgba(249,115,22,0.10)", border: "rgba(249,115,22,0.30)" },
+              { icon: Users, value: totalDisplay.toLocaleString(), label: "Total Reviews", color: "#10b981", bg: "rgba(16,185,129,0.10)", border: "rgba(16,185,129,0.30)" },
+              { icon: Award, value: `${allReviews.length > 0 ? Math.round((breakdown[0].count + breakdown[1].count) / allReviews.length * 100) : 0}%`, label: "Satisfaction", color: "#f59e0b", bg: "rgba(245,158,11,0.10)", border: "rgba(245,158,11,0.30)" },
+              { icon: ShieldCheck, value: "100%", label: "Verified", color: "#3b82f6", bg: "rgba(59,130,246,0.10)", border: "rgba(59,130,246,0.30)" },
             ].map((stat) => (
-              <div key={stat.label} className="bg-white/[0.012] border border-white/[0.04] rounded-xl p-5 text-center transition-colors duration-300 hover:bg-white/[0.025]">
-                <div className={`w-10 h-10 rounded-full ${stat.bg} flex items-center justify-center mx-auto mb-2`}>
-                  <stat.icon className={`h-5 w-5 ${stat.color}`} />
+              <div key={stat.label} className="group relative bg-white/[0.025] border border-white/[0.07] backdrop-blur-xl rounded-2xl p-6 text-center hover:-translate-y-1 transition-all duration-300 overflow-hidden" style={{ ['--c' as string]: stat.color }}>
+                <div className="absolute -top-12 -right-12 w-32 h-32 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: `radial-gradient(circle, ${stat.bg.replace('0.10', '0.18')}, transparent 70%)` }} />
+                <div className="relative w-12 h-12 rounded-2xl flex items-center justify-center mx-auto mb-3 border" style={{ background: stat.bg, borderColor: stat.border, boxShadow: `inset 0 1px 0 rgba(255,255,255,0.05), 0 0 24px ${stat.bg.replace('0.10','0.18')}` }}>
+                  <stat.icon className="h-5 w-5" style={{ color: stat.color, filter: `drop-shadow(0 0 10px ${stat.bg.replace('0.10','0.55')})` }} />
                 </div>
-                <p className={`text-2xl font-bold ${stat.color}`}>{stat.value}</p>
-                <p className="text-xs text-white/30">{stat.label}</p>
+                <p className="font-display text-3xl font-black tracking-tight" style={{ color: stat.color }}>{stat.value}</p>
+                <p className="text-[10px] text-white/55 uppercase tracking-[0.15em] font-bold mt-1">{stat.label}</p>
               </div>
             ))}
           </div>
 
           {/* Rating Breakdown */}
-          <div className="mb-8 bg-white/[0.012] border border-white/[0.04] rounded-xl p-6">
+          <div className="mb-8 bg-white/[0.025] border border-white/[0.07] backdrop-blur-xl rounded-2xl p-7">
             <div className="flex items-center justify-between mb-6">
-              <h3 className="font-semibold text-lg text-white">Rating Breakdown</h3>
-              <div className="flex items-center gap-2">
-                <TrendingUp className="h-4 w-4 text-emerald-500" />
-                <span className="text-sm text-emerald-500">+{weekGrowth} this week</span>
+              <h3 className="font-display font-bold text-xl text-white tracking-tight">Rating Breakdown</h3>
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/25">
+                <TrendingUp className="h-3.5 w-3.5 text-emerald-400" />
+                <span className="text-[12px] text-emerald-400 font-bold">+{weekGrowth} this week</span>
               </div>
             </div>
-            <div className="space-y-3">
+            <div className="space-y-2">
               {breakdown.map((row) => (
                 <button
                   key={row.stars}
                   onClick={() => setFilterRating(filterRating === row.stars ? null : row.stars)}
-                  className={`flex items-center gap-4 w-full rounded-lg px-3 py-2 transition-colors duration-200 ${
-                    filterRating === row.stars ? "bg-[#f97316]/10 ring-1 ring-[#f97316]/30" : "hover:bg-white/[0.03]"
+                  className={`flex items-center gap-4 w-full rounded-xl px-4 py-3 transition-all duration-200 ${
+                    filterRating === row.stars ? "bg-[#f97316]/10 ring-1 ring-[#f97316]/40" : "hover:bg-white/[0.04]"
                   }`}
                 >
-                  <div className="flex items-center gap-1 w-16">
-                    <span className="text-sm font-medium text-white">{row.stars}</span>
-                    <Star className="h-4 w-4 fill-[#fbbf24] text-[#fbbf24]" />
+                  <div className="flex items-center gap-1.5 w-16 shrink-0">
+                    <span className="text-[14px] font-bold text-white tabular-nums">{row.stars}</span>
+                    <Star className="h-3.5 w-3.5 gold-star" style={{ animationDelay: `${row.stars * 0.1}s` }} />
                   </div>
-                  <div className="flex-1 h-2.5 bg-white/[0.03] rounded-full overflow-hidden">
-                    <div className="h-full bg-[#f97316] rounded-full transition-all duration-500" style={{ width: `${row.percent}%` }} />
+                  <div className="flex-1 h-2 bg-white/[0.05] rounded-full overflow-hidden">
+                    <div className="h-full bg-gradient-to-r from-[#f97316] to-[#fbbf24] rounded-full transition-all duration-500" style={{ width: `${row.percent}%`, boxShadow: "0 0 8px rgba(249,115,22,0.5)" }} />
                   </div>
-                  <span className="text-sm text-white/40 w-20 text-right">{row.count.toLocaleString()}</span>
+                  <span className="text-[13px] text-white/65 w-20 text-right tabular-nums font-semibold">{row.count.toLocaleString()}</span>
                 </button>
               ))}
             </div>

@@ -85,45 +85,56 @@ export function SocialProofToast() {
       <Link
         href={`/products/${product.id}`}
         onClick={() => setDismissed(true)}
-        className="group relative flex items-center gap-3 p-2.5 pr-5 rounded-xl bg-black/80 backdrop-blur-md border border-white/[0.06] shadow-[0_4px_24px_rgba(0,0,0,0.4)] hover:border-white/[0.1] transition-all duration-300 w-[300px]"
+        className="group relative flex items-center gap-3 p-3 pr-5 rounded-2xl bg-black/85 backdrop-blur-xl border border-white/[0.10] shadow-[0_18px_48px_rgba(0,0,0,0.55),0_0_30px_rgba(249,115,22,0.10)] hover:border-[#f97316]/35 hover:shadow-[0_24px_60px_rgba(0,0,0,0.6),0_0_50px_rgba(249,115,22,0.18)] hover:-translate-y-0.5 transition-all duration-300 w-[340px] overflow-hidden"
       >
+        {/* Top accent line */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f97316]/60 to-transparent pointer-events-none" />
+        {/* Hover orange glow */}
+        <div className="absolute -top-12 -right-12 w-32 h-32 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ background: "radial-gradient(circle, rgba(249,115,22,0.18), transparent 70%)" }} />
+
         {/* Product image */}
-        <div className="w-11 h-11 rounded-lg overflow-hidden flex-shrink-0 ring-1 ring-white/[0.06] group-hover:ring-[#f97316]/30 transition-all">
+        <div className="relative w-12 h-12 rounded-xl overflow-hidden flex-shrink-0 ring-1 ring-white/[0.10] group-hover:ring-[#f97316]/40 transition-all bg-white/[0.03]">
           <Image
             src={product.image}
             alt={product.name}
-            width={44}
-            height={44}
-            className="object-cover w-full h-full"
+            width={48}
+            height={48}
+            className="object-contain w-full h-full p-1 group-hover:scale-105 transition-transform duration-300"
           />
         </div>
 
         {/* Content */}
-        <div className="min-w-0 flex-1">
-          <p className="text-[11px] font-mono text-white/25 truncate">{email}</p>
-          <p className="text-[13px] font-semibold text-white/90 truncate mt-0.5 group-hover:text-[#f97316] transition-colors">
+        <div className="min-w-0 flex-1 relative z-[1]">
+          <div className="flex items-center gap-1.5">
+            <span className="text-[9px] font-bold uppercase tracking-[0.15em] text-[#f97316]">New Order</span>
+            <span className="text-white/25">·</span>
+            <span className="text-[10px] text-white/55 font-medium">{minutes}m ago</span>
+          </div>
+          <p className="text-[14px] font-bold text-white truncate mt-0.5 group-hover:text-[#f97316] transition-colors font-display tracking-tight">
             {product.name}
           </p>
           <div className="flex items-center gap-2 mt-1">
-            <span className="flex items-center gap-1 text-[10px] text-emerald-400/60 font-medium">
+            <span className="flex items-center gap-1 text-[10px] text-emerald-400 font-bold">
               <span className="relative flex h-1.5 w-1.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-40" />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-50" />
                 <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
               </span>
               Verified
             </span>
-            <span className="text-[10px] text-white/15">{minutes}m ago</span>
+            <span className="text-[10px] text-white/35">·</span>
+            <span className="text-[10px] font-mono text-white/45 truncate">{email}</span>
           </div>
         </div>
 
         {/* Dismiss */}
         <button
+          aria-label="Dismiss notification"
           onClick={(e) => {
             e.preventDefault()
             e.stopPropagation()
             setDismissed(true)
           }}
-          className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-[#222] border border-white/[0.1] text-white/30 hover:text-white/70 transition-all flex items-center justify-center text-[9px] opacity-0 group-hover:opacity-100"
+          className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-black border border-white/[0.15] text-white/55 hover:text-white hover:border-[#f97316]/40 transition-all flex items-center justify-center text-[10px] opacity-0 group-hover:opacity-100 shadow-md"
         >
           ×
         </button>
