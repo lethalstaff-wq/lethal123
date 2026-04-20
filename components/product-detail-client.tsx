@@ -289,12 +289,12 @@ export function ProductDetailClient({ product }: { product: Product }) {
                     onClick={() => setSelectedVariant(variant)}
                     className={`relative p-4 rounded-xl border-2 text-left transition-all duration-200 ${
                       selectedVariant.id === variant.id
-                        ? "border-primary bg-primary/[0.06] shadow-lg shadow-primary/5"
-                        : "border-white/[0.06] hover:border-primary/40 bg-white/[0.02]"
+                        ? "border-[#f97316] bg-[#f97316]/[0.06] shadow-lg shadow-primary/5"
+                        : "border-white/[0.06] hover:border-[#f97316]/40 bg-white/[0.02]"
                     }`}
                   >
                     {selectedVariant.id === variant.id && (
-                      <Check className="absolute top-3.5 right-3.5 h-4 w-4 text-primary" />
+                      <Check className="absolute top-3.5 right-3.5 h-4 w-4 text-[#f97316]" />
                     )}
                     <p className="font-semibold text-sm">{variant.name}</p>
                     <p className="text-white/40 text-sm mt-0.5">{"£"}{variant.price}</p>
@@ -350,7 +350,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
               id="buy-now-btn"
               onClick={handleBuyNow}
               size="lg"
-              className="w-full h-12 sm:h-14 text-sm sm:text-base font-bold gap-2 rounded-xl bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all"
+              className="w-full h-12 sm:h-14 text-sm sm:text-base font-bold gap-2 rounded-xl bg-[#f97316] hover:bg-[#f97316]/90 shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all"
             >
               <Zap className="h-4 w-4" />
               Buy Now — {"£"}{total.toFixed(2)}
@@ -360,7 +360,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
                 onClick={handleAddToCart}
                 variant="outline"
                 size="lg"
-                className="h-11 sm:h-12 text-xs sm:text-sm font-semibold gap-1.5 sm:gap-2 rounded-xl border-white/[0.06] hover:border-primary/40 hover:bg-primary/5"
+                className="h-11 sm:h-12 text-xs sm:text-sm font-semibold gap-1.5 sm:gap-2 rounded-xl border-white/[0.06] hover:border-[#f97316]/40 hover:bg-[#f97316]/5"
               >
                 <ShoppingCart className="h-4 w-4" />
                 Add to Cart
@@ -386,17 +386,31 @@ export function ProductDetailClient({ product }: { product: Product }) {
         </div>
       </div>
 
-      {/* ═══ FEATURES — Full width below ═══ */}
+      {/* ═══ FEATURES — Premium "What's Included" panel ═══ */}
       {product.features && product.features.length > 0 && (
-        <div className="mt-16">
-          <h2 className="text-lg font-bold text-white mb-5">What&apos;s Included</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-3">
-            {product.features.map((feature, idx) => (
-              <div key={idx} className="flex items-center gap-2.5">
-                <Check className="h-3.5 w-3.5 text-[#f97316]/60 shrink-0" />
-                <span className="text-[14px] text-white/50">{feature}</span>
-              </div>
-            ))}
+        <div className="mt-16 relative rounded-3xl border border-white/[0.08] bg-gradient-to-br from-white/[0.025] to-white/[0.015] backdrop-blur-xl p-8 sm:p-10 overflow-hidden shadow-[0_24px_60px_rgba(0,0,0,0.35)]">
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f97316]/55 to-transparent pointer-events-none" />
+          <div className="absolute -top-20 -right-20 w-64 h-64 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(249,115,22,0.08), transparent 70%)" }} />
+
+          <div className="relative">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#f97316]/25 bg-[#f97316]/[0.06] mb-4">
+              <Check className="h-3.5 w-3.5 text-[#f97316]" />
+              <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#f97316]">Included</span>
+            </div>
+            <h2 className="font-display text-2xl sm:text-3xl font-bold text-white mb-7 tracking-tight">
+              What&apos;s in the <span style={{ background: "linear-gradient(180deg, #ffb366, #f97316, #c2410c)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 24px rgba(249,115,22,0.25))" }}>box</span>
+            </h2>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {product.features.map((feature, idx) => (
+                <div key={idx} className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.025] border border-white/[0.06] hover:border-[#f97316]/25 hover:bg-white/[0.04] transition-all duration-300 group">
+                  <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#f97316]/20 to-[#ea580c]/10 border border-[#f97316]/25 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                    <Check className="h-3.5 w-3.5 text-[#f97316]" />
+                  </div>
+                  <span className="text-[14px] font-semibold text-white/85 group-hover:text-white transition-colors">{feature}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       )}
@@ -424,10 +438,10 @@ export function ProductDetailClient({ product }: { product: Product }) {
             </div>
           )}
           {meta.lastPatchResponseHours ? (
-            <div className="rounded-xl border border-primary/15 bg-primary/[0.03] p-5">
+            <div className="rounded-xl border border-[#f97316]/15 bg-[#f97316]/[0.03] p-5">
               <div className="flex items-center gap-2 mb-3">
-                <Zap className="h-4 w-4 text-primary" />
-                <span className="text-[11px] font-semibold uppercase tracking-wider text-primary">Patch Response</span>
+                <Zap className="h-4 w-4 text-[#f97316]" />
+                <span className="text-[11px] font-semibold uppercase tracking-wider text-[#f97316]">Patch Response</span>
               </div>
               <div className="flex items-baseline gap-1.5 mb-1">
                 <span className="text-3xl font-black text-white">&lt;{meta.lastPatchResponseHours}h</span>
@@ -459,15 +473,15 @@ export function ProductDetailClient({ product }: { product: Product }) {
         <div className="mt-12 pt-10 border-t border-white/[0.04]">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-primary/15 flex items-center justify-center">
-                <Sparkles className="h-4 w-4 text-primary" />
+              <div className="w-8 h-8 rounded-lg bg-[#f97316]/15 flex items-center justify-center">
+                <Sparkles className="h-4 w-4 text-[#f97316]" />
               </div>
               <div>
                 <h2 className="text-xl font-bold">Recent Updates</h2>
                 <p className="text-xs text-white/40">What shipped lately for {product.name}</p>
               </div>
             </div>
-            <Link href="/changelog" className="text-xs text-primary hover:text-primary/80 flex items-center gap-1 transition-colors">
+            <Link href="/changelog" className="text-xs text-[#f97316] hover:text-[#f97316]/80 flex items-center gap-1 transition-colors">
               Full changelog <ArrowRight className="h-3 w-3" />
             </Link>
           </div>
@@ -492,7 +506,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
                 <p className="text-xs text-white/40">{reviewCount} verified reviews</p>
               </div>
             </div>
-            <Link href={`/reviews`} className="text-xs text-primary hover:text-primary/80 flex items-center gap-1 transition-colors">
+            <Link href={`/reviews`} className="text-xs text-[#f97316] hover:text-[#f97316]/80 flex items-center gap-1 transition-colors">
               See all reviews <ArrowRight className="h-3 w-3" />
             </Link>
           </div>
@@ -516,8 +530,8 @@ export function ProductDetailClient({ product }: { product: Product }) {
 
                 {/* Team response */}
                 {review.team_response && (
-                  <div className="mb-3 rounded-lg bg-primary/[0.04] border border-primary/10 p-3">
-                    <p className="text-[11px] font-semibold text-primary mb-1">Lethal Team</p>
+                  <div className="mb-3 rounded-lg bg-[#f97316]/[0.04] border border-[#f97316]/10 p-3">
+                    <p className="text-[11px] font-semibold text-[#f97316] mb-1">Lethal Team</p>
                     <p className="text-xs text-white/60 leading-relaxed">{review.team_response}</p>
                   </div>
                 )}
@@ -546,9 +560,9 @@ export function ProductDetailClient({ product }: { product: Product }) {
           <div className="flex items-center justify-between max-w-7xl mx-auto">
             <div>
               <p className="text-sm font-bold">{product.name}</p>
-              <p className="text-lg font-black text-primary">{"£"}{selectedVariant.price}</p>
+              <p className="text-lg font-black text-[#f97316]">{"£"}{selectedVariant.price}</p>
             </div>
-            <button onClick={handleBuyNow} className="px-6 py-3 rounded-xl bg-primary text-white font-bold text-sm">
+            <button onClick={handleBuyNow} className="px-6 py-3 rounded-xl bg-[#f97316] text-white font-bold text-sm">
               Buy Now
             </button>
           </div>
