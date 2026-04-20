@@ -6,7 +6,7 @@ import { getOrdersToday } from "@/lib/review-counts"
 import { FALLBACK_STATS } from "@/lib/fallback-stats"
 
 export function OrdersCounter() {
-  const [orders, setOrders] = useState(FALLBACK_STATS.ordersToday)
+  const [orders, setOrders] = useState<number>(FALLBACK_STATS.ordersToday)
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {

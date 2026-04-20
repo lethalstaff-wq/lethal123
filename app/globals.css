@@ -5,6 +5,7 @@
 @theme inline {
   --font-sans: "Inter", "Inter Fallback", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", "JetBrains Mono Fallback", monospace;
+  --font-display: var(--font-display), "Space Grotesk", "Inter Fallback", system-ui, sans-serif;
   --color-background: #000000;
   --color-foreground: #fafafa;
   --color-card: #1a1a1a;
