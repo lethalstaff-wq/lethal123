@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { HelpCircle, ChevronDown, Search, ShieldCheck, Clock, MessageCircle, ExternalLink, CreditCard, Download, Settings, ThumbsUp, ThumbsDown } from "lucide-react"
+import { HelpCircle, ChevronDown, Search, ShieldCheck, Clock, MessageCircle, ExternalLink, CreditCard, Download, Settings, ThumbsUp, ThumbsDown, ArrowRight } from "lucide-react"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
 import { Breadcrumbs } from "@/components/breadcrumbs"
@@ -240,40 +240,59 @@ export default function FAQPage() {
       <section className="pb-24">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto space-y-3">
-            {filteredFAQ.map((item, index) => (
+            {filteredFAQ.map((item, index) => {
+              const isOpen = openItems.has(index)
+              return (
               <div
                 key={index}
-                className="rounded-2xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-xl overflow-hidden"
+                className={cn(
+                  "rounded-2xl border backdrop-blur-xl overflow-hidden transition-all duration-300",
+                  isOpen
+                    ? "border-[#f97316]/30 bg-gradient-to-br from-[#f97316]/[0.06] to-white/[0.025] shadow-[0_18px_50px_rgba(0,0,0,0.4),0_0_40px_rgba(249,115,22,0.10)]"
+                    : "border-white/[0.06] bg-white/[0.025] hover:border-[#f97316]/20 hover:bg-white/[0.04] hover:-translate-y-0.5"
+                )}
               >
                 <button
                   onClick={() => toggleItem(index)}
-                  className="w-full flex items-center justify-between p-5 text-left"
+                  aria-expanded={isOpen}
+                  className="w-full flex items-center justify-between p-5 text-left cursor-pointer"
                 >
                   <div className="flex items-start gap-4 pr-4">
-                    <div className="w-8 h-8 rounded-lg bg-[#f97316]/10 flex items-center justify-center shrink-0 mt-0.5">
-                      <HelpCircle className="h-4 w-4 text-[#f97316]" />
+                    <div className={cn(
+                      "w-9 h-9 rounded-xl flex items-center justify-center shrink-0 mt-0.5 transition-all",
+                      isOpen
+                        ? "bg-gradient-to-br from-[#f97316] to-[#ea580c] shadow-[0_4px_14px_rgba(249,115,22,0.4)]"
+                        : "bg-[#f97316]/10 border border-[#f97316]/20"
+                    )}>
+                      <HelpCircle className={cn("h-4 w-4 transition-colors", isOpen ? "text-white" : "text-[#f97316]")} />
                     </div>
                     <div>
-                      <span className="text-[10px] text-[#f97316] font-bold uppercase tracking-wider">{item.category}</span>
-                      <h3 className="font-bold text-foreground">{item.question}</h3>
+                      <span className="text-[10px] text-[#f97316] font-bold uppercase tracking-[0.15em]">{item.category}</span>
+                      <h3 className={cn("font-bold tracking-tight transition-colors", isOpen ? "text-white" : "text-white/85")}>{item.question}</h3>
                     </div>
                   </div>
-                  <ChevronDown className={cn(
-                    "h-5 w-5 text-white/55 shrink-0 transition-transform",
-                    openItems.has(index) && "rotate-180"
-                  )} />
+                  <div className={cn(
+                    "w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all",
+                    isOpen ? "bg-[#f97316]/20 border border-[#f97316]/40" : "bg-white/[0.04] border border-white/[0.06]"
+                  )}>
+                    <ChevronDown className={cn(
+                      "h-4 w-4 shrink-0 transition-all",
+                      isOpen ? "rotate-180 text-[#f97316]" : "text-white/55"
+                    )} />
+                  </div>
                 </button>
                 
-                {openItems.has(index) && (
+                {isOpen && (
                   <div className="px-5 pb-5 pl-[4.5rem]">
-                    <p className="text-white/55 leading-relaxed mb-4">{item.answer}</p>
-                    <div className="flex items-center gap-3 pt-3 border-t border-white/[0.06]">
-                      <span className="text-xs text-white/60">Was this helpful?</span>
+                    <div className="h-px bg-gradient-to-r from-[#f97316]/30 via-white/[0.05] to-transparent mb-4" />
+                    <p className="text-white/65 leading-relaxed mb-4 text-[14px]">{item.answer}</p>
+                    <div className="flex items-center gap-2 pt-3 border-t border-white/[0.06]">
+                      <span className="text-[12px] text-white/65 font-semibold">Was this helpful?</span>
                       <button
                         onClick={(e) => { e.stopPropagation(); setHelpfulVotes(prev => ({ ...prev, [index]: "yes" })) }}
                         className={cn(
-                          "inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs transition-colors",
-                          helpfulVotes[index] === "yes" ? "bg-emerald-500/15 text-emerald-400" : "bg-white/[0.03] text-white/55 hover:bg-white/[0.03]"
+                          "inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[11px] font-bold transition-all",
+                          helpfulVotes[index] === "yes" ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/30" : "bg-white/[0.04] text-white/55 border border-white/[0.08] hover:border-emerald-500/30 hover:text-emerald-400"
                         )}
                       >
                         <ThumbsUp className="h-3 w-3" /> Yes
@@ -281,22 +300,22 @@ export default function FAQPage() {
                       <button
                         onClick={(e) => { e.stopPropagation(); setHelpfulVotes(prev => ({ ...prev, [index]: "no" })) }}
                         className={cn(
-                          "inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs transition-colors",
-                          helpfulVotes[index] === "no" ? "bg-red-500/15 text-red-400" : "bg-white/[0.03] text-white/55 hover:bg-white/[0.03]"
+                          "inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[11px] font-bold transition-all",
+                          helpfulVotes[index] === "no" ? "bg-red-500/15 text-red-400 border border-red-500/30" : "bg-white/[0.04] text-white/55 border border-white/[0.08] hover:border-red-500/30 hover:text-red-400"
                         )}
                       >
                         <ThumbsDown className="h-3 w-3" /> No
                       </button>
                       {helpfulVotes[index] === "no" && (
-                        <Link href="https://discord.gg/lethaldma" target="_blank" className="text-xs text-[#f97316] hover:underline ml-auto">
-                          Ask on Discord →
+                        <Link href="https://discord.gg/lethaldma" target="_blank" className="inline-flex items-center gap-1 text-[11px] text-[#f97316] font-bold hover:text-[#fbbf24] transition-colors ml-auto">
+                          Ask on Discord <ArrowRight className="h-3 w-3" />
                         </Link>
                       )}
                     </div>
                   </div>
                 )}
               </div>
-            ))}
+            )})}
 
             {filteredFAQ.length === 0 && (
               <div className="text-center py-12">
