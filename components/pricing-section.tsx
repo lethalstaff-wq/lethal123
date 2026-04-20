@@ -37,9 +37,9 @@ function AnimPrice({ value }: { value: number }) {
 }
 
 const bundles = [
-  { id: "dma-basic", name: "Basic", price: 425, features: ["Captain DMA 100T-7th", "EAC/BE Emulated", "Mini DP Fuser V2", "Blurred (30 Days)", "Macku (Free)"], description: "Reliable foundation for everyday use.", highlighted: false },
-  { id: "dma-advanced", name: "Advanced", price: 675, features: ["Captain DMA 100T-7th", "Dichen D60 Fuser", "Teensy (Firmware Included)", "EAC/BE Emulated Slotted", "Blurred DMA (Quarterly)"], description: "Balanced config for semi-pro gamers.", highlighted: true },
-  { id: "dma-elite", name: "Elite", price: 1500, features: ["Captain DMA 100T-7th", "Dichen DC500 Fuser", "Teensy (Firmware Included)", "Blurred Lifetime DMA Cheat", "EAC/BE, FaceIt, VGK Emulated"], description: "Maximum performance. Lifetime access.", highlighted: false },
+  { id: "dma-basic", name: "Basic", price: 425, features: ["Captain DMA 100T-7th", "EAC/BE Emulated", "Mini DP Fuser V2", "Blurred (30 Days)", "Macku (Free)"], description: "Reliable foundation for everyday use.", highlighted: false, premium: false },
+  { id: "dma-advanced", name: "Advanced", price: 675, features: ["Captain DMA 100T-7th", "Dichen D60 Fuser", "Teensy (Firmware Included)", "EAC/BE Emulated Slotted", "Blurred DMA (Quarterly)"], description: "Balanced config for semi-pro gamers.", highlighted: true, premium: false },
+  { id: "dma-elite", name: "Elite", price: 1500, features: ["Captain DMA 100T-7th", "Dichen DC500 Fuser", "Teensy (Firmware Included)", "Blurred Lifetime DMA Cheat", "EAC/BE, FaceIt, VGK Emulated"], description: "Maximum performance. Lifetime access.", highlighted: false, premium: true },
 ]
 
 export function PricingSection() {
@@ -69,22 +69,35 @@ export function PricingSection() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-stretch">
           {bundles.map((b) => (
             <div key={b.id} className={`group rounded-2xl relative overflow-hidden flex flex-col transition-all duration-300 hover:-translate-y-1 ${
-              b.highlighted
-                ? "bg-white/[0.02] border-2 border-[#f97316]/20 shadow-[0_0_60px_rgba(249,115,22,0.04)] md:scale-[1.03] hover:shadow-[0_0_80px_rgba(249,115,22,0.06)]"
+              b.premium
+                ? "elite-card bg-white/[0.025] border border-white/[0.08] md:scale-[1.04] -translate-y-2 shadow-[0_0_60px_rgba(249,115,22,0.08)] hover:shadow-[0_0_100px_rgba(249,115,22,0.18)]"
+                : b.highlighted
+                ? "bg-white/[0.02] border-2 border-[#f97316]/20 shadow-[0_0_60px_rgba(249,115,22,0.04)] md:scale-[1.02] hover:shadow-[0_0_80px_rgba(249,115,22,0.08)]"
                 : "bg-white/[0.012] border border-white/[0.04] hover:border-white/[0.08] hover:shadow-[0_20px_40px_rgba(0,0,0,0.3)]"
             }`}>
+              {/* Animated conic border for Elite */}
+              {b.premium && (
+                <div aria-hidden="true" className="pointer-events-none absolute inset-0 rounded-2xl opacity-40 group-hover:opacity-80 transition-opacity duration-500" style={{ background: "conic-gradient(from 0deg, transparent 0deg, #f97316 40deg, transparent 80deg, transparent 180deg, #fbbf24 220deg, transparent 260deg, transparent 360deg)", animation: "eliteRotate 8s linear infinite", mask: "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)", WebkitMask: "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)", maskComposite: "exclude", WebkitMaskComposite: "xor", padding: "1.5px" }} />
+              )}
               {/* Shine sweep */}
-              <div className="absolute top-[-50%] left-[-80%] w-[50%] h-[200%] bg-gradient-to-r from-transparent via-white/[0.015] to-transparent rotate-[25deg] group-hover:left-[130%] transition-[left] duration-700 pointer-events-none z-10" />
+              <div className="absolute top-[-50%] left-[-80%] w-[50%] h-[200%] bg-gradient-to-r from-transparent via-white/[0.02] to-transparent rotate-[25deg] group-hover:left-[130%] transition-[left] duration-700 pointer-events-none z-10" />
               {/* Top accent */}
               {b.highlighted && <div className="h-[2px] bg-gradient-to-r from-transparent via-[#f97316]/60 to-transparent" />}
 
               {/* Popular badge */}
               {b.highlighted && (
-                <div className="absolute top-5 right-5 z-10">
+                <div className="absolute top-5 right-5 z-20">
                   <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#f97316]/10 border border-[#f97316]/20">
                     <Crown className="h-3 w-3 text-[#f97316]" />
                     <span className="text-[9px] font-bold uppercase tracking-wider text-[#f97316]">Popular</span>
                   </div>
+                </div>
+              )}
+
+              {/* Premium slash-cut badge */}
+              {b.premium && (
+                <div className="absolute -top-0.5 right-6 z-20 px-5 py-1.5 text-[10px] font-black uppercase tracking-[0.15em] text-black" style={{ background: "linear-gradient(135deg, #fbbf24, #f97316)", clipPath: "polygon(12% 0, 100% 0, 88% 100%, 0 100%)", boxShadow: "0 6px 16px rgba(249,115,22,0.35)" }}>
+                  Premium
                 </div>
               )}
 
@@ -122,14 +135,14 @@ export function PricingSection() {
 
                 {/* Button */}
                 <button onClick={() => handleAdd(b)}
-                  className={`w-full py-4 rounded-xl font-bold text-[15px] flex items-center justify-center gap-2.5 cursor-pointer transition-all duration-300 ${
-                    b.highlighted
-                      ? "text-white"
+                  className={`w-full py-4 rounded-xl font-bold text-[15px] flex items-center justify-center gap-2.5 cursor-pointer transition-all duration-300 relative z-[2] ${
+                    b.highlighted || b.premium
+                      ? "text-white hover:brightness-110"
                       : "border border-white/[0.06] bg-white/[0.02] text-white/40 hover:border-white/[0.12] hover:text-white/70 hover:bg-white/[0.03]"
                   }`}
-                  style={b.highlighted ? { background: "linear-gradient(135deg, #f97316, #ea580c)", boxShadow: "0 0 30px rgba(249,115,22,0.2)" } : {}}>
+                  style={b.premium ? { background: "linear-gradient(135deg, #fbbf24, #f97316, #ea580c)", boxShadow: "0 0 40px rgba(249,115,22,0.35)" } : b.highlighted ? { background: "linear-gradient(135deg, #f97316, #ea580c)", boxShadow: "0 0 30px rgba(249,115,22,0.22)" } : {}}>
                   <ShoppingCart className="h-4 w-4" />
-                  {b.highlighted ? "Get Started" : "Add to Cart"}
+                  {b.premium ? "Claim Elite" : b.highlighted ? "Get Started" : "Add to Cart"}
                 </button>
               </div>
             </div>
@@ -143,6 +156,11 @@ export function PricingSection() {
           </Link>
         </div>
       </div>
+      <style jsx>{`
+        @keyframes eliteRotate {
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
     </section>
   )
 }
