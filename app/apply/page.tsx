@@ -1471,8 +1471,8 @@ export default function ApplyPage() {
         .lx-underline::after { content: ""; position: absolute; left: 0; bottom: 4px; width: 100%; height: 3px; background: linear-gradient(90deg, rgba(249,115,22,0.55), rgba(249,115,22,0.15)); border-radius: 2px; box-shadow: 0 0 15px rgba(249,115,22,0.2); }
 
         /* Pills */
-        .lx-pill { display: inline-flex; align-items: center; padding: 8px 16px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.04); background: rgba(255,255,255,0.015); font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.35); transition: all 0.2s ease; backdrop-filter: blur(4px); }
-        .lx-pill:hover { border-color: rgba(255,255,255,0.08); color: rgba(255,255,255,0.55); }
+        .lx-pill { display: inline-flex; align-items: center; padding: 8px 14px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.025); font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.65); transition: all 0.2s ease; backdrop-filter: blur(8px); }
+        .lx-pill:hover { border-color: rgba(249,115,22,0.30); color: #fff; background: rgba(249,115,22,0.08); }
 
         /* Buttons */
         .lx-primary { background: linear-gradient(135deg, #f97316, #ea580c); box-shadow: 0 0 25px rgba(249,115,22,0.22), 0 0 80px rgba(249,115,22,0.05); transition: all 0.25s ease; }
@@ -1480,8 +1480,8 @@ export default function ApplyPage() {
         .lx-primary:active { transform: translateY(0) scale(0.98); filter: brightness(1); }
         .lx-primary:disabled { box-shadow: none; filter: none; }
 
-        .lx-ghost { border: 1px solid rgba(255,255,255,0.05); background: rgba(255,255,255,0.015); color: rgba(255,255,255,0.35); transition: all 0.2s ease; }
-        .lx-ghost:hover { border-color: rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); color: rgba(255,255,255,0.65); }
+        .lx-ghost { border: 1px solid rgba(255,255,255,0.10); background: rgba(255,255,255,0.025); color: rgba(255,255,255,0.65); transition: all 0.2s ease; backdrop-filter: blur(8px); }
+        .lx-ghost:hover { border-color: rgba(249,115,22,0.40); background: rgba(249,115,22,0.06); color: #fff; }
         .lx-ghost:active { transform: scale(0.97); }
 
         .lx-breathe { animation: lxBreath 3s ease-in-out infinite; }
@@ -1491,26 +1491,28 @@ export default function ApplyPage() {
         .lx-label { display: block; font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.5); margin-bottom: 12px; letter-spacing: -0.01em; }
         .lx-input {
           width: 100%; height: 52px; padding: 0 18px; border-radius: 12px;
-          background: rgba(255,255,255,0.015); border: 1px solid rgba(255,255,255,0.05);
+          background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
           font-size: 14px; color: white; transition: all 0.3s ease; outline: none;
+          backdrop-filter: blur(8px);
         }
-        .lx-input::placeholder { color: rgba(255,255,255,0.1); }
+        .lx-input::placeholder { color: rgba(255,255,255,0.40); }
         .lx-input:focus {
-          border-color: rgba(249,115,22,0.3);
-          background: rgba(255,255,255,0.025);
-          box-shadow: 0 0 0 4px rgba(249,115,22,0.06), 0 0 20px rgba(249,115,22,0.03);
+          border-color: rgba(249,115,22,0.45);
+          background: rgba(255,255,255,0.045);
+          box-shadow: 0 0 0 4px rgba(249,115,22,0.10), 0 0 28px rgba(249,115,22,0.08);
         }
         .lx-textarea {
           width: 100%; padding: 16px 18px; border-radius: 12px;
-          background: rgba(255,255,255,0.015); border: 1px solid rgba(255,255,255,0.05);
+          background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
           font-size: 14px; color: white; transition: all 0.3s ease; outline: none;
           resize: none; line-height: 1.7;
+          backdrop-filter: blur(8px);
         }
-        .lx-textarea::placeholder { color: rgba(255,255,255,0.1); }
+        .lx-textarea::placeholder { color: rgba(255,255,255,0.40); }
         .lx-textarea:focus {
-          border-color: rgba(249,115,22,0.3);
-          background: rgba(255,255,255,0.025);
-          box-shadow: 0 0 0 4px rgba(249,115,22,0.06), 0 0 20px rgba(249,115,22,0.03);
+          border-color: rgba(249,115,22,0.45);
+          background: rgba(255,255,255,0.045);
+          box-shadow: 0 0 0 4px rgba(249,115,22,0.10), 0 0 28px rgba(249,115,22,0.08);
         }
 
         /* Divider shimmer */
@@ -1556,37 +1558,40 @@ export default function ApplyPage() {
 
         /* Form field card */
         .lx-field {
-          padding: 20px;
-          border-radius: 16px;
-          border: 1px solid rgba(255,255,255,0.03);
-          background: rgba(255,255,255,0.008);
+          padding: 22px;
+          border-radius: 18px;
+          border: 1px solid rgba(255,255,255,0.06);
+          background: rgba(255,255,255,0.022);
           transition: all 0.3s ease;
+          backdrop-filter: blur(14px);
+          -webkit-backdrop-filter: blur(14px);
         }
         .lx-field:hover {
-          border-color: rgba(255,255,255,0.06);
-          background: rgba(255,255,255,0.012);
+          border-color: rgba(255,255,255,0.10);
+          background: rgba(255,255,255,0.035);
         }
         .lx-field:focus-within {
-          border-color: rgba(249,115,22,0.12);
-          background: rgba(249,115,22,0.01);
-          box-shadow: 0 0 30px rgba(249,115,22,0.02);
+          border-color: rgba(249,115,22,0.30);
+          background: rgba(249,115,22,0.025);
+          box-shadow: 0 0 40px rgba(249,115,22,0.10);
         }
         .lx-field-header {
           display: flex;
           align-items: flex-start;
           gap: 12px;
         }
-        .lx-field-header > svg { margin-top: 2px; flex-shrink: 0; }
+        .lx-field-header > svg { margin-top: 2px; flex-shrink: 0; color: #f97316; }
         .lx-field-title {
           font-size: 15px;
-          font-weight: 600;
-          color: rgba(255,255,255,0.75);
+          font-weight: 700;
+          color: #fff;
           line-height: 1.3;
+          letter-spacing: -0.01em;
         }
         .lx-field-sub {
           font-size: 12px;
-          color: rgba(255,255,255,0.2);
-          margin-top: 2px;
+          color: rgba(255,255,255,0.55);
+          margin-top: 3px;
         }
 
         /* Thin scrollbar for timezone picker */
