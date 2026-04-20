@@ -11,7 +11,7 @@ export default function PrivacyPage() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-black pt-32 pb-20 px-4 relative">
+      <main className="min-h-screen bg-transparent pt-32 pb-20 px-4 relative">
         <div className="container mx-auto max-w-3xl">
           <h1 className="text-5xl font-bold mb-4">
             Privacy <span className="text-[#f97316]">Policy</span>

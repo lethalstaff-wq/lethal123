@@ -145,7 +145,7 @@ export default function ReviewsPage() {
 
   if (isLoadingData) {
     return (
-      <main className="flex min-h-screen flex-col bg-black">
+      <main className="flex min-h-screen flex-col bg-transparent">
         <Navbar />
         <section className="flex-1 flex items-center justify-center">
           <div className="flex items-center gap-3 text-white/40">
@@ -159,7 +159,7 @@ export default function ReviewsPage() {
   }
 
   return (
-    <main className="relative flex min-h-screen flex-col bg-black">
+    <main className="relative flex min-h-screen flex-col bg-transparent">
       {/* Noise texture overlay */}
       <div className="pointer-events-none fixed inset-0 z-[1] opacity-[0.015]">
         <svg width="100%" height="100%">

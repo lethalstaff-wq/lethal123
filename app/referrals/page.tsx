@@ -102,14 +102,14 @@ export default function ReferralsPage() {
 
   if (loading) {
     return (
-      <main className="min-h-screen bg-black flex items-center justify-center">
+      <main className="min-h-screen bg-transparent flex items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin text-[#f97316]" />
       </main>
     )
   }
 
   return (
-    <main className="min-h-screen bg-black">
+    <main className="min-h-screen bg-transparent">
       <Navbar />
 
       {/* Hero */}

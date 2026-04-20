@@ -203,7 +203,7 @@ export default function StatusPage() {
     return (
       <>
         <Navbar />
-        <main className="min-h-screen bg-black pt-32 pb-20 px-4 flex items-center justify-center">
+        <main className="min-h-screen bg-transparent pt-32 pb-20 px-4 flex items-center justify-center">
           <RefreshCw className="h-8 w-8 animate-spin text-white/30" />
         </main>
         <Footer />
@@ -214,7 +214,7 @@ export default function StatusPage() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-black pt-32 pb-20 px-4">
+      <main className="min-h-screen bg-transparent pt-32 pb-20 px-4">
         <div className="container mx-auto max-w-6xl">
           <Breadcrumbs items={[{ label: "Status" }]} />
 

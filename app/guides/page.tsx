@@ -223,7 +223,7 @@ export default function GuidesPage() {
   })
 
   return (
-    <div className="min-h-screen bg-black flex flex-col">
+    <div className="min-h-screen bg-transparent flex flex-col">
       <Navbar />
 
       <main className="flex-1 pt-32 pb-20">

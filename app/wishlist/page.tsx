@@ -59,7 +59,7 @@ export default function WishlistPage() {
 
   if (products.length === 0) {
     return (
-      <main className="flex min-h-screen flex-col bg-black">
+      <main className="flex min-h-screen flex-col bg-transparent">
         <Navbar />
         <section className="flex-1 py-32 px-4 sm:px-6 lg:px-8">
           <div className="container mx-auto max-w-md text-center">
@@ -82,7 +82,7 @@ export default function WishlistPage() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col bg-black">
+    <main className="flex min-h-screen flex-col bg-transparent">
       <Navbar />
       <section className="flex-1 py-20 px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto max-w-5xl">

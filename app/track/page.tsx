@@ -126,7 +126,7 @@ export default function TrackOrderPage() {
   // Order results view — with navbar
   if (orders && orders.length > 0) {
     return (
-      <main className="flex min-h-screen flex-col bg-black">
+      <main className="flex min-h-screen flex-col bg-transparent">
         <Navbar />
         <section className="flex-1 pt-28 pb-20 px-4">
           <div className="container mx-auto max-w-3xl">
