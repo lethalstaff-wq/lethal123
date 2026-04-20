@@ -30,7 +30,7 @@ export function ProductsGridDark({ products }: { products: Product[] }) {
             className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-200 ${
               activeCategory === cat.id
                 ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25"
-                : "bg-white/[0.02]/60 border border-white/[0.06]/60 text-white/40 hover:text-foreground hover:border-primary/40 hover:bg-white/[0.02]"
+                : "bg-white/[0.02] border border-white/[0.06] text-white/40 hover:text-foreground hover:border-primary/40 hover:bg-white/[0.02]"
             }`}
           >
             {cat.name}
@@ -52,7 +52,7 @@ export function ProductsGridDark({ products }: { products: Product[] }) {
                 className={`relative rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1.5 ${
                   isPremium
                     ? "border-2 border-primary/40 bg-gradient-to-b from-primary/5 to-card shadow-lg shadow-primary/10 hover:shadow-xl hover:shadow-primary/20 hover:border-primary/60 card-glow-border"
-                    : "border border-white/[0.06]/50 bg-white/[0.02] hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 card-glow-border"
+                    : "border border-white/[0.06] bg-white/[0.02] hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 card-glow-border"
                 }`}
               >
                 {/* Top badges row */}
@@ -109,7 +109,7 @@ export function ProductsGridDark({ products }: { products: Product[] }) {
                 </div>
 
                 {/* Info Section */}
-                <div className="border-t border-white/[0.06]/40 p-5 space-y-3.5">
+                <div className="border-t border-white/[0.06] p-5 space-y-3.5">
                   {/* Tags */}
                   <div className="flex items-center gap-2">
                     <span className="text-[10px] text-emerald-400 font-medium flex items-center gap-1">

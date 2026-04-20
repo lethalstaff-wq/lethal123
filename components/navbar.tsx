@@ -176,8 +176,8 @@ export function Navbar() {
 
                 {/* Search Dropdown */}
                 {searchOpen && (
-                  <div className="absolute right-0 top-full mt-2 w-[320px] sm:w-[400px] rounded-2xl border border-white/[0.06]/50 bg-white/[0.02]/95 backdrop-blur-xl shadow-2xl shadow-black/20 overflow-hidden z-50">
-                    <div className="p-3 border-b border-white/[0.06]/30">
+                  <div className="absolute right-0 top-full mt-2 w-[320px] sm:w-[400px] rounded-2xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-xl shadow-2xl shadow-black/20 overflow-hidden z-50">
+                    <div className="p-3 border-b border-white/[0.06]">
                       <div className="relative">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/40" />
                         <input
@@ -223,7 +223,7 @@ export function Navbar() {
                         </div>
                       )}
                     </div>
-                    <div className="p-3 border-t border-white/[0.06]/30 bg-muted/5">
+                    <div className="p-3 border-t border-white/[0.06] bg-muted/5">
                       <Link
                         href="/products"
                         onClick={() => setSearchOpen(false)}

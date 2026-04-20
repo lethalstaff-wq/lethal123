@@ -19,7 +19,7 @@ export default function PrivacyPage() {
           <p className="text-white/40 mb-12">Last updated: January 2025</p>
 
           <div className="space-y-10">
-            <section className="p-6 rounded-2xl bg-white/[0.02]/50 border border-white/[0.06]">
+            <section className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
               <h2 className="text-xl font-bold mb-3">1. Information We Collect</h2>
               <p className="text-white/40 leading-relaxed">
                 We collect email addresses, payment information, and basic usage data. This information is used solely for 
@@ -27,7 +27,7 @@ export default function PrivacyPage() {
               </p>
             </section>
 
-            <section className="p-6 rounded-2xl bg-white/[0.02]/50 border border-white/[0.06]">
+            <section className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
               <h2 className="text-xl font-bold mb-3">2. Data Privacy</h2>
               <p className="text-white/40 leading-relaxed">
                 Your personal data is encrypted and stored securely. We do not sell, trade, or share your information with 
@@ -35,7 +35,7 @@ export default function PrivacyPage() {
               </p>
             </section>
 
-            <section className="p-6 rounded-2xl bg-white/[0.02]/50 border border-white/[0.06]">
+            <section className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
               <h2 className="text-xl font-bold mb-3">3. Cookies & Tracking</h2>
               <p className="text-white/40 leading-relaxed">
                 We use essential cookies for site functionality and analytics. Tracking is minimal and used only to improve 
@@ -43,7 +43,7 @@ export default function PrivacyPage() {
               </p>
             </section>
 
-            <section className="p-6 rounded-2xl bg-white/[0.02]/50 border border-white/[0.06]">
+            <section className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
               <h2 className="text-xl font-bold mb-3">4. GDPR Compliance</h2>
               <p className="text-white/40 leading-relaxed">
                 If you&apos;re in the EU, your data is handled in accordance with GDPR. You have the right to request, modify, 
@@ -51,7 +51,7 @@ export default function PrivacyPage() {
               </p>
             </section>
 
-            <section className="p-6 rounded-2xl bg-white/[0.02]/50 border border-white/[0.06]">
+            <section className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
               <h2 className="text-xl font-bold mb-3">5. Data Retention</h2>
               <p className="text-white/40 leading-relaxed">
                 Personal data is retained for as long as your account is active. Upon account deletion, data is purged 
@@ -59,7 +59,7 @@ export default function PrivacyPage() {
               </p>
             </section>
 
-            <section className="p-6 rounded-2xl bg-white/[0.02]/50 border border-white/[0.06]">
+            <section className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
               <h2 className="text-xl font-bold mb-3">6. Third-Party Services</h2>
               <p className="text-white/40 leading-relaxed">
                 We use payment processors and analytics services. These providers have their own privacy policies and may 
@@ -67,7 +67,7 @@ export default function PrivacyPage() {
               </p>
             </section>
 
-            <section className="p-6 rounded-2xl bg-white/[0.02]/50 border border-white/[0.06]">
+            <section className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
               <h2 className="text-xl font-bold mb-3">7. Your Rights</h2>
               <p className="text-white/40 leading-relaxed">
                 You have the right to access, modify, or request deletion of your personal data. Contact us via Discord 

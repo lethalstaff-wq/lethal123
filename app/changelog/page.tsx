@@ -599,7 +599,7 @@ export default function ChangelogPage() {
                       "px-4 py-2 rounded-full text-sm font-bold transition-all",
                       selectedProduct === product
                         ? "bg-[#f97316] text-[#f97316]-foreground"
-                        : "bg-white/[0.03]/30 text-white/40 hover:bg-white/[0.03]/50"
+                        : "bg-white/[0.03] text-white/40 hover:bg-white/[0.03]"
                     )}
                   >
                     {product}
@@ -623,7 +623,7 @@ export default function ChangelogPage() {
                   <span className="text-sm font-normal text-white/40">({entries.length} updates)</span>
                 </h2>
 
-                <div className="space-y-4 pl-6 border-l-2 border-white/[0.06]/50">
+                <div className="space-y-4 pl-6 border-l-2 border-white/[0.06]">
                   {entries.map((entry, index) => {
                     const typeConfig = TYPE_CONFIG[entry.type]
                     const TypeIcon = typeConfig.icon
@@ -639,7 +639,7 @@ export default function ChangelogPage() {
                         )} />
 
                         {/* Card */}
-                        <div className="rounded-2xl border border-white/[0.06]/50 bg-white/[0.02]/60 backdrop-blur-xl overflow-hidden">
+                        <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-xl overflow-hidden">
                           <button
                             onClick={() => toggleItem(itemId)}
                             className="w-full p-5 text-left"
@@ -670,7 +670,7 @@ export default function ChangelogPage() {
                           </button>
 
                           {isExpanded && (
-                            <div className="px-5 pb-5 pt-2 border-t border-white/[0.06]/30">
+                            <div className="px-5 pb-5 pt-2 border-t border-white/[0.06]">
                               <ul className="space-y-2 pl-14">
                                 {entry.changes.map((change, i) => (
                                   <li key={i} className="flex items-start gap-3 text-sm text-white/40">

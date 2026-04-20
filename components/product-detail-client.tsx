@@ -201,7 +201,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
 
         {/* ═══ LEFT: Image ═══ */}
         <div>
-          <div className="relative aspect-square rounded-2xl bg-gradient-to-br from-card/80 to-secondary/20 border border-white/[0.06]/40 overflow-hidden group">
+          <div className="relative aspect-square rounded-2xl bg-gradient-to-br from-card/80 to-secondary/20 border border-white/[0.06] overflow-hidden group">
             <Badge className="absolute top-4 left-4 z-10 bg-emerald-500/15 text-emerald-400 border-emerald-500/20 backdrop-blur-sm">
               <Zap className="h-3 w-3 mr-1" />
               Instant Delivery
@@ -290,7 +290,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
                     className={`relative p-4 rounded-xl border-2 text-left transition-all duration-200 ${
                       selectedVariant.id === variant.id
                         ? "border-primary bg-primary/[0.06] shadow-lg shadow-primary/5"
-                        : "border-white/[0.06]/50 hover:border-primary/40 bg-white/[0.02]/30"
+                        : "border-white/[0.06] hover:border-primary/40 bg-white/[0.02]"
                     }`}
                   >
                     {selectedVariant.id === variant.id && (
@@ -306,7 +306,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
 
           {/* Quantity & Stock */}
           <div className="flex items-center gap-5 mb-6">
-            <div className="flex items-center border border-white/[0.06]/50 rounded-xl overflow-hidden">
+            <div className="flex items-center border border-white/[0.06] rounded-xl overflow-hidden">
               <button
                 onClick={() => setQuantity(Math.max(1, quantity - 1))}
                 className="p-3 hover:bg-white/[0.04] transition-colors text-white/40 hover:text-white"
@@ -360,7 +360,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
                 onClick={handleAddToCart}
                 variant="outline"
                 size="lg"
-                className="h-11 sm:h-12 text-xs sm:text-sm font-semibold gap-1.5 sm:gap-2 rounded-xl border-white/[0.06]/50 hover:border-primary/40 hover:bg-primary/5"
+                className="h-11 sm:h-12 text-xs sm:text-sm font-semibold gap-1.5 sm:gap-2 rounded-xl border-white/[0.06] hover:border-primary/40 hover:bg-primary/5"
               >
                 <ShoppingCart className="h-4 w-4" />
                 Add to Cart
@@ -498,7 +498,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {productReviews.map((review) => (
-              <div key={review.id} className="rounded-xl border border-white/[0.06]/30 bg-white/[0.02]/30 p-5 hover:border-white/[0.06]/50 transition-colors">
+              <div key={review.id} className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-5 hover:border-white/[0.06] transition-colors">
                 {/* Stars */}
                 <div className="flex items-center gap-2 mb-3">
                   <div className="flex gap-0.5">
@@ -523,7 +523,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
                 )}
 
                 {/* Footer */}
-                <div className="flex items-center justify-between pt-3 border-t border-white/[0.06]/20">
+                <div className="flex items-center justify-between pt-3 border-t border-white/[0.06]">
                   <span className="text-xs text-white/40 font-mono">{maskEmail(review.email)}</span>
                   <div className="flex items-center gap-3">
                     {review.helpful > 0 && (
@@ -542,7 +542,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
 
       {/* Sticky Add to Cart bar (mobile) */}
       {showStickyBar && (
-        <div className="fixed bottom-0 left-0 right-0 z-[70] bg-black/95 backdrop-blur-xl border-t border-white/[0.06]/30 px-4 py-3 lg:hidden">
+        <div className="fixed bottom-0 left-0 right-0 z-[70] bg-black/95 backdrop-blur-xl border-t border-white/[0.06] px-4 py-3 lg:hidden">
           <div className="flex items-center justify-between max-w-7xl mx-auto">
             <div>
               <p className="text-sm font-bold">{product.name}</p>

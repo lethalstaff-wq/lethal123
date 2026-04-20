@@ -250,7 +250,7 @@ export default function ComparePage() {
       <section className="pb-8">
         <div className="container mx-auto px-4">
           <div className="flex justify-center">
-            <div className="inline-flex p-1 rounded-2xl bg-white/[0.03]/30 border border-white/[0.06]/50">
+            <div className="inline-flex p-1 rounded-2xl bg-white/[0.03] border border-white/[0.06]">
               <button
                 onClick={() => setCategory("cheats")}
                 className={cn(
@@ -310,7 +310,7 @@ export default function ComparePage() {
                       </th>
                       {Object.entries(CHEATS_DATA).map(([id, cheat]) => (
                         <th key={id} className="p-4 text-center min-w-[180px]">
-                          <div className="rounded-2xl border border-white/[0.06]/50 bg-white/[0.02]/60 p-6">
+                          <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6">
                             <span className={cn(
                               "inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase mb-2",
                               cheat.badge === "Premium" ? "bg-[#f97316]/10 text-[#f97316]" :
@@ -334,7 +334,7 @@ export default function ComparePage() {
                   </thead>
                   <tbody>
                     {CHEAT_FEATURES.map((feature, index) => (
-                      <tr key={feature.key} className={cn(index % 2 === 0 && "bg-white/[0.03]/5")}>
+                      <tr key={feature.key} className={cn(index % 2 === 0 && "bg-white/[0.03]")}>
                         <td className="p-4">
                           <div>
                             <p className="font-medium text-foreground">{feature.label}</p>
@@ -348,7 +348,7 @@ export default function ComparePage() {
                                 <Check className="h-5 w-5 text-emerald-500" />
                               </div>
                             ) : (
-                              <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/[0.03]/30">
+                              <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/[0.03]">
                                 <X className="h-5 w-5 text-white/40/50" />
                               </div>
                             )}
@@ -391,7 +391,7 @@ export default function ComparePage() {
                       </th>
                       {Object.entries(SPOOFERS_DATA).map(([id, spoofer]) => (
                         <th key={id} className="p-4 text-center min-w-[200px]">
-                          <div className="rounded-2xl border border-white/[0.06]/50 bg-white/[0.02]/60 p-6">
+                          <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6">
                             <span className={cn(
                               "inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase mb-2",
                               spoofer.badge === "Permanent" ? "bg-[#f97316]/10 text-[#f97316]" : "bg-blue-500/10 text-blue-500"
@@ -413,7 +413,7 @@ export default function ComparePage() {
                   </thead>
                   <tbody>
                     {SPOOFER_FEATURES.map((feature, index) => (
-                      <tr key={feature.key} className={cn(index % 2 === 0 && "bg-white/[0.03]/5")}>
+                      <tr key={feature.key} className={cn(index % 2 === 0 && "bg-white/[0.03]")}>
                         <td className="p-4">
                           <div>
                             <p className="font-medium text-foreground">{feature.label}</p>
@@ -427,7 +427,7 @@ export default function ComparePage() {
                                 <Check className="h-5 w-5 text-emerald-500" />
                               </div>
                             ) : (
-                              <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/[0.03]/30">
+                              <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/[0.03]">
                                 <X className="h-5 w-5 text-white/40/50" />
                               </div>
                             )}
@@ -474,7 +474,7 @@ export default function ComparePage() {
                             "rounded-2xl border p-6",
                             bundle.badge === "Popular" 
                               ? "border-primary/50 bg-[#f97316]/5" 
-                              : "border-white/[0.06]/50 bg-white/[0.02]/60"
+                              : "border-white/[0.06] bg-white/[0.02]"
                           )}>
                             {bundle.badge === "Popular" && (
                               <div className="flex items-center justify-center gap-1 mb-2">
@@ -484,7 +484,7 @@ export default function ComparePage() {
                             )}
                             <span className={cn(
                               "inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase mb-2",
-                              bundle.badge === "Starter" ? "bg-white/[0.03]/30 text-white/40" :
+                              bundle.badge === "Starter" ? "bg-white/[0.03] text-white/40" :
                               bundle.badge === "Popular" ? "bg-[#f97316]/10 text-[#f97316]" :
                               "bg-amber-500/10 text-amber-500"
                             )}>
@@ -505,7 +505,7 @@ export default function ComparePage() {
                   </thead>
                   <tbody>
                     {BUNDLE_FEATURES.map((feature, index) => (
-                      <tr key={feature.key} className={cn(index % 2 === 0 && "bg-white/[0.03]/5")}>
+                      <tr key={feature.key} className={cn(index % 2 === 0 && "bg-white/[0.03]")}>
                         <td className="p-4">
                           <div>
                             <p className="font-medium text-foreground">{feature.label}</p>
@@ -521,7 +521,7 @@ export default function ComparePage() {
                                   <Check className="h-5 w-5 text-emerald-500" />
                                 </div>
                               ) : value === false ? (
-                                <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/[0.03]/30">
+                                <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/[0.03]">
                                   <X className="h-5 w-5 text-white/40/50" />
                                 </div>
                               ) : (
@@ -554,7 +554,7 @@ export default function ComparePage() {
               </div>
 
               {/* Bundle Info */}
-              <div className="mt-8 p-6 rounded-2xl border border-white/[0.06]/50 bg-white/[0.02]/30 text-center">
+              <div className="mt-8 p-6 rounded-2xl border border-white/[0.06] bg-white/[0.02] text-center">
                 <p className="text-white/40">
                   All bundles include discreet shipping, lifetime Discord support, and remote firmware installation.
                 </p>

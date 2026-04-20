@@ -13,14 +13,15 @@ export function Footer() {
   }
 
   return (
-    <footer className="border-t border-white/[0.04] mt-auto relative overflow-hidden bg-black">
+    <footer className="border-t border-white/[0.06] mt-auto relative overflow-hidden bg-transparent">
       {/* Shimmer line */}
       <div className="absolute top-0 left-0 right-0 h-px overflow-hidden">
         <div className="absolute top-0 left-[-40%] w-[40%] h-full bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" style={{ animation: "footerShimmer 6s ease-in-out infinite" }} />
       </div>
       <style dangerouslySetInnerHTML={{ __html: "@keyframes footerShimmer { 0%,100% { left: -40%; } 50% { left: 100%; } }" }} />
-      {/* Subtle top glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+      {/* Subtle top glow line */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2/3 h-px bg-gradient-to-r from-transparent via-[#f97316]/40 to-transparent" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-[6px] bg-gradient-to-b from-[#f97316]/15 to-transparent blur-md pointer-events-none" />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <div className="grid grid-cols-1 md:grid-cols-5 gap-10">
@@ -28,18 +29,18 @@ export function Footer() {
           {/* Brand */}
           <div className="md:col-span-2">
             <Logo className="mb-4" />
-            <p className="text-sm text-white/40 leading-relaxed max-w-xs mb-6">
+            <p className="text-sm text-white/55 leading-relaxed max-w-xs mb-6">
               Kernel-level gaming tools trusted by thousands. Undetected since day one.
             </p>
             {/* Trust badges */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3 flex-wrap">
               {[
                 { icon: Shield, label: "Secure" },
                 { icon: Zap, label: "Instant" },
                 { icon: Globe, label: "24/7" },
               ].map(({ icon: Icon, label }) => (
-                <div key={label} className="flex items-center gap-1.5 text-white/20 text-xs">
-                  <Icon className="h-3.5 w-3.5" />
+                <div key={label} className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/[0.03] border border-white/[0.06] text-white/45 text-[11px] font-medium hover:border-[#f97316]/30 hover:text-[#f97316] transition-colors">
+                  <Icon className="h-3 w-3" />
                   <span>{label}</span>
                 </div>
               ))}
@@ -48,7 +49,7 @@ export function Footer() {
 
           {/* Products */}
           <div>
-            <h4 className="text-xs font-bold text-white/60 uppercase tracking-wider mb-4">Products</h4>
+            <h4 className="font-display text-xs font-bold text-white/85 uppercase tracking-[0.18em] mb-4">Products</h4>
             <ul className="space-y-2.5">
               {[
                 { label: "All Products", href: "/products" },
@@ -56,7 +57,7 @@ export function Footer() {
                 { label: "Reviews", href: "/reviews" },
               ].map((item) => (
                 <li key={item.label}>
-                  <Link href={item.href} className="text-sm text-white/30 hover:text-primary transition-colors">
+                  <Link href={item.href} className="text-sm text-white/45 hover:text-[#f97316] hover:translate-x-0.5 transition-all inline-block">
                     {item.label}
                   </Link>
                 </li>
@@ -66,7 +67,7 @@ export function Footer() {
 
           {/* Resources */}
           <div>
-            <h4 className="text-xs font-bold text-white/60 uppercase tracking-wider mb-4">Resources</h4>
+            <h4 className="font-display text-xs font-bold text-white/85 uppercase tracking-[0.18em] mb-4">Resources</h4>
             <ul className="space-y-2.5">
               {[
                 { label: "FAQ", href: "/faq" },
@@ -78,7 +79,7 @@ export function Footer() {
                 { label: "Join Our Team", href: "/apply" },
               ].map((item) => (
                 <li key={item.label}>
-                  <Link href={item.href} className="text-sm text-white/30 hover:text-primary transition-colors">
+                  <Link href={item.href} className="text-sm text-white/45 hover:text-[#f97316] hover:translate-x-0.5 transition-all inline-block">
                     {item.label}
                   </Link>
                 </li>
@@ -88,14 +89,14 @@ export function Footer() {
 
           {/* Account + Social */}
           <div>
-            <h4 className="text-xs font-bold text-white/60 uppercase tracking-wider mb-4">Account</h4>
+            <h4 className="font-display text-xs font-bold text-white/85 uppercase tracking-[0.18em] mb-4">Account</h4>
             <ul className="space-y-2.5">
               {[
                 { label: "Track Order", href: "/track" },
                 { label: "Downloads", href: "/downloads" },
               ].map((item) => (
                 <li key={item.label}>
-                  <Link href={item.href} className="text-sm text-white/30 hover:text-primary transition-colors">
+                  <Link href={item.href} className="text-sm text-white/45 hover:text-[#f97316] hover:translate-x-0.5 transition-all inline-block">
                     {item.label}
                   </Link>
                 </li>
@@ -114,7 +115,7 @@ export function Footer() {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`w-9 h-9 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center text-white/30 transition-all duration-300 ${hoverColor}`}
+                  className={`w-10 h-10 rounded-full bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-white/55 hover:-translate-y-0.5 transition-all duration-300 ${hoverColor}`}
                   aria-label={label}
                 >
                   <Icon className="h-4 w-4" />
@@ -125,20 +126,20 @@ export function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="mt-12 pt-6 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-xs text-white/20">
-            &copy; {currentYear} Lethal Solutions
+        <div className="mt-12 pt-6 border-t border-white/[0.06] flex flex-col sm:flex-row justify-between items-center gap-4">
+          <p className="text-xs text-white/40">
+            &copy; {currentYear} <span className="text-white/70 font-semibold">Lethal Solutions</span>. All rights reserved.
           </p>
           <div className="flex items-center gap-5">
-            <Link href="/terms" className="text-xs text-white/20 hover:text-white/50 transition-colors">
+            <Link href="/terms" className="text-xs text-white/40 hover:text-[#f97316] transition-colors">
               Terms
             </Link>
-            <Link href="/privacy" className="text-xs text-white/20 hover:text-white/50 transition-colors">
+            <Link href="/privacy" className="text-xs text-white/40 hover:text-[#f97316] transition-colors">
               Privacy
             </Link>
             <button
               onClick={scrollToTop}
-              className="ml-2 w-8 h-8 rounded-xl bg-white/5 hover:bg-primary/20 border border-white/5 hover:border-primary/30 flex items-center justify-center text-white/20 hover:text-primary transition-all"
+              className="ml-2 w-8 h-8 rounded-full bg-white/[0.04] hover:bg-[#f97316]/15 border border-white/[0.08] hover:border-[#f97316]/40 flex items-center justify-center text-white/45 hover:text-[#f97316] transition-all"
               aria-label="Back to top"
             >
               <ArrowUp className="h-3.5 w-3.5" />

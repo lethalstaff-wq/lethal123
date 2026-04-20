@@ -169,29 +169,32 @@ export function FloatingConfigurator() {
         <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center">
           <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={() => setIsOpen(false)} />
 
-          <div className="relative w-full sm:max-w-md rounded-t-2xl sm:rounded-2xl bg-black/95 backdrop-blur-xl border border-white/[0.06] rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] overflow-hidden max-h-[90vh] flex flex-col animate-in slide-in-from-bottom-4 sm:slide-in-from-bottom-0 fade-in duration-300">
+          <div className="relative w-full sm:max-w-md rounded-t-2xl sm:rounded-2xl bg-black/95 backdrop-blur-xl border border-white/[0.10] rounded-2xl shadow-[0_30px_80px_rgba(0,0,0,0.7),0_0_60px_rgba(249,115,22,0.10)] overflow-hidden max-h-[90vh] flex flex-col animate-in slide-in-from-bottom-4 sm:slide-in-from-bottom-0 fade-in duration-300">
+
+            {/* Decorative top glow */}
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f97316]/60 to-transparent pointer-events-none" />
 
             {/* Header */}
-            <div className="flex items-center justify-between px-5 py-4 border-b border-white/[0.06]">
+            <div className="flex items-center justify-between px-5 py-4 border-b border-white/[0.06] bg-gradient-to-b from-[#f97316]/[0.04] to-transparent">
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-[#f97316]/10 flex items-center justify-center">
-                  <Sparkles className="h-4 w-4 text-[#f97316]" />
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#f97316]/25 to-[#ea580c]/15 border border-[#f97316]/30 flex items-center justify-center shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_18px_rgba(249,115,22,0.18)]">
+                  <Sparkles className="h-[18px] w-[18px] text-[#f97316]" style={{ filter: "drop-shadow(0 0 8px rgba(249,115,22,0.6))" }} />
                 </div>
                 <div>
-                  <h3 className="text-white font-bold text-[15px]">Product Finder</h3>
-                  <p className="text-[11px] text-white/40">Step {currentStepNum} of {totalSteps}</p>
+                  <h3 className="font-display text-white font-bold text-[16px] tracking-tight">Product Finder</h3>
+                  <p className="text-[11px] text-white/55 font-medium">Step {currentStepNum} of {totalSteps}</p>
                 </div>
               </div>
-              <button onClick={() => setIsOpen(false)} className="p-2 rounded-xl text-white/30 hover:text-white/60 hover:bg-white/[0.06] transition-all">
-                <X className="h-5 w-5" />
+              <button onClick={() => setIsOpen(false)} aria-label="Close" className="p-2 rounded-full text-white/45 hover:text-white hover:bg-white/[0.06] transition-all">
+                <X className="h-[18px] w-[18px]" />
               </button>
             </div>
 
             {/* Progress bar */}
-            <div className="h-0.5 bg-white/[0.06]">
+            <div className="h-1 bg-white/[0.05] relative overflow-hidden">
               <div
-                className="h-full bg-[#f97316] transition-all duration-500"
-                style={{ width: `${(currentStepNum / totalSteps) * 100}%` }}
+                className="h-full bg-gradient-to-r from-[#f97316] to-[#fbbf24] transition-all duration-500"
+                style={{ width: `${(currentStepNum / totalSteps) * 100}%`, boxShadow: "0 0 12px rgba(249,115,22,0.6)" }}
               />
             </div>
 
@@ -213,16 +216,16 @@ export function FloatingConfigurator() {
                       <button
                         key={opt.id}
                         onClick={() => selectPurpose(opt.id)}
-                        className="w-full flex items-center gap-3 p-3.5 rounded-xl bg-white/[0.012] border border-white/[0.04] hover:border-white/[0.08] hover:bg-white/[0.02] transition-all group"
+                        className="w-full flex items-center gap-3 p-3.5 rounded-2xl bg-white/[0.025] border border-white/[0.07] hover:border-[#f97316]/35 hover:bg-white/[0.05] hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(0,0,0,0.4),0_0_24px_rgba(249,115,22,0.10)] transition-all duration-300 group"
                       >
-                        <div className="w-9 h-9 rounded-lg bg-white/[0.04] group-hover:bg-[#f97316]/10 flex items-center justify-center transition-colors">
-                          <opt.icon className="h-4 w-4 text-white/40 group-hover:text-[#f97316] transition-colors" />
+                        <div className="w-10 h-10 rounded-xl bg-white/[0.04] group-hover:bg-gradient-to-br group-hover:from-[#f97316]/25 group-hover:to-[#ea580c]/15 group-hover:border-[#f97316]/30 border border-white/[0.06] flex items-center justify-center transition-all duration-300">
+                          <opt.icon className="h-[18px] w-[18px] text-white/55 group-hover:text-[#f97316] group-hover:scale-110 transition-all duration-300" style={{ filter: "drop-shadow(0 0 0 transparent)" }} />
                         </div>
                         <div className="flex-1 text-left">
-                          <p className="text-sm font-semibold group-hover:text-[#f97316] transition-colors">{opt.label}</p>
-                          <p className="text-[11px] text-white/25">{opt.desc}</p>
+                          <p className="text-[14px] font-bold text-white group-hover:text-[#f97316] transition-colors">{opt.label}</p>
+                          <p className="text-[11px] text-white/45 mt-0.5">{opt.desc}</p>
                         </div>
-                        <ChevronRight className="h-4 w-4 text-white/10 group-hover:text-[#f97316]/50 group-hover:translate-x-0.5 transition-all" />
+                        <ChevronRight className="h-4 w-4 text-white/30 group-hover:text-[#f97316] group-hover:translate-x-1 transition-all duration-300" />
                       </button>
                     ))}
                   </div>
@@ -239,42 +242,42 @@ export function FloatingConfigurator() {
                   <div className="space-y-2">
                     <button
                       onClick={() => selectDMA(true)}
-                      className="w-full flex items-center gap-3 p-4 rounded-xl bg-white/[0.012] border border-white/[0.04] hover:border-white/[0.08] hover:bg-white/[0.02] transition-all group"
+                      className="w-full flex items-center gap-3 p-4 rounded-2xl bg-white/[0.025] border border-white/[0.07] hover:border-[#f97316]/35 hover:bg-white/[0.05] hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(0,0,0,0.4),0_0_24px_rgba(249,115,22,0.10)] transition-all duration-300 group"
                     >
-                      <div className="w-9 h-9 rounded-lg bg-white/[0.04] group-hover:bg-[#f97316]/10 flex items-center justify-center transition-colors">
-                        <Cpu className="h-4 w-4 text-white/40 group-hover:text-[#f97316] transition-colors" />
+                      <div className="w-10 h-10 rounded-xl bg-white/[0.04] group-hover:bg-gradient-to-br group-hover:from-[#f97316]/25 group-hover:to-[#ea580c]/15 group-hover:border-[#f97316]/30 border border-white/[0.06] flex items-center justify-center transition-all duration-300">
+                        <Cpu className="h-[18px] w-[18px] text-white/55 group-hover:text-[#f97316] group-hover:scale-110 transition-all duration-300" />
                       </div>
                       <div className="flex-1 text-left">
-                        <p className="text-sm font-semibold group-hover:text-[#f97316] transition-colors">Yes, I have DMA hardware</p>
-                        <p className="text-[11px] text-white/25">Show DMA cheats & firmware</p>
+                        <p className="text-[14px] font-bold text-white group-hover:text-[#f97316] transition-colors">Yes, I have DMA hardware</p>
+                        <p className="text-[11px] text-white/45 mt-0.5">Show DMA cheats & firmware</p>
                       </div>
-                      <ChevronRight className="h-4 w-4 text-white/10 group-hover:text-[#f97316]/50 group-hover:translate-x-0.5 transition-all" />
+                      <ChevronRight className="h-4 w-4 text-white/30 group-hover:text-[#f97316] group-hover:translate-x-1 transition-all duration-300" />
                     </button>
                     <button
                       onClick={() => selectDMA(false)}
-                      className="w-full flex items-center gap-3 p-4 rounded-xl bg-white/[0.012] border border-white/[0.04] hover:border-white/[0.08] hover:bg-white/[0.02] transition-all group"
+                      className="w-full flex items-center gap-3 p-4 rounded-2xl bg-white/[0.025] border border-white/[0.07] hover:border-[#f97316]/35 hover:bg-white/[0.05] hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(0,0,0,0.4),0_0_24px_rgba(249,115,22,0.10)] transition-all duration-300 group"
                     >
-                      <div className="w-9 h-9 rounded-lg bg-white/[0.04] group-hover:bg-[#f97316]/10 flex items-center justify-center transition-colors">
-                        <Monitor className="h-4 w-4 text-white/40 group-hover:text-[#f97316] transition-colors" />
+                      <div className="w-10 h-10 rounded-xl bg-white/[0.04] group-hover:bg-gradient-to-br group-hover:from-[#f97316]/25 group-hover:to-[#ea580c]/15 group-hover:border-[#f97316]/30 border border-white/[0.06] flex items-center justify-center transition-all duration-300">
+                        <Monitor className="h-[18px] w-[18px] text-white/55 group-hover:text-[#f97316] group-hover:scale-110 transition-all duration-300" />
                       </div>
                       <div className="flex-1 text-left">
-                        <p className="text-sm font-semibold group-hover:text-[#f97316] transition-colors">No, single PC only</p>
-                        <p className="text-[11px] text-white/25">Show external cheats (no extra hardware)</p>
+                        <p className="text-[14px] font-bold text-white group-hover:text-[#f97316] transition-colors">No, single PC only</p>
+                        <p className="text-[11px] text-white/45 mt-0.5">Show external cheats (no extra hardware)</p>
                       </div>
-                      <ChevronRight className="h-4 w-4 text-white/10 group-hover:text-[#f97316]/50 group-hover:translate-x-0.5 transition-all" />
+                      <ChevronRight className="h-4 w-4 text-white/30 group-hover:text-[#f97316] group-hover:translate-x-1 transition-all duration-300" />
                     </button>
                     <button
                       onClick={() => { setAnswers(prev => ({ ...prev, hasDMA: null })); setStep("budget") }}
-                      className="w-full flex items-center gap-3 p-4 rounded-xl bg-white/[0.012] border border-white/[0.04] hover:border-white/[0.08] hover:bg-white/[0.02] transition-all group"
+                      className="w-full flex items-center gap-3 p-4 rounded-2xl bg-white/[0.025] border border-white/[0.07] hover:border-[#f97316]/35 hover:bg-white/[0.05] hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(0,0,0,0.4),0_0_24px_rgba(249,115,22,0.10)] transition-all duration-300 group"
                     >
-                      <div className="w-9 h-9 rounded-lg bg-white/[0.04] group-hover:bg-[#f97316]/10 flex items-center justify-center transition-colors">
-                        <Sparkles className="h-4 w-4 text-white/40 group-hover:text-[#f97316] transition-colors" />
+                      <div className="w-10 h-10 rounded-xl bg-white/[0.04] group-hover:bg-gradient-to-br group-hover:from-[#f97316]/25 group-hover:to-[#ea580c]/15 group-hover:border-[#f97316]/30 border border-white/[0.06] flex items-center justify-center transition-all duration-300">
+                        <Sparkles className="h-[18px] w-[18px] text-white/55 group-hover:text-[#f97316] group-hover:scale-110 transition-all duration-300" />
                       </div>
                       <div className="flex-1 text-left">
-                        <p className="text-sm font-semibold group-hover:text-[#f97316] transition-colors">Not sure / show both</p>
-                        <p className="text-[11px] text-white/25">We'll show all options</p>
+                        <p className="text-[14px] font-bold text-white group-hover:text-[#f97316] transition-colors">Not sure / show both</p>
+                        <p className="text-[11px] text-white/45 mt-0.5">We'll show all options</p>
                       </div>
-                      <ChevronRight className="h-4 w-4 text-white/10 group-hover:text-[#f97316]/50 group-hover:translate-x-0.5 transition-all" />
+                      <ChevronRight className="h-4 w-4 text-white/30 group-hover:text-[#f97316] group-hover:translate-x-1 transition-all duration-300" />
                     </button>
                   </div>
                 </div>
@@ -298,13 +301,13 @@ export function FloatingConfigurator() {
                       <button
                         key={range.label}
                         onClick={() => selectBudget(range.max)}
-                        className="w-full flex items-center justify-between p-3.5 rounded-xl bg-white/[0.012] border border-white/[0.04] hover:border-white/[0.08] hover:bg-white/[0.02] transition-all group"
+                        className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-white/[0.025] border border-white/[0.07] hover:border-[#f97316]/35 hover:bg-white/[0.05] hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(0,0,0,0.4),0_0_24px_rgba(249,115,22,0.10)] transition-all duration-300 group"
                       >
                         <div>
-                          <p className="text-sm font-semibold group-hover:text-[#f97316] transition-colors">{range.label}</p>
-                          <p className="text-[11px] text-white/25">{range.desc}</p>
+                          <p className="text-[14px] font-bold text-white group-hover:text-[#f97316] transition-colors">{range.label}</p>
+                          <p className="text-[11px] text-white/45 mt-0.5">{range.desc}</p>
                         </div>
-                        <ChevronRight className="h-4 w-4 text-white/10 group-hover:text-[#f97316]/50 group-hover:translate-x-0.5 transition-all" />
+                        <ChevronRight className="h-4 w-4 text-white/30 group-hover:text-[#f97316] group-hover:translate-x-1 transition-all duration-300" />
                       </button>
                     ))}
                   </div>

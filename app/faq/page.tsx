@@ -207,7 +207,7 @@ export default function FAQPage() {
                 placeholder="Search questions..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full h-14 pl-12 pr-4 rounded-2xl border border-white/[0.06]/50 bg-white/[0.02]/60 backdrop-blur-xl text-foreground placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="w-full h-14 pl-12 pr-4 rounded-2xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-xl text-foreground placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-primary/50"
               />
             </div>
           </div>
@@ -226,7 +226,7 @@ export default function FAQPage() {
                   "px-4 py-2 rounded-full text-sm font-bold transition-all",
                   selectedCategory === category
                     ? "bg-[#f97316] text-[#f97316]-foreground"
-                    : "bg-white/[0.03]/30 text-white/40 hover:bg-white/[0.03]/50 hover:text-foreground"
+                    : "bg-white/[0.03] text-white/40 hover:bg-white/[0.03] hover:text-foreground"
                 )}
               >
                 {category}
@@ -243,7 +243,7 @@ export default function FAQPage() {
             {filteredFAQ.map((item, index) => (
               <div
                 key={index}
-                className="rounded-2xl border border-white/[0.06]/50 bg-white/[0.02]/60 backdrop-blur-xl overflow-hidden"
+                className="rounded-2xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-xl overflow-hidden"
               >
                 <button
                   onClick={() => toggleItem(index)}
@@ -267,13 +267,13 @@ export default function FAQPage() {
                 {openItems.has(index) && (
                   <div className="px-5 pb-5 pl-[4.5rem]">
                     <p className="text-white/40 leading-relaxed mb-4">{item.answer}</p>
-                    <div className="flex items-center gap-3 pt-3 border-t border-white/[0.06]/30">
+                    <div className="flex items-center gap-3 pt-3 border-t border-white/[0.06]">
                       <span className="text-xs text-white/40/60">Was this helpful?</span>
                       <button
                         onClick={(e) => { e.stopPropagation(); setHelpfulVotes(prev => ({ ...prev, [index]: "yes" })) }}
                         className={cn(
                           "inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs transition-colors",
-                          helpfulVotes[index] === "yes" ? "bg-emerald-500/15 text-emerald-400" : "bg-white/[0.03]/20 text-white/40 hover:bg-white/[0.03]/40"
+                          helpfulVotes[index] === "yes" ? "bg-emerald-500/15 text-emerald-400" : "bg-white/[0.03] text-white/40 hover:bg-white/[0.03]"
                         )}
                       >
                         <ThumbsUp className="h-3 w-3" /> Yes
@@ -282,7 +282,7 @@ export default function FAQPage() {
                         onClick={(e) => { e.stopPropagation(); setHelpfulVotes(prev => ({ ...prev, [index]: "no" })) }}
                         className={cn(
                           "inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs transition-colors",
-                          helpfulVotes[index] === "no" ? "bg-red-500/15 text-red-400" : "bg-white/[0.03]/20 text-white/40 hover:bg-white/[0.03]/40"
+                          helpfulVotes[index] === "no" ? "bg-red-500/15 text-red-400" : "bg-white/[0.03] text-white/40 hover:bg-white/[0.03]"
                         )}
                       >
                         <ThumbsDown className="h-3 w-3" /> No
@@ -313,19 +313,19 @@ export default function FAQPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="grid md:grid-cols-3 gap-4">
-              <Link href="/track" className="group p-6 rounded-2xl border border-white/[0.06]/50 bg-white/[0.02]/60 hover:bg-white/[0.02] transition-all hover:border-primary/30">
+              <Link href="/track" className="group p-6 rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.02] transition-all hover:border-primary/30">
                 <Clock className="h-8 w-8 text-[#f97316] mb-4" />
                 <h3 className="font-bold text-foreground mb-2">Track Order</h3>
                 <p className="text-sm text-white/40">Check your order status and download products</p>
               </Link>
               
-              <Link href="/status" className="group p-6 rounded-2xl border border-white/[0.06]/50 bg-white/[0.02]/60 hover:bg-white/[0.02] transition-all hover:border-primary/30">
+              <Link href="/status" className="group p-6 rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.02] transition-all hover:border-primary/30">
                 <ShieldCheck className="h-8 w-8 text-emerald-500 mb-4" />
                 <h3 className="font-bold text-foreground mb-2">Status Page</h3>
                 <p className="text-sm text-white/40">View real-time detection status of products</p>
               </Link>
               
-              <Link href="https://discord.gg/lethaldma" target="_blank" className="group p-6 rounded-2xl border border-white/[0.06]/50 bg-white/[0.02]/60 hover:bg-white/[0.02] transition-all hover:border-primary/30">
+              <Link href="https://discord.gg/lethaldma" target="_blank" className="group p-6 rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.02] transition-all hover:border-primary/30">
                 <MessageCircle className="h-8 w-8 text-[#5865F2] mb-4" />
                 <h3 className="font-bold text-foreground mb-2 flex items-center gap-2">
                   Discord Support
