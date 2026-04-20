@@ -225,7 +225,7 @@ export default function FAQPage() {
                 className={cn(
                   "px-4 py-2 rounded-full text-sm font-bold transition-all",
                   selectedCategory === category
-                    ? "bg-[#f97316] text-[#f97316]-foreground"
+                    ? "bg-[#f97316] text-white"
                     : "bg-white/[0.03] text-white/40 hover:bg-white/[0.03] hover:text-foreground"
                 )}
               >
@@ -268,7 +268,7 @@ export default function FAQPage() {
                   <div className="px-5 pb-5 pl-[4.5rem]">
                     <p className="text-white/40 leading-relaxed mb-4">{item.answer}</p>
                     <div className="flex items-center gap-3 pt-3 border-t border-white/[0.06]">
-                      <span className="text-xs text-white/40/60">Was this helpful?</span>
+                      <span className="text-xs text-white/60">Was this helpful?</span>
                       <button
                         onClick={(e) => { e.stopPropagation(); setHelpfulVotes(prev => ({ ...prev, [index]: "yes" })) }}
                         className={cn(
@@ -300,7 +300,7 @@ export default function FAQPage() {
 
             {filteredFAQ.length === 0 && (
               <div className="text-center py-12">
-                <HelpCircle className="h-12 w-12 text-white/40/30 mx-auto mb-4" />
+                <HelpCircle className="h-12 w-12 text-white/30 mx-auto mb-4" />
                 <p className="text-white/40">No questions found matching your search.</p>
               </div>
             )}

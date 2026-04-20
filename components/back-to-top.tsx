@@ -26,7 +26,7 @@ export function BackToTop() {
         show ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0 pointer-events-none"
       }`}
     >
-      <ArrowUp className="h-4.5 w-4.5" />
+      <ArrowUp className="h-[18px] w-[18px]" />
     </button>
   )
 }

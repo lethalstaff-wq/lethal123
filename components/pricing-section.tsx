@@ -57,13 +57,17 @@ export function PricingSection() {
       <div className="max-w-[1100px] mx-auto">
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/[0.06] bg-white/[0.02] mb-6">
-            <Crown className="h-3.5 w-3.5 text-white/20" />
+            <Crown className="h-3.5 w-3.5 text-white/55" />
             <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">DMA Bundles</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-[-0.03em] leading-[1.1] mb-4 text-white">
-            Choose your <span style={{ background: "linear-gradient(135deg, #f97316, #fb923c)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>package</span>
+          <div className="relative h-px w-44 mx-auto mb-7 bg-white/[0.05] overflow-hidden">
+            <div className="absolute inset-y-0 w-24 bg-gradient-to-r from-transparent via-[#f97316]/70 to-transparent" style={{ animation: "heroScan 4s ease-in-out infinite" }} />
+          </div>
+          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.04em] leading-[0.95] mb-4">
+            <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Choose your </span>
+            <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249,115,22,0.3))" }}>package</span>
           </h2>
-          <p className="text-white/30 text-[15px] max-w-md mx-auto">Complete setups with premium hardware. One purchase, everything included.</p>
+          <p className="text-white/55 text-[16px] max-w-md mx-auto">Complete setups with premium hardware. One purchase, everything included.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-stretch">
@@ -104,18 +108,18 @@ export function PricingSection() {
               <div className="p-8 sm:p-9 flex flex-col flex-1">
                 {/* Name */}
                 <div className="mb-6">
-                  <p className="text-[11px] text-white/20 uppercase tracking-[0.15em] mb-1">DMA Bundle</p>
+                  <p className="text-[11px] text-white/55 uppercase tracking-[0.15em] mb-1">DMA Bundle</p>
                   <h3 className="text-2xl font-bold text-white/90">{b.name}</h3>
-                  <p className="text-[13px] text-white/25 mt-1">{b.description}</p>
+                  <p className="text-[13px] text-white/55 mt-1">{b.description}</p>
                 </div>
 
                 {/* Price */}
                 <div className="mb-8">
                   <div className="flex items-baseline gap-1">
-                    <span className="text-[11px] text-white/20 font-medium self-start mt-3">£</span>
+                    <span className="text-[14px] text-white/65 font-bold self-start mt-3">£</span>
                     <span className="text-[52px] font-bold text-white/90 tracking-tight leading-none"><AnimPrice value={b.price} /></span>
                   </div>
-                  <p className="text-[12px] text-white/15 mt-1">one-time payment</p>
+                  <p className="text-[12px] text-white/55 mt-1">one-time payment</p>
                 </div>
 
                 {/* Divider */}
@@ -126,9 +130,9 @@ export function PricingSection() {
                   {b.features.map((f, j) => (
                     <div key={j} className="flex items-start gap-3">
                       <div className={`mt-0.5 w-5 h-5 rounded-md flex items-center justify-center shrink-0 ${b.highlighted ? "bg-[#f97316]/10" : "bg-white/[0.03]"}`}>
-                        <Check className={`h-3 w-3 ${b.highlighted ? "text-[#f97316]/70" : "text-white/25"}`} />
+                        <Check className={`h-3 w-3 ${b.highlighted ? "text-[#f97316]/70" : "text-white/55"}`} />
                       </div>
-                      <span className="text-[14px] text-white/50">{f}</span>
+                      <span className="text-[14px] text-white/65">{f}</span>
                     </div>
                   ))}
                 </div>
@@ -150,7 +154,7 @@ export function PricingSection() {
         </div>
 
         <div className="mt-10 text-center">
-          <p className="text-[12px] text-white/15 mb-2">All bundles include discreet shipping and lifetime Discord support.</p>
+          <p className="text-[12px] text-white/55 mb-2">All bundles include discreet shipping and lifetime Discord support.</p>
           <Link href="/products" className="inline-flex items-center gap-1.5 text-[13px] text-[#f97316]/50 hover:text-[#f97316] transition-colors">
             View all individual products →
           </Link>

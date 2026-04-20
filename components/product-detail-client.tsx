@@ -263,7 +263,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
               <span className="font-bold text-xs sm:text-sm text-yellow-400">5.0</span>
             </div>
             <span className="text-xs sm:text-sm text-white/40">{reviewCount} Verified Reviews</span>
-            <span className="hidden sm:inline text-white/40/30">·</span>
+            <span className="hidden sm:inline text-white/30">·</span>
             <div className="flex items-center gap-1.5">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />

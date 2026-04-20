@@ -73,10 +73,15 @@ export function TestimonialsSection() {
             <MessageSquare className="h-3.5 w-3.5 text-white/30" />
             <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">Customer Reviews</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-[-0.03em] leading-[1.1] mb-4 text-white">
-            What our <span style={{ background: "linear-gradient(135deg, #f97316, #fb923c)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>customers</span> say
+          <div className="relative h-px w-44 mx-auto mb-7 bg-white/[0.05] overflow-hidden">
+            <div className="absolute inset-y-0 w-24 bg-gradient-to-r from-transparent via-[#f97316]/70 to-transparent" style={{ animation: "heroScan 4s ease-in-out infinite" }} />
+          </div>
+          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.04em] leading-[0.95] mb-4">
+            <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>What our </span>
+            <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249,115,22,0.3))" }}>customers</span>
+            <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}> say</span>
           </h2>
-          <p className="text-white/35 text-[15px] max-w-lg mx-auto mb-6">Trusted by hundreds of competitive gamers worldwide.</p>
+          <p className="text-white/55 text-[16px] max-w-lg mx-auto mb-6">Trusted by hundreds of competitive gamers worldwide.</p>
           <Link href="/reviews" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-white/[0.06] bg-white/[0.02] text-[13px] font-semibold text-white/40 hover:text-white/70 hover:border-white/[0.1] transition-all">
             <Star className="h-3.5 w-3.5" /> Read all {total} reviews <ArrowRight className="h-3.5 w-3.5" />
           </Link>

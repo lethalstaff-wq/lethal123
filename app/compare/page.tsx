@@ -256,7 +256,7 @@ export default function ComparePage() {
                 className={cn(
                   "flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all",
                   category === "cheats"
-                    ? "bg-[#f97316] text-[#f97316]-foreground"
+                    ? "bg-[#f97316] text-white"
                     : "text-white/40 hover:text-foreground"
                 )}
               >
@@ -268,7 +268,7 @@ export default function ComparePage() {
                 className={cn(
                   "flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all",
                   category === "spoofers"
-                    ? "bg-[#f97316] text-[#f97316]-foreground"
+                    ? "bg-[#f97316] text-white"
                     : "text-white/40 hover:text-foreground"
                 )}
               >
@@ -280,7 +280,7 @@ export default function ComparePage() {
                 className={cn(
                   "flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all",
                   category === "bundles"
-                    ? "bg-[#f97316] text-[#f97316]-foreground"
+                    ? "bg-[#f97316] text-white"
                     : "text-white/40 hover:text-foreground"
                 )}
               >
@@ -349,7 +349,7 @@ export default function ComparePage() {
                               </div>
                             ) : (
                               <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/[0.03]">
-                                <X className="h-5 w-5 text-white/40/50" />
+                                <X className="h-5 w-5 text-white/50" />
                               </div>
                             )}
                           </td>
@@ -428,7 +428,7 @@ export default function ComparePage() {
                               </div>
                             ) : (
                               <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/[0.03]">
-                                <X className="h-5 w-5 text-white/40/50" />
+                                <X className="h-5 w-5 text-white/50" />
                               </div>
                             )}
                           </td>
@@ -522,7 +522,7 @@ export default function ComparePage() {
                                 </div>
                               ) : value === false ? (
                                 <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/[0.03]">
-                                  <X className="h-5 w-5 text-white/40/50" />
+                                  <X className="h-5 w-5 text-white/50" />
                                 </div>
                               ) : (
                                 <span className="text-sm font-medium text-foreground">{value}</span>

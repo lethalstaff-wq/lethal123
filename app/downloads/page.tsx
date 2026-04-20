@@ -171,7 +171,7 @@ export default function DownloadsPage() {
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto space-y-6">
               {/* License Info Card */}
-              <div className="rounded-2xl border border-emerald-500/20 bg-gradient-to-br from-emerald-500/10 via-black to-black overflow-hidden">
+              <div className="rounded-2xl border border-emerald-500/25 bg-gradient-to-br from-emerald-500/10 via-white/[0.025] to-white/[0.022] backdrop-blur-xl shadow-[0_18px_48px_rgba(0,0,0,0.4)] overflow-hidden">
                 <div className="p-6 border-b border-emerald-500/10">
                   <div className="flex items-start justify-between">
                     <div className="flex items-center gap-4">

@@ -496,7 +496,7 @@ export function DashboardClient({ user, orders, totalSpent, activeLicenses, memb
       {/* Password Change Modal */}
       {showPasswordModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
-          <div className="w-full max-w-md mx-4 p-6 rounded-2xl bg-black border border-white/[0.06] shadow-xl">
+          <div className="w-full max-w-md mx-4 p-6 rounded-2xl bg-[#0a0a0a] backdrop-blur-xl border border-white/[0.10] shadow-[0_30px_80px_rgba(0,0,0,0.7),0_0_60px_rgba(249,115,22,0.10)]">
             <h3 className="text-lg font-bold mb-4 text-white">Change Password</h3>
 
             {passwordSuccess ? (

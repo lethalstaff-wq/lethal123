@@ -172,7 +172,7 @@ export default function TrackOrderPage() {
                                 <div className={`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all ${
                                   stepStatus === "complete" ? "bg-emerald-500 border-emerald-500 text-white" :
                                   stepStatus === "current" ? "bg-yellow-500/20 border-yellow-500 text-yellow-400" :
-                                  "bg-black border-white/20 text-white/30"
+                                  "bg-white/[0.03] border-white/[0.10] text-white/55"
                                 }`}>
                                   {stepStatus === "complete" ? <CheckCircle2 className="h-5 w-5" /> :
                                    stepStatus === "current" ? <Loader2 className="h-5 w-5 animate-spin" /> :
@@ -213,7 +213,7 @@ export default function TrackOrderPage() {
                         <div className="space-y-3">
                           {order.license_key && (
                             <div>
-                              <div className="flex-1 p-3 rounded-xl bg-black/60 border border-white/[0.05]">
+                              <div className="flex-1 p-3 rounded-xl bg-white/[0.03] backdrop-blur-md border border-white/[0.08]">
                                 <p className="text-[10px] text-white/30 uppercase tracking-wider mb-1">License Key (masked)</p>
                                 <p className="font-mono text-sm font-bold text-white/80 break-all">{order.license_key}</p>
                               </div>

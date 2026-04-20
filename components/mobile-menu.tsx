@@ -42,7 +42,7 @@ export function MobileMenu() {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="md:hidden">
+        <Button variant="ghost" size="icon" className="lg:hidden hover:bg-white/[0.06] hover:text-[#f97316] transition-colors">
           <Menu className="h-5 w-5" />
           <span className="sr-only">Toggle menu</span>
         </Button>
@@ -64,17 +64,17 @@ export function MobileMenu() {
             </Link>
           ))}
 
-          <div className="border-t border-border mt-4 pt-4 flex gap-2">
+          <div className="border-t border-white/[0.08] mt-4 pt-4 flex gap-2">
             <Link href="/cart" onClick={() => setOpen(false)} className="flex-1">
-              <Button variant="outline" className="w-full gap-2 bg-transparent">
+              <Button variant="outline" className="w-full gap-2 bg-white/[0.025] border-white/[0.08] hover:border-[#f97316]/40 hover:bg-[#f97316]/[0.06] hover:text-[#f97316] transition-all">
                 <ShoppingCart className="h-4 w-4" />
                 Cart {itemCount > 0 && `(${itemCount})`}
               </Button>
             </Link>
             <Link href={isAuthed ? "/profile" : "/login"} onClick={() => setOpen(false)} className="flex-1">
-              <Button variant="outline" className="w-full gap-2 bg-transparent">
+              <Button className="w-full gap-2 bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white border-0 hover:brightness-110 shadow-[0_4px_14px_rgba(249,115,22,0.32)]">
                 <User className="h-4 w-4" />
-                {isAuthed ? "Profile" : "Account"}
+                {isAuthed ? "Profile" : "Login"}
               </Button>
             </Link>
           </div>

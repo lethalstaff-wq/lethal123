@@ -701,7 +701,7 @@ export default function ApplyPage() {
                           <div className="flex items-center gap-1.5 mt-0.5">
                             <span className="w-1.5 h-1.5 rounded-full lx-pulse" style={{ background: `${pos.color}70` }} />
                             <span className="text-[10px] font-medium" style={{ color: `${pos.color}60` }}>{pos.slots}</span>
-                            <span className="text-white/8 mx-0.5">·</span>
+                            <span className="text-white/40 mx-0.5">·</span>
                             <span className="text-[10px] text-white/55">{pos.salary}</span>
                           </div>
                         </div>
@@ -746,7 +746,7 @@ export default function ApplyPage() {
                           <div className="flex items-center gap-1.5 mt-0.5">
                             <span className="w-1.5 h-1.5 rounded-full lx-pulse" style={{ background: `${pos.color}70` }} />
                             <span className="text-[10px] font-medium" style={{ color: `${pos.color}60` }}>{pos.slots}</span>
-                            <span className="text-white/8 mx-0.5">·</span>
+                            <span className="text-white/40 mx-0.5">·</span>
                             <span className="text-[10px] text-white/55">{pos.salary}</span>
                           </div>
                         </div>
@@ -912,8 +912,8 @@ export default function ApplyPage() {
 
                   {/* Google ✗ — red on hover */}
                   <div className="flex justify-center">
-                    <div className="w-8 h-8 rounded-lg bg-white/[0.01] border border-white/[0.03] flex items-center justify-center group-hover:bg-[#EA4335]/[0.06] group-hover:border-[#EA4335]/12 transition-all duration-300">
-                      <span className="text-white/8 text-sm group-hover:text-[#EA4335]/50 transition-colors">×</span>
+                    <div className="w-8 h-8 rounded-lg bg-white/[0.01] border border-white/[0.03] flex items-center justify-center group-hover:bg-[#EA4335]/[0.06] group-hover:border-[#EA4335]/15 transition-all duration-300">
+                      <span className="text-white/40 text-sm group-hover:text-[#EA4335]/50 transition-colors">×</span>
                     </div>
                   </div>
                 </div>
@@ -1153,7 +1153,7 @@ export default function ApplyPage() {
                         const active = hoursPerWeek === h.v
                         return (
                           <button key={h.v} type="button" onClick={() => setHoursPerWeek(h.v)}
-                            className={`py-4 rounded-xl text-center transition-all duration-300 cursor-pointer ${active ? "border-2 border-[#f97316]/30 bg-[#f97316]/8" : "border border-white/[0.04] bg-white/[0.01] hover:border-white/[0.08]"}`}
+                            className={`py-4 rounded-xl text-center transition-all duration-300 cursor-pointer ${active ? "border-2 border-[#f97316]/30 bg-[#f97316]/10" : "border border-white/[0.04] bg-white/[0.01] hover:border-white/[0.08]"}`}
                             style={active ? { boxShadow: "0 0 15px rgba(249,115,22,0.06)" } : {}}>
                             <p className={`text-[13px] font-bold ${active ? "text-[#f97316]" : "text-white/30"}`}>{h.v}</p>
                             <p className={`text-[9px] mt-0.5 ${active ? "text-[#f97316]/50" : "text-white/10"}`}>{h.label}</p>
@@ -1171,7 +1171,7 @@ export default function ApplyPage() {
                         const isWeekend = d === "Sat" || d === "Sun"
                         return (
                           <button key={d} type="button" onClick={() => toggleDay(d)}
-                            className={`py-4 rounded-xl text-center transition-all duration-300 cursor-pointer ${active ? "border-2 border-[#f97316]/30 bg-[#f97316]/8" : "border border-white/[0.04] bg-white/[0.01] hover:border-white/[0.08]"}`}
+                            className={`py-4 rounded-xl text-center transition-all duration-300 cursor-pointer ${active ? "border-2 border-[#f97316]/30 bg-[#f97316]/10" : "border border-white/[0.04] bg-white/[0.01] hover:border-white/[0.08]"}`}
                             style={active ? { boxShadow: "0 0 12px rgba(249,115,22,0.05)" } : {}}>
                             <p className={`text-[12px] font-bold ${active ? "text-[#f97316]" : isWeekend ? "text-white/15" : "text-white/30"}`}>{d}</p>
                           </button>
@@ -1224,7 +1224,7 @@ export default function ApplyPage() {
                     <textarea value={experience} onChange={e => setExperience(e.target.value)} placeholder="Tell us what you've done and what you're good at..." rows={5} className="lx-textarea mt-3"
                       style={{ borderColor: experience.length >= 50 ? "rgba(34,197,94,0.15)" : undefined }} />
                     <div className="flex items-center justify-between mt-2">
-                      <p className={`text-[11px] ${experience.length >= 50 ? "text-emerald-400/60" : "text-white/12"}`}>
+                      <p className={`text-[11px] ${experience.length >= 50 ? "text-emerald-400/60" : "text-white/40"}`}>
                         {experience.length >= 50 ? <><Check className="inline h-3 w-3 mr-1" />Looks good</> : `${experience.length}/50 characters minimum`}
                       </p>
                       <span className="text-[10px] text-white/10 tabular-nums">{experience.length}</span>
@@ -1236,7 +1236,7 @@ export default function ApplyPage() {
                     <textarea value={whyLethal} onChange={e => setWhyLethal(e.target.value)} placeholder="What draws you to this role and our team?" rows={4} className="lx-textarea mt-3"
                       style={{ borderColor: whyLethal.length >= 30 ? "rgba(34,197,94,0.15)" : undefined }} />
                     <div className="flex items-center justify-between mt-2">
-                      <p className={`text-[11px] ${whyLethal.length >= 30 ? "text-emerald-400/60" : "text-white/12"}`}>
+                      <p className={`text-[11px] ${whyLethal.length >= 30 ? "text-emerald-400/60" : "text-white/40"}`}>
                         {whyLethal.length >= 30 ? <><Check className="inline h-3 w-3 mr-1" />Looks good</> : `${whyLethal.length}/30 characters minimum`}
                       </p>
                       <span className="text-[10px] text-white/10 tabular-nums">{whyLethal.length}</span>
@@ -1352,7 +1352,7 @@ export default function ApplyPage() {
           <R d={100}><h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.03em] mb-6 leading-tight lx-text-fade">Stop scrolling.<br /><span className="lx-text-orange relative inline-block">Start building.<span className="absolute left-0 -bottom-1 w-full h-[3px] rounded-full" style={{ background: "linear-gradient(90deg, #f97316, rgba(249,115,22,0.2))", boxShadow: "0 0 15px rgba(249,115,22,0.25)" }} /></span></h2></R>
           <R d={200}><p className="text-white/30 mb-12 text-[15px] sm:text-[17px] max-w-md mx-auto">The best time to join was yesterday. The second best is <span className="text-white/65 font-semibold">right now</span>.</p></R>
           <R d={300}><button onClick={() => formRef.current?.scrollIntoView({ behavior: "smooth" })} className="lx-primary px-12 py-4 rounded-xl text-[16px] font-bold text-white inline-flex items-center gap-3 cursor-pointer lx-breathe"><Send className="h-5 w-5" /> Apply Now</button></R>
-          <R d={400}><div className="flex items-center justify-center gap-6 mt-12 flex-wrap">{[{icon:Shield,text:"48h Response"},{icon:Heart,text:"Zero Toxicity"},{icon:Zap,text:"Day-One Impact"},{icon:Globe,text:"Fully Remote"}].map((it, i) => <div key={i} className="flex items-center gap-1.5 text-white/12"><it.icon className="h-3 w-3" /><span className="text-[11px] font-medium">{it.text}</span></div>)}</div></R>
+          <R d={400}><div className="flex items-center justify-center gap-6 mt-12 flex-wrap">{[{icon:Shield,text:"48h Response"},{icon:Heart,text:"Zero Toxicity"},{icon:Zap,text:"Day-One Impact"},{icon:Globe,text:"Fully Remote"}].map((it, i) => <div key={i} className="flex items-center gap-1.5 text-white/40"><it.icon className="h-3 w-3" /><span className="text-[11px] font-medium">{it.text}</span></div>)}</div></R>
         </div>
       </section>
 

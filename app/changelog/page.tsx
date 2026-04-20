@@ -598,7 +598,7 @@ export default function ChangelogPage() {
                     className={cn(
                       "px-4 py-2 rounded-full text-sm font-bold transition-all",
                       selectedProduct === product
-                        ? "bg-[#f97316] text-[#f97316]-foreground"
+                        ? "bg-[#f97316] text-white"
                         : "bg-white/[0.03] text-white/40 hover:bg-white/[0.03]"
                     )}
                   >
@@ -691,7 +691,7 @@ export default function ChangelogPage() {
 
             {filteredChangelog.length === 0 && (
               <div className="text-center py-12">
-                <Clock className="h-12 w-12 text-white/40/30 mx-auto mb-4" />
+                <Clock className="h-12 w-12 text-white/30 mx-auto mb-4" />
                 <p className="text-white/40">No updates found for this product.</p>
               </div>
             )}
