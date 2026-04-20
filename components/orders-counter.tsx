@@ -3,18 +3,20 @@
 import { useState, useEffect } from "react"
 import { ShoppingBag } from "lucide-react"
 import { getOrdersToday } from "@/lib/review-counts"
+import { FALLBACK_STATS } from "@/lib/fallback-stats"
 
 export function OrdersCounter() {
-  const [orders, setOrders] = useState(0)
+  const [orders, setOrders] = useState(FALLBACK_STATS.ordersToday)
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     setMounted(true)
-    setOrders(getOrdersToday())
+    const v = getOrdersToday()
+    setOrders(v > 0 ? v : FALLBACK_STATS.ordersToday)
 
-    // Recalculate every 20-40 minutes
     const interval = setInterval(() => {
-      setOrders(getOrdersToday())
+      const v = getOrdersToday()
+      setOrders(v > 0 ? v : FALLBACK_STATS.ordersToday)
     }, (20 + Math.random() * 20) * 60 * 1000)
 
     return () => clearInterval(interval)

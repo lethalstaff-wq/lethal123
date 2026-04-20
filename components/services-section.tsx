@@ -4,36 +4,42 @@ import { useState, useEffect, useRef } from "react"
 import { Shield, Zap, Cpu, RefreshCw, Headphones, Globe } from "lucide-react"
 
 function AnimNum({ value, prefix = "", suffix = "", decimals = 0 }: { value: number; prefix?: string; suffix?: string; decimals?: number }) {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(value)
+  const [animating, setAnimating] = useState(false)
   const ref = useRef<HTMLSpanElement>(null)
   const done = useRef(false)
   useEffect(() => {
     const el = ref.current; if (!el) return
+    if (typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return
     const obs = new IntersectionObserver(([e]) => {
       if (e.isIntersecting && !done.current) {
         done.current = true
+        setAnimating(true)
+        setCount(0)
         const t0 = performance.now()
         const tick = (now: number) => {
           const p = Math.min((now - t0) / 1500, 1)
           const eased = 1 - Math.pow(1 - p, 3)
           setCount(decimals > 0 ? parseFloat((eased * value).toFixed(decimals)) : Math.round(eased * value))
           if (p < 1) requestAnimationFrame(tick)
+          else setCount(value)
         }
         requestAnimationFrame(tick); obs.disconnect()
       }
-    }, { threshold: 0.3 })
+    }, { threshold: 0 })
     obs.observe(el); return () => obs.disconnect()
   }, [value, decimals])
-  return <span ref={ref} className="tabular-nums">{prefix}{decimals > 0 ? count.toFixed(decimals) : count}{suffix}</span>
+  const display = animating ? count : value
+  return <span ref={ref} className="tabular-nums">{prefix}{decimals > 0 ? display.toFixed(decimals) : display}{suffix}</span>
 }
 
 const features = [
   { icon: Shield, title: "Kernel-Level Dominance", desc: "We operate at the system's deepest level. While others get detected, we stay invisible.", num: 99.8, prefix: "", suffix: "%", label: "undetected" },
   { icon: Zap, title: "Zero-Hour Response", desc: "Game updated? We're already on it. Average patch time under 2 hours.", num: 2, prefix: "<", suffix: "h", label: "patch time" },
-  { icon: Cpu, title: "Ghost Technology", desc: "Every build is unique. Your software has its own signature, making detection impossible.", num: 1000, prefix: "", suffix: "+", label: "unique builds" },
+  { icon: Cpu, title: "Ghost Technology", desc: "Every build is unique. Your software has its own signature, making detection impossible.", num: 2400, prefix: "", suffix: "+", label: "unique builds" },
   { icon: RefreshCw, title: "Live Protection", desc: "Real-time threat detection and automatic updates. Always ahead of anti-cheat.", num: 24, prefix: "", suffix: "/7", label: "monitoring" },
-  { icon: Headphones, title: "Elite Support", desc: "Dedicated team on Discord. Screen share setup help. We don't sleep.", num: 15, prefix: "<", suffix: "m", label: "response" },
-  { icon: Globe, title: "Worldwide Network", desc: "Infrastructure on 6 continents. Discreet worldwide operations.", num: 30, prefix: "", suffix: "+", label: "countries" },
+  { icon: Headphones, title: "Elite Support", desc: "Dedicated team on Discord. Screen share setup help. We don't sleep.", num: 5, prefix: "<", suffix: "m", label: "response" },
+  { icon: Globe, title: "Worldwide Network", desc: "Infrastructure on 6 continents. Discreet worldwide operations.", num: 73, prefix: "", suffix: "+", label: "countries" },
 ]
 
 export function ServicesSection() {

@@ -6,22 +6,26 @@ import Link from "next/link"
 import { getTotalReviewCount, getOrdersToday } from "@/lib/review-counts"
 
 function Counter({ value }: { value: number }) {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(value)
+  const [animating, setAnimating] = useState(false)
   const ref = useRef<HTMLSpanElement>(null)
   const done = useRef(false)
   useEffect(() => {
     const el = ref.current; if (!el) return
+    if (typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return
     const obs = new IntersectionObserver(([e]) => {
       if (e.isIntersecting && !done.current) {
         done.current = true
+        setAnimating(true)
+        setCount(0)
         const t0 = performance.now()
-        const tick = (now: number) => { const p = Math.min((now - t0) / 2000, 1); setCount(Math.round((1 - Math.pow(1 - p, 4)) * value)); if (p < 1) requestAnimationFrame(tick) }
+        const tick = (now: number) => { const p = Math.min((now - t0) / 1800, 1); setCount(Math.round((1 - Math.pow(1 - p, 4)) * value)); if (p < 1) requestAnimationFrame(tick); else setCount(value) }
         requestAnimationFrame(tick); obs.disconnect()
       }
-    }, { threshold: 0.5 })
+    }, { threshold: 0 })
     obs.observe(el); return () => obs.disconnect()
   }, [value])
-  return <span ref={ref} className="tabular-nums">{count}</span>
+  return <span ref={ref} className="tabular-nums">{animating ? count : value}</span>
 }
 
 export function HeroSection() {

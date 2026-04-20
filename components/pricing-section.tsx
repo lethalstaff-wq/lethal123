@@ -8,27 +8,32 @@ import { toast } from "sonner"
 import { useState, useEffect, useRef } from "react"
 
 function AnimPrice({ value }: { value: number }) {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(value)
+  const [animating, setAnimating] = useState(false)
   const ref = useRef<HTMLSpanElement>(null)
   const started = useRef(false)
   useEffect(() => {
     const el = ref.current; if (!el) return
+    if (typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return
     const obs = new IntersectionObserver(([e]) => {
       if (e.isIntersecting && !started.current) {
         started.current = true
+        setAnimating(true)
+        setCount(0)
         const t0 = performance.now()
         const tick = (now: number) => {
           const p = Math.min((now - t0) / 1500, 1)
           setCount(Math.round((1 - Math.pow(1 - p, 3)) * value))
           if (p < 1) requestAnimationFrame(tick)
+          else setCount(value)
         }
         requestAnimationFrame(tick)
         obs.disconnect()
       }
-    }, { threshold: 0.3 })
+    }, { threshold: 0 })
     obs.observe(el); return () => obs.disconnect()
   }, [value])
-  return <span ref={ref} className="tabular-nums">{count}</span>
+  return <span ref={ref} className="tabular-nums">{animating ? count : value}</span>
 }
 
 const bundles = [

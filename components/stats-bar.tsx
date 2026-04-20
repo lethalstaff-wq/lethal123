@@ -13,12 +13,16 @@ const STATS = [
 function AnimatedNumber({ value, suffix, prefix, decimals = 0, visible }: {
   value: number; suffix: string; prefix?: string; decimals?: number; visible: boolean
 }) {
-  const [display, setDisplay] = useState(0)
+  const [display, setDisplay] = useState(value)
+  const [animating, setAnimating] = useState(false)
   const hasAnimated = useRef(false)
 
   useEffect(() => {
     if (!visible || hasAnimated.current) return
+    if (typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return
     hasAnimated.current = true
+    setAnimating(true)
+    setDisplay(0)
     const duration = 1500
     const start = performance.now()
     const tick = (now: number) => {
@@ -27,11 +31,13 @@ function AnimatedNumber({ value, suffix, prefix, decimals = 0, visible }: {
       const eased = 1 - Math.pow(1 - progress, 3)
       setDisplay(eased * value)
       if (progress < 1) requestAnimationFrame(tick)
+      else setDisplay(value)
     }
     requestAnimationFrame(tick)
   }, [visible, value])
 
-  const formatted = decimals > 0 ? display.toFixed(decimals) : Math.round(display).toLocaleString()
+  const shown = animating ? display : value
+  const formatted = decimals > 0 ? shown.toFixed(decimals) : Math.round(shown).toLocaleString()
   return <>{prefix}{formatted}{suffix}</>
 }
 
