@@ -305,6 +305,7 @@ export function DashboardClient({ user, orders, totalSpent, activeLicenses, memb
                                 {showKeys[order.id] ? order.license_key : maskKey(order.license_key)}
                               </code>
                               <button
+                                aria-label={showKeys[order.id] ? "Hide license key" : "Show license key"}
                                 onClick={() => toggleKeyVisibility(order.id)}
                                 className="p-1.5 rounded-lg hover:bg-white/[0.04] transition-colors"
                               >
@@ -315,6 +316,7 @@ export function DashboardClient({ user, orders, totalSpent, activeLicenses, memb
                                 )}
                               </button>
                               <button
+                                aria-label="Copy license key"
                                 onClick={() => copyToClipboard(order.license_key!, order.id)}
                                 className="p-1.5 rounded-lg hover:bg-white/[0.04] transition-colors"
                               >

@@ -166,14 +166,14 @@ export default function CartPage() {
                       )}
                     </div>
 
-                    <button onClick={() => removeItem(item.variant.id)} className="p-2 rounded-lg text-white/30 hover:text-red-400 hover:bg-red-400/10 transition-all">
+                    <button aria-label="Remove item" onClick={() => removeItem(item.variant.id)} className="p-2 rounded-lg text-white/30 hover:text-red-400 hover:bg-red-400/10 transition-all">
                       <Trash2 className="h-4 w-4" />
                     </button>
                   </div>
                 </div>
               ))}
 
-              <button onClick={clearCart} className="text-xs text-white/30 hover:text-red-400 transition-colors mt-2">
+              <button aria-label="Clear cart" onClick={clearCart} className="text-xs text-white/30 hover:text-red-400 transition-colors mt-2">
                 Clear all items
               </button>
 
