@@ -73,7 +73,7 @@ export default function CartPage() {
 
   if (items.length === 0) {
     return (
-      <main className="flex min-h-screen flex-col bg-black">
+      <main className="flex min-h-screen flex-col bg-transparent">
         <Navbar />
         <section className="flex-1 py-32 px-4 sm:px-6 lg:px-8">
           <div className="container mx-auto max-w-md text-center">
@@ -99,20 +99,23 @@ export default function CartPage() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col bg-black">
+    <main className="flex min-h-screen flex-col bg-transparent">
       <Navbar />
 
-      <section className="flex-1 py-20 px-4 sm:px-6 lg:px-8">
+      <section className="flex-1 pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto max-w-5xl">
           {/* Header */}
-          <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center justify-between mb-10">
             <div>
-              <Link href="/products" className="inline-flex items-center gap-1.5 text-sm text-white/40 hover:text-[#f97316] transition-colors mb-3">
+              <Link href="/products" className="inline-flex items-center gap-1.5 text-sm text-white/55 hover:text-[#f97316] transition-colors mb-3 font-medium">
                 <ArrowLeft className="h-3.5 w-3.5" />
                 Continue Shopping
               </Link>
-              <h1 className="text-3xl font-bold text-white/90">Shopping <span className="text-[#f97316]">Cart</span></h1>
-              <p className="text-sm text-white/40 mt-1">{items.length} {items.length === 1 ? "item" : "items"} in your cart</p>
+              <h1 className="font-display text-4xl sm:text-5xl font-bold tracking-[-0.04em] leading-[1]">
+                <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Shopping </span>
+                <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249,115,22,0.3))" }}>Cart</span>
+              </h1>
+              <p className="text-[14px] text-white/55 mt-2">{items.length} {items.length === 1 ? "item" : "items"} in your cart</p>
             </div>
           </div>
 

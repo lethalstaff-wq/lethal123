@@ -84,7 +84,7 @@ export function WelcomePopup() {
       {/* Modal */}
       <div className="relative w-full max-w-sm rounded-2xl border border-border/60 bg-card shadow-2xl shadow-primary/10 overflow-hidden animate-fade-in-up">
         {/* Close */}
-        <button
+        <button aria-label="Close"
           onClick={handleClose}
           className="absolute top-4 right-4 z-10 text-muted-foreground hover:text-foreground transition-colors"
         >

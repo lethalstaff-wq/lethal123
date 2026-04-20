@@ -41,8 +41,8 @@ export function CookieConsent() {
               <Link href="/privacy" className="text-primary hover:underline">Privacy Policy</Link>.
             </p>
           </div>
-          <button onClick={decline} className="p-1 text-muted-foreground hover:text-foreground transition-colors">
-            <X className="h-4 w-4" />
+          <button aria-label="Close" onClick={decline} className="p-1 text-muted-foreground hover:text-foreground transition-colors">
+            <X className="h-5 w-5" />
           </button>
         </div>
         <div className="flex gap-2">

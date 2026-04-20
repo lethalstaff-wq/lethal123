@@ -48,7 +48,7 @@ export function DiscordCheckoutModal({ isOpen, onClose, productName, variantName
 
       {/* Modal */}
       <Card className="relative w-full max-w-md border-border/50 bg-gradient-to-b from-card to-background shadow-2xl animate-in fade-in zoom-in duration-300">
-        <button
+        <button aria-label="Close"
           onClick={onClose}
           className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors"
         >

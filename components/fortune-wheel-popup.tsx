@@ -180,7 +180,7 @@ export function FortuneWheelPopup() {
       )}
 
       <div className="relative w-full max-w-md rounded-3xl border border-purple-500/20 bg-[#0c0c0e] shadow-2xl shadow-purple-500/10 overflow-hidden animate-fade-in-up">
-        <button onClick={handleClose} className="absolute top-4 right-4 z-20 p-2 rounded-full text-white/40 hover:text-white hover:bg-white/10 transition-colors">
+        <button aria-label="Close" onClick={handleClose} className="absolute top-4 right-4 z-20 p-2 rounded-full text-white/40 hover:text-white hover:bg-white/10 transition-colors">
           <X className="h-5 w-5" />
         </button>
 

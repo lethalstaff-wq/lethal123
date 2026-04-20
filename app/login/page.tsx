@@ -76,7 +76,7 @@ export default function LoginPage() {
     "w-full rounded-xl border border-white/[0.06] bg-white/[0.03] px-4 py-3 text-sm text-white placeholder:text-white/45 outline-none transition-all focus:border-[#f97316]/30 focus:bg-white/[0.04]"
 
   return (
-    <main className="flex h-screen bg-black overflow-hidden">
+    <main className="flex h-screen bg-transparent overflow-hidden">
       {/* Left — branding */}
       <div className="hidden lg:flex flex-col justify-between w-[45%] p-12 xl:p-16 relative overflow-hidden border-r border-white/[0.04]">
         {/* Background effects */}
@@ -94,12 +94,9 @@ export default function LoginPage() {
           <p className="text-[13px] font-medium text-[#f97316]/60 tracking-wide uppercase mb-4">
             Customer Portal
           </p>
-          <h1 className="text-[44px] xl:text-[52px] font-bold text-white leading-[1.05] tracking-tight">
-            Manage<br />
-            everything<br />
-            <span className="bg-gradient-to-r from-[#f97316] to-[#fb923c] bg-clip-text text-transparent">
-              in one place.
-            </span>
+          <h1 className="font-display text-[44px] xl:text-[60px] font-bold leading-[0.95] tracking-[-0.04em]">
+            <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Manage<br />everything<br /></span>
+            <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249,115,22,0.3))" }}>in one place.</span>
           </h1>
           <p className="mt-6 text-[15px] text-white/45 leading-relaxed max-w-[340px]">
             Licenses, downloads, orders, support — all from your dashboard.
@@ -136,10 +133,10 @@ export default function LoginPage() {
           </div>
 
           <div className="mb-8">
-            <h2 className="text-2xl font-bold text-white">
+            <h2 className="font-display text-3xl font-bold text-white tracking-tight">
               {activeTab === "login" ? "Sign in" : "Create account"}
             </h2>
-            <p className="mt-1.5 text-sm text-white/55">
+            <p className="mt-2 text-[14px] text-white/55">
               {activeTab === "login"
                 ? "Enter your credentials to continue."
                 : "Get started in seconds."}
@@ -147,14 +144,14 @@ export default function LoginPage() {
           </div>
 
           {/* Tabs */}
-          <div className="flex gap-1 mb-8 p-1 rounded-xl bg-white/[0.03] border border-white/[0.04]">
+          <div className="flex gap-1 mb-8 p-1 rounded-xl bg-white/[0.04] border border-white/[0.08] backdrop-blur-md">
             <button
               type="button"
               onClick={() => { setActiveTab("login"); setError(null); setSuccess(""); }}
-              className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all ${
+              className={`flex-1 py-2.5 rounded-lg text-[13px] font-bold transition-all ${
                 activeTab === "login"
-                  ? "bg-white/[0.08] text-white"
-                  : "text-white/55 hover:text-white/40"
+                  ? "bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white shadow-[0_4px_14px_rgba(249,115,22,0.4)]"
+                  : "text-white/55 hover:text-white"
               }`}
             >
               Login
@@ -164,8 +161,8 @@ export default function LoginPage() {
               onClick={() => { setActiveTab("signup"); setError(null); setSuccess(""); }}
               className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all ${
                 activeTab === "signup"
-                  ? "bg-white/[0.08] text-white"
-                  : "text-white/55 hover:text-white/40"
+                  ? "bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white shadow-[0_4px_14px_rgba(249,115,22,0.4)]"
+                  : "text-white/55 hover:text-white"
               }`}
             >
               Sign Up
@@ -176,13 +173,13 @@ export default function LoginPage() {
           {activeTab === "login" && (
             <form onSubmit={handleLogin} className="space-y-5">
               <div className="space-y-1.5">
-                <label htmlFor="login-email" className="text-xs font-medium text-white/35">Email</label>
+                <label htmlFor="login-email" className="text-[11px] font-bold text-white/65 uppercase tracking-[0.12em]">Email</label>
                 <input id="login-email" name="email" type="email" placeholder="you@example.com" required className={inputClass} />
               </div>
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between">
-                  <label htmlFor="login-password" className="text-xs font-medium text-white/35">Password</label>
-                  <a href="/forgot-password" className="text-[11px] text-[#f97316]/40 hover:text-[#f97316] transition-colors">Forgot?</a>
+                  <label htmlFor="login-password" className="text-[11px] font-bold text-white/65 uppercase tracking-[0.12em]">Password</label>
+                  <a href="/forgot-password" className="text-[11px] text-[#f97316]/70 hover:text-[#f97316] font-semibold transition-colors">Forgot?</a>
                 </div>
                 <input id="login-password" name="password" type="password" placeholder="••••••••" required className={inputClass} />
               </div>
@@ -207,15 +204,15 @@ export default function LoginPage() {
           {activeTab === "signup" && (
             <form onSubmit={handleSignup} className="space-y-5">
               <div className="space-y-1.5">
-                <label htmlFor="signup-email" className="text-xs font-medium text-white/35">Email</label>
+                <label htmlFor="signup-email" className="text-[11px] font-bold text-white/65 uppercase tracking-[0.12em]">Email</label>
                 <input id="signup-email" name="email" type="email" placeholder="you@example.com" required className={inputClass} />
               </div>
               <div className="space-y-1.5">
-                <label htmlFor="signup-password" className="text-xs font-medium text-white/35">Password</label>
+                <label htmlFor="signup-password" className="text-[11px] font-bold text-white/65 uppercase tracking-[0.12em]">Password</label>
                 <input id="signup-password" name="password" type="password" placeholder="••••••••" required minLength={6} className={inputClass} />
               </div>
               <div className="space-y-1.5">
-                <label htmlFor="signup-discord" className="text-xs font-medium text-white/35">
+                <label htmlFor="signup-discord" className="text-[11px] font-bold text-white/65 uppercase tracking-[0.12em]">
                   Discord <span className="text-white/45">(optional)</span>
                 </label>
                 <input id="signup-discord" name="discord" placeholder="username" className={inputClass} />
