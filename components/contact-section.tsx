@@ -22,20 +22,34 @@ export function ContactSection() {
         </div>
 
         {/* Discord card */}
-        <div className="rounded-xl border border-white/[0.04] bg-white/[0.012] overflow-hidden mb-5">
-          <div className="h-px bg-gradient-to-r from-transparent via-[#f97316]/30 to-transparent" />
-          <div className="p-8">
+        <div className="relative rounded-2xl border border-white/[0.10] bg-gradient-to-br from-[#5865F2]/[0.06] via-white/[0.025] to-[#f97316]/[0.04] backdrop-blur-xl overflow-hidden mb-5 shadow-[0_24px_60px_rgba(0,0,0,0.4),0_0_60px_rgba(88,101,242,0.10)]">
+          {/* Top glow */}
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f97316]/60 to-transparent" />
+          <div className="absolute top-0 left-0 right-0 h-[6px] bg-gradient-to-b from-[#f97316]/20 to-transparent blur-md pointer-events-none" />
+          {/* Corner blob */}
+          <div className="absolute -top-16 -right-16 w-64 h-64 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(88,101,242,0.10), transparent 70%)" }} />
+
+          <div className="relative p-8">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mb-6">
               <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-2xl overflow-hidden border border-white/[0.06]">
+                <div className="relative w-16 h-16 rounded-2xl overflow-hidden border-2 border-white/[0.10] shadow-[0_8px_24px_rgba(0,0,0,0.4),0_0_32px_rgba(88,101,242,0.20)]">
                   <img src="/images/ava.png" alt="Lethal Solutions" className="w-full h-full object-cover" />
+                  {/* Online status dot */}
+                  <span className="absolute bottom-0.5 right-0.5 w-3.5 h-3.5 rounded-full bg-emerald-400 border-2 border-black shadow-[0_0_10px_rgba(52,211,153,0.7)]" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-white/90">Lethal Solutions</h3>
-                  <div className="flex items-center gap-3 mt-1">
-                    <span className="flex items-center gap-1.5 text-sm"><span className="w-2 h-2 rounded-full bg-emerald-500/60 animate-pulse" /><span className="text-emerald-400/60 font-medium text-[13px]">3,147 online</span></span>
-                    <span className="text-white/10">&bull;</span>
-                    <span className="text-[13px] text-white/55">8,734 members</span>
+                  <h3 className="font-display text-2xl font-bold text-white tracking-tight">Lethal Solutions</h3>
+                  <div className="flex items-center gap-3 mt-1.5 flex-wrap">
+                    <span className="inline-flex items-center gap-1.5 text-sm">
+                      <span className="relative flex items-center justify-center">
+                        <span className="absolute w-2.5 h-2.5 rounded-full bg-emerald-400/45 animate-ping" />
+                        <span className="relative w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.7)]" />
+                      </span>
+                      <span className="text-emerald-400 font-bold text-[13px] tabular-nums">3,147</span>
+                      <span className="text-emerald-400/70 text-[12px] font-semibold uppercase tracking-wider">online</span>
+                    </span>
+                    <span className="text-white/20">&bull;</span>
+                    <span className="text-[13px] text-white/65 font-medium tabular-nums"><span className="text-white font-bold">8,734</span> members</span>
                   </div>
                 </div>
               </div>
@@ -46,8 +60,8 @@ export function ContactSection() {
               </a>
             </div>
 
-            <p className="text-[14px] text-white/35 mb-8 max-w-2xl leading-relaxed">
-              Open a ticket in <span className="text-white/60 font-medium">#contact-us</span> for purchases, setup help, or any questions.
+            <p className="text-[14px] text-white/65 mb-8 max-w-2xl leading-relaxed">
+              Open a ticket in <span className="text-white font-semibold px-2 py-0.5 rounded-md bg-[#5865F2]/15 border border-[#5865F2]/25">#contact-us</span> for purchases, setup help, or any questions.
             </p>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
