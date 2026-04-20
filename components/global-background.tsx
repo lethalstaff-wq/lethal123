@@ -1,25 +1,59 @@
-// Server Component - clean orange theme background
+// Server Component — unified premium background across every page.
+// Pure black + drifting orange orbs (top-left, bottom-right) + dot grid + fine grain.
 export function GlobalBackground() {
   return (
-    <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
-      {/* Dark base */}
-      <div className="absolute inset-0 bg-[#0a0a0b]" />
-      
-      {/* Top center orange glow */}
-      <div 
-        className="absolute -top-[300px] left-1/2 -translate-x-1/2 w-[1000px] h-[600px] opacity-20"
+    <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden" aria-hidden="true">
+      {/* Pure black base */}
+      <div className="absolute inset-0 bg-black" />
+
+      {/* Top-left drifting orange orb */}
+      <div
+        className="absolute -top-[220px] -left-[180px] w-[820px] h-[820px] rounded-full opacity-60 gb-orb-1"
         style={{
-          background: 'radial-gradient(ellipse at center, rgba(239, 111, 41, 0.6) 0%, transparent 60%)',
-          filter: 'blur(100px)',
+          background: "radial-gradient(circle, rgba(249,115,22,0.16) 0%, transparent 62%)",
+          filter: "blur(140px)",
         }}
       />
-      
-      {/* Very subtle noise texture */}
-      <div 
-        className="absolute inset-0 opacity-[0.02]"
+
+      {/* Bottom-right drifting orb */}
+      <div
+        className="absolute -bottom-[220px] -right-[180px] w-[780px] h-[780px] rounded-full opacity-55 gb-orb-2"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+          background: "radial-gradient(circle, rgba(234,88,12,0.13) 0%, transparent 62%)",
+          filter: "blur(150px)",
         }}
+      />
+
+      {/* Dot grid with radial mask — universal texture layer */}
+      <div
+        className="absolute inset-0 opacity-[0.12]"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle, rgba(255,255,255,0.35) 1px, transparent 1px)",
+          backgroundSize: "32px 32px",
+          maskImage:
+            "radial-gradient(ellipse 95% 85% at 50% 50%, black 0%, transparent 90%)",
+          WebkitMaskImage:
+            "radial-gradient(ellipse 95% 85% at 50% 50%, black 0%, transparent 90%)",
+        }}
+      />
+
+      {/* Fine SVG grain for film feel */}
+      <svg
+        className="absolute inset-0 w-full h-full opacity-[0.022] pointer-events-none mix-blend-overlay"
+        aria-hidden="true"
+      >
+        <filter id="gb-noise">
+          <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" stitchTiles="stitch" />
+          <feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.5 0" />
+        </filter>
+        <rect width="100%" height="100%" filter="url(#gb-noise)" />
+      </svg>
+
+      {/* Top-edge vignette (darken so navbar has contrast) */}
+      <div
+        className="absolute inset-x-0 top-0 h-[220px] pointer-events-none"
+        style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.5), transparent)" }}
       />
     </div>
   )

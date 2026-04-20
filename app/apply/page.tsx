@@ -513,10 +513,8 @@ export default function ApplyPage() {
   // ── MAIN PAGE ──────────────────────────────────────────────────────────────
 
   return (
-    <main className="min-h-screen bg-black text-white lx-page relative overflow-x-hidden">
+    <main className="min-h-screen bg-transparent text-white lx-page relative overflow-x-hidden">
       <Spotlight />
-      <Particles />
-      <div className="fixed inset-0 pointer-events-none z-[1] lx-noise" />
       <Navbar />
 
 
@@ -524,12 +522,11 @@ export default function ApplyPage() {
           1 · HERO
           ═══════════════════════════════════════════════════════════ */}
 
-      <section className="relative min-h-screen flex items-center overflow-hidden bg-black">
-        {/* Aurora background */}
-        <div className="absolute inset-0 z-0">
-          <div className="lx-aurora lx-a1" />
-          <div className="lx-aurora lx-a2" />
-          <div className="lx-aurora lx-a3" />
+      <section className="relative min-h-screen flex items-center overflow-hidden">
+        {/* Hero accent — layered on top of global bg */}
+        <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
+          <div className="absolute top-[20%] right-[5%] w-[640px] h-[480px] rounded-full opacity-70 lx-a1" style={{ background: "radial-gradient(circle, rgba(249,115,22,0.12), transparent 65%)", filter: "blur(130px)" }} />
+          <div className="absolute bottom-[5%] left-[5%] w-[560px] h-[440px] rounded-full opacity-60 lx-a2" style={{ background: "radial-gradient(circle, rgba(234,88,12,0.08), transparent 65%)", filter: "blur(130px)" }} />
         </div>
 
         <div className="relative z-10 w-full max-w-[1280px] mx-auto px-6 sm:px-10 lg:px-16 py-32 lg:py-40">
@@ -1366,12 +1363,12 @@ export default function ApplyPage() {
           STYLES
           ═══════════════════════════════════════════════════════════ */}
       <style jsx global>{`
-        /* Page override — full black */
+        /* Transparent page so GlobalBackground shows through */
         .lx-page {
-          background-color: #000;
+          background-color: transparent;
         }
         .lx-page footer, .lx-page [class*="footer"] {
-          background-color: #000 !important;
+          background-color: transparent !important;
         }
 
         /* Noise — primary background texture (film grain) */

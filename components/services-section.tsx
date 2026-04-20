@@ -44,7 +44,7 @@ const features = [
 
 export function ServicesSection() {
   return (
-    <section id="features" className="py-24 px-6 sm:px-10 relative z-10 bg-black">
+    <section id="features" className="py-24 px-6 sm:px-10 relative z-10">
       <div className="max-w-[1100px] mx-auto">
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/[0.06] bg-white/[0.02] mb-6">
@@ -59,7 +59,7 @@ export function ServicesSection() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {features.map((f, i) => (
-            <div key={i} className="group p-7 rounded-2xl bg-black border border-white/[0.05] hover:border-[#f97316]/30 transition-all duration-300 relative overflow-hidden hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(0,0,0,0.5),0_0_40px_rgba(249,115,22,0.08)]">
+            <div key={i} className="group p-7 rounded-2xl bg-white/[0.022] border border-white/[0.06] backdrop-blur-xl hover:border-[#f97316]/30 hover:bg-white/[0.04] transition-all duration-300 relative overflow-hidden hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(0,0,0,0.5),0_0_44px_rgba(249,115,22,0.12)]">
               {/* Shine */}
               <div className="absolute top-[-50%] left-[-80%] w-[50%] h-[200%] bg-gradient-to-r from-transparent via-white/[0.03] to-transparent rotate-[25deg] group-hover:left-[130%] transition-[left] duration-700 pointer-events-none z-10" />
               {/* Hover glow */}

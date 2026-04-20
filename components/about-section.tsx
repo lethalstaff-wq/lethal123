@@ -13,7 +13,7 @@ const products = [
 
 export function AboutSection() {
   return (
-    <section id="products" className="py-24 px-6 sm:px-10 relative z-10 bg-black">
+    <section id="products" className="py-24 px-6 sm:px-10 relative z-10">
       <div className="max-w-[1100px] mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
@@ -70,8 +70,8 @@ export function AboutSection() {
 
       <style jsx>{`
         .about-text-orange { background: linear-gradient(135deg, #f97316, #fb923c, #f97316); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .about-card { background: #000; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease; }
-        .about-card:hover { background: #050505; border-color: rgba(249,115,22,0.30); transform: translateY(-6px); box-shadow: 0 24px 48px rgba(0,0,0,0.5), 0 0 40px rgba(249,115,22,0.08); }
+        .about-card { background: rgba(255,255,255,0.022); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,0.06); transition: all 0.3s ease; }
+        .about-card:hover { background: rgba(255,255,255,0.04); border-color: rgba(249,115,22,0.32); transform: translateY(-6px); box-shadow: 0 24px 48px rgba(0,0,0,0.5), 0 0 44px rgba(249,115,22,0.12); }
         .about-shine { position: relative; overflow: hidden; }
         .about-shine::after { content: ""; position: absolute; top: -50%; left: -80%; width: 50%; height: 200%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent); transform: rotate(25deg); transition: left 0.7s ease; pointer-events: none; z-index: 5; }
         .about-shine:hover::after { left: 130%; }

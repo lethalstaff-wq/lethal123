@@ -53,58 +53,22 @@ export function HeroSection() {
   }, [])
 
   return (
-    <section className="relative min-h-[88vh] flex items-center justify-center overflow-hidden bg-black">
-      {/* Layered background */}
-      <div className="absolute inset-0 z-0" aria-hidden="true">
-        {/* Mesh gradient orbs — subtle on pure black */}
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Hero accent: extra orange glow behind H1 (layered on top of global bg) */}
+      <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
         <div
-          className="absolute top-[-120px] left-[12%] w-[780px] h-[780px] rounded-full opacity-50"
+          className="absolute top-[28%] left-1/2 -translate-x-1/2 w-[900px] h-[520px] rounded-full opacity-70"
           style={{
-            background: "radial-gradient(circle, rgba(249,115,22,0.14) 0%, transparent 60%)",
-            filter: "blur(140px)",
-            animation: "heroOrb1 42s ease-in-out infinite",
+            background: "radial-gradient(ellipse, rgba(249,115,22,0.14) 0%, transparent 62%)",
+            filter: "blur(120px)",
+            animation: "heroOrb1 44s ease-in-out infinite",
             willChange: "transform",
           }}
         />
-        <div
-          className="absolute bottom-[-100px] right-[8%] w-[680px] h-[680px] rounded-full opacity-50"
-          style={{
-            background: "radial-gradient(circle, rgba(234,88,12,0.10) 0%, transparent 60%)",
-            filter: "blur(150px)",
-            animation: "heroOrb2 58s ease-in-out infinite reverse",
-            willChange: "transform",
-          }}
-        />
-        {/* Dot grid */}
-        <div
-          className="absolute inset-0 opacity-[0.14]"
-          style={{
-            backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.35) 1px, transparent 1px)",
-            backgroundSize: "32px 32px",
-            maskImage: "radial-gradient(ellipse 80% 60% at 50% 45%, black, transparent 90%)",
-            WebkitMaskImage: "radial-gradient(ellipse 80% 60% at 50% 45%, black, transparent 90%)",
-          }}
-        />
-        {/* Vignette */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background:
-              "radial-gradient(ellipse 100% 80% at 50% 40%, transparent 40%, rgba(0,0,0,0.55) 100%)",
-          }}
-        />
-        {/* Film grain — subtle on black */}
-        <svg className="absolute inset-0 w-full h-full opacity-[0.02] pointer-events-none mix-blend-overlay" aria-hidden="true">
-          <filter id="hero-noise">
-            <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch" />
-            <feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.5 0" />
-          </filter>
-          <rect width="100%" height="100%" filter="url(#hero-noise)" />
-        </svg>
       </div>
 
       {/* Content */}
-      <div className="relative z-10 w-full max-w-[1200px] mx-auto px-6 sm:px-10 py-24 lg:py-28 text-center">
+      <div className="relative z-10 w-full max-w-[1200px] mx-auto px-6 sm:px-10 py-32 lg:py-36 text-center">
         {/* Live status pill */}
         <div className={`mb-6 transition-all duration-700 ${ready ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"}`}>
           <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-white/[0.08] bg-white/[0.03] backdrop-blur-md">
