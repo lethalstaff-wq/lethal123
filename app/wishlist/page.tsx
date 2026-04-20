@@ -63,11 +63,11 @@ export default function WishlistPage() {
         <Navbar />
         <section className="flex-1 py-32 px-4 sm:px-6 lg:px-8">
           <div className="container mx-auto max-w-md text-center">
-            <div className="w-20 h-20 rounded-2xl bg-white/[0.04] flex items-center justify-center mx-auto mb-6">
-              <Heart className="h-10 w-10 text-white/20" />
+            <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#f97316]/20 to-[#ea580c]/10 border border-[#f97316]/30 flex items-center justify-center mx-auto mb-6 shadow-[0_0_40px_rgba(249,115,22,0.15)]">
+              <Heart className="h-9 w-9 text-[#f97316]" style={{ filter: "drop-shadow(0 0 12px rgba(249,115,22,0.5))" }} />
             </div>
-            <h1 className="text-2xl font-bold text-white mb-3">Your wishlist is empty</h1>
-            <p className="text-white/40 mb-8 text-sm">Browse our products and save the ones you like.</p>
+            <h1 className="font-display text-3xl font-bold text-white mb-3 tracking-tight">Your wishlist is empty</h1>
+            <p className="text-white/55 mb-8 text-[15px]">Browse our products and save the ones you like.</p>
             <Link href="/products">
               <button className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-[#f97316] to-[#ea580c] text-white font-medium hover:opacity-90 transition-opacity mx-auto">
                 Browse Products
@@ -84,11 +84,21 @@ export default function WishlistPage() {
   return (
     <main className="flex min-h-screen flex-col bg-transparent">
       <Navbar />
-      <section className="flex-1 py-20 px-4 sm:px-6 lg:px-8">
+      <section className="flex-1 pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto max-w-5xl">
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-white"><span className="text-[#f97316]">Wishlist</span></h1>
-            <p className="text-sm text-white/40 mt-1">{products.length} saved {products.length === 1 ? "item" : "items"}</p>
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/[0.08] bg-white/[0.03] backdrop-blur-md mb-6">
+              <Heart className="h-3.5 w-3.5 text-[#f97316]" />
+              <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/55">Your Saved</span>
+            </div>
+            <div className="relative h-px w-44 mx-auto mb-7 bg-white/[0.05] overflow-hidden">
+              <div className="absolute inset-y-0 w-24 bg-gradient-to-r from-transparent via-[#f97316]/70 to-transparent" style={{ animation: "heroScan 4s ease-in-out infinite" }} />
+            </div>
+            <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-bold tracking-[-0.04em] leading-[0.95] mb-5">
+              <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>My </span>
+              <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249,115,22,0.3))" }}>Wishlist</span>
+            </h1>
+            <p className="text-[16px] text-white/55">{products.length} saved {products.length === 1 ? "item" : "items"}</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

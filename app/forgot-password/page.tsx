@@ -48,13 +48,11 @@ export default function ForgotPasswordPage() {
 
           {/* Heading */}
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold tracking-tight text-white">
-              Forgot{" "}
-              <span className="bg-gradient-to-r from-[#f97316] to-[#ea580c] bg-clip-text text-transparent">
-                Password?
-              </span>
+            <h1 className="font-display text-4xl sm:text-5xl font-bold tracking-[-0.04em] leading-[1] mb-3">
+              <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Forgot </span>
+              <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 40px rgba(249,115,22,0.3))" }}>Password?</span>
             </h1>
-            <p className="mt-2 text-sm text-white/30">
+            <p className="mt-2 text-sm text-white/55">
               Enter your email and we&apos;ll send you a reset link
             </p>
           </div>

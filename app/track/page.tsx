@@ -248,7 +248,7 @@ export default function TrackOrderPage() {
   // No results
   if (orders && orders.length === 0) {
     return (
-      <main className="flex h-screen bg-black items-center justify-center">
+      <main className="flex h-screen bg-transparent items-center justify-center">
         <div className="text-center">
           <Package className="h-12 w-12 text-white/10 mx-auto mb-4" />
           <h3 className="text-xl font-bold text-white mb-2">No Orders Found</h3>
@@ -261,7 +261,7 @@ export default function TrackOrderPage() {
 
   // Main: fullscreen split — no navbar
   return (
-    <main className="flex h-screen bg-black overflow-hidden relative">
+    <main className="flex h-screen bg-transparent overflow-hidden relative">
       {/* Top minimal bar: back + online */}
       <div className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-3">
         <Link
@@ -295,13 +295,12 @@ export default function TrackOrderPage() {
           <p className="text-[13px] font-medium text-[#f97316]/60 tracking-wide uppercase mb-4">
             Order Tracking
           </p>
-          <h1 className="text-[44px] xl:text-[52px] font-bold text-white leading-[1.05] tracking-tight">
-            Track your<br />
-            <span className="bg-gradient-to-r from-[#f97316] to-[#fb923c] bg-clip-text text-transparent">
-              order.
-            </span>
+          <h1 className="font-display text-[44px] xl:text-[64px] font-bold leading-[0.95] tracking-[-0.04em]">
+            <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Track your</span>
+            <br />
+            <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249,115,22,0.3))" }}>order.</span>
           </h1>
-          <p className="mt-6 text-[15px] text-white/20 leading-relaxed max-w-[340px]">
+          <p className="mt-6 text-[15px] text-white/55 leading-relaxed max-w-[340px]">
             Enter your order ID or email to check status, view license keys, and access downloads.
           </p>
         </div>
