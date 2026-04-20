@@ -35,7 +35,7 @@ export default function CheckoutSuccessPage() {
               </div>
 
               <h1 className="text-3xl font-black tracking-tight mb-2 text-white/90">Order <span className="text-[#f97316]">Confirmed</span></h1>
-              <p className="text-white/40 mb-8 max-w-sm mx-auto">
+              <p className="text-white/55 mb-8 max-w-sm mx-auto">
                 Your order is locked in. Check your email for your license key and setup guide — you&apos;ll be ready in minutes.
               </p>
 
@@ -52,7 +52,7 @@ export default function CheckoutSuccessPage() {
                       <div className="w-6 h-6 rounded-lg bg-[#f97316]/10 flex items-center justify-center flex-shrink-0">
                         <span className="text-xs font-bold text-[#f97316]">{i + 1}</span>
                       </div>
-                      <span className="text-sm text-white/40">{step}</span>
+                      <span className="text-sm text-white/55">{step}</span>
                     </div>
                   ))}
                 </div>
@@ -70,7 +70,7 @@ export default function CheckoutSuccessPage() {
                   </button>
                 </Link>
                 <Link href="https://discord.gg/lethaldma" target="_blank" className="flex-1">
-                  <button className="w-full h-12 flex items-center justify-center gap-2 rounded-xl border border-white/[0.06] bg-white/[0.02] text-sm font-semibold text-white/40 hover:bg-white/[0.04] transition-all">
+                  <button className="w-full h-12 flex items-center justify-center gap-2 rounded-xl border border-white/[0.06] bg-white/[0.02] text-sm font-semibold text-white/55 hover:bg-white/[0.04] transition-all">
                     <DiscordIcon className="h-4 w-4" />
                     Discord
                   </button>

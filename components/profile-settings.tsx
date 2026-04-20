@@ -123,7 +123,7 @@ export function ProfileSettings({ profile, onLogout }: { profile: ProfileRow; on
       {/* ─── Email ─── */}
       <SettingsSection title="Email address" icon={Mail} description="We'll send a confirmation link to the new address before switching.">
         <div className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/[0.06]">
-          <Mail className="h-4 w-4 text-white/40" />
+          <Mail className="h-4 w-4 text-white/55" />
           <span className="text-sm text-white/80 flex-1">{profile.email}</span>
           <span className="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
             <Shield className="h-3 w-3" /> Verified
@@ -157,7 +157,7 @@ export function ProfileSettings({ profile, onLogout }: { profile: ProfileRow; on
             <button
               type="button"
               onClick={() => setShowPw((s) => !s)}
-              className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-white/40 hover:text-white"
+              className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-white/55 hover:text-white"
             >
               {showPw ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
             </button>
@@ -359,7 +359,7 @@ function Toggle({
           {label}
           {required && <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-white/[0.08] text-white/50">Required</span>}
         </p>
-        {description && <p className="text-xs text-white/40 mt-0.5 leading-relaxed">{description}</p>}
+        {description && <p className="text-xs text-white/55 mt-0.5 leading-relaxed">{description}</p>}
       </div>
     </label>
   )

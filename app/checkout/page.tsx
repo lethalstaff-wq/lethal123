@@ -276,7 +276,7 @@ export default function CheckoutPage() {
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-semibold truncate text-white/90">{item.variant.product?.name || item.variant.name}</p>
-              <p className="text-xs text-white/40">{item.variant.name} &times; {item.quantity}</p>
+              <p className="text-xs text-white/55">{item.variant.name} &times; {item.quantity}</p>
             </div>
             <p className="text-sm font-bold tabular-nums text-white/90">{"£"}{(item.variant.price * item.quantity).toFixed(2)}</p>
           </div>
@@ -286,7 +286,7 @@ export default function CheckoutPage() {
       {/* Totals */}
       <div className="border-t border-white/[0.06] pt-4 space-y-2">
         <div className="flex justify-between text-sm">
-          <span className="text-white/40">Subtotal</span>
+          <span className="text-white/55">Subtotal</span>
           <span className="tabular-nums text-white/90">{"£"}{total.toFixed(2)}</span>
         </div>
         {appliedCoupon && (
@@ -335,7 +335,7 @@ export default function CheckoutPage() {
               </div>
             </div>
             <h1 className="text-3xl font-bold text-white/90 mb-3 tracking-tight">Your cart is <span className="text-[#f97316]">empty</span></h1>
-            <p className="text-white/40 mb-10">Add some products to get started.</p>
+            <p className="text-white/55 mb-10">Add some products to get started.</p>
             <Link href="/products" className="inline-flex items-center gap-2.5 px-8 py-4 text-white rounded-xl text-sm font-bold transition-all hover:shadow-[0_0_30px_rgba(249,115,22,0.3)] hover:scale-[1.02] active:scale-[0.98]" style={{ background: "linear-gradient(135deg, #f97316, #ea580c)" }}>
               Browse Products <ArrowRight className="w-4 h-4" />
             </Link>
@@ -372,7 +372,7 @@ export default function CheckoutPage() {
                     </div>
 
                     <h2 className="text-3xl font-black text-white/90 tracking-tight mb-2">Payment <span className="text-[#f97316]">Processing</span></h2>
-                    <p className="text-sm text-white/40 max-w-xs mx-auto">
+                    <p className="text-sm text-white/55 max-w-xs mx-auto">
                       {"Our team is verifying your transaction. This typically takes up to 1 hour."}
                     </p>
                   </div>
@@ -445,7 +445,7 @@ export default function CheckoutPage() {
                   {/* Footer info */}
                   <div className="px-8 pb-8 space-y-4">
                     <div className="rounded-2xl border border-white/[0.04] bg-white/[0.012] p-5">
-                      <p className="text-sm text-white/40 leading-relaxed text-center">
+                      <p className="text-sm text-white/55 leading-relaxed text-center">
                         {"You can safely close this page. Delivery details will be sent to "}
                         <span className="text-[#f97316] font-bold">{email}</span>
                         {" once verified."}
@@ -477,7 +477,7 @@ export default function CheckoutPage() {
 
                   <div>
                     <h2 className="text-3xl font-black text-white/90 tracking-tight">Order <span className="text-[#f97316]">Submitted</span></h2>
-                    <p className="text-sm text-white/40 mt-3">{"We're verifying your payment. You'll receive delivery once confirmed."}</p>
+                    <p className="text-sm text-white/55 mt-3">{"We're verifying your payment. You'll receive delivery once confirmed."}</p>
                   </div>
 
                   <div className="inline-flex items-center gap-3 px-6 py-3.5 rounded-2xl bg-[#f97316]/10 border border-[#f97316]/20">
@@ -485,7 +485,7 @@ export default function CheckoutPage() {
                     <span className="font-mono font-black text-lg text-[#f97316]">{orderId}</span>
                   </div>
 
-                  <div className="space-y-2 text-sm text-white/40">
+                  <div className="space-y-2 text-sm text-white/55">
                     <p>{"Delivery details sent to "}<span className="text-white/90 font-semibold">{email}</span></p>
                     {discordUser && <p>{"Discord: "}<span className="text-white/90 font-semibold">{discordUser}</span></p>}
                   </div>
@@ -496,7 +496,7 @@ export default function CheckoutPage() {
 
                   <div className="flex gap-3 pt-2">
                     <Link href="https://discord.gg/lethaldma" target="_blank" className="flex-1">
-                      <button className="w-full h-13 py-3.5 flex items-center justify-center gap-2.5 rounded-xl border border-white/[0.06] bg-white/[0.02] text-sm font-semibold text-white/40 hover:bg-white/[0.04] transition-all">
+                      <button className="w-full h-13 py-3.5 flex items-center justify-center gap-2.5 rounded-xl border border-white/[0.06] bg-white/[0.02] text-sm font-semibold text-white/55 hover:bg-white/[0.04] transition-all">
                         <DiscordIcon className="h-4 w-4" />
                         Discord
                       </button>
@@ -530,14 +530,14 @@ export default function CheckoutPage() {
           {/* Header row */}
           <div className="flex items-center justify-between mb-8">
             {step === "form" ? (
-              <Link href="/products" className="inline-flex items-center gap-2.5 text-sm text-white/40 hover:text-white/90 transition-colors group">
+              <Link href="/products" className="inline-flex items-center gap-2.5 text-sm text-white/55 hover:text-white/90 transition-colors group">
                 <div className="w-8 h-8 rounded-lg bg-white/[0.012] border border-white/[0.06] flex items-center justify-center group-hover:border-white/[0.1] transition-colors">
                   <ArrowLeft className="h-3.5 w-3.5 text-white/60 transition-transform group-hover:-translate-x-0.5" />
                 </div>
                 <span className="hidden sm:inline font-medium">Back to Cart</span>
               </Link>
             ) : (
-              <button onClick={() => { setStep("form"); setTimeLeft(TIMER_SECONDS) }} className="inline-flex items-center gap-2.5 text-sm text-white/40 hover:text-white/90 transition-colors group">
+              <button onClick={() => { setStep("form"); setTimeLeft(TIMER_SECONDS) }} className="inline-flex items-center gap-2.5 text-sm text-white/55 hover:text-white/90 transition-colors group">
                 <div className="w-8 h-8 rounded-lg bg-white/[0.012] border border-white/[0.06] flex items-center justify-center group-hover:border-white/[0.1] transition-colors">
                   <ArrowLeft className="h-3.5 w-3.5 text-white/60 transition-transform group-hover:-translate-x-0.5" />
                 </div>
@@ -600,7 +600,7 @@ export default function CheckoutPage() {
                     </div>
                     <div className="space-y-5">
                       <div>
-                        <label className="text-[11px] font-semibold uppercase tracking-widest text-white/40 mb-2 block">
+                        <label className="text-[11px] font-semibold uppercase tracking-widest text-white/55 mb-2 block">
                           Email <span className="text-[#f97316]">*</span>
                         </label>
                         <input
@@ -622,7 +622,7 @@ export default function CheckoutPage() {
                         )}
                       </div>
                       <div>
-                        <label className="text-[11px] font-semibold uppercase tracking-widest text-white/40 mb-2 flex items-center gap-1.5">
+                        <label className="text-[11px] font-semibold uppercase tracking-widest text-white/55 mb-2 flex items-center gap-1.5">
                           <DiscordIcon className="w-3.5 h-3.5" /> Discord <span className="text-white/45 font-normal normal-case tracking-normal">(optional)</span>
                         </label>
                         <input
@@ -632,7 +632,7 @@ export default function CheckoutPage() {
                         />
                       </div>
                       <div>
-                        <label className="text-[11px] font-semibold uppercase tracking-widest text-white/40 mb-2 block">
+                        <label className="text-[11px] font-semibold uppercase tracking-widest text-white/55 mb-2 block">
                           Order Notes <span className="text-white/45 font-normal normal-case tracking-normal">(optional)</span>
                         </label>
                         <textarea
@@ -669,7 +669,7 @@ export default function CheckoutPage() {
                             </div>
                             <div className="text-left flex-1">
                               <p className="font-semibold text-sm text-white/90">{option.name}</p>
-                              <p className="text-xs text-white/40 font-mono">
+                              <p className="text-xs text-white/55 font-mono">
                                 {option.ticker} {amt ? `~${amt} ${option.ticker}` : ""}
                               </p>
                             </div>
@@ -692,7 +692,7 @@ export default function CheckoutPage() {
                         <PayPalIcon className="h-10 w-10" />
                         <div className="text-left flex-1">
                           <p className="font-semibold text-sm text-white/90">PayPal</p>
-                          <p className="text-xs text-white/40">Friends &amp; Family only</p>
+                          <p className="text-xs text-white/55">Friends &amp; Family only</p>
                         </div>
                         <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
                           paymentMethod === "paypal" ? "border-[#f97316]" : "border-white/[0.1]"
@@ -711,7 +711,7 @@ export default function CheckoutPage() {
                         <DiscordIcon className="h-10 w-10" />
                         <div className="text-left flex-1">
                           <p className="font-semibold text-sm text-white/90">Via Discord</p>
-                          <p className="text-xs text-white/40">Open a ticket</p>
+                          <p className="text-xs text-white/55">Open a ticket</p>
                         </div>
                         <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
                           paymentMethod === "discord" ? "border-[#f97316]" : "border-white/[0.1]"
@@ -777,7 +777,7 @@ export default function CheckoutPage() {
                           <Image src="/images/products/perm-spoofer.png" alt="" width={40} height={40} className="rounded-lg" />
                           <div>
                             <p className="text-sm font-semibold text-white/90">Add Perm Spoofer</p>
-                            <p className="text-xs text-white/40">
+                            <p className="text-xs text-white/55">
                               <span className="line-through">{"£"}35</span>{" "}
                               <span className="text-[#f97316] font-bold">{"£"}25</span>{" "}
                               <span className="text-emerald-400 text-[10px]">save 28%</span>
@@ -817,7 +817,7 @@ export default function CheckoutPage() {
                         <p className="text-sm font-bold text-white">Shipping address</p>
                         <span className="text-[10px] font-semibold text-red-400 uppercase tracking-wider">Required</span>
                       </div>
-                      <p className="text-[11.5px] text-white/40 -mt-2">
+                      <p className="text-[11.5px] text-white/55 -mt-2">
                         Your DMA bundle ships within 24h. Double-check — we can't change this after payment confirmation.
                       </p>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -882,7 +882,7 @@ export default function CheckoutPage() {
                           <RefreshCw className="h-3.5 w-3.5 text-emerald-400" />
                           Remind me before my license expires
                         </p>
-                        <p className="text-[11.5px] text-white/40 mt-1 leading-relaxed">
+                        <p className="text-[11.5px] text-white/55 mt-1 leading-relaxed">
                           We'll email you 3 days before expiration with a one-click checkout link. No auto-billing — you stay in control. Cancel anytime.
                         </p>
                       </div>
@@ -925,7 +925,7 @@ export default function CheckoutPage() {
                     <div className="flex items-center gap-3 mb-3">
                       <Clock className={cn("h-4 w-4", timeLeft < 300 ? "text-red-500" : "text-[#f97316]")} />
                       <span className={cn("text-xl font-mono font-bold", timeLeft < 300 ? "text-red-500" : "text-[#f97316]")}>{formatTime(timeLeft)}</span>
-                      <span className="text-sm text-white/40">remaining</span>
+                      <span className="text-sm text-white/55">remaining</span>
                     </div>
                     <div className="w-full h-2 rounded-full bg-white/[0.04] overflow-hidden">
                       <div
@@ -943,7 +943,7 @@ export default function CheckoutPage() {
                         {(() => { const Icon = selectedCrypto.icon; return <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ backgroundColor: selectedCrypto.color + "15" }}><Icon className="h-5 w-5" /></div> })()}
                         <div>
                           <p className="font-bold text-white/90">{selectedCrypto.name}</p>
-                          <p className="text-xs text-white/40">{selectedCrypto.name.includes("TRC") ? "TRON Network" : selectedCrypto.name.includes("Ethereum") ? "Ethereum Network" : `${selectedCrypto.name} Mainnet`}</p>
+                          <p className="text-xs text-white/55">{selectedCrypto.name.includes("TRC") ? "TRON Network" : selectedCrypto.name.includes("Ethereum") ? "Ethereum Network" : `${selectedCrypto.name} Mainnet`}</p>
                         </div>
                       </div>
 
@@ -951,14 +951,14 @@ export default function CheckoutPage() {
                       <div className="rounded-xl bg-white/[0.02] border border-white/[0.04] p-5 text-center mb-6">
                         <p className="text-[10px] uppercase tracking-widest text-white/55 mb-1">Amount Due</p>
                         <p className="text-3xl font-black text-white">
-                          {cryptoAmount} <span className="text-lg text-white/40">{selectedCrypto.ticker}</span>
+                          {cryptoAmount} <span className="text-lg text-white/55">{selectedCrypto.ticker}</span>
                         </p>
                         <p className="text-[11px] text-white/55 mt-1.5">
                           Rate locked at {cryptoRates[RATE_KEY_MAP[selectedCrypto.id]]?.toLocaleString("en-US", { maximumFractionDigits: 2 })} USD
                         </p>
                         <button onClick={() => copyToClipboard(cryptoAmount || "", "amount")}
                           className={cn("mt-3 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all",
-                            copiedField === "amount" ? "bg-emerald-500/15 text-emerald-400" : "bg-white/[0.04] text-white/40 hover:text-white/90 hover:bg-white/[0.08]"
+                            copiedField === "amount" ? "bg-emerald-500/15 text-emerald-400" : "bg-white/[0.04] text-white/55 hover:text-white/90 hover:bg-white/[0.08]"
                           )}>{copiedField === "amount" ? <><Check className="h-3 w-3" /> Copied</> : <><Copy className="h-3 w-3" /> Copy Amount</>}</button>
                         <div className="mt-3 flex items-center justify-center gap-2 text-[10.5px] text-white/55">
                           <RefreshCw className={cn("h-3 w-3", ratesLoading && "animate-spin")} />
@@ -999,7 +999,7 @@ export default function CheckoutPage() {
                       {/* Warning */}
                       <div className="flex items-start gap-2 p-3 rounded-xl bg-yellow-500/5 border border-yellow-500/10 mb-6">
                         <AlertTriangle className="h-4 w-4 text-yellow-500 mt-0.5 shrink-0" />
-                        <p className="text-xs text-white/40">
+                        <p className="text-xs text-white/55">
                           Send only <span className="text-yellow-500 font-bold">{selectedCrypto.ticker}</span> on the correct network. Other assets will be lost.
                         </p>
                       </div>
@@ -1025,7 +1025,7 @@ export default function CheckoutPage() {
                         <PayPalIcon className="h-8 w-8" />
                         <div>
                           <p className="font-bold text-white/90">PayPal</p>
-                          <p className="text-xs text-white/40">Friends &amp; Family only</p>
+                          <p className="text-xs text-white/55">Friends &amp; Family only</p>
                         </div>
                       </div>
 
@@ -1034,7 +1034,7 @@ export default function CheckoutPage() {
                         <p className="text-lg font-bold text-white/90">{PAYPAL_EMAIL}</p>
                         <button onClick={() => copyToClipboard(PAYPAL_EMAIL, "paypal")}
                           className={cn("mt-2 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all",
-                            copiedField === "paypal" ? "bg-emerald-500/15 text-emerald-400" : "bg-white/[0.04] text-white/40 hover:text-white/90 hover:bg-white/[0.08]"
+                            copiedField === "paypal" ? "bg-emerald-500/15 text-emerald-400" : "bg-white/[0.04] text-white/55 hover:text-white/90 hover:bg-white/[0.08]"
                           )}>{copiedField === "paypal" ? <><Check className="h-3 w-3" /> Copied</> : <><Copy className="h-3 w-3" /> Copy</>}</button>
                       </div>
 
@@ -1045,7 +1045,7 @@ export default function CheckoutPage() {
 
                       <div className="flex items-start gap-2 p-3 rounded-xl bg-yellow-500/5 border border-yellow-500/10 mb-6">
                         <AlertTriangle className="h-4 w-4 text-yellow-500 mt-0.5 shrink-0" />
-                        <p className="text-xs text-white/40">
+                        <p className="text-xs text-white/55">
                           Send as <span className="text-yellow-500 font-bold">Friends &amp; Family</span>. Include order ID <span className="font-mono font-bold text-white/90">{orderId}</span> in the note.
                         </p>
                       </div>

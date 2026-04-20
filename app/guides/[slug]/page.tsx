@@ -125,13 +125,13 @@ function MmapTool() {
             <Settings className="h-8 w-8 text-[#f97316]" />
           </div>
           {processing ? (
-            <p className="text-white/40 font-mono">
+            <p className="text-white/55 font-mono">
               <span className="terminal-cursor">Processing {fileName}</span>
             </p>
           ) : fileName ? (
             <p className="text-[#f97316] font-medium">{fileName} loaded</p>
           ) : (
-            <p className="text-white/40">Click here to select your .RMP file or drag it here</p>
+            <p className="text-white/55">Click here to select your .RMP file or drag it here</p>
           )}
         </label>
       </div>

@@ -10,7 +10,7 @@ interface BreadcrumbItem {
 
 export function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
   return (
-    <nav className="flex items-center gap-1.5 text-sm text-white/40 mb-6" aria-label="Breadcrumb">
+    <nav className="flex items-center gap-1.5 text-sm text-white/55 mb-6" aria-label="Breadcrumb">
       <Link href="/" className="hover:text-primary transition-colors">
         <Home className="h-3.5 w-3.5" />
       </Link>

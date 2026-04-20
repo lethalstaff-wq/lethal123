@@ -101,7 +101,7 @@ export function DashboardClient({ user, orders, totalSpent, activeLicenses, memb
       approved: { color: "text-emerald-500", bg: "bg-emerald-500/10", label: "Approved" },
       cancelled: { color: "text-red-500", bg: "bg-red-500/10", label: "Cancelled" },
     }
-    const config = statusConfig[status] || { color: "text-white/40", bg: "bg-white/[0.04]", label: status }
+    const config = statusConfig[status] || { color: "text-white/55", bg: "bg-white/[0.04]", label: status }
     return (
       <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${config.bg} ${config.color}`}>
         {config.label}
@@ -227,7 +227,7 @@ export function DashboardClient({ user, orders, totalSpent, activeLicenses, memb
                     <div className="text-center py-12">
                       <ShoppingBag className="h-16 w-16 mx-auto mb-4 text-white/45" />
                       <p className="text-lg font-medium mb-2 text-white">No orders yet</p>
-                      <p className="text-sm mb-6 text-white/40">Your purchases will appear here once you make your first order.</p>
+                      <p className="text-sm mb-6 text-white/55">Your purchases will appear here once you make your first order.</p>
                       <Link href="/products">
                         <button className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#f97316] to-[#ea580c] text-white font-medium hover:opacity-90 transition-opacity">Browse Products</button>
                       </Link>
@@ -241,7 +241,7 @@ export function DashboardClient({ user, orders, totalSpent, activeLicenses, memb
                         >
                           <div className="space-y-1 flex-1 min-w-0">
                             <p className="font-medium truncate text-white">{getOrderProductName(order)}</p>
-                            <div className="flex flex-wrap items-center gap-2 text-xs text-white/40">
+                            <div className="flex flex-wrap items-center gap-2 text-xs text-white/55">
                               <span className="font-mono">{order.display_id || `LS-${order.id.slice(0, 8).toUpperCase()}`}</span>
                               <span>&bull;</span>
                               <span>{new Date(order.created_at).toLocaleDateString()}</span>
@@ -251,7 +251,7 @@ export function DashboardClient({ user, orders, totalSpent, activeLicenses, memb
                             {getStatusBadge(order.status)}
                             <span className="font-bold text-lg text-white">&pound;{getOrderAmount(order)}</span>
                             <Link href={`/track?order_id=${order.display_id || order.id}`}>
-                              <button className="flex items-center gap-1 px-3 py-1.5 rounded-xl border border-white/[0.06] bg-white/[0.02] text-white/40 hover:text-white hover:bg-white/[0.04] transition-all text-sm">
+                              <button className="flex items-center gap-1 px-3 py-1.5 rounded-xl border border-white/[0.06] bg-white/[0.02] text-white/55 hover:text-white hover:bg-white/[0.04] transition-all text-sm">
                                 Track <ChevronRight className="h-3 w-3" />
                               </button>
                             </Link>
@@ -278,7 +278,7 @@ export function DashboardClient({ user, orders, totalSpent, activeLicenses, memb
                     <div className="text-center py-12">
                       <Key className="h-16 w-16 mx-auto mb-4 text-white/45" />
                       <p className="text-lg font-medium mb-2 text-white">No active licenses</p>
-                      <p className="text-sm text-white/40">Purchase a product to receive your license key.</p>
+                      <p className="text-sm text-white/55">Purchase a product to receive your license key.</p>
                     </div>
                   ) : (
                     <div className="space-y-4">
@@ -290,7 +290,7 @@ export function DashboardClient({ user, orders, totalSpent, activeLicenses, memb
                           <div className="flex items-start justify-between gap-4 mb-3">
                             <div>
                               <p className="font-medium text-white">{getOrderProductName(order)}</p>
-                              <p className="text-xs text-white/40">
+                              <p className="text-xs text-white/55">
                                 Purchased {new Date(order.created_at).toLocaleDateString()}
                               </p>
                             </div>
@@ -309,9 +309,9 @@ export function DashboardClient({ user, orders, totalSpent, activeLicenses, memb
                                 className="p-1.5 rounded-lg hover:bg-white/[0.04] transition-colors"
                               >
                                 {showKeys[order.id] ? (
-                                  <EyeOff className="h-4 w-4 text-white/40" />
+                                  <EyeOff className="h-4 w-4 text-white/55" />
                                 ) : (
-                                  <Eye className="h-4 w-4 text-white/40" />
+                                  <Eye className="h-4 w-4 text-white/55" />
                                 )}
                               </button>
                               <button
@@ -321,22 +321,22 @@ export function DashboardClient({ user, orders, totalSpent, activeLicenses, memb
                                 {copiedKey === order.id ? (
                                   <Check className="h-4 w-4 text-emerald-500" />
                                 ) : (
-                                  <Copy className="h-4 w-4 text-white/40" />
+                                  <Copy className="h-4 w-4 text-white/55" />
                                 )}
                               </button>
                             </div>
                           ) : (
-                            <p className="text-sm text-white/40 italic">License key pending delivery</p>
+                            <p className="text-sm text-white/55 italic">License key pending delivery</p>
                           )}
 
                           <div className="flex gap-2 mt-3">
                             <Link href={`/download/${order.display_id || order.id}`} className="flex-1">
-                              <button className="w-full flex items-center justify-center gap-2 px-3 py-1.5 rounded-xl border border-white/[0.06] bg-white/[0.02] text-white/40 hover:text-white hover:bg-white/[0.04] transition-all text-sm">
+                              <button className="w-full flex items-center justify-center gap-2 px-3 py-1.5 rounded-xl border border-white/[0.06] bg-white/[0.02] text-white/55 hover:text-white hover:bg-white/[0.04] transition-all text-sm">
                                 <Download className="h-4 w-4" />
                                 Download
                               </button>
                             </Link>
-                            <button className="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-white/[0.06] bg-white/[0.02] text-white/40 hover:text-white hover:bg-white/[0.04] transition-all text-sm">
+                            <button className="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-white/[0.06] bg-white/[0.02] text-white/55 hover:text-white hover:bg-white/[0.04] transition-all text-sm">
                               <ExternalLink className="h-4 w-4" />
                               Access
                             </button>
@@ -359,7 +359,7 @@ export function DashboardClient({ user, orders, totalSpent, activeLicenses, memb
                   </h2>
                 </div>
                 <div className="p-6">
-                  <p className="text-white/40 mb-4">
+                  <p className="text-white/55 mb-4">
                     Earn 10% commission on every purchase made through your referral link.
                   </p>
                   <div className="flex items-center gap-2 p-3 rounded-xl bg-white/[0.02] border border-white/[0.04]">
@@ -377,11 +377,11 @@ export function DashboardClient({ user, orders, totalSpent, activeLicenses, memb
                   </div>
                   <div className="mt-6 p-4 rounded-xl bg-[#f97316]/5 border border-[#f97316]/20">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm text-white/40">Total Earnings</span>
+                      <span className="text-sm text-white/55">Total Earnings</span>
                       <span className="text-lg font-bold text-[#f97316]">&pound;0.00</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-white/40">Referrals</span>
+                      <span className="text-sm text-white/55">Referrals</span>
                       <span className="font-medium text-white">0</span>
                     </div>
                   </div>
@@ -406,12 +406,12 @@ export function DashboardClient({ user, orders, totalSpent, activeLicenses, memb
                   <div className="space-y-2">
                     <label className="text-sm font-medium text-white/50">Discord Username</label>
                     <Input placeholder="Enter your Discord username" className="bg-white/[0.015] border border-white/[0.05] text-white rounded-xl placeholder:text-white/45" />
-                    <p className="text-xs text-white/40">Link your Discord for faster support</p>
+                    <p className="text-xs text-white/55">Link your Discord for faster support</p>
                   </div>
                   <div className="pt-4 border-t border-white/[0.04]">
                     <button
                       onClick={() => setShowPasswordModal(true)}
-                      className="flex items-center gap-2 px-4 py-2 rounded-xl border border-white/[0.06] bg-white/[0.02] text-white/40 hover:text-white hover:bg-white/[0.04] transition-all text-sm font-medium"
+                      className="flex items-center gap-2 px-4 py-2 rounded-xl border border-white/[0.06] bg-white/[0.02] text-white/55 hover:text-white hover:bg-white/[0.04] transition-all text-sm font-medium"
                     >
                       <Lock className="h-4 w-4" />
                       Change Password
@@ -425,7 +425,7 @@ export function DashboardClient({ user, orders, totalSpent, activeLicenses, memb
                       <button className="px-3 py-1.5 rounded-xl border border-red-500/30 text-red-500 hover:bg-red-500/10 transition-all text-sm font-medium">
                         Delete Account
                       </button>
-                      <button className="px-3 py-1.5 rounded-xl border border-white/[0.06] bg-white/[0.02] text-white/40 hover:text-white hover:bg-white/[0.04] transition-all text-sm font-medium">
+                      <button className="px-3 py-1.5 rounded-xl border border-white/[0.06] bg-white/[0.02] text-white/55 hover:text-white hover:bg-white/[0.04] transition-all text-sm font-medium">
                         Export My Data
                       </button>
                     </div>
@@ -471,19 +471,19 @@ export function DashboardClient({ user, orders, totalSpent, activeLicenses, memb
               </div>
               <div className="p-6 space-y-2">
                 <Link href="/products" className="block">
-                  <button className="w-full flex items-center gap-2 px-4 py-2.5 rounded-xl border border-white/[0.06] bg-white/[0.02] text-white/40 hover:text-white hover:bg-white/[0.04] transition-all text-sm font-medium justify-start">
+                  <button className="w-full flex items-center gap-2 px-4 py-2.5 rounded-xl border border-white/[0.06] bg-white/[0.02] text-white/55 hover:text-white hover:bg-white/[0.04] transition-all text-sm font-medium justify-start">
                     <ShoppingBag className="h-4 w-4" />
                     Browse Products
                   </button>
                 </Link>
                 <Link href="/cart" className="block">
-                  <button className="w-full flex items-center gap-2 px-4 py-2.5 rounded-xl border border-white/[0.06] bg-white/[0.02] text-white/40 hover:text-white hover:bg-white/[0.04] transition-all text-sm font-medium justify-start">
+                  <button className="w-full flex items-center gap-2 px-4 py-2.5 rounded-xl border border-white/[0.06] bg-white/[0.02] text-white/55 hover:text-white hover:bg-white/[0.04] transition-all text-sm font-medium justify-start">
                     <ShoppingBag className="h-4 w-4" />
                     View Cart
                   </button>
                 </Link>
                 <a href="https://discord.gg/lethaldma" target="_blank" rel="noopener noreferrer" className="block">
-                  <button className="w-full flex items-center gap-2 px-4 py-2.5 rounded-xl border border-white/[0.06] bg-white/[0.02] text-white/40 hover:text-white hover:bg-white/[0.04] transition-all text-sm font-medium justify-start">
+                  <button className="w-full flex items-center gap-2 px-4 py-2.5 rounded-xl border border-white/[0.06] bg-white/[0.02] text-white/55 hover:text-white hover:bg-white/[0.04] transition-all text-sm font-medium justify-start">
                     <ExternalLink className="h-4 w-4" />
                     Discord Support
                   </button>
@@ -544,7 +544,7 @@ export function DashboardClient({ user, orders, totalSpent, activeLicenses, memb
                 </div>
                 <div className="flex gap-3 mt-6">
                   <button
-                    className="flex-1 px-4 py-2.5 rounded-xl border border-white/[0.06] bg-white/[0.02] text-white/40 hover:text-white hover:bg-white/[0.04] transition-all text-sm font-medium"
+                    className="flex-1 px-4 py-2.5 rounded-xl border border-white/[0.06] bg-white/[0.02] text-white/55 hover:text-white hover:bg-white/[0.04] transition-all text-sm font-medium"
                     onClick={() => setShowPasswordModal(false)}
                   >
                     Cancel

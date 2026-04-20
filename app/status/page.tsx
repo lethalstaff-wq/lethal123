@@ -316,14 +316,14 @@ export default function StatusPage() {
                     </div>
                     <div className="min-w-0">
                       <h3 className="font-bold text-white/80 truncate">{product.name}</h3>
-                      <p className="text-sm text-white/40">{product.category}</p>
+                      <p className="text-sm text-white/55">{product.category}</p>
                     </div>
                   </div>
 
                   {/* Games */}
                   <div className="hidden lg:flex items-center gap-2 min-w-[200px]">
                     <Gamepad2 className="h-4 w-4 text-white/30 shrink-0" />
-                    <p className="text-sm text-white/40 truncate">
+                    <p className="text-sm text-white/55 truncate">
                       {product.games?.join(", ")}
                     </p>
                   </div>
@@ -354,7 +354,7 @@ export default function StatusPage() {
                   {/* Days Undetected */}
                   <div className="hidden md:flex items-center gap-2 min-w-[100px]">
                     <Shield className="h-4 w-4 text-emerald-400/60" />
-                    <span className="text-sm text-white/40"><span className="text-emerald-400 font-bold">{getDaysUndetected(product.id)}</span> days</span>
+                    <span className="text-sm text-white/55"><span className="text-emerald-400 font-bold">{getDaysUndetected(product.id)}</span> days</span>
                   </div>
 
                   {/* Status */}
@@ -373,7 +373,7 @@ export default function StatusPage() {
                     href={`/products/${product.id}`}
                     className="flex items-center justify-center w-10 h-10 rounded-xl bg-white/[0.03] hover:bg-white/[0.06] transition-colors shrink-0"
                   >
-                    <ExternalLink className="h-4 w-4 text-white/40" />
+                    <ExternalLink className="h-4 w-4 text-white/55" />
                   </Link>
                 </div>
               )

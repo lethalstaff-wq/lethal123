@@ -387,7 +387,7 @@ export default function GuidesPage() {
                     {resource.isInternal ? (
                       <Link
                         href={`/guides/${resource.slug}`}
-                        className="flex items-center justify-center gap-2 w-full py-2 rounded-lg border border-white/[0.06] text-white/40 font-medium text-xs hover:bg-white/[0.03] hover:text-white/60 transition-colors"
+                        className="flex items-center justify-center gap-2 w-full py-2 rounded-lg border border-white/[0.06] text-white/55 font-medium text-xs hover:bg-white/[0.03] hover:text-white/60 transition-colors"
                       >
                         {resource.buttonText}
                         <ArrowRight className="h-3 w-3" />
@@ -401,7 +401,7 @@ export default function GuidesPage() {
                           "flex items-center justify-center gap-2 w-full py-2 rounded-lg font-medium text-xs transition-colors",
                           isRequired
                             ? "bg-gradient-to-r from-[#f97316] to-[#ea580c] text-white hover:opacity-90"
-                            : "border border-white/[0.06] text-white/40 hover:bg-white/[0.03] hover:text-white/60"
+                            : "border border-white/[0.06] text-white/55 hover:bg-white/[0.03] hover:text-white/60"
                         )}
                       >
                         {resource.buttonText}
@@ -434,7 +434,7 @@ export default function GuidesPage() {
                 </a>
                 <Link
                   href="/products"
-                  className="inline-flex items-center justify-center gap-2 h-11 px-7 rounded-xl border border-white/[0.06] text-white/40 font-medium text-sm hover:bg-white/[0.03] hover:text-white/60 transition-colors"
+                  className="inline-flex items-center justify-center gap-2 h-11 px-7 rounded-xl border border-white/[0.06] text-white/55 font-medium text-sm hover:bg-white/[0.03] hover:text-white/60 transition-colors"
                 >
                   View Products
                   <ArrowRight className="h-3.5 w-3.5" />

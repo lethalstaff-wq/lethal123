@@ -40,7 +40,7 @@ export default function ForgotPasswordPage() {
           <div className="flex justify-center mb-6">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/[0.06] bg-white/[0.02] px-4 py-1.5">
               <div className="h-1.5 w-1.5 rounded-full bg-[#f97316]" />
-              <span className="text-[11px] font-semibold uppercase tracking-widest text-white/40">
+              <span className="text-[11px] font-semibold uppercase tracking-widest text-white/55">
                 Recovery
               </span>
             </div>
@@ -79,7 +79,7 @@ export default function ForgotPasswordPage() {
                 <Link href="/login">
                   <button
                     type="button"
-                    className="inline-flex items-center gap-2 rounded-xl border border-white/[0.06] bg-white/[0.02] px-5 py-2.5 text-sm font-semibold text-white/40 transition-colors hover:border-white/[0.1] hover:text-white/60"
+                    className="inline-flex items-center gap-2 rounded-xl border border-white/[0.06] bg-white/[0.02] px-5 py-2.5 text-sm font-semibold text-white/55 transition-colors hover:border-white/[0.1] hover:text-white/60"
                   >
                     <ArrowLeft className="h-4 w-4" />
                     Back to Login

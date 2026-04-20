@@ -215,7 +215,7 @@ export default function ProfilePage() {
                     </span>
                   </div>
                   <p className="text-sm text-white/60 truncate">{profile.email}</p>
-                  <p className="text-xs text-white/40 mt-0.5">Member since {formatDate(profile.created_at)}</p>
+                  <p className="text-xs text-white/55 mt-0.5">Member since {formatDate(profile.created_at)}</p>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
                   <Link
@@ -376,9 +376,9 @@ function MiniStat({
 }) {
   return (
     <div className="rounded-xl border border-white/[0.08] bg-black/30 px-4 py-3 backdrop-blur-sm">
-      <Icon className="h-3.5 w-3.5 text-white/40 mb-1.5" />
+      <Icon className="h-3.5 w-3.5 text-white/55 mb-1.5" />
       <p className={cn("text-xl md:text-2xl font-black", valueTone)}>{value}</p>
-      <p className="text-[10.5px] text-white/40 truncate">{label}</p>
+      <p className="text-[10.5px] text-white/55 truncate">{label}</p>
     </div>
   )
 }
@@ -405,9 +405,9 @@ function QuickLink({
       </div>
       <div className="flex-1 min-w-0">
         <p className="text-sm font-bold text-white">{label}</p>
-        <p className="text-xs text-white/40 mt-0.5 truncate">{description}</p>
+        <p className="text-xs text-white/55 mt-0.5 truncate">{description}</p>
       </div>
-      <ExternalLink className="h-3.5 w-3.5 text-white/45 group-hover:text-white/40 transition-colors" />
+      <ExternalLink className="h-3.5 w-3.5 text-white/45 group-hover:text-white/55 transition-colors" />
     </div>
   )
   return external ? (
@@ -434,7 +434,7 @@ function EmptyState({
     <div className="text-center py-16 rounded-2xl border border-white/[0.06] bg-white/[0.012]">
       <Icon className="h-12 w-12 text-white/45 mx-auto mb-4" />
       <p className="text-white/70 font-semibold mb-1">{title}</p>
-      <p className="text-xs text-white/40 mb-5 max-w-sm mx-auto leading-relaxed">{description}</p>
+      <p className="text-xs text-white/55 mb-5 max-w-sm mx-auto leading-relaxed">{description}</p>
       <Link href={ctaHref}>
         <button className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#f97316] to-[#ea580c] text-white text-sm font-semibold hover:opacity-90 transition-opacity">
           {ctaLabel}
@@ -502,7 +502,7 @@ function LicenseCard({
       <div className="flex flex-col md:flex-row md:items-start gap-3 mb-4">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
-            <span className="font-mono text-[10.5px] font-bold text-white/40">{order.display_id}</span>
+            <span className="font-mono text-[10.5px] font-bold text-white/55">{order.display_id}</span>
             <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/15 text-[10.5px] font-bold text-emerald-400">
               <CheckCircle2 className="h-2.5 w-2.5" /> Active
             </span>

@@ -221,19 +221,19 @@ export function ProductDetailClient({ product }: { product: Product }) {
           {/* Trust badges under image */}
           <div className="grid grid-cols-3 gap-2 sm:gap-4 mt-4 sm:mt-6">
             <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-3 sm:p-4 text-center">
-              <Shield className="h-5 w-5 sm:h-6 sm:w-6 mx-auto mb-1.5 sm:mb-2 text-white/40" />
+              <Shield className="h-5 w-5 sm:h-6 sm:w-6 mx-auto mb-1.5 sm:mb-2 text-white/55" />
               <p className="font-semibold text-xs sm:text-sm">Secure</p>
-              <p className="text-[10px] sm:text-xs text-white/40">Encrypted</p>
+              <p className="text-[10px] sm:text-xs text-white/55">Encrypted</p>
             </div>
             <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-3 sm:p-4 text-center">
-              <Zap className="h-5 w-5 sm:h-6 sm:w-6 mx-auto mb-1.5 sm:mb-2 text-white/40" />
+              <Zap className="h-5 w-5 sm:h-6 sm:w-6 mx-auto mb-1.5 sm:mb-2 text-white/55" />
               <p className="font-semibold text-xs sm:text-sm">Instant</p>
-              <p className="text-[10px] sm:text-xs text-white/40">Delivery</p>
+              <p className="text-[10px] sm:text-xs text-white/55">Delivery</p>
             </div>
             <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-3 sm:p-4 text-center">
-              <Globe className="h-5 w-5 sm:h-6 sm:w-6 mx-auto mb-1.5 sm:mb-2 text-white/40" />
+              <Globe className="h-5 w-5 sm:h-6 sm:w-6 mx-auto mb-1.5 sm:mb-2 text-white/55" />
               <p className="font-semibold text-xs sm:text-sm">Global</p>
-              <p className="text-[10px] sm:text-xs text-white/40">Support</p>
+              <p className="text-[10px] sm:text-xs text-white/55">Support</p>
             </div>
           </div>
         </div>
@@ -251,7 +251,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
 
           {/* Description */}
           {product.longDescription && (
-            <p className="text-white/40 text-sm leading-relaxed mb-5 max-w-lg">
+            <p className="text-white/55 text-sm leading-relaxed mb-5 max-w-lg">
               {product.longDescription}
             </p>
           )}
@@ -262,14 +262,14 @@ export function ProductDetailClient({ product }: { product: Product }) {
               <Star className="h-3.5 w-3.5 sm:h-4 sm:w-4 fill-yellow-400 text-yellow-400" />
               <span className="font-bold text-xs sm:text-sm text-yellow-400">5.0</span>
             </div>
-            <span className="text-xs sm:text-sm text-white/40">{reviewCount} Verified Reviews</span>
+            <span className="text-xs sm:text-sm text-white/55">{reviewCount} Verified Reviews</span>
             <span className="hidden sm:inline text-white/30">·</span>
             <div className="flex items-center gap-1.5">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500" />
               </span>
-              <span className="text-xs sm:text-sm text-white/40">{viewingNow} viewing now</span>
+              <span className="text-xs sm:text-sm text-white/55">{viewingNow} viewing now</span>
             </div>
           </div>
 
@@ -281,7 +281,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
           {/* Variant Selection */}
           {product.variants.length > 1 && (
             <div className="mb-8">
-              <p className="text-xs font-semibold uppercase tracking-widest text-white/40 mb-3">Select Option</p>
+              <p className="text-xs font-semibold uppercase tracking-widest text-white/55 mb-3">Select Option</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {product.variants.map((variant) => (
                   <button
@@ -297,7 +297,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
                       <Check className="absolute top-3.5 right-3.5 h-4 w-4 text-[#f97316]" />
                     )}
                     <p className="font-semibold text-sm">{variant.name}</p>
-                    <p className="text-white/40 text-sm mt-0.5">{"£"}{variant.price}</p>
+                    <p className="text-white/55 text-sm mt-0.5">{"£"}{variant.price}</p>
                   </button>
                 ))}
               </div>
@@ -309,14 +309,14 @@ export function ProductDetailClient({ product }: { product: Product }) {
             <div className="flex items-center border border-white/[0.06] rounded-xl overflow-hidden">
               <button
                 onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                className="p-3 hover:bg-white/[0.04] transition-colors text-white/40 hover:text-white"
+                className="p-3 hover:bg-white/[0.04] transition-colors text-white/55 hover:text-white"
               >
                 <Minus className="h-4 w-4" />
               </button>
               <span className="w-12 text-center font-bold text-sm">{quantity}</span>
               <button
                 onClick={() => setQuantity(quantity + 1)}
-                className="p-3 hover:bg-white/[0.04] transition-colors text-white/40 hover:text-white"
+                className="p-3 hover:bg-white/[0.04] transition-colors text-white/55 hover:text-white"
               >
                 <Plus className="h-4 w-4" />
               </button>
@@ -426,9 +426,9 @@ export function ProductDetailClient({ product }: { product: Product }) {
               </div>
               <div className="flex items-baseline gap-1.5 mb-1">
                 <span className="text-3xl font-black text-white">{meta.undetectedSinceDays}</span>
-                <span className="text-sm text-white/40">days</span>
+                <span className="text-sm text-white/55">days</span>
               </div>
-              <p className="text-[12px] text-white/40 leading-relaxed">Zero detections across EAC, BattlEye, Vanguard, FaceIt, Ricochet.</p>
+              <p className="text-[12px] text-white/55 leading-relaxed">Zero detections across EAC, BattlEye, Vanguard, FaceIt, Ricochet.</p>
             </div>
           ) : (
             <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-5">
@@ -446,7 +446,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
               <div className="flex items-baseline gap-1.5 mb-1">
                 <span className="text-3xl font-black text-white">&lt;{meta.lastPatchResponseHours}h</span>
               </div>
-              <p className="text-[12px] text-white/40 leading-relaxed">Average downtime after a game patch. You're back online fast.</p>
+              <p className="text-[12px] text-white/55 leading-relaxed">Average downtime after a game patch. You're back online fast.</p>
             </div>
           ) : (
             <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-5">
@@ -463,7 +463,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
             <div className="flex items-baseline gap-1.5 mb-1">
               <span className="text-3xl font-black text-white">24/7</span>
             </div>
-            <p className="text-[12px] text-white/40 leading-relaxed">Dedicated Discord team for setup and troubleshooting.</p>
+            <p className="text-[12px] text-white/55 leading-relaxed">Dedicated Discord team for setup and troubleshooting.</p>
           </div>
         </div>
       </div>
@@ -478,7 +478,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
               </div>
               <div>
                 <h2 className="text-xl font-bold">Recent Updates</h2>
-                <p className="text-xs text-white/40">What shipped lately for {product.name}</p>
+                <p className="text-xs text-white/55">What shipped lately for {product.name}</p>
               </div>
             </div>
             <Link href="/changelog" className="text-xs text-[#f97316] hover:text-[#f97316]/80 flex items-center gap-1 transition-colors">
@@ -503,7 +503,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
               </div>
               <div>
                 <h2 className="text-xl font-bold">What Buyers Say</h2>
-                <p className="text-xs text-white/40">{reviewCount} verified reviews</p>
+                <p className="text-xs text-white/55">{reviewCount} verified reviews</p>
               </div>
             </div>
             <Link href={`/reviews`} className="text-xs text-[#f97316] hover:text-[#f97316]/80 flex items-center gap-1 transition-colors">
@@ -538,14 +538,14 @@ export function ProductDetailClient({ product }: { product: Product }) {
 
                 {/* Footer */}
                 <div className="flex items-center justify-between pt-3 border-t border-white/[0.06]">
-                  <span className="text-xs text-white/40 font-mono">{maskEmail(review.email)}</span>
+                  <span className="text-xs text-white/55 font-mono">{maskEmail(review.email)}</span>
                   <div className="flex items-center gap-3">
                     {review.helpful > 0 && (
-                      <span className="text-[10px] text-white/40 flex items-center gap-1">
+                      <span className="text-[10px] text-white/55 flex items-center gap-1">
                         <ThumbsUp className="h-3 w-3" /> {review.helpful}
                       </span>
                     )}
-                    <span className="text-[10px] text-white/40">{formatTimeAgo(review.created_at)}</span>
+                    <span className="text-[10px] text-white/55">{formatTimeAgo(review.created_at)}</span>
                   </div>
                 </div>
               </div>

@@ -257,7 +257,7 @@ export default function ComparePage() {
                   "flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all",
                   category === "cheats"
                     ? "bg-[#f97316] text-white"
-                    : "text-white/40 hover:text-foreground"
+                    : "text-white/55 hover:text-foreground"
                 )}
               >
                 <Crosshair className="h-4 w-4" />
@@ -269,7 +269,7 @@ export default function ComparePage() {
                   "flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all",
                   category === "spoofers"
                     ? "bg-[#f97316] text-white"
-                    : "text-white/40 hover:text-foreground"
+                    : "text-white/55 hover:text-foreground"
                 )}
               >
                 <Shield className="h-4 w-4" />
@@ -281,7 +281,7 @@ export default function ComparePage() {
                   "flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all",
                   category === "bundles"
                     ? "bg-[#f97316] text-white"
-                    : "text-white/40 hover:text-foreground"
+                    : "text-white/55 hover:text-foreground"
                 )}
               >
                 <Package className="h-4 w-4" />
@@ -303,7 +303,7 @@ export default function ComparePage() {
                   <thead>
                     <tr>
                       <th className="text-left p-4 w-[200px]">
-                        <div className="flex items-center gap-2 text-white/40">
+                        <div className="flex items-center gap-2 text-white/55">
                           <Crosshair className="h-4 w-4" />
                           <span className="font-medium">Features</span>
                         </div>
@@ -326,7 +326,7 @@ export default function ComparePage() {
                             <p className="text-2xl font-black text-[#f97316] mb-1">
                               £{(cheat.price / 100).toFixed(0)}
                             </p>
-                            <p className="text-xs text-white/40">{cheat.pricePer}</p>
+                            <p className="text-xs text-white/55">{cheat.pricePer}</p>
                           </div>
                         </th>
                       ))}
@@ -338,7 +338,7 @@ export default function ComparePage() {
                         <td className="p-4">
                           <div>
                             <p className="font-medium text-foreground">{feature.label}</p>
-                            <p className="text-xs text-white/40">{feature.description}</p>
+                            <p className="text-xs text-white/55">{feature.description}</p>
                           </div>
                         </td>
                         {Object.entries(CHEATS_DATA).map(([id, cheat]) => (
@@ -384,7 +384,7 @@ export default function ComparePage() {
                   <thead>
                     <tr>
                       <th className="text-left p-4 w-[200px]">
-                        <div className="flex items-center gap-2 text-white/40">
+                        <div className="flex items-center gap-2 text-white/55">
                           <Shield className="h-4 w-4" />
                           <span className="font-medium">Features</span>
                         </div>
@@ -405,7 +405,7 @@ export default function ComparePage() {
                             <p className="text-2xl font-black text-[#f97316] mb-1">
                               £{(spoofer.price / 100).toFixed(0)}
                             </p>
-                            <p className="text-xs text-white/40">{spoofer.pricePer}</p>
+                            <p className="text-xs text-white/55">{spoofer.pricePer}</p>
                           </div>
                         </th>
                       ))}
@@ -417,7 +417,7 @@ export default function ComparePage() {
                         <td className="p-4">
                           <div>
                             <p className="font-medium text-foreground">{feature.label}</p>
-                            <p className="text-xs text-white/40">{feature.description}</p>
+                            <p className="text-xs text-white/55">{feature.description}</p>
                           </div>
                         </td>
                         {Object.entries(SPOOFERS_DATA).map(([id, spoofer]) => (
@@ -463,7 +463,7 @@ export default function ComparePage() {
                   <thead>
                     <tr>
                       <th className="text-left p-4 w-[200px]">
-                        <div className="flex items-center gap-2 text-white/40">
+                        <div className="flex items-center gap-2 text-white/55">
                           <Package className="h-4 w-4" />
                           <span className="font-medium">Includes</span>
                         </div>
@@ -484,7 +484,7 @@ export default function ComparePage() {
                             )}
                             <span className={cn(
                               "inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase mb-2",
-                              bundle.badge === "Starter" ? "bg-white/[0.03] text-white/40" :
+                              bundle.badge === "Starter" ? "bg-white/[0.03] text-white/55" :
                               bundle.badge === "Popular" ? "bg-[#f97316]/10 text-[#f97316]" :
                               "bg-amber-500/10 text-amber-500"
                             )}>
@@ -497,7 +497,7 @@ export default function ComparePage() {
                             <p className="text-2xl font-black text-[#f97316] mb-1">
                               £{(bundle.price / 100).toFixed(0)}
                             </p>
-                            <p className="text-xs text-white/40">one-time</p>
+                            <p className="text-xs text-white/55">one-time</p>
                           </div>
                         </th>
                       ))}
@@ -509,7 +509,7 @@ export default function ComparePage() {
                         <td className="p-4">
                           <div>
                             <p className="font-medium text-foreground">{feature.label}</p>
-                            <p className="text-xs text-white/40">{feature.description}</p>
+                            <p className="text-xs text-white/55">{feature.description}</p>
                           </div>
                         </td>
                         {Object.entries(BUNDLES_DATA).map(([id, bundle]) => {
@@ -555,7 +555,7 @@ export default function ComparePage() {
 
               {/* Bundle Info */}
               <div className="mt-8 p-6 rounded-2xl border border-white/[0.06] bg-white/[0.02] text-center">
-                <p className="text-white/40">
+                <p className="text-white/55">
                   All bundles include discreet shipping, lifetime Discord support, and remote firmware installation.
                 </p>
                 <Link href="/products" className="inline-flex items-center gap-2 mt-4 text-[#f97316] font-bold hover:underline">

@@ -586,7 +586,7 @@ export default function ChangelogPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="flex items-center gap-4 flex-wrap">
-              <div className="flex items-center gap-2 text-sm text-white/40">
+              <div className="flex items-center gap-2 text-sm text-white/55">
                 <Filter className="h-4 w-4" />
                 <span>Filter:</span>
               </div>
@@ -599,7 +599,7 @@ export default function ChangelogPage() {
                       "px-4 py-2 rounded-full text-sm font-bold transition-all",
                       selectedProduct === product
                         ? "bg-[#f97316] text-white"
-                        : "bg-white/[0.03] text-white/40 hover:bg-white/[0.03]"
+                        : "bg-white/[0.03] text-white/55 hover:bg-white/[0.03]"
                     )}
                   >
                     {product}
@@ -620,7 +620,7 @@ export default function ChangelogPage() {
                 <h2 className="text-xl font-bold text-foreground mb-6 flex items-center gap-3">
                   <div className="w-3 h-3 rounded-full bg-[#f97316]" />
                   {month}
-                  <span className="text-sm font-normal text-white/40">({entries.length} updates)</span>
+                  <span className="text-sm font-normal text-white/55">({entries.length} updates)</span>
                 </h2>
 
                 <div className="space-y-4 pl-6 border-l-2 border-white/[0.06]">
@@ -652,18 +652,18 @@ export default function ChangelogPage() {
                                 <div>
                                   <div className="flex items-center gap-3 mb-1">
                                     <span className="font-bold text-foreground">{entry.product}</span>
-                                    <span className="font-mono text-sm text-white/40">v{entry.version}</span>
+                                    <span className="font-mono text-sm text-white/55">v{entry.version}</span>
                                   </div>
                                   <div className="flex items-center gap-3">
                                     <span className={cn("px-2 py-0.5 rounded-full text-[10px] font-bold uppercase", typeConfig.bg, typeConfig.color)}>
                                       {typeConfig.label}
                                     </span>
-                                    <span className="text-xs text-white/40">{formatDate(entry.date)}</span>
+                                    <span className="text-xs text-white/55">{formatDate(entry.date)}</span>
                                   </div>
                                 </div>
                               </div>
                               <ChevronDown className={cn(
-                                "h-5 w-5 text-white/40 shrink-0 transition-transform mt-2",
+                                "h-5 w-5 text-white/55 shrink-0 transition-transform mt-2",
                                 isExpanded && "rotate-180"
                               )} />
                             </div>
@@ -673,7 +673,7 @@ export default function ChangelogPage() {
                             <div className="px-5 pb-5 pt-2 border-t border-white/[0.06]">
                               <ul className="space-y-2 pl-14">
                                 {entry.changes.map((change, i) => (
-                                  <li key={i} className="flex items-start gap-3 text-sm text-white/40">
+                                  <li key={i} className="flex items-start gap-3 text-sm text-white/55">
                                     <div className="w-1.5 h-1.5 rounded-full bg-[#f97316] mt-2 shrink-0" />
                                     {change}
                                   </li>
@@ -692,7 +692,7 @@ export default function ChangelogPage() {
             {filteredChangelog.length === 0 && (
               <div className="text-center py-12">
                 <Clock className="h-12 w-12 text-white/30 mx-auto mb-4" />
-                <p className="text-white/40">No updates found for this product.</p>
+                <p className="text-white/55">No updates found for this product.</p>
               </div>
             )}
           </div>

@@ -55,7 +55,7 @@ export default function ResetPasswordPage() {
           <div className="flex justify-center mb-6">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/[0.06] bg-white/[0.02] px-4 py-1.5">
               <div className="h-1.5 w-1.5 rounded-full bg-[#f97316]" />
-              <span className="text-[11px] font-semibold uppercase tracking-widest text-white/40">
+              <span className="text-[11px] font-semibold uppercase tracking-widest text-white/55">
                 Security
               </span>
             </div>

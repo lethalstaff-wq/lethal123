@@ -138,21 +138,21 @@ export default function ReferralsPage() {
                   <Share2 className="h-6 w-6 text-[#f97316]" />
                 </div>
                 <h3 className="font-bold text-white mb-2">1. Share Link</h3>
-                <p className="text-sm text-white/40">Share your unique referral link with friends</p>
+                <p className="text-sm text-white/55">Share your unique referral link with friends</p>
               </div>
               <div className="p-6 rounded-2xl bg-white/[0.012] border border-white/[0.04]">
                 <div className="w-12 h-12 rounded-xl bg-[#f97316]/10 flex items-center justify-center mx-auto mb-4">
                   <Users className="h-6 w-6 text-[#f97316]" />
                 </div>
                 <h3 className="font-bold text-white mb-2">2. Friends Purchase</h3>
-                <p className="text-sm text-white/40">When they make a purchase using your link</p>
+                <p className="text-sm text-white/55">When they make a purchase using your link</p>
               </div>
               <div className="p-6 rounded-2xl bg-white/[0.012] border border-white/[0.04]">
                 <div className="w-12 h-12 rounded-xl bg-[#f97316]/10 flex items-center justify-center mx-auto mb-4">
                   <Coins className="h-6 w-6 text-[#f97316]" />
                 </div>
                 <h3 className="font-bold text-white mb-2">3. Earn 10%</h3>
-                <p className="text-sm text-white/40">Get 10% of their purchase as store credit</p>
+                <p className="text-sm text-white/55">Get 10% of their purchase as store credit</p>
               </div>
             </div>
           </div>
@@ -180,11 +180,11 @@ export default function ReferralsPage() {
                     <tier.icon className={cn("h-6 w-6", tier.color)} />
                   </div>
                   <h3 className="font-bold text-lg text-white mb-1">{tier.name}</h3>
-                  <p className="text-sm text-white/40 mb-1">{tier.refs} referrals</p>
+                  <p className="text-sm text-white/55 mb-1">{tier.refs} referrals</p>
                   <p className={cn("text-2xl font-black mb-4", tier.color)}>{tier.commission}</p>
                   <ul className="space-y-2">
                     {tier.perks.map((perk) => (
-                      <li key={perk} className="flex items-center gap-2 text-sm text-white/40">
+                      <li key={perk} className="flex items-center gap-2 text-sm text-white/55">
                         <CheckCircle2 className="h-3.5 w-3.5 text-[#f97316] shrink-0" />
                         {perk}
                       </li>
@@ -207,7 +207,7 @@ export default function ReferralsPage() {
                   <Flame className="h-5 w-5 text-[#f97316]" />
                   Top Referrers
                 </h2>
-                <span className="text-xs text-white/40">This month</span>
+                <span className="text-xs text-white/55">This month</span>
               </div>
               <div className="divide-y divide-white/[0.03]">
                 {[
@@ -223,13 +223,13 @@ export default function ReferralsPage() {
                       entry.rank === 1 ? "bg-yellow-400/20 text-yellow-400" :
                       entry.rank === 2 ? "bg-gray-300/20 text-gray-300" :
                       entry.rank === 3 ? "bg-amber-600/20 text-amber-600" :
-                      "bg-white/[0.04] text-white/40"
+                      "bg-white/[0.04] text-white/55"
                     )}>
                       {entry.rank}
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="font-medium text-sm truncate text-white">{entry.name}</p>
-                      <p className="text-xs text-white/40">{entry.refs} referrals &middot; {entry.tier}</p>
+                      <p className="text-xs text-white/55">{entry.refs} referrals &middot; {entry.tier}</p>
                     </div>
                     <p className="text-sm font-bold text-emerald-400">{entry.earned}</p>
                   </div>
@@ -248,7 +248,7 @@ export default function ReferralsPage() {
               <div className="text-center py-16 rounded-2xl border border-white/[0.04] bg-white/[0.012]">
                 <Gift className="h-16 w-16 text-[#f97316]/30 mx-auto mb-6" />
                 <h2 className="text-xl font-bold text-white mb-2">Login to Start Earning</h2>
-                <p className="text-white/40 mb-6">Create an account or login to get your referral link</p>
+                <p className="text-white/55 mb-6">Create an account or login to get your referral link</p>
                 <button onClick={() => router.push("/login")} className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#f97316] to-[#ea580c] text-white font-medium hover:opacity-90 transition-opacity">
                   Get Started
                   <ArrowRight className="h-4 w-4" />
@@ -261,17 +261,17 @@ export default function ReferralsPage() {
                   <div className="p-5 rounded-2xl border border-white/[0.04] bg-white/[0.012] text-center">
                     <Users className="h-5 w-5 text-[#f97316] mx-auto mb-2" />
                     <p className="text-2xl font-black text-white">{referrals.length}</p>
-                    <p className="text-xs text-white/40">Referrals</p>
+                    <p className="text-xs text-white/55">Referrals</p>
                   </div>
                   <div className="p-5 rounded-2xl border border-white/[0.04] bg-white/[0.012] text-center">
                     <CheckCircle2 className="h-5 w-5 text-emerald-500 mx-auto mb-2" />
                     <p className="text-2xl font-black text-white">{referrals.filter(r => r.status === "completed").length}</p>
-                    <p className="text-xs text-white/40">Completed</p>
+                    <p className="text-xs text-white/55">Completed</p>
                   </div>
                   <div className="p-5 rounded-2xl border border-white/[0.04] bg-white/[0.012] text-center">
                     <Coins className="h-5 w-5 text-amber-500 mx-auto mb-2" />
                     <p className="text-2xl font-black text-white">&pound;{(totalEarned / 100).toFixed(2)}</p>
-                    <p className="text-xs text-white/40">Earned</p>
+                    <p className="text-xs text-white/55">Earned</p>
                   </div>
                 </div>
 
@@ -309,7 +309,7 @@ export default function ReferralsPage() {
                   {referrals.length === 0 ? (
                     <div className="p-12 text-center">
                       <Users className="h-12 w-12 text-white/20 mx-auto mb-4" />
-                      <p className="text-white/40">No referrals yet. Share your link to get started!</p>
+                      <p className="text-white/55">No referrals yet. Share your link to get started!</p>
                     </div>
                   ) : (
                     <div className="divide-y divide-white/[0.03]">
@@ -317,7 +317,7 @@ export default function ReferralsPage() {
                         <div key={referral.id} className="p-5 flex items-center justify-between hover:bg-white/[0.02] transition-colors">
                           <div>
                             <p className="font-medium text-white">{referral.referred_email}</p>
-                            <p className="text-xs text-white/40">
+                            <p className="text-xs text-white/55">
                               {new Date(referral.created_at).toLocaleDateString()}
                             </p>
                           </div>
