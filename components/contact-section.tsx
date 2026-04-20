@@ -22,12 +22,12 @@ export function ContactSection() {
         </div>
 
         {/* Discord card */}
-        <div className="relative rounded-2xl border border-white/[0.10] bg-gradient-to-br from-[#5865F2]/[0.06] via-white/[0.025] to-[#f97316]/[0.04] backdrop-blur-xl overflow-hidden mb-5 shadow-[0_24px_60px_rgba(0,0,0,0.4),0_0_60px_rgba(88,101,242,0.10)]">
+        <div className="group relative rounded-2xl border border-white/[0.10] bg-white/[0.025] backdrop-blur-xl overflow-hidden mb-5 shadow-[0_24px_60px_rgba(0,0,0,0.4)] hover:border-[#f97316]/30 hover:shadow-[0_28px_70px_rgba(0,0,0,0.5),0_0_60px_rgba(249,115,22,0.12)] transition-all duration-500">
           {/* Top glow */}
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f97316]/60 to-transparent" />
           <div className="absolute top-0 left-0 right-0 h-[6px] bg-gradient-to-b from-[#f97316]/20 to-transparent blur-md pointer-events-none" />
-          {/* Corner blob */}
-          <div className="absolute -top-16 -right-16 w-64 h-64 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(88,101,242,0.10), transparent 70%)" }} />
+          {/* Hover orange corner */}
+          <div className="absolute -top-20 -right-20 w-72 h-72 rounded-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700" style={{ background: "radial-gradient(circle, rgba(249,115,22,0.18), transparent 70%)" }} />
 
           <div className="relative p-8">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mb-6">

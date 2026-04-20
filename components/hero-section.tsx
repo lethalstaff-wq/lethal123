@@ -78,24 +78,23 @@ export function HeroSection() {
             <div className="pointer-events-none absolute inset-y-0 left-1/2 w-px -translate-x-1/2" style={{ background: "linear-gradient(to bottom, transparent, rgba(255,255,255,0.6), transparent)", animation: "pillFlow 3s ease-in-out infinite", filter: "blur(1px)" }} />
 
             {/* Online (left) */}
-            <div className="relative inline-flex items-center gap-2 pl-4 pr-3.5 py-2">
+            <div className="relative inline-flex items-center gap-2.5 pl-5 pr-5 py-2.5 whitespace-nowrap">
               <span className="relative flex items-center justify-center">
                 <span className="absolute w-3 h-3 rounded-full bg-emerald-400/45 animate-ping" />
                 <span className="relative w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.85)]" />
               </span>
-              <span className="text-[12px] text-white font-bold tabular-nums">
+              <span className="text-[13px] text-white font-bold tabular-nums">
                 <Counter value={FALLBACK_STATS.discordOnline} />
               </span>
-              <span className="text-[11px] text-emerald-400/85 font-semibold uppercase tracking-wider">online</span>
+              <span className="text-[11px] text-emerald-400/90 font-semibold uppercase tracking-[0.12em]">online</span>
             </div>
 
             {/* Orders (right) */}
-            <div className="relative inline-flex items-center gap-2 pl-3.5 pr-4 py-2">
-              <svg className="w-3.5 h-3.5 text-[#f97316]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" style={{ filter: "drop-shadow(0 0 6px rgba(249,115,22,0.5))" }}><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l-1 12H6L5 9z" strokeLinecap="round" strokeLinejoin="round" /></svg>
-              <span className="text-[12px] text-white font-bold tabular-nums">
+            <div className="relative inline-flex items-center gap-2.5 pl-5 pr-5 py-2.5 whitespace-nowrap">
+              <span className="text-[13px] text-white font-bold tabular-nums">
                 <Counter value={ordersToday} />
               </span>
-              <span className="text-[11px] text-[#f97316]/90 font-semibold uppercase tracking-wider">orders today</span>
+              <span className="text-[11px] text-[#f97316]/95 font-semibold uppercase tracking-[0.12em]">orders today</span>
             </div>
           </div>
         </div>
