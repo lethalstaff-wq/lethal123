@@ -18,20 +18,34 @@ const testimonials = [
   { quote: "Streck for a budget setup performs way above what I expected for the price. Great entry option.", name: "chrxs", role: "CS2" },
 ]
 
+// Pick a per-name gradient so avatar colors look chosen, not random
+const AVATAR_GRADIENTS = [
+  ["#f97316", "#7c2d12"],
+  ["#3b82f6", "#1e3a5f"],
+  ["#8b5cf6", "#4a0080"],
+  ["#22c55e", "#0a3d2c"],
+  ["#ec4899", "#7c2d4f"],
+  ["#fbbf24", "#7c5800"],
+  ["#06b6d4", "#0a3d4d"],
+] as const
+
 const ReviewCard = memo(function ReviewCard({ t }: { t: typeof testimonials[number] }) {
+  const grad = AVATAR_GRADIENTS[(t.name.charCodeAt(0) + t.name.length) % AVATAR_GRADIENTS.length]
   return (
-    <div className="flex-shrink-0 w-[280px] sm:w-[340px] rounded-xl p-6 bg-white/[0.012] border border-white/[0.04] hover:border-white/[0.07] transition-all">
-      <div className="flex gap-0.5 mb-4">
+    <div className="flex-shrink-0 w-[280px] sm:w-[340px] rounded-2xl p-6 bg-white/[0.022] border border-white/[0.06] backdrop-blur-xl hover:border-[#f97316]/25 hover:bg-white/[0.04] hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249,115,22,0.08)] transition-all duration-300">
+      <div className="flex gap-1 mb-4">
         {[...Array(5)].map((_, j) => <Star key={j} className="h-3.5 w-3.5 gold-star" style={{ animationDelay: `${j * 0.15}s` }} />)}
       </div>
-      <p className="text-[13px] text-white/40 leading-[1.8] mb-5">&ldquo;{t.quote}&rdquo;</p>
-      <div className="flex items-center gap-3 pt-4 border-t border-white/[0.03]">
-        <div className="w-8 h-8 rounded-full bg-white/[0.03] border border-white/[0.04] flex items-center justify-center text-[10px] font-bold text-white/25">
+      <p className="text-[13px] text-white/55 leading-[1.8] mb-5">&ldquo;{t.quote}&rdquo;</p>
+      <div className="flex items-center gap-3 pt-4 border-t border-white/[0.05]">
+        <div className="relative w-10 h-10 rounded-full flex items-center justify-center text-[12px] font-bold text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.12)]" style={{ background: `linear-gradient(135deg, ${grad[0]}, ${grad[1]})`, boxShadow: `0 0 12px ${grad[0]}30` }}>
           {t.name[0].toUpperCase()}
+          {/* Discord-like online dot */}
+          <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-400 border-2 border-black" />
         </div>
         <div>
-          <p className="text-[13px] font-semibold text-white/60">{t.name}</p>
-          <p className="text-[10px] text-white/15">{t.role}</p>
+          <p className="text-[13px] font-bold text-white">{t.name}</p>
+          <p className="text-[10px] text-[#f97316]/70 font-medium uppercase tracking-wider">{t.role}</p>
         </div>
       </div>
     </div>

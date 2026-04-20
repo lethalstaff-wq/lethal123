@@ -85,9 +85,9 @@ export function BundleBuilder() {
     return (
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-20 right-6 z-[79] flex items-center gap-2.5 pl-4 pr-5 py-3 rounded-xl bg-black/80 backdrop-blur-md border border-white/[0.06] text-white/50 text-sm font-semibold hover:border-white/[0.1] hover:text-white/70 hover:-translate-y-0.5 transition-all duration-300 group"
+        className="fixed bottom-[88px] right-6 z-[79] flex items-center gap-2.5 pl-4 pr-5 py-3 rounded-full bg-black/80 backdrop-blur-xl border border-[#f97316]/25 text-white/85 text-[13px] font-semibold shadow-[0_8px_28px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.05)] hover:border-[#f97316]/55 hover:text-white hover:-translate-y-0.5 hover:shadow-[0_12px_36px_rgba(249,115,22,0.18)] transition-all duration-300 group"
       >
-        <Wrench className="h-4 w-4 text-white/20 group-hover:text-[#f97316] transition-all" />
+        <Wrench className="h-4 w-4 text-[#f97316] group-hover:rotate-12 transition-transform" />
         Build a Bundle
       </button>
     )

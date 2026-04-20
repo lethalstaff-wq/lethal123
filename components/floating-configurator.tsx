@@ -156,11 +156,11 @@ export function FloatingConfigurator() {
       {/* Floating Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 z-[80] flex items-center gap-2.5 pl-4 pr-5 py-3 rounded-xl bg-black/80 backdrop-blur-md border border-white/[0.06] text-white/50 text-sm font-semibold hover:border-white/[0.1] hover:text-white/70 hover:-translate-y-0.5 active:scale-95 transition-all duration-300 group ${
+        className={`fixed bottom-6 right-6 z-[80] flex items-center gap-2.5 pl-4 pr-5 py-3 rounded-full bg-gradient-to-r from-[#f97316] to-[#ea580c] text-white text-[13px] font-bold shadow-[0_8px_28px_rgba(249,115,22,0.35)] hover:shadow-[0_12px_36px_rgba(249,115,22,0.5)] hover:-translate-y-0.5 hover:scale-[1.03] active:scale-95 transition-all duration-300 group ${
           isOpen ? "opacity-0 pointer-events-none scale-90" : "opacity-100"
         }`}
       >
-        <Sparkles className="h-4 w-4 text-white/20 group-hover:text-[#f97316] group-hover:rotate-12 transition-all" />
+        <Sparkles className="h-4 w-4 text-white group-hover:rotate-12 transition-transform" />
         Need help choosing?
       </button>
 

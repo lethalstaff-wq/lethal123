@@ -4,7 +4,6 @@ import { HeroSection } from "@/components/hero-section"
 import { Footer } from "@/components/footer"
 import { ScrollReveal } from "@/components/scroll-reveal"
 import { GlowDivider } from "@/components/glow-divider"
-import { StickyCTA } from "@/components/sticky-cta"
 
 // Dynamic imports for below-the-fold sections — reduces initial JS bundle
 const AboutSection = dynamic(() => import("@/components/about-section").then((m) => ({ default: m.AboutSection })), {
@@ -108,7 +107,6 @@ export default function Home() {
         <ContactSection />
       </ScrollReveal>
       <Footer />
-      <StickyCTA />
     </main>
   )
 }

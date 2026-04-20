@@ -104,19 +104,23 @@ export function Navbar() {
 
   return (
     <>
-      {/* Scroll progress */}
+      {/* Scroll progress with glow */}
       <div className="fixed top-0 left-0 right-0 z-[61] h-[2px] bg-transparent pointer-events-none">
         <div
-          className="h-full bg-gradient-to-r from-primary to-accent transition-all duration-150 ease-out"
-          style={{ width: `${scrollProgress}%` }}
+          className="h-full transition-all duration-150 ease-out"
+          style={{
+            width: `${scrollProgress}%`,
+            background: "linear-gradient(90deg, #f97316, #fb923c, #fbbf24)",
+            boxShadow: "0 0 12px rgba(249,115,22,0.55)",
+          }}
         />
       </div>
 
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           isScrolled
-            ? "py-2.5 bg-black/70 backdrop-blur-xl border-b border-white/[0.04]"
-            : "py-4 bg-transparent"
+            ? "py-2.5 bg-black/75 backdrop-blur-xl border-b border-white/[0.06] shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+            : "py-4 bg-gradient-to-b from-black/50 to-transparent"
         }`}
       >
         <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -128,25 +132,21 @@ export function Navbar() {
 
             {/* Center nav — pill */}
             <div className="hidden lg:flex items-center absolute left-1/2 -translate-x-1/2">
-              <div className={`flex items-center gap-0.5 rounded-full px-1 py-1 transition-all duration-300 ${
-                isScrolled
-                  ? "bg-white/[0.04] border border-white/[0.06]"
-                  : "bg-white/[0.03] border border-white/[0.04]"
-              }`}>
+              <div className="flex items-center gap-0.5 rounded-full px-1.5 py-1 backdrop-blur-xl bg-white/[0.04] border border-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
                 {navLinks.map((link) => {
                   const isActive = link.href === "/" ? pathname === "/" : pathname.startsWith(link.href)
                   return (
-                  <Link
-                    key={link.label}
-                    href={link.href}
-                    className={`px-4 py-1.5 text-[13px] font-medium rounded-full transition-all duration-200 ${
-                      isActive
-                        ? "text-primary bg-primary/10"
-                        : "text-white/50 hover:text-white hover:bg-white/[0.06]"
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
+                    <Link
+                      key={link.label}
+                      href={link.href}
+                      className={`px-4 py-1.5 text-[13px] font-semibold rounded-full transition-all duration-200 ${
+                        isActive
+                          ? "text-white bg-gradient-to-br from-[#f97316] to-[#ea580c] shadow-[0_4px_14px_rgba(249,115,22,0.4)]"
+                          : "text-white/55 hover:text-white hover:bg-white/[0.06]"
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
                   )
                 })}
               </div>
@@ -241,7 +241,7 @@ export function Navbar() {
               <Link href={isAuthed ? "/profile" : "/login"}>
                 <Button
                   size="sm"
-                  className="hidden sm:inline-flex bg-primary hover:bg-primary/90 text-white text-xs font-semibold rounded-full px-4 h-8 gap-1.5 shadow-lg shadow-primary/20"
+                  className="hidden sm:inline-flex bg-gradient-to-br from-[#f97316] to-[#ea580c] hover:brightness-110 text-white text-xs font-bold rounded-full px-4 h-8 gap-1.5 shadow-[0_4px_14px_rgba(249,115,22,0.32)] hover:shadow-[0_6px_20px_rgba(249,115,22,0.5)] hover:-translate-y-0.5 transition-all duration-300 border-0"
                 >
                   <User className="h-3.5 w-3.5" />
                   {isAuthed ? "My Account" : "Customer Login"}
@@ -250,10 +250,10 @@ export function Navbar() {
 
               {/* Cart */}
               <Link href="/cart">
-                <Button variant="ghost" size="icon" className="relative h-9 w-9 rounded-full hover:bg-white/[0.06] text-white/60" aria-label="Shopping cart">
-                  <ShoppingCart className="h-4 w-4" />
+                <Button variant="ghost" size="icon" className="relative h-9 w-9 rounded-full hover:bg-white/[0.08] hover:text-[#f97316] text-white/70 transition-colors" aria-label="Shopping cart">
+                  <ShoppingCart className="h-[18px] w-[18px]" />
                   {itemCount > 0 && (
-                    <span className="absolute -top-0.5 -right-0.5 h-4 w-4 rounded-full bg-primary text-[10px] font-bold flex items-center justify-center text-white">
+                    <span className="absolute -top-0.5 -right-0.5 h-[18px] min-w-[18px] px-1 rounded-full bg-gradient-to-br from-[#f97316] to-[#ea580c] text-[10px] font-bold flex items-center justify-center text-white shadow-[0_2px_8px_rgba(249,115,22,0.5)]">
                       {itemCount}
                     </span>
                   )}

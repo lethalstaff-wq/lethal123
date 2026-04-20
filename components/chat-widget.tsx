@@ -26,10 +26,11 @@ export function ChatWidget() {
       {/* Button — left side, pushed up when back-to-top is visible */}
       <button
         onClick={() => setIsOpen(!isOpen)}
+        aria-label="Open chat"
         style={{ bottom: pushed ? 80 : 24, transition: "bottom 0.6s cubic-bezier(0.16, 1, 0.3, 1)" }}
-        className={`fixed left-6 z-[75] p-3.5 rounded-xl bg-black/80 backdrop-blur-md border border-white/[0.06] text-white/50 hover:border-white/[0.1] hover:text-white/70 group ${isOpen ? "opacity-0 pointer-events-none" : ""}`}
+        className={`fixed left-6 z-[75] p-3.5 rounded-full bg-black/80 backdrop-blur-xl border border-white/[0.10] text-white/55 hover:border-[#f97316]/40 hover:text-[#f97316] hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(249,115,22,0.18)] shadow-[0_6px_20px_rgba(0,0,0,0.4)] transition-all duration-300 group ${isOpen ? "opacity-0 pointer-events-none" : ""}`}
       >
-        <MessageCircle className="h-5 w-5 text-white/20 group-hover:text-[#f97316] transition-all" />
+        <MessageCircle className="h-[18px] w-[18px] group-hover:scale-110 transition-transform" />
       </button>
 
       {/* Panel */}
