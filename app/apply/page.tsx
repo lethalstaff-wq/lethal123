@@ -697,23 +697,23 @@ export default function ApplyPage() {
                           <pos.icon className="h-[18px] w-[18px]" style={{ color: pos.color }} />
                         </div>
                         <div>
-                          <h3 className="text-[16px] font-bold text-white/90">{pos.title}</h3>
+                          <h3 className="font-display text-[17px] font-bold text-white tracking-tight">{pos.title}</h3>
                           <div className="flex items-center gap-1.5 mt-0.5">
                             <span className="w-1.5 h-1.5 rounded-full lx-pulse" style={{ background: `${pos.color}70` }} />
                             <span className="text-[10px] font-medium" style={{ color: `${pos.color}60` }}>{pos.slots}</span>
                             <span className="text-white/8 mx-0.5">·</span>
-                            <span className="text-[10px] text-white/25">{pos.salary}</span>
+                            <span className="text-[10px] text-white/55">{pos.salary}</span>
                           </div>
                         </div>
                       </div>
-                      <p className="text-[13px] text-white/40 mb-5 leading-relaxed">{pos.description}</p>
+                      <p className="text-[13px] text-white/55 mb-5 leading-relaxed">{pos.description}</p>
                       <div className="space-y-2 mb-5">
-                        {pos.requirements.map((r, j) => <div key={j} className="flex items-start gap-2.5"><Check className="h-3 w-3 mt-0.5 shrink-0" style={{ color: `${pos.color}40` }} /><span className="text-[12px] text-white/30 leading-relaxed">{r}</span></div>)}
+                        {pos.requirements.map((r, j) => <div key={j} className="flex items-start gap-2.5"><Check className="h-3 w-3 mt-0.5 shrink-0" style={{ color: `${pos.color}40` }} /><span className="text-[12px] text-white/55 leading-relaxed">{r}</span></div>)}
                       </div>
                       <div className="flex flex-wrap gap-1.5 mb-5">
-                        {pos.perks.map((p, j) => <span key={j} className="text-[10px] px-2.5 py-1 rounded-full border text-white/25" style={{ background: `${pos.color}04`, borderColor: `${pos.color}10` }}>{p}</span>)}
+                        {pos.perks.map((p, j) => <span key={j} className="text-[10px] px-2.5 py-1 rounded-full border text-white/65 font-semibold" style={{ background: `${pos.color}04`, borderColor: `${pos.color}10` }}>{p}</span>)}
                       </div>
-                      <button className="w-full py-3 rounded-xl font-semibold text-[13px] flex items-center justify-center gap-2 border text-white/40 group-hover:text-white/80 transition-all duration-300 cursor-pointer" style={{ borderColor: `${pos.color}12`, background: `${pos.color}04` }}>
+                      <button className="w-full py-3 rounded-xl font-bold text-[13px] flex items-center justify-center gap-2 border text-white/65 group-hover:text-white transition-all duration-300 cursor-pointer" style={{ borderColor: `${pos.color}12`, background: `${pos.color}04` }}>
                         Apply <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
                       </button>
                     </div>
@@ -742,21 +742,21 @@ export default function ApplyPage() {
                           <pos.icon className="h-[18px] w-[18px]" style={{ color: pos.color }} />
                         </div>
                         <div>
-                          <h3 className="text-[16px] font-bold text-white/90">{pos.title}</h3>
+                          <h3 className="font-display text-[17px] font-bold text-white tracking-tight">{pos.title}</h3>
                           <div className="flex items-center gap-1.5 mt-0.5">
                             <span className="w-1.5 h-1.5 rounded-full lx-pulse" style={{ background: `${pos.color}70` }} />
                             <span className="text-[10px] font-medium" style={{ color: `${pos.color}60` }}>{pos.slots}</span>
                             <span className="text-white/8 mx-0.5">·</span>
-                            <span className="text-[10px] text-white/25">{pos.salary}</span>
+                            <span className="text-[10px] text-white/55">{pos.salary}</span>
                           </div>
                         </div>
                       </div>
-                      <p className="text-[13px] text-white/40 mb-5 leading-relaxed">{pos.description}</p>
+                      <p className="text-[13px] text-white/55 mb-5 leading-relaxed">{pos.description}</p>
                       <div className="space-y-2 mb-5">
-                        {pos.requirements.map((r, j) => <div key={j} className="flex items-start gap-2.5"><Check className="h-3 w-3 mt-0.5 shrink-0" style={{ color: `${pos.color}40` }} /><span className="text-[12px] text-white/30 leading-relaxed">{r}</span></div>)}
+                        {pos.requirements.map((r, j) => <div key={j} className="flex items-start gap-2.5"><Check className="h-3 w-3 mt-0.5 shrink-0" style={{ color: `${pos.color}40` }} /><span className="text-[12px] text-white/55 leading-relaxed">{r}</span></div>)}
                       </div>
                       <div className="mt-auto">
-                        <button className="w-full py-3 rounded-xl font-semibold text-[13px] flex items-center justify-center gap-2 border text-white/40 group-hover:text-white/80 transition-all duration-300 cursor-pointer" style={{ borderColor: `${pos.color}12`, background: `${pos.color}04` }}>
+                        <button className="w-full py-3 rounded-xl font-bold text-[13px] flex items-center justify-center gap-2 border text-white/65 group-hover:text-white transition-all duration-300 cursor-pointer" style={{ borderColor: `${pos.color}12`, background: `${pos.color}04` }}>
                           Apply <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
                         </button>
                       </div>
@@ -1426,8 +1426,8 @@ export default function ApplyPage() {
         }
 
         /* Card */
-        .lx-card { background: rgba(255,255,255,0.012); border: 1px solid rgba(255,255,255,0.04); border-radius: 12px; transition: all 0.3s ease; position: relative; overflow: hidden; }
-        .lx-card:hover { background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.07); }
+        .lx-card { background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; transition: all 0.3s ease; position: relative; overflow: hidden; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+        .lx-card:hover { background: rgba(255,255,255,0.04); border-color: rgba(249,115,22,0.30); transform: translateY(-4px); box-shadow: 0 24px 50px rgba(0,0,0,0.4), 0 0 40px rgba(249,115,22,0.10); }
 
         /* Popular */
         .lx-popular { border-color: rgba(249,115,22,0.1) !important; box-shadow: 0 0 50px rgba(249,115,22,0.02); }
