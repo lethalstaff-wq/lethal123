@@ -152,17 +152,22 @@ export function DashboardClient({ user, orders, totalSpent, activeLicenses, memb
     <section className="py-20 px-4 sm:px-6 lg:px-8">
       <div className="container mx-auto max-w-6xl">
         {/* Hero Banner */}
-        <div className="relative rounded-2xl bg-gradient-to-r from-[#f97316]/20 via-[#f97316]/10 to-[#ea580c]/20 border border-[#f97316]/20 p-6 md:p-8 mb-8 overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(249,115,22,0.1),transparent_70%)]" />
+        <div className="relative rounded-3xl bg-gradient-to-br from-[#f97316]/15 via-white/[0.03] to-[#ea580c]/10 border border-white/[0.10] backdrop-blur-xl p-6 md:p-8 mb-8 overflow-hidden shadow-[0_24px_60px_rgba(0,0,0,0.4),0_0_60px_rgba(249,115,22,0.10)]">
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f97316]/55 to-transparent pointer-events-none" />
+          <div className="absolute -top-24 -right-24 w-72 h-72 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(249,115,22,0.18), transparent 70%)" }} />
           <div className="relative flex flex-col md:flex-row md:items-center gap-6">
-            <div className="w-16 h-16 rounded-full bg-[#f97316]/20 border-2 border-[#f97316] flex items-center justify-center text-2xl font-bold text-[#f97316]">
+            <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#f97316] to-[#ea580c] border border-[#f97316]/40 flex items-center justify-center font-display text-3xl font-black text-white shadow-[0_8px_24px_rgba(249,115,22,0.4),inset_0_1px_0_rgba(255,255,255,0.15)]">
               {username.slice(0, 2).toUpperCase()}
             </div>
             <div className="flex-1">
-              <h1 className="text-2xl md:text-3xl font-bold text-white mb-1">Welcome back, {username}</h1>
-              <p className="text-white/40">
-                Member since {memberSince} <span className="mx-2">&bull;</span>
-                <span className={`${memberTier.color} font-medium`}>{memberTier.name} member</span>
+              <h1 className="font-display text-3xl md:text-4xl font-bold tracking-tight mb-1.5">
+                <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Welcome back, </span>
+                <span style={{ background: "linear-gradient(180deg, #ffb366, #f97316, #c2410c)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 24px rgba(249,115,22,0.3))" }}>{username}</span>
+              </h1>
+              <p className="text-white/65 text-[14px]">
+                Member since {memberSince}
+                <span className="mx-2 text-white/30">&bull;</span>
+                <span className={`${memberTier.color} font-bold`}>{memberTier.name} member</span>
               </p>
             </div>
             <SignOutButton />
@@ -171,36 +176,32 @@ export function DashboardClient({ user, orders, totalSpent, activeLicenses, memb
 
         {/* Quick Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          <div className="rounded-2xl border border-white/[0.04] bg-white/[0.012] p-4 text-center">
-            <div className="text-2xl font-bold text-[#f97316]">{orders.length}</div>
-            <p className="text-xs text-white/40">Total Orders</p>
-          </div>
-          <div className="rounded-2xl border border-white/[0.04] bg-white/[0.012] p-4 text-center">
-            <div className="text-2xl font-bold text-green-500">{activeLicenses.length}</div>
-            <p className="text-xs text-white/40">Active Licenses</p>
-          </div>
-          <div className="rounded-2xl border border-white/[0.04] bg-white/[0.012] p-4 text-center">
-            <div className="text-2xl font-bold text-yellow-500">&pound;{totalSpent.toFixed(0)}</div>
-            <p className="text-xs text-white/40">Total Spent</p>
-          </div>
-          <div className="rounded-2xl border border-white/[0.04] bg-white/[0.012] p-4 text-center">
-            <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full ${memberTier.bg}`}>
-              <span className={`text-lg font-bold ${memberTier.color}`}>{memberTier.name}</span>
+          {[
+            { value: orders.length, label: "Total Orders", color: "#f97316" },
+            { value: activeLicenses.length, label: "Active Licenses", color: "#22c55e" },
+            { value: `£${totalSpent.toFixed(0)}`, label: "Total Spent", color: "#fbbf24" },
+            { value: memberTier.name, label: "Member Status", color: "#3b82f6", isTier: true },
+          ].map((stat) => (
+            <div key={stat.label} className="group relative rounded-2xl border border-white/[0.07] bg-white/[0.025] backdrop-blur-xl p-5 text-center hover:-translate-y-1 hover:border-[#f97316]/25 transition-all duration-300 overflow-hidden">
+              <div className="absolute -top-12 -right-12 w-32 h-32 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ background: `radial-gradient(circle, ${stat.color}30, transparent 70%)` }} />
+              <div className="relative">
+                <div className="font-display text-2xl font-black tracking-tight" style={{ color: stat.color }}>{stat.value}</div>
+                <p className="text-[10px] text-white/55 mt-1.5 font-bold uppercase tracking-[0.15em]">{stat.label}</p>
+              </div>
             </div>
-            <p className="text-xs text-white/40 mt-1">Member Status</p>
-          </div>
+          ))}
         </div>
 
         {/* Navigation Tabs */}
-        <div className="flex gap-2 mb-6 overflow-x-auto pb-2 p-1.5 rounded-2xl bg-white/[0.02] border border-white/[0.04]">
+        <div className="flex gap-1 mb-6 overflow-x-auto pb-2 p-1.5 rounded-2xl bg-white/[0.04] border border-white/[0.08] backdrop-blur-md">
           {tabs.map(tab => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium text-sm transition-all whitespace-nowrap ${
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-[13px] transition-all whitespace-nowrap ${
                 activeTab === tab.id
-                  ? "bg-white/[0.06] text-white"
-                  : "text-white/40 hover:text-white hover:bg-white/[0.03]"
+                  ? "bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white shadow-[0_4px_14px_rgba(249,115,22,0.4)]"
+                  : "text-white/55 hover:text-white hover:bg-white/[0.06]"
               }`}
             >
               <tab.icon className="h-4 w-4" />
