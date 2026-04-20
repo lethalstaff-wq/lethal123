@@ -121,7 +121,7 @@ export default function TrackOrderPage() {
   }
 
   const inputClass =
-    "w-full rounded-xl border border-white/[0.06] bg-white/[0.03] px-4 py-3 text-sm text-white placeholder:text-white/20 outline-none transition-all focus:border-[#f97316]/30 focus:bg-white/[0.04]"
+    "w-full rounded-xl border border-white/[0.06] bg-white/[0.03] px-4 py-3 text-sm text-white placeholder:text-white/45 outline-none transition-all focus:border-[#f97316]/30 focus:bg-white/[0.04]"
 
   // Order results view — with navbar
   if (orders && orders.length > 0) {
@@ -130,7 +130,7 @@ export default function TrackOrderPage() {
         <Navbar />
         <section className="flex-1 pt-28 pb-20 px-4">
           <div className="container mx-auto max-w-3xl">
-            <Link href="/track" className="inline-flex items-center gap-1.5 text-[13px] text-white/25 hover:text-white/50 transition-colors mb-8">
+            <Link href="/track" className="inline-flex items-center gap-1.5 text-[13px] text-white/55 hover:text-white/50 transition-colors mb-8">
               <Search className="h-3.5 w-3.5" />
               New Search
             </Link>
@@ -230,7 +230,7 @@ export default function TrackOrderPage() {
                       </div>
                     )}
 
-                    <div className="px-6 py-4 flex items-center justify-between text-[12px] text-white/20">
+                    <div className="px-6 py-4 flex items-center justify-between text-[12px] text-white/45">
                       <span className="flex items-center gap-1.5"><Shield className="h-3 w-3" /> Secure</span>
                       <a href="https://discord.gg/lethaldma" target="_blank" rel="noopener noreferrer" className="text-[#f97316]/50 hover:text-[#f97316] transition-colors">Need help?</a>
                     </div>
@@ -266,13 +266,13 @@ export default function TrackOrderPage() {
       <div className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-3">
         <Link
           href="/"
-          className="flex items-center gap-2 text-white/20 hover:text-white/50 transition-colors text-[13px] group"
+          className="flex items-center gap-2 text-white/45 hover:text-white/50 transition-colors text-[13px] group"
         >
           <ArrowRight className="h-3.5 w-3.5 rotate-180 group-hover:-translate-x-0.5 transition-transform" />
           <span className="hidden sm:inline">Back</span>
         </Link>
 
-        <Link href="/status" className="flex items-center gap-1.5 text-[12px] text-white/20 hover:text-white/40 transition-colors">
+        <Link href="/status" className="flex items-center gap-1.5 text-[12px] text-white/45 hover:text-white/40 transition-colors">
           <span className="relative flex h-1.5 w-1.5">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
             <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
@@ -315,7 +315,7 @@ export default function TrackOrderPage() {
               {i > 0 && <div className="w-px h-8 bg-white/[0.06]" />}
               <div>
                 <p className="text-xl font-bold text-white tracking-tight">{stat.value}</p>
-                <p className="text-[10px] text-white/25 mt-0.5 uppercase tracking-wider">{stat.label}</p>
+                <p className="text-[10px] text-white/55 mt-0.5 uppercase tracking-wider">{stat.label}</p>
               </div>
             </div>
           ))}
@@ -337,7 +337,7 @@ export default function TrackOrderPage() {
             <h2 className="text-2xl font-bold text-white">
               Find your <span className="bg-gradient-to-r from-[#f97316] to-[#ea580c] bg-clip-text text-transparent">order</span>
             </h2>
-            <p className="mt-1.5 text-[13px] text-white/25">
+            <p className="mt-1.5 text-[13px] text-white/55">
               Search by order ID or email address.
             </p>
           </div>
@@ -347,7 +347,7 @@ export default function TrackOrderPage() {
             <button
               onClick={() => setSearchType("order_id")}
               className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all ${
-                searchType === "order_id" ? "bg-white/[0.08] text-white" : "text-white/25 hover:text-white/40"
+                searchType === "order_id" ? "bg-white/[0.08] text-white" : "text-white/55 hover:text-white/40"
               }`}
             >
               Order ID
@@ -355,7 +355,7 @@ export default function TrackOrderPage() {
             <button
               onClick={() => setSearchType("email")}
               className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all ${
-                searchType === "email" ? "bg-white/[0.08] text-white" : "text-white/25 hover:text-white/40"
+                searchType === "email" ? "bg-white/[0.08] text-white" : "text-white/55 hover:text-white/40"
               }`}
             >
               Email
@@ -396,9 +396,9 @@ export default function TrackOrderPage() {
             </button>
           </form>
 
-          <p className="mt-6 text-center text-[11px] text-white/15">
+          <p className="mt-6 text-center text-[11px] text-white/45">
             Order ID was sent to your email after checkout.{" "}
-            <a href="https://discord.gg/lethaldma" target="_blank" rel="noopener noreferrer" className="text-white/25 hover:text-white/40 transition-colors">
+            <a href="https://discord.gg/lethaldma" target="_blank" rel="noopener noreferrer" className="text-white/55 hover:text-white/40 transition-colors">
               Need help?
             </a>
           </p>

@@ -35,7 +35,7 @@ export function ContactSection() {
                   <div className="flex items-center gap-3 mt-1">
                     <span className="flex items-center gap-1.5 text-sm"><span className="w-2 h-2 rounded-full bg-emerald-500/60 animate-pulse" /><span className="text-emerald-400/60 font-medium text-[13px]">3,147 online</span></span>
                     <span className="text-white/10">&bull;</span>
-                    <span className="text-[13px] text-white/25">8,734 members</span>
+                    <span className="text-[13px] text-white/55">8,734 members</span>
                   </div>
                 </div>
               </div>

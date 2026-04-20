@@ -78,7 +78,7 @@ export default function CartPage() {
         <section className="flex-1 py-32 px-4 sm:px-6 lg:px-8">
           <div className="container mx-auto max-w-md text-center">
             <div className="w-20 h-20 rounded-2xl bg-white/[0.03] border border-white/[0.04] flex items-center justify-center mx-auto mb-6">
-              <ShoppingBag className="h-10 w-10 text-white/20" />
+              <ShoppingBag className="h-10 w-10 text-white/45" />
             </div>
             <h1 className="text-2xl font-bold mb-3 text-white/90">Your cart is empty</h1>
             <p className="text-white/40 mb-8 text-sm">Browse our products and find what you need.</p>
@@ -127,7 +127,7 @@ export default function CartPage() {
                       {(item.variant.product?.image || item.variant.product?.image_url) ? (
                         <Image src={item.variant.product?.image || item.variant.product?.image_url || ""} alt={item.variant.product?.name || ""} width={64} height={64} className="object-contain" />
                       ) : (
-                        <ShoppingBag className="h-6 w-6 text-white/20" />
+                        <ShoppingBag className="h-6 w-6 text-white/45" />
                       )}
                     </div>
 

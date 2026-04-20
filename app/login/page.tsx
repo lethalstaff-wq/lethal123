@@ -73,7 +73,7 @@ export default function LoginPage() {
   }
 
   const inputClass =
-    "w-full rounded-xl border border-white/[0.06] bg-white/[0.03] px-4 py-3 text-sm text-white placeholder:text-white/20 outline-none transition-all focus:border-[#f97316]/30 focus:bg-white/[0.04]"
+    "w-full rounded-xl border border-white/[0.06] bg-white/[0.03] px-4 py-3 text-sm text-white placeholder:text-white/45 outline-none transition-all focus:border-[#f97316]/30 focus:bg-white/[0.04]"
 
   return (
     <main className="flex h-screen bg-black overflow-hidden">
@@ -101,7 +101,7 @@ export default function LoginPage() {
               in one place.
             </span>
           </h1>
-          <p className="mt-6 text-[15px] text-white/20 leading-relaxed max-w-[340px]">
+          <p className="mt-6 text-[15px] text-white/45 leading-relaxed max-w-[340px]">
             Licenses, downloads, orders, support — all from your dashboard.
           </p>
         </div>
@@ -117,7 +117,7 @@ export default function LoginPage() {
               {i > 0 && <div className="w-px h-8 bg-white/[0.06]" />}
               <div>
                 <p className="text-xl font-bold text-white tracking-tight">{stat.value}</p>
-                <p className="text-[10px] text-white/25 mt-0.5 uppercase tracking-wider">{stat.label}</p>
+                <p className="text-[10px] text-white/55 mt-0.5 uppercase tracking-wider">{stat.label}</p>
               </div>
             </div>
           ))}
@@ -139,7 +139,7 @@ export default function LoginPage() {
             <h2 className="text-2xl font-bold text-white">
               {activeTab === "login" ? "Sign in" : "Create account"}
             </h2>
-            <p className="mt-1.5 text-sm text-white/25">
+            <p className="mt-1.5 text-sm text-white/55">
               {activeTab === "login"
                 ? "Enter your credentials to continue."
                 : "Get started in seconds."}
@@ -154,7 +154,7 @@ export default function LoginPage() {
               className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all ${
                 activeTab === "login"
                   ? "bg-white/[0.08] text-white"
-                  : "text-white/25 hover:text-white/40"
+                  : "text-white/55 hover:text-white/40"
               }`}
             >
               Login
@@ -165,7 +165,7 @@ export default function LoginPage() {
               className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all ${
                 activeTab === "signup"
                   ? "bg-white/[0.08] text-white"
-                  : "text-white/25 hover:text-white/40"
+                  : "text-white/55 hover:text-white/40"
               }`}
             >
               Sign Up
@@ -216,7 +216,7 @@ export default function LoginPage() {
               </div>
               <div className="space-y-1.5">
                 <label htmlFor="signup-discord" className="text-xs font-medium text-white/35">
-                  Discord <span className="text-white/15">(optional)</span>
+                  Discord <span className="text-white/45">(optional)</span>
                 </label>
                 <input id="signup-discord" name="discord" placeholder="username" className={inputClass} />
               </div>
@@ -240,11 +240,11 @@ export default function LoginPage() {
             </form>
           )}
 
-          <p className="mt-6 text-center text-[11px] text-white/15">
+          <p className="mt-6 text-center text-[11px] text-white/45">
             By continuing, you agree to our{" "}
-            <a href="/terms" className="text-white/25 hover:text-white/40 transition-colors">Terms</a>
+            <a href="/terms" className="text-white/55 hover:text-white/40 transition-colors">Terms</a>
             {" "}and{" "}
-            <a href="/privacy" className="text-white/25 hover:text-white/40 transition-colors">Privacy Policy</a>
+            <a href="/privacy" className="text-white/55 hover:text-white/40 transition-colors">Privacy Policy</a>
           </p>
         </div>
       </div>
