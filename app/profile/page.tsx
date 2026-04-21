@@ -341,10 +341,10 @@ export default function ProfilePage() {
 
           {activeTab === "renewals" && (
             <div>
-              <div className="mb-4 rounded-2xl border border-white/[0.06] bg-white/[0.012] p-5">
+              <div className="mb-4 rounded-2xl border border-emerald-500/20 bg-gradient-to-br from-emerald-500/[0.06] to-white/[0.025] backdrop-blur-xl p-5">
                 <div className="flex items-start gap-3">
-                  <div className="w-9 h-9 rounded-xl bg-emerald-500/15 flex items-center justify-center shrink-0">
-                    <RefreshCw className="h-4 w-4 text-emerald-400" />
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500/25 to-emerald-600/15 border border-emerald-500/30 flex items-center justify-center shrink-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_18px_rgba(16,185,129,0.18)]">
+                    <RefreshCw className="h-[18px] w-[18px] text-emerald-400" style={{ filter: "drop-shadow(0 0 8px rgba(16,185,129,0.5))" }} />
                   </div>
                   <div>
                     <p className="font-bold text-white text-sm">Renewal reminders</p>
@@ -379,10 +379,10 @@ function MiniStat({
   valueTone?: string
 }) {
   return (
-    <div className="rounded-xl border border-white/[0.08] bg-black/30 px-4 py-3 backdrop-blur-sm">
-      <Icon className="h-3.5 w-3.5 text-white/55 mb-1.5" />
-      <p className={cn("text-xl md:text-2xl font-black", valueTone)}>{value}</p>
-      <p className="text-[10.5px] text-white/55 truncate">{label}</p>
+    <div className="rounded-xl border border-white/[0.10] bg-black/45 backdrop-blur-md px-4 py-3.5 hover:border-white/[0.18] transition-colors">
+      <Icon className="h-3.5 w-3.5 text-white/65 mb-1.5" />
+      <p className={cn("font-display text-xl md:text-2xl font-black tracking-tight", valueTone)}>{value}</p>
+      <p className="text-[10px] text-white/65 truncate uppercase tracking-[0.12em] font-bold mt-0.5">{label}</p>
     </div>
   )
 }
@@ -403,15 +403,15 @@ function QuickLink({
   accent?: string
 }) {
   const content = (
-    <div className="flex items-center gap-4 p-5 rounded-2xl border border-white/[0.06] bg-white/[0.012] hover:bg-white/[0.025] hover:border-white/[0.12] transition-all group">
-      <div className={cn("w-10 h-10 rounded-xl flex items-center justify-center bg-white/[0.04]", accent)}>
-        <Icon className="h-4 w-4" />
+    <div className="group flex items-center gap-4 p-5 rounded-2xl border border-white/[0.07] bg-white/[0.025] backdrop-blur-xl hover:bg-white/[0.04] hover:border-[#f97316]/25 hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249,115,22,0.08)] transition-all duration-300">
+      <div className={cn("w-11 h-11 rounded-xl flex items-center justify-center bg-white/[0.04] border border-white/[0.08] group-hover:scale-110 transition-transform", accent)}>
+        <Icon className="h-[18px] w-[18px]" />
       </div>
       <div className="flex-1 min-w-0">
-        <p className="text-sm font-bold text-white">{label}</p>
-        <p className="text-xs text-white/55 mt-0.5 truncate">{description}</p>
+        <p className="font-display text-[14px] font-bold text-white tracking-tight">{label}</p>
+        <p className="text-[12px] text-white/65 mt-0.5 truncate">{description}</p>
       </div>
-      <ExternalLink className="h-3.5 w-3.5 text-white/45 group-hover:text-white/55 transition-colors" />
+      <ExternalLink className="h-3.5 w-3.5 text-white/45 group-hover:text-[#f97316] group-hover:translate-x-1 transition-all" />
     </div>
   )
   return external ? (
