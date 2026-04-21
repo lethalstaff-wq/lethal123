@@ -45,18 +45,18 @@ function ChangelogRow({ entry }: { entry: ChangelogEntry }) {
   const style = CHANGELOG_STYLES[entry.type] ?? CHANGELOG_STYLES.update
   const Icon = style.icon
   return (
-    <div className="flex gap-4 rounded-xl border border-white/[0.06] bg-white/[0.02] p-4 hover:border-white/[0.12] transition-colors">
-      <div className={`shrink-0 w-9 h-9 rounded-lg flex items-center justify-center ${style.bg}`}>
-        <Icon className={`h-4 w-4 ${style.text}`} />
+    <div className="group flex gap-4 rounded-2xl border border-white/[0.07] bg-white/[0.025] backdrop-blur-xl p-4 hover:border-[#f97316]/25 hover:bg-white/[0.04] hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(0,0,0,0.35)] transition-all duration-300">
+      <div className={`shrink-0 w-10 h-10 rounded-xl flex items-center justify-center border border-white/[0.08] ${style.bg}`}>
+        <Icon className={`h-[18px] w-[18px] ${style.text}`} style={{ filter: `drop-shadow(0 0 6px currentColor)` }} />
       </div>
       <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-2 mb-1 flex-wrap">
-          <span className={`text-[10px] font-bold uppercase tracking-wider ${style.text}`}>{style.label}</span>
-          <span className="text-[11px] text-white/30">{formatChangelogDate(entry.date)}</span>
+        <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+          <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-[0.15em] border border-white/[0.08] ${style.bg} ${style.text}`}>{style.label}</span>
+          <span className="text-[11px] text-white/55 font-medium">{formatChangelogDate(entry.date)}</span>
         </div>
-        <p className="text-sm font-semibold text-white/90">{entry.title}</p>
+        <p className="font-display text-[14px] font-bold text-white tracking-tight">{entry.title}</p>
         {entry.description && (
-          <p className="text-[12.5px] text-white/45 leading-relaxed mt-1">{entry.description}</p>
+          <p className="text-[12.5px] text-white/65 leading-relaxed mt-1">{entry.description}</p>
         )}
       </div>
     </div>
@@ -415,74 +415,78 @@ export function ProductDetailClient({ product }: { product: Product }) {
         </div>
       )}
 
-      {/* ═══ Proof of Work — Undetected / Patch Response / Support ═══ */}
-      <div className="mt-14 pt-10 border-t border-white/[0.04]">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {meta.undetectedSinceDays ? (
-            <div className="rounded-xl border border-emerald-500/15 bg-emerald-500/[0.03] p-5">
-              <div className="flex items-center gap-2 mb-3">
-                <ShieldCheck className="h-4 w-4 text-emerald-400" />
-                <span className="text-[11px] font-semibold uppercase tracking-wider text-emerald-400">Undetected</span>
+      {/* ═══ Proof of Work — premium glass cards with corner glow + animated stat numbers ═══ */}
+      <div className="mt-14 pt-10 border-t border-white/[0.06]">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {/* Undetected */}
+          <div className="group relative rounded-2xl border border-emerald-500/25 bg-gradient-to-br from-emerald-500/[0.06] to-white/[0.02] backdrop-blur-xl p-6 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_36px_rgba(16,185,129,0.18)] transition-all duration-300 overflow-hidden">
+            <div className="absolute -top-12 -right-12 w-40 h-40 rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ background: "radial-gradient(circle, rgba(16,185,129,0.18), transparent 70%)" }} />
+            <div className="relative">
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-8 h-8 rounded-lg bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center">
+                  <ShieldCheck className="h-4 w-4 text-emerald-400" style={{ filter: "drop-shadow(0 0 8px rgba(16,185,129,0.5))" }} />
+                </div>
+                <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-emerald-400">{meta.undetectedSinceDays ? "Undetected" : "Proven Safe"}</span>
               </div>
-              <div className="flex items-baseline gap-1.5 mb-1">
-                <span className="text-3xl font-black text-white">{meta.undetectedSinceDays}</span>
-                <span className="text-sm text-white/55">days</span>
+              <div className="flex items-baseline gap-1.5 mb-2">
+                <span className="font-display text-4xl font-black text-white tracking-tight">{meta.undetectedSinceDays || "100%"}</span>
+                {meta.undetectedSinceDays && <span className="text-[13px] text-white/65 font-medium">days</span>}
               </div>
-              <p className="text-[12px] text-white/55 leading-relaxed">Zero detections across EAC, BattlEye, Vanguard, FaceIt, Ricochet.</p>
+              <p className="text-[12px] text-white/65 leading-relaxed">{meta.undetectedSinceDays ? "Zero detections across EAC, BattlEye, Vanguard, FaceIt, Ricochet." : "Thousands of verified clean sessions."}</p>
             </div>
-          ) : (
-            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-5">
-              <Shield className="h-4 w-4 text-[#f97316]/60 mb-2.5" />
-              <h3 className="font-semibold text-sm text-white/80 mb-1">Proven Safe</h3>
-              <p className="text-[13px] text-white/30 leading-relaxed">Thousands of verified clean sessions.</p>
-            </div>
-          )}
-          {meta.lastPatchResponseHours ? (
-            <div className="rounded-xl border border-[#f97316]/15 bg-[#f97316]/[0.03] p-5">
-              <div className="flex items-center gap-2 mb-3">
-                <Zap className="h-4 w-4 text-[#f97316]" />
-                <span className="text-[11px] font-semibold uppercase tracking-wider text-[#f97316]">Patch Response</span>
+          </div>
+
+          {/* Patch Response */}
+          <div className="group relative rounded-2xl border border-[#f97316]/25 bg-gradient-to-br from-[#f97316]/[0.06] to-white/[0.02] backdrop-blur-xl p-6 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_36px_rgba(249,115,22,0.18)] transition-all duration-300 overflow-hidden">
+            <div className="absolute -top-12 -right-12 w-40 h-40 rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ background: "radial-gradient(circle, rgba(249,115,22,0.18), transparent 70%)" }} />
+            <div className="relative">
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-8 h-8 rounded-lg bg-[#f97316]/15 border border-[#f97316]/30 flex items-center justify-center">
+                  <Zap className="h-4 w-4 text-[#f97316]" style={{ filter: "drop-shadow(0 0 8px rgba(249,115,22,0.55))" }} />
+                </div>
+                <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#f97316]">{meta.lastPatchResponseHours ? "Patch Response" : "Instant Delivery"}</span>
               </div>
-              <div className="flex items-baseline gap-1.5 mb-1">
-                <span className="text-3xl font-black text-white">&lt;{meta.lastPatchResponseHours}h</span>
+              <div className="flex items-baseline gap-1.5 mb-2">
+                <span className="font-display text-4xl font-black text-white tracking-tight">{meta.lastPatchResponseHours ? `<${meta.lastPatchResponseHours}h` : "<1m"}</span>
               </div>
-              <p className="text-[12px] text-white/55 leading-relaxed">Average downtime after a game patch. You're back online fast.</p>
+              <p className="text-[12px] text-white/65 leading-relaxed">{meta.lastPatchResponseHours ? "Average downtime after a game patch. You're back online fast." : "License key arrives in seconds."}</p>
             </div>
-          ) : (
-            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-5">
-              <Zap className="h-4 w-4 text-[#f97316]/60 mb-2.5" />
-              <h3 className="font-semibold text-sm text-white/80 mb-1">Instant Delivery</h3>
-              <p className="text-[13px] text-white/30 leading-relaxed">License key arrives in seconds.</p>
+          </div>
+
+          {/* Support */}
+          <div className="group relative rounded-2xl border border-blue-500/25 bg-gradient-to-br from-blue-500/[0.06] to-white/[0.02] backdrop-blur-xl p-6 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_36px_rgba(59,130,246,0.18)] transition-all duration-300 overflow-hidden">
+            <div className="absolute -top-12 -right-12 w-40 h-40 rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ background: "radial-gradient(circle, rgba(59,130,246,0.18), transparent 70%)" }} />
+            <div className="relative">
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-8 h-8 rounded-lg bg-blue-500/15 border border-blue-500/30 flex items-center justify-center">
+                  <Clock className="h-4 w-4 text-blue-400" style={{ filter: "drop-shadow(0 0 8px rgba(59,130,246,0.5))" }} />
+                </div>
+                <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-blue-400">Support</span>
+              </div>
+              <div className="flex items-baseline gap-1.5 mb-2">
+                <span className="font-display text-4xl font-black text-white tracking-tight">24/7</span>
+              </div>
+              <p className="text-[12px] text-white/65 leading-relaxed">Dedicated Discord team for setup and troubleshooting.</p>
             </div>
-          )}
-          <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-5">
-            <div className="flex items-center gap-2 mb-3">
-              <Clock className="h-4 w-4 text-white/50" />
-              <span className="text-[11px] font-semibold uppercase tracking-wider text-white/50">Support</span>
-            </div>
-            <div className="flex items-baseline gap-1.5 mb-1">
-              <span className="text-3xl font-black text-white">24/7</span>
-            </div>
-            <p className="text-[12px] text-white/55 leading-relaxed">Dedicated Discord team for setup and troubleshooting.</p>
           </div>
         </div>
       </div>
 
       {/* ═══ Recent Updates / Per-product Changelog ═══ */}
       {meta.changelog && meta.changelog.length > 0 && (
-        <div className="mt-12 pt-10 border-t border-white/[0.04]">
+        <div className="mt-12 pt-10 border-t border-white/[0.06]">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-[#f97316]/15 flex items-center justify-center">
-                <Sparkles className="h-4 w-4 text-[#f97316]" />
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#f97316]/25 to-[#ea580c]/15 border border-[#f97316]/30 flex items-center justify-center shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_18px_rgba(249,115,22,0.18)]">
+                <Sparkles className="h-[18px] w-[18px] text-[#f97316]" style={{ filter: "drop-shadow(0 0 8px rgba(249,115,22,0.55))" }} />
               </div>
               <div>
-                <h2 className="text-xl font-bold">Recent Updates</h2>
-                <p className="text-xs text-white/55">What shipped lately for {product.name}</p>
+                <h2 className="font-display text-2xl font-bold tracking-tight text-white">Recent Updates</h2>
+                <p className="text-[12px] text-white/65 mt-0.5">What shipped lately for {product.name}</p>
               </div>
             </div>
-            <Link href="/changelog" className="text-xs text-[#f97316] hover:text-[#f97316]/80 flex items-center gap-1 transition-colors">
-              Full changelog <ArrowRight className="h-3 w-3" />
+            <Link href="/changelog" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.10] text-[12px] text-white/65 font-bold hover:border-[#f97316]/35 hover:text-[#f97316] hover:bg-[#f97316]/[0.06] transition-all">
+              Full changelog <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
           <div className="space-y-3">
@@ -493,59 +497,62 @@ export function ProductDetailClient({ product }: { product: Product }) {
         </div>
       )}
 
-      {/* ═══ What Buyers Say ═══ */}
+      {/* ═══ What Buyers Say — premium review cards ═══ */}
       {productReviews.length > 0 && (
-        <div className="mt-12">
+        <div className="mt-12 pt-10 border-t border-white/[0.06]">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-amber-500/15 flex items-center justify-center">
-                <Star className="h-4 w-4 text-amber-400" />
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500/25 to-amber-600/15 border border-amber-500/30 flex items-center justify-center shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_18px_rgba(245,158,11,0.18)]">
+                <Star className="h-[18px] w-[18px] text-amber-400 fill-amber-400" style={{ filter: "drop-shadow(0 0 8px rgba(245,158,11,0.55))" }} />
               </div>
               <div>
-                <h2 className="text-xl font-bold">What Buyers Say</h2>
-                <p className="text-xs text-white/55">{reviewCount} verified reviews</p>
+                <h2 className="font-display text-2xl font-bold tracking-tight text-white">What Buyers Say</h2>
+                <p className="text-[12px] text-white/65 mt-0.5"><span className="text-white font-bold tabular-nums">{reviewCount}</span> verified reviews</p>
               </div>
             </div>
-            <Link href={`/reviews`} className="text-xs text-[#f97316] hover:text-[#f97316]/80 flex items-center gap-1 transition-colors">
-              See all reviews <ArrowRight className="h-3 w-3" />
+            <Link href={`/reviews`} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.10] text-[12px] text-white/65 font-bold hover:border-[#f97316]/35 hover:text-[#f97316] hover:bg-[#f97316]/[0.06] transition-all">
+              See all reviews <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {productReviews.map((review) => (
-              <div key={review.id} className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-5 hover:border-white/[0.06] transition-colors">
-                {/* Stars */}
-                <div className="flex items-center gap-2 mb-3">
-                  <div className="flex gap-0.5">
+              <div key={review.id} className="group rounded-2xl border border-white/[0.07] bg-white/[0.025] backdrop-blur-xl p-5 hover:border-[#f97316]/25 hover:bg-white/[0.04] hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249,115,22,0.08)] transition-all duration-300 relative overflow-hidden">
+                {/* Big quote mark */}
+                <div className="absolute top-2 right-4 text-[80px] font-serif leading-none select-none pointer-events-none text-[#f97316]/[0.06] group-hover:text-[#f97316]/[0.10] transition-colors">&ldquo;</div>
+
+                {/* Stars + Verified */}
+                <div className="flex items-center gap-2 mb-3 relative z-[1]">
+                  <div className="flex gap-1">
                     {Array.from({ length: 5 }).map((_, i) => (
-                      <Star key={i} className={`h-3.5 w-3.5 ${i < review.rating ? "fill-amber-400 text-amber-400" : "fill-muted text-muted"}`} />
+                      <Star key={i} className={`h-3.5 w-3.5 ${i < review.rating ? "gold-star" : "fill-white/[0.10] text-white/[0.10]"}`} style={i < review.rating ? { animationDelay: `${i * 0.12}s` } : {}} />
                     ))}
                   </div>
-                  <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-emerald-500/10 text-[10px] font-medium text-emerald-500">
-                    <CheckCircle2 className="h-2.5 w-2.5" /> Verified
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-[10px] font-bold text-emerald-400 ml-auto">
+                    <CheckCircle2 className="h-3 w-3" /> Verified
                   </span>
                 </div>
 
                 {/* Text */}
-                <p className="text-sm text-white/85 leading-relaxed mb-3">{review.text}</p>
+                <p className="text-[14px] text-white/85 leading-[1.7] mb-3 relative z-[1]">{review.text}</p>
 
                 {/* Team response */}
                 {review.team_response && (
-                  <div className="mb-3 rounded-lg bg-[#f97316]/[0.04] border border-[#f97316]/10 p-3">
-                    <p className="text-[11px] font-semibold text-[#f97316] mb-1">Lethal Team</p>
-                    <p className="text-xs text-white/60 leading-relaxed">{review.team_response}</p>
+                  <div className="mb-3 rounded-xl bg-gradient-to-br from-[#f97316]/[0.08] to-white/[0.02] border border-[#f97316]/20 p-3 relative z-[1]">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#f97316] mb-1.5">Lethal Team Response</p>
+                    <p className="text-[12px] text-white/75 leading-relaxed">{review.team_response}</p>
                   </div>
                 )}
 
                 {/* Footer */}
-                <div className="flex items-center justify-between pt-3 border-t border-white/[0.06]">
-                  <span className="text-xs text-white/55 font-mono">{maskEmail(review.email)}</span>
+                <div className="flex items-center justify-between pt-3 border-t border-white/[0.06] relative z-[1]">
+                  <span className="text-[11px] text-white/55 font-mono">{maskEmail(review.email)}</span>
                   <div className="flex items-center gap-3">
                     {review.helpful > 0 && (
-                      <span className="text-[10px] text-white/55 flex items-center gap-1">
-                        <ThumbsUp className="h-3 w-3" /> {review.helpful}
+                      <span className="text-[10px] text-white/55 font-semibold flex items-center gap-1">
+                        <ThumbsUp className="h-3 w-3 text-[#f97316]" /> {review.helpful}
                       </span>
                     )}
-                    <span className="text-[10px] text-white/55">{formatTimeAgo(review.created_at)}</span>
+                    <span className="text-[10px] text-white/55 font-medium">{formatTimeAgo(review.created_at)}</span>
                   </div>
                 </div>
               </div>
