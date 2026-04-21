@@ -6,6 +6,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { getTotalReviewCount, getOrdersToday } from "@/lib/review-counts"
 import { FALLBACK_STATS } from "@/lib/fallback-stats"
+import { Magnetic } from "@/components/magnetic-button"
 
 function Counter({ value }: { value: number }) {
   const [count, setCount] = useState(value)
@@ -140,25 +141,29 @@ export function HeroSection() {
           }`}
           style={{ transitionDelay: "700ms" }}
         >
-          <Link
-            href="/products"
-            className="group relative inline-flex items-center gap-2.5 px-8 py-4 rounded-xl overflow-hidden bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white font-bold text-[15px] shadow-[0_0_40px_rgba(249,115,22,0.28)] hover:shadow-[0_0_60px_rgba(249,115,22,0.48)] hover:scale-[1.02] transition-all duration-300"
-          >
-            <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
-            <span className="relative z-10">Browse Products</span>
-            <ArrowRight className="relative z-10 h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
-          </Link>
+          <Magnetic strength={0.22}>
+            <Link
+              href="/products"
+              className="group relative inline-flex items-center gap-2.5 px-8 py-4 rounded-xl overflow-hidden bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white font-bold text-[15px] shadow-[0_0_40px_rgba(249,115,22,0.28)] hover:shadow-[0_0_60px_rgba(249,115,22,0.48)] hover:scale-[1.02] transition-all duration-300"
+            >
+              <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
+              <span className="relative z-10">Browse Products</span>
+              <ArrowRight className="relative z-10 h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
+            </Link>
+          </Magnetic>
 
-          <Link
-            href="/reviews"
-            className="group inline-flex items-center gap-2.5 px-8 py-4 rounded-xl border border-white/[0.12] bg-white/[0.02] text-white/85 font-semibold text-[15px] backdrop-blur-sm hover:bg-white/[0.04] hover:border-[#f97316]/40 hover:text-white transition-all duration-300"
-          >
-            <span>View Reviews</span>
-            <span className="text-[#f97316]">&bull;</span>
-            <span className="text-[#f97316] font-bold tabular-nums">
-              <Counter value={totalReviews} />
-            </span>
-          </Link>
+          <Magnetic strength={0.15}>
+            <Link
+              href="/reviews"
+              className="group inline-flex items-center gap-2.5 px-8 py-4 rounded-xl border border-white/[0.12] bg-white/[0.02] text-white/85 font-semibold text-[15px] backdrop-blur-sm hover:bg-white/[0.04] hover:border-[#f97316]/40 hover:text-white transition-all duration-300"
+            >
+              <span>View Reviews</span>
+              <span className="text-[#f97316]">&bull;</span>
+              <span className="text-[#f97316] font-bold tabular-nums">
+                <Counter value={totalReviews} />
+              </span>
+            </Link>
+          </Magnetic>
         </div>
 
         {/* Crypto bar — branded icons */}
