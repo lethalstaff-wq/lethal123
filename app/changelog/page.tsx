@@ -634,38 +634,53 @@ export default function ChangelogPage() {
                       <div key={index} className="relative pl-6">
                         {/* Timeline dot */}
                         <div className={cn(
-                          "absolute -left-[9px] w-4 h-4 rounded-full border-2 border-background",
+                          "absolute -left-[9px] w-4 h-4 rounded-full border-2 border-white/[0.10]",
                           typeConfig.bg
                         )} />
+                        <div className={cn(
+                          "absolute -left-[9px] w-4 h-4 rounded-full opacity-50",
+                          typeConfig.bg
+                        )} style={{ filter: "blur(6px)" }} />
 
                         {/* Card */}
-                        <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-xl overflow-hidden">
+                        <div className={cn(
+                          "rounded-2xl border backdrop-blur-xl overflow-hidden transition-all duration-300",
+                          isExpanded
+                            ? "border-[#f97316]/25 bg-white/[0.04] shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249,115,22,0.08)]"
+                            : "border-white/[0.07] bg-white/[0.025] hover:border-[#f97316]/20 hover:bg-white/[0.04] hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(0,0,0,0.35)]"
+                        )}>
                           <button
                             onClick={() => toggleItem(itemId)}
-                            className="w-full p-5 text-left"
+                            aria-expanded={isExpanded}
+                            className="w-full p-5 text-left cursor-pointer"
                           >
                             <div className="flex items-start justify-between gap-4">
                               <div className="flex items-start gap-4">
-                                <div className={cn("w-10 h-10 rounded-xl flex items-center justify-center shrink-0", typeConfig.bg)}>
+                                <div className={cn("w-11 h-11 rounded-xl flex items-center justify-center shrink-0 border border-white/[0.06]", typeConfig.bg)}>
                                   <TypeIcon className={cn("h-5 w-5", typeConfig.color)} />
                                 </div>
                                 <div>
-                                  <div className="flex items-center gap-3 mb-1">
-                                    <span className="font-bold text-foreground">{entry.product}</span>
-                                    <span className="font-mono text-sm text-white/55">v{entry.version}</span>
+                                  <div className="flex items-center gap-3 mb-1.5">
+                                    <span className="font-display font-bold text-white tracking-tight">{entry.product}</span>
+                                    <span className="font-mono text-[12px] text-white/55 px-2 py-0.5 rounded-md bg-white/[0.04] border border-white/[0.06]">v{entry.version}</span>
                                   </div>
-                                  <div className="flex items-center gap-3">
-                                    <span className={cn("px-2 py-0.5 rounded-full text-[10px] font-bold uppercase", typeConfig.bg, typeConfig.color)}>
+                                  <div className="flex items-center gap-2.5">
+                                    <span className={cn("inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-[0.15em] border", typeConfig.bg, typeConfig.color, "border-white/[0.08]")}>
                                       {typeConfig.label}
                                     </span>
-                                    <span className="text-xs text-white/55">{formatDate(entry.date)}</span>
+                                    <span className="text-[12px] text-white/65 font-medium">{formatDate(entry.date)}</span>
                                   </div>
                                 </div>
                               </div>
-                              <ChevronDown className={cn(
-                                "h-5 w-5 text-white/55 shrink-0 transition-transform mt-2",
-                                isExpanded && "rotate-180"
-                              )} />
+                              <div className={cn(
+                                "w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-1 transition-all",
+                                isExpanded ? "bg-[#f97316]/15 border border-[#f97316]/30" : "bg-white/[0.04] border border-white/[0.06]"
+                              )}>
+                                <ChevronDown className={cn(
+                                  "h-4 w-4 transition-all",
+                                  isExpanded ? "rotate-180 text-[#f97316]" : "text-white/55"
+                                )} />
+                              </div>
                             </div>
                           </button>
 
@@ -673,8 +688,8 @@ export default function ChangelogPage() {
                             <div className="px-5 pb-5 pt-2 border-t border-white/[0.06]">
                               <ul className="space-y-2 pl-14">
                                 {entry.changes.map((change, i) => (
-                                  <li key={i} className="flex items-start gap-3 text-sm text-white/55">
-                                    <div className="w-1.5 h-1.5 rounded-full bg-[#f97316] mt-2 shrink-0" />
+                                  <li key={i} className="flex items-start gap-3 text-[14px] text-white/65 leading-relaxed">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-[#f97316] mt-2 shrink-0 shadow-[0_0_6px_rgba(249,115,22,0.6)]" />
                                     {change}
                                   </li>
                                 ))}
