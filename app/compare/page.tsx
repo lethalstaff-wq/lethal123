@@ -471,33 +471,36 @@ export default function ComparePage() {
                       {Object.entries(BUNDLES_DATA).map(([id, bundle]) => (
                         <th key={id} className="p-4 text-center min-w-[180px]">
                           <div className={cn(
-                            "rounded-2xl border p-6",
-                            bundle.badge === "Popular" 
-                              ? "border-primary/50 bg-[#f97316]/5" 
-                              : "border-white/[0.06] bg-white/[0.02]"
+                            "relative rounded-2xl border p-6 backdrop-blur-xl overflow-hidden transition-all duration-300 hover:-translate-y-1",
+                            bundle.badge === "Popular"
+                              ? "border-[#f97316]/40 bg-gradient-to-b from-[#f97316]/[0.10] to-white/[0.025] shadow-[0_18px_48px_rgba(0,0,0,0.4),0_0_50px_rgba(249,115,22,0.18)]"
+                              : "border-white/[0.07] bg-white/[0.025] hover:border-[#f97316]/25 hover:shadow-[0_18px_40px_rgba(0,0,0,0.35)]"
                           )}>
                             {bundle.badge === "Popular" && (
-                              <div className="flex items-center justify-center gap-1 mb-2">
-                                <Crown className="h-4 w-4 text-[#f97316]" />
-                                <span className="text-xs font-bold text-[#f97316]">MOST POPULAR</span>
+                              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f97316]/60 to-transparent pointer-events-none" />
+                            )}
+                            {bundle.badge === "Popular" && (
+                              <div className="flex items-center justify-center gap-1.5 mb-2">
+                                <Crown className="h-3.5 w-3.5 text-[#f97316]" />
+                                <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#f97316]">Most Popular</span>
                               </div>
                             )}
                             <span className={cn(
-                              "inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase mb-2",
-                              bundle.badge === "Starter" ? "bg-white/[0.03] text-white/55" :
-                              bundle.badge === "Popular" ? "bg-[#f97316]/10 text-[#f97316]" :
-                              "bg-amber-500/10 text-amber-500"
+                              "inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-[0.15em] mb-3 border",
+                              bundle.badge === "Starter" ? "bg-white/[0.04] text-white/65 border-white/[0.10]" :
+                              bundle.badge === "Popular" ? "bg-[#f97316]/15 text-[#f97316] border-[#f97316]/30" :
+                              "bg-amber-500/15 text-amber-400 border-amber-500/30"
                             )}>
                               {bundle.badge}
                             </span>
                             {"bestFor" in bundle && (
-                              <p className="text-[10px] text-amber-400 font-bold mb-2">{(bundle as any).bestFor}</p>
+                              <p className="text-[10px] text-amber-400 font-bold mb-2 uppercase tracking-[0.12em]">{(bundle as any).bestFor}</p>
                             )}
-                            <h3 className="font-black text-foreground text-lg mb-1">{bundle.name}</h3>
-                            <p className="text-2xl font-black text-[#f97316] mb-1">
+                            <h3 className="font-display font-bold text-white text-lg mb-1.5 tracking-tight">{bundle.name}</h3>
+                            <p className="font-display text-3xl font-black text-[#f97316] mb-1 tracking-tight">
                               £{(bundle.price / 100).toFixed(0)}
                             </p>
-                            <p className="text-xs text-white/55">one-time</p>
+                            <p className="text-[11px] text-white/55 uppercase tracking-[0.12em] font-bold">one-time</p>
                           </div>
                         </th>
                       ))}
@@ -539,8 +542,10 @@ export default function ComparePage() {
                           <Button
                             onClick={() => handleAddToCart(id, bundle.name, bundle.price, "Complete Bundle")}
                             className={cn(
-                              "gap-2 rounded-xl w-full",
-                              bundle.badge === "Popular" && "bg-[#f97316] hover:bg-[#f97316]/90"
+                              "gap-2 rounded-xl w-full font-bold text-[13px] transition-all hover:scale-[1.02] hover:brightness-110 border-0",
+                              bundle.badge === "Popular"
+                                ? "bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white shadow-[0_4px_14px_rgba(249,115,22,0.4),inset_0_1px_0_rgba(255,255,255,0.08)]"
+                                : "bg-white/[0.06] hover:bg-[#f97316]/10 text-white/85 hover:text-[#f97316] border border-white/[0.10] hover:border-[#f97316]/40"
                             )}
                           >
                             <ShoppingCart className="h-4 w-4" />
