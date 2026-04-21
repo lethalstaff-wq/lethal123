@@ -271,13 +271,13 @@ export function ProductDetailClient({ product }: { product: Product }) {
 
           {/* Price */}
           <div className="flex items-baseline gap-2 mb-6 sm:mb-8">
-            <span className="text-3xl sm:text-4xl font-black">{"£"}{selectedVariant.price}</span>
+            <span className="font-display text-4xl sm:text-5xl font-black tracking-tight text-white">{"£"}{selectedVariant.price}</span>
           </div>
 
           {/* Variant Selection */}
           {product.variants.length > 1 && (
             <div className="mb-8">
-              <p className="text-xs font-semibold uppercase tracking-widest text-white/55 mb-3">Select Option</p>
+              <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/65 mb-3">Select Option</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {product.variants.map((variant) => (
                   <button
@@ -302,17 +302,19 @@ export function ProductDetailClient({ product }: { product: Product }) {
 
           {/* Quantity & Stock */}
           <div className="flex items-center gap-5 mb-6">
-            <div className="flex items-center border border-white/[0.06] rounded-xl overflow-hidden">
+            <div className="flex items-center border border-white/[0.10] rounded-xl overflow-hidden bg-white/[0.025] backdrop-blur-md">
               <button
+                aria-label="Decrease quantity"
                 onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                className="p-3 hover:bg-white/[0.04] transition-colors text-white/55 hover:text-white"
+                className="p-3 hover:bg-[#f97316]/10 hover:text-[#f97316] transition-colors text-white/65"
               >
                 <Minus className="h-4 w-4" />
               </button>
-              <span className="w-12 text-center font-bold text-sm">{quantity}</span>
+              <span className="w-12 text-center font-display font-bold text-[15px] text-white tabular-nums">{quantity}</span>
               <button
+                aria-label="Increase quantity"
                 onClick={() => setQuantity(quantity + 1)}
-                className="p-3 hover:bg-white/[0.04] transition-colors text-white/55 hover:text-white"
+                className="p-3 hover:bg-[#f97316]/10 hover:text-[#f97316] transition-colors text-white/65"
               >
                 <Plus className="h-4 w-4" />
               </button>
@@ -346,7 +348,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
               id="buy-now-btn"
               onClick={handleBuyNow}
               size="lg"
-              className="w-full h-12 sm:h-14 text-sm sm:text-base font-bold gap-2 rounded-xl bg-[#f97316] hover:bg-[#f97316]/90 shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all"
+              className="w-full h-12 sm:h-14 text-sm sm:text-base font-bold gap-2 rounded-xl bg-gradient-to-br from-[#f97316] to-[#ea580c] hover:brightness-110 hover:scale-[1.01] text-white border-0 shadow-[0_8px_24px_rgba(249,115,22,0.35),inset_0_1px_0_rgba(255,255,255,0.10)] transition-all"
             >
               <Zap className="h-4 w-4" />
               Buy Now — {"£"}{total.toFixed(2)}
