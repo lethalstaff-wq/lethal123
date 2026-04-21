@@ -45,7 +45,7 @@ function ChangelogRow({ entry }: { entry: ChangelogEntry }) {
   const style = CHANGELOG_STYLES[entry.type] ?? CHANGELOG_STYLES.update
   const Icon = style.icon
   return (
-    <div className="group flex gap-4 rounded-2xl border border-white/[0.07] bg-white/[0.025] backdrop-blur-xl p-4 hover:border-[#f97316]/25 hover:bg-white/[0.04] hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(0,0,0,0.35)] transition-all duration-300">
+    <div className="group flex gap-4 rounded-2xl border border-white/[0.06] bg-white/[0.015] p-4 hover:border-[#f97316]/25 hover:bg-white/[0.03] hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(0,0,0,0.35)] transition-all duration-300">
       <div className={`shrink-0 w-10 h-10 rounded-xl flex items-center justify-center border border-white/[0.08] ${style.bg}`}>
         <Icon className={`h-[18px] w-[18px] ${style.text}`} style={{ filter: `drop-shadow(0 0 6px currentColor)` }} />
       </div>
@@ -413,7 +413,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
       <div className="mt-14 pt-10 border-t border-white/[0.06]">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* Undetected */}
-          <div className="group relative rounded-2xl border border-emerald-500/25 bg-gradient-to-br from-emerald-500/[0.06] to-white/[0.02] backdrop-blur-xl p-6 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_36px_rgba(16,185,129,0.18)] transition-all duration-300 overflow-hidden">
+          <div className="group relative rounded-2xl border border-emerald-500/25 bg-gradient-to-br from-emerald-500/[0.06] to-white/[0.015] p-6 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_36px_rgba(16,185,129,0.18)] transition-all duration-300 overflow-hidden">
             <div className="absolute -top-12 -right-12 w-40 h-40 rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ background: "radial-gradient(circle, rgba(16,185,129,0.18), transparent 70%)" }} />
             <div className="relative">
               <div className="flex items-center gap-2 mb-4">
@@ -431,7 +431,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
           </div>
 
           {/* Patch Response */}
-          <div className="group relative rounded-2xl border border-[#f97316]/25 bg-gradient-to-br from-[#f97316]/[0.06] to-white/[0.02] backdrop-blur-xl p-6 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_36px_rgba(249,115,22,0.18)] transition-all duration-300 overflow-hidden">
+          <div className="group relative rounded-2xl border border-[#f97316]/25 bg-gradient-to-br from-[#f97316]/[0.06] to-white/[0.015] p-6 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_36px_rgba(249,115,22,0.18)] transition-all duration-300 overflow-hidden">
             <div className="absolute -top-12 -right-12 w-40 h-40 rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ background: "radial-gradient(circle, rgba(249,115,22,0.18), transparent 70%)" }} />
             <div className="relative">
               <div className="flex items-center gap-2 mb-4">
@@ -448,7 +448,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
           </div>
 
           {/* Support */}
-          <div className="group relative rounded-2xl border border-blue-500/25 bg-gradient-to-br from-blue-500/[0.06] to-white/[0.02] backdrop-blur-xl p-6 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_36px_rgba(59,130,246,0.18)] transition-all duration-300 overflow-hidden">
+          <div className="group relative rounded-2xl border border-blue-500/25 bg-gradient-to-br from-blue-500/[0.06] to-white/[0.015] p-6 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_36px_rgba(59,130,246,0.18)] transition-all duration-300 overflow-hidden">
             <div className="absolute -top-12 -right-12 w-40 h-40 rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ background: "radial-gradient(circle, rgba(59,130,246,0.18), transparent 70%)" }} />
             <div className="relative">
               <div className="flex items-center gap-2 mb-4">
@@ -510,7 +510,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {productReviews.map((review) => (
-              <div key={review.id} className="group rounded-2xl border border-white/[0.07] bg-white/[0.025] backdrop-blur-xl p-5 hover:border-[#f97316]/25 hover:bg-white/[0.04] hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249,115,22,0.08)] transition-all duration-300 relative overflow-hidden">
+              <div key={review.id} className="group rounded-2xl border border-white/[0.06] bg-white/[0.015] p-5 hover:border-[#f97316]/25 hover:bg-white/[0.03] hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249,115,22,0.08)] transition-all duration-300 relative overflow-hidden">
                 {/* Big quote mark */}
                 <div className="absolute top-2 right-4 text-[80px] font-serif leading-none select-none pointer-events-none text-[#f97316]/[0.06] group-hover:text-[#f97316]/[0.10] transition-colors">&ldquo;</div>
 

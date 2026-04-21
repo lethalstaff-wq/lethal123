@@ -130,7 +130,7 @@ export default function DownloadsPage() {
       <section className="pb-12">
         <div className="container mx-auto px-4">
           <div className="max-w-xl mx-auto">
-            <div className="rounded-2xl border border-white/[0.04] bg-white/[0.012] backdrop-blur-xl p-8">
+            <div className="rounded-2xl border border-white/[0.06] bg-white/[0.015] p-8">
               <div className="flex items-center gap-2 mb-6">
                 <Key className="h-5 w-5 text-[#f97316]" />
                 <span className="font-bold text-white">License Verification</span>
@@ -171,7 +171,7 @@ export default function DownloadsPage() {
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto space-y-6">
               {/* License Info Card */}
-              <div className="rounded-2xl border border-emerald-500/25 bg-gradient-to-br from-emerald-500/10 via-white/[0.025] to-white/[0.022] backdrop-blur-xl shadow-[0_18px_48px_rgba(0,0,0,0.4)] overflow-hidden">
+              <div className="rounded-2xl border border-emerald-500/25 bg-gradient-to-br from-emerald-500/10 via-white/[0.015] to-white/[0.015] shadow-[0_18px_48px_rgba(0,0,0,0.4)] overflow-hidden">
                 <div className="p-6 border-b border-emerald-500/10">
                   <div className="flex items-start justify-between">
                     <div className="flex items-center gap-4">

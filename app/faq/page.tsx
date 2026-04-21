@@ -246,10 +246,10 @@ export default function FAQPage() {
               <div
                 key={index}
                 className={cn(
-                  "rounded-2xl border backdrop-blur-xl overflow-hidden transition-all duration-300",
+                  "rounded-2xl border overflow-hidden transition-all duration-300",
                   isOpen
-                    ? "border-[#f97316]/30 bg-gradient-to-br from-[#f97316]/[0.06] to-white/[0.025] shadow-[0_18px_50px_rgba(0,0,0,0.4),0_0_40px_rgba(249,115,22,0.10)]"
-                    : "border-white/[0.06] bg-white/[0.025] hover:border-[#f97316]/20 hover:bg-white/[0.04] hover:-translate-y-0.5"
+                    ? "border-[#f97316]/30 bg-gradient-to-br from-[#f97316]/[0.06] to-white/[0.015] shadow-[0_18px_50px_rgba(0,0,0,0.4),0_0_40px_rgba(249,115,22,0.10)]"
+                    : "border-white/[0.06] bg-white/[0.015] hover:border-[#f97316]/20 hover:bg-white/[0.03] hover:-translate-y-0.5"
                 )}
               >
                 <button

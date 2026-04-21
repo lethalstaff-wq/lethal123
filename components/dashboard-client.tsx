@@ -152,7 +152,7 @@ export function DashboardClient({ user, orders, totalSpent, activeLicenses, memb
     <section className="py-20 px-4 sm:px-6 lg:px-8">
       <div className="container mx-auto max-w-6xl">
         {/* Hero Banner */}
-        <div className="relative rounded-3xl bg-gradient-to-br from-[#f97316]/15 via-white/[0.03] to-[#ea580c]/10 border border-white/[0.10] backdrop-blur-xl p-6 md:p-8 mb-8 overflow-hidden shadow-[0_24px_60px_rgba(0,0,0,0.4),0_0_60px_rgba(249,115,22,0.10)]">
+        <div className="relative rounded-3xl bg-gradient-to-br from-[#f97316]/15 via-white/[0.015] to-[#ea580c]/10 border border-white/[0.10] p-6 md:p-8 mb-8 overflow-hidden shadow-[0_24px_60px_rgba(0,0,0,0.4),0_0_60px_rgba(249,115,22,0.10)]">
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f97316]/55 to-transparent pointer-events-none" />
           <div className="absolute -top-24 -right-24 w-72 h-72 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(249,115,22,0.18), transparent 70%)" }} />
           <div className="relative flex flex-col md:flex-row md:items-center gap-6">
@@ -182,7 +182,7 @@ export function DashboardClient({ user, orders, totalSpent, activeLicenses, memb
             { value: `£${totalSpent.toFixed(0)}`, label: "Total Spent", color: "#fbbf24" },
             { value: memberTier.name, label: "Member Status", color: "#3b82f6", isTier: true },
           ].map((stat) => (
-            <div key={stat.label} className="group relative rounded-2xl border border-white/[0.07] bg-white/[0.025] backdrop-blur-xl p-5 text-center hover:-translate-y-1 hover:border-[#f97316]/25 transition-all duration-300 overflow-hidden">
+            <div key={stat.label} className="group relative rounded-2xl border border-white/[0.06] bg-white/[0.015] p-5 text-center hover:-translate-y-1 hover:border-[#f97316]/25 transition-all duration-300 overflow-hidden">
               <div className="absolute -top-12 -right-12 w-32 h-32 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ background: `radial-gradient(circle, ${stat.color}30, transparent 70%)` }} />
               <div className="relative">
                 <div className="font-display text-2xl font-black tracking-tight" style={{ color: stat.color }}>{stat.value}</div>

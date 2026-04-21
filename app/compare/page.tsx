@@ -471,10 +471,10 @@ export default function ComparePage() {
                       {Object.entries(BUNDLES_DATA).map(([id, bundle]) => (
                         <th key={id} className="p-4 text-center min-w-[180px]">
                           <div className={cn(
-                            "relative rounded-2xl border p-6 backdrop-blur-xl overflow-hidden transition-all duration-300 hover:-translate-y-1",
+                            "relative rounded-2xl border p-6 overflow-hidden transition-all duration-300 hover:-translate-y-1",
                             bundle.badge === "Popular"
-                              ? "border-[#f97316]/40 bg-gradient-to-b from-[#f97316]/[0.10] to-white/[0.025] shadow-[0_18px_48px_rgba(0,0,0,0.4),0_0_50px_rgba(249,115,22,0.18)]"
-                              : "border-white/[0.07] bg-white/[0.025] hover:border-[#f97316]/25 hover:shadow-[0_18px_40px_rgba(0,0,0,0.35)]"
+                              ? "border-[#f97316]/40 bg-gradient-to-b from-[#f97316]/[0.10] to-white/[0.015] shadow-[0_18px_48px_rgba(0,0,0,0.4),0_0_50px_rgba(249,115,22,0.18)]"
+                              : "border-white/[0.06] bg-white/[0.015] hover:border-[#f97316]/25 hover:shadow-[0_18px_40px_rgba(0,0,0,0.35)]"
                           )}>
                             {bundle.badge === "Popular" && (
                               <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f97316]/60 to-transparent pointer-events-none" />

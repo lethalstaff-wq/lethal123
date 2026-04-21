@@ -276,7 +276,7 @@ export default function ReferralsPage() {
                 </div>
 
                 {/* Referral Link */}
-                <div className="p-6 rounded-2xl border border-[#f97316]/25 bg-gradient-to-br from-[#f97316]/10 via-white/[0.025] to-white/[0.022] backdrop-blur-xl shadow-[0_18px_48px_rgba(0,0,0,0.4)]">
+                <div className="p-6 rounded-2xl border border-[#f97316]/25 bg-gradient-to-br from-[#f97316]/10 via-white/[0.015] to-white/[0.015] shadow-[0_18px_48px_rgba(0,0,0,0.4)]">
                   <h2 className="font-bold text-white mb-4 flex items-center gap-2">
                     <Share2 className="h-5 w-5 text-[#f97316]" />
                     Your Referral Link

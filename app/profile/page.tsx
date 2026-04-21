@@ -341,7 +341,7 @@ export default function ProfilePage() {
 
           {activeTab === "renewals" && (
             <div>
-              <div className="mb-4 rounded-2xl border border-emerald-500/20 bg-gradient-to-br from-emerald-500/[0.06] to-white/[0.025] backdrop-blur-xl p-5">
+              <div className="mb-4 rounded-2xl border border-emerald-500/20 bg-gradient-to-br from-emerald-500/[0.06] to-white/[0.015] p-5">
                 <div className="flex items-start gap-3">
                   <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500/25 to-emerald-600/15 border border-emerald-500/30 flex items-center justify-center shrink-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_18px_rgba(16,185,129,0.18)]">
                     <RefreshCw className="h-[18px] w-[18px] text-emerald-400" style={{ filter: "drop-shadow(0 0 8px rgba(16,185,129,0.5))" }} />
@@ -403,7 +403,7 @@ function QuickLink({
   accent?: string
 }) {
   const content = (
-    <div className="group flex items-center gap-4 p-5 rounded-2xl border border-white/[0.07] bg-white/[0.025] backdrop-blur-xl hover:bg-white/[0.04] hover:border-[#f97316]/25 hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249,115,22,0.08)] transition-all duration-300">
+    <div className="group flex items-center gap-4 p-5 rounded-2xl border border-white/[0.06] bg-white/[0.015] hover:bg-white/[0.03] hover:border-[#f97316]/25 hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249,115,22,0.08)] transition-all duration-300">
       <div className={cn("w-11 h-11 rounded-xl flex items-center justify-center bg-white/[0.04] border border-white/[0.08] group-hover:scale-110 transition-transform", accent)}>
         <Icon className="h-[18px] w-[18px]" />
       </div>
@@ -435,7 +435,7 @@ function EmptyState({
   ctaHref: string
 }) {
   return (
-    <div className="text-center py-16 rounded-2xl border border-white/[0.07] bg-white/[0.025] backdrop-blur-xl">
+    <div className="text-center py-16 rounded-2xl border border-white/[0.06] bg-white/[0.015]">
       <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#f97316]/20 to-[#ea580c]/10 border border-[#f97316]/30 flex items-center justify-center mx-auto mb-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_24px_rgba(249,115,22,0.15)]">
         <Icon className="h-7 w-7 text-[#f97316]" style={{ filter: "drop-shadow(0 0 10px rgba(249,115,22,0.5))" }} />
       </div>
@@ -454,7 +454,7 @@ function OrderRow({ order, onDownload }: { order: Order; onDownload: () => void 
   const statusConfig = STATUS_CONFIG[order.status] ?? STATUS_CONFIG.pending
   const StatusIcon = statusConfig.icon
   return (
-    <div className="group rounded-2xl border border-white/[0.07] bg-white/[0.025] backdrop-blur-xl p-5 hover:border-[#f97316]/25 hover:bg-white/[0.04] hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249,115,22,0.08)] transition-all duration-300">
+    <div className="group rounded-2xl border border-white/[0.06] bg-white/[0.015] p-5 hover:border-[#f97316]/25 hover:bg-white/[0.03] hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249,115,22,0.08)] transition-all duration-300">
       <div className="flex flex-col md:flex-row md:items-center gap-4">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap mb-2">
@@ -504,7 +504,7 @@ function LicenseCard({
   onCopy: (k: string) => void
 }) {
   return (
-    <div className="group relative rounded-2xl border border-emerald-500/25 bg-gradient-to-br from-emerald-500/[0.06] to-white/[0.02] backdrop-blur-xl p-5 hover:border-emerald-500/45 hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(16,185,129,0.18)] transition-all duration-300 overflow-hidden">
+    <div className="group relative rounded-2xl border border-emerald-500/25 bg-gradient-to-br from-emerald-500/[0.06] to-white/[0.015] p-5 hover:border-emerald-500/45 hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(16,185,129,0.18)] transition-all duration-300 overflow-hidden">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emerald-400/55 to-transparent pointer-events-none" />
       <div className="relative flex flex-col md:flex-row md:items-start gap-3 mb-4">
         <div className="flex-1 min-w-0">

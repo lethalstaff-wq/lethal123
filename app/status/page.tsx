@@ -302,7 +302,7 @@ export default function StatusPage() {
               return (
                 <div
                   key={product.id}
-                  className="group flex flex-col md:flex-row md:items-center gap-4 p-5 rounded-2xl bg-white/[0.025] border border-white/[0.07] backdrop-blur-xl hover:border-[#f97316]/30 hover:bg-white/[0.04] hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249,115,22,0.10)] transition-all duration-300"
+                  className="group flex flex-col md:flex-row md:items-center gap-4 p-5 rounded-2xl bg-white/[0.015] border border-white/[0.06] hover:border-[#f97316]/30 hover:bg-white/[0.03] hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249,115,22,0.10)] transition-all duration-300"
                 >
                   {/* Product Info */}
                   <div className="flex items-center gap-4 flex-1 min-w-0">
@@ -381,7 +381,7 @@ export default function StatusPage() {
           </div>
 
           {/* Recent Updates */}
-          <div className="mb-16 rounded-2xl border border-white/[0.07] bg-white/[0.025] backdrop-blur-xl p-6">
+          <div className="mb-16 rounded-2xl border border-white/[0.06] bg-white/[0.015] p-6">
             <h2 className="font-display text-lg font-bold text-white mb-5 tracking-tight">Recent Updates</h2>
             <div className="space-y-1">
               {RECENT_UPDATES.map((update, index) => (

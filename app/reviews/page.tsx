@@ -201,7 +201,7 @@ export default function ReviewsPage() {
               { icon: Award, value: `${allReviews.length > 0 ? Math.round((breakdown[0].count + breakdown[1].count) / allReviews.length * 100) : 0}%`, label: "Satisfaction", color: "#f59e0b", bg: "rgba(245,158,11,0.10)", border: "rgba(245,158,11,0.30)" },
               { icon: ShieldCheck, value: "100%", label: "Verified", color: "#3b82f6", bg: "rgba(59,130,246,0.10)", border: "rgba(59,130,246,0.30)" },
             ].map((stat) => (
-              <div key={stat.label} className="group relative bg-white/[0.025] border border-white/[0.07] backdrop-blur-xl rounded-2xl p-6 text-center hover:-translate-y-1 transition-all duration-300 overflow-hidden" style={{ ['--c' as string]: stat.color }}>
+              <div key={stat.label} className="group relative bg-white/[0.015] border border-white/[0.06] rounded-2xl p-6 text-center hover:-translate-y-1 transition-all duration-300 overflow-hidden" style={{ ['--c' as string]: stat.color }}>
                 <div className="absolute -top-12 -right-12 w-32 h-32 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: `radial-gradient(circle, ${stat.bg.replace('0.10', '0.18')}, transparent 70%)` }} />
                 <div className="relative w-12 h-12 rounded-2xl flex items-center justify-center mx-auto mb-3 border" style={{ background: stat.bg, borderColor: stat.border, boxShadow: `inset 0 1px 0 rgba(255,255,255,0.05), 0 0 24px ${stat.bg.replace('0.10','0.18')}` }}>
                   <stat.icon className="h-5 w-5" style={{ color: stat.color, filter: `drop-shadow(0 0 10px ${stat.bg.replace('0.10','0.55')})` }} />
@@ -213,7 +213,7 @@ export default function ReviewsPage() {
           </div>
 
           {/* Rating Breakdown */}
-          <div className="mb-8 bg-white/[0.025] border border-white/[0.07] backdrop-blur-xl rounded-2xl p-7">
+          <div className="mb-8 bg-white/[0.015] border border-white/[0.06] rounded-2xl p-7">
             <div className="flex items-center justify-between mb-6">
               <h3 className="font-display font-bold text-xl text-white tracking-tight">Rating Breakdown</h3>
               <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/25">

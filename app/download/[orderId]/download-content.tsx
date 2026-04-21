@@ -177,7 +177,7 @@ export function DownloadContent({ orderId }: { orderId: string }) {
               {order.license_keys.map((license, index) => (
                 <div
                   key={index}
-                  className="rounded-2xl border border-border/50 bg-card/60 backdrop-blur-xl overflow-hidden"
+                  className="rounded-2xl border border-border/50 bg-white/[0.015] overflow-hidden"
                 >
                   <div className="p-5 border-b border-border/30 bg-muted/5">
                     <div className="flex items-center justify-between">
@@ -232,7 +232,7 @@ export function DownloadContent({ orderId }: { orderId: string }) {
               {order.downloads.map((file, index) => (
                 <div
                   key={index}
-                  className="flex items-center justify-between p-5 rounded-2xl border border-border/50 bg-card/60 backdrop-blur-xl"
+                  className="flex items-center justify-between p-5 rounded-2xl border border-border/50 bg-white/[0.015]"
                 >
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center">
@@ -267,7 +267,7 @@ export function DownloadContent({ orderId }: { orderId: string }) {
           </div>
 
           {/* Quick Start Guide */}
-          <div className="rounded-2xl border border-border/50 bg-card/60 backdrop-blur-xl overflow-hidden mb-8">
+          <div className="rounded-2xl border border-border/50 bg-white/[0.015] overflow-hidden mb-8">
             <div className="p-5 border-b border-border/30 bg-muted/5">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center">

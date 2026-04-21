@@ -22,7 +22,7 @@ export function ContactSection() {
         </div>
 
         {/* Discord card */}
-        <div className="group relative rounded-2xl border border-white/[0.10] bg-white/[0.025] backdrop-blur-xl overflow-hidden mb-5 shadow-[0_24px_60px_rgba(0,0,0,0.4)] hover:border-[#f97316]/30 hover:shadow-[0_28px_70px_rgba(0,0,0,0.5),0_0_60px_rgba(249,115,22,0.12)] transition-all duration-500">
+        <div className="group relative rounded-2xl border border-white/[0.06] bg-white/[0.015] overflow-hidden mb-5 shadow-[0_24px_60px_rgba(0,0,0,0.4)] hover:border-[#f97316]/30 hover:shadow-[0_28px_70px_rgba(0,0,0,0.5),0_0_60px_rgba(249,115,22,0.12)] transition-all duration-500">
           {/* Top glow */}
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f97316]/60 to-transparent" />
           <div className="absolute top-0 left-0 right-0 h-[6px] bg-gradient-to-b from-[#f97316]/20 to-transparent blur-md pointer-events-none" />
@@ -88,7 +88,7 @@ export function ContactSection() {
             { href: "https://t.me/lethalsolutions", icon: MessageSquare, title: "Telegram", sub: "@lethalsolutions" },
           ].map((c, i) => (
             <a key={i} href={c.href} target={i === 1 ? "_blank" : undefined} rel={i === 1 ? "noopener noreferrer" : undefined}
-              className="group flex items-center gap-4 p-5 rounded-2xl border border-white/[0.06] bg-white/[0.022] backdrop-blur-xl hover:border-[#f97316]/30 hover:bg-white/[0.04] hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249,115,22,0.10)] transition-all duration-300">
+              className="group flex items-center gap-4 p-5 rounded-2xl border border-white/[0.06] bg-white/[0.015] hover:border-[#f97316]/30 hover:bg-white/[0.03] hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249,115,22,0.10)] transition-all duration-300">
               <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06] group-hover:bg-gradient-to-br group-hover:from-[#f97316]/20 group-hover:to-[#ea580c]/10 group-hover:border-[#f97316]/30 transition-all">
                 <c.icon className="h-[18px] w-[18px] text-white/55 group-hover:text-[#f97316] transition-colors" />
               </div>

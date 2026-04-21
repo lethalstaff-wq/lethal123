@@ -32,7 +32,7 @@ const AVATAR_GRADIENTS = [
 const ReviewCard = memo(function ReviewCard({ t }: { t: typeof testimonials[number] }) {
   const grad = AVATAR_GRADIENTS[(t.name.charCodeAt(0) + t.name.length) % AVATAR_GRADIENTS.length]
   return (
-    <div className="flex-shrink-0 w-[280px] sm:w-[340px] rounded-2xl p-6 bg-white/[0.022] border border-white/[0.06] backdrop-blur-xl hover:border-[#f97316]/25 hover:bg-white/[0.04] hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249,115,22,0.08)] transition-all duration-300">
+    <div className="flex-shrink-0 w-[280px] sm:w-[340px] rounded-2xl p-6 bg-white/[0.015] border border-white/[0.06] hover:border-[#f97316]/25 hover:bg-white/[0.03] hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249,115,22,0.08)] transition-all duration-300">
       <div className="flex gap-1 mb-4">
         {[...Array(5)].map((_, j) => <Star key={j} className="h-3.5 w-3.5 gold-star" style={{ animationDelay: `${j * 0.15}s` }} />)}
       </div>

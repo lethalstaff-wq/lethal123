@@ -644,10 +644,10 @@ export default function ChangelogPage() {
 
                         {/* Card */}
                         <div className={cn(
-                          "rounded-2xl border backdrop-blur-xl overflow-hidden transition-all duration-300",
+                          "rounded-2xl border overflow-hidden transition-all duration-300",
                           isExpanded
-                            ? "border-[#f97316]/25 bg-white/[0.04] shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249,115,22,0.08)]"
-                            : "border-white/[0.07] bg-white/[0.025] hover:border-[#f97316]/20 hover:bg-white/[0.04] hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(0,0,0,0.35)]"
+                            ? "border-[#f97316]/25 bg-white/[0.03] shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249,115,22,0.08)]"
+                            : "border-white/[0.06] bg-white/[0.015] hover:border-[#f97316]/20 hover:bg-white/[0.03] hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(0,0,0,0.35)]"
                         )}>
                           <button
                             onClick={() => toggleItem(itemId)}

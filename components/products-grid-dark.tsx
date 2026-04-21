@@ -51,10 +51,10 @@ export function ProductsGridDark({ products }: { products: Product[] }) {
           return (
             <Link key={product.id} href={`/products/${product.id}`} className="group block">
               <div
-                className={`relative rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1.5 backdrop-blur-xl ${
+                className={`relative rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1.5 ${
                   isPremium
-                    ? "border border-[#f97316]/35 bg-gradient-to-b from-[#f97316]/[0.06] to-white/[0.025] shadow-[0_8px_32px_rgba(249,115,22,0.10)] hover:shadow-[0_24px_60px_rgba(0,0,0,0.5),0_0_50px_rgba(249,115,22,0.18)] hover:border-[#f97316]/60"
-                    : "border border-white/[0.07] bg-white/[0.025] hover:border-[#f97316]/30 hover:bg-white/[0.04] hover:shadow-[0_24px_60px_rgba(0,0,0,0.5),0_0_40px_rgba(249,115,22,0.10)]"
+                    ? "border border-[#f97316]/35 bg-gradient-to-b from-[#f97316]/[0.06] to-white/[0.015] shadow-[0_8px_32px_rgba(249,115,22,0.10)] hover:shadow-[0_24px_60px_rgba(0,0,0,0.5),0_0_50px_rgba(249,115,22,0.18)] hover:border-[#f97316]/60"
+                    : "border border-white/[0.06] bg-white/[0.015] hover:border-[#f97316]/30 hover:bg-white/[0.03] hover:shadow-[0_24px_60px_rgba(0,0,0,0.5),0_0_40px_rgba(249,115,22,0.10)]"
                 }`}
               >
                 {/* Top badges row */}
