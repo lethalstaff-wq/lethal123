@@ -201,7 +201,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
 
         {/* ═══ LEFT: Image ═══ */}
         <div>
-          <div className="relative aspect-square rounded-2xl bg-gradient-to-br from-card/80 to-secondary/20 border border-white/[0.06] overflow-hidden group">
+          <div className="spotlight-card relative aspect-square rounded-2xl bg-gradient-to-br from-card/80 to-secondary/20 border border-white/[0.06] overflow-hidden group">
             <Badge className="absolute top-4 left-4 z-10 bg-emerald-500/15 text-emerald-400 border-emerald-500/20 backdrop-blur-sm">
               <Zap className="h-3 w-3 mr-1" />
               Instant Delivery
@@ -225,7 +225,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
               { icon: Zap, title: "Instant", desc: "Delivered in seconds" },
               { icon: Globe, title: "Worldwide", desc: "73+ countries" },
             ].map(({ icon: Icon, title, desc }) => (
-              <div key={title} className="group rounded-xl border border-white/[0.07] bg-white/[0.025] backdrop-blur-md p-3 sm:p-4 text-center hover:border-[#f97316]/30 hover:bg-white/[0.04] hover:-translate-y-0.5 transition-all duration-300">
+              <div key={title} className="spotlight-card group rounded-xl border border-white/[0.07] bg-white/[0.025] backdrop-blur-md p-3 sm:p-4 text-center hover:border-[#f97316]/30 hover:bg-white/[0.04] hover:-translate-y-0.5 transition-all duration-300">
                 <Icon className="h-5 w-5 sm:h-6 sm:w-6 mx-auto mb-2 text-white/65 group-hover:text-[#f97316] transition-colors" />
                 <p className="font-display font-bold text-[12px] sm:text-[13px] text-white tracking-tight">{title}</p>
                 <p className="text-[10px] sm:text-[11px] text-white/55 mt-0.5">{desc}</p>
@@ -348,17 +348,22 @@ export function ProductDetailClient({ product }: { product: Product }) {
               id="buy-now-btn"
               onClick={handleBuyNow}
               size="lg"
-              className="w-full h-12 sm:h-14 text-sm sm:text-base font-bold gap-2 rounded-xl bg-gradient-to-br from-[#f97316] to-[#ea580c] hover:brightness-110 hover:scale-[1.01] text-white border-0 shadow-[0_8px_24px_rgba(249, 115, 22, 0.51),inset_0_1px_0_rgba(255,255,255,0.10)] transition-all"
+              data-cursor="cta"
+              data-cursor-label="Buy"
+              className="cursor-cta press-spring group relative overflow-hidden w-full h-12 sm:h-14 text-sm sm:text-base font-bold gap-2 rounded-xl bg-gradient-to-br from-[#f97316] to-[#ea580c] hover:brightness-110 hover:scale-[1.02] text-white border-0 shadow-[0_8px_24px_rgba(249,115,22,0.51),inset_0_1px_0_rgba(255,255,255,0.10)] hover:shadow-[0_12px_36px_rgba(249,115,22,0.72)] transition-all"
             >
-              <Zap className="h-4 w-4" />
-              Buy Now — {"£"}{total.toFixed(2)}
+              <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
+              <Zap className="relative z-10 h-4 w-4" />
+              <span className="relative z-10">Buy Now — {"£"}{total.toFixed(2)}</span>
             </Button>
             <div className="grid grid-cols-2 gap-2 sm:gap-3">
               <Button
                 onClick={handleAddToCart}
                 variant="outline"
                 size="lg"
-                className="h-11 sm:h-12 text-xs sm:text-sm font-bold gap-1.5 sm:gap-2 rounded-xl border-white/[0.10] bg-white/[0.025] backdrop-blur-md hover:border-[#f97316]/40 hover:bg-[#f97316]/[0.06] hover:text-[#f97316] transition-all"
+                data-cursor="cta"
+                data-cursor-label="Add"
+                className="cursor-cta press-spring h-11 sm:h-12 text-xs sm:text-sm font-bold gap-1.5 sm:gap-2 rounded-xl border-white/[0.10] bg-white/[0.025] backdrop-blur-md hover:border-[#f97316]/40 hover:bg-[#f97316]/[0.06] hover:text-[#f97316] transition-all"
               >
                 <ShoppingCart className="h-4 w-4" />
                 Add to Cart
@@ -367,7 +372,9 @@ export function ProductDetailClient({ product }: { product: Product }) {
                 onClick={() => setShowDiscordModal(true)}
                 variant="outline"
                 size="lg"
-                className="h-11 sm:h-12 text-xs sm:text-sm font-bold gap-1.5 sm:gap-2 rounded-xl border-[#5865F2]/35 bg-[#5865F2]/[0.06] text-[#5865F2] hover:bg-[#5865F2]/15 hover:border-[#5865F2]/55 hover:text-white transition-all"
+                data-cursor="cta"
+                data-cursor-label="Discord"
+                className="cursor-cta press-spring h-11 sm:h-12 text-xs sm:text-sm font-bold gap-1.5 sm:gap-2 rounded-xl border-[#5865F2]/35 bg-[#5865F2]/[0.06] text-[#5865F2] hover:bg-[#5865F2]/15 hover:border-[#5865F2]/55 hover:text-white transition-all"
               >
                 <MessageCircle className="h-4 w-4" />
                 Discord Order
@@ -413,7 +420,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
       <div className="mt-14 pt-10 border-t border-white/[0.06]">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* Undetected */}
-          <div className="group relative rounded-2xl border border-emerald-500/25 bg-gradient-to-br from-emerald-500/[0.06] to-white/[0.015] p-6 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_36px_rgba(16,185,129,0.18)] transition-all duration-300 overflow-hidden">
+          <div className="spotlight-card group relative rounded-2xl border border-emerald-500/25 bg-gradient-to-br from-emerald-500/[0.06] to-white/[0.015] p-6 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_36px_rgba(16,185,129,0.18)] transition-all duration-300 overflow-hidden">
             <div className="absolute -top-12 -right-12 w-40 h-40 rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ background: "radial-gradient(circle, rgba(16,185,129,0.18), transparent 70%)" }} />
             <div className="relative">
               <div className="flex items-center gap-2 mb-4">
@@ -431,7 +438,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
           </div>
 
           {/* Patch Response */}
-          <div className="group relative rounded-2xl border border-[#f97316]/25 bg-gradient-to-br from-[#f97316]/[0.06] to-white/[0.015] p-6 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_36px_rgba(249, 115, 22, 0.26)] transition-all duration-300 overflow-hidden">
+          <div className="spotlight-card group relative rounded-2xl border border-[#f97316]/25 bg-gradient-to-br from-[#f97316]/[0.06] to-white/[0.015] p-6 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_36px_rgba(249, 115, 22, 0.26)] transition-all duration-300 overflow-hidden">
             <div className="absolute -top-12 -right-12 w-40 h-40 rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ background: "radial-gradient(circle, rgba(249, 115, 22, 0.26), transparent 70%)" }} />
             <div className="relative">
               <div className="flex items-center gap-2 mb-4">
@@ -448,7 +455,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
           </div>
 
           {/* Support */}
-          <div className="group relative rounded-2xl border border-blue-500/25 bg-gradient-to-br from-blue-500/[0.06] to-white/[0.015] p-6 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_36px_rgba(59,130,246,0.18)] transition-all duration-300 overflow-hidden">
+          <div className="spotlight-card group relative rounded-2xl border border-blue-500/25 bg-gradient-to-br from-blue-500/[0.06] to-white/[0.015] p-6 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_36px_rgba(59,130,246,0.18)] transition-all duration-300 overflow-hidden">
             <div className="absolute -top-12 -right-12 w-40 h-40 rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ background: "radial-gradient(circle, rgba(59,130,246,0.18), transparent 70%)" }} />
             <div className="relative">
               <div className="flex items-center gap-2 mb-4">
@@ -510,7 +517,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {productReviews.map((review) => (
-              <div key={review.id} className="group rounded-2xl border border-white/[0.06] bg-white/[0.015] p-5 hover:border-[#f97316]/25 hover:bg-white/[0.03] hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249, 115, 22, 0.12)] transition-all duration-300 relative overflow-hidden">
+              <div key={review.id} className="spotlight-card group rounded-2xl border border-white/[0.06] bg-white/[0.015] p-5 hover:border-[#f97316]/25 hover:bg-white/[0.03] hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249, 115, 22, 0.12)] transition-all duration-300 relative overflow-hidden">
                 {/* Big quote mark */}
                 <div className="absolute top-2 right-4 text-[80px] font-serif leading-none select-none pointer-events-none text-[#f97316]/[0.06] group-hover:text-[#f97316]/[0.10] transition-colors">&ldquo;</div>
 
