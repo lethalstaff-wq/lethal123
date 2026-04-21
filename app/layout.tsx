@@ -6,7 +6,6 @@ import { CartProvider } from "@/lib/cart-context"
 import { ThemeProvider } from "@/components/theme-provider"
 import { GlobalBackground } from "@/components/global-background"
 import { MobileBottomBar } from "@/components/mobile-bottom-bar"
-import { CursorEffects } from "@/components/cursor-effects"
 import { LenisProvider } from "@/components/lenis-provider"
 import { FloatingConfigurator } from "@/components/floating-configurator"
 import { ChatWidget } from "@/components/chat-widget"
@@ -99,7 +98,6 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
           <LenisProvider />
           <GlobalBackground />
-          <CursorEffects />
           <CartProvider>
             <ClientOverlays />
             <MobileBottomBar />
