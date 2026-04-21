@@ -79,7 +79,7 @@ export function WelcomePopup() {
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-background/80 backdrop-blur-sm" onClick={handleClose} />
+      <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={handleClose} />
 
       {/* Modal */}
       <div className="relative w-full max-w-sm rounded-2xl border border-white/[0.10] bg-black/95 backdrop-blur-xl shadow-[0_30px_80px_rgba(0,0,0,0.7),0_0_60px_rgba(249,115,22,0.18)] overflow-hidden animate-fade-in-up">

@@ -965,7 +965,7 @@ export default function CheckoutPage() {
                           <span>
                             {ratesLoading ? "Refreshing rate…" : <>Auto-refresh in <span className="text-white/60 font-mono">{ratesNextRefresh}s</span></>}
                           </span>
-                          <button onClick={fetchRates} disabled={ratesLoading} className="ml-1 text-primary hover:text-primary/80 disabled:opacity-40 font-medium">Refresh now</button>
+                          <button onClick={fetchRates} disabled={ratesLoading} className="ml-1 text-[#f97316] hover:text-[#f97316]/80 disabled:opacity-40 font-medium">Refresh now</button>
                         </div>
                       </div>
 

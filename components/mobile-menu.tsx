@@ -58,7 +58,7 @@ export function MobileMenu() {
               key={item.href}
               href={item.href}
               onClick={() => setOpen(false)}
-              className="text-base font-medium hover:text-primary hover:bg-primary/5 transition-all py-3 px-4 rounded-lg border-b border-border/50 last:border-b-0"
+              className="text-base font-medium hover:text-[#f97316] hover:bg-[#f97316]/[0.05] transition-all py-3 px-4 rounded-lg border-b border-white/[0.08] last:border-b-0"
             >
               {item.label}
             </Link>

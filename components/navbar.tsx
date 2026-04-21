@@ -186,7 +186,7 @@ export function Navbar() {
                           placeholder="Search products..."
                           value={searchQuery}
                           onChange={(e) => setSearchQuery(e.target.value)}
-                          className="w-full h-10 pl-10 pr-4 rounded-xl bg-muted/30 border-0 text-sm text-foreground placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                          className="w-full h-10 pl-10 pr-4 rounded-xl bg-white/[0.05] border-0 text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-[#f97316]/50"
                         />
                       </div>
                     </div>
@@ -199,13 +199,13 @@ export function Navbar() {
                             <button
                               key={product.id}
                               onClick={() => handleResultClick(product.id)}
-                              className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-muted/30 text-left transition-colors group"
+                              className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-white/[0.05] text-left transition-colors group"
                             >
-                              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                              <div className="w-10 h-10 rounded-lg bg-[#f97316]/10 flex items-center justify-center shrink-0">
                                 <Package className="h-5 w-5 text-[#f97316]" />
                               </div>
                               <div className="flex-1 min-w-0">
-                                <p className="font-bold text-foreground truncate">{product.name}</p>
+                                <p className="font-bold text-white truncate">{product.name}</p>
                                 <p className="text-xs text-white/40">{product.category}</p>
                               </div>
                               <span className="text-sm font-bold text-[#f97316]">{"£"}{(product.price / 100).toFixed(2)}</span>
@@ -223,7 +223,7 @@ export function Navbar() {
                         </div>
                       )}
                     </div>
-                    <div className="p-3 border-t border-white/[0.06] bg-muted/5">
+                    <div className="p-3 border-t border-white/[0.06] bg-white/[0.015]">
                       <Link
                         href="/products"
                         onClick={() => setSearchOpen(false)}

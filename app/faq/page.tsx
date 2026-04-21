@@ -207,7 +207,7 @@ export default function FAQPage() {
                 placeholder="Search questions..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full h-14 pl-12 pr-4 rounded-2xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-xl text-foreground placeholder:text-white/55 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="w-full h-14 pl-12 pr-4 rounded-2xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-xl text-white placeholder:text-white/55 focus:outline-none focus:ring-2 focus:ring-[#f97316]/50"
               />
             </div>
           </div>
@@ -226,7 +226,7 @@ export default function FAQPage() {
                   "px-4 py-2 rounded-full text-sm font-bold transition-all",
                   selectedCategory === category
                     ? "bg-[#f97316] text-white"
-                    : "bg-white/[0.03] text-white/55 hover:bg-white/[0.03] hover:text-foreground"
+                    : "bg-white/[0.03] text-white/55 hover:bg-white/[0.03] hover:text-white"
                 )}
               >
                 {category}
@@ -332,21 +332,21 @@ export default function FAQPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="grid md:grid-cols-3 gap-4">
-              <Link href="/track" className="group p-6 rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.02] transition-all hover:border-primary/30">
+              <Link href="/track" className="group p-6 rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.02] transition-all hover:border-[#f97316]/30">
                 <Clock className="h-8 w-8 text-[#f97316] mb-4" />
-                <h3 className="font-bold text-foreground mb-2">Track Order</h3>
+                <h3 className="font-bold text-white mb-2">Track Order</h3>
                 <p className="text-sm text-white/55">Check your order status and download products</p>
               </Link>
               
-              <Link href="/status" className="group p-6 rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.02] transition-all hover:border-primary/30">
+              <Link href="/status" className="group p-6 rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.02] transition-all hover:border-[#f97316]/30">
                 <ShieldCheck className="h-8 w-8 text-emerald-500 mb-4" />
-                <h3 className="font-bold text-foreground mb-2">Status Page</h3>
+                <h3 className="font-bold text-white mb-2">Status Page</h3>
                 <p className="text-sm text-white/55">View real-time detection status of products</p>
               </Link>
               
-              <Link href="https://discord.gg/lethaldma" target="_blank" className="group p-6 rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.02] transition-all hover:border-primary/30">
+              <Link href="https://discord.gg/lethaldma" target="_blank" className="group p-6 rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.02] transition-all hover:border-[#f97316]/30">
                 <MessageCircle className="h-8 w-8 text-[#5865F2] mb-4" />
-                <h3 className="font-bold text-foreground mb-2 flex items-center gap-2">
+                <h3 className="font-bold text-white mb-2 flex items-center gap-2">
                   Discord Support
                   <ExternalLink className="h-4 w-4 text-white/55" />
                 </h3>

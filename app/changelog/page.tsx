@@ -617,7 +617,7 @@ export default function ChangelogPage() {
           <div className="max-w-4xl mx-auto">
             {Object.entries(groupedChangelog).map(([month, entries]) => (
               <div key={month} className="mb-12">
-                <h2 className="text-xl font-bold text-foreground mb-6 flex items-center gap-3">
+                <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
                   <div className="w-3 h-3 rounded-full bg-[#f97316]" />
                   {month}
                   <span className="text-sm font-normal text-white/55">({entries.length} updates)</span>

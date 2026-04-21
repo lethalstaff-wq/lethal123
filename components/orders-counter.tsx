@@ -25,7 +25,7 @@ export function OrdersCounter() {
   if (!mounted) return null
 
   return (
-    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold bg-primary/15 border border-primary/30 text-primary">
+    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold bg-[#f97316]/15 border border-[#f97316]/30 text-[#f97316]">
       <ShoppingBag className="h-3.5 w-3.5" />
       <span className="animate-pulse">{orders} orders today</span>
     </div>

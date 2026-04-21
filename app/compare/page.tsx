@@ -257,7 +257,7 @@ export default function ComparePage() {
                   "flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all",
                   category === "cheats"
                     ? "bg-[#f97316] text-white"
-                    : "text-white/55 hover:text-foreground"
+                    : "text-white/55 hover:text-white"
                 )}
               >
                 <Crosshair className="h-4 w-4" />
@@ -269,7 +269,7 @@ export default function ComparePage() {
                   "flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all",
                   category === "spoofers"
                     ? "bg-[#f97316] text-white"
-                    : "text-white/55 hover:text-foreground"
+                    : "text-white/55 hover:text-white"
                 )}
               >
                 <Shield className="h-4 w-4" />
@@ -281,7 +281,7 @@ export default function ComparePage() {
                   "flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all",
                   category === "bundles"
                     ? "bg-[#f97316] text-white"
-                    : "text-white/55 hover:text-foreground"
+                    : "text-white/55 hover:text-white"
                 )}
               >
                 <Package className="h-4 w-4" />
@@ -322,7 +322,7 @@ export default function ComparePage() {
                             {"bestFor" in cheat && (
                               <p className="text-[10px] text-amber-400 font-bold mb-2">{(cheat as any).bestFor}</p>
                             )}
-                            <h3 className="font-black text-foreground text-lg mb-1">{cheat.name}</h3>
+                            <h3 className="font-black text-white text-lg mb-1">{cheat.name}</h3>
                             <p className="text-2xl font-black text-[#f97316] mb-1">
                               £{(cheat.price / 100).toFixed(0)}
                             </p>
@@ -337,7 +337,7 @@ export default function ComparePage() {
                       <tr key={feature.key} className={cn(index % 2 === 0 && "bg-white/[0.03]")}>
                         <td className="p-4">
                           <div>
-                            <p className="font-medium text-foreground">{feature.label}</p>
+                            <p className="font-medium text-white">{feature.label}</p>
                             <p className="text-xs text-white/55">{feature.description}</p>
                           </div>
                         </td>
@@ -401,7 +401,7 @@ export default function ComparePage() {
                             {"bestFor" in spoofer && (
                               <p className="text-[10px] text-amber-400 font-bold mb-2">{(spoofer as any).bestFor}</p>
                             )}
-                            <h3 className="font-black text-foreground text-lg mb-1">{spoofer.name}</h3>
+                            <h3 className="font-black text-white text-lg mb-1">{spoofer.name}</h3>
                             <p className="text-2xl font-black text-[#f97316] mb-1">
                               £{(spoofer.price / 100).toFixed(0)}
                             </p>
@@ -416,7 +416,7 @@ export default function ComparePage() {
                       <tr key={feature.key} className={cn(index % 2 === 0 && "bg-white/[0.03]")}>
                         <td className="p-4">
                           <div>
-                            <p className="font-medium text-foreground">{feature.label}</p>
+                            <p className="font-medium text-white">{feature.label}</p>
                             <p className="text-xs text-white/55">{feature.description}</p>
                           </div>
                         </td>
@@ -511,7 +511,7 @@ export default function ComparePage() {
                       <tr key={feature.key} className={cn(index % 2 === 0 && "bg-white/[0.03]")}>
                         <td className="p-4">
                           <div>
-                            <p className="font-medium text-foreground">{feature.label}</p>
+                            <p className="font-medium text-white">{feature.label}</p>
                             <p className="text-xs text-white/55">{feature.description}</p>
                           </div>
                         </td>
@@ -528,7 +528,7 @@ export default function ComparePage() {
                                   <X className="h-5 w-5 text-white/50" />
                                 </div>
                               ) : (
-                                <span className="text-sm font-medium text-foreground">{value}</span>
+                                <span className="text-sm font-medium text-white">{value}</span>
                               )}
                             </td>
                           )

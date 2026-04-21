@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import { Users, Shield, Zap, Headphones } from "lucide-react"
 
 const STATS = [
-  { icon: Users, value: 5000, suffix: "+", label: "Customers", color: "text-primary" },
+  { icon: Users, value: 5000, suffix: "+", label: "Customers", color: "text-[#f97316]" },
   { icon: Shield, value: 99.8, suffix: "%", label: "Uptime", color: "text-emerald-400", decimals: 1 },
   { icon: Zap, value: 2, suffix: "h", prefix: "<", label: "Patch Time", color: "text-amber-400" },
   { icon: Headphones, value: 24, suffix: "/7", label: "Support", color: "text-blue-400" },
@@ -72,7 +72,7 @@ export function StatsBar() {
                   visible={visible}
                 />
               </p>
-              <p className="text-xs text-muted-foreground mt-1">{stat.label}</p>
+              <p className="text-xs text-white/55 mt-1">{stat.label}</p>
             </div>
           ))}
         </div>

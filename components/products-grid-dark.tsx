@@ -61,7 +61,7 @@ export function ProductsGridDark({ products }: { products: Product[] }) {
                 <div className="absolute top-3.5 left-3.5 right-3.5 z-10 flex items-start justify-between">
                   <div className="flex flex-wrap gap-1.5">
                     {product.popular && (
-                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-primary text-primary-foreground shadow-md shadow-primary/30">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-[#f97316] text-white shadow-md shadow-[#f97316]/30">
                         <Sparkles className="h-2.5 w-2.5" />
                         Popular
                       </span>
@@ -76,7 +76,7 @@ export function ProductsGridDark({ products }: { products: Product[] }) {
                   <span
                     className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-semibold ${
                       product.badge === "Best Value"
-                        ? "bg-primary/15 text-primary border border-primary/25"
+                        ? "bg-[#f97316]/15 text-[#f97316] border border-[#f97316]/25"
                         : product.badge === "Premium"
                           ? "bg-amber-500/15 text-amber-400 border border-amber-500/25"
                           : "bg-green-500/15 text-green-400 border border-green-500/25"
@@ -85,7 +85,7 @@ export function ProductsGridDark({ products }: { products: Product[] }) {
                     <span
                       className={`w-1.5 h-1.5 rounded-full ${
                         product.badge === "Best Value"
-                          ? "bg-primary"
+                          ? "bg-[#f97316]"
                           : product.badge === "Premium"
                             ? "bg-amber-400"
                             : "bg-green-400 animate-pulse"

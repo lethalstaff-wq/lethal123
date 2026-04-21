@@ -49,7 +49,7 @@ export function PortfolioSection() {
       <div className="container mx-auto max-w-7xl">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-balance">Ons Portfolio</h2>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto text-pretty leading-relaxed">
+          <p className="text-lg text-white/55 max-w-3xl mx-auto text-pretty leading-relaxed">
             Bekijk een selectie van onze recente projecten en ontdek hoe wij bedrijven helpen groeien met krachtige
             digitale oplossingen.
           </p>
@@ -67,7 +67,7 @@ export function PortfolioSection() {
                   alt={project.title}
                   className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
                   <Button
                     size="sm"
                     variant="secondary"
@@ -79,12 +79,12 @@ export function PortfolioSection() {
                 </div>
               </div>
               <CardContent className="p-6">
-                <p className="text-sm text-primary font-semibold mb-2">{project.category}</p>
+                <p className="text-sm text-[#f97316] font-semibold mb-2">{project.category}</p>
                 <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed mb-4">{project.description}</p>
+                <p className="text-white/55 text-sm leading-relaxed mb-4">{project.description}</p>
                 <div className="flex flex-wrap gap-2">
                   {project.tags.map((tag, tagIndex) => (
-                    <span key={tagIndex} className="text-xs px-2 py-1 rounded-full bg-muted text-muted-foreground">
+                    <span key={tagIndex} className="text-xs px-2 py-1 rounded-full bg-white/[0.04] text-white/55">
                       {tag}
                     </span>
                   ))}
