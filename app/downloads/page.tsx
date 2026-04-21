@@ -143,14 +143,17 @@ export default function DownloadsPage() {
                   value={searchValue}
                   onChange={(e) => setSearchValue(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                  className="h-14 rounded-xl bg-white/[0.015] border border-white/[0.05] text-white placeholder:text-white/45"
+                  className="focus-ring-premium h-14 rounded-xl bg-white/[0.03] border border-white/[0.08] text-[15px] text-white placeholder:text-white/35"
                 />
                 <button
                   onClick={handleSearch}
                   disabled={loading}
-                  className="h-14 w-14 rounded-xl bg-gradient-to-r from-[#f97316] to-[#ea580c] text-white flex items-center justify-center flex-shrink-0 hover:opacity-90 transition-opacity disabled:opacity-50"
+                  data-cursor="cta"
+                  data-cursor-label={loading ? "Wait" : "Verify"}
+                  className="cursor-cta press-spring group relative overflow-hidden h-14 w-14 rounded-xl bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white flex items-center justify-center flex-shrink-0 hover:shadow-[0_0_40px_rgba(249,115,22,0.6)] transition-all disabled:opacity-50"
                 >
-                  {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : <Search className="h-5 w-5" />}
+                  <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
+                  {loading ? <Loader2 className="relative z-10 h-5 w-5 animate-spin" /> : <Search className="relative z-10 h-5 w-5" />}
                 </button>
               </div>
 
@@ -171,7 +174,7 @@ export default function DownloadsPage() {
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto space-y-6">
               {/* License Info Card */}
-              <div className="rounded-2xl border border-emerald-500/25 bg-gradient-to-br from-emerald-500/10 via-white/[0.015] to-white/[0.015] shadow-[0_18px_48px_rgba(0,0,0,0.4)] overflow-hidden">
+              <div className="spotlight-card rounded-2xl border border-emerald-500/25 bg-gradient-to-br from-emerald-500/10 via-white/[0.015] to-white/[0.015] shadow-[0_18px_48px_rgba(0,0,0,0.4)] overflow-hidden">
                 <div className="p-6 border-b border-emerald-500/10">
                   <div className="flex items-start justify-between">
                     <div className="flex items-center gap-4">
@@ -195,7 +198,9 @@ export default function DownloadsPage() {
                     <p className="text-xs text-emerald-500 font-bold uppercase tracking-wider">Your License Key</p>
                     <button
                       onClick={copyLicenseKey}
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-500 text-xs font-bold hover:bg-emerald-500/30 transition-colors"
+                      data-cursor="cta"
+                      data-cursor-label={copiedKey ? "Got it" : "Copy"}
+                      className="cursor-cta press-spring flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-400 text-xs font-bold hover:bg-emerald-500/30 hover:shadow-[0_0_18px_rgba(16,185,129,0.4)] transition-all"
                     >
                       {copiedKey ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
                       {copiedKey ? "Copied!" : "Copy"}

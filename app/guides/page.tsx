@@ -299,7 +299,9 @@ export default function GuidesPage() {
                   <Link
                     key={guide.id}
                     href={`/guides/${guide.id}`}
-                    className="group relative flex gap-4 p-5 rounded-xl border border-white/[0.04] hover:border-white/[0.08] bg-white/[0.01] hover:bg-white/[0.015] transition-all duration-300 overflow-hidden"
+                    data-cursor="cta"
+                    data-cursor-label="Read"
+                    className="spotlight-card cursor-cta group relative flex gap-4 p-5 rounded-xl border border-white/[0.06] hover:border-[#f97316]/35 bg-white/[0.012] hover:bg-white/[0.028] hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249,115,22,0.14)] transition-all duration-300 overflow-hidden"
                   >
                     {/* Left accent bar */}
                     <div className="absolute left-0 top-3 bottom-3 w-[2px] rounded-full bg-white/[0.04] group-hover:bg-[#f97316]/50 transition-colors duration-300" />
@@ -368,7 +370,7 @@ export default function GuidesPage() {
                 return (
                   <div
                     key={resource.id}
-                    className="group p-5 rounded-xl border border-white/[0.04] hover:border-white/[0.08] bg-white/[0.01] hover:bg-white/[0.015] transition-all duration-300 flex flex-col"
+                    className="spotlight-card group p-5 rounded-xl border border-white/[0.06] hover:border-[#f97316]/30 bg-white/[0.012] hover:bg-white/[0.025] hover:-translate-y-0.5 transition-all duration-300 flex flex-col"
                   >
                     <div className="flex items-start justify-between mb-3">
                       <div className="w-9 h-9 rounded-lg bg-white/[0.03] border border-white/[0.04] flex items-center justify-center">
@@ -427,14 +429,19 @@ export default function GuidesPage() {
                   href="https://discord.gg/lethaldma"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 h-11 px-7 rounded-xl bg-gradient-to-r from-[#f97316] to-[#ea580c] text-white font-semibold text-sm shadow-[0_4px_16px_rgba(249, 115, 22, 0.29)] hover:shadow-[0_8px_24px_rgba(249, 115, 22, 0.43)] hover:-translate-y-px transition-all"
+                  data-cursor="cta"
+                  data-cursor-label="Discord"
+                  className="cursor-cta press-spring group relative overflow-hidden inline-flex items-center justify-center gap-2 h-11 px-7 rounded-xl bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white font-bold text-[14px] shadow-[0_0_28px_rgba(249,115,22,0.35)] hover:shadow-[0_0_50px_rgba(249,115,22,0.6)] hover:-translate-y-0.5 transition-all"
                 >
-                  Open Discord Ticket
-                  <ExternalLink className="h-3.5 w-3.5" />
+                  <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
+                  <span className="relative z-10">Open Discord Ticket</span>
+                  <ExternalLink className="relative z-10 h-3.5 w-3.5" />
                 </a>
                 <Link
                   href="/products"
-                  className="inline-flex items-center justify-center gap-2 h-11 px-7 rounded-xl border border-white/[0.06] text-white/55 font-medium text-sm hover:bg-white/[0.03] hover:text-white/60 transition-colors"
+                  data-cursor="cta"
+                  data-cursor-label="Shop"
+                  className="cursor-cta press-spring inline-flex items-center justify-center gap-2 h-11 px-7 rounded-xl border border-white/[0.10] bg-white/[0.025] text-white/85 font-bold text-[14px] hover:bg-[#f97316]/[0.08] hover:text-[#f97316] hover:border-[#f97316]/35 transition-all"
                 >
                   View Products
                   <ArrowRight className="h-3.5 w-3.5" />

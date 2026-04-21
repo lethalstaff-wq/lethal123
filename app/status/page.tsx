@@ -302,7 +302,7 @@ export default function StatusPage() {
               return (
                 <div
                   key={product.id}
-                  className="group flex flex-col md:flex-row md:items-center gap-4 p-5 rounded-2xl bg-white/[0.015] border border-white/[0.06] hover:border-[#f97316]/30 hover:bg-white/[0.03] hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249, 115, 22, 0.14)] transition-all duration-300"
+                  className="spotlight-card group flex flex-col md:flex-row md:items-center gap-4 p-5 rounded-2xl bg-white/[0.015] border border-white/[0.06] hover:border-[#f97316]/30 hover:bg-white/[0.03] hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249, 115, 22, 0.14)] transition-all duration-300"
                 >
                   {/* Product Info */}
                   <div className="flex items-center gap-4 flex-1 min-w-0">
@@ -371,7 +371,9 @@ export default function StatusPage() {
                   {/* Link */}
                   <Link
                     href={`/products/${product.id}`}
-                    className="flex items-center justify-center w-10 h-10 rounded-xl bg-white/[0.03] hover:bg-white/[0.06] transition-colors shrink-0"
+                    data-cursor="cta"
+                    data-cursor-label="View"
+                    className="cursor-cta press-spring flex items-center justify-center w-10 h-10 rounded-xl bg-white/[0.03] hover:bg-[#f97316]/10 hover:text-[#f97316] hover:shadow-[0_0_18px_rgba(249,115,22,0.35)] transition-all shrink-0"
                   >
                     <ExternalLink className="h-4 w-4 text-white/55" />
                   </Link>

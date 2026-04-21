@@ -249,26 +249,27 @@ export default function ReferralsPage() {
                 <Gift className="h-16 w-16 text-[#f97316]/30 mx-auto mb-6" />
                 <h2 className="text-xl font-bold text-white mb-2">Login to Start Earning</h2>
                 <p className="text-white/55 mb-6">Create an account or login to get your referral link</p>
-                <button onClick={() => router.push("/login")} className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#f97316] to-[#ea580c] text-white font-medium hover:opacity-90 transition-opacity">
-                  Get Started
-                  <ArrowRight className="h-4 w-4" />
+                <button onClick={() => router.push("/login")} data-cursor="cta" data-cursor-label="Start" className="cursor-cta press-spring group relative overflow-hidden inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white font-bold text-[14px] shadow-[0_0_28px_rgba(249,115,22,0.35)] hover:shadow-[0_0_50px_rgba(249,115,22,0.6)] hover:-translate-y-0.5 transition-all">
+                  <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
+                  <span className="relative z-10">Get Started</span>
+                  <ArrowRight className="relative z-10 h-4 w-4" />
                 </button>
               </div>
             ) : (
               <div className="space-y-6">
                 {/* Stats */}
                 <div className="grid grid-cols-3 gap-4">
-                  <div className="p-5 rounded-2xl border border-white/[0.04] bg-white/[0.012] text-center">
+                  <div className="spotlight-card p-5 rounded-2xl border border-white/[0.06] bg-white/[0.015] text-center hover:border-[#f97316]/30 hover:-translate-y-0.5 transition-all duration-300">
                     <Users className="h-5 w-5 text-[#f97316] mx-auto mb-2" />
                     <p className="text-2xl font-black text-white">{referrals.length}</p>
                     <p className="text-xs text-white/55">Referrals</p>
                   </div>
-                  <div className="p-5 rounded-2xl border border-white/[0.04] bg-white/[0.012] text-center">
+                  <div className="spotlight-card p-5 rounded-2xl border border-white/[0.06] bg-white/[0.015] text-center hover:border-[#f97316]/30 hover:-translate-y-0.5 transition-all duration-300">
                     <CheckCircle2 className="h-5 w-5 text-emerald-500 mx-auto mb-2" />
                     <p className="text-2xl font-black text-white">{referrals.filter(r => r.status === "completed").length}</p>
                     <p className="text-xs text-white/55">Completed</p>
                   </div>
-                  <div className="p-5 rounded-2xl border border-white/[0.04] bg-white/[0.012] text-center">
+                  <div className="spotlight-card p-5 rounded-2xl border border-white/[0.06] bg-white/[0.015] text-center hover:border-[#f97316]/30 hover:-translate-y-0.5 transition-all duration-300">
                     <Coins className="h-5 w-5 text-amber-500 mx-auto mb-2" />
                     <p className="text-2xl font-black text-white">&pound;{(totalEarned / 100).toFixed(2)}</p>
                     <p className="text-xs text-white/55">Earned</p>
@@ -276,7 +277,7 @@ export default function ReferralsPage() {
                 </div>
 
                 {/* Referral Link */}
-                <div className="p-6 rounded-2xl border border-[#f97316]/25 bg-gradient-to-br from-[#f97316]/10 via-white/[0.015] to-white/[0.015] shadow-[0_18px_48px_rgba(0,0,0,0.4)]">
+                <div className="spotlight-card p-6 rounded-2xl border border-[#f97316]/30 bg-gradient-to-br from-[#f97316]/10 via-white/[0.015] to-white/[0.015] shadow-[0_18px_48px_rgba(0,0,0,0.4)]">
                   <h2 className="font-bold text-white mb-4 flex items-center gap-2">
                     <Share2 className="h-5 w-5 text-[#f97316]" />
                     Your Referral Link
@@ -287,9 +288,11 @@ export default function ReferralsPage() {
                     </div>
                     <button
                       onClick={copyCode}
+                      data-cursor="cta"
+                      data-cursor-label={copied ? "Got it" : "Copy"}
                       className={cn(
-                        "shrink-0 px-4 rounded-xl font-medium transition-all",
-                        copied ? "bg-emerald-500 hover:bg-emerald-600 text-white" : "bg-gradient-to-r from-[#f97316] to-[#ea580c] text-white hover:opacity-90"
+                        "cursor-cta press-spring shrink-0 px-5 rounded-xl font-bold transition-all",
+                        copied ? "bg-emerald-500 hover:bg-emerald-600 text-white shadow-[0_0_24px_rgba(16,185,129,0.45)]" : "bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white hover:shadow-[0_0_30px_rgba(249,115,22,0.55)]"
                       )}
                     >
                       {copied ? <Check className="h-5 w-5" /> : <Copy className="h-5 w-5" />}

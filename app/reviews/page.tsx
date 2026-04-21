@@ -201,7 +201,7 @@ export default function ReviewsPage() {
               { icon: Award, value: `${allReviews.length > 0 ? Math.round((breakdown[0].count + breakdown[1].count) / allReviews.length * 100) : 0}%`, label: "Satisfaction", color: "#f59e0b", bg: "rgba(245,158,11,0.10)", border: "rgba(245,158,11,0.30)" },
               { icon: ShieldCheck, value: "100%", label: "Verified", color: "#3b82f6", bg: "rgba(59,130,246,0.10)", border: "rgba(59,130,246,0.30)" },
             ].map((stat) => (
-              <div key={stat.label} className="group relative bg-white/[0.015] border border-white/[0.06] rounded-2xl p-6 text-center hover:-translate-y-1 transition-all duration-300 overflow-hidden" style={{ ['--c' as string]: stat.color }}>
+              <div key={stat.label} className="spotlight-card group relative bg-white/[0.015] border border-white/[0.06] rounded-2xl p-6 text-center hover:-translate-y-1 hover:border-[#f97316]/30 transition-all duration-300 overflow-hidden" style={{ ['--c' as string]: stat.color }}>
                 <div className="absolute -top-12 -right-12 w-32 h-32 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: `radial-gradient(circle, ${stat.bg.replace('0.10', '0.18')}, transparent 70%)` }} />
                 <div className="relative w-12 h-12 rounded-2xl flex items-center justify-center mx-auto mb-3 border" style={{ background: stat.bg, borderColor: stat.border, boxShadow: `inset 0 1px 0 rgba(255,255,255,0.05), 0 0 24px ${stat.bg.replace('0.10','0.18')}` }}>
                   <stat.icon className="h-5 w-5" style={{ color: stat.color, filter: `drop-shadow(0 0 10px ${stat.bg.replace('0.10','0.55')})` }} />
@@ -339,7 +339,7 @@ export default function ReviewsPage() {
                 const avatarColor = avatarColors[review.id % avatarColors.length]
 
                 return (
-                  <div key={review.id} className="rounded-xl border border-white/[0.04] bg-white/[0.012] p-6 flex flex-col hover:bg-white/[0.025] hover:border-white/[0.06] transition-colors duration-200">
+                  <div key={review.id} className="spotlight-card rounded-2xl border border-white/[0.06] bg-white/[0.015] p-6 flex flex-col hover:bg-white/[0.025] hover:border-[#f97316]/25 hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249,115,22,0.12)] transition-all duration-300">
                     {/* Stars + Badges */}
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex gap-0.5">
@@ -400,7 +400,7 @@ export default function ReviewsPage() {
           {/* Load More / Pagination */}
           <div className="flex justify-center py-12">
             {hasMore && !isLoading && (
-              <button onClick={handleLoadMore} className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/[0.02] border border-white/[0.04] text-sm text-white/50 hover:bg-white/[0.04] hover:text-white/70 transition-colors">
+              <button onClick={handleLoadMore} data-cursor="cta" data-cursor-label="More" className="cursor-cta press-spring inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/[0.02] border border-white/[0.08] text-[13px] font-bold text-white/65 hover:bg-[#f97316]/[0.08] hover:border-[#f97316]/35 hover:text-[#f97316] transition-all">
                 Load More Reviews <ChevronDown className="h-4 w-4" />
               </button>
             )}
