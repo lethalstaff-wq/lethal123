@@ -905,8 +905,11 @@ export default function CheckoutPage() {
 
                   {/* Continue Button */}
                   <button disabled={!canProceed} onClick={handleProceed}
-                    className="w-full h-14 rounded-xl text-white font-bold text-base flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-lg shadow-orange-500/20 hover:shadow-xl hover:shadow-orange-500/30 mt-6"
+                    data-cursor="cta"
+                    data-cursor-label={paymentMethod === "discord" ? "Discord" : "Continue"}
+                    className="cursor-cta press-spring group relative overflow-hidden w-full h-14 rounded-xl text-white font-bold text-base flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-[0_0_28px_rgba(249,115,22,0.35)] hover:shadow-[0_0_50px_rgba(249,115,22,0.6)] mt-6"
                     style={{ background: canProceed ? "linear-gradient(135deg, #f97316, #ea580c)" : "rgba(249, 115, 22, 0.43)" }}>
+                    <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
                     {paymentMethod === "discord" ? (
                       <>Open Discord <ExternalLink className="h-4 w-4" /></>
                     ) : (
@@ -1006,9 +1009,12 @@ export default function CheckoutPage() {
 
                       {/* Confirm button */}
                       <button onClick={handleConfirmPayment} disabled={timeLeft <= 0}
-                        className="w-full h-14 rounded-xl text-white font-bold text-base flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-lg shadow-orange-500/20 hover:shadow-xl hover:shadow-orange-500/30"
+                        data-cursor="cta"
+                        data-cursor-label={timeLeft <= 0 ? "Expired" : "Confirm"}
+                        className="cursor-cta press-spring group relative overflow-hidden w-full h-14 rounded-xl text-white font-bold text-base flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-[0_0_28px_rgba(249,115,22,0.35)] hover:shadow-[0_0_50px_rgba(249,115,22,0.6)]"
                         style={{ background: timeLeft <= 0 ? "rgba(249, 115, 22, 0.43)" : "linear-gradient(135deg, #f97316, #ea580c)" }}>
-                        {timeLeft <= 0 ? "Session Expired" : <><CheckCircle2 className="h-4 w-4" /> Confirm Payment Sent</>}
+                        <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
+                        <span className="relative z-10 inline-flex items-center gap-2">{timeLeft <= 0 ? "Session Expired" : <><CheckCircle2 className="h-4 w-4" /> Confirm Payment Sent</>}</span>
                       </button>
 
                       <button onClick={() => { setStep("form"); setTimeLeft(TIMER_SECONDS) }}
@@ -1051,9 +1057,12 @@ export default function CheckoutPage() {
                       </div>
 
                       <button onClick={handleConfirmPayment} disabled={timeLeft <= 0}
-                        className="w-full h-14 rounded-xl text-white font-bold text-base flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-lg shadow-orange-500/20 hover:shadow-xl hover:shadow-orange-500/30"
+                        data-cursor="cta"
+                        data-cursor-label={timeLeft <= 0 ? "Expired" : "Confirm"}
+                        className="cursor-cta press-spring group relative overflow-hidden w-full h-14 rounded-xl text-white font-bold text-base flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-[0_0_28px_rgba(249,115,22,0.35)] hover:shadow-[0_0_50px_rgba(249,115,22,0.6)]"
                         style={{ background: timeLeft <= 0 ? "rgba(249, 115, 22, 0.43)" : "linear-gradient(135deg, #f97316, #ea580c)" }}>
-                        {timeLeft <= 0 ? "Session Expired" : <><CheckCircle2 className="h-4 w-4" /> Confirm Payment Sent</>}
+                        <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
+                        <span className="relative z-10 inline-flex items-center gap-2">{timeLeft <= 0 ? "Session Expired" : <><CheckCircle2 className="h-4 w-4" /> Confirm Payment Sent</>}</span>
                       </button>
 
                       <button onClick={() => { setStep("form"); setTimeLeft(TIMER_SECONDS) }}

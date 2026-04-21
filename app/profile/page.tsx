@@ -403,7 +403,7 @@ function QuickLink({
   accent?: string
 }) {
   const content = (
-    <div className="group flex items-center gap-4 p-5 rounded-2xl border border-white/[0.06] bg-white/[0.015] hover:bg-white/[0.03] hover:border-[#f97316]/25 hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249, 115, 22, 0.12)] transition-all duration-300">
+    <div className="spotlight-card group flex items-center gap-4 p-5 rounded-2xl border border-white/[0.06] bg-white/[0.015] hover:bg-white/[0.03] hover:border-[#f97316]/30 hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249, 115, 22, 0.14)] transition-all duration-300">
       <div className={cn("w-11 h-11 rounded-xl flex items-center justify-center bg-white/[0.04] border border-white/[0.08] group-hover:scale-110 transition-transform", accent)}>
         <Icon className="h-[18px] w-[18px]" />
       </div>
@@ -442,7 +442,7 @@ function EmptyState({
       <p className="font-display text-white text-lg font-bold mb-2 tracking-tight">{title}</p>
       <p className="text-[13px] text-white/65 mb-6 max-w-sm mx-auto leading-relaxed">{description}</p>
       <Link href={ctaHref}>
-        <button className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-br from-[#f97316] to-[#ea580c] hover:brightness-110 hover:scale-[1.03] text-white text-sm font-bold transition-all shadow-[0_4px_14px_rgba(249, 115, 22, 0.46),inset_0_1px_0_rgba(255,255,255,0.08)]">
+        <button data-cursor="cta" data-cursor-label={ctaLabel} className="cursor-cta press-spring inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-br from-[#f97316] to-[#ea580c] hover:shadow-[0_0_36px_rgba(249,115,22,0.55)] hover:scale-[1.03] text-white text-sm font-bold transition-all shadow-[0_4px_14px_rgba(249,115,22,0.46),inset_0_1px_0_rgba(255,255,255,0.08)]">
           {ctaLabel}
         </button>
       </Link>
@@ -454,7 +454,7 @@ function OrderRow({ order, onDownload }: { order: Order; onDownload: () => void 
   const statusConfig = STATUS_CONFIG[order.status] ?? STATUS_CONFIG.pending
   const StatusIcon = statusConfig.icon
   return (
-    <div className="group rounded-2xl border border-white/[0.06] bg-white/[0.015] p-5 hover:border-[#f97316]/25 hover:bg-white/[0.03] hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249, 115, 22, 0.12)] transition-all duration-300">
+    <div className="spotlight-card group rounded-2xl border border-white/[0.06] bg-white/[0.015] p-5 hover:border-[#f97316]/30 hover:bg-white/[0.03] hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249, 115, 22, 0.14)] transition-all duration-300">
       <div className="flex flex-col md:flex-row md:items-center gap-4">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap mb-2">
@@ -474,7 +474,9 @@ function OrderRow({ order, onDownload }: { order: Order; onDownload: () => void 
           {order.status === "completed" ? (
             <button
               onClick={onDownload}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gradient-to-br from-[#f97316] to-[#ea580c] hover:brightness-110 hover:scale-[1.03] text-[12px] font-bold text-white transition-all shadow-[0_4px_14px_rgba(249, 115, 22, 0.46)]"
+              data-cursor="cta"
+              data-cursor-label="Download"
+              className="cursor-cta press-spring flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gradient-to-br from-[#f97316] to-[#ea580c] hover:shadow-[0_0_28px_rgba(249,115,22,0.5)] hover:scale-[1.03] text-[12px] font-bold text-white transition-all shadow-[0_4px_14px_rgba(249,115,22,0.46)]"
             >
               <FileDown className="h-3.5 w-3.5" />
               Download
@@ -482,7 +484,9 @@ function OrderRow({ order, onDownload }: { order: Order; onDownload: () => void 
           ) : order.status === "pending" ? (
             <Link
               href={`/track?q=${order.display_id}`}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-white/[0.10] bg-white/[0.04] hover:border-[#f97316]/40 hover:bg-[#f97316]/[0.06] hover:text-[#f97316] text-[12px] font-bold text-white transition-all"
+              data-cursor="cta"
+              data-cursor-label="Track"
+              className="cursor-cta press-spring flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-white/[0.10] bg-white/[0.04] hover:border-[#f97316]/40 hover:bg-[#f97316]/[0.06] hover:text-[#f97316] text-[12px] font-bold text-white transition-all"
             >
               <Clock className="h-3.5 w-3.5" />
               Track
@@ -504,7 +508,7 @@ function LicenseCard({
   onCopy: (k: string) => void
 }) {
   return (
-    <div className="group relative rounded-2xl border border-emerald-500/25 bg-gradient-to-br from-emerald-500/[0.06] to-white/[0.015] p-5 hover:border-emerald-500/45 hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(16,185,129,0.18)] transition-all duration-300 overflow-hidden">
+    <div className="spotlight-card group relative rounded-2xl border border-emerald-500/25 bg-gradient-to-br from-emerald-500/[0.06] to-white/[0.015] p-5 hover:border-emerald-500/50 hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(16,185,129,0.2)] transition-all duration-300 overflow-hidden">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emerald-400/55 to-transparent pointer-events-none" />
       <div className="relative flex flex-col md:flex-row md:items-start gap-3 mb-4">
         <div className="flex-1 min-w-0">
@@ -531,7 +535,9 @@ function LicenseCard({
           </code>
           <button
             onClick={() => onCopy(order.license_key!)}
-            className="shrink-0 p-2.5 rounded-xl border border-white/[0.10] bg-white/[0.025] text-white/65 hover:text-white hover:bg-white/[0.06] hover:border-[#f97316]/40 transition-all"
+            data-cursor="cta"
+            data-cursor-label={copiedKey === order.license_key ? "Got it" : "Copy"}
+            className="cursor-cta press-spring shrink-0 p-2.5 rounded-xl border border-white/[0.10] bg-white/[0.025] text-white/65 hover:text-[#f97316] hover:bg-[#f97316]/[0.08] hover:border-[#f97316]/40 transition-all"
             aria-label="Copy license key"
           >
             {copiedKey === order.license_key ? <Check className="h-4 w-4 text-emerald-400" /> : <Copy className="h-4 w-4" />}

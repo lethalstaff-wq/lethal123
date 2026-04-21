@@ -310,7 +310,7 @@ export default function ComparePage() {
                       </th>
                       {Object.entries(CHEATS_DATA).map(([id, cheat]) => (
                         <th key={id} className="p-4 text-center min-w-[180px]">
-                          <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6">
+                          <div className="spotlight-card rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 hover:border-[#f97316]/30 transition-all duration-300">
                             <span className={cn(
                               "inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase mb-2",
                               cheat.badge === "Premium" ? "bg-[#f97316]/10 text-[#f97316]" :
@@ -362,7 +362,9 @@ export default function ComparePage() {
                         <td key={id} className="p-4 text-center">
                           <Button
                             onClick={() => handleAddToCart(id, cheat.name, cheat.price, cheat.pricePer)}
-                            className="gap-2 rounded-xl w-full"
+                            data-cursor="cta"
+                            data-cursor-label="Add"
+                            className="cursor-cta press-spring gap-2 rounded-xl w-full bg-gradient-to-br from-[#f97316] to-[#ea580c] hover:shadow-[0_0_28px_rgba(249,115,22,0.5)]"
                           >
                             <ShoppingCart className="h-4 w-4" />
                             Add to Cart
@@ -391,7 +393,7 @@ export default function ComparePage() {
                       </th>
                       {Object.entries(SPOOFERS_DATA).map(([id, spoofer]) => (
                         <th key={id} className="p-4 text-center min-w-[200px]">
-                          <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6">
+                          <div className="spotlight-card rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 hover:border-[#f97316]/30 transition-all duration-300">
                             <span className={cn(
                               "inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase mb-2",
                               spoofer.badge === "Permanent" ? "bg-[#f97316]/10 text-[#f97316]" : "bg-blue-500/10 text-blue-500"
@@ -441,7 +443,9 @@ export default function ComparePage() {
                         <td key={id} className="p-4 text-center">
                           <Button
                             onClick={() => handleAddToCart(id, spoofer.name, spoofer.price, spoofer.pricePer)}
-                            className="gap-2 rounded-xl w-full"
+                            data-cursor="cta"
+                            data-cursor-label="Add"
+                            className="cursor-cta press-spring gap-2 rounded-xl w-full bg-gradient-to-br from-[#f97316] to-[#ea580c] hover:shadow-[0_0_28px_rgba(249,115,22,0.5)]"
                           >
                             <ShoppingCart className="h-4 w-4" />
                             Add to Cart
