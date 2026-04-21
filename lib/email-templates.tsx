@@ -53,17 +53,17 @@ const baseStyles = `
   body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #0a0a0b; color: #fafafa; }
   .container { max-width: 600px; margin: 0 auto; padding: 40px 20px; }
   .card { background: linear-gradient(145deg, #111113, #0d0d0f); border: 1px solid #1f1f23; border-radius: 16px; padding: 32px; margin-bottom: 24px; }
-  .logo { font-size: 24px; font-weight: 800; color: #EF6F29; margin-bottom: 24px; }
+  .logo { font-size: 24px; font-weight: 800; color: #f97316; margin-bottom: 24px; }
   .heading { font-size: 28px; font-weight: 700; color: #fafafa; margin: 0 0 16px 0; }
   .subheading { font-size: 18px; font-weight: 600; color: #fafafa; margin: 0 0 12px 0; }
   .text { font-size: 15px; color: #a1a1aa; line-height: 1.6; margin: 0 0 16px 0; }
-  .highlight { color: #EF6F29; font-weight: 600; }
-  .button { display: inline-block; background: linear-gradient(135deg, #EF6F29, #CC5500); color: #ffffff !important; text-decoration: none; padding: 14px 28px; border-radius: 10px; font-weight: 600; font-size: 15px; }
+  .highlight { color: #f97316; font-weight: 600; }
+  .button { display: inline-block; background: linear-gradient(135deg, #f97316, #CC5500); color: #ffffff !important; text-decoration: none; padding: 14px 28px; border-radius: 10px; font-weight: 600; font-size: 15px; }
   .divider { border: none; border-top: 1px solid #1f1f23; margin: 24px 0; }
   .footer { text-align: center; font-size: 13px; color: #52525b; margin-top: 32px; }
-  .badge { display: inline-block; background: #EF6F29; color: #ffffff; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; text-transform: uppercase; }
+  .badge { display: inline-block; background: #f97316; color: #ffffff; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; text-transform: uppercase; }
   .info-box { background: #1c1c1f; border: 1px solid #27272a; border-radius: 12px; padding: 16px; margin: 16px 0; }
-  .code { font-family: 'JetBrains Mono', monospace; background: #1c1c1f; border: 1px solid #EF6F29; border-radius: 8px; padding: 16px; font-size: 18px; letter-spacing: 2px; color: #EF6F29; text-align: center; }
+  .code { font-family: 'JetBrains Mono', monospace; background: #1c1c1f; border: 1px solid #f97316; border-radius: 8px; padding: 16px; font-size: 18px; letter-spacing: 2px; color: #f97316; text-align: center; }
 `
 
 const wrapHtml = (content: string, previewText: string = '') => `
@@ -82,8 +82,8 @@ const wrapHtml = (content: string, previewText: string = '') => `
     <div class="footer">
       <p>© ${new Date().getFullYear()} Lethal Solutions. All rights reserved.</p>
       <p style="margin-top: 8px;">
-        <a href="https://lethal-solutions.me" style="color: #EF6F29; text-decoration: none;">Website</a> • 
-        <a href="https://discord.gg/lethaldma" style="color: #EF6F29; text-decoration: none;">Discord</a>
+        <a href="https://lethal-solutions.me" style="color: #f97316; text-decoration: none;">Website</a> • 
+        <a href="https://discord.gg/lethaldma" style="color: #f97316; text-decoration: none;">Discord</a>
       </p>
     </div>
   </div>
@@ -100,7 +100,7 @@ export function generateOrderConfirmationEmail(data: OrderConfirmationData): { s
         <br><span style="color: #71717a; font-size: 13px;">${item.variant}</span>
       </td>
       <td style="padding: 12px 0; border-bottom: 1px solid #1f1f23; text-align: center; color: #a1a1aa;">${item.quantity}x</td>
-      <td style="padding: 12px 0; border-bottom: 1px solid #1f1f23; text-align: right; color: #EF6F29; font-weight: 600;">£${item.price.toFixed(2)}</td>
+      <td style="padding: 12px 0; border-bottom: 1px solid #1f1f23; text-align: right; color: #f97316; font-weight: 600;">£${item.price.toFixed(2)}</td>
     </tr>
   `).join('') || ''
 
@@ -126,7 +126,7 @@ export function generateOrderConfirmationEmail(data: OrderConfirmationData): { s
         <tfoot>
           <tr>
             <td colspan="2" style="padding: 16px 0; text-align: right; font-weight: 600; color: #fafafa;">Total:</td>
-            <td style="padding: 16px 0; text-align: right; font-weight: 700; font-size: 18px; color: #EF6F29;">£${data.total?.toFixed(2) || '0.00'}</td>
+            <td style="padding: 16px 0; text-align: right; font-weight: 700; font-size: 18px; color: #f97316;">£${data.total?.toFixed(2) || '0.00'}</td>
           </tr>
         </tfoot>
       </table>

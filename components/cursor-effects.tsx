@@ -17,7 +17,7 @@ export function CursorEffects() {
   const [isMoving, setIsMoving] = useState(false)
 
   const createParticle = useCallback((x: number, y: number) => {
-    const colors = ["#EF6F29", "#FFB347", "#fdba74", "#fff7ed"]
+    const colors = ["#f97316", "#fb923c", "#fdba74", "#fff7ed"]
     return {
       id: Date.now() + Math.random(),
       x: x + (Math.random() - 0.5) * 20,
@@ -91,7 +91,7 @@ export function CursorEffects() {
           style={{
             width: isMoving ? 40 : 20,
             height: isMoving ? 40 : 20,
-            background: `radial-gradient(circle, rgba(239, 111, 41, ${isMoving ? 0.4 : 0.2}) 0%, transparent 70%)`,
+            background: `radial-gradient(circle, rgba(249, 115, 22, ${isMoving ? 0.4 : 0.2}) 0%, transparent 70%)`,
             filter: "blur(2px)",
           }}
         />
