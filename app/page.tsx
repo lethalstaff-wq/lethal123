@@ -39,12 +39,12 @@ function SectionSkeleton() {
   return (
     <div className="py-24 px-4">
       <div className="container mx-auto max-w-6xl">
-        <div className="h-8 w-48 rounded-lg bg-muted/30 animate-pulse mx-auto mb-4" />
-        <div className="h-4 w-96 max-w-full rounded bg-muted/20 animate-pulse mx-auto mb-12" />
+        <div className="h-8 w-48 rounded-lg bg-white/[0.06] animate-pulse mx-auto mb-4" />
+        <div className="h-4 w-96 max-w-full rounded bg-white/[0.04] animate-pulse mx-auto mb-12" />
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="h-48 rounded-xl bg-card/30 border border-border/30 overflow-hidden relative">
-              <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-muted/10 to-transparent" />
+            <div key={i} className="h-48 rounded-2xl bg-white/[0.015] border border-white/[0.06] overflow-hidden relative">
+              <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/[0.04] to-transparent" />
             </div>
           ))}
         </div>
