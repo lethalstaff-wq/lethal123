@@ -254,18 +254,18 @@ export function ProductDetailClient({ product }: { product: Product }) {
 
           {/* Rating */}
           <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-6">
-            <div className="flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full bg-yellow-500/10 border border-yellow-500/20">
-              <Star className="h-3.5 w-3.5 sm:h-4 sm:w-4 fill-yellow-400 text-yellow-400" />
-              <span className="font-bold text-xs sm:text-sm text-yellow-400">5.0</span>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 backdrop-blur-sm">
+              <Star className="h-3.5 w-3.5 sm:h-4 sm:w-4 fill-amber-400 text-amber-400" style={{ filter: "drop-shadow(0 0 6px rgba(245,158,11,0.5))" }} />
+              <span className="font-display font-bold text-[13px] sm:text-sm text-amber-400 tabular-nums">5.0</span>
             </div>
-            <span className="text-xs sm:text-sm text-white/55">{reviewCount} Verified Reviews</span>
+            <span className="text-[12px] sm:text-[13px] text-white/65"><span className="text-white font-bold tabular-nums">{reviewCount}</span> Verified Reviews</span>
             <span className="hidden sm:inline text-white/30">·</span>
-            <div className="flex items-center gap-1.5">
+            <div className="inline-flex items-center gap-1.5">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500" />
               </span>
-              <span className="text-xs sm:text-sm text-white/55">{viewingNow} viewing now</span>
+              <span className="text-[12px] sm:text-[13px] text-white/65"><span className="text-red-400 font-bold tabular-nums">{viewingNow}</span> viewing now</span>
             </div>
           </div>
 
@@ -358,7 +358,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
                 onClick={handleAddToCart}
                 variant="outline"
                 size="lg"
-                className="h-11 sm:h-12 text-xs sm:text-sm font-semibold gap-1.5 sm:gap-2 rounded-xl border-white/[0.06] hover:border-[#f97316]/40 hover:bg-[#f97316]/5"
+                className="h-11 sm:h-12 text-xs sm:text-sm font-bold gap-1.5 sm:gap-2 rounded-xl border-white/[0.10] bg-white/[0.025] backdrop-blur-md hover:border-[#f97316]/40 hover:bg-[#f97316]/[0.06] hover:text-[#f97316] transition-all"
               >
                 <ShoppingCart className="h-4 w-4" />
                 Add to Cart
@@ -367,7 +367,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
                 onClick={() => setShowDiscordModal(true)}
                 variant="outline"
                 size="lg"
-                className="h-11 sm:h-12 text-xs sm:text-sm font-semibold gap-1.5 sm:gap-2 rounded-xl border-[#5865F2]/30 text-[#5865F2] hover:bg-[#5865F2]/10 hover:border-[#5865F2]/50"
+                className="h-11 sm:h-12 text-xs sm:text-sm font-bold gap-1.5 sm:gap-2 rounded-xl border-[#5865F2]/35 bg-[#5865F2]/[0.06] text-[#5865F2] hover:bg-[#5865F2]/15 hover:border-[#5865F2]/55 hover:text-white transition-all"
               >
                 <MessageCircle className="h-4 w-4" />
                 Discord Order
@@ -376,9 +376,12 @@ export function ProductDetailClient({ product }: { product: Product }) {
           </div>
 
           {/* Last purchased */}
-          <p className="text-center text-[11px] text-white/25 mt-3 flex items-center justify-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500/60" />
-            Last purchased {lastPurchased} minutes ago
+          <p className="text-center text-[11px] text-white/55 mt-3 flex items-center justify-center gap-1.5 font-medium">
+            <span className="relative flex items-center justify-center">
+              <span className="absolute w-2 h-2 rounded-full bg-emerald-400/40 animate-ping" />
+              <span className="relative w-1.5 h-1.5 rounded-full bg-emerald-400" />
+            </span>
+            Last purchased <span className="text-white font-bold tabular-nums">{lastPurchased}</span> minutes ago
           </p>
 
         </div>
