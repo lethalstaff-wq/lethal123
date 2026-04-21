@@ -104,14 +104,14 @@ export function CommandSearch() {
   return (
     <div className="fixed inset-0 z-[100]" role="dialog" aria-modal="true">
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setOpen(false)} />
+      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={() => setOpen(false)} />
 
       {/* Modal */}
       <div className="relative max-w-lg w-full mx-auto mt-[15vh] px-4">
-        <div className="rounded-2xl border border-border/50 bg-card/95 backdrop-blur-xl shadow-2xl shadow-black/40 overflow-hidden">
+        <div className="rounded-2xl border border-white/[0.10] bg-[#0a0a0a]/95 backdrop-blur-xl shadow-[0_24px_60px_rgba(0,0,0,0.55),0_0_40px_rgba(249,115,22,0.08)] overflow-hidden">
           {/* Input */}
-          <div className="flex items-center gap-3 px-4 border-b border-border/30">
-            <Search className="h-4 w-4 text-muted-foreground shrink-0" />
+          <div className="flex items-center gap-3 px-4 border-b border-white/[0.06]">
+            <Search className="h-4 w-4 text-[#f97316] shrink-0" style={{ filter: "drop-shadow(0 0 6px rgba(249,115,22,0.55))" }} />
             <input
               ref={inputRef}
               type="text"
@@ -119,11 +119,11 @@ export function CommandSearch() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={handleKeyNav}
-              className="flex-1 h-14 bg-transparent text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none"
+              className="flex-1 h-14 bg-transparent text-[14px] text-white placeholder:text-white/40 focus:outline-none"
             />
             <button
               onClick={() => setOpen(false)}
-              className="px-2 py-1 rounded-md bg-muted/30 text-[10px] font-bold text-muted-foreground"
+              className="px-2 py-1 rounded-md bg-white/[0.06] border border-white/[0.08] text-[10px] font-bold text-white/65 font-mono hover:bg-white/[0.10] hover:text-white transition-colors"
             >
               ESC
             </button>
@@ -132,46 +132,46 @@ export function CommandSearch() {
           {/* Results */}
           <div className="max-h-[350px] overflow-y-auto p-2">
             {searching ? (
-              <div className="py-8 text-center text-sm text-muted-foreground">Searching...</div>
+              <div className="py-8 text-center text-[13px] text-white/55">Searching...</div>
             ) : results.length > 0 ? (
               <>
-                <p className="px-3 py-2 text-[10px] font-bold text-muted-foreground/50 uppercase tracking-wider">Products</p>
+                <p className="px-3 py-2 text-[10px] font-bold text-white/40 uppercase tracking-[0.18em]">Products</p>
                 {results.map((product, i) => (
                   <button
                     key={product.id}
                     onClick={() => navigate(`/products/${product.id}`)}
-                    className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl text-left transition-colors ${
-                      i === selectedIndex ? "bg-primary/10 text-foreground" : "hover:bg-muted/20 text-foreground"
+                    className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl text-left transition-all ${
+                      i === selectedIndex ? "bg-[#f97316]/[0.10] border border-[#f97316]/25" : "border border-transparent hover:bg-white/[0.03]"
                     }`}
                   >
-                    <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                      <Package className="h-4 w-4 text-primary" />
+                    <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-[#f97316]/20 to-[#ea580c]/10 border border-[#f97316]/25 flex items-center justify-center shrink-0">
+                      <Package className="h-4 w-4 text-[#f97316]" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="font-semibold text-sm truncate">{product.name}</p>
-                      <p className="text-xs text-muted-foreground">{product.category}</p>
+                      <p className="font-display font-bold text-[13.5px] text-white truncate tracking-tight">{product.name}</p>
+                      <p className="text-[11px] text-white/55">{product.category}</p>
                     </div>
-                    <span className="text-sm font-bold text-primary">£{(product.price / 100).toFixed(0)}</span>
-                    {i === selectedIndex && <CornerDownLeft className="h-3.5 w-3.5 text-muted-foreground" />}
+                    <span className="text-[13px] font-bold text-[#f97316] tabular-nums">£{(product.price / 100).toFixed(0)}</span>
+                    {i === selectedIndex && <CornerDownLeft className="h-3.5 w-3.5 text-[#f97316]" />}
                   </button>
                 ))}
               </>
             ) : query ? (
-              <div className="py-8 text-center text-sm text-muted-foreground">No results for &quot;{query}&quot;</div>
+              <div className="py-8 text-center text-[13px] text-white/55">No results for &quot;<span className="text-white">{query}</span>&quot;</div>
             ) : (
               <>
-                <p className="px-3 py-2 text-[10px] font-bold text-muted-foreground/50 uppercase tracking-wider">Quick links</p>
+                <p className="px-3 py-2 text-[10px] font-bold text-white/40 uppercase tracking-[0.18em]">Quick links</p>
                 {QUICK_LINKS.map((link, i) => (
                   <button
                     key={link.href}
                     onClick={() => navigate(link.href)}
-                    className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-colors ${
-                      i === selectedIndex ? "bg-primary/10" : "hover:bg-muted/20"
+                    className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-all ${
+                      i === selectedIndex ? "bg-[#f97316]/[0.10] border border-[#f97316]/25" : "border border-transparent hover:bg-white/[0.03]"
                     }`}
                   >
-                    <ArrowRight className="h-3.5 w-3.5 text-muted-foreground" />
-                    <span className="text-sm font-medium">{link.label}</span>
-                    {i === selectedIndex && <CornerDownLeft className="h-3.5 w-3.5 text-muted-foreground ml-auto" />}
+                    <ArrowRight className={`h-3.5 w-3.5 ${i === selectedIndex ? "text-[#f97316]" : "text-white/45"}`} />
+                    <span className={`text-[13.5px] font-medium ${i === selectedIndex ? "text-white" : "text-white/75"}`}>{link.label}</span>
+                    {i === selectedIndex && <CornerDownLeft className="h-3.5 w-3.5 text-[#f97316] ml-auto" />}
                   </button>
                 ))}
               </>
@@ -179,10 +179,10 @@ export function CommandSearch() {
           </div>
 
           {/* Footer hint */}
-          <div className="px-4 py-3 border-t border-border/30 bg-muted/5 flex items-center gap-4 text-[10px] text-muted-foreground/50">
-            <span className="flex items-center gap-1"><kbd className="px-1.5 py-0.5 rounded bg-muted/30 font-mono">↑↓</kbd> navigate</span>
-            <span className="flex items-center gap-1"><kbd className="px-1.5 py-0.5 rounded bg-muted/30 font-mono">↵</kbd> select</span>
-            <span className="flex items-center gap-1"><kbd className="px-1.5 py-0.5 rounded bg-muted/30 font-mono">esc</kbd> close</span>
+          <div className="px-4 py-3 border-t border-white/[0.06] bg-white/[0.015] flex items-center gap-4 text-[10px] text-white/45">
+            <span className="flex items-center gap-1"><kbd className="px-1.5 py-0.5 rounded bg-white/[0.06] border border-white/[0.08] font-mono text-white/65">↑↓</kbd> navigate</span>
+            <span className="flex items-center gap-1"><kbd className="px-1.5 py-0.5 rounded bg-white/[0.06] border border-white/[0.08] font-mono text-white/65">↵</kbd> select</span>
+            <span className="flex items-center gap-1"><kbd className="px-1.5 py-0.5 rounded bg-white/[0.06] border border-white/[0.08] font-mono text-white/65">esc</kbd> close</span>
           </div>
         </div>
       </div>
