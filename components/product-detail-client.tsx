@@ -386,31 +386,24 @@ export function ProductDetailClient({ product }: { product: Product }) {
         </div>
       </div>
 
-      {/* ═══ FEATURES — Premium "What's Included" panel ═══ */}
+      {/* ═══ FEATURES — clean section, no heavy panel ═══ */}
       {product.features && product.features.length > 0 && (
-        <div className="mt-16 relative rounded-3xl border border-white/[0.08] bg-gradient-to-br from-white/[0.025] to-white/[0.015] backdrop-blur-xl p-8 sm:p-10 overflow-hidden shadow-[0_24px_60px_rgba(0,0,0,0.35)]">
-          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f97316]/55 to-transparent pointer-events-none" />
-          <div className="absolute -top-20 -right-20 w-64 h-64 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(249,115,22,0.08), transparent 70%)" }} />
+        <div className="mt-16">
+          <div className="flex items-center gap-2 mb-5">
+            <div className="w-1 h-5 rounded-full bg-[#f97316]" />
+            <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/55">What&apos;s included</span>
+          </div>
+          <h2 className="font-display text-2xl sm:text-3xl font-bold text-white mb-6 tracking-tight">
+            Everything you get in the <span className="text-[#f97316]">box</span>
+          </h2>
 
-          <div className="relative">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#f97316]/25 bg-[#f97316]/[0.06] mb-4">
-              <Check className="h-3.5 w-3.5 text-[#f97316]" />
-              <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#f97316]">Included</span>
-            </div>
-            <h2 className="font-display text-2xl sm:text-3xl font-bold text-white mb-7 tracking-tight">
-              What&apos;s in the <span style={{ background: "linear-gradient(180deg, #ffb366, #f97316, #c2410c)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 24px rgba(249,115,22,0.25))" }}>box</span>
-            </h2>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {product.features.map((feature, idx) => (
-                <div key={idx} className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.025] border border-white/[0.06] hover:border-[#f97316]/25 hover:bg-white/[0.04] transition-all duration-300 group">
-                  <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#f97316]/20 to-[#ea580c]/10 border border-[#f97316]/25 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                    <Check className="h-3.5 w-3.5 text-[#f97316]" />
-                  </div>
-                  <span className="text-[14px] font-semibold text-white/85 group-hover:text-white transition-colors">{feature}</span>
-                </div>
-              ))}
-            </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            {product.features.map((feature, idx) => (
+              <div key={idx} className="flex items-center gap-3 py-2.5 group">
+                <Check className="h-4 w-4 text-[#f97316] shrink-0 group-hover:scale-110 transition-transform" style={{ filter: "drop-shadow(0 0 6px rgba(249,115,22,0.5))" }} />
+                <span className="text-[14px] text-white/75 group-hover:text-white transition-colors">{feature}</span>
+              </div>
+            ))}
           </div>
         </div>
       )}
