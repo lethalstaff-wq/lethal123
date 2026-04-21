@@ -11,7 +11,7 @@ export function Logo({ className = "" }: { className?: string }) {
         className="h-8 w-8 object-contain"
         priority
       />
-      <span className="text-[15px] font-semibold tracking-tight text-foreground">
+      <span className="font-display text-[15px] font-bold tracking-tight text-white">
         Lethal Solutions
       </span>
     </div>
