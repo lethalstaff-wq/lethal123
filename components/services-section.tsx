@@ -42,6 +42,64 @@ const features = [
   { icon: Globe, title: "Worldwide Network", desc: "Infrastructure on 6 continents. Discreet worldwide operations.", num: 67, prefix: "", suffix: "+", label: "countries" },
 ]
 
+function FeatureCard({ f, i }: { f: typeof features[number]; i: number }) {
+  const cardRef = useRef<HTMLDivElement>(null)
+  const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const el = cardRef.current; if (!el) return
+    const rect = el.getBoundingClientRect()
+    const x = e.clientX - rect.left
+    const y = e.clientY - rect.top
+    el.style.setProperty("--mx", `${x}px`)
+    el.style.setProperty("--my", `${y}px`)
+    const px = (x / rect.width - 0.5) * 2
+    const py = (y / rect.height - 0.5) * 2
+    el.style.setProperty("--rx", `${(-py * 3).toFixed(2)}deg`)
+    el.style.setProperty("--ry", `${(px * 3).toFixed(2)}deg`)
+  }
+  const onLeave = () => {
+    const el = cardRef.current; if (!el) return
+    el.style.setProperty("--rx", "0deg")
+    el.style.setProperty("--ry", "0deg")
+  }
+  return (
+    <div
+      ref={cardRef}
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
+      className="spotlight-card tilt-3d group p-7 rounded-2xl bg-white/[0.015] border border-white/[0.06] hover:border-[#f97316]/40 hover:bg-white/[0.03] relative overflow-hidden hover:shadow-[0_28px_70px_rgba(0,0,0,0.55),0_0_50px_rgba(249,115,22,0.22)]"
+      style={{ transition: "background-color 0.3s, border-color 0.3s, box-shadow 0.3s, transform 0.25s cubic-bezier(0.22,1,0.36,1)" }}
+    >
+      {/* Top gradient accent line */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f97316]/15 to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-500 z-[3]" />
+      {/* Shine */}
+      <div className="absolute top-[-50%] left-[-80%] w-[50%] h-[200%] bg-gradient-to-r from-transparent via-white/[0.04] to-transparent rotate-[25deg] group-hover:left-[130%] transition-[left] duration-700 pointer-events-none z-[3]" />
+      {/* Big faded number background */}
+      <div className="absolute -top-3 -left-2 text-[120px] font-black leading-none pointer-events-none select-none opacity-[0.025] group-hover:opacity-[0.06] transition-opacity duration-500 font-display text-[#f97316] z-[2]">
+        {(i + 1).toString().padStart(2, "0")}
+      </div>
+
+      <div className="relative z-[3]">
+        <div className="flex items-center justify-between mb-5">
+          <div className="w-12 h-12 rounded-2xl flex items-center justify-center border border-white/[0.06] bg-white/[0.02] group-hover:bg-gradient-to-br group-hover:from-[#f97316]/25 group-hover:to-[#ea580c]/15 group-hover:border-[#f97316]/35 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
+            <f.icon className="h-[20px] w-[20px] text-white/55 group-hover:text-[#f97316] transition-all duration-500" />
+          </div>
+          <div className="text-right">
+            <p className="font-display text-[28px] font-black tracking-[-0.02em] leading-none" style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(200,200,210,0.7))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+              <AnimNum value={f.num} prefix={f.prefix} suffix={f.suffix} decimals={f.num === 99.8 ? 1 : 0} />
+            </p>
+            <p className="text-[9px] text-[#f97316]/70 group-hover:text-[#f97316] uppercase tracking-[0.18em] mt-1.5 font-bold transition-colors">{f.label}</p>
+          </div>
+        </div>
+        <h4 className="font-display font-bold text-[17px] mb-2 text-white tracking-tight">{f.title}</h4>
+        <p className="text-[13px] text-white/55 leading-[1.65] group-hover:text-white/75 transition-colors">{f.desc}</p>
+      </div>
+
+      {/* Bottom accent on hover */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f97316]/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-[3]" />
+    </div>
+  )
+}
+
 export function ServicesSection() {
   return (
     <section id="features" className="py-24 px-6 sm:px-10 relative z-10">
@@ -58,39 +116,7 @@ export function ServicesSection() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {features.map((f, i) => (
-            <div key={i} className="group p-7 rounded-2xl bg-white/[0.015] border border-white/[0.06] hover:border-[#f97316]/35 hover:bg-white/[0.03] transition-all duration-300 relative overflow-hidden hover:-translate-y-1.5 hover:shadow-[0_28px_70px_rgba(0,0,0,0.55),0_0_50px_rgba(249, 115, 22, 0.2)]">
-              {/* Top gradient accent line — always visible, subtle */}
-              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f97316]/15 to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
-              {/* Shine */}
-              <div className="absolute top-[-50%] left-[-80%] w-[50%] h-[200%] bg-gradient-to-r from-transparent via-white/[0.04] to-transparent rotate-[25deg] group-hover:left-[130%] transition-[left] duration-700 pointer-events-none z-10" />
-              {/* Hover glow — corner orange */}
-              <div className="absolute top-0 right-0 w-[260px] h-[260px] rounded-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700" style={{ background: "radial-gradient(circle, rgba(249, 115, 22, 0.2), transparent 70%)", transform: "translate(35%, -35%)" }} />
-              {/* Big faded number background */}
-              <div className="absolute -top-3 -left-2 text-[120px] font-black leading-none pointer-events-none select-none opacity-[0.025] group-hover:opacity-[0.05] transition-opacity duration-500 font-display text-[#f97316]">
-                {(i + 1).toString().padStart(2, "0")}
-              </div>
-
-              <div className="relative z-[2]">
-                <div className="flex items-center justify-between mb-5">
-                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center border border-white/[0.06] bg-white/[0.02] group-hover:bg-gradient-to-br group-hover:from-[#f97316]/25 group-hover:to-[#ea580c]/15 group-hover:border-[#f97316]/35 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
-                    <f.icon className="h-[20px] w-[20px] text-white/45 group-hover:text-[#f97316] transition-all duration-500" style={{ filter: "drop-shadow(0 0 0 transparent)" }} />
-                  </div>
-                  <div className="text-right">
-                    <p className="font-display text-[28px] font-black tracking-[-0.02em] leading-none" style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(200,200,210,0.7))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                      <AnimNum value={f.num} prefix={f.prefix} suffix={f.suffix} decimals={f.num === 99.8 ? 1 : 0} />
-                    </p>
-                    <p className="text-[9px] text-[#f97316]/70 group-hover:text-[#f97316] uppercase tracking-[0.18em] mt-1.5 font-bold transition-colors">{f.label}</p>
-                  </div>
-                </div>
-                <h4 className="font-display font-bold text-[17px] mb-2 text-white tracking-tight">{f.title}</h4>
-                <p className="text-[13px] text-white/55 leading-[1.65] group-hover:text-white/70 transition-colors">{f.desc}</p>
-              </div>
-
-              {/* Bottom accent on hover */}
-              <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f97316]/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-            </div>
-          ))}
+          {features.map((f, i) => <FeatureCard key={i} f={f} i={i} />)}
         </div>
       </div>
     </section>

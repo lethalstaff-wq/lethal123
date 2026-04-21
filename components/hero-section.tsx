@@ -43,21 +43,23 @@ function Counter({ value }: { value: number }) {
   return <span ref={ref} className="tabular-nums">{animating ? count : value}</span>
 }
 
-// Per-character mask reveal — each char is an inline-block that slides up from 110% Y
-// inside an overflow-hidden line wrapper. Container variants stagger children.
+// Per-character mask reveal — each char is an inline-block sliding up from Y 110%
+// inside an overflow-hidden line wrapper. Gradient styles applied per-char so
+// -webkit-text-fill-color:transparent + background-clip:text still render text.
 function CharReveal({ text, delayBase = 0, className = "", styleOverride }: { text: string; delayBase?: number; className?: string; styleOverride?: React.CSSProperties }) {
   const reduced = useReducedMotion()
   if (reduced) {
     return <span className={className} style={styleOverride}>{text}</span>
   }
   return (
-    <span className={`char-reveal-line ${className}`} aria-label={text} style={styleOverride}>
+    <span className={`char-reveal-line ${className}`} aria-label={text}>
       {text.split("").map((ch, i) => (
         <span
           key={i}
           aria-hidden="true"
           className="char-reveal-char"
           style={{
+            ...styleOverride,
             ["--char-delay" as unknown as string]: `${delayBase + i * 30}ms`,
             whiteSpace: ch === " " ? "pre" : undefined,
           }}
