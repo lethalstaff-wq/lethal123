@@ -51,23 +51,12 @@ function FeatureCard({ f, i }: { f: typeof features[number]; i: number }) {
     const y = e.clientY - rect.top
     el.style.setProperty("--mx", `${x}px`)
     el.style.setProperty("--my", `${y}px`)
-    const px = (x / rect.width - 0.5) * 2
-    const py = (y / rect.height - 0.5) * 2
-    el.style.setProperty("--rx", `${(-py * 3).toFixed(2)}deg`)
-    el.style.setProperty("--ry", `${(px * 3).toFixed(2)}deg`)
-  }
-  const onLeave = () => {
-    const el = cardRef.current; if (!el) return
-    el.style.setProperty("--rx", "0deg")
-    el.style.setProperty("--ry", "0deg")
   }
   return (
     <div
       ref={cardRef}
       onMouseMove={onMove}
-      onMouseLeave={onLeave}
-      className="spotlight-card tilt-3d group p-7 rounded-2xl bg-white/[0.015] border border-white/[0.06] hover:border-[#f97316]/40 hover:bg-white/[0.03] relative overflow-hidden hover:shadow-[0_28px_70px_rgba(0,0,0,0.55),0_0_50px_rgba(249,115,22,0.22)]"
-      style={{ transition: "background-color 0.3s, border-color 0.3s, box-shadow 0.3s, transform 0.25s cubic-bezier(0.22,1,0.36,1)" }}
+      className="spotlight-card group p-7 rounded-2xl bg-white/[0.015] border border-white/[0.06] hover:border-[#f97316]/40 hover:bg-white/[0.03] relative overflow-hidden hover:-translate-y-1.5 hover:shadow-[0_28px_70px_rgba(0,0,0,0.55),0_0_50px_rgba(249,115,22,0.22)] transition-all duration-300"
     >
       {/* Top gradient accent line */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f97316]/15 to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-500 z-[3]" />

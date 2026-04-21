@@ -647,12 +647,13 @@ button:active:not(:disabled), a[role="button"]:active {
   --ease-material: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Spotlight-follow — element sets --mx/--my on mousemove */
+/* Spotlight-follow — element sets --mx/--my on mousemove.
+   We only add the radial gradient; we never force position/z-index on children
+   (that breaks absolute-positioned layers like shine sweeps and badges). */
 .spotlight-card {
   position: relative;
   --mx: 50%;
   --my: 50%;
-  isolation: isolate;
 }
 .spotlight-card::before {
   content: "";
@@ -666,10 +667,9 @@ button:active:not(:disabled), a[role="button"]:active {
   opacity: 0;
   transition: opacity 0.35s var(--ease-out-premium);
   pointer-events: none;
-  z-index: 1;
+  z-index: 0;
 }
 .spotlight-card:hover::before { opacity: 1; }
-.spotlight-card > * { position: relative; z-index: 2; }
 
 /* Per-character mask reveal — container has overflow:hidden around each line */
 .char-reveal-line {
@@ -710,9 +710,9 @@ button:active:not(:disabled), a[role="button"]:active {
   .word-reveal-word { transform: none !important; animation: none !important; }
 }
 
-/* Cursor-cta marker: elements flagged with this class get the big cursor treatment */
+/* Cursor-cta marker: native pointer, no custom cursor override.
+   Class is kept as a marker so existing data-cursor attributes remain harmless. */
 .cursor-cta { cursor: pointer; }
-html.has-cursor-effects .cursor-cta { cursor: none; }
 
 /* Page transitions (App Router template.tsx) */
 @keyframes routeFadeIn {

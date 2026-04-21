@@ -25,19 +25,8 @@ function ProductCard({ product }: { product: Product }) {
   const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const el = cardRef.current; if (!el) return
     const rect = el.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const y = e.clientY - rect.top
-    el.style.setProperty("--mx", `${x}px`)
-    el.style.setProperty("--my", `${y}px`)
-    const px = (x / rect.width - 0.5) * 2
-    const py = (y / rect.height - 0.5) * 2
-    el.style.setProperty("--rx", `${(-py * 3).toFixed(2)}deg`)
-    el.style.setProperty("--ry", `${(px * 3).toFixed(2)}deg`)
-  }
-  const onLeave = () => {
-    const el = cardRef.current; if (!el) return
-    el.style.setProperty("--rx", "0deg")
-    el.style.setProperty("--ry", "0deg")
+    el.style.setProperty("--mx", `${e.clientX - rect.left}px`)
+    el.style.setProperty("--my", `${e.clientY - rect.top}px`)
   }
 
   return (
@@ -45,8 +34,7 @@ function ProductCard({ product }: { product: Product }) {
       <div
         ref={cardRef}
         onMouseMove={onMove}
-        onMouseLeave={onLeave}
-        className={`spotlight-card tilt-3d relative rounded-2xl overflow-hidden ${
+        className={`spotlight-card relative rounded-2xl overflow-hidden hover:-translate-y-1.5 transition-all duration-300 ${
           isPremium
             ? "border border-[#f97316]/40 bg-gradient-to-b from-[#f97316]/[0.07] to-white/[0.015] shadow-[0_8px_32px_rgba(249,115,22,0.16)] hover:shadow-[0_30px_70px_rgba(0,0,0,0.55),0_0_70px_rgba(249,115,22,0.3)] hover:border-[#f97316]/70"
             : "border border-white/[0.06] bg-white/[0.015] hover:border-[#f97316]/35 hover:bg-white/[0.03] hover:shadow-[0_28px_60px_rgba(0,0,0,0.5),0_0_50px_rgba(249,115,22,0.16)]"

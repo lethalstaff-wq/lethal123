@@ -17,29 +17,17 @@ function ProductCard({ p }: { p: typeof products[number] }) {
   const onMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
     const el = ref.current; if (!el) return
     const rect = el.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const y = e.clientY - rect.top
-    el.style.setProperty("--mx", `${x}px`)
-    el.style.setProperty("--my", `${y}px`)
-    const px = (x / rect.width - 0.5) * 2
-    const py = (y / rect.height - 0.5) * 2
-    el.style.setProperty("--rx", `${(-py * 3).toFixed(2)}deg`)
-    el.style.setProperty("--ry", `${(px * 3).toFixed(2)}deg`)
-  }
-  const onLeave = () => {
-    const el = ref.current; if (!el) return
-    el.style.setProperty("--rx", "0deg")
-    el.style.setProperty("--ry", "0deg")
+    el.style.setProperty("--mx", `${e.clientX - rect.left}px`)
+    el.style.setProperty("--my", `${e.clientY - rect.top}px`)
   }
   return (
     <Link
       ref={ref}
       href={`/products/${p.slug}`}
       onMouseMove={onMove}
-      onMouseLeave={onLeave}
       data-cursor="cta"
       data-cursor-label="View"
-      className="spotlight-card tilt-3d about-card about-shine cursor-cta group block relative overflow-hidden rounded-2xl"
+      className="spotlight-card about-card about-shine cursor-cta group block relative overflow-hidden rounded-2xl"
     >
       {/* Slash-cut tag */}
       <div className="absolute top-5 left-0 z-[3] px-4 py-1 text-[9px] font-black uppercase tracking-[0.15em] text-black" style={{ background: "linear-gradient(135deg, #fbbf24, #f97316)", clipPath: "polygon(0 0, 100% 0, 90% 100%, 0 100%)", boxShadow: "0 4px 14px rgba(249, 115, 22, 0.43)" }}>

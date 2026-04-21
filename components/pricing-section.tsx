@@ -70,58 +70,47 @@ function BundleCard({ b, onAdd }: { b: typeof bundles[number]; onAdd: (b: typeof
     const y = e.clientY - rect.top
     el.style.setProperty("--mx", `${x}px`)
     el.style.setProperty("--my", `${y}px`)
-    const px = (x / rect.width - 0.5) * 2
-    const py = (y / rect.height - 0.5) * 2
-    const amp = b.premium ? 4 : 3
-    el.style.setProperty("--rx", `${(-py * amp).toFixed(2)}deg`)
-    el.style.setProperty("--ry", `${(px * amp).toFixed(2)}deg`)
-  }
-  const onLeave = () => {
-    const el = ref.current; if (!el) return
-    el.style.setProperty("--rx", "0deg")
-    el.style.setProperty("--ry", "0deg")
   }
 
   return (
     <div
       ref={ref}
       onMouseMove={onMove}
-      onMouseLeave={onLeave}
-      className={`spotlight-card tilt-3d group rounded-2xl relative overflow-hidden flex flex-col ${
+      className={`spotlight-card group rounded-2xl relative overflow-visible flex flex-col hover:-translate-y-1.5 ${
         b.premium
-          ? "elite-card bg-white/[0.025] border border-white/[0.08] md:scale-[1.04] -translate-y-2 shadow-[0_0_60px_rgba(249,115,22,0.14)] hover:shadow-[0_0_120px_rgba(249,115,22,0.32)]"
+          ? "elite-card bg-white/[0.025] border border-white/[0.08] md:scale-[1.04] shadow-[0_0_60px_rgba(249,115,22,0.14)] hover:shadow-[0_0_120px_rgba(249,115,22,0.32)]"
           : b.highlighted
           ? "bg-white/[0.02] border-2 border-[#f97316]/25 shadow-[0_0_60px_rgba(249,115,22,0.08)] md:scale-[1.02] hover:shadow-[0_0_100px_rgba(249,115,22,0.18)]"
           : "bg-white/[0.012] border border-white/[0.04] hover:border-white/[0.08] hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)]"
       }`}
       style={{
         transition: "background-color 0.3s, border-color 0.3s, box-shadow 0.3s, transform 0.3s cubic-bezier(0.22,1,0.36,1)",
-        opacity: shown ? 1 : 0,
-        transform: visible ? "translateY(0)" : "translateY(30px)",
+        opacity: shown ? (visible ? 1 : 0) : 0,
       }}
     >
-      {/* Animated conic border for Elite */}
-      {b.premium && (
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 rounded-2xl opacity-40 group-hover:opacity-95 transition-opacity duration-500 z-[0]" style={{ background: "conic-gradient(from 0deg, transparent 0deg, #f97316 40deg, transparent 80deg, transparent 180deg, #fbbf24 220deg, transparent 260deg, transparent 360deg)", animation: "eliteRotate 8s linear infinite", mask: "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)", WebkitMask: "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)", maskComposite: "exclude", WebkitMaskComposite: "xor", padding: "1.5px" }} />
-      )}
-      {/* Shine sweep */}
-      <div className="absolute top-[-50%] left-[-80%] w-[50%] h-[200%] bg-gradient-to-r from-transparent via-white/[0.03] to-transparent rotate-[25deg] group-hover:left-[130%] transition-[left] duration-700 pointer-events-none z-[4]" />
+      {/* Animated conic border + shine — inside overflow-hidden wrapper so badges can stick out */}
+      <div className="absolute inset-0 rounded-2xl overflow-hidden pointer-events-none z-[0]">
+        {b.premium && (
+          <div aria-hidden="true" className="absolute inset-0 rounded-2xl opacity-40 group-hover:opacity-95 transition-opacity duration-500" style={{ background: "conic-gradient(from 0deg, transparent 0deg, #f97316 40deg, transparent 80deg, transparent 180deg, #fbbf24 220deg, transparent 260deg, transparent 360deg)", animation: "eliteRotate 8s linear infinite", mask: "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)", WebkitMask: "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)", maskComposite: "exclude", WebkitMaskComposite: "xor", padding: "1.5px" }} />
+        )}
+        <div className="absolute top-[-50%] left-[-80%] w-[50%] h-[200%] bg-gradient-to-r from-transparent via-white/[0.03] to-transparent rotate-[25deg] group-hover:left-[130%] transition-[left] duration-700" />
+      </div>
       {/* Top accent */}
       {b.highlighted && <div className="h-[2px] bg-gradient-to-r from-transparent via-[#f97316]/60 to-transparent relative z-[3]" />}
 
-      {/* Popular badge */}
+      {/* Popular badge — floats above card, inside top-right corner */}
       {b.highlighted && (
-        <div className="absolute top-5 right-5 z-[5]">
-          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#f97316]/10 border border-[#f97316]/25 backdrop-blur-sm">
+        <div className="absolute top-4 right-4 z-[5]">
+          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#f97316]/15 border border-[#f97316]/30 backdrop-blur-sm shadow-[0_4px_14px_rgba(249,115,22,0.3)]">
             <Crown className="h-3 w-3 text-[#f97316]" />
             <span className="text-[9px] font-bold uppercase tracking-wider text-[#f97316]">Popular</span>
           </div>
         </div>
       )}
 
-      {/* Premium slash-cut badge */}
+      {/* Premium slash-cut badge — top-right ribbon, rounded to card top */}
       {b.premium && (
-        <div className="absolute -top-0.5 right-6 z-[5] px-5 py-1.5 text-[10px] font-black uppercase tracking-[0.15em] text-black" style={{ background: "linear-gradient(135deg, #fbbf24, #f97316)", clipPath: "polygon(12% 0, 100% 0, 88% 100%, 0 100%)", boxShadow: "0 6px 16px rgba(249, 115, 22, 0.51)" }}>
+        <div className="absolute top-0 right-0 z-[5] px-5 py-1.5 text-[10px] font-black uppercase tracking-[0.15em] text-black rounded-tr-2xl" style={{ background: "linear-gradient(135deg, #fbbf24, #f97316)", clipPath: "polygon(14% 0, 100% 0, 100% 100%, 0 100%)", boxShadow: "0 6px 16px rgba(249, 115, 22, 0.51)" }}>
           Premium
         </div>
       )}
