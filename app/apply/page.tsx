@@ -619,28 +619,51 @@ export default function ApplyPage() {
           </div>
         </div>
 
-        {/* Stat cards row */}
+        {/* Stat cards row — premium glass + orb icons + hover underline */}
         <div className={`mt-16 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 tr ${heroReady ? "o1 ty0" : "o0 ty2"}`} style={{ transitionDelay: "1100ms" }}>
           {[
-            { icon: Users, value: FALLBACK_STATS.teamMembers, suffix: "+", label: "Team Members" },
-            { icon: Heart, value: FALLBACK_STATS.happyClients, suffix: "+", label: "Happy Clients" },
-            { icon: Star, value: FALLBACK_STATS.satisfactionPercent, suffix: "%", label: "Satisfaction" },
-            { icon: Clock, display: "24/7", label: "Support" },
+            { icon: Users, value: FALLBACK_STATS.teamMembers, suffix: "+", label: "Team Members", accent: "#f97316" },
+            { icon: Heart, value: FALLBACK_STATS.happyClients, suffix: "+", label: "Happy Clients", accent: "#ec4899" },
+            { icon: Star, value: FALLBACK_STATS.satisfactionPercent, suffix: "%", label: "Satisfaction", accent: "#fbbf24" },
+            { icon: Clock, display: "24/7", label: "Support", accent: "#22c55e" },
           ].map((stat, i) => (
-            <div key={stat.label} className="group p-5 sm:p-6 rounded-2xl bg-white/[0.02] border border-white/[0.08] backdrop-blur-xl hover:border-[#f97316]/30 hover:bg-white/[0.04] hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(249,115,22,0.15)] transition-all duration-300">
-              <stat.icon className="h-5 w-5 text-[#f97316] mb-3 group-hover:scale-110 transition-transform"
-                         style={{ filter: "drop-shadow(0 0 10px rgba(249,115,22,0.4))" }} />
-              <div className="font-display text-3xl sm:text-4xl font-black tracking-tight leading-none text-white/90">
+            <div key={stat.label} className="group relative p-5 sm:p-6 rounded-2xl bg-white/[0.025] border border-white/[0.06] hover:border-[#f97316]/30 hover:bg-white/[0.04] hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.35),0_0_32px_rgba(249,115,22,0.12)] transition-all duration-500 overflow-hidden">
+              {/* Icon orb — colored glow ring */}
+              <div className="relative mb-4 w-11 h-11">
+                <div className="absolute inset-0 rounded-xl blur-xl opacity-50 group-hover:opacity-90 transition-opacity duration-500"
+                     style={{ background: `${stat.accent}35` }} />
+                <div className="relative w-11 h-11 rounded-xl flex items-center justify-center border border-white/[0.06] group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-500"
+                     style={{ background: `linear-gradient(135deg, ${stat.accent}18, ${stat.accent}04)` }}>
+                  <stat.icon className="h-[18px] w-[18px]" style={{ color: stat.accent, filter: `drop-shadow(0 0 8px ${stat.accent}90)` }} />
+                </div>
+              </div>
+              {/* Big font-display number with gradient */}
+              <div className="font-display text-4xl sm:text-5xl font-black tracking-[-0.03em] leading-none tabular-nums">
                 {stat.display ? (
-                  <span>{stat.display}</span>
+                  <span style={{
+                    background: `linear-gradient(135deg, #ffffff 0%, ${stat.accent} 90%)`,
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                  }}>{stat.display}</span>
                 ) : (
                   <>
-                    <HeroCounter value={stat.value!} />
-                    <span className="text-[#f97316]">{stat.suffix}</span>
+                    <span style={{
+                      background: "linear-gradient(180deg, #ffffff 0%, rgba(255,255,255,0.7) 100%)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                    }}>
+                      <HeroCounter value={stat.value!} />
+                    </span>
+                    <span style={{ color: stat.accent, filter: `drop-shadow(0 0 10px ${stat.accent}60)` }}>{stat.suffix}</span>
                   </>
                 )}
               </div>
-              <p className="mt-2 text-[11px] text-white/45 uppercase tracking-[0.12em] font-medium">{stat.label}</p>
+              <p className="mt-2.5 text-[10px] text-white/45 uppercase tracking-[0.18em] font-semibold">{stat.label}</p>
+              {/* Orange underline bar on hover */}
+              <div className="absolute bottom-0 left-0 h-[2px] w-0 group-hover:w-full transition-all duration-700 ease-out"
+                   style={{ background: `linear-gradient(90deg, ${stat.accent}, transparent)`, boxShadow: `0 0 12px ${stat.accent}60` }} />
             </div>
           ))}
         </div>
@@ -688,33 +711,49 @@ export default function ApplyPage() {
               <R key={pos.id} d={i * 60}>
                 <Tilt>
                   <div className="lx-card lx-shine group relative cursor-pointer h-full" onClick={() => goToForm(pos.id)}>
-                    <div className="h-px" style={{ background: `linear-gradient(90deg, transparent, ${pos.color}20, transparent)` }} />
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none rounded-xl" style={{ background: `radial-gradient(ellipse at 50% 0%, ${pos.color}06, transparent 60%)` }} />
-                    {pos.popular && <div className="absolute top-4 right-4 z-10"><span className="text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full" style={{ background: `${pos.color}10`, border: `1px solid ${pos.color}20`, color: `${pos.color}90` }}>HOT</span></div>}
+                    <div className="h-px" style={{ background: `linear-gradient(90deg, transparent, ${pos.color}40, transparent)` }} />
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none rounded-xl" style={{ background: `radial-gradient(ellipse at 50% 0%, ${pos.color}10, transparent 60%)` }} />
+                    {pos.popular && <div className="absolute top-4 right-4 z-10"><span className="text-[9px] font-bold uppercase tracking-[0.18em] px-3 py-1.5 rounded-full" style={{ background: `${pos.color}15`, border: `1px solid ${pos.color}30`, color: pos.color, boxShadow: `0 0 12px ${pos.color}25` }}>HOT</span></div>}
                     <div className="p-6 relative">
                       <div className="flex items-center gap-3 mb-4">
-                        <div className="w-11 h-11 rounded-xl flex items-center justify-center border border-white/[0.05] group-hover:scale-110 transition-transform duration-300" style={{ background: pos.grad ? `linear-gradient(135deg, ${pos.grad[0]}, ${pos.grad[1]}40)` : `${pos.color}08` }}>
-                          <pos.icon className="h-[18px] w-[18px]" style={{ color: pos.color }} />
+                        {/* Gradient icon tile with glow */}
+                        <div className="relative shrink-0 w-12 h-12">
+                          <div className="absolute inset-0 rounded-xl blur-lg opacity-0 group-hover:opacity-60 transition-opacity duration-500" style={{ background: pos.color }} />
+                          <div className="relative w-12 h-12 rounded-xl flex items-center justify-center border border-white/[0.06] group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-500" style={{ background: pos.grad ? `linear-gradient(135deg, ${pos.grad[0]}, ${pos.grad[1]}60)` : `${pos.color}12` }}>
+                            <pos.icon className="h-[19px] w-[19px]" style={{ color: pos.color, filter: `drop-shadow(0 0 6px ${pos.color}80)` }} />
+                          </div>
                         </div>
                         <div>
-                          <h3 className="font-display text-[17px] font-bold text-white tracking-tight">{pos.title}</h3>
-                          <div className="flex items-center gap-1.5 mt-0.5">
-                            <span className="w-1.5 h-1.5 rounded-full lx-pulse" style={{ background: `${pos.color}70` }} />
-                            <span className="text-[10px] font-medium" style={{ color: `${pos.color}60` }}>{pos.slots}</span>
-                            <span className="text-white/40 mx-0.5">·</span>
-                            <span className="text-[10px] text-white/55">{pos.salary}</span>
+                          <h3 className="font-display text-[18px] font-bold text-white tracking-[-0.02em]">{pos.title}</h3>
+                          <div className="flex items-center gap-1.5 mt-1">
+                            <span className="w-1.5 h-1.5 rounded-full lx-pulse" style={{ background: pos.color }} />
+                            <span className="text-[10px] font-semibold uppercase tracking-[0.12em]" style={{ color: `${pos.color}b0` }}>{pos.slots}</span>
+                            <span className="text-white/25 mx-0.5">·</span>
+                            <span className="text-[10px] text-white/55 font-medium">{pos.salary}</span>
                           </div>
                         </div>
                       </div>
-                      <p className="text-[13px] text-white/55 mb-5 leading-relaxed">{pos.description}</p>
-                      <div className="space-y-2 mb-5">
-                        {pos.requirements.map((r, j) => <div key={j} className="flex items-start gap-2.5"><Check className="h-3 w-3 mt-0.5 shrink-0" style={{ color: `${pos.color}40` }} /><span className="text-[12px] text-white/55 leading-relaxed">{r}</span></div>)}
+                      <p className="text-[13px] text-white/55 mb-5 leading-[1.7]">{pos.description}</p>
+                      <div className="space-y-2.5 mb-5">
+                        {pos.requirements.map((r, j) => (
+                          <div key={j} className="flex items-start gap-2.5">
+                            <div className="mt-0.5 w-4 h-4 rounded-md flex items-center justify-center shrink-0 border transition-colors duration-300" style={{ background: `${pos.color}10`, borderColor: `${pos.color}25` }}>
+                              <Check className="h-2.5 w-2.5" style={{ color: pos.color }} strokeWidth={3} />
+                            </div>
+                            <span className="text-[12px] text-white/60 leading-[1.55]">{r}</span>
+                          </div>
+                        ))}
                       </div>
                       <div className="flex flex-wrap gap-1.5 mb-5">
-                        {pos.perks.map((p, j) => <span key={j} className="text-[10px] px-2.5 py-1 rounded-full border text-white/65 font-semibold" style={{ background: `${pos.color}04`, borderColor: `${pos.color}10` }}>{p}</span>)}
+                        {pos.perks.map((p, j) => <span key={j} className="text-[10px] px-2.5 py-1 rounded-full border text-white/65 font-semibold tracking-tight" style={{ background: `${pos.color}06`, borderColor: `${pos.color}15` }}>{p}</span>)}
                       </div>
-                      <button className="w-full py-3 rounded-xl font-bold text-[13px] flex items-center justify-center gap-2 border text-white/65 group-hover:text-white transition-all duration-300 cursor-pointer" style={{ borderColor: `${pos.color}12`, background: `${pos.color}04` }}>
-                        Apply <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
+                      {/* Apply CTA pill — fills with color on hover */}
+                      <button className="relative w-full py-3 rounded-xl font-bold text-[13px] flex items-center justify-center gap-2 border overflow-hidden transition-all duration-500 cursor-pointer"
+                        style={{ borderColor: `${pos.color}25`, background: `${pos.color}06`, color: `${pos.color}d0` }}>
+                        <span className="relative z-10 flex items-center gap-2 uppercase tracking-[0.14em] text-[11px] group-hover:text-white transition-colors duration-500">
+                          Apply <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform duration-500" />
+                        </span>
+                        <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: `linear-gradient(135deg, ${pos.color}, ${pos.grad ? pos.grad[1] : pos.color})` }} />
                       </button>
                     </div>
                   </div>
@@ -729,35 +768,50 @@ export default function ApplyPage() {
               <R key={pos.id} d={(i + 4) * 60} className={pos.id === "content" ? "lg:col-span-2" : ""}>
                 <Tilt>
                   <div className="lx-card lx-shine group relative cursor-pointer h-full" onClick={() => goToForm(pos.id)}
-                    style={pos.id === "content" ? { border: `1px solid ${pos.color}12` } : {}}>
-                    <div className="h-px" style={{ background: `linear-gradient(90deg, transparent, ${pos.color}20, transparent)` }} />
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none rounded-xl" style={{ background: `radial-gradient(ellipse at 50% 0%, ${pos.color}06, transparent 60%)` }} />
+                    style={pos.id === "content" ? { border: `1px solid ${pos.color}20` } : {}}>
+                    <div className="h-px" style={{ background: `linear-gradient(90deg, transparent, ${pos.color}40, transparent)` }} />
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none rounded-xl" style={{ background: `radial-gradient(ellipse at 50% 0%, ${pos.color}10, transparent 60%)` }} />
                     {pos.openSlots >= 99
-                      ? <div className="absolute top-4 right-4 z-10"><span className="text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full" style={{ background: `${pos.color}12`, border: `1px solid ${pos.color}25`, color: pos.color }}>UNLIMITED</span></div>
-                      : pos.popular && <div className="absolute top-4 right-4 z-10"><span className="text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full" style={{ background: `${pos.color}10`, border: `1px solid ${pos.color}20`, color: `${pos.color}90` }}>HOT</span></div>
+                      ? <div className="absolute top-4 right-4 z-10"><span className="text-[9px] font-bold uppercase tracking-[0.18em] px-3 py-1.5 rounded-full" style={{ background: `${pos.color}15`, border: `1px solid ${pos.color}30`, color: pos.color, boxShadow: `0 0 12px ${pos.color}25` }}>UNLIMITED</span></div>
+                      : pos.popular && <div className="absolute top-4 right-4 z-10"><span className="text-[9px] font-bold uppercase tracking-[0.18em] px-3 py-1.5 rounded-full" style={{ background: `${pos.color}15`, border: `1px solid ${pos.color}30`, color: pos.color, boxShadow: `0 0 12px ${pos.color}25` }}>HOT</span></div>
                     }
                     <div className="p-6 relative h-full flex flex-col">
                       <div className="flex items-center gap-3 mb-4">
-                        <div className="w-11 h-11 rounded-xl flex items-center justify-center border border-white/[0.05]" style={{ background: pos.grad ? `linear-gradient(135deg, ${pos.grad[0]}, ${pos.grad[1]}40)` : `${pos.color}08` }}>
-                          <pos.icon className="h-[18px] w-[18px]" style={{ color: pos.color }} />
+                        {/* Gradient icon tile with glow */}
+                        <div className="relative shrink-0 w-12 h-12">
+                          <div className="absolute inset-0 rounded-xl blur-lg opacity-0 group-hover:opacity-60 transition-opacity duration-500" style={{ background: pos.color }} />
+                          <div className="relative w-12 h-12 rounded-xl flex items-center justify-center border border-white/[0.06] group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-500" style={{ background: pos.grad ? `linear-gradient(135deg, ${pos.grad[0]}, ${pos.grad[1]}60)` : `${pos.color}12` }}>
+                            <pos.icon className="h-[19px] w-[19px]" style={{ color: pos.color, filter: `drop-shadow(0 0 6px ${pos.color}80)` }} />
+                          </div>
                         </div>
                         <div>
-                          <h3 className="font-display text-[17px] font-bold text-white tracking-tight">{pos.title}</h3>
-                          <div className="flex items-center gap-1.5 mt-0.5">
-                            <span className="w-1.5 h-1.5 rounded-full lx-pulse" style={{ background: `${pos.color}70` }} />
-                            <span className="text-[10px] font-medium" style={{ color: `${pos.color}60` }}>{pos.slots}</span>
-                            <span className="text-white/40 mx-0.5">·</span>
-                            <span className="text-[10px] text-white/55">{pos.salary}</span>
+                          <h3 className="font-display text-[18px] font-bold text-white tracking-[-0.02em]">{pos.title}</h3>
+                          <div className="flex items-center gap-1.5 mt-1">
+                            <span className="w-1.5 h-1.5 rounded-full lx-pulse" style={{ background: pos.color }} />
+                            <span className="text-[10px] font-semibold uppercase tracking-[0.12em]" style={{ color: `${pos.color}b0` }}>{pos.slots}</span>
+                            <span className="text-white/25 mx-0.5">·</span>
+                            <span className="text-[10px] text-white/55 font-medium">{pos.salary}</span>
                           </div>
                         </div>
                       </div>
-                      <p className="text-[13px] text-white/55 mb-5 leading-relaxed">{pos.description}</p>
-                      <div className="space-y-2 mb-5">
-                        {pos.requirements.map((r, j) => <div key={j} className="flex items-start gap-2.5"><Check className="h-3 w-3 mt-0.5 shrink-0" style={{ color: `${pos.color}40` }} /><span className="text-[12px] text-white/55 leading-relaxed">{r}</span></div>)}
+                      <p className="text-[13px] text-white/55 mb-5 leading-[1.7]">{pos.description}</p>
+                      <div className="space-y-2.5 mb-5">
+                        {pos.requirements.map((r, j) => (
+                          <div key={j} className="flex items-start gap-2.5">
+                            <div className="mt-0.5 w-4 h-4 rounded-md flex items-center justify-center shrink-0 border" style={{ background: `${pos.color}10`, borderColor: `${pos.color}25` }}>
+                              <Check className="h-2.5 w-2.5" style={{ color: pos.color }} strokeWidth={3} />
+                            </div>
+                            <span className="text-[12px] text-white/60 leading-[1.55]">{r}</span>
+                          </div>
+                        ))}
                       </div>
                       <div className="mt-auto">
-                        <button className="w-full py-3 rounded-xl font-bold text-[13px] flex items-center justify-center gap-2 border text-white/65 group-hover:text-white transition-all duration-300 cursor-pointer" style={{ borderColor: `${pos.color}12`, background: `${pos.color}04` }}>
-                          Apply <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
+                        <button className="relative w-full py-3 rounded-xl font-bold text-[13px] flex items-center justify-center gap-2 border overflow-hidden transition-all duration-500 cursor-pointer"
+                          style={{ borderColor: `${pos.color}25`, background: `${pos.color}06`, color: `${pos.color}d0` }}>
+                          <span className="relative z-10 flex items-center gap-2 uppercase tracking-[0.14em] text-[11px] group-hover:text-white transition-colors duration-500">
+                            Apply <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform duration-500" />
+                          </span>
+                          <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: `linear-gradient(135deg, ${pos.color}, ${pos.grad ? pos.grad[1] : pos.color})` }} />
                         </button>
                       </div>
                     </div>
@@ -832,28 +886,42 @@ export default function ApplyPage() {
         <div className="max-w-[1100px] mx-auto">
           <Hdr tag="Why Us" title={<>Why Choose <span className="lx-text-orange">Lethal</span></>} sub="Not a corporation. A small team that builds fast, pays well, and respects your time." />
 
-          {/* Bento grid — mixed sizes for visual interest */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 auto-rows-[minmax(160px,auto)]">
-            {WHY_FEATURES.map((f, i) => (
-              <R key={i} d={i * 50}>
-                <div className={`lx-card lx-shine group p-7 h-full flex flex-col justify-between relative overflow-hidden ${f.size === "wide" ? "sm:col-span-2" : ""}`}>
-                  {/* Hover glow behind icon */}
-                  <div className="absolute top-0 left-0 w-[200px] h-[200px] rounded-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700"
-                    style={{ background: "radial-gradient(circle, rgba(249,115,22,0.04), transparent 70%)", transform: "translate(-30%, -30%)" }} />
+          {/* Bento grid — mixed sizes (2 wide, 6 normal) for visual interest */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 auto-rows-[minmax(180px,auto)]">
+            {WHY_FEATURES.map((f, i) => {
+              const isWide = f.size === "wide"
+              return (
+                <R key={i} d={i * 50} className={isWide ? "sm:col-span-2" : ""}>
+                  <div className={`lx-card lx-shine group h-full flex flex-col justify-between relative overflow-hidden transition-all duration-500 hover:-translate-y-0.5 ${isWide ? "p-8" : "p-7"}`}>
+                    {/* Hover glow behind icon — orange radial */}
+                    <div className="absolute -top-10 -left-10 w-[240px] h-[240px] rounded-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+                      style={{ background: "radial-gradient(circle, rgba(249,115,22,0.10), transparent 70%)" }} />
 
-                  <div className="relative z-10">
-                    <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 border border-white/[0.04] bg-white/[0.015] group-hover:border-[#f97316]/15 group-hover:bg-[#f97316]/[0.04] transition-all duration-500">
-                      <f.icon className="h-5 w-5 text-white/20 group-hover:text-[#f97316]/70 transition-colors duration-500" />
+                    {/* Subtle corner accent for wide cards */}
+                    {isWide && (
+                      <div className="absolute top-4 right-4 text-[9px] font-bold uppercase tracking-[0.18em] text-[#f97316]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Featured</div>
+                    )}
+
+                    <div className="relative z-10">
+                      {/* Icon orb — orange glow on hover */}
+                      <div className="relative mb-5 w-12 h-12">
+                        <div className="absolute inset-0 rounded-xl blur-xl opacity-0 group-hover:opacity-80 transition-opacity duration-500"
+                             style={{ background: "#f97316" }} />
+                        <div className="relative w-12 h-12 rounded-xl flex items-center justify-center border border-white/[0.06] bg-white/[0.025] group-hover:border-[#f97316]/30 group-hover:bg-[#f97316]/[0.08] group-hover:scale-110 group-hover:-rotate-3 transition-all duration-500">
+                          <f.icon className="h-5 w-5 text-white/35 group-hover:text-[#f97316] transition-colors duration-500" />
+                        </div>
+                      </div>
+                      <h4 className={`font-display font-bold mb-2.5 text-white/90 group-hover:text-white tracking-[-0.02em] transition-colors ${isWide ? "text-[22px]" : "text-[17px]"}`}>{f.title}</h4>
+                      <p className={`text-white/40 leading-[1.7] group-hover:text-white/60 transition-colors ${isWide ? "text-[14px] max-w-[420px]" : "text-[13px]"}`}>{f.desc}</p>
                     </div>
-                    <h4 className="font-bold text-[16px] mb-2.5 text-white/90 group-hover:text-white transition-colors">{f.title}</h4>
-                    <p className="text-[13px] text-white/30 leading-[1.7] group-hover:text-white/45 transition-colors">{f.desc}</p>
-                  </div>
 
-                  {/* Bottom accent line on hover */}
-                  <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f97316]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                </div>
-              </R>
-            ))}
+                    {/* Bottom accent bar — slides in on hover */}
+                    <div className="absolute bottom-0 left-0 h-[2px] w-0 group-hover:w-full transition-all duration-700 ease-out"
+                         style={{ background: "linear-gradient(90deg, #f97316, transparent)", boxShadow: "0 0 12px rgba(249,115,22,0.5)" }} />
+                  </div>
+                </R>
+              )
+            })}
           </div>
         </div>
       </section>
@@ -998,9 +1066,9 @@ export default function ApplyPage() {
         <div className="max-w-[700px] mx-auto relative">
           <Hdr tag="Apply" title={<>Apply <span className="lx-text-orange">Now</span></>} sub="Takes 2 minutes. We respond within 48 hours. No resume needed." />
 
-          {/* Step tabs */}
+          {/* Step tabs — premium pill switcher */}
           <R d={150}>
-            <div className="flex items-center justify-center gap-1 p-1 rounded-2xl bg-white/[0.02] border border-white/[0.04] mb-10 max-w-md mx-auto">
+            <div className="flex items-center justify-center gap-1 p-1 rounded-2xl bg-white/[0.025] border border-white/[0.06] mb-10 max-w-md mx-auto">
               {[
                 { label: "About You", icon: Users, valid: v0 },
                 { label: "Schedule", icon: Clock, valid: v1 },
@@ -1009,12 +1077,12 @@ export default function ApplyPage() {
                 const act = formStep === i
                 return (
                   <button key={i} onClick={() => setFormStep(i)}
-                    className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-[12px] font-semibold transition-all duration-300 cursor-pointer ${
-                      act ? "bg-white/[0.06] text-white/90 shadow-lg shadow-black/20"
-                      : step.valid ? "text-emerald-400/60 hover:bg-white/[0.02]"
-                      : "text-white/25 hover:bg-white/[0.02] hover:text-white/35"
+                    className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-[11px] font-bold uppercase tracking-[0.12em] transition-all duration-300 cursor-pointer ${
+                      act ? "bg-gradient-to-br from-[#f97316]/15 to-[#f97316]/5 text-white border border-[#f97316]/25 shadow-[0_6px_20px_rgba(249,115,22,0.15)]"
+                      : step.valid ? "text-emerald-400/70 hover:bg-white/[0.025] border border-transparent"
+                      : "text-white/30 hover:bg-white/[0.025] hover:text-white/50 border border-transparent"
                     }`}>
-                    {step.valid && !act ? <Check className="h-3.5 w-3.5 text-emerald-400/60" /> : <step.icon className="h-3.5 w-3.5" />}
+                    {step.valid && !act ? <Check className="h-3.5 w-3.5 text-emerald-400/70" strokeWidth={3} /> : <step.icon className="h-3.5 w-3.5" />}
                     <span className="hidden sm:inline">{step.label}</span>
                   </button>
                 )
@@ -1037,10 +1105,10 @@ export default function ApplyPage() {
           </R>
 
           <R d={250}>
-            {/* Form card */}
+            {/* Form card — premium glass shell */}
             <div className="lx-form-wrap">
               <div className="lx-form-border" />
-              <div className="relative z-10 rounded-2xl overflow-hidden bg-[#030303] border border-white/[0.04]" style={{ boxShadow: "0 30px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.02) inset" }}>
+              <div className="relative z-10 rounded-2xl overflow-hidden bg-[#0a0a0b]/95 border border-white/[0.06]" style={{ boxShadow: "0 40px 80px rgba(0,0,0,0.55), 0 0 40px rgba(249,115,22,0.05), 0 0 0 1px rgba(255,255,255,0.025) inset" }}>
 
               {/* Selected position header */}
               {sel && <>
@@ -1132,7 +1200,7 @@ export default function ApplyPage() {
                   </div>
 
                   <button onClick={() => v0 && setFormStep(1)} disabled={!v0}
-                    className="w-full lx-primary py-4 rounded-xl text-[14px] font-bold text-white flex items-center justify-center gap-2.5 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer group">
+                    className="w-full lx-primary py-4 rounded-xl text-[13px] font-bold uppercase tracking-[0.14em] text-white flex items-center justify-center gap-2.5 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer group">
                     Continue to Schedule <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </button>
                 </div>}
@@ -1208,9 +1276,9 @@ export default function ApplyPage() {
                   </div>
 
                   <div className="flex gap-3 pt-1">
-                    <button onClick={() => setFormStep(0)} className="lx-ghost flex-1 py-3.5 rounded-xl text-[13px] font-medium cursor-pointer">Back</button>
+                    <button onClick={() => setFormStep(0)} className="lx-ghost flex-1 py-3.5 rounded-xl text-[12px] font-bold uppercase tracking-[0.14em] cursor-pointer">Back</button>
                     <button onClick={() => v1 && setFormStep(2)} disabled={!v1}
-                      className="flex-[2] lx-primary py-4 rounded-xl text-[14px] font-bold text-white flex items-center justify-center gap-2.5 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer group">
+                      className="flex-[2] lx-primary py-4 rounded-xl text-[13px] font-bold uppercase tracking-[0.14em] text-white flex items-center justify-center gap-2.5 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer group">
                       Continue to Experience <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                     </button>
                   </div>
@@ -1253,21 +1321,23 @@ export default function ApplyPage() {
                     <div className="lx-field-header"><Shield className="h-4 w-4 text-white/15" /><div><p className="lx-field-title">Agreements</p><p className="lx-field-sub">Please confirm all three</p></div></div>
                     <div className="space-y-3 mt-4">
                       {[{c:agree16,s:setAgree16,l:"I confirm I'm at least 16 years old"},{c:agreeActive,s:setAgreeActive,l:"I agree to be active and maintain professionalism"},{c:agreeUnpaid,s:setAgreeUnpaid,l:"I understand this may be initially unpaid / commission-based"}].map((it, i) => (
-                        <label key={i} className="flex items-start gap-3 cursor-pointer group p-3 rounded-xl border border-white/[0.03] hover:border-white/[0.06] bg-white/[0.005] hover:bg-white/[0.01] transition-all" onClick={() => it.s(!it.c)}>
-                          <div className={`mt-0.5 h-5 w-5 rounded-lg border-2 flex items-center justify-center shrink-0 transition-all duration-300 ${it.c ? "bg-[#f97316]/20 border-[#f97316]/40" : "border-white/[0.08] group-hover:border-white/[0.15]"}`}>
-                            {it.c && <Check className="h-3 w-3 text-[#f97316]" />}
+                        <label key={i} className={`flex items-start gap-3 cursor-pointer group p-3.5 rounded-xl border transition-all duration-300 ${it.c ? "border-[#f97316]/25 bg-[#f97316]/[0.04]" : "border-white/[0.05] hover:border-white/[0.10] bg-white/[0.015] hover:bg-white/[0.025]"}`} onClick={() => it.s(!it.c)}>
+                          <div className={`mt-0.5 h-5 w-5 rounded-md border-2 flex items-center justify-center shrink-0 transition-all duration-300 ${it.c ? "bg-gradient-to-br from-[#f97316] to-[#ea580c] border-[#f97316] shadow-[0_0_12px_rgba(249,115,22,0.5)]" : "border-white/[0.12] group-hover:border-white/[0.25]"}`}>
+                            {it.c && <Check className="h-3 w-3 text-white" strokeWidth={3.5} />}
                           </div>
-                          <span className={`text-[13px] leading-relaxed transition-colors ${it.c ? "text-white/60" : "text-white/25 group-hover:text-white/40"}`}>{it.l}</span>
+                          <span className={`text-[13px] leading-[1.55] transition-colors ${it.c ? "text-white/80" : "text-white/35 group-hover:text-white/55"}`}>{it.l}</span>
                         </label>
                       ))}
                     </div>
                   </div>
 
                   <div className="flex gap-3 pt-1">
-                    <button onClick={() => setFormStep(1)} className="lx-ghost flex-1 py-3.5 rounded-xl text-[13px] font-medium cursor-pointer">Back</button>
+                    <button onClick={() => setFormStep(1)} className="lx-ghost flex-1 py-3.5 rounded-xl text-[12px] font-bold uppercase tracking-[0.14em] cursor-pointer">Back</button>
                     <button onClick={doSubmit} disabled={!v2 || submitting}
-                      className="flex-[2] lx-primary py-4 rounded-xl text-[14px] font-bold text-white flex items-center justify-center gap-2.5 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer group lx-breathe">
-                      {submitting ? <span className="animate-spin h-4 w-4 border-2 border-white/25 border-t-white rounded-full" /> : <><Send className="h-4 w-4" /> Submit Application</>}
+                      className="relative flex-[2] lx-primary py-4 rounded-xl text-[13px] font-bold text-white flex items-center justify-center gap-2.5 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer group lx-breathe overflow-hidden uppercase tracking-[0.14em]">
+                      {submitting ? <span className="animate-spin h-4 w-4 border-2 border-white/25 border-t-white rounded-full" /> : <><Send className="h-4 w-4" /> Submit Application <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" /></>}
+                      {/* Sheen sweep */}
+                      <span className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700" style={{ background: "linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.18) 50%, transparent 70%)", transform: "translateX(-100%)", animation: "sheenSweep 1.2s ease-out" }} />
                     </button>
                   </div>
                 </div>}
@@ -1488,31 +1558,37 @@ export default function ApplyPage() {
         @keyframes lxBreath { 0%,100% { box-shadow: 0 0 25px rgba(249,115,22,0.18), 0 0 80px rgba(249,115,22,0.05); } 50% { box-shadow: 0 0 40px rgba(249,115,22,0.32), 0 0 100px rgba(249,115,22,0.1); } }
 
         /* Form — premium inputs */
-        .lx-label { display: block; font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.5); margin-bottom: 12px; letter-spacing: -0.01em; }
+        .lx-label { display: block; font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.5); margin-bottom: 12px; letter-spacing: 0.18em; text-transform: uppercase; }
         .lx-input {
           width: 100%; height: 52px; padding: 0 18px; border-radius: 12px;
-          background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+          background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.06);
           font-size: 14px; color: white; transition: all 0.3s ease; outline: none;
-          backdrop-filter: blur(8px);
         }
-        .lx-input::placeholder { color: rgba(255,255,255,0.40); }
+        .lx-input::placeholder { color: rgba(255,255,255,0.32); }
+        .lx-input:hover {
+          border-color: rgba(255,255,255,0.10);
+          background: rgba(255,255,255,0.035);
+        }
         .lx-input:focus {
-          border-color: rgba(249,115,22,0.45);
-          background: rgba(255,255,255,0.045);
-          box-shadow: 0 0 0 4px rgba(249,115,22,0.10), 0 0 28px rgba(249,115,22,0.08);
+          border-color: rgba(249,115,22,0.55);
+          background: rgba(255,255,255,0.05);
+          box-shadow: 0 0 0 3px rgba(249,115,22,0.22), 0 0 28px rgba(249,115,22,0.10);
         }
         .lx-textarea {
           width: 100%; padding: 16px 18px; border-radius: 12px;
-          background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+          background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.06);
           font-size: 14px; color: white; transition: all 0.3s ease; outline: none;
           resize: none; line-height: 1.7;
-          backdrop-filter: blur(8px);
         }
-        .lx-textarea::placeholder { color: rgba(255,255,255,0.40); }
+        .lx-textarea::placeholder { color: rgba(255,255,255,0.32); }
+        .lx-textarea:hover {
+          border-color: rgba(255,255,255,0.10);
+          background: rgba(255,255,255,0.035);
+        }
         .lx-textarea:focus {
-          border-color: rgba(249,115,22,0.45);
-          background: rgba(255,255,255,0.045);
-          box-shadow: 0 0 0 4px rgba(249,115,22,0.10), 0 0 28px rgba(249,115,22,0.08);
+          border-color: rgba(249,115,22,0.55);
+          background: rgba(255,255,255,0.05);
+          box-shadow: 0 0 0 3px rgba(249,115,22,0.22), 0 0 28px rgba(249,115,22,0.10);
         }
 
         /* Divider shimmer */
@@ -1556,42 +1632,50 @@ export default function ApplyPage() {
           70%, 100% { background: #22c55e; }
         }
 
-        /* Form field card */
+        /* Form field card — premium glass */
         .lx-field {
           padding: 22px;
           border-radius: 18px;
           border: 1px solid rgba(255,255,255,0.06);
-          background: rgba(255,255,255,0.022);
-          transition: all 0.3s ease;
-          backdrop-filter: blur(14px);
-          -webkit-backdrop-filter: blur(14px);
+          background: rgba(255,255,255,0.025);
+          transition: all 0.35s ease;
+          position: relative;
         }
         .lx-field:hover {
           border-color: rgba(255,255,255,0.10);
-          background: rgba(255,255,255,0.035);
+          background: rgba(255,255,255,0.04);
+          transform: translateY(-1px);
         }
         .lx-field:focus-within {
-          border-color: rgba(249,115,22,0.30);
-          background: rgba(249,115,22,0.025);
-          box-shadow: 0 0 40px rgba(249,115,22,0.10);
+          border-color: rgba(249,115,22,0.35);
+          background: rgba(249,115,22,0.035);
+          box-shadow: 0 0 0 3px rgba(249,115,22,0.10), 0 20px 50px rgba(0,0,0,0.25), 0 0 40px rgba(249,115,22,0.12);
         }
         .lx-field-header {
           display: flex;
           align-items: flex-start;
           gap: 12px;
         }
-        .lx-field-header > svg { margin-top: 2px; flex-shrink: 0; color: #f97316; }
+        .lx-field-header > svg {
+          margin-top: 2px;
+          flex-shrink: 0;
+          color: #f97316;
+          filter: drop-shadow(0 0 6px rgba(249,115,22,0.35));
+        }
         .lx-field-title {
-          font-size: 15px;
+          font-family: var(--font-display), "Space Grotesk", system-ui, sans-serif;
+          font-size: 11px;
           font-weight: 700;
-          color: #fff;
+          color: rgba(255,255,255,0.95);
           line-height: 1.3;
-          letter-spacing: -0.01em;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
         }
         .lx-field-sub {
           font-size: 12px;
-          color: rgba(255,255,255,0.55);
-          margin-top: 3px;
+          color: rgba(255,255,255,0.45);
+          margin-top: 5px;
+          letter-spacing: -0.005em;
         }
 
         /* Thin scrollbar for timezone picker */
@@ -1700,6 +1784,7 @@ export default function ApplyPage() {
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.05); opacity: 1; } }
         @keyframes floatIcon { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+        @keyframes sheenSweep { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
 
         @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
       `}</style>
