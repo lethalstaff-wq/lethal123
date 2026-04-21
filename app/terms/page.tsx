@@ -29,7 +29,7 @@ export default function TermsPage() {
           </div>
 
           <div className="space-y-10">
-            <section className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
+            <section className="spotlight-card p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06] hover:border-[#f97316]/25 transition-all duration-300">
               <h2 className="font-display text-xl font-bold mb-3 text-white tracking-tight">1. Refund Policy</h2>
               <p className="text-white/55 leading-relaxed">
                 Refunds are available within 24 hours of purchase if the product fails to function on your setup and our 
@@ -39,7 +39,7 @@ export default function TermsPage() {
               </p>
             </section>
 
-            <section className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
+            <section className="spotlight-card p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06] hover:border-[#f97316]/25 transition-all duration-300">
               <h2 className="font-display text-xl font-bold mb-3 text-white tracking-tight">2. Virtual Goods</h2>
               <p className="text-white/55 leading-relaxed">
                 Products provided are virtual goods and digital licenses. Once activated, they cannot be transferred, sold, 
@@ -47,7 +47,7 @@ export default function TermsPage() {
               </p>
             </section>
 
-            <section className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
+            <section className="spotlight-card p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06] hover:border-[#f97316]/25 transition-all duration-300">
               <h2 className="font-display text-xl font-bold mb-3 text-white tracking-tight">3. Account Safety</h2>
               <p className="text-white/55 leading-relaxed">
                 You are responsible for protecting your account credentials. We are not liable for unauthorized access or 
@@ -55,7 +55,7 @@ export default function TermsPage() {
               </p>
             </section>
 
-            <section className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
+            <section className="spotlight-card p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06] hover:border-[#f97316]/25 transition-all duration-300">
               <h2 className="font-display text-xl font-bold mb-3 text-white tracking-tight">4. Usage Terms</h2>
               <p className="text-white/55 leading-relaxed">
                 Products are provided for authorized use only. Violation of game ToS or applicable laws may result in account 
@@ -63,7 +63,7 @@ export default function TermsPage() {
               </p>
             </section>
 
-            <section className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
+            <section className="spotlight-card p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06] hover:border-[#f97316]/25 transition-all duration-300">
               <h2 className="font-display text-xl font-bold mb-3 text-white tracking-tight">5. Limitation of Liability</h2>
               <p className="text-white/55 leading-relaxed">
                 We are not responsible for any loss, damage, or consequences resulting from the use of our products, including 
@@ -71,7 +71,7 @@ export default function TermsPage() {
               </p>
             </section>
 
-            <section className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
+            <section className="spotlight-card p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06] hover:border-[#f97316]/25 transition-all duration-300">
               <h2 className="font-display text-xl font-bold mb-3 text-white tracking-tight">6. Changes to Terms</h2>
               <p className="text-white/55 leading-relaxed">
                 We reserve the right to modify these terms at any time. Continued use of the service following any changes 

@@ -52,7 +52,7 @@ export function ProcessSection() {
                 </div>
 
                 {/* Card */}
-                <div className="rounded-2xl p-6 bg-white/[0.015] border border-white/[0.06] hover:border-[#f97316]/30 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249, 115, 22, 0.12)] transition-all duration-300 text-center hover:bg-white/[0.03]">
+                <div className="spotlight-card rounded-2xl p-6 bg-white/[0.015] border border-white/[0.06] hover:border-[#f97316]/35 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_40px_rgba(249, 115, 22, 0.16)] transition-all duration-300 text-center hover:bg-white/[0.03]">
                   <h4 className="font-display font-bold text-[20px] mb-2 text-white tracking-tight">{s.title}</h4>
                   <p className="text-[13px] text-white/55 leading-relaxed">{s.desc}</p>
                 </div>

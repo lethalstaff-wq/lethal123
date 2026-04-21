@@ -644,15 +644,17 @@ export default function ChangelogPage() {
 
                         {/* Card */}
                         <div className={cn(
-                          "rounded-2xl border overflow-hidden transition-all duration-300",
+                          "spotlight-card rounded-2xl border overflow-hidden transition-all duration-300",
                           isExpanded
-                            ? "border-[#f97316]/25 bg-white/[0.03] shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249, 115, 22, 0.12)]"
-                            : "border-white/[0.06] bg-white/[0.015] hover:border-[#f97316]/20 hover:bg-white/[0.03] hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(0,0,0,0.35)]"
+                            ? "border-[#f97316]/30 bg-white/[0.03] shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_40px_rgba(249, 115, 22, 0.16)]"
+                            : "border-white/[0.06] bg-white/[0.015] hover:border-[#f97316]/25 hover:bg-white/[0.03] hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(0,0,0,0.35)]"
                         )}>
                           <button
                             onClick={() => toggleItem(itemId)}
                             aria-expanded={isExpanded}
-                            className="w-full p-5 text-left cursor-pointer"
+                            data-cursor="cta"
+                            data-cursor-label={isExpanded ? "Close" : "Open"}
+                            className="cursor-cta w-full p-5 text-left"
                           >
                             <div className="flex items-start justify-between gap-4">
                               <div className="flex items-start gap-4">

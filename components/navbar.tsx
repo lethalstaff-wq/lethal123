@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { motion } from "framer-motion"
 import { Logo } from "@/components/logo"
 import { MobileMenu } from "@/components/mobile-menu"
 import { useState, useEffect, useRef } from "react"
@@ -130,7 +131,7 @@ export function Navbar() {
               <Logo />
             </Link>
 
-            {/* Center nav — pill */}
+            {/* Center nav — pill with layoutId morph */}
             <div className="hidden lg:flex items-center absolute left-1/2 -translate-x-1/2">
               <div className="flex items-center gap-0.5 rounded-full px-1.5 py-1 backdrop-blur-xl bg-white/[0.04] border border-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
                 {navLinks.map((link) => {
@@ -139,13 +140,20 @@ export function Navbar() {
                     <Link
                       key={link.label}
                       href={link.href}
-                      className={`px-4 py-1.5 text-[13px] font-semibold rounded-full transition-all duration-200 ${
-                        isActive
-                          ? "text-white bg-gradient-to-br from-[#f97316] to-[#ea580c] shadow-[0_4px_14px_rgba(249, 115, 22, 0.58)]"
-                          : "text-white/55 hover:text-white hover:bg-white/[0.06]"
+                      data-cursor="cta"
+                      data-cursor-label={link.label}
+                      className={`cursor-cta relative px-4 py-1.5 text-[13px] font-semibold rounded-full transition-colors duration-200 ${
+                        isActive ? "text-white" : "text-white/55 hover:text-white"
                       }`}
                     >
-                      {link.label}
+                      {isActive && (
+                        <motion.span
+                          layoutId="navbar-active-pill"
+                          className="absolute inset-0 rounded-full bg-gradient-to-br from-[#f97316] to-[#ea580c] shadow-[0_4px_14px_rgba(249,115,22,0.6)]"
+                          transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                        />
+                      )}
+                      <span className="relative z-[2]">{link.label}</span>
                     </Link>
                   )
                 })}

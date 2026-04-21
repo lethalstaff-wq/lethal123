@@ -36,8 +36,8 @@ export function FaqSection() {
 
         <div className="space-y-3">
           {faqs.map((f, i) => (
-            <div key={i} className={`rounded-2xl overflow-hidden border transition-all duration-300 ${open === i ? "border-[#f97316]/30 bg-gradient-to-br from-[#f97316]/[0.06] to-white/[0.015] shadow-[0_18px_50px_rgba(0,0,0,0.4),0_0_40px_rgba(249, 115, 22, 0.14)]" : "border-white/[0.06] bg-white/[0.015] hover:border-[#f97316]/20 hover:bg-white/[0.03] hover:-translate-y-0.5"}`}>
-              <button onClick={() => setOpen(open === i ? null : i)} aria-expanded={open === i} className="flex items-center gap-4 w-full p-5 text-left cursor-pointer">
+            <div key={i} className={`spotlight-card rounded-2xl overflow-hidden border transition-all duration-300 ${open === i ? "border-[#f97316]/35 bg-gradient-to-br from-[#f97316]/[0.08] to-white/[0.015] shadow-[0_18px_50px_rgba(0,0,0,0.4),0_0_50px_rgba(249, 115, 22, 0.18)]" : "border-white/[0.06] bg-white/[0.015] hover:border-[#f97316]/25 hover:bg-white/[0.03] hover:-translate-y-0.5"}`}>
+              <button onClick={() => setOpen(open === i ? null : i)} aria-expanded={open === i} data-cursor="cta" data-cursor-label={open === i ? "Close" : "Open"} className="cursor-cta flex items-center gap-4 w-full p-5 text-left">
                 <span className={`text-[12px] font-bold tabular-nums shrink-0 w-9 h-9 rounded-xl flex items-center justify-center transition-all ${open === i ? "bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white shadow-[0_4px_14px_rgba(249, 115, 22, 0.58)]" : "bg-white/[0.04] border border-white/[0.06] text-white/45"}`}>
                   {(i + 1).toString().padStart(2, "0")}
                 </span>

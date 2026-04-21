@@ -52,9 +52,13 @@ export function ContactSection() {
                 </div>
               </div>
               <a href="https://discord.gg/lethaldma" target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl text-[14px] font-bold text-white cursor-pointer group transition-all hover:scale-[1.03] hover:brightness-110"
+                data-cursor="cta"
+                data-cursor-label="Discord"
+                className="cursor-cta press-spring relative overflow-hidden inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl text-[14px] font-bold text-white cursor-pointer group transition-all hover:scale-[1.03] hover:shadow-[0_0_40px_rgba(249,115,22,0.6)]"
                 style={{ background: "linear-gradient(135deg, #f97316, #ea580c)", boxShadow: "0 8px 24px rgba(249, 115, 22, 0.46), inset 0 1px 0 rgba(255,255,255,0.08)" }}>
-                Join Server <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
+                <span className="relative z-10">Join Server</span>
+                <ArrowRight className="relative z-10 h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </a>
             </div>
 
@@ -69,7 +73,7 @@ export function ContactSection() {
                 { icon: Headphones, title: "24/7 available", desc: "Round the clock" },
                 { icon: BookOpen, title: "Setup guides", desc: "Step-by-step tutorials" },
               ].map((c, i) => (
-                <div key={i} className="group p-4 rounded-xl bg-white/[0.022] border border-white/[0.06] hover:border-[#f97316]/25 hover:bg-white/[0.04] hover:-translate-y-0.5 transition-all duration-300">
+                <div key={i} className="spotlight-card group p-4 rounded-xl bg-white/[0.022] border border-white/[0.06] hover:border-[#f97316]/30 hover:bg-white/[0.04] hover:-translate-y-0.5 transition-all duration-300">
                   <div className="w-9 h-9 rounded-lg bg-white/[0.03] border border-white/[0.05] group-hover:bg-[#f97316]/10 group-hover:border-[#f97316]/25 flex items-center justify-center mb-3 transition-all">
                     <c.icon className="h-4 w-4 text-white/55 group-hover:text-[#f97316] transition-colors" />
                   </div>
@@ -88,7 +92,9 @@ export function ContactSection() {
             { href: "https://t.me/lethalsolutions", icon: MessageSquare, title: "Telegram", sub: "@lethalsolutions" },
           ].map((c, i) => (
             <a key={i} href={c.href} target={i === 1 ? "_blank" : undefined} rel={i === 1 ? "noopener noreferrer" : undefined}
-              className="group flex items-center gap-4 p-5 rounded-2xl border border-white/[0.06] bg-white/[0.015] hover:border-[#f97316]/30 hover:bg-white/[0.03] hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249, 115, 22, 0.14)] transition-all duration-300">
+              data-cursor="cta"
+              data-cursor-label={c.title}
+              className="spotlight-card cursor-cta group flex items-center gap-4 p-5 rounded-2xl border border-white/[0.06] bg-white/[0.015] hover:border-[#f97316]/30 hover:bg-white/[0.03] hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249, 115, 22, 0.14)] transition-all duration-300">
               <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06] group-hover:bg-gradient-to-br group-hover:from-[#f97316]/20 group-hover:to-[#ea580c]/10 group-hover:border-[#f97316]/30 transition-all">
                 <c.icon className="h-[18px] w-[18px] text-white/55 group-hover:text-[#f97316] transition-colors" />
               </div>
