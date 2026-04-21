@@ -572,7 +572,7 @@ export default function ChangelogPage() {
             </div>
             <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-bold tracking-[-0.04em] leading-[0.95] mb-6">
               <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Product </span>
-              <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249,115,22,0.3))" }}>Updates</span>
+              <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249, 115, 22, 0.43))" }}>Updates</span>
             </h1>
             <p className="text-[17px] text-white/55 max-w-xl mx-auto leading-relaxed">
               Track all updates, patches, and improvements across our products
@@ -646,7 +646,7 @@ export default function ChangelogPage() {
                         <div className={cn(
                           "rounded-2xl border overflow-hidden transition-all duration-300",
                           isExpanded
-                            ? "border-[#f97316]/25 bg-white/[0.03] shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249,115,22,0.08)]"
+                            ? "border-[#f97316]/25 bg-white/[0.03] shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249, 115, 22, 0.12)]"
                             : "border-white/[0.06] bg-white/[0.015] hover:border-[#f97316]/20 hover:bg-white/[0.03] hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(0,0,0,0.35)]"
                         )}>
                           <button
@@ -689,7 +689,7 @@ export default function ChangelogPage() {
                               <ul className="space-y-2 pl-14">
                                 {entry.changes.map((change, i) => (
                                   <li key={i} className="flex items-start gap-3 text-[14px] text-white/65 leading-relaxed">
-                                    <div className="w-1.5 h-1.5 rounded-full bg-[#f97316] mt-2 shrink-0 shadow-[0_0_6px_rgba(249,115,22,0.6)]" />
+                                    <div className="w-1.5 h-1.5 rounded-full bg-[#f97316] mt-2 shrink-0 shadow-[0_0_6px_rgba(249, 115, 22, 0.85)]" />
                                     {change}
                                   </li>
                                 ))}

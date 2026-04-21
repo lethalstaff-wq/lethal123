@@ -686,7 +686,7 @@ export default function GuidePage() {
 
           {/* Video Embed */}
           {guide.videoId && (
-            <div className="mb-10 rounded-2xl overflow-hidden border border-white/[0.10] shadow-[0_24px_60px_rgba(0,0,0,0.5),0_0_60px_rgba(249,115,22,0.10)]">
+            <div className="mb-10 rounded-2xl overflow-hidden border border-white/[0.10] shadow-[0_24px_60px_rgba(0,0,0,0.5),0_0_60px_rgba(249, 115, 22, 0.14)]">
               <div className="relative pb-[56.25%] h-0">
                 <iframe
                   className="absolute top-0 left-0 w-full h-full"

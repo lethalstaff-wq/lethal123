@@ -186,7 +186,7 @@ export default function ReviewsPage() {
             </div>
             <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-bold tracking-[-0.04em] leading-[0.95] mb-6">
               <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Customer </span>
-              <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249,115,22,0.3))" }}>Reviews</span>
+              <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249, 115, 22, 0.43))" }}>Reviews</span>
             </h1>
             <p className="text-[17px] text-white/55 max-w-xl mx-auto leading-relaxed">
               {totalDisplay.toLocaleString()} verified reviews from real customers
@@ -196,7 +196,7 @@ export default function ReviewsPage() {
           {/* Stats Cards */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
             {[
-              { icon: Star, value: avgRating, label: "Average Rating", color: "#f97316", bg: "rgba(249,115,22,0.10)", border: "rgba(249,115,22,0.30)" },
+              { icon: Star, value: avgRating, label: "Average Rating", color: "#f97316", bg: "rgba(249, 115, 22, 0.14)", border: "rgba(249, 115, 22, 0.43)" },
               { icon: Users, value: totalDisplay.toLocaleString(), label: "Total Reviews", color: "#10b981", bg: "rgba(16,185,129,0.10)", border: "rgba(16,185,129,0.30)" },
               { icon: Award, value: `${allReviews.length > 0 ? Math.round((breakdown[0].count + breakdown[1].count) / allReviews.length * 100) : 0}%`, label: "Satisfaction", color: "#f59e0b", bg: "rgba(245,158,11,0.10)", border: "rgba(245,158,11,0.30)" },
               { icon: ShieldCheck, value: "100%", label: "Verified", color: "#3b82f6", bg: "rgba(59,130,246,0.10)", border: "rgba(59,130,246,0.30)" },
@@ -235,7 +235,7 @@ export default function ReviewsPage() {
                     <Star className="h-3.5 w-3.5 gold-star" style={{ animationDelay: `${row.stars * 0.1}s` }} />
                   </div>
                   <div className="flex-1 h-2 bg-white/[0.05] rounded-full overflow-hidden">
-                    <div className="h-full bg-gradient-to-r from-[#f97316] to-[#fbbf24] rounded-full transition-all duration-500" style={{ width: `${row.percent}%`, boxShadow: "0 0 8px rgba(249,115,22,0.5)" }} />
+                    <div className="h-full bg-gradient-to-r from-[#f97316] to-[#fbbf24] rounded-full transition-all duration-500" style={{ width: `${row.percent}%`, boxShadow: "0 0 8px rgba(249, 115, 22, 0.72)" }} />
                   </div>
                   <span className="text-[13px] text-white/65 w-20 text-right tabular-nums font-semibold">{row.count.toLocaleString()}</span>
                 </button>

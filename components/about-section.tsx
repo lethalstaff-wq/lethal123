@@ -31,7 +31,7 @@ export function AboutSection() {
           {products.map((p) => (
             <Link key={p.slug} href={`/products/${p.slug}`} className="about-card about-shine group block relative overflow-hidden rounded-2xl">
               {/* Slash-cut tag */}
-              <div className="absolute top-5 left-0 z-10 px-4 py-1 text-[9px] font-black uppercase tracking-[0.15em] text-black" style={{ background: "linear-gradient(135deg, #fbbf24, #f97316)", clipPath: "polygon(0 0, 100% 0, 90% 100%, 0 100%)", boxShadow: "0 4px 14px rgba(249,115,22,0.3)" }}>
+              <div className="absolute top-5 left-0 z-10 px-4 py-1 text-[9px] font-black uppercase tracking-[0.15em] text-black" style={{ background: "linear-gradient(135deg, #fbbf24, #f97316)", clipPath: "polygon(0 0, 100% 0, 90% 100%, 0 100%)", boxShadow: "0 4px 14px rgba(249, 115, 22, 0.43)" }}>
                 {p.tag}
               </div>
 
@@ -40,7 +40,7 @@ export function AboutSection() {
                 <Image src={p.image} alt={p.name} fill className="object-contain p-6 group-hover:scale-110 transition-transform duration-700" sizes="(max-width: 768px) 100vw, 33vw" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
                 {/* Orange glow on hover */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ background: "radial-gradient(circle at 50% 50%, rgba(249,115,22,0.12), transparent 60%)" }} />
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ background: "radial-gradient(circle at 50% 50%, rgba(249, 115, 22, 0.17), transparent 60%)" }} />
               </div>
 
               {/* Info */}
@@ -71,12 +71,12 @@ export function AboutSection() {
       <style jsx>{`
         .about-text-orange { background: linear-gradient(135deg, #f97316, #fb923c, #f97316); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         .about-card { background: rgba(255,255,255,0.022); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,0.06); transition: all 0.3s ease; }
-        .about-card:hover { background: rgba(255,255,255,0.04); border-color: rgba(249,115,22,0.32); transform: translateY(-6px); box-shadow: 0 24px 48px rgba(0,0,0,0.5), 0 0 44px rgba(249,115,22,0.12); }
+        .about-card:hover { background: rgba(255,255,255,0.04); border-color: rgba(249, 115, 22, 0.46); transform: translateY(-6px); box-shadow: 0 24px 48px rgba(0,0,0,0.5), 0 0 44px rgba(249, 115, 22, 0.17); }
         .about-shine { position: relative; overflow: hidden; }
         .about-shine::after { content: ""; position: absolute; top: -50%; left: -80%; width: 50%; height: 200%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent); transform: rotate(25deg); transition: left 0.7s ease; pointer-events: none; z-index: 5; }
         .about-shine:hover::after { left: 130%; }
         .about-ghost { border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.02); color: rgba(255,255,255,0.55); transition: all 0.2s ease; }
-        .about-ghost:hover { border-color: rgba(249,115,22,0.35); background: rgba(249,115,22,0.06); color: #fff; }
+        .about-ghost:hover { border-color: rgba(249, 115, 22, 0.51); background: rgba(249, 115, 22, 0.09); color: #fff; }
       `}</style>
     </section>
   )

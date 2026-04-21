@@ -241,7 +241,7 @@ export default function GuidesPage() {
             </div>
             <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-bold tracking-[-0.04em] leading-[0.95] mb-6">
               <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Everything You </span>
-              <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249,115,22,0.3))" }}>Need</span>
+              <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249, 115, 22, 0.43))" }}>Need</span>
             </h1>
             <p className="text-[15px] text-white/55 max-w-lg mx-auto mb-10 leading-relaxed">
               Setup guides, downloads, and docs for all products.{" "}
@@ -427,7 +427,7 @@ export default function GuidesPage() {
                   href="https://discord.gg/lethaldma"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 h-11 px-7 rounded-xl bg-gradient-to-r from-[#f97316] to-[#ea580c] text-white font-semibold text-sm shadow-[0_4px_16px_rgba(249,115,22,0.2)] hover:shadow-[0_8px_24px_rgba(249,115,22,0.3)] hover:-translate-y-px transition-all"
+                  className="inline-flex items-center justify-center gap-2 h-11 px-7 rounded-xl bg-gradient-to-r from-[#f97316] to-[#ea580c] text-white font-semibold text-sm shadow-[0_4px_16px_rgba(249, 115, 22, 0.29)] hover:shadow-[0_8px_24px_rgba(249, 115, 22, 0.43)] hover:-translate-y-px transition-all"
                 >
                   Open Discord Ticket
                   <ExternalLink className="h-3.5 w-3.5" />

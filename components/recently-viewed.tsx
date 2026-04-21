@@ -39,8 +39,8 @@ export function RecentlyViewed({ currentProductId }: { currentProductId: string 
     <section className="mt-16 pt-10 border-t border-white/[0.06]">
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#f97316]/25 to-[#ea580c]/15 border border-[#f97316]/30 flex items-center justify-center shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_18px_rgba(249,115,22,0.18)]">
-            <Clock className="h-[18px] w-[18px] text-[#f97316]" style={{ filter: "drop-shadow(0 0 8px rgba(249,115,22,0.55))" }} />
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#f97316]/25 to-[#ea580c]/15 border border-[#f97316]/30 flex items-center justify-center shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_18px_rgba(249, 115, 22, 0.26)]">
+            <Clock className="h-[18px] w-[18px] text-[#f97316]" style={{ filter: "drop-shadow(0 0 8px rgba(249, 115, 22, 0.8))" }} />
           </div>
           <div>
             <h3 className="font-display text-2xl font-bold tracking-tight text-white">Recently viewed</h3>
@@ -55,7 +55,7 @@ export function RecentlyViewed({ currentProductId }: { currentProductId: string 
             <Link
               key={product.id}
               href={`/products/${product.id}`}
-              className="group relative rounded-2xl border border-white/[0.06] bg-white/[0.015] p-4 hover:border-[#f97316]/25 hover:bg-white/[0.03] hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249,115,22,0.08)] transition-all duration-300 overflow-hidden"
+              className="group relative rounded-2xl border border-white/[0.06] bg-white/[0.015] p-4 hover:border-[#f97316]/25 hover:bg-white/[0.03] hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249, 115, 22, 0.12)] transition-all duration-300 overflow-hidden"
             >
               <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-[#f97316]/0 to-transparent group-hover:via-[#f97316]/50 transition-all duration-500" />
               <div className="relative h-20 mb-3 flex items-center justify-center">

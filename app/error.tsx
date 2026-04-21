@@ -36,7 +36,7 @@ export default function Error({
             className="group inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-[14px] font-bold text-white transition-all hover:brightness-110 hover:scale-[1.02]"
             style={{
               background: "linear-gradient(135deg, #f97316, #ea580c)",
-              boxShadow: "0 8px 30px rgba(249,115,22,0.35), inset 0 1px 0 rgba(255,255,255,0.15)",
+              boxShadow: "0 8px 30px rgba(249, 115, 22, 0.51), inset 0 1px 0 rgba(255,255,255,0.15)",
             }}
           >
             <RefreshCw className="h-4 w-4 group-hover:rotate-180 transition-transform duration-500" />

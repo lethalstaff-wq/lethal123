@@ -62,7 +62,7 @@ export function SocialProofToast() {
       <Link
         href={`/products/${product.id}`}
         onClick={() => setDismissed(true)}
-        className="group relative flex items-center gap-3 p-3 pr-4 rounded-xl bg-gradient-to-br from-[#0c0c0c] via-[#0a0a0a] to-[#0c0a08] border border-white/[0.10] shadow-[0_12px_36px_rgba(0,0,0,0.55),0_0_24px_rgba(249,115,22,0.06)] hover:border-[#f97316]/35 hover:shadow-[0_16px_44px_rgba(0,0,0,0.6),0_0_36px_rgba(249,115,22,0.18)] transition-all duration-300 w-[300px] overflow-hidden"
+        className="group relative flex items-center gap-3 p-3 pr-4 rounded-xl bg-gradient-to-br from-[#0c0c0c] via-[#0a0a0a] to-[#0c0a08] border border-white/[0.10] shadow-[0_12px_36px_rgba(0,0,0,0.55),0_0_24px_rgba(249, 115, 22, 0.09)] hover:border-[#f97316]/35 hover:shadow-[0_16px_44px_rgba(0,0,0,0.6),0_0_36px_rgba(249, 115, 22, 0.26)] transition-all duration-300 w-[300px] overflow-hidden"
       >
         {/* Subtle orange left accent strip */}
         <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-gradient-to-b from-transparent via-[#f97316]/70 to-transparent pointer-events-none" />

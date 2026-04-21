@@ -113,7 +113,7 @@ export default function CartPage() {
               </Link>
               <h1 className="font-display text-4xl sm:text-5xl font-bold tracking-[-0.04em] leading-[1]">
                 <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Shopping </span>
-                <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249,115,22,0.3))" }}>Cart</span>
+                <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249, 115, 22, 0.43))" }}>Cart</span>
               </h1>
               <p className="text-[14px] text-white/55 mt-2">{items.length} {items.length === 1 ? "item" : "items"} in your cart</p>
             </div>
@@ -124,7 +124,7 @@ export default function CartPage() {
             <div className="lg:col-span-2 space-y-3">
               {items.map((item) => (
                 <div key={item.variant.id} className="relative rounded-2xl border border-white/[0.04] bg-white/[0.012] backdrop-blur-sm p-4 hover:border-[#f97316]/30 hover:shadow-lg hover:shadow-[#f97316]/5 transition-all overflow-hidden">
-                  <div className="absolute left-0 top-0 h-full w-1 rounded-l-2xl" style={{ background: "linear-gradient(to bottom, #f97316, rgba(249,115,22,0.5), transparent)" }} />
+                  <div className="absolute left-0 top-0 h-full w-1 rounded-l-2xl" style={{ background: "linear-gradient(to bottom, #f97316, rgba(249, 115, 22, 0.72), transparent)" }} />
                   <div className="flex items-center gap-4">
                     <div className="w-16 h-16 rounded-lg bg-white/[0.03] border border-white/[0.04] flex items-center justify-center flex-shrink-0 overflow-hidden">
                       {(item.variant.product?.image || item.variant.product?.image_url) ? (

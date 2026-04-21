@@ -18,7 +18,7 @@ export default function NotFound() {
             <p
               className="font-display text-[10rem] sm:text-[14rem] font-black leading-none tracking-[-0.05em]"
               style={{
-                background: "linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(249,115,22,0.04) 100%)",
+                background: "linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(249, 115, 22, 0.06) 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
               }}
@@ -32,7 +32,7 @@ export default function NotFound() {
                   background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
-                  filter: "drop-shadow(0 0 40px rgba(249,115,22,0.35))",
+                  filter: "drop-shadow(0 0 40px rgba(249, 115, 22, 0.51))",
                 }}
               >
                 404
@@ -53,7 +53,7 @@ export default function NotFound() {
               className="group inline-flex items-center justify-center gap-2 rounded-xl px-7 py-3.5 text-[14px] font-bold text-white transition-all hover:brightness-110 hover:scale-[1.02]"
               style={{
                 background: "linear-gradient(135deg, #f97316, #ea580c)",
-                boxShadow: "0 8px 30px rgba(249,115,22,0.35), inset 0 1px 0 rgba(255,255,255,0.15)",
+                boxShadow: "0 8px 30px rgba(249, 115, 22, 0.51), inset 0 1px 0 rgba(255,255,255,0.15)",
               }}
             >
               <Home className="h-4 w-4" />

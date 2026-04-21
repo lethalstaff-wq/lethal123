@@ -16,18 +16,18 @@ export function ContactSection() {
           </div>
           <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.04em] leading-[0.95] mb-4">
             <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Join the </span>
-            <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249,115,22,0.3))" }}>community</span>
+            <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249, 115, 22, 0.43))" }}>community</span>
           </h2>
           <p className="text-white/55 text-[16px] max-w-lg mx-auto">8,700+ members. Get support, share configs, stay ahead.</p>
         </div>
 
         {/* Discord card */}
-        <div className="group relative rounded-2xl border border-white/[0.06] bg-white/[0.015] overflow-hidden mb-5 shadow-[0_24px_60px_rgba(0,0,0,0.4)] hover:border-[#f97316]/30 hover:shadow-[0_28px_70px_rgba(0,0,0,0.5),0_0_60px_rgba(249,115,22,0.12)] transition-all duration-500">
+        <div className="group relative rounded-2xl border border-white/[0.06] bg-white/[0.015] overflow-hidden mb-5 shadow-[0_24px_60px_rgba(0,0,0,0.4)] hover:border-[#f97316]/30 hover:shadow-[0_28px_70px_rgba(0,0,0,0.5),0_0_60px_rgba(249, 115, 22, 0.17)] transition-all duration-500">
           {/* Top glow */}
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f97316]/60 to-transparent" />
           <div className="absolute top-0 left-0 right-0 h-[6px] bg-gradient-to-b from-[#f97316]/20 to-transparent blur-md pointer-events-none" />
           {/* Hover orange corner */}
-          <div className="absolute -top-20 -right-20 w-72 h-72 rounded-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700" style={{ background: "radial-gradient(circle, rgba(249,115,22,0.18), transparent 70%)" }} />
+          <div className="absolute -top-20 -right-20 w-72 h-72 rounded-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700" style={{ background: "radial-gradient(circle, rgba(249, 115, 22, 0.26), transparent 70%)" }} />
 
           <div className="relative p-8">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mb-6">
@@ -53,7 +53,7 @@ export function ContactSection() {
               </div>
               <a href="https://discord.gg/lethaldma" target="_blank" rel="noopener noreferrer"
                 className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl text-[14px] font-bold text-white cursor-pointer group transition-all hover:scale-[1.03] hover:brightness-110"
-                style={{ background: "linear-gradient(135deg, #f97316, #ea580c)", boxShadow: "0 8px 24px rgba(249,115,22,0.32), inset 0 1px 0 rgba(255,255,255,0.08)" }}>
+                style={{ background: "linear-gradient(135deg, #f97316, #ea580c)", boxShadow: "0 8px 24px rgba(249, 115, 22, 0.46), inset 0 1px 0 rgba(255,255,255,0.08)" }}>
                 Join Server <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </a>
             </div>
@@ -88,7 +88,7 @@ export function ContactSection() {
             { href: "https://t.me/lethalsolutions", icon: MessageSquare, title: "Telegram", sub: "@lethalsolutions" },
           ].map((c, i) => (
             <a key={i} href={c.href} target={i === 1 ? "_blank" : undefined} rel={i === 1 ? "noopener noreferrer" : undefined}
-              className="group flex items-center gap-4 p-5 rounded-2xl border border-white/[0.06] bg-white/[0.015] hover:border-[#f97316]/30 hover:bg-white/[0.03] hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249,115,22,0.10)] transition-all duration-300">
+              className="group flex items-center gap-4 p-5 rounded-2xl border border-white/[0.06] bg-white/[0.015] hover:border-[#f97316]/30 hover:bg-white/[0.03] hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249, 115, 22, 0.14)] transition-all duration-300">
               <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06] group-hover:bg-gradient-to-br group-hover:from-[#f97316]/20 group-hover:to-[#ea580c]/10 group-hover:border-[#f97316]/30 transition-all">
                 <c.icon className="h-[18px] w-[18px] text-white/55 group-hover:text-[#f97316] transition-colors" />
               </div>

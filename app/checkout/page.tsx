@@ -336,7 +336,7 @@ export default function CheckoutPage() {
             </div>
             <h1 className="text-3xl font-bold text-white/90 mb-3 tracking-tight">Your cart is <span className="text-[#f97316]">empty</span></h1>
             <p className="text-white/55 mb-10">Add some products to get started.</p>
-            <Link href="/products" className="inline-flex items-center gap-2.5 px-8 py-4 text-white rounded-xl text-sm font-bold transition-all hover:shadow-[0_0_30px_rgba(249,115,22,0.3)] hover:scale-[1.02] active:scale-[0.98]" style={{ background: "linear-gradient(135deg, #f97316, #ea580c)" }}>
+            <Link href="/products" className="inline-flex items-center gap-2.5 px-8 py-4 text-white rounded-xl text-sm font-bold transition-all hover:shadow-[0_0_30px_rgba(249, 115, 22, 0.43)] hover:scale-[1.02] active:scale-[0.98]" style={{ background: "linear-gradient(135deg, #f97316, #ea580c)" }}>
               Browse Products <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
@@ -366,7 +366,7 @@ export default function CheckoutPage() {
                     <div className="relative mx-auto w-28 h-28 mb-6">
                       <div className="absolute inset-0 rounded-full bg-[#f97316]/20 animate-ping" style={{ animationDuration: "2s" }} />
                       <div className="absolute inset-2 rounded-full bg-[#f97316]/10 animate-pulse" style={{ animationDuration: "1.5s" }} />
-                      <div className="relative w-28 h-28 rounded-full flex items-center justify-center border-2 border-[#f97316]/30 shadow-[0_0_40px_rgba(249,115,22,0.3)]" style={{ background: "linear-gradient(to bottom right, rgba(249,115,22,0.3), rgba(249,115,22,0.1), transparent)" }}>
+                      <div className="relative w-28 h-28 rounded-full flex items-center justify-center border-2 border-[#f97316]/30 shadow-[0_0_40px_rgba(249, 115, 22, 0.43)]" style={{ background: "linear-gradient(to bottom right, rgba(249, 115, 22, 0.43), rgba(249, 115, 22, 0.14), transparent)" }}>
                         <Clock className="h-12 w-12 text-[#f97316]" />
                       </div>
                     </div>
@@ -379,7 +379,7 @@ export default function CheckoutPage() {
 
                   {/* Timer section */}
                   <div className="px-8 pb-6">
-                    <div className="relative rounded-2xl border border-[#f97316]/20 p-6 overflow-hidden" style={{ background: "linear-gradient(to bottom right, rgba(249,115,22,0.1), rgba(249,115,22,0.05), transparent)" }}>
+                    <div className="relative rounded-2xl border border-[#f97316]/20 p-6 overflow-hidden" style={{ background: "linear-gradient(to bottom right, rgba(249, 115, 22, 0.14), rgba(249, 115, 22, 0.07), transparent)" }}>
                       <div className="absolute top-0 right-0 w-32 h-32 bg-[#f97316]/10 rounded-full blur-3xl" />
                       <div className="relative flex items-center justify-center gap-6">
                         <div className="text-center">
@@ -393,8 +393,8 @@ export default function CheckoutPage() {
                       {/* Progress bar */}
                       <div className="mt-6 h-2 rounded-full bg-white/[0.04] overflow-hidden">
                         <div
-                          className="h-full rounded-full transition-all duration-1000 ease-linear shadow-[0_0_20px_rgba(249,115,22,0.5)]"
-                          style={{ width: `${Math.min(((VERIFY_SECONDS - verifyTimeLeft) / VERIFY_SECONDS) * 100, 100)}%`, background: "linear-gradient(to right, #f97316, rgba(249,115,22,0.8), #f59e0b)" }}
+                          className="h-full rounded-full transition-all duration-1000 ease-linear shadow-[0_0_20px_rgba(249, 115, 22, 0.72)]"
+                          style={{ width: `${Math.min(((VERIFY_SECONDS - verifyTimeLeft) / VERIFY_SECONDS) * 100, 100)}%`, background: "linear-gradient(to right, #f97316, rgba(249, 115, 22, 0.85), #f59e0b)" }}
                         />
                       </div>
                     </div>
@@ -470,7 +470,7 @@ export default function CheckoutPage() {
                 <div className="relative rounded-3xl border border-[#f97316]/30 bg-white/[0.012] backdrop-blur-xl p-10 text-center space-y-8">
                   <div className="relative mx-auto w-24 h-24">
                     <div className="absolute inset-0 rounded-full bg-[#f97316]/10 animate-pulse" style={{ animationDuration: "2s" }} />
-                    <div className="relative w-24 h-24 rounded-full flex items-center justify-center border border-[#f97316]/30" style={{ background: "linear-gradient(to bottom right, rgba(249,115,22,0.3), rgba(249,115,22,0.05))" }}>
+                    <div className="relative w-24 h-24 rounded-full flex items-center justify-center border border-[#f97316]/30" style={{ background: "linear-gradient(to bottom right, rgba(249, 115, 22, 0.43), rgba(249, 115, 22, 0.07))" }}>
                       <CheckCircle2 className="h-12 w-12 text-[#f97316]" />
                     </div>
                   </div>
@@ -502,7 +502,7 @@ export default function CheckoutPage() {
                       </button>
                     </Link>
                     <Link href="/" className="flex-1">
-                      <button className="w-full h-13 py-3.5 flex items-center justify-center gap-2.5 rounded-xl text-white text-sm font-bold transition-all hover:shadow-[0_0_20px_rgba(249,115,22,0.3)]" style={{ background: "linear-gradient(135deg, #f97316, #ea580c)" }}>
+                      <button className="w-full h-13 py-3.5 flex items-center justify-center gap-2.5 rounded-xl text-white text-sm font-bold transition-all hover:shadow-[0_0_20px_rgba(249, 115, 22, 0.43)]" style={{ background: "linear-gradient(135deg, #f97316, #ea580c)" }}>
                         Home
                       </button>
                     </Link>
@@ -893,7 +893,7 @@ export default function CheckoutPage() {
                   <label className="flex items-start gap-3 cursor-pointer group px-1 py-1">
                     <div className={cn(
                       "mt-0.5 h-5 w-5 rounded-md border-2 flex items-center justify-center shrink-0 transition-all duration-200",
-                      agreedTos ? "bg-[#f97316] border-[#f97316] shadow-[0_0_10px_rgba(249,115,22,0.3)]" : "border-white/[0.1] group-hover:border-white/[0.2]"
+                      agreedTos ? "bg-[#f97316] border-[#f97316] shadow-[0_0_10px_rgba(249, 115, 22, 0.43)]" : "border-white/[0.1] group-hover:border-white/[0.2]"
                     )}>
                       {agreedTos && <Check className="h-3 w-3 text-white" />}
                     </div>
@@ -906,7 +906,7 @@ export default function CheckoutPage() {
                   {/* Continue Button */}
                   <button disabled={!canProceed} onClick={handleProceed}
                     className="w-full h-14 rounded-xl text-white font-bold text-base flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-lg shadow-orange-500/20 hover:shadow-xl hover:shadow-orange-500/30 mt-6"
-                    style={{ background: canProceed ? "linear-gradient(135deg, #f97316, #ea580c)" : "rgba(249,115,22,0.3)" }}>
+                    style={{ background: canProceed ? "linear-gradient(135deg, #f97316, #ea580c)" : "rgba(249, 115, 22, 0.43)" }}>
                     {paymentMethod === "discord" ? (
                       <>Open Discord <ExternalLink className="h-4 w-4" /></>
                     ) : (
@@ -1007,7 +1007,7 @@ export default function CheckoutPage() {
                       {/* Confirm button */}
                       <button onClick={handleConfirmPayment} disabled={timeLeft <= 0}
                         className="w-full h-14 rounded-xl text-white font-bold text-base flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-lg shadow-orange-500/20 hover:shadow-xl hover:shadow-orange-500/30"
-                        style={{ background: timeLeft <= 0 ? "rgba(249,115,22,0.3)" : "linear-gradient(135deg, #f97316, #ea580c)" }}>
+                        style={{ background: timeLeft <= 0 ? "rgba(249, 115, 22, 0.43)" : "linear-gradient(135deg, #f97316, #ea580c)" }}>
                         {timeLeft <= 0 ? "Session Expired" : <><CheckCircle2 className="h-4 w-4" /> Confirm Payment Sent</>}
                       </button>
 
@@ -1052,7 +1052,7 @@ export default function CheckoutPage() {
 
                       <button onClick={handleConfirmPayment} disabled={timeLeft <= 0}
                         className="w-full h-14 rounded-xl text-white font-bold text-base flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-lg shadow-orange-500/20 hover:shadow-xl hover:shadow-orange-500/30"
-                        style={{ background: timeLeft <= 0 ? "rgba(249,115,22,0.3)" : "linear-gradient(135deg, #f97316, #ea580c)" }}>
+                        style={{ background: timeLeft <= 0 ? "rgba(249, 115, 22, 0.43)" : "linear-gradient(135deg, #f97316, #ea580c)" }}>
                         {timeLeft <= 0 ? "Session Expired" : <><CheckCircle2 className="h-4 w-4" /> Confirm Payment Sent</>}
                       </button>
 

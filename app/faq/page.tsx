@@ -193,7 +193,7 @@ export default function FAQPage() {
             </div>
             <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-bold tracking-[-0.04em] leading-[0.95] mb-6">
               <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Common </span>
-              <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249,115,22,0.3))" }}>Questions</span>
+              <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249, 115, 22, 0.43))" }}>Questions</span>
             </h1>
             <p className="text-[17px] text-white/55 max-w-xl mx-auto leading-relaxed mb-8">
               Find answers to common questions about our products and services
@@ -248,7 +248,7 @@ export default function FAQPage() {
                 className={cn(
                   "rounded-2xl border overflow-hidden transition-all duration-300",
                   isOpen
-                    ? "border-[#f97316]/30 bg-gradient-to-br from-[#f97316]/[0.06] to-white/[0.015] shadow-[0_18px_50px_rgba(0,0,0,0.4),0_0_40px_rgba(249,115,22,0.10)]"
+                    ? "border-[#f97316]/30 bg-gradient-to-br from-[#f97316]/[0.06] to-white/[0.015] shadow-[0_18px_50px_rgba(0,0,0,0.4),0_0_40px_rgba(249, 115, 22, 0.14)]"
                     : "border-white/[0.06] bg-white/[0.015] hover:border-[#f97316]/20 hover:bg-white/[0.03] hover:-translate-y-0.5"
                 )}
               >
@@ -261,7 +261,7 @@ export default function FAQPage() {
                     <div className={cn(
                       "w-9 h-9 rounded-xl flex items-center justify-center shrink-0 mt-0.5 transition-all",
                       isOpen
-                        ? "bg-gradient-to-br from-[#f97316] to-[#ea580c] shadow-[0_4px_14px_rgba(249,115,22,0.4)]"
+                        ? "bg-gradient-to-br from-[#f97316] to-[#ea580c] shadow-[0_4px_14px_rgba(249, 115, 22, 0.58)]"
                         : "bg-[#f97316]/10 border border-[#f97316]/20"
                     )}>
                       <HelpCircle className={cn("h-4 w-4 transition-colors", isOpen ? "text-white" : "text-[#f97316]")} />

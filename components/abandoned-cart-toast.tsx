@@ -25,10 +25,10 @@ export function AbandonedCartToast() {
 
   return (
     <div className="fixed bottom-6 left-6 z-[85] animate-in slide-in-from-bottom-4 fade-in duration-300">
-      <div className="relative flex items-center gap-3 px-4 py-3 rounded-2xl bg-black/85 backdrop-blur-xl border border-[#f97316]/25 shadow-[0_18px_48px_rgba(0,0,0,0.55),0_0_30px_rgba(249,115,22,0.15)] max-w-[340px] overflow-hidden">
+      <div className="relative flex items-center gap-3 px-4 py-3 rounded-2xl bg-black/85 backdrop-blur-xl border border-[#f97316]/25 shadow-[0_18px_48px_rgba(0,0,0,0.55),0_0_30px_rgba(249, 115, 22, 0.22)] max-w-[340px] overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f97316]/60 to-transparent pointer-events-none" />
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#f97316]/25 to-[#ea580c]/15 border border-[#f97316]/35 flex items-center justify-center shrink-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_18px_rgba(249,115,22,0.18)]">
-          <ShoppingCart className="h-[18px] w-[18px] text-[#f97316]" style={{ filter: "drop-shadow(0 0 8px rgba(249,115,22,0.6))" }} />
+        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#f97316]/25 to-[#ea580c]/15 border border-[#f97316]/35 flex items-center justify-center shrink-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_18px_rgba(249, 115, 22, 0.26)]">
+          <ShoppingCart className="h-[18px] w-[18px] text-[#f97316]" style={{ filter: "drop-shadow(0 0 8px rgba(249, 115, 22, 0.85))" }} />
         </div>
         <div className="flex-1 min-w-0">
           <p className="text-[13px] font-bold text-white">You have <span className="text-[#f97316] tabular-nums">{itemCount}</span> item{itemCount > 1 ? "s" : ""} in cart</p>

@@ -57,41 +57,41 @@ export function AdminUsersClient({ users, currentUserId }: { users: User[]; curr
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-foreground">Users</h1>
-          <p className="text-sm text-muted-foreground mt-1">{users.length} registered accounts</p>
+          <h1 className="text-2xl font-bold text-white">Users</h1>
+          <p className="text-sm text-white/55 mt-1">{users.length} registered accounts</p>
         </div>
       </div>
 
       {/* Search */}
       <div className="relative max-w-sm">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/55" />
         <Input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search by email or ID..."
-          className="pl-9 bg-card"
+          className="pl-9 bg-white/[0.025]"
         />
       </div>
 
       {/* Users Table */}
-      <div className="rounded-xl border border-border bg-card overflow-hidden">
+      <div className="rounded-xl border border-white/[0.08] bg-white/[0.025] overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-border bg-muted/30">
-                <th className="text-left px-4 py-3 text-xs font-medium text-muted-foreground uppercase tracking-wider">User</th>
-                <th className="text-left px-4 py-3 text-xs font-medium text-muted-foreground uppercase tracking-wider">ID</th>
-                <th className="text-left px-4 py-3 text-xs font-medium text-muted-foreground uppercase tracking-wider">Role</th>
-                <th className="text-left px-4 py-3 text-xs font-medium text-muted-foreground uppercase tracking-wider">Registered</th>
-                <th className="text-right px-4 py-3 text-xs font-medium text-muted-foreground uppercase tracking-wider">Actions</th>
+              <tr className="border-b border-white/[0.08] bg-white/[0.05]">
+                <th className="text-left px-4 py-3 text-xs font-medium text-white/55 uppercase tracking-wider">User</th>
+                <th className="text-left px-4 py-3 text-xs font-medium text-white/55 uppercase tracking-wider">ID</th>
+                <th className="text-left px-4 py-3 text-xs font-medium text-white/55 uppercase tracking-wider">Role</th>
+                <th className="text-left px-4 py-3 text-xs font-medium text-white/55 uppercase tracking-wider">Registered</th>
+                <th className="text-right px-4 py-3 text-xs font-medium text-white/55 uppercase tracking-wider">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border">
+            <tbody className="divide-y divide-white/[0.06]">
               {filtered.length === 0 ? (
                 <tr>
                   <td colSpan={5} className="px-4 py-12 text-center">
-                    <AlertCircle className="h-8 w-8 text-muted-foreground/20 mx-auto mb-3" />
-                    <p className="text-sm text-muted-foreground">{search ? "No users match your search" : "No users registered yet"}</p>
+                    <AlertCircle className="h-8 w-8 text-white/40 mx-auto mb-3" />
+                    <p className="text-sm text-white/55">{search ? "No users match your search" : "No users registered yet"}</p>
                   </td>
                 </tr>
               ) : filtered.map((user) => (
@@ -102,7 +102,7 @@ export function AdminUsersClient({ users, currentUserId }: { users: User[]; curr
                         <span className="text-xs font-bold text-primary">{user.email.charAt(0).toUpperCase()}</span>
                       </div>
                       <div>
-                        <p className="font-medium text-foreground">{user.email}</p>
+                        <p className="font-medium text-white">{user.email}</p>
                         {user.id === currentUserId && (
                           <span className="text-[10px] text-primary font-medium">(You)</span>
                         )}
@@ -112,7 +112,7 @@ export function AdminUsersClient({ users, currentUserId }: { users: User[]; curr
                   <td className="px-4 py-3">
                     <button
                       onClick={() => copyId(user.id)}
-                      className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors font-mono"
+                      className="flex items-center gap-1.5 text-xs text-white/55 hover:text-white transition-colors font-mono"
                     >
                       {user.id.slice(0, 12)}...
                       {copiedId === user.id ? <Check className="h-3 w-3 text-emerald-500" /> : <Copy className="h-3 w-3" />}
@@ -124,10 +124,10 @@ export function AdminUsersClient({ users, currentUserId }: { users: User[]; curr
                         <Shield className="h-3 w-3" /> Admin
                       </span>
                     ) : (
-                      <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-muted text-xs font-medium text-muted-foreground">User</span>
+                      <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-muted text-xs font-medium text-white/55">User</span>
                     )}
                   </td>
-                  <td className="px-4 py-3 text-muted-foreground text-xs">{formatDate(user.created_at)}</td>
+                  <td className="px-4 py-3 text-white/55 text-xs">{formatDate(user.created_at)}</td>
                   <td className="px-4 py-3 text-right">
                     {user.id !== currentUserId && (
                       <div className="flex items-center gap-1 justify-end">

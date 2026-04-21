@@ -19,7 +19,7 @@ export function MobileBottomBar() {
             </Button>
           </Link>
           <Link href="https://discord.gg/lethaldma" target="_blank" rel="noopener noreferrer" className="flex-1">
-            <Button size="sm" className="w-full gap-2 text-[12px] font-bold rounded-xl bg-gradient-to-br from-[#f97316] to-[#ea580c] hover:brightness-110 text-white border-0 shadow-[0_4px_14px_rgba(249,115,22,0.35)]">
+            <Button size="sm" className="w-full gap-2 text-[12px] font-bold rounded-xl bg-gradient-to-br from-[#f97316] to-[#ea580c] hover:brightness-110 text-white border-0 shadow-[0_4px_14px_rgba(249, 115, 22, 0.51)]">
               <MessageCircle className="h-4 w-4" />
               <span>Discord</span>
             </Button>

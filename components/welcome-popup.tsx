@@ -82,7 +82,7 @@ export function WelcomePopup() {
       <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={handleClose} />
 
       {/* Modal */}
-      <div className="relative w-full max-w-sm rounded-2xl border border-white/[0.10] bg-black/95 backdrop-blur-xl shadow-[0_30px_80px_rgba(0,0,0,0.7),0_0_60px_rgba(249,115,22,0.18)] overflow-hidden animate-fade-in-up">
+      <div className="relative w-full max-w-sm rounded-2xl border border-white/[0.10] bg-black/95 backdrop-blur-xl shadow-[0_30px_80px_rgba(0,0,0,0.7),0_0_60px_rgba(249, 115, 22, 0.26)] overflow-hidden animate-fade-in-up">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f97316]/60 to-transparent pointer-events-none" />
 
         {/* Close */}
@@ -98,20 +98,20 @@ export function WelcomePopup() {
 
         <div className="relative p-8 pt-12 text-center">
           {/* Gift icon */}
-          <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#f97316]/30 to-[#ea580c]/15 border border-[#f97316]/40 flex items-center justify-center mx-auto mb-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_0_30px_rgba(249,115,22,0.30)]">
-            <Gift className="h-9 w-9 text-[#f97316]" style={{ filter: "drop-shadow(0 0 12px rgba(249,115,22,0.6))" }} />
+          <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#f97316]/30 to-[#ea580c]/15 border border-[#f97316]/40 flex items-center justify-center mx-auto mb-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_0_30px_rgba(249, 115, 22, 0.43)]">
+            <Gift className="h-9 w-9 text-[#f97316]" style={{ filter: "drop-shadow(0 0 12px rgba(249, 115, 22, 0.85))" }} />
           </div>
 
           <h2 className="font-display text-3xl font-bold mb-1.5 tracking-tight">
             <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Welcome to </span>
-            <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 16px rgba(249,115,22,0.4))" }}>Lethal</span>
+            <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 16px rgba(249, 115, 22, 0.58))" }}>Lethal</span>
           </h2>
           <p className="text-[14px] text-white/65 mb-6">
             Exclusive offer just for you! Use this code at checkout.
           </p>
 
           {/* Discount badge */}
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-[#f97316] to-[#ea580c] text-white text-[12px] font-black tracking-wider mb-4 shadow-[0_4px_14px_rgba(249,115,22,0.4)]">
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-[#f97316] to-[#ea580c] text-white text-[12px] font-black tracking-wider mb-4 shadow-[0_4px_14px_rgba(249, 115, 22, 0.58)]">
             <span className="text-[14px]">⚡</span>
             {DISCOUNT}% OFF
           </div>
@@ -162,7 +162,7 @@ export function WelcomePopup() {
           {/* CTA */}
           <Button
             onClick={handleClose}
-            className="w-full py-6 bg-gradient-to-br from-[#f97316] to-[#ea580c] hover:brightness-110 text-white font-bold text-[14px] rounded-xl shadow-[0_8px_24px_rgba(249,115,22,0.32),inset_0_1px_0_rgba(255,255,255,0.08)] border-0 hover:scale-[1.02] transition-all"
+            className="w-full py-6 bg-gradient-to-br from-[#f97316] to-[#ea580c] hover:brightness-110 text-white font-bold text-[14px] rounded-xl shadow-[0_8px_24px_rgba(249, 115, 22, 0.46),inset_0_1px_0_rgba(255,255,255,0.08)] border-0 hover:scale-[1.02] transition-all"
           >
             Start Shopping
           </Button>

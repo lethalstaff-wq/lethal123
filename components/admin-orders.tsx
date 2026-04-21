@@ -46,7 +46,7 @@ function statusIcon(status: string) {
     case "pending": return <Clock className="h-4 w-4 text-amber-500" />
     case "confirmed": return <CheckCircle2 className="h-4 w-4 text-emerald-500" />
     case "cancelled": return <XCircle className="h-4 w-4 text-red-500" />
-    default: return <Clock className="h-4 w-4 text-muted-foreground" />
+    default: return <Clock className="h-4 w-4 text-white/55" />
   }
 }
 
@@ -57,7 +57,7 @@ function statusBadge(status: string) {
     cancelled: "bg-red-500/10 text-red-500 border-red-500/20",
   }
   return (
-    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold border ${styles[status] || "bg-muted text-muted-foreground border-border"}`}>
+    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold border ${styles[status] || "bg-white/[0.04] text-white/55 border-white/[0.08]"}`}>
       {statusIcon(status)}
       {status.charAt(0).toUpperCase() + status.slice(1)}
     </span>
@@ -116,8 +116,8 @@ export function AdminOrdersClient({ orders }: { orders: Order[] }) {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-foreground">Orders</h1>
-        <p className="text-sm text-muted-foreground mt-1">{orders.length} total orders, {pendingCount} awaiting action</p>
+        <h1 className="text-2xl font-bold text-white">Orders</h1>
+        <p className="text-sm text-white/55 mt-1">{orders.length} total orders, {pendingCount} awaiting action</p>
       </div>
 
       {/* Filters */}
@@ -129,8 +129,8 @@ export function AdminOrdersClient({ orders }: { orders: Order[] }) {
               onClick={() => setStatusFilter(f.value)}
               className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                 statusFilter === f.value
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-card border border-border text-muted-foreground hover:text-foreground"
+                  ? "bg-[#f97316] text-white"
+                  : "bg-white/[0.025] border border-white/[0.08] text-white/55 hover:text-white"
               }`}
             >
               {f.label} ({f.count})
@@ -138,102 +138,102 @@ export function AdminOrdersClient({ orders }: { orders: Order[] }) {
           ))}
         </div>
         <div className="relative w-64">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search orders..." className="pl-9 bg-card h-8 text-xs" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/55" />
+          <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search orders..." className="pl-9 bg-white/[0.025] h-8 text-xs" />
         </div>
       </div>
 
       {/* Orders List */}
       <div className="space-y-3">
         {filtered.length === 0 ? (
-          <div className="rounded-xl border border-border bg-card p-12 text-center">
-            <AlertCircle className="h-10 w-10 text-muted-foreground/20 mx-auto mb-3" />
-            <p className="text-sm text-muted-foreground">{search || statusFilter !== "all" ? "No orders match your filters" : "No orders yet"}</p>
+          <div className="rounded-xl border border-white/[0.08] bg-white/[0.025] p-12 text-center">
+            <AlertCircle className="h-10 w-10 text-white/40 mx-auto mb-3" />
+            <p className="text-sm text-white/55">{search || statusFilter !== "all" ? "No orders match your filters" : "No orders yet"}</p>
           </div>
         ) : filtered.map((order) => {
           const isExpanded = expandedId === order.id
           const isLoading = isPending && actionId === order.id
 
           return (
-            <div key={order.id} className="rounded-xl border border-border bg-card overflow-hidden">
+            <div key={order.id} className="rounded-xl border border-white/[0.08] bg-white/[0.025] overflow-hidden">
               {/* Order Header */}
               <div
-                className="p-4 flex items-center justify-between cursor-pointer hover:bg-muted/20 transition-colors"
+                className="p-4 flex items-center justify-between cursor-pointer hover:bg-white/[0.03] transition-colors"
                 onClick={() => setExpandedId(isExpanded ? null : order.id)}
               >
                 <div className="flex items-center gap-4 min-w-0">
                   {statusIcon(order.status)}
                   <div className="min-w-0">
                     <div className="flex items-center gap-2">
-                      <p className="text-sm font-semibold text-foreground truncate">{order.user_email || "Guest"}</p>
+                      <p className="text-sm font-semibold text-white truncate">{order.user_email || "Guest"}</p>
                       {order.discord_username && (
-                        <span className="text-xs text-muted-foreground">({order.discord_username})</span>
+                        <span className="text-xs text-white/55">({order.discord_username})</span>
                       )}
                     </div>
                     <div className="flex items-center gap-3 mt-0.5">
-                      <span className="text-xs text-primary font-mono font-bold">{order.order_display_id || `#${order.id.slice(0, 8)}`}</span>
-                      <span className="text-xs text-muted-foreground">{formatDate(order.created_at)}</span>
+                      <span className="text-xs text-[#f97316] font-mono font-bold">{order.order_display_id || `#${order.id.slice(0, 8)}`}</span>
+                      <span className="text-xs text-white/55">{formatDate(order.created_at)}</span>
                     </div>
                   </div>
                 </div>
                 <div className="flex items-center gap-4 shrink-0">
-                  <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                  <div className="flex items-center gap-1.5 text-xs text-white/55">
                     <CreditCard className="h-3 w-3" />
                     {order.payment_method}
                   </div>
                   {statusBadge(order.status)}
-                  <p className="text-sm font-bold text-foreground tabular-nums min-w-[60px] text-right">{"\u00A3"}{(order.total_pence / 100).toFixed(2)}</p>
-                  {isExpanded ? <ChevronUp className="h-4 w-4 text-muted-foreground" /> : <ChevronDown className="h-4 w-4 text-muted-foreground" />}
+                  <p className="text-sm font-bold text-white tabular-nums min-w-[60px] text-right">{"\u00A3"}{(order.total_pence / 100).toFixed(2)}</p>
+                  {isExpanded ? <ChevronUp className="h-4 w-4 text-white/55" /> : <ChevronDown className="h-4 w-4 text-white/55" />}
                 </div>
               </div>
 
               {/* Expanded Details */}
               {isExpanded && (
-                <div className="border-t border-border">
+                <div className="border-t border-white/[0.08]">
                   {/* Order Items */}
-                  <div className="p-4 bg-muted/10">
-                    <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-3">Order Items</p>
+                  <div className="p-4 bg-white/[0.015]">
+                    <p className="text-xs font-medium text-white/55 uppercase tracking-wider mb-3">Order Items</p>
                     <div className="space-y-2">
                       {order.order_items.map((item) => (
                         <div key={item.id} className="flex items-center justify-between py-1.5">
                           <div className="flex items-center gap-2">
-                            <ShoppingCart className="h-3 w-3 text-muted-foreground" />
-                            <span className="text-sm text-foreground">{item.product_variants?.products?.name}</span>
-                            <span className="text-xs text-muted-foreground">({item.product_variants?.name})</span>
-                            {item.quantity > 1 && <span className="text-xs text-muted-foreground">x{item.quantity}</span>}
+                            <ShoppingCart className="h-3 w-3 text-white/55" />
+                            <span className="text-sm text-white">{item.product_variants?.products?.name}</span>
+                            <span className="text-xs text-white/55">({item.product_variants?.name})</span>
+                            {item.quantity > 1 && <span className="text-xs text-white/55">x{item.quantity}</span>}
                           </div>
-                          <span className="text-sm font-medium text-foreground">{"\u00A3"}{(item.price_pence / 100).toFixed(2)}</span>
+                          <span className="text-sm font-medium text-white">{"\u00A3"}{(item.price_pence / 100).toFixed(2)}</span>
                         </div>
                       ))}
                     </div>
 
                     {/* Order Details */}
-                    <div className="mt-4 pt-3 border-t border-border grid grid-cols-2 gap-3 text-xs">
+                    <div className="mt-4 pt-3 border-t border-white/[0.08] grid grid-cols-2 gap-3 text-xs">
                       <div>
-                        <span className="text-muted-foreground">User ID:</span>
-                        <p className="text-foreground font-mono mt-0.5">{order.user_id ? `${order.user_id.slice(0, 16)}...` : "Guest"}</p>
+                        <span className="text-white/55">User ID:</span>
+                        <p className="text-white font-mono mt-0.5">{order.user_id ? `${order.user_id.slice(0, 16)}...` : "Guest"}</p>
                       </div>
                       <div>
-                        <span className="text-muted-foreground">Payment:</span>
-                        <p className="text-foreground mt-0.5">{order.payment_method}</p>
+                        <span className="text-white/55">Payment:</span>
+                        <p className="text-white mt-0.5">{order.payment_method}</p>
                       </div>
                       {order.coupon_code && (
                         <div>
-                          <span className="text-muted-foreground">Coupon:</span>
-                          <p className="text-foreground font-mono mt-0.5">{order.coupon_code}</p>
+                          <span className="text-white/55">Coupon:</span>
+                          <p className="text-white font-mono mt-0.5">{order.coupon_code}</p>
                         </div>
                       )}
                       {order.discord_username && (
                         <div>
-                          <span className="text-muted-foreground">Discord:</span>
-                          <p className="text-foreground mt-0.5">{order.discord_username}</p>
+                          <span className="text-white/55">Discord:</span>
+                          <p className="text-white mt-0.5">{order.discord_username}</p>
                         </div>
                       )}
                     </div>
                   </div>
 
                   {/* Actions */}
-                  <div className="p-4 flex items-center gap-2 border-t border-border bg-muted/5">
+                  <div className="p-4 flex items-center gap-2 border-t border-white/[0.08] bg-white/[0.015]">
                     {order.status === "pending" && (
                       <>
                         <Button
@@ -287,7 +287,7 @@ export function AdminOrdersClient({ orders }: { orders: Order[] }) {
                       variant="ghost"
                       onClick={(e) => { e.stopPropagation(); handleDelete(order.id) }}
                       disabled={isLoading}
-                      className="h-8 gap-1.5 text-destructive hover:text-destructive"
+                      className="h-8 gap-1.5 text-red-400 hover:text-red-400"
                     >
                       <Trash2 className="h-3 w-3" />
                       Delete

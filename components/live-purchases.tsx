@@ -104,7 +104,7 @@ export function LivePurchases() {
           : "opacity-0 translate-y-8 pointer-events-none"
       }`}
     >
-      <div className="relative flex items-stretch gap-0 rounded-2xl bg-black/90 backdrop-blur-xl border border-white/[0.10] shadow-[0_18px_48px_rgba(0,0,0,0.55),0_0_30px_rgba(249,115,22,0.10)] w-[380px] max-w-[calc(100vw-3rem)] overflow-hidden">
+      <div className="relative flex items-stretch gap-0 rounded-2xl bg-black/90 backdrop-blur-xl border border-white/[0.10] shadow-[0_18px_48px_rgba(0,0,0,0.55),0_0_30px_rgba(249, 115, 22, 0.14)] w-[380px] max-w-[calc(100vw-3rem)] overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f97316]/60 to-transparent pointer-events-none" />
         {/* Close button — outside, top-right */}
         <button

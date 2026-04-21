@@ -156,7 +156,7 @@ export function FloatingConfigurator() {
       {/* Floating Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 z-[80] flex items-center gap-2.5 pl-4 pr-5 py-3 rounded-full bg-gradient-to-r from-[#f97316] to-[#ea580c] text-white text-[13px] font-bold shadow-[0_8px_28px_rgba(249,115,22,0.35)] hover:shadow-[0_12px_36px_rgba(249,115,22,0.5)] hover:-translate-y-0.5 hover:scale-[1.03] active:scale-95 transition-all duration-300 group ${
+        className={`fixed bottom-6 right-6 z-[80] flex items-center gap-2.5 pl-4 pr-5 py-3 rounded-full bg-gradient-to-r from-[#f97316] to-[#ea580c] text-white text-[13px] font-bold shadow-[0_8px_28px_rgba(249, 115, 22, 0.51)] hover:shadow-[0_12px_36px_rgba(249, 115, 22, 0.72)] hover:-translate-y-0.5 hover:scale-[1.03] active:scale-95 transition-all duration-300 group ${
           isOpen ? "opacity-0 pointer-events-none scale-90" : "opacity-100"
         }`}
       >
@@ -169,7 +169,7 @@ export function FloatingConfigurator() {
         <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center">
           <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={() => setIsOpen(false)} />
 
-          <div className="relative w-full sm:max-w-md rounded-t-2xl sm:rounded-2xl bg-black/95 backdrop-blur-xl border border-white/[0.10] shadow-[0_30px_80px_rgba(0,0,0,0.7),0_0_60px_rgba(249,115,22,0.10)] overflow-hidden max-h-[90vh] flex flex-col animate-in slide-in-from-bottom-4 sm:slide-in-from-bottom-0 fade-in duration-300">
+          <div className="relative w-full sm:max-w-md rounded-t-2xl sm:rounded-2xl bg-black/95 backdrop-blur-xl border border-white/[0.10] shadow-[0_30px_80px_rgba(0,0,0,0.7),0_0_60px_rgba(249, 115, 22, 0.14)] overflow-hidden max-h-[90vh] flex flex-col animate-in slide-in-from-bottom-4 sm:slide-in-from-bottom-0 fade-in duration-300">
 
             {/* Decorative top glow */}
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f97316]/60 to-transparent pointer-events-none" />
@@ -177,8 +177,8 @@ export function FloatingConfigurator() {
             {/* Header */}
             <div className="flex items-center justify-between px-5 py-4 border-b border-white/[0.06] bg-gradient-to-b from-[#f97316]/[0.04] to-transparent">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#f97316]/25 to-[#ea580c]/15 border border-[#f97316]/30 flex items-center justify-center shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_18px_rgba(249,115,22,0.18)]">
-                  <Sparkles className="h-[18px] w-[18px] text-[#f97316]" style={{ filter: "drop-shadow(0 0 8px rgba(249,115,22,0.6))" }} />
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#f97316]/25 to-[#ea580c]/15 border border-[#f97316]/30 flex items-center justify-center shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_18px_rgba(249, 115, 22, 0.26)]">
+                  <Sparkles className="h-[18px] w-[18px] text-[#f97316]" style={{ filter: "drop-shadow(0 0 8px rgba(249, 115, 22, 0.85))" }} />
                 </div>
                 <div>
                   <h3 className="font-display text-white font-bold text-[16px] tracking-tight">Product Finder</h3>
@@ -194,7 +194,7 @@ export function FloatingConfigurator() {
             <div className="h-1 bg-white/[0.05] relative overflow-hidden">
               <div
                 className="h-full bg-gradient-to-r from-[#f97316] to-[#fbbf24] transition-all duration-500"
-                style={{ width: `${(currentStepNum / totalSteps) * 100}%`, boxShadow: "0 0 12px rgba(249,115,22,0.6)" }}
+                style={{ width: `${(currentStepNum / totalSteps) * 100}%`, boxShadow: "0 0 12px rgba(249, 115, 22, 0.85)" }}
               />
             </div>
 
@@ -216,7 +216,7 @@ export function FloatingConfigurator() {
                       <button
                         key={opt.id}
                         onClick={() => selectPurpose(opt.id)}
-                        className="w-full flex items-center gap-3 p-3.5 rounded-2xl bg-white/[0.025] border border-white/[0.07] hover:border-[#f97316]/35 hover:bg-white/[0.05] hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(0,0,0,0.4),0_0_24px_rgba(249,115,22,0.10)] transition-all duration-300 group"
+                        className="w-full flex items-center gap-3 p-3.5 rounded-2xl bg-white/[0.025] border border-white/[0.07] hover:border-[#f97316]/35 hover:bg-white/[0.05] hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(0,0,0,0.4),0_0_24px_rgba(249, 115, 22, 0.14)] transition-all duration-300 group"
                       >
                         <div className="w-10 h-10 rounded-xl bg-white/[0.04] group-hover:bg-gradient-to-br group-hover:from-[#f97316]/25 group-hover:to-[#ea580c]/15 group-hover:border-[#f97316]/30 border border-white/[0.06] flex items-center justify-center transition-all duration-300">
                           <opt.icon className="h-[18px] w-[18px] text-white/55 group-hover:text-[#f97316] group-hover:scale-110 transition-all duration-300" style={{ filter: "drop-shadow(0 0 0 transparent)" }} />
@@ -242,7 +242,7 @@ export function FloatingConfigurator() {
                   <div className="space-y-2">
                     <button
                       onClick={() => selectDMA(true)}
-                      className="w-full flex items-center gap-3 p-4 rounded-2xl bg-white/[0.025] border border-white/[0.07] hover:border-[#f97316]/35 hover:bg-white/[0.05] hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(0,0,0,0.4),0_0_24px_rgba(249,115,22,0.10)] transition-all duration-300 group"
+                      className="w-full flex items-center gap-3 p-4 rounded-2xl bg-white/[0.025] border border-white/[0.07] hover:border-[#f97316]/35 hover:bg-white/[0.05] hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(0,0,0,0.4),0_0_24px_rgba(249, 115, 22, 0.14)] transition-all duration-300 group"
                     >
                       <div className="w-10 h-10 rounded-xl bg-white/[0.04] group-hover:bg-gradient-to-br group-hover:from-[#f97316]/25 group-hover:to-[#ea580c]/15 group-hover:border-[#f97316]/30 border border-white/[0.06] flex items-center justify-center transition-all duration-300">
                         <Cpu className="h-[18px] w-[18px] text-white/55 group-hover:text-[#f97316] group-hover:scale-110 transition-all duration-300" />
@@ -255,7 +255,7 @@ export function FloatingConfigurator() {
                     </button>
                     <button
                       onClick={() => selectDMA(false)}
-                      className="w-full flex items-center gap-3 p-4 rounded-2xl bg-white/[0.025] border border-white/[0.07] hover:border-[#f97316]/35 hover:bg-white/[0.05] hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(0,0,0,0.4),0_0_24px_rgba(249,115,22,0.10)] transition-all duration-300 group"
+                      className="w-full flex items-center gap-3 p-4 rounded-2xl bg-white/[0.025] border border-white/[0.07] hover:border-[#f97316]/35 hover:bg-white/[0.05] hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(0,0,0,0.4),0_0_24px_rgba(249, 115, 22, 0.14)] transition-all duration-300 group"
                     >
                       <div className="w-10 h-10 rounded-xl bg-white/[0.04] group-hover:bg-gradient-to-br group-hover:from-[#f97316]/25 group-hover:to-[#ea580c]/15 group-hover:border-[#f97316]/30 border border-white/[0.06] flex items-center justify-center transition-all duration-300">
                         <Monitor className="h-[18px] w-[18px] text-white/55 group-hover:text-[#f97316] group-hover:scale-110 transition-all duration-300" />
@@ -268,7 +268,7 @@ export function FloatingConfigurator() {
                     </button>
                     <button
                       onClick={() => { setAnswers(prev => ({ ...prev, hasDMA: null })); setStep("budget") }}
-                      className="w-full flex items-center gap-3 p-4 rounded-2xl bg-white/[0.025] border border-white/[0.07] hover:border-[#f97316]/35 hover:bg-white/[0.05] hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(0,0,0,0.4),0_0_24px_rgba(249,115,22,0.10)] transition-all duration-300 group"
+                      className="w-full flex items-center gap-3 p-4 rounded-2xl bg-white/[0.025] border border-white/[0.07] hover:border-[#f97316]/35 hover:bg-white/[0.05] hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(0,0,0,0.4),0_0_24px_rgba(249, 115, 22, 0.14)] transition-all duration-300 group"
                     >
                       <div className="w-10 h-10 rounded-xl bg-white/[0.04] group-hover:bg-gradient-to-br group-hover:from-[#f97316]/25 group-hover:to-[#ea580c]/15 group-hover:border-[#f97316]/30 border border-white/[0.06] flex items-center justify-center transition-all duration-300">
                         <Sparkles className="h-[18px] w-[18px] text-white/55 group-hover:text-[#f97316] group-hover:scale-110 transition-all duration-300" />
@@ -301,7 +301,7 @@ export function FloatingConfigurator() {
                       <button
                         key={range.label}
                         onClick={() => selectBudget(range.max)}
-                        className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-white/[0.025] border border-white/[0.07] hover:border-[#f97316]/35 hover:bg-white/[0.05] hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(0,0,0,0.4),0_0_24px_rgba(249,115,22,0.10)] transition-all duration-300 group"
+                        className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-white/[0.025] border border-white/[0.07] hover:border-[#f97316]/35 hover:bg-white/[0.05] hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(0,0,0,0.4),0_0_24px_rgba(249, 115, 22, 0.14)] transition-all duration-300 group"
                       >
                         <div>
                           <p className="text-[14px] font-bold text-white group-hover:text-[#f97316] transition-colors">{range.label}</p>

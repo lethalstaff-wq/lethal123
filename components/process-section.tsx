@@ -39,20 +39,20 @@ export function ProcessSection() {
                 {/* Step number badge — big circular gradient */}
                 <div className="relative z-[2] flex flex-col items-center mb-6">
                   <div className="relative w-[120px] h-[120px] rounded-full flex items-center justify-center"
-                       style={{ background: "radial-gradient(circle at 30% 30%, rgba(249,115,22,0.22), rgba(0,0,0,0.95) 70%)", boxShadow: "inset 0 0 0 1px rgba(249,115,22,0.30), 0 0 60px rgba(249,115,22,0.14)" }}>
+                       style={{ background: "radial-gradient(circle at 30% 30%, rgba(249, 115, 22, 0.32), rgba(0,0,0,0.95) 70%)", boxShadow: "inset 0 0 0 1px rgba(249, 115, 22, 0.43), 0 0 60px rgba(249, 115, 22, 0.2)" }}>
                     {/* Pulsing ring */}
                     <div className="absolute inset-[-6px] rounded-full border border-[#f97316]/20 group-hover:border-[#f97316]/50 transition-all" style={{ animation: "stepPulse 2.6s ease-in-out infinite" }} />
                     {/* Outer rotating dashes */}
                     <div className="absolute inset-[-12px] rounded-full border border-dashed border-[#f97316]/15 group-hover:border-[#f97316]/30 transition-all" style={{ animation: "stepRotate 18s linear infinite" }} />
                     {/* Inner icon */}
-                    <s.icon className="h-9 w-9 text-[#f97316] group-hover:scale-110 transition-transform duration-300" style={{ filter: "drop-shadow(0 0 16px rgba(249,115,22,0.6))" }} />
+                    <s.icon className="h-9 w-9 text-[#f97316] group-hover:scale-110 transition-transform duration-300" style={{ filter: "drop-shadow(0 0 16px rgba(249, 115, 22, 0.85))" }} />
                     {/* Step number bottom-right */}
-                    <span className="absolute -bottom-1 -right-1 px-2.5 py-1 rounded-full bg-black border border-[#f97316]/40 text-[10px] font-black text-[#f97316] tracking-[0.1em] shadow-[0_4px_12px_rgba(249,115,22,0.25)]">{s.num}</span>
+                    <span className="absolute -bottom-1 -right-1 px-2.5 py-1 rounded-full bg-black border border-[#f97316]/40 text-[10px] font-black text-[#f97316] tracking-[0.1em] shadow-[0_4px_12px_rgba(249, 115, 22, 0.36)]">{s.num}</span>
                   </div>
                 </div>
 
                 {/* Card */}
-                <div className="rounded-2xl p-6 bg-white/[0.015] border border-white/[0.06] hover:border-[#f97316]/30 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249,115,22,0.08)] transition-all duration-300 text-center hover:bg-white/[0.03]">
+                <div className="rounded-2xl p-6 bg-white/[0.015] border border-white/[0.06] hover:border-[#f97316]/30 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249, 115, 22, 0.12)] transition-all duration-300 text-center hover:bg-white/[0.03]">
                   <h4 className="font-display font-bold text-[20px] mb-2 text-white tracking-tight">{s.title}</h4>
                   <p className="text-[13px] text-white/55 leading-relaxed">{s.desc}</p>
                 </div>

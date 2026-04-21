@@ -60,7 +60,7 @@ export function HeroSection() {
         <div
           className="absolute top-[28%] left-1/2 -translate-x-1/2 w-[900px] h-[520px] rounded-full opacity-70"
           style={{
-            background: "radial-gradient(ellipse, rgba(249,115,22,0.14) 0%, transparent 62%)",
+            background: "radial-gradient(ellipse, rgba(249, 115, 22, 0.2) 0%, transparent 62%)",
             filter: "blur(120px)",
             animation: "heroOrb1 44s ease-in-out infinite",
             willChange: "transform",
@@ -114,7 +114,7 @@ export function HeroSection() {
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
-              filter: "drop-shadow(0 0 60px rgba(249,115,22,0.35))",
+              filter: "drop-shadow(0 0 60px rgba(249, 115, 22, 0.51))",
             }}
           >
             Confidence
@@ -144,7 +144,7 @@ export function HeroSection() {
           <Magnetic strength={0.22}>
             <Link
               href="/products"
-              className="group relative inline-flex items-center gap-2.5 px-8 py-4 rounded-xl overflow-hidden bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white font-bold text-[15px] shadow-[0_0_40px_rgba(249,115,22,0.28)] hover:shadow-[0_0_60px_rgba(249,115,22,0.48)] hover:scale-[1.02] transition-all duration-300"
+              className="group relative inline-flex items-center gap-2.5 px-8 py-4 rounded-xl overflow-hidden bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white font-bold text-[15px] shadow-[0_0_40px_rgba(249, 115, 22, 0.41)] hover:shadow-[0_0_60px_rgba(249, 115, 22, 0.7)] hover:scale-[1.02] transition-all duration-300"
             >
               <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
               <span className="relative z-10">Browse Products</span>

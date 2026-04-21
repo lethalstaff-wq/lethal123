@@ -348,7 +348,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
               id="buy-now-btn"
               onClick={handleBuyNow}
               size="lg"
-              className="w-full h-12 sm:h-14 text-sm sm:text-base font-bold gap-2 rounded-xl bg-gradient-to-br from-[#f97316] to-[#ea580c] hover:brightness-110 hover:scale-[1.01] text-white border-0 shadow-[0_8px_24px_rgba(249,115,22,0.35),inset_0_1px_0_rgba(255,255,255,0.10)] transition-all"
+              className="w-full h-12 sm:h-14 text-sm sm:text-base font-bold gap-2 rounded-xl bg-gradient-to-br from-[#f97316] to-[#ea580c] hover:brightness-110 hover:scale-[1.01] text-white border-0 shadow-[0_8px_24px_rgba(249, 115, 22, 0.51),inset_0_1px_0_rgba(255,255,255,0.10)] transition-all"
             >
               <Zap className="h-4 w-4" />
               Buy Now — {"£"}{total.toFixed(2)}
@@ -401,7 +401,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
             {product.features.map((feature, idx) => (
               <div key={idx} className="flex items-center gap-3 py-2.5 group">
-                <Check className="h-4 w-4 text-[#f97316] shrink-0 group-hover:scale-110 transition-transform" style={{ filter: "drop-shadow(0 0 6px rgba(249,115,22,0.5))" }} />
+                <Check className="h-4 w-4 text-[#f97316] shrink-0 group-hover:scale-110 transition-transform" style={{ filter: "drop-shadow(0 0 6px rgba(249, 115, 22, 0.72))" }} />
                 <span className="text-[14px] text-white/75 group-hover:text-white transition-colors">{feature}</span>
               </div>
             ))}
@@ -431,12 +431,12 @@ export function ProductDetailClient({ product }: { product: Product }) {
           </div>
 
           {/* Patch Response */}
-          <div className="group relative rounded-2xl border border-[#f97316]/25 bg-gradient-to-br from-[#f97316]/[0.06] to-white/[0.015] p-6 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_36px_rgba(249,115,22,0.18)] transition-all duration-300 overflow-hidden">
-            <div className="absolute -top-12 -right-12 w-40 h-40 rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ background: "radial-gradient(circle, rgba(249,115,22,0.18), transparent 70%)" }} />
+          <div className="group relative rounded-2xl border border-[#f97316]/25 bg-gradient-to-br from-[#f97316]/[0.06] to-white/[0.015] p-6 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_36px_rgba(249, 115, 22, 0.26)] transition-all duration-300 overflow-hidden">
+            <div className="absolute -top-12 -right-12 w-40 h-40 rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ background: "radial-gradient(circle, rgba(249, 115, 22, 0.26), transparent 70%)" }} />
             <div className="relative">
               <div className="flex items-center gap-2 mb-4">
                 <div className="w-8 h-8 rounded-lg bg-[#f97316]/15 border border-[#f97316]/30 flex items-center justify-center">
-                  <Zap className="h-4 w-4 text-[#f97316]" style={{ filter: "drop-shadow(0 0 8px rgba(249,115,22,0.55))" }} />
+                  <Zap className="h-4 w-4 text-[#f97316]" style={{ filter: "drop-shadow(0 0 8px rgba(249, 115, 22, 0.8))" }} />
                 </div>
                 <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#f97316]">{meta.lastPatchResponseHours ? "Patch Response" : "Instant Delivery"}</span>
               </div>
@@ -471,8 +471,8 @@ export function ProductDetailClient({ product }: { product: Product }) {
         <div className="mt-12 pt-10 border-t border-white/[0.06]">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#f97316]/25 to-[#ea580c]/15 border border-[#f97316]/30 flex items-center justify-center shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_18px_rgba(249,115,22,0.18)]">
-                <Sparkles className="h-[18px] w-[18px] text-[#f97316]" style={{ filter: "drop-shadow(0 0 8px rgba(249,115,22,0.55))" }} />
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#f97316]/25 to-[#ea580c]/15 border border-[#f97316]/30 flex items-center justify-center shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_18px_rgba(249, 115, 22, 0.26)]">
+                <Sparkles className="h-[18px] w-[18px] text-[#f97316]" style={{ filter: "drop-shadow(0 0 8px rgba(249, 115, 22, 0.8))" }} />
               </div>
               <div>
                 <h2 className="font-display text-2xl font-bold tracking-tight text-white">Recent Updates</h2>
@@ -510,7 +510,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {productReviews.map((review) => (
-              <div key={review.id} className="group rounded-2xl border border-white/[0.06] bg-white/[0.015] p-5 hover:border-[#f97316]/25 hover:bg-white/[0.03] hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249,115,22,0.08)] transition-all duration-300 relative overflow-hidden">
+              <div key={review.id} className="group rounded-2xl border border-white/[0.06] bg-white/[0.015] p-5 hover:border-[#f97316]/25 hover:bg-white/[0.03] hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249, 115, 22, 0.12)] transition-all duration-300 relative overflow-hidden">
                 {/* Big quote mark */}
                 <div className="absolute top-2 right-4 text-[80px] font-serif leading-none select-none pointer-events-none text-[#f97316]/[0.06] group-hover:text-[#f97316]/[0.10] transition-colors">&ldquo;</div>
 

@@ -30,12 +30,12 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="min-h-screen bg-background flex">
+    <div className="min-h-screen bg-transparent flex">
       {/* Sidebar */}
-      <aside className="w-64 border-r border-border bg-card flex flex-col shrink-0">
-        <div className="p-5 border-b border-border">
-          <h1 className="text-lg font-bold text-foreground tracking-tight">Lethal Admin</h1>
-          <p className="text-xs text-muted-foreground mt-0.5">Management Panel</p>
+      <aside className="w-64 border-r border-white/[0.08] bg-white/[0.025] flex flex-col shrink-0">
+        <div className="p-5 border-b border-white/[0.08]">
+          <h1 className="text-lg font-bold text-white tracking-tight">Lethal Admin</h1>
+          <p className="text-xs text-white/55 mt-0.5">Management Panel</p>
         </div>
 
         <nav className="flex-1 p-3 space-y-1">
@@ -50,8 +50,8 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
                 className={cn(
                   "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
                   isActive
-                    ? "bg-primary/10 text-primary"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                    ? "bg-[#f97316]/10 text-[#f97316]"
+                    : "text-white/55 hover:text-white hover:bg-white/[0.06]"
                 )}
               >
                 <item.icon className="h-4 w-4" />
@@ -61,17 +61,17 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
           })}
         </nav>
 
-        <div className="p-3 border-t border-border space-y-1">
+        <div className="p-3 border-t border-white/[0.08] space-y-1">
           <Link
             href="/"
-            className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
+            className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-white/55 hover:text-white hover:bg-white/[0.06] transition-colors"
           >
             <ChevronLeft className="h-4 w-4" />
             Back to Site
           </Link>
           <button
             onClick={handleLogout}
-            className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors w-full text-left"
+            className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-white/55 hover:text-red-400 hover:bg-red-500/10 transition-colors w-full text-left"
           >
             <LogOut className="h-4 w-4" />
             Sign Out

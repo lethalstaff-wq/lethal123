@@ -126,7 +126,7 @@ export default function AdminEmailsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-transparent">
       <div className="container max-w-7xl mx-auto py-8 px-4">
         {/* Header */}
         <div className="flex items-center gap-4 mb-8">
@@ -137,16 +137,16 @@ export default function AdminEmailsPage() {
           </Link>
           <div>
             <h1 className="text-2xl font-bold">Email Templates</h1>
-            <p className="text-muted-foreground">Preview and test email templates</p>
+            <p className="text-white/55">Preview and test email templates</p>
           </div>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-6">
           {/* Template Selector */}
           <div className="space-y-4">
-            <div className="bg-card rounded-xl border p-4">
+            <div className="bg-white/[0.025] rounded-xl border p-4">
               <h2 className="font-semibold mb-4 flex items-center gap-2">
-                <Mail className="h-4 w-4 text-primary" />
+                <Mail className="h-4 w-4 text-[#f97316]" />
                 Templates
               </h2>
               <div className="space-y-2">
@@ -159,8 +159,8 @@ export default function AdminEmailsPage() {
                     }}
                     className={`w-full flex items-center gap-3 p-3 rounded-lg text-left transition-colors ${
                       selectedTemplate === template.id
-                        ? "bg-primary/10 border border-primary/30"
-                        : "hover:bg-muted border border-transparent"
+                        ? "bg-[#f97316]/10 border border-[#f97316]/30"
+                        : "hover:bg-white/[0.04] border border-transparent"
                     }`}
                   >
                     <span className="text-xl">{template.icon}</span>
@@ -171,7 +171,7 @@ export default function AdminEmailsPage() {
             </div>
 
             {/* Actions */}
-            <div className="bg-card rounded-xl border p-4 space-y-4">
+            <div className="bg-white/[0.025] rounded-xl border p-4 space-y-4">
               <Button 
                 onClick={generatePreview} 
                 className="w-full"
@@ -196,9 +196,9 @@ export default function AdminEmailsPage() {
             </div>
 
             {/* Test Email */}
-            <div className="bg-card rounded-xl border p-4 space-y-4">
+            <div className="bg-white/[0.025] rounded-xl border p-4 space-y-4">
               <h2 className="font-semibold flex items-center gap-2">
-                <Send className="h-4 w-4 text-primary" />
+                <Send className="h-4 w-4 text-[#f97316]" />
                 Send Test Email
               </h2>
               <div className="space-y-2">
@@ -219,7 +219,7 @@ export default function AdminEmailsPage() {
               >
                 {sending ? "Sending..." : "Send Test"}
               </Button>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs text-white/55">
                 Requires SMTP configuration (SENDGRID_API_KEY, RESEND_API_KEY, etc.)
               </p>
             </div>
@@ -227,10 +227,10 @@ export default function AdminEmailsPage() {
 
           {/* Preview */}
           <div className="lg:col-span-2">
-            <div className="bg-card rounded-xl border overflow-hidden">
+            <div className="bg-white/[0.025] rounded-xl border overflow-hidden">
               <div className="p-4 border-b flex items-center justify-between">
                 <h2 className="font-semibold">Email Preview</h2>
-                <span className="text-xs text-muted-foreground">
+                <span className="text-xs text-white/55">
                   {EMAIL_TEMPLATES.find(t => t.id === selectedTemplate)?.name}
                 </span>
               </div>
@@ -242,7 +242,7 @@ export default function AdminEmailsPage() {
                     title="Email Preview"
                   />
                 ) : (
-                  <div className="flex items-center justify-center h-[600px] text-muted-foreground">
+                  <div className="flex items-center justify-center h-[600px] text-white/55">
                     Click &quot;Generate Preview&quot; to see the email template
                   </div>
                 )}

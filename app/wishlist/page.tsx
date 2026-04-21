@@ -63,8 +63,8 @@ export default function WishlistPage() {
         <Navbar />
         <section className="flex-1 py-32 px-4 sm:px-6 lg:px-8">
           <div className="container mx-auto max-w-md text-center">
-            <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#f97316]/20 to-[#ea580c]/10 border border-[#f97316]/30 flex items-center justify-center mx-auto mb-6 shadow-[0_0_40px_rgba(249,115,22,0.15)]">
-              <Heart className="h-9 w-9 text-[#f97316]" style={{ filter: "drop-shadow(0 0 12px rgba(249,115,22,0.5))" }} />
+            <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#f97316]/20 to-[#ea580c]/10 border border-[#f97316]/30 flex items-center justify-center mx-auto mb-6 shadow-[0_0_40px_rgba(249, 115, 22, 0.22)]">
+              <Heart className="h-9 w-9 text-[#f97316]" style={{ filter: "drop-shadow(0 0 12px rgba(249, 115, 22, 0.72))" }} />
             </div>
             <h1 className="font-display text-3xl font-bold text-white mb-3 tracking-tight">Your wishlist is empty</h1>
             <p className="text-white/55 mb-8 text-[15px]">Browse our products and save the ones you like.</p>
@@ -96,7 +96,7 @@ export default function WishlistPage() {
             </div>
             <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-bold tracking-[-0.04em] leading-[0.95] mb-5">
               <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>My </span>
-              <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249,115,22,0.3))" }}>Wishlist</span>
+              <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249, 115, 22, 0.43))" }}>Wishlist</span>
             </h1>
             <p className="text-[16px] text-white/55">{products.length} saved {products.length === 1 ? "item" : "items"}</p>
           </div>

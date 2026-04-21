@@ -111,7 +111,7 @@ export function Navbar() {
           style={{
             width: `${scrollProgress}%`,
             background: "linear-gradient(90deg, #f97316, #fb923c, #fbbf24)",
-            boxShadow: "0 0 12px rgba(249,115,22,0.55)",
+            boxShadow: "0 0 12px rgba(249, 115, 22, 0.8)",
           }}
         />
       </div>
@@ -141,7 +141,7 @@ export function Navbar() {
                       href={link.href}
                       className={`px-4 py-1.5 text-[13px] font-semibold rounded-full transition-all duration-200 ${
                         isActive
-                          ? "text-white bg-gradient-to-br from-[#f97316] to-[#ea580c] shadow-[0_4px_14px_rgba(249,115,22,0.4)]"
+                          ? "text-white bg-gradient-to-br from-[#f97316] to-[#ea580c] shadow-[0_4px_14px_rgba(249, 115, 22, 0.58)]"
                           : "text-white/55 hover:text-white hover:bg-white/[0.06]"
                       }`}
                     >
@@ -241,7 +241,7 @@ export function Navbar() {
               <Link href={isAuthed ? "/profile" : "/login"}>
                 <Button
                   size="sm"
-                  className="hidden sm:inline-flex bg-gradient-to-br from-[#f97316] to-[#ea580c] hover:brightness-110 text-white text-xs font-bold rounded-full px-4 h-8 gap-1.5 shadow-[0_4px_14px_rgba(249,115,22,0.32)] hover:shadow-[0_6px_20px_rgba(249,115,22,0.5)] hover:-translate-y-0.5 transition-all duration-300 border-0"
+                  className="hidden sm:inline-flex bg-gradient-to-br from-[#f97316] to-[#ea580c] hover:brightness-110 text-white text-xs font-bold rounded-full px-4 h-8 gap-1.5 shadow-[0_4px_14px_rgba(249, 115, 22, 0.46)] hover:shadow-[0_6px_20px_rgba(249, 115, 22, 0.72)] hover:-translate-y-0.5 transition-all duration-300 border-0"
                 >
                   <User className="h-3.5 w-3.5" />
                   {isAuthed ? "My Account" : "Customer Login"}
@@ -253,7 +253,7 @@ export function Navbar() {
                 <Button variant="ghost" size="icon" className="relative h-9 w-9 rounded-full hover:bg-white/[0.08] hover:text-[#f97316] text-white/70 transition-colors" aria-label="Shopping cart">
                   <ShoppingCart className="h-[18px] w-[18px]" />
                   {itemCount > 0 && (
-                    <span className="absolute -top-0.5 -right-0.5 h-[18px] min-w-[18px] px-1 rounded-full bg-gradient-to-br from-[#f97316] to-[#ea580c] text-[10px] font-bold flex items-center justify-center text-white shadow-[0_2px_8px_rgba(249,115,22,0.5)]">
+                    <span className="absolute -top-0.5 -right-0.5 h-[18px] min-w-[18px] px-1 rounded-full bg-gradient-to-br from-[#f97316] to-[#ea580c] text-[10px] font-bold flex items-center justify-center text-white shadow-[0_2px_8px_rgba(249, 115, 22, 0.72)]">
                       {itemCount}
                     </span>
                   )}

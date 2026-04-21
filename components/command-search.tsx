@@ -108,10 +108,10 @@ export function CommandSearch() {
 
       {/* Modal */}
       <div className="relative max-w-lg w-full mx-auto mt-[15vh] px-4">
-        <div className="rounded-2xl border border-white/[0.10] bg-[#0a0a0a]/95 backdrop-blur-xl shadow-[0_24px_60px_rgba(0,0,0,0.55),0_0_40px_rgba(249,115,22,0.08)] overflow-hidden">
+        <div className="rounded-2xl border border-white/[0.10] bg-[#0a0a0a]/95 backdrop-blur-xl shadow-[0_24px_60px_rgba(0,0,0,0.55),0_0_40px_rgba(249, 115, 22, 0.12)] overflow-hidden">
           {/* Input */}
           <div className="flex items-center gap-3 px-4 border-b border-white/[0.06]">
-            <Search className="h-4 w-4 text-[#f97316] shrink-0" style={{ filter: "drop-shadow(0 0 6px rgba(249,115,22,0.55))" }} />
+            <Search className="h-4 w-4 text-[#f97316] shrink-0" style={{ filter: "drop-shadow(0 0 6px rgba(249, 115, 22, 0.8))" }} />
             <input
               ref={inputRef}
               type="text"

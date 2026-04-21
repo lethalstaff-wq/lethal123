@@ -191,13 +191,13 @@ export default function ProfilePage() {
           >
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none" />
             <div className="absolute inset-0 bg-black/55 backdrop-blur-md" />
-            <div className="absolute -top-20 -right-20 w-72 h-72 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(249,115,22,0.15), transparent 70%)" }} />
+            <div className="absolute -top-20 -right-20 w-72 h-72 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(249, 115, 22, 0.22), transparent 70%)" }} />
             <div className="relative p-6 md:p-8">
               <div className="flex flex-col md:flex-row md:items-start gap-5">
                 <div
                   className={cn(
                     "w-20 h-20 md:w-24 md:h-24 rounded-2xl flex items-center justify-center font-display text-3xl md:text-4xl font-black text-white shrink-0",
-                    "bg-gradient-to-br from-[#f97316] to-[#ea580c] shadow-[0_8px_24px_rgba(249,115,22,0.4),inset_0_1px_0_rgba(255,255,255,0.15)]"
+                    "bg-gradient-to-br from-[#f97316] to-[#ea580c] shadow-[0_8px_24px_rgba(249, 115, 22, 0.58),inset_0_1px_0_rgba(255,255,255,0.15)]"
                   )}
                 >
                   {initials}
@@ -222,7 +222,7 @@ export default function ProfilePage() {
                 <div className="flex items-center gap-2 shrink-0">
                   <Link
                     href="/products"
-                    className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white text-[13px] font-bold transition-all hover:scale-[1.03] hover:brightness-110 shadow-[0_4px_14px_rgba(249,115,22,0.32),inset_0_1px_0_rgba(255,255,255,0.08)]"
+                    className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white text-[13px] font-bold transition-all hover:scale-[1.03] hover:brightness-110 shadow-[0_4px_14px_rgba(249, 115, 22, 0.46),inset_0_1px_0_rgba(255,255,255,0.08)]"
                   >
                     Shop products
                   </Link>
@@ -260,7 +260,7 @@ export default function ProfilePage() {
                   className={cn(
                     "flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-[13px] font-bold whitespace-nowrap transition-all shrink-0",
                     active
-                      ? "bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white shadow-[0_4px_14px_rgba(249,115,22,0.4)]"
+                      ? "bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white shadow-[0_4px_14px_rgba(249, 115, 22, 0.58)]"
                       : "text-white/55 hover:text-white hover:bg-white/[0.06]"
                   )}
                 >
@@ -403,7 +403,7 @@ function QuickLink({
   accent?: string
 }) {
   const content = (
-    <div className="group flex items-center gap-4 p-5 rounded-2xl border border-white/[0.06] bg-white/[0.015] hover:bg-white/[0.03] hover:border-[#f97316]/25 hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249,115,22,0.08)] transition-all duration-300">
+    <div className="group flex items-center gap-4 p-5 rounded-2xl border border-white/[0.06] bg-white/[0.015] hover:bg-white/[0.03] hover:border-[#f97316]/25 hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249, 115, 22, 0.12)] transition-all duration-300">
       <div className={cn("w-11 h-11 rounded-xl flex items-center justify-center bg-white/[0.04] border border-white/[0.08] group-hover:scale-110 transition-transform", accent)}>
         <Icon className="h-[18px] w-[18px]" />
       </div>
@@ -436,13 +436,13 @@ function EmptyState({
 }) {
   return (
     <div className="text-center py-16 rounded-2xl border border-white/[0.06] bg-white/[0.015]">
-      <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#f97316]/20 to-[#ea580c]/10 border border-[#f97316]/30 flex items-center justify-center mx-auto mb-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_24px_rgba(249,115,22,0.15)]">
-        <Icon className="h-7 w-7 text-[#f97316]" style={{ filter: "drop-shadow(0 0 10px rgba(249,115,22,0.5))" }} />
+      <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#f97316]/20 to-[#ea580c]/10 border border-[#f97316]/30 flex items-center justify-center mx-auto mb-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_24px_rgba(249, 115, 22, 0.22)]">
+        <Icon className="h-7 w-7 text-[#f97316]" style={{ filter: "drop-shadow(0 0 10px rgba(249, 115, 22, 0.72))" }} />
       </div>
       <p className="font-display text-white text-lg font-bold mb-2 tracking-tight">{title}</p>
       <p className="text-[13px] text-white/65 mb-6 max-w-sm mx-auto leading-relaxed">{description}</p>
       <Link href={ctaHref}>
-        <button className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-br from-[#f97316] to-[#ea580c] hover:brightness-110 hover:scale-[1.03] text-white text-sm font-bold transition-all shadow-[0_4px_14px_rgba(249,115,22,0.32),inset_0_1px_0_rgba(255,255,255,0.08)]">
+        <button className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-br from-[#f97316] to-[#ea580c] hover:brightness-110 hover:scale-[1.03] text-white text-sm font-bold transition-all shadow-[0_4px_14px_rgba(249, 115, 22, 0.46),inset_0_1px_0_rgba(255,255,255,0.08)]">
           {ctaLabel}
         </button>
       </Link>
@@ -454,7 +454,7 @@ function OrderRow({ order, onDownload }: { order: Order; onDownload: () => void 
   const statusConfig = STATUS_CONFIG[order.status] ?? STATUS_CONFIG.pending
   const StatusIcon = statusConfig.icon
   return (
-    <div className="group rounded-2xl border border-white/[0.06] bg-white/[0.015] p-5 hover:border-[#f97316]/25 hover:bg-white/[0.03] hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249,115,22,0.08)] transition-all duration-300">
+    <div className="group rounded-2xl border border-white/[0.06] bg-white/[0.015] p-5 hover:border-[#f97316]/25 hover:bg-white/[0.03] hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249, 115, 22, 0.12)] transition-all duration-300">
       <div className="flex flex-col md:flex-row md:items-center gap-4">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap mb-2">
@@ -474,7 +474,7 @@ function OrderRow({ order, onDownload }: { order: Order; onDownload: () => void 
           {order.status === "completed" ? (
             <button
               onClick={onDownload}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gradient-to-br from-[#f97316] to-[#ea580c] hover:brightness-110 hover:scale-[1.03] text-[12px] font-bold text-white transition-all shadow-[0_4px_14px_rgba(249,115,22,0.32)]"
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gradient-to-br from-[#f97316] to-[#ea580c] hover:brightness-110 hover:scale-[1.03] text-[12px] font-bold text-white transition-all shadow-[0_4px_14px_rgba(249, 115, 22, 0.46)]"
             >
               <FileDown className="h-3.5 w-3.5" />
               Download

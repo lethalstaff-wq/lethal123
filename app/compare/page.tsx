@@ -237,7 +237,7 @@ export default function ComparePage() {
             </div>
             <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-bold tracking-[-0.04em] leading-[0.95] mb-6">
               <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Compare </span>
-              <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249,115,22,0.3))" }}>Products</span>
+              <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249, 115, 22, 0.43))" }}>Products</span>
             </h1>
             <p className="text-[17px] text-white/55 max-w-xl mx-auto leading-relaxed">
               Find the perfect product for your needs with our detailed comparison
@@ -473,7 +473,7 @@ export default function ComparePage() {
                           <div className={cn(
                             "relative rounded-2xl border p-6 overflow-hidden transition-all duration-300 hover:-translate-y-1",
                             bundle.badge === "Popular"
-                              ? "border-[#f97316]/40 bg-gradient-to-b from-[#f97316]/[0.10] to-white/[0.015] shadow-[0_18px_48px_rgba(0,0,0,0.4),0_0_50px_rgba(249,115,22,0.18)]"
+                              ? "border-[#f97316]/40 bg-gradient-to-b from-[#f97316]/[0.10] to-white/[0.015] shadow-[0_18px_48px_rgba(0,0,0,0.4),0_0_50px_rgba(249, 115, 22, 0.26)]"
                               : "border-white/[0.06] bg-white/[0.015] hover:border-[#f97316]/25 hover:shadow-[0_18px_40px_rgba(0,0,0,0.35)]"
                           )}>
                             {bundle.badge === "Popular" && (
@@ -544,7 +544,7 @@ export default function ComparePage() {
                             className={cn(
                               "gap-2 rounded-xl w-full font-bold text-[13px] transition-all hover:scale-[1.02] hover:brightness-110 border-0",
                               bundle.badge === "Popular"
-                                ? "bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white shadow-[0_4px_14px_rgba(249,115,22,0.4),inset_0_1px_0_rgba(255,255,255,0.08)]"
+                                ? "bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white shadow-[0_4px_14px_rgba(249, 115, 22, 0.58),inset_0_1px_0_rgba(255,255,255,0.08)]"
                                 : "bg-white/[0.06] hover:bg-[#f97316]/10 text-white/85 hover:text-[#f97316] border border-white/[0.10] hover:border-[#f97316]/40"
                             )}
                           >

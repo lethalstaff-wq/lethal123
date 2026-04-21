@@ -152,17 +152,17 @@ export function DashboardClient({ user, orders, totalSpent, activeLicenses, memb
     <section className="py-20 px-4 sm:px-6 lg:px-8">
       <div className="container mx-auto max-w-6xl">
         {/* Hero Banner */}
-        <div className="relative rounded-3xl bg-gradient-to-br from-[#f97316]/15 via-white/[0.015] to-[#ea580c]/10 border border-white/[0.10] p-6 md:p-8 mb-8 overflow-hidden shadow-[0_24px_60px_rgba(0,0,0,0.4),0_0_60px_rgba(249,115,22,0.10)]">
+        <div className="relative rounded-3xl bg-gradient-to-br from-[#f97316]/15 via-white/[0.015] to-[#ea580c]/10 border border-white/[0.10] p-6 md:p-8 mb-8 overflow-hidden shadow-[0_24px_60px_rgba(0,0,0,0.4),0_0_60px_rgba(249, 115, 22, 0.14)]">
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f97316]/55 to-transparent pointer-events-none" />
-          <div className="absolute -top-24 -right-24 w-72 h-72 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(249,115,22,0.18), transparent 70%)" }} />
+          <div className="absolute -top-24 -right-24 w-72 h-72 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(249, 115, 22, 0.26), transparent 70%)" }} />
           <div className="relative flex flex-col md:flex-row md:items-center gap-6">
-            <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#f97316] to-[#ea580c] border border-[#f97316]/40 flex items-center justify-center font-display text-3xl font-black text-white shadow-[0_8px_24px_rgba(249,115,22,0.4),inset_0_1px_0_rgba(255,255,255,0.15)]">
+            <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#f97316] to-[#ea580c] border border-[#f97316]/40 flex items-center justify-center font-display text-3xl font-black text-white shadow-[0_8px_24px_rgba(249, 115, 22, 0.58),inset_0_1px_0_rgba(255,255,255,0.15)]">
               {username.slice(0, 2).toUpperCase()}
             </div>
             <div className="flex-1">
               <h1 className="font-display text-3xl md:text-4xl font-bold tracking-tight mb-1.5">
                 <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Welcome back, </span>
-                <span style={{ background: "linear-gradient(180deg, #ffb366, #f97316, #c2410c)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 24px rgba(249,115,22,0.3))" }}>{username}</span>
+                <span style={{ background: "linear-gradient(180deg, #ffb366, #f97316, #c2410c)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 24px rgba(249, 115, 22, 0.43))" }}>{username}</span>
               </h1>
               <p className="text-white/65 text-[14px]">
                 Member since {memberSince}
@@ -200,7 +200,7 @@ export function DashboardClient({ user, orders, totalSpent, activeLicenses, memb
               onClick={() => setActiveTab(tab.id)}
               className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-[13px] transition-all whitespace-nowrap ${
                 activeTab === tab.id
-                  ? "bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white shadow-[0_4px_14px_rgba(249,115,22,0.4)]"
+                  ? "bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white shadow-[0_4px_14px_rgba(249, 115, 22, 0.58)]"
                   : "text-white/55 hover:text-white hover:bg-white/[0.06]"
               }`}
             >
@@ -499,7 +499,7 @@ export function DashboardClient({ user, orders, totalSpent, activeLicenses, memb
       {/* Password Change Modal */}
       {showPasswordModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
-          <div className="w-full max-w-md mx-4 p-6 rounded-2xl bg-[#0a0a0a] backdrop-blur-xl border border-white/[0.10] shadow-[0_30px_80px_rgba(0,0,0,0.7),0_0_60px_rgba(249,115,22,0.10)]">
+          <div className="w-full max-w-md mx-4 p-6 rounded-2xl bg-[#0a0a0a] backdrop-blur-xl border border-white/[0.10] shadow-[0_30px_80px_rgba(0,0,0,0.7),0_0_60px_rgba(249, 115, 22, 0.14)]">
             <h3 className="text-lg font-bold mb-4 text-white">Change Password</h3>
 
             {passwordSuccess ? (

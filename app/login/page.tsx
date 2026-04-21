@@ -96,7 +96,7 @@ export default function LoginPage() {
           </p>
           <h1 className="font-display text-[44px] xl:text-[60px] font-bold leading-[0.95] tracking-[-0.04em]">
             <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Manage<br />everything<br /></span>
-            <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249,115,22,0.3))" }}>in one place.</span>
+            <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249, 115, 22, 0.43))" }}>in one place.</span>
           </h1>
           <p className="mt-6 text-[15px] text-white/45 leading-relaxed max-w-[340px]">
             Licenses, downloads, orders, support — all from your dashboard.
@@ -150,7 +150,7 @@ export default function LoginPage() {
               onClick={() => { setActiveTab("login"); setError(null); setSuccess(""); }}
               className={`flex-1 py-2.5 rounded-lg text-[13px] font-bold transition-all ${
                 activeTab === "login"
-                  ? "bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white shadow-[0_4px_14px_rgba(249,115,22,0.4)]"
+                  ? "bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white shadow-[0_4px_14px_rgba(249, 115, 22, 0.58)]"
                   : "text-white/55 hover:text-white"
               }`}
             >
@@ -161,7 +161,7 @@ export default function LoginPage() {
               onClick={() => { setActiveTab("signup"); setError(null); setSuccess(""); }}
               className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all ${
                 activeTab === "signup"
-                  ? "bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white shadow-[0_4px_14px_rgba(249,115,22,0.4)]"
+                  ? "bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white shadow-[0_4px_14px_rgba(249, 115, 22, 0.58)]"
                   : "text-white/55 hover:text-white"
               }`}
             >
@@ -190,7 +190,7 @@ export default function LoginPage() {
 
               <button
                 type="submit"
-                className="group flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#f97316] to-[#ea580c] px-4 py-3 text-sm font-bold text-white shadow-[0_4px_16px_rgba(249,115,22,0.2)] transition-all hover:shadow-[0_8px_24px_rgba(249,115,22,0.3)] hover:-translate-y-px active:translate-y-0 disabled:opacity-50"
+                className="group flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#f97316] to-[#ea580c] px-4 py-3 text-sm font-bold text-white shadow-[0_4px_16px_rgba(249, 115, 22, 0.29)] transition-all hover:shadow-[0_8px_24px_rgba(249, 115, 22, 0.43)] hover:-translate-y-px active:translate-y-0 disabled:opacity-50"
                 disabled={isLoading}
               >
                 {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : (
@@ -227,7 +227,7 @@ export default function LoginPage() {
 
               <button
                 type="submit"
-                className="group flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#f97316] to-[#ea580c] px-4 py-3 text-sm font-bold text-white shadow-[0_4px_16px_rgba(249,115,22,0.2)] transition-all hover:shadow-[0_8px_24px_rgba(249,115,22,0.3)] hover:-translate-y-px active:translate-y-0 disabled:opacity-50"
+                className="group flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#f97316] to-[#ea580c] px-4 py-3 text-sm font-bold text-white shadow-[0_4px_16px_rgba(249, 115, 22, 0.29)] transition-all hover:shadow-[0_8px_24px_rgba(249, 115, 22, 0.43)] hover:-translate-y-px active:translate-y-0 disabled:opacity-50"
                 disabled={isLoading}
               >
                 {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : (

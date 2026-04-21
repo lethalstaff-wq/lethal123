@@ -30,7 +30,7 @@ export function ProductsGridDark({ products }: { products: Product[] }) {
               onClick={() => setActiveCategory(cat.id)}
               className={`px-5 py-2 rounded-full text-[13px] font-semibold transition-all duration-300 ${
                 activeCategory === cat.id
-                  ? "bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white shadow-[0_4px_14px_rgba(249,115,22,0.4)]"
+                  ? "bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white shadow-[0_4px_14px_rgba(249, 115, 22, 0.58)]"
                   : "text-white/55 hover:text-white hover:bg-white/[0.06]"
               }`}
             >
@@ -53,8 +53,8 @@ export function ProductsGridDark({ products }: { products: Product[] }) {
               <div
                 className={`relative rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1.5 ${
                   isPremium
-                    ? "border border-[#f97316]/35 bg-gradient-to-b from-[#f97316]/[0.06] to-white/[0.015] shadow-[0_8px_32px_rgba(249,115,22,0.10)] hover:shadow-[0_24px_60px_rgba(0,0,0,0.5),0_0_50px_rgba(249,115,22,0.18)] hover:border-[#f97316]/60"
-                    : "border border-white/[0.06] bg-white/[0.015] hover:border-[#f97316]/30 hover:bg-white/[0.03] hover:shadow-[0_24px_60px_rgba(0,0,0,0.5),0_0_40px_rgba(249,115,22,0.10)]"
+                    ? "border border-[#f97316]/35 bg-gradient-to-b from-[#f97316]/[0.06] to-white/[0.015] shadow-[0_8px_32px_rgba(249, 115, 22, 0.14)] hover:shadow-[0_24px_60px_rgba(0,0,0,0.5),0_0_50px_rgba(249, 115, 22, 0.26)] hover:border-[#f97316]/60"
+                    : "border border-white/[0.06] bg-white/[0.015] hover:border-[#f97316]/30 hover:bg-white/[0.03] hover:shadow-[0_24px_60px_rgba(0,0,0,0.5),0_0_40px_rgba(249, 115, 22, 0.14)]"
                 }`}
               >
                 {/* Top badges row */}
@@ -98,7 +98,7 @@ export function ProductsGridDark({ products }: { products: Product[] }) {
                 {/* Image Area */}
                 <div className="relative aspect-[4/3] bg-gradient-to-b from-black/40 via-transparent to-transparent flex items-center justify-center p-8 overflow-hidden">
                   {/* Orange glow behind image on hover */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ background: "radial-gradient(circle at 50% 50%, rgba(249,115,22,0.18), transparent 65%)" }} />
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ background: "radial-gradient(circle at 50% 50%, rgba(249, 115, 22, 0.26), transparent 65%)" }} />
                   <Image
                     src={product.image || "/placeholder.svg"}
                     alt={product.name}

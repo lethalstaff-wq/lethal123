@@ -298,7 +298,7 @@ export default function TrackOrderPage() {
           <h1 className="font-display text-[44px] xl:text-[64px] font-bold leading-[0.95] tracking-[-0.04em]">
             <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Track your</span>
             <br />
-            <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249,115,22,0.3))" }}>order.</span>
+            <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249, 115, 22, 0.43))" }}>order.</span>
           </h1>
           <p className="mt-6 text-[15px] text-white/55 leading-relaxed max-w-[340px]">
             Enter your order ID or email to check status, view license keys, and access downloads.
@@ -385,7 +385,7 @@ export default function TrackOrderPage() {
             <button
               type="submit"
               disabled={loading || !searchValue.trim()}
-              className="group flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#f97316] to-[#ea580c] px-4 py-3 text-sm font-bold text-white shadow-[0_4px_16px_rgba(249,115,22,0.2)] transition-all hover:shadow-[0_8px_24px_rgba(249,115,22,0.3)] hover:-translate-y-px active:translate-y-0 disabled:opacity-50"
+              className="group flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#f97316] to-[#ea580c] px-4 py-3 text-sm font-bold text-white shadow-[0_4px_16px_rgba(249, 115, 22, 0.29)] transition-all hover:shadow-[0_8px_24px_rgba(249, 115, 22, 0.43)] hover:-translate-y-px active:translate-y-0 disabled:opacity-50"
             >
               {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : (
                 <>

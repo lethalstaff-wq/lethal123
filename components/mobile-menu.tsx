@@ -72,7 +72,7 @@ export function MobileMenu() {
               </Button>
             </Link>
             <Link href={isAuthed ? "/profile" : "/login"} onClick={() => setOpen(false)} className="flex-1">
-              <Button className="w-full gap-2 bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white border-0 hover:brightness-110 shadow-[0_4px_14px_rgba(249,115,22,0.32)]">
+              <Button className="w-full gap-2 bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white border-0 hover:brightness-110 shadow-[0_4px_14px_rgba(249, 115, 22, 0.46)]">
                 <User className="h-4 w-4" />
                 {isAuthed ? "Profile" : "Login"}
               </Button>

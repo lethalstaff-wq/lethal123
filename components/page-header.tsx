@@ -54,7 +54,7 @@ export function PageHeader({ pill, icon: Icon, prefix, accent, suffix, descripti
               background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
-              filter: "drop-shadow(0 0 50px rgba(249,115,22,0.3))",
+              filter: "drop-shadow(0 0 50px rgba(249, 115, 22, 0.43))",
             }}
           >
             {accent}

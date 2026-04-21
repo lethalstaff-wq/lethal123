@@ -228,7 +228,7 @@ function Spotlight() {
     return () => window.removeEventListener("mousemove", h)
   }, [])
   return <div ref={r} className="fixed top-0 left-0 w-[600px] h-[600px] pointer-events-none z-[2] hidden lg:block"
-    style={{ background: "radial-gradient(circle, rgba(249,115,22,0.025) 0%, transparent 55%)", willChange: "transform" }} />
+    style={{ background: "radial-gradient(circle, rgba(249, 115, 22, 0.04) 0%, transparent 55%)", willChange: "transform" }} />
 }
 
 
@@ -525,8 +525,8 @@ export default function ApplyPage() {
       <section className="relative min-h-screen flex items-center overflow-hidden">
         {/* Hero accent — layered on top of global bg */}
         <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
-          <div className="absolute top-[20%] right-[5%] w-[640px] h-[480px] rounded-full opacity-70 lx-a1" style={{ background: "radial-gradient(circle, rgba(249,115,22,0.12), transparent 65%)", filter: "blur(130px)" }} />
-          <div className="absolute bottom-[5%] left-[5%] w-[560px] h-[440px] rounded-full opacity-60 lx-a2" style={{ background: "radial-gradient(circle, rgba(234,88,12,0.08), transparent 65%)", filter: "blur(130px)" }} />
+          <div className="absolute top-[20%] right-[5%] w-[640px] h-[480px] rounded-full opacity-70 lx-a1" style={{ background: "radial-gradient(circle, rgba(249, 115, 22, 0.17), transparent 65%)", filter: "blur(130px)" }} />
+          <div className="absolute bottom-[5%] left-[5%] w-[560px] h-[440px] rounded-full opacity-60 lx-a2" style={{ background: "radial-gradient(circle, rgba(234, 88, 12, 0.12), transparent 65%)", filter: "blur(130px)" }} />
         </div>
 
         <div className="relative z-10 w-full max-w-[1280px] mx-auto px-6 sm:px-10 lg:px-16 py-32 lg:py-40">
@@ -558,7 +558,7 @@ export default function ApplyPage() {
                   }}>{line}</span>
               ))}
               <span className={`block text-[clamp(2.5rem,6vw,4.75rem)] font-bold tracking-[-0.035em] leading-[1.05] tr lx-text-orange ${heroReady ? "o1 ty0" : "o0 ty2"}`}
-                style={{ transitionDelay: "500ms", filter: "drop-shadow(0 0 60px rgba(249,115,22,0.3))" }}>Lethal Solutions</span>
+                style={{ transitionDelay: "500ms", filter: "drop-shadow(0 0 60px rgba(249, 115, 22, 0.43))" }}>Lethal Solutions</span>
             </h1>
 
             <p className={`text-[15px] sm:text-[17px] text-white/55 leading-[1.75] mb-8 max-w-[480px] tr ${heroReady ? "o1 ty0" : "o0 ty1"}`} style={{ transitionDelay: "650ms" }}>
@@ -627,7 +627,7 @@ export default function ApplyPage() {
             { icon: Star, value: FALLBACK_STATS.satisfactionPercent, suffix: "%", label: "Satisfaction", accent: "#fbbf24" },
             { icon: Clock, display: "24/7", label: "Support", accent: "#22c55e" },
           ].map((stat, i) => (
-            <div key={stat.label} className="group relative p-5 sm:p-6 rounded-2xl bg-white/[0.025] border border-white/[0.06] hover:border-[#f97316]/30 hover:bg-white/[0.04] hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.35),0_0_32px_rgba(249,115,22,0.12)] transition-all duration-500 overflow-hidden">
+            <div key={stat.label} className="group relative p-5 sm:p-6 rounded-2xl bg-white/[0.025] border border-white/[0.06] hover:border-[#f97316]/30 hover:bg-white/[0.04] hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.35),0_0_32px_rgba(249, 115, 22, 0.17)] transition-all duration-500 overflow-hidden">
               {/* Icon orb — colored glow ring */}
               <div className="relative mb-4 w-11 h-11">
                 <div className="absolute inset-0 rounded-xl blur-xl opacity-50 group-hover:opacity-90 transition-opacity duration-500"
@@ -895,7 +895,7 @@ export default function ApplyPage() {
                   <div className={`lx-card lx-shine group h-full flex flex-col justify-between relative overflow-hidden transition-all duration-500 hover:-translate-y-0.5 ${isWide ? "p-8" : "p-7"}`}>
                     {/* Hover glow behind icon — orange radial */}
                     <div className="absolute -top-10 -left-10 w-[240px] h-[240px] rounded-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700"
-                      style={{ background: "radial-gradient(circle, rgba(249,115,22,0.10), transparent 70%)" }} />
+                      style={{ background: "radial-gradient(circle, rgba(249, 115, 22, 0.14), transparent 70%)" }} />
 
                     {/* Subtle corner accent for wide cards */}
                     {isWide && (
@@ -917,7 +917,7 @@ export default function ApplyPage() {
 
                     {/* Bottom accent bar — slides in on hover */}
                     <div className="absolute bottom-0 left-0 h-[2px] w-0 group-hover:w-full transition-all duration-700 ease-out"
-                         style={{ background: "linear-gradient(90deg, #f97316, transparent)", boxShadow: "0 0 12px rgba(249,115,22,0.5)" }} />
+                         style={{ background: "linear-gradient(90deg, #f97316, transparent)", boxShadow: "0 0 12px rgba(249, 115, 22, 0.72)" }} />
                   </div>
                 </R>
               )
@@ -974,7 +974,7 @@ export default function ApplyPage() {
                   <div className="flex justify-center">
                     <div className="relative w-8 h-8 rounded-lg bg-[#f97316]/[0.04] border border-[#f97316]/10 flex items-center justify-center group-hover:bg-[#f97316]/10 group-hover:border-[#f97316]/25 transition-all duration-300">
                       <Check className="h-3.5 w-3.5 text-[#f97316]/40 group-hover:text-[#f97316]/90 transition-colors" />
-                      <div className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ boxShadow: "0 0 15px rgba(249,115,22,0.12)" }} />
+                      <div className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ boxShadow: "0 0 15px rgba(249, 115, 22, 0.17)" }} />
                     </div>
                   </div>
 
@@ -1061,7 +1061,7 @@ export default function ApplyPage() {
 
       <section id="apply-form" ref={formRef} className="relative z-10 py-28 px-6 sm:px-10 lg:px-16">
         {/* Ambient glow */}
-        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 60% 40% at 50% 30%, rgba(249,115,22,0.025), transparent)" }} />
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 60% 40% at 50% 30%, rgba(249, 115, 22, 0.04), transparent)" }} />
 
         <div className="max-w-[700px] mx-auto relative">
           <Hdr tag="Apply" title={<>Apply <span className="lx-text-orange">Now</span></>} sub="Takes 2 minutes. We respond within 48 hours. No resume needed." />
@@ -1078,7 +1078,7 @@ export default function ApplyPage() {
                 return (
                   <button key={i} onClick={() => setFormStep(i)}
                     className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-[11px] font-bold uppercase tracking-[0.12em] transition-all duration-300 cursor-pointer ${
-                      act ? "bg-gradient-to-br from-[#f97316]/15 to-[#f97316]/5 text-white border border-[#f97316]/25 shadow-[0_6px_20px_rgba(249,115,22,0.15)]"
+                      act ? "bg-gradient-to-br from-[#f97316]/15 to-[#f97316]/5 text-white border border-[#f97316]/25 shadow-[0_6px_20px_rgba(249, 115, 22, 0.22)]"
                       : step.valid ? "text-emerald-400/70 hover:bg-white/[0.025] border border-transparent"
                       : "text-white/30 hover:bg-white/[0.025] hover:text-white/50 border border-transparent"
                     }`}>
@@ -1108,7 +1108,7 @@ export default function ApplyPage() {
             {/* Form card — premium glass shell */}
             <div className="lx-form-wrap">
               <div className="lx-form-border" />
-              <div className="relative z-10 rounded-2xl overflow-hidden bg-[#0a0a0b]/95 border border-white/[0.06]" style={{ boxShadow: "0 40px 80px rgba(0,0,0,0.55), 0 0 40px rgba(249,115,22,0.05), 0 0 0 1px rgba(255,255,255,0.025) inset" }}>
+              <div className="relative z-10 rounded-2xl overflow-hidden bg-[#0a0a0b]/95 border border-white/[0.06]" style={{ boxShadow: "0 40px 80px rgba(0,0,0,0.55), 0 0 40px rgba(249, 115, 22, 0.07), 0 0 0 1px rgba(255,255,255,0.025) inset" }}>
 
               {/* Selected position header */}
               {sel && <>
@@ -1222,7 +1222,7 @@ export default function ApplyPage() {
                         return (
                           <button key={h.v} type="button" onClick={() => setHoursPerWeek(h.v)}
                             className={`py-4 rounded-xl text-center transition-all duration-300 cursor-pointer ${active ? "border-2 border-[#f97316]/30 bg-[#f97316]/10" : "border border-white/[0.04] bg-white/[0.01] hover:border-white/[0.08]"}`}
-                            style={active ? { boxShadow: "0 0 15px rgba(249,115,22,0.06)" } : {}}>
+                            style={active ? { boxShadow: "0 0 15px rgba(249, 115, 22, 0.09)" } : {}}>
                             <p className={`text-[13px] font-bold ${active ? "text-[#f97316]" : "text-white/30"}`}>{h.v}</p>
                             <p className={`text-[9px] mt-0.5 ${active ? "text-[#f97316]/50" : "text-white/10"}`}>{h.label}</p>
                           </button>
@@ -1240,7 +1240,7 @@ export default function ApplyPage() {
                         return (
                           <button key={d} type="button" onClick={() => toggleDay(d)}
                             className={`py-4 rounded-xl text-center transition-all duration-300 cursor-pointer ${active ? "border-2 border-[#f97316]/30 bg-[#f97316]/10" : "border border-white/[0.04] bg-white/[0.01] hover:border-white/[0.08]"}`}
-                            style={active ? { boxShadow: "0 0 12px rgba(249,115,22,0.05)" } : {}}>
+                            style={active ? { boxShadow: "0 0 12px rgba(249, 115, 22, 0.07)" } : {}}>
                             <p className={`text-[12px] font-bold ${active ? "text-[#f97316]" : isWeekend ? "text-white/15" : "text-white/30"}`}>{d}</p>
                           </button>
                         )
@@ -1322,7 +1322,7 @@ export default function ApplyPage() {
                     <div className="space-y-3 mt-4">
                       {[{c:agree16,s:setAgree16,l:"I confirm I'm at least 16 years old"},{c:agreeActive,s:setAgreeActive,l:"I agree to be active and maintain professionalism"},{c:agreeUnpaid,s:setAgreeUnpaid,l:"I understand this may be initially unpaid / commission-based"}].map((it, i) => (
                         <label key={i} className={`flex items-start gap-3 cursor-pointer group p-3.5 rounded-xl border transition-all duration-300 ${it.c ? "border-[#f97316]/25 bg-[#f97316]/[0.04]" : "border-white/[0.05] hover:border-white/[0.10] bg-white/[0.015] hover:bg-white/[0.025]"}`} onClick={() => it.s(!it.c)}>
-                          <div className={`mt-0.5 h-5 w-5 rounded-md border-2 flex items-center justify-center shrink-0 transition-all duration-300 ${it.c ? "bg-gradient-to-br from-[#f97316] to-[#ea580c] border-[#f97316] shadow-[0_0_12px_rgba(249,115,22,0.5)]" : "border-white/[0.12] group-hover:border-white/[0.25]"}`}>
+                          <div className={`mt-0.5 h-5 w-5 rounded-md border-2 flex items-center justify-center shrink-0 transition-all duration-300 ${it.c ? "bg-gradient-to-br from-[#f97316] to-[#ea580c] border-[#f97316] shadow-[0_0_12px_rgba(249, 115, 22, 0.72)]" : "border-white/[0.12] group-hover:border-white/[0.25]"}`}>
                             {it.c && <Check className="h-3 w-3 text-white" strokeWidth={3.5} />}
                           </div>
                           <span className={`text-[13px] leading-[1.55] transition-colors ${it.c ? "text-white/80" : "text-white/35 group-hover:text-white/55"}`}>{it.l}</span>
@@ -1416,10 +1416,10 @@ export default function ApplyPage() {
           ═══════════════════════════════════════════════════════════ */}
 
       <section className="relative z-10 px-6 sm:px-10 lg:px-16 py-36 overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 60% 35% at 50% 50%, rgba(249,115,22,0.03), transparent)" }} />
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 60% 35% at 50% 50%, rgba(249, 115, 22, 0.04), transparent)" }} />
         <div className="max-w-[700px] mx-auto text-center relative">
           <R><div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/[0.05] bg-white/[0.02] mb-8"><Flame className="h-3.5 w-3.5 text-white/20" /><span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">Your Future</span></div></R>
-          <R d={100}><h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.03em] mb-6 leading-tight lx-text-fade">Stop scrolling.<br /><span className="lx-text-orange relative inline-block">Start building.<span className="absolute left-0 -bottom-1 w-full h-[3px] rounded-full" style={{ background: "linear-gradient(90deg, #f97316, rgba(249,115,22,0.2))", boxShadow: "0 0 15px rgba(249,115,22,0.25)" }} /></span></h2></R>
+          <R d={100}><h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.03em] mb-6 leading-tight lx-text-fade">Stop scrolling.<br /><span className="lx-text-orange relative inline-block">Start building.<span className="absolute left-0 -bottom-1 w-full h-[3px] rounded-full" style={{ background: "linear-gradient(90deg, #f97316, rgba(249, 115, 22, 0.29))", boxShadow: "0 0 15px rgba(249, 115, 22, 0.36)" }} /></span></h2></R>
           <R d={200}><p className="text-white/30 mb-12 text-[15px] sm:text-[17px] max-w-md mx-auto">The best time to join was yesterday. The second best is <span className="text-white/65 font-semibold">right now</span>.</p></R>
           <R d={300}><button onClick={() => formRef.current?.scrollIntoView({ behavior: "smooth" })} className="lx-primary px-12 py-4 rounded-xl text-[16px] font-bold text-white inline-flex items-center gap-3 cursor-pointer lx-breathe"><Send className="h-5 w-5" /> Apply Now</button></R>
           <R d={400}><div className="flex items-center justify-center gap-6 mt-12 flex-wrap">{[{icon:Shield,text:"48h Response"},{icon:Heart,text:"Zero Toxicity"},{icon:Zap,text:"Day-One Impact"},{icon:Globe,text:"Fully Remote"}].map((it, i) => <div key={i} className="flex items-center gap-1.5 text-white/40"><it.icon className="h-3 w-3" /><span className="text-[11px] font-medium">{it.text}</span></div>)}</div></R>
@@ -1450,8 +1450,8 @@ export default function ApplyPage() {
 
         /* Aurora */
         .lx-aurora { position: absolute; border-radius: 50%; filter: blur(120px); will-change: transform; }
-        .lx-a1 { width: 800px; height: 600px; top: -200px; right: -100px; background: radial-gradient(circle, rgba(249,115,22,0.08), transparent 70%); animation: aDrift1 20s ease-in-out infinite; }
-        .lx-a2 { width: 600px; height: 500px; bottom: -100px; left: -100px; background: radial-gradient(circle, rgba(234,88,12,0.05), transparent 70%); animation: aDrift2 25s ease-in-out infinite; }
+        .lx-a1 { width: 800px; height: 600px; top: -200px; right: -100px; background: radial-gradient(circle, rgba(249, 115, 22, 0.12), transparent 70%); animation: aDrift1 20s ease-in-out infinite; }
+        .lx-a2 { width: 600px; height: 500px; bottom: -100px; left: -100px; background: radial-gradient(circle, rgba(234, 88, 12, 0.07), transparent 70%); animation: aDrift2 25s ease-in-out infinite; }
         .lx-a3 { width: 500px; height: 400px; top: 30%; right: 20%; background: radial-gradient(circle, rgba(255,255,255,0.010), transparent 60%); animation: aDrift3 18s ease-in-out infinite; }
         @keyframes aDrift1 { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(-3%,4%) scale(1.05); } 66% { transform: translate(4%,-2%) scale(0.97); } }
         @keyframes aDrift2 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(5%,-3%) scale(1.08); } }
@@ -1492,16 +1492,16 @@ export default function ApplyPage() {
           -webkit-text-fill-color: transparent;
           background-clip: text;
           text-shadow: none;
-          filter: drop-shadow(0 0 30px rgba(249,115,22,0.15));
+          filter: drop-shadow(0 0 30px rgba(249, 115, 22, 0.22));
         }
 
         /* Card */
         .lx-card { background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; transition: all 0.3s ease; position: relative; overflow: hidden; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
-        .lx-card:hover { background: rgba(255,255,255,0.04); border-color: rgba(249,115,22,0.30); transform: translateY(-4px); box-shadow: 0 24px 50px rgba(0,0,0,0.4), 0 0 40px rgba(249,115,22,0.10); }
+        .lx-card:hover { background: rgba(255,255,255,0.04); border-color: rgba(249, 115, 22, 0.43); transform: translateY(-4px); box-shadow: 0 24px 50px rgba(0,0,0,0.4), 0 0 40px rgba(249, 115, 22, 0.14); }
 
         /* Popular */
-        .lx-popular { border-color: rgba(249,115,22,0.1) !important; box-shadow: 0 0 50px rgba(249,115,22,0.02); }
-        .lx-popular:hover { border-color: rgba(249,115,22,0.18) !important; box-shadow: 0 0 70px rgba(249,115,22,0.04); }
+        .lx-popular { border-color: rgba(249, 115, 22, 0.14) !important; box-shadow: 0 0 50px rgba(249, 115, 22, 0.03); }
+        .lx-popular:hover { border-color: rgba(249, 115, 22, 0.26) !important; box-shadow: 0 0 70px rgba(249, 115, 22, 0.06); }
 
         /* Shine sweep */
         .lx-shine { position: relative; overflow: hidden; }
@@ -1510,7 +1510,7 @@ export default function ApplyPage() {
 
         /* Terminal */
         .lx-terminal-wrap { position: relative; padding: 1px; border-radius: 16px; }
-        .lx-rotating-border { position: absolute; inset: 0; border-radius: 16px; padding: 1px; background: conic-gradient(from var(--ba,0deg), transparent 40%, rgba(255,255,255,0.05) 50%, rgba(249,115,22,0.1) 55%, rgba(255,255,255,0.03) 60%, transparent 70%); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: bRot 6s linear infinite; }
+        .lx-rotating-border { position: absolute; inset: 0; border-radius: 16px; padding: 1px; background: conic-gradient(from var(--ba,0deg), transparent 40%, rgba(255,255,255,0.05) 50%, rgba(249, 115, 22, 0.14) 55%, rgba(255,255,255,0.03) 60%, transparent 70%); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: bRot 6s linear infinite; }
         @property --ba { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
         @keyframes bRot { to { --ba: 360deg; } }
 
@@ -1538,24 +1538,24 @@ export default function ApplyPage() {
           100% { background-position: -250% 50%; }
         }
         .lx-underline { position: relative; display: inline-block; }
-        .lx-underline::after { content: ""; position: absolute; left: 0; bottom: 4px; width: 100%; height: 3px; background: linear-gradient(90deg, rgba(249,115,22,0.55), rgba(249,115,22,0.15)); border-radius: 2px; box-shadow: 0 0 15px rgba(249,115,22,0.2); }
+        .lx-underline::after { content: ""; position: absolute; left: 0; bottom: 4px; width: 100%; height: 3px; background: linear-gradient(90deg, rgba(249, 115, 22, 0.8), rgba(249, 115, 22, 0.22)); border-radius: 2px; box-shadow: 0 0 15px rgba(249, 115, 22, 0.29); }
 
         /* Pills */
         .lx-pill { display: inline-flex; align-items: center; padding: 8px 14px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.025); font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.65); transition: all 0.2s ease; backdrop-filter: blur(8px); }
-        .lx-pill:hover { border-color: rgba(249,115,22,0.30); color: #fff; background: rgba(249,115,22,0.08); }
+        .lx-pill:hover { border-color: rgba(249, 115, 22, 0.43); color: #fff; background: rgba(249, 115, 22, 0.12); }
 
         /* Buttons */
-        .lx-primary { background: linear-gradient(135deg, #f97316, #ea580c); box-shadow: 0 0 25px rgba(249,115,22,0.22), 0 0 80px rgba(249,115,22,0.05); transition: all 0.25s ease; }
-        .lx-primary:hover { box-shadow: 0 0 35px rgba(249,115,22,0.4), 0 0 100px rgba(249,115,22,0.1); transform: translateY(-1px); filter: brightness(1.1); }
+        .lx-primary { background: linear-gradient(135deg, #f97316, #ea580c); box-shadow: 0 0 25px rgba(249, 115, 22, 0.32), 0 0 80px rgba(249, 115, 22, 0.07); transition: all 0.25s ease; }
+        .lx-primary:hover { box-shadow: 0 0 35px rgba(249, 115, 22, 0.58), 0 0 100px rgba(249, 115, 22, 0.14); transform: translateY(-1px); filter: brightness(1.1); }
         .lx-primary:active { transform: translateY(0) scale(0.98); filter: brightness(1); }
         .lx-primary:disabled { box-shadow: none; filter: none; }
 
         .lx-ghost { border: 1px solid rgba(255,255,255,0.10); background: rgba(255,255,255,0.025); color: rgba(255,255,255,0.65); transition: all 0.2s ease; backdrop-filter: blur(8px); }
-        .lx-ghost:hover { border-color: rgba(249,115,22,0.40); background: rgba(249,115,22,0.06); color: #fff; }
+        .lx-ghost:hover { border-color: rgba(249, 115, 22, 0.58); background: rgba(249, 115, 22, 0.09); color: #fff; }
         .lx-ghost:active { transform: scale(0.97); }
 
         .lx-breathe { animation: lxBreath 3s ease-in-out infinite; }
-        @keyframes lxBreath { 0%,100% { box-shadow: 0 0 25px rgba(249,115,22,0.18), 0 0 80px rgba(249,115,22,0.05); } 50% { box-shadow: 0 0 40px rgba(249,115,22,0.32), 0 0 100px rgba(249,115,22,0.1); } }
+        @keyframes lxBreath { 0%,100% { box-shadow: 0 0 25px rgba(249, 115, 22, 0.26), 0 0 80px rgba(249, 115, 22, 0.07); } 50% { box-shadow: 0 0 40px rgba(249, 115, 22, 0.46), 0 0 100px rgba(249, 115, 22, 0.14); } }
 
         /* Form — premium inputs */
         .lx-label { display: block; font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.5); margin-bottom: 12px; letter-spacing: 0.18em; text-transform: uppercase; }
@@ -1570,9 +1570,9 @@ export default function ApplyPage() {
           background: rgba(255,255,255,0.035);
         }
         .lx-input:focus {
-          border-color: rgba(249,115,22,0.55);
+          border-color: rgba(249, 115, 22, 0.8);
           background: rgba(255,255,255,0.05);
-          box-shadow: 0 0 0 3px rgba(249,115,22,0.22), 0 0 28px rgba(249,115,22,0.10);
+          box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.32), 0 0 28px rgba(249, 115, 22, 0.14);
         }
         .lx-textarea {
           width: 100%; padding: 16px 18px; border-radius: 12px;
@@ -1586,9 +1586,9 @@ export default function ApplyPage() {
           background: rgba(255,255,255,0.035);
         }
         .lx-textarea:focus {
-          border-color: rgba(249,115,22,0.55);
+          border-color: rgba(249, 115, 22, 0.8);
           background: rgba(255,255,255,0.05);
-          box-shadow: 0 0 0 3px rgba(249,115,22,0.22), 0 0 28px rgba(249,115,22,0.10);
+          box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.32), 0 0 28px rgba(249, 115, 22, 0.14);
         }
 
         /* Divider shimmer */
@@ -1647,9 +1647,9 @@ export default function ApplyPage() {
           transform: translateY(-1px);
         }
         .lx-field:focus-within {
-          border-color: rgba(249,115,22,0.35);
-          background: rgba(249,115,22,0.035);
-          box-shadow: 0 0 0 3px rgba(249,115,22,0.10), 0 20px 50px rgba(0,0,0,0.25), 0 0 40px rgba(249,115,22,0.12);
+          border-color: rgba(249, 115, 22, 0.51);
+          background: rgba(249, 115, 22, 0.05);
+          box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.14), 0 20px 50px rgba(0,0,0,0.25), 0 0 40px rgba(249, 115, 22, 0.17);
         }
         .lx-field-header {
           display: flex;
@@ -1660,7 +1660,7 @@ export default function ApplyPage() {
           margin-top: 2px;
           flex-shrink: 0;
           color: #f97316;
-          filter: drop-shadow(0 0 6px rgba(249,115,22,0.35));
+          filter: drop-shadow(0 0 6px rgba(249, 115, 22, 0.51));
         }
         .lx-field-title {
           font-family: var(--font-display), "Space Grotesk", system-ui, sans-serif;
@@ -1693,7 +1693,7 @@ export default function ApplyPage() {
         }
         @keyframes starLoop {
           0%, 10% { fill: rgba(255,255,255,0.04); color: rgba(255,255,255,0.06); }
-          25%, 70% { fill: #fbbf24; color: #fbbf24; filter: drop-shadow(0 0 3px rgba(251,191,36,0.4)); }
+          25%, 70% { fill: #fbbf24; color: #fbbf24; filter: drop-shadow(0 0 3px rgba(251, 191, 36, 0.58)); }
           85%, 100% { fill: rgba(255,255,255,0.04); color: rgba(255,255,255,0.06); filter: none; }
         }
 
@@ -1721,16 +1721,16 @@ export default function ApplyPage() {
         }
         @keyframes infFade {
           0%, 40% { opacity: 0; filter: blur(4px); }
-          45%, 50% { opacity: 1; filter: blur(0); text-shadow: 0 0 10px rgba(249,115,22,0.4); }
-          90% { opacity: 1; filter: blur(0); text-shadow: 0 0 10px rgba(249,115,22,0.4); }
+          45%, 50% { opacity: 1; filter: blur(0); text-shadow: 0 0 10px rgba(249, 115, 22, 0.58); }
+          90% { opacity: 1; filter: blur(0); text-shadow: 0 0 10px rgba(249, 115, 22, 0.58); }
           95%, 100% { opacity: 0; filter: blur(4px); }
         }
 
         /* FAQ open state — accent border + glow */
         .lx-faq-open {
-          border-color: rgba(249,115,22,0.12) !important;
-          background: rgba(249,115,22,0.02) !important;
-          box-shadow: 0 0 30px rgba(249,115,22,0.03);
+          border-color: rgba(249, 115, 22, 0.17) !important;
+          background: rgba(249, 115, 22, 0.03) !important;
+          box-shadow: 0 0 30px rgba(249, 115, 22, 0.04);
         }
 
         /* Flame icon — cycles orange → red → blue */
@@ -1738,21 +1738,21 @@ export default function ApplyPage() {
           animation: flameColor 3s ease-in-out infinite;
         }
         @keyframes flameColor {
-          0%, 100% { color: #f97316; filter: drop-shadow(0 0 4px rgba(249,115,22,0.5)); }
+          0%, 100% { color: #f97316; filter: drop-shadow(0 0 4px rgba(249, 115, 22, 0.72)); }
           33% { color: #ef4444; filter: drop-shadow(0 0 4px rgba(239,68,68,0.5)); }
           66% { color: #3b82f6; filter: drop-shadow(0 0 4px rgba(59,130,246,0.5)); }
         }
 
         /* Terminal dots — muted, minimal */
         .lx-dot-red { background: rgba(255,95,87,0.25); }
-        .lx-dot-yellow { background: rgba(255,189,46,0.25); }
+        .lx-dot-yellow { background: rgba(255, 189, 46, 0.36); }
         .lx-dot-green { background: rgba(40,200,64,0.25); }
 
         /* Form card rotating border */
         .lx-form-wrap { position: relative; padding: 1px; border-radius: 18px; }
         .lx-form-border {
           position: absolute; inset: 0; border-radius: 18px; padding: 1px;
-          background: conic-gradient(from var(--ba,0deg), transparent 30%, rgba(249,115,22,0.08) 40%, rgba(255,255,255,0.06) 50%, rgba(249,115,22,0.12) 55%, rgba(255,255,255,0.04) 65%, transparent 75%);
+          background: conic-gradient(from var(--ba,0deg), transparent 30%, rgba(249, 115, 22, 0.12) 40%, rgba(255,255,255,0.06) 50%, rgba(249, 115, 22, 0.17) 55%, rgba(255,255,255,0.04) 65%, transparent 75%);
           -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
           mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
           -webkit-mask-composite: xor; mask-composite: exclude;
@@ -1778,7 +1778,7 @@ export default function ApplyPage() {
 
         /* Focus + scrollbar */
         *:focus-visible { outline: 1px solid rgba(255,255,255,0.12); outline-offset: 2px; border-radius: 8px; }
-        .lx-page ::selection { background: rgba(249,115,22,0.15); color: white; }
+        .lx-page ::selection { background: rgba(249, 115, 22, 0.22); color: white; }
 
         /* Orb animations */
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }

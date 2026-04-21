@@ -6,21 +6,30 @@ export function GlobalBackground() {
       {/* Pure black base */}
       <div className="absolute inset-0 bg-black" />
 
-      {/* Top-left drifting orange orb */}
+      {/* Top-left drifting orange orb — boosted saturation for non-HDR monitors */}
       <div
-        className="absolute -top-[220px] -left-[180px] w-[820px] h-[820px] rounded-full opacity-60 gb-orb-1"
+        className="absolute -top-[220px] -left-[180px] w-[820px] h-[820px] rounded-full opacity-90 gb-orb-1"
         style={{
-          background: "radial-gradient(circle, rgba(249,115,22,0.16) 0%, transparent 62%)",
+          background: "radial-gradient(circle, rgba(255, 94, 14, 0.46) 0%, transparent 62%)",
           filter: "blur(140px)",
         }}
       />
 
-      {/* Bottom-right drifting orb */}
+      {/* Bottom-right drifting orb — hotter orange */}
       <div
-        className="absolute -bottom-[220px] -right-[180px] w-[780px] h-[780px] rounded-full opacity-55 gb-orb-2"
+        className="absolute -bottom-[220px] -right-[180px] w-[780px] h-[780px] rounded-full opacity-85 gb-orb-2"
         style={{
-          background: "radial-gradient(circle, rgba(234,88,12,0.13) 0%, transparent 62%)",
+          background: "radial-gradient(circle, rgba(255, 77, 10, 0.38) 0%, transparent 62%)",
           filter: "blur(150px)",
+        }}
+      />
+
+      {/* Center subtle amber accent — adds warmth */}
+      <div
+        className="absolute top-[45%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-50 pointer-events-none"
+        style={{
+          background: "radial-gradient(circle, rgba(251, 191, 36, 0.12) 0%, transparent 65%)",
+          filter: "blur(160px)",
         }}
       />
 

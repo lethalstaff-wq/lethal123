@@ -65,7 +65,7 @@ export function PricingSection() {
           </div>
           <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.04em] leading-[0.95] mb-4">
             <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Choose your </span>
-            <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249,115,22,0.3))" }}>package</span>
+            <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249, 115, 22, 0.43))" }}>package</span>
           </h2>
           <p className="text-white/55 text-[16px] max-w-md mx-auto">Complete setups with premium hardware. One purchase, everything included.</p>
         </div>
@@ -74,9 +74,9 @@ export function PricingSection() {
           {bundles.map((b) => (
             <div key={b.id} className={`group rounded-2xl relative overflow-hidden flex flex-col transition-all duration-300 hover:-translate-y-1 ${
               b.premium
-                ? "elite-card bg-white/[0.025] border border-white/[0.08] md:scale-[1.04] -translate-y-2 shadow-[0_0_60px_rgba(249,115,22,0.08)] hover:shadow-[0_0_100px_rgba(249,115,22,0.18)]"
+                ? "elite-card bg-white/[0.025] border border-white/[0.08] md:scale-[1.04] -translate-y-2 shadow-[0_0_60px_rgba(249, 115, 22, 0.12)] hover:shadow-[0_0_100px_rgba(249, 115, 22, 0.26)]"
                 : b.highlighted
-                ? "bg-white/[0.02] border-2 border-[#f97316]/20 shadow-[0_0_60px_rgba(249,115,22,0.04)] md:scale-[1.02] hover:shadow-[0_0_80px_rgba(249,115,22,0.08)]"
+                ? "bg-white/[0.02] border-2 border-[#f97316]/20 shadow-[0_0_60px_rgba(249, 115, 22, 0.06)] md:scale-[1.02] hover:shadow-[0_0_80px_rgba(249, 115, 22, 0.12)]"
                 : "bg-white/[0.012] border border-white/[0.04] hover:border-white/[0.08] hover:shadow-[0_20px_40px_rgba(0,0,0,0.3)]"
             }`}>
               {/* Animated conic border for Elite */}
@@ -100,7 +100,7 @@ export function PricingSection() {
 
               {/* Premium slash-cut badge */}
               {b.premium && (
-                <div className="absolute -top-0.5 right-6 z-20 px-5 py-1.5 text-[10px] font-black uppercase tracking-[0.15em] text-black" style={{ background: "linear-gradient(135deg, #fbbf24, #f97316)", clipPath: "polygon(12% 0, 100% 0, 88% 100%, 0 100%)", boxShadow: "0 6px 16px rgba(249,115,22,0.35)" }}>
+                <div className="absolute -top-0.5 right-6 z-20 px-5 py-1.5 text-[10px] font-black uppercase tracking-[0.15em] text-black" style={{ background: "linear-gradient(135deg, #fbbf24, #f97316)", clipPath: "polygon(12% 0, 100% 0, 88% 100%, 0 100%)", boxShadow: "0 6px 16px rgba(249, 115, 22, 0.51)" }}>
                   Premium
                 </div>
               )}
@@ -144,7 +144,7 @@ export function PricingSection() {
                       ? "text-white hover:brightness-110"
                       : "border border-white/[0.06] bg-white/[0.02] text-white/40 hover:border-white/[0.12] hover:text-white/70 hover:bg-white/[0.03]"
                   }`}
-                  style={b.premium ? { background: "linear-gradient(135deg, #fbbf24, #f97316, #ea580c)", boxShadow: "0 0 40px rgba(249,115,22,0.35)" } : b.highlighted ? { background: "linear-gradient(135deg, #f97316, #ea580c)", boxShadow: "0 0 30px rgba(249,115,22,0.22)" } : {}}>
+                  style={b.premium ? { background: "linear-gradient(135deg, #fbbf24, #f97316, #ea580c)", boxShadow: "0 0 40px rgba(249, 115, 22, 0.51)" } : b.highlighted ? { background: "linear-gradient(135deg, #f97316, #ea580c)", boxShadow: "0 0 30px rgba(249, 115, 22, 0.32)" } : {}}>
                   <ShoppingCart className="h-4 w-4" />
                   {b.premium ? "Claim Elite" : b.highlighted ? "Get Started" : "Add to Cart"}
                 </button>

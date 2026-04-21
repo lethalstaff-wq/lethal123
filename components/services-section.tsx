@@ -59,13 +59,13 @@ export function ServicesSection() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {features.map((f, i) => (
-            <div key={i} className="group p-7 rounded-2xl bg-white/[0.015] border border-white/[0.06] hover:border-[#f97316]/35 hover:bg-white/[0.03] transition-all duration-300 relative overflow-hidden hover:-translate-y-1.5 hover:shadow-[0_28px_70px_rgba(0,0,0,0.55),0_0_50px_rgba(249,115,22,0.14)]">
+            <div key={i} className="group p-7 rounded-2xl bg-white/[0.015] border border-white/[0.06] hover:border-[#f97316]/35 hover:bg-white/[0.03] transition-all duration-300 relative overflow-hidden hover:-translate-y-1.5 hover:shadow-[0_28px_70px_rgba(0,0,0,0.55),0_0_50px_rgba(249, 115, 22, 0.2)]">
               {/* Top gradient accent line — always visible, subtle */}
               <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f97316]/15 to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
               {/* Shine */}
               <div className="absolute top-[-50%] left-[-80%] w-[50%] h-[200%] bg-gradient-to-r from-transparent via-white/[0.04] to-transparent rotate-[25deg] group-hover:left-[130%] transition-[left] duration-700 pointer-events-none z-10" />
               {/* Hover glow — corner orange */}
-              <div className="absolute top-0 right-0 w-[260px] h-[260px] rounded-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700" style={{ background: "radial-gradient(circle, rgba(249,115,22,0.14), transparent 70%)", transform: "translate(35%, -35%)" }} />
+              <div className="absolute top-0 right-0 w-[260px] h-[260px] rounded-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700" style={{ background: "radial-gradient(circle, rgba(249, 115, 22, 0.2), transparent 70%)", transform: "translate(35%, -35%)" }} />
               {/* Big faded number background */}
               <div className="absolute -top-3 -left-2 text-[120px] font-black leading-none pointer-events-none select-none opacity-[0.025] group-hover:opacity-[0.05] transition-opacity duration-500 font-display text-[#f97316]">
                 {(i + 1).toString().padStart(2, "0")}
