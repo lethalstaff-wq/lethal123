@@ -77,21 +77,26 @@ export default function CartPage() {
         <Navbar />
         <section className="flex-1 py-32 px-4 sm:px-6 lg:px-8">
           <div className="container mx-auto max-w-md text-center">
-            <div className="w-20 h-20 rounded-2xl bg-white/[0.03] border border-white/[0.04] flex items-center justify-center mx-auto mb-6">
-              <ShoppingBag className="h-10 w-10 text-white/45" />
+            <div className="relative inline-flex mb-8">
+              <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-[#f97316]/[0.08] to-white/[0.02] border border-white/[0.06] flex items-center justify-center backdrop-blur-md shadow-[0_20px_60px_rgba(0,0,0,0.4),0_0_40px_rgba(249,115,22,0.1)]">
+                <ShoppingBag className="h-10 w-10 text-white/55" style={{ animation: "emptyBagBob 3s ease-in-out infinite" }} />
+              </div>
+              <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-red-500 border-2 border-black flex items-center justify-center text-[9px] font-black text-white animate-pulse">0</span>
             </div>
-            <h1 className="text-2xl font-bold mb-3 text-white/90">Your cart is empty</h1>
-            <p className="text-white/40 mb-8 text-sm">Browse our products and find what you need.</p>
-            <Link href="/products">
-              <button
-                className="inline-flex items-center gap-2 px-6 py-3 text-white font-semibold rounded-xl shadow-lg shadow-orange-500/20 transition-all hover:shadow-xl hover:shadow-orange-500/30"
-                style={{ background: "linear-gradient(135deg, #f97316, #ea580c)" }}
-              >
-                Browse Products
-                <ArrowRight className="h-4 w-4" />
-              </button>
+            <h1 className="font-display text-3xl sm:text-4xl font-bold mb-3 text-white tracking-tight">Your cart is empty</h1>
+            <p className="text-white/55 mb-8 text-[15px] max-w-sm mx-auto leading-relaxed">Pick a product to secure your setup. Delivery in seconds after checkout.</p>
+            <Link href="/products" data-cursor="cta" data-cursor-label="Shop" className="cursor-cta group relative inline-flex items-center gap-2 px-7 py-3.5 overflow-hidden text-white font-bold text-[15px] rounded-xl shadow-[0_0_28px_rgba(249,115,22,0.4)] hover:shadow-[0_0_50px_rgba(249,115,22,0.7)] hover:scale-[1.03] press-spring transition-all" style={{ background: "linear-gradient(135deg, #f97316, #ea580c)" }}>
+              <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
+              <span className="relative z-10">Browse Products</span>
+              <ArrowRight className="relative z-10 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
+          <style jsx>{`
+            @keyframes emptyBagBob {
+              0%, 100% { transform: translateY(0) rotate(0deg); }
+              50% { transform: translateY(-6px) rotate(-3deg); }
+            }
+          `}</style>
         </section>
         <Footer />
       </main>
@@ -123,7 +128,7 @@ export default function CartPage() {
             {/* Cart items */}
             <div className="lg:col-span-2 space-y-3">
               {items.map((item) => (
-                <div key={item.variant.id} className="relative rounded-2xl border border-white/[0.04] bg-white/[0.012] backdrop-blur-sm p-4 hover:border-[#f97316]/30 hover:shadow-lg hover:shadow-[#f97316]/5 transition-all overflow-hidden">
+                <div key={item.variant.id} className="spotlight-card relative rounded-2xl border border-white/[0.06] bg-white/[0.018] backdrop-blur-sm p-4 hover:border-[#f97316]/40 hover:-translate-y-0.5 hover:shadow-[0_14px_36px_rgba(0,0,0,0.4),0_0_30px_rgba(249,115,22,0.12)] transition-all overflow-hidden">
                   <div className="absolute left-0 top-0 h-full w-1 rounded-l-2xl" style={{ background: "linear-gradient(to bottom, #f97316, rgba(249, 115, 22, 0.72), transparent)" }} />
                   <div className="flex items-center gap-4">
                     <div className="w-16 h-16 rounded-lg bg-white/[0.03] border border-white/[0.04] flex items-center justify-center flex-shrink-0 overflow-hidden">
@@ -173,8 +178,8 @@ export default function CartPage() {
                 </div>
               ))}
 
-              <button aria-label="Clear cart" onClick={clearCart} className="text-xs text-white/30 hover:text-red-400 transition-colors mt-2">
-                Clear all items
+              <button aria-label="Clear cart" onClick={clearCart} className="inline-flex items-center gap-1.5 text-[12px] text-white/35 hover:text-red-400 transition-colors mt-3 font-medium">
+                <Trash2 className="h-3 w-3" /> Clear all items
               </button>
 
               {/* Cross-sell */}
@@ -196,7 +201,7 @@ export default function CartPage() {
                             <p className="text-xs font-semibold truncate text-white/90">{product.name}</p>
                             <p className="text-xs text-[#f97316] font-bold">from {formatPrice(minPrice)}</p>
                           </div>
-                          <button onClick={() => handleAddCrossSell(product)} className="px-3 py-1.5 rounded-lg bg-[#f97316]/10 text-[#f97316] text-[11px] font-bold hover:bg-[#f97316]/20 transition-colors shrink-0">
+                          <button onClick={() => handleAddCrossSell(product)} data-cursor="cta" data-cursor-label="Add" className="cursor-cta press-spring px-3 py-1.5 rounded-lg bg-[#f97316]/10 text-[#f97316] text-[11px] font-bold hover:bg-[#f97316]/20 hover:shadow-[0_0_14px_rgba(249,115,22,0.35)] transition-all shrink-0">
                             + Add
                           </button>
                         </div>
@@ -239,12 +244,15 @@ export default function CartPage() {
 
                   {/* Checkout button */}
                   <button
-                    className="w-full flex items-center justify-center gap-2 font-semibold py-4 rounded-xl text-white shadow-lg shadow-orange-500/20 hover:shadow-xl hover:shadow-orange-500/30 transition-all"
-                    style={{ background: "linear-gradient(135deg, #f97316, #ea580c)" }}
                     onClick={() => router.push("/checkout")}
+                    data-cursor="cta"
+                    data-cursor-label="Checkout"
+                    className="cursor-cta press-spring group relative overflow-hidden w-full flex items-center justify-center gap-2 font-bold py-4 rounded-xl text-white text-[15px] shadow-[0_0_28px_rgba(249,115,22,0.35)] hover:shadow-[0_0_50px_rgba(249,115,22,0.6)] hover:-translate-y-0.5 transition-all"
+                    style={{ background: "linear-gradient(135deg, #f97316, #ea580c)" }}
                   >
-                    Proceed to Checkout
-                    <ArrowRight className="h-4 w-4" />
+                    <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
+                    <span className="relative z-10">Proceed to Checkout</span>
+                    <ArrowRight className="relative z-10 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </button>
 
                   {/* Accepted methods */}

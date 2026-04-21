@@ -50,18 +50,23 @@ export default function NotFound() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               href="/"
-              className="group inline-flex items-center justify-center gap-2 rounded-xl px-7 py-3.5 text-[14px] font-bold text-white transition-all hover:brightness-110 hover:scale-[1.02]"
+              data-cursor="cta"
+              data-cursor-label="Home"
+              className="cursor-cta press-spring group relative overflow-hidden inline-flex items-center justify-center gap-2 rounded-xl px-7 py-3.5 text-[14px] font-bold text-white transition-all hover:brightness-110 hover:scale-[1.03] hover:shadow-[0_0_50px_rgba(249,115,22,0.7)]"
               style={{
                 background: "linear-gradient(135deg, #f97316, #ea580c)",
                 boxShadow: "0 8px 30px rgba(249, 115, 22, 0.51), inset 0 1px 0 rgba(255,255,255,0.15)",
               }}
             >
-              <Home className="h-4 w-4" />
-              Back to home
+              <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
+              <Home className="relative z-10 h-4 w-4" />
+              <span className="relative z-10">Back to home</span>
             </Link>
             <Link
               href="/products"
-              className="group inline-flex items-center justify-center gap-2 rounded-xl border border-white/[0.10] bg-white/[0.025] px-7 py-3.5 text-[14px] font-bold text-white/85 hover:border-[#f97316]/30 hover:text-[#f97316] hover:bg-[#f97316]/[0.06] transition-all"
+              data-cursor="cta"
+              data-cursor-label="Shop"
+              className="cursor-cta press-spring group inline-flex items-center justify-center gap-2 rounded-xl border border-white/[0.10] bg-white/[0.025] px-7 py-3.5 text-[14px] font-bold text-white/85 hover:border-[#f97316]/40 hover:text-[#f97316] hover:bg-[#f97316]/[0.06] transition-all"
             >
               <ShoppingBag className="h-4 w-4" />
               Browse products

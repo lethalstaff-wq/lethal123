@@ -68,11 +68,15 @@ export default function WishlistPage() {
             </div>
             <h1 className="font-display text-3xl font-bold text-white mb-3 tracking-tight">Your wishlist is empty</h1>
             <p className="text-white/55 mb-8 text-[15px]">Browse our products and save the ones you like.</p>
-            <Link href="/products">
-              <button className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-[#f97316] to-[#ea580c] text-white font-medium hover:opacity-90 transition-opacity mx-auto">
-                Browse Products
-                <ArrowRight className="h-4 w-4" />
-              </button>
+            <Link
+              href="/products"
+              data-cursor="cta"
+              data-cursor-label="Shop"
+              className="cursor-cta press-spring group relative overflow-hidden inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white font-bold text-[15px] shadow-[0_0_28px_rgba(249,115,22,0.4)] hover:shadow-[0_0_50px_rgba(249,115,22,0.7)] hover:scale-[1.03] transition-all"
+            >
+              <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
+              <span className="relative z-10">Browse Products</span>
+              <ArrowRight className="relative z-10 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
         </section>
@@ -105,10 +109,11 @@ export default function WishlistPage() {
             {products.map((product) => {
               const minPrice = Math.min(...product.variants.map(v => v.priceInPence))
               return (
-                <div key={product.id} className="rounded-2xl border border-white/[0.04] bg-white/[0.012] overflow-hidden group">
+                <div key={product.id} className="spotlight-card rounded-2xl border border-white/[0.06] bg-white/[0.015] overflow-hidden group hover:border-[#f97316]/30 hover:shadow-[0_24px_60px_rgba(0,0,0,0.5),0_0_40px_rgba(249,115,22,0.15)] transition-all duration-300">
                   <Link href={`/products/${product.id}`}>
-                    <div className="relative aspect-[4/3] bg-gradient-to-b from-white/[0.02] to-transparent flex items-center justify-center p-6">
-                      <Image src={product.image} alt={product.name} width={200} height={200} className="object-contain max-h-[140px] w-auto group-hover:scale-105 transition-transform" />
+                    <div className="relative aspect-[4/3] bg-gradient-to-b from-white/[0.02] to-transparent flex items-center justify-center p-6 overflow-hidden">
+                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ background: "radial-gradient(circle at 50% 50%, rgba(249,115,22,0.22), transparent 60%)" }} />
+                      <Image src={product.image} alt={product.name} width={200} height={200} className="object-contain max-h-[140px] w-auto ken-burns relative z-[1]" />
                     </div>
                   </Link>
                   <div className="p-4 border-t border-white/[0.03] space-y-3">
@@ -119,10 +124,10 @@ export default function WishlistPage() {
                     <div className="flex items-center justify-between">
                       <p className="text-lg font-bold text-[#f97316]">{formatPrice(minPrice)}</p>
                       <div className="flex items-center gap-2">
-                        <button onClick={() => handleRemove(product.id)} className="p-2 rounded-lg text-white/40 hover:text-red-400 hover:bg-red-400/10 transition-all">
+                        <button onClick={() => handleRemove(product.id)} data-cursor="cta" data-cursor-label="Remove" aria-label="Remove from wishlist" className="cursor-cta press-spring p-2 rounded-lg text-white/40 hover:text-red-400 hover:bg-red-400/10 transition-all">
                           <Trash2 className="h-4 w-4" />
                         </button>
-                        <button onClick={() => handleAddToCart(product)} className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[#f97316]/10 text-[#f97316] text-xs font-semibold hover:bg-[#f97316] hover:text-white transition-all">
+                        <button onClick={() => handleAddToCart(product)} data-cursor="cta" data-cursor-label="Add" className="cursor-cta press-spring flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[#f97316]/10 text-[#f97316] text-xs font-bold hover:bg-[#f97316] hover:text-white hover:shadow-[0_0_18px_rgba(249,115,22,0.5)] transition-all">
                           <ShoppingCart className="h-3.5 w-3.5" />
                           Add to Cart
                         </button>

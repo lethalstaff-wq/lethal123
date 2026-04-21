@@ -96,31 +96,36 @@ export default function ForgotPasswordPage() {
                 )}
 
                 <div className="space-y-2">
-                  <label className="text-sm font-semibold text-white/50">Email Address</label>
+                  <label className="text-[11px] font-bold text-white/55 uppercase tracking-[0.15em]">Email Address</label>
                   <input
                     type="email"
                     placeholder="you@example.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="w-full rounded-xl border border-white/[0.05] bg-white/[0.015] px-4 py-2.5 text-sm text-white placeholder:text-white/45 outline-none transition-colors focus:border-[#f97316]/30"
+                    className="focus-ring-premium w-full rounded-xl border border-white/[0.08] bg-white/[0.03] px-4 py-3.5 text-[15px] text-white placeholder:text-white/35 outline-none transition-all focus:bg-white/[0.05]"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#f97316] to-[#ea580c] px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-[#f97316]/10 transition-opacity hover:opacity-90 disabled:opacity-50"
+                  data-cursor="cta"
+                  data-cursor-label={isLoading ? "Wait" : "Send"}
+                  className="cursor-cta press-spring group relative overflow-hidden flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-[#f97316] to-[#ea580c] px-4 py-3.5 text-[15px] font-bold text-white shadow-[0_0_28px_rgba(249,115,22,0.35)] transition-all hover:shadow-[0_0_50px_rgba(249,115,22,0.6)] hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
                   disabled={isLoading}
                 >
-                  {isLoading ? "Sending..." : "Send Reset Link"}
+                  <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
+                  <span className="relative z-10">{isLoading ? "Sending…" : "Send Reset Link"}</span>
                 </button>
 
                 <div className="pt-4 text-center">
                   <Link
                     href="/login"
-                    className="inline-flex items-center gap-2 text-sm text-[#f97316]/60 transition-colors hover:text-[#f97316]"
+                    data-cursor="cta"
+                    data-cursor-label="Back"
+                    className="cursor-cta inline-flex items-center gap-2 text-[13px] text-[#f97316]/70 transition-colors hover:text-[#f97316] font-semibold group"
                   >
-                    <ArrowLeft className="h-4 w-4" />
+                    <ArrowLeft className="h-4 w-4 group-hover:-translate-x-0.5 transition-transform" />
                     Back to Login
                   </Link>
                 </div>
