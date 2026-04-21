@@ -219,22 +219,18 @@ export function ProductDetailClient({ product }: { product: Product }) {
           </div>
 
           {/* Trust badges under image */}
-          <div className="grid grid-cols-3 gap-2 sm:gap-4 mt-4 sm:mt-6">
-            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-3 sm:p-4 text-center">
-              <Shield className="h-5 w-5 sm:h-6 sm:w-6 mx-auto mb-1.5 sm:mb-2 text-white/55" />
-              <p className="font-semibold text-xs sm:text-sm">Secure</p>
-              <p className="text-[10px] sm:text-xs text-white/55">Encrypted</p>
-            </div>
-            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-3 sm:p-4 text-center">
-              <Zap className="h-5 w-5 sm:h-6 sm:w-6 mx-auto mb-1.5 sm:mb-2 text-white/55" />
-              <p className="font-semibold text-xs sm:text-sm">Instant</p>
-              <p className="text-[10px] sm:text-xs text-white/55">Delivery</p>
-            </div>
-            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-3 sm:p-4 text-center">
-              <Globe className="h-5 w-5 sm:h-6 sm:w-6 mx-auto mb-1.5 sm:mb-2 text-white/55" />
-              <p className="font-semibold text-xs sm:text-sm">Global</p>
-              <p className="text-[10px] sm:text-xs text-white/55">Support</p>
-            </div>
+          <div className="grid grid-cols-3 gap-2 sm:gap-3 mt-4 sm:mt-6">
+            {[
+              { icon: Shield, title: "Secure", desc: "256-bit encrypted" },
+              { icon: Zap, title: "Instant", desc: "Delivered in seconds" },
+              { icon: Globe, title: "Worldwide", desc: "73+ countries" },
+            ].map(({ icon: Icon, title, desc }) => (
+              <div key={title} className="group rounded-xl border border-white/[0.07] bg-white/[0.025] backdrop-blur-md p-3 sm:p-4 text-center hover:border-[#f97316]/30 hover:bg-white/[0.04] hover:-translate-y-0.5 transition-all duration-300">
+                <Icon className="h-5 w-5 sm:h-6 sm:w-6 mx-auto mb-2 text-white/65 group-hover:text-[#f97316] transition-colors" />
+                <p className="font-display font-bold text-[12px] sm:text-[13px] text-white tracking-tight">{title}</p>
+                <p className="text-[10px] sm:text-[11px] text-white/55 mt-0.5">{desc}</p>
+              </div>
+            ))}
           </div>
         </div>
 
