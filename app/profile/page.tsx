@@ -185,42 +185,44 @@ export default function ProfilePage() {
           {/* ═══ Hero ═══ */}
           <div
             className={cn(
-              "relative overflow-hidden rounded-3xl border border-white/[0.06] mb-6 bg-gradient-to-br",
+              "relative overflow-hidden rounded-3xl border border-white/[0.10] mb-6 bg-gradient-to-br shadow-[0_24px_60px_rgba(0,0,0,0.4)]",
               loyalty.current.gradient
             )}
           >
-            <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-black/55 backdrop-blur-md" />
+            <div className="absolute -top-20 -right-20 w-72 h-72 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(249,115,22,0.15), transparent 70%)" }} />
             <div className="relative p-6 md:p-8">
               <div className="flex flex-col md:flex-row md:items-start gap-5">
                 <div
                   className={cn(
-                    "w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center text-2xl md:text-3xl font-black text-white shadow-lg shrink-0",
-                    "bg-gradient-to-br from-[#f97316] to-[#ea580c]"
+                    "w-20 h-20 md:w-24 md:h-24 rounded-2xl flex items-center justify-center font-display text-3xl md:text-4xl font-black text-white shrink-0",
+                    "bg-gradient-to-br from-[#f97316] to-[#ea580c] shadow-[0_8px_24px_rgba(249,115,22,0.4),inset_0_1px_0_rgba(255,255,255,0.15)]"
                   )}
                 >
                   {initials}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 flex-wrap mb-1">
-                    <h1 className="text-2xl md:text-3xl font-black text-white truncate">
-                      {displayName ? displayName : "My Profile"}
+                  <div className="flex items-center gap-2 flex-wrap mb-2">
+                    <h1 className="font-display text-3xl md:text-4xl font-bold tracking-tight">
+                      <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>{displayName ? displayName : "My Profile"}</span>
                     </h1>
                     <span
                       className={cn(
-                        "inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10.5px] font-bold uppercase tracking-wider border border-white/[0.12] bg-black/30",
+                        "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-[0.18em] border border-white/[0.15] bg-black/45 backdrop-blur-md",
                         loyalty.current.accent
                       )}
                     >
                       <Crown className="h-3 w-3" /> {loyalty.current.label}
                     </span>
                   </div>
-                  <p className="text-sm text-white/60 truncate">{profile.email}</p>
-                  <p className="text-xs text-white/55 mt-0.5">Member since {formatDate(profile.created_at)}</p>
+                  <p className="text-[14px] text-white/75 truncate font-medium">{profile.email}</p>
+                  <p className="text-[12px] text-white/55 mt-1">Member since {formatDate(profile.created_at)}</p>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
                   <Link
                     href="/products"
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white/[0.08] hover:bg-white/[0.14] text-sm font-semibold text-white transition-colors"
+                    className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white text-[13px] font-bold transition-all hover:scale-[1.03] hover:brightness-110 shadow-[0_4px_14px_rgba(249,115,22,0.32),inset_0_1px_0_rgba(255,255,255,0.08)]"
                   >
                     Shop products
                   </Link>
@@ -247,7 +249,7 @@ export default function ProfilePage() {
           </div>
 
           {/* ═══ Tabs ═══ */}
-          <div className="flex gap-1.5 p-1.5 rounded-2xl bg-white/[0.02] border border-white/[0.04] mb-6 overflow-x-auto scrollbar-hide">
+          <div className="flex gap-1 p-1.5 rounded-2xl bg-white/[0.04] border border-white/[0.08] backdrop-blur-md mb-6 overflow-x-auto scrollbar-hide">
             {tabs.map((tab) => {
               const Icon = tab.icon
               const active = activeTab === tab.id
@@ -256,14 +258,16 @@ export default function ProfilePage() {
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
                   className={cn(
-                    "flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition-all shrink-0",
-                    active ? "bg-white/[0.08] text-white shadow-lg" : "text-white/50 hover:text-white hover:bg-white/[0.03]"
+                    "flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-[13px] font-bold whitespace-nowrap transition-all shrink-0",
+                    active
+                      ? "bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white shadow-[0_4px_14px_rgba(249,115,22,0.4)]"
+                      : "text-white/55 hover:text-white hover:bg-white/[0.06]"
                   )}
                 >
                   <Icon className="h-4 w-4" />
                   {tab.label}
                   {typeof tab.badge === "number" && tab.badge > 0 && (
-                    <span className={cn("px-1.5 py-0.5 rounded-full text-[10px] font-bold", active ? "bg-white/[0.12]" : "bg-white/[0.06]")}>
+                    <span className={cn("px-1.5 py-0.5 rounded-full text-[10px] font-black tabular-nums", active ? "bg-black/25 text-white" : "bg-white/[0.10] text-white/85")}>
                       {tab.badge}
                     </span>
                   )}
