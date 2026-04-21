@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { GlobalBackground } from "@/components/global-background"
 import { MobileBottomBar } from "@/components/mobile-bottom-bar"
 import { CursorEffects } from "@/components/cursor-effects"
+import { LenisProvider } from "@/components/lenis-provider"
 import { FloatingConfigurator } from "@/components/floating-configurator"
 import { ChatWidget } from "@/components/chat-widget"
 import { BundleBuilder } from "@/components/bundle-builder"
@@ -96,6 +97,7 @@ export default function RootLayout({
       </head>
       <body className={`${inter.variable} ${jetbrainsMono.variable} ${spaceGrotesk.variable} font-sans antialiased bg-background text-foreground`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
+          <LenisProvider />
           <GlobalBackground />
           <CursorEffects />
           <CartProvider>

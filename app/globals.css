@@ -159,8 +159,14 @@
   box-shadow: 0 20px 40px -15px rgba(249, 115, 22, 0.22);
 }
 
-/* Scrollbar */
-html { scroll-behavior: smooth; }
+/* Scrollbar — Lenis handles scroll; native smooth would conflict */
+html { scroll-behavior: auto; }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+.lenis.lenis-scrolling iframe { pointer-events: none; }
+
 ::selection { background-color: rgba(249, 115, 22, 0.43); color: inherit; }
 
 ::-webkit-scrollbar { width: 8px; height: 8px; }
@@ -597,5 +603,235 @@ button:active:not(:disabled), a[role="button"]:active {
   pointer-events: none;
   z-index: 1;
 }
+
+/* ==========================================================================
+   $100k redesign — premium foundation tokens + utilities (added Apr 2026)
+   ==========================================================================
+   Tokens centralize ad-hoc rgba usages across components.
+   Utilities: spotlight-follow, per-char mask reveal, cursor-cta marker,
+   card tilt, kinetic word-swap, route-transition fade.
+   Safe-add: only new selectors, no overrides of existing styles.
+*/
+
+:root {
+  /* Brand scale (existing --primary kept, these are extras) */
+  --brand: #f97316;
+  --brand-2: #fb923c;
+  --brand-3: #fbbf24;
+  --brand-deep: #c2410c;
+  --brand-dim: rgba(249, 115, 22, 0.12);
+  --brand-mid: rgba(249, 115, 22, 0.30);
+  --brand-glow: rgba(249, 115, 22, 0.45);
+  --brand-halo: 0 0 60px rgba(249, 115, 22, 0.35);
+
+  /* Surface scale — for cards/hover/elevated */
+  --surface-0: rgba(255, 255, 255, 0.012);
+  --surface-1: rgba(255, 255, 255, 0.022);
+  --surface-2: rgba(255, 255, 255, 0.035);
+  --surface-3: rgba(255, 255, 255, 0.055);
+  --surface-4: rgba(255, 255, 255, 0.08);
+  --border-hair: rgba(255, 255, 255, 0.06);
+  --border-soft: rgba(255, 255, 255, 0.08);
+  --border-mid: rgba(255, 255, 255, 0.12);
+
+  /* Shadow scale */
+  --shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.18);
+  --shadow-card: 0 14px 36px rgba(0, 0, 0, 0.35);
+  --shadow-lift: 0 22px 56px rgba(0, 0, 0, 0.45);
+  --shadow-halo-soft: 0 0 40px rgba(249, 115, 22, 0.18);
+  --shadow-halo-hard: 0 0 80px rgba(249, 115, 22, 0.32);
+
+  /* Easing */
+  --ease-out-premium: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring-overshoot: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-material: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Spotlight-follow — element sets --mx/--my on mousemove */
+.spotlight-card {
+  position: relative;
+  --mx: 50%;
+  --my: 50%;
+  isolation: isolate;
+}
+.spotlight-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(360px circle at var(--mx) var(--my),
+    rgba(249, 115, 22, 0.15),
+    rgba(249, 115, 22, 0.05) 35%,
+    transparent 55%);
+  opacity: 0;
+  transition: opacity 0.35s var(--ease-out-premium);
+  pointer-events: none;
+  z-index: 1;
+}
+.spotlight-card:hover::before { opacity: 1; }
+.spotlight-card > * { position: relative; z-index: 2; }
+
+/* Per-character mask reveal — container has overflow:hidden around each line */
+.char-reveal-line {
+  display: block;
+  overflow: hidden;
+  line-height: 1;
+}
+.char-reveal-char {
+  display: inline-block;
+  transform: translateY(110%);
+  animation: charRevealUp 0.9s var(--ease-out-premium) forwards;
+  animation-delay: var(--char-delay, 0ms);
+  will-change: transform;
+}
+@keyframes charRevealUp {
+  from { transform: translateY(110%); }
+  to   { transform: translateY(0); }
+}
+
+/* Per-word mask reveal (simpler than per-char) */
+.word-reveal-wrap {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  line-height: 1;
+}
+.word-reveal-word {
+  display: inline-block;
+  transform: translateY(120%);
+  animation: charRevealUp 0.8s var(--ease-out-premium) forwards;
+  animation-delay: var(--word-delay, 0ms);
+  will-change: transform;
+}
+
+/* Respect reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .char-reveal-char,
+  .word-reveal-word { transform: none !important; animation: none !important; }
+}
+
+/* Cursor-cta marker: elements flagged with this class get the big cursor treatment */
+.cursor-cta { cursor: pointer; }
+html.has-cursor-effects .cursor-cta { cursor: none; }
+
+/* Page transitions (App Router template.tsx) */
+@keyframes routeFadeIn {
+  0%   { opacity: 0; transform: translateY(10px); filter: blur(6px); }
+  60%  { opacity: 1; }
+  100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+.route-fade { animation: routeFadeIn 0.55s var(--ease-out-premium) both; }
+
+/* Orange "in-page" loading bar driven by navigation events */
+@keyframes routeBarSlide {
+  0%   { transform: translateX(-100%); }
+  55%  { transform: translateX(-20%); }
+  100% { transform: translateX(100%); }
+}
+.route-bar { animation: routeBarSlide 1.2s var(--ease-material) infinite; }
+
+/* Grain heartbeat — pairs with global-background grain */
+@keyframes grainBreath {
+  0%, 100% { opacity: 0.018; }
+  50%      { opacity: 0.028; }
+}
+
+/* Kinetic word swap — swaps inside one headline on loop */
+.kinetic-word {
+  display: inline-block;
+  position: relative;
+  vertical-align: baseline;
+}
+.kinetic-word > span {
+  position: absolute;
+  inset: 0;
+  display: inline-block;
+  animation: kineticSwap 8s infinite;
+  will-change: opacity, transform;
+}
+.kinetic-word > span:nth-child(1) { animation-delay: 0s; }
+.kinetic-word > span:nth-child(2) { animation-delay: 2.7s; }
+.kinetic-word > span:nth-child(3) { animation-delay: 5.4s; }
+@keyframes kineticSwap {
+  0%, 30%    { opacity: 1; transform: translateY(0); }
+  33%, 97%   { opacity: 0; transform: translateY(-8px); }
+  98%        { opacity: 0; transform: translateY(8px); }
+  100%       { opacity: 1; transform: translateY(0); }
+}
+
+/* Shake on form error */
+@keyframes errorShake {
+  0%, 100% { transform: translateX(0); }
+  20%      { transform: translateX(-5px); }
+  40%      { transform: translateX(5px); }
+  60%      { transform: translateX(-4px); }
+  80%      { transform: translateX(4px); }
+}
+.animate-shake { animation: errorShake 0.42s var(--ease-material) both; }
+
+/* Confetti dust — single-fire particle cluster (CSS-only) */
+@keyframes confettiPop {
+  0%   { opacity: 0; transform: translate(0, 0) scale(0.4); }
+  10%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--cx, 30px), var(--cy, -50px)) scale(1); }
+}
+.confetti-dot {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  pointer-events: none;
+  animation: confettiPop 0.9s var(--ease-spring-overshoot) forwards;
+}
+
+/* Soft spring press for any marked button */
+.press-spring { transition: transform 0.2s var(--ease-spring-overshoot); }
+.press-spring:active { transform: scale(0.96); }
+
+/* Ken Burns slow zoom (images on hover inside a group) */
+.ken-burns {
+  transition: transform 0.7s var(--ease-out-premium);
+  will-change: transform;
+}
+.group:hover .ken-burns {
+  transform: scale(1.07);
+}
+
+/* Subtle card tilt on hover — for use WITH JS that sets --rx/--ry */
+.tilt-3d {
+  transform-style: preserve-3d;
+  transform: perspective(1200px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.25s var(--ease-out-premium);
+  will-change: transform;
+}
+
+/* Focus ring premium */
+.focus-ring-premium:focus-visible {
+  outline: 0;
+  box-shadow:
+    0 0 0 2px rgba(249, 115, 22, 0.55),
+    0 0 0 6px rgba(249, 115, 22, 0.12),
+    0 0 40px rgba(249, 115, 22, 0.2);
+  border-color: rgba(249, 115, 22, 0.5) !important;
+}
+
+/* SVG check-draw for success states */
+@keyframes svgCheckDraw {
+  to { stroke-dashoffset: 0; }
+}
+.svg-check-path {
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: svgCheckDraw 0.55s var(--ease-out-premium) forwards;
+  animation-delay: 0.1s;
+}
+
+/* Progress circle ring on back-to-top */
+.ring-progress {
+  transform: rotate(-90deg);
+  transition: stroke-dashoffset 0.1s linear;
+}
+
+/* End of premium foundation block */
 
 /* End of custom styles */
