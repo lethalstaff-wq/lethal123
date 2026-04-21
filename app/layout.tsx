@@ -17,6 +17,7 @@ import { CheckoutProgress } from "@/components/checkout-progress"
 import { Toaster } from "@/components/ui/sonner"
 import { SocialProofToast } from "@/components/social-proof-toast"
 import { BackToTop } from "@/components/back-to-top"
+import { ScrollProgress } from "@/components/scroll-progress"
 import { ClientOverlays } from "./client-overlays"
 import "./globals.css"
 
@@ -112,6 +113,7 @@ export default function RootLayout({
             <Toaster position="top-right" richColors />
             <SocialProofToast />
             <BackToTop />
+            <ScrollProgress />
             <div className="relative z-10 animate-in fade-in duration-300">{children}</div>
           </CartProvider>
         </ThemeProvider>

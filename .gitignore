@@ -27,3 +27,6 @@ yarn-error.log*
 next-env.d.ts
 .vercel
 .env*.local
+
+# claude code runtime artifacts
+.claude/scheduled_tasks.lock
