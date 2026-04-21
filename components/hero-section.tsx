@@ -69,33 +69,17 @@ export function HeroSection() {
 
       {/* Content */}
       <div className="relative z-10 w-full max-w-[1200px] mx-auto px-6 sm:px-10 py-32 lg:py-36 text-center">
-        {/* Live status pill — single pill, green→orange gradient flow */}
+        {/* Live status pill — minimalist Linear-style */}
         <div className={`mb-6 transition-all duration-700 ${ready ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"}`}>
-          <div className="relative inline-flex items-center rounded-full border border-white/[0.12] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_10px_30px_rgba(0,0,0,0.4)] overflow-hidden"
-               style={{ background: "linear-gradient(90deg, rgba(16,185,129,0.10) 0%, rgba(16,185,129,0.06) 35%, rgba(0,0,0,0.45) 50%, rgba(249,115,22,0.06) 65%, rgba(249,115,22,0.10) 100%)" }}>
-            {/* Magical flowing divider — sweeps light across the seam */}
-            <div className="pointer-events-none absolute inset-y-0 left-1/2 w-px -translate-x-1/2" style={{ background: "linear-gradient(to bottom, transparent, rgba(255,255,255,0.18), transparent)" }} />
-            <div className="pointer-events-none absolute inset-y-0 left-1/2 w-px -translate-x-1/2" style={{ background: "linear-gradient(to bottom, transparent, rgba(255,255,255,0.6), transparent)", animation: "pillFlow 3s ease-in-out infinite", filter: "blur(1px)" }} />
-
-            {/* Online (left) */}
-            <div className="relative inline-flex items-center gap-2.5 pl-5 pr-5 py-2.5 whitespace-nowrap">
-              <span className="relative flex items-center justify-center">
-                <span className="absolute w-3 h-3 rounded-full bg-emerald-400/45 animate-ping" />
-                <span className="relative w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.85)]" />
-              </span>
-              <span className="text-[13px] text-white font-bold tabular-nums">
-                <Counter value={FALLBACK_STATS.discordOnline} />
-              </span>
-              <span className="text-[11px] text-emerald-400/90 font-semibold uppercase tracking-[0.12em]">online</span>
+          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/[0.03] border border-white/[0.06] backdrop-blur-sm">
+            <div className="relative flex items-center justify-center">
+              <div className="absolute w-2.5 h-2.5 rounded-full bg-green-400/40 animate-ping" />
+              <div className="relative w-1.5 h-1.5 rounded-full bg-green-400" />
             </div>
-
-            {/* Orders (right) */}
-            <div className="relative inline-flex items-center gap-2.5 pl-5 pr-5 py-2.5 whitespace-nowrap">
-              <span className="text-[13px] text-white font-bold tabular-nums">
-                <Counter value={ordersToday} />
-              </span>
-              <span className="text-[11px] text-[#f97316]/95 font-semibold uppercase tracking-[0.12em]">orders today</span>
-            </div>
+            <span className="text-sm font-medium whitespace-nowrap">
+              <span className="text-white tabular-nums"><Counter value={ordersToday} /></span>
+              <span className="text-white/50 ml-1.5">orders today</span>
+            </span>
           </div>
         </div>
 

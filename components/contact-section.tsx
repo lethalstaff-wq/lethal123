@@ -32,10 +32,8 @@ export function ContactSection() {
           <div className="relative p-8">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mb-6">
               <div className="flex items-center gap-4">
-                <div className="relative w-16 h-16 rounded-2xl overflow-hidden border-2 border-white/[0.10] shadow-[0_8px_24px_rgba(0,0,0,0.4),0_0_32px_rgba(88,101,242,0.20)]">
+                <div className="relative w-16 h-16 rounded-2xl overflow-hidden border-2 border-white/[0.10] shadow-[0_8px_24px_rgba(0,0,0,0.4)]">
                   <img src="/images/ava.png" alt="Lethal Solutions" className="w-full h-full object-cover" />
-                  {/* Online status dot */}
-                  <span className="absolute bottom-0.5 right-0.5 w-3.5 h-3.5 rounded-full bg-emerald-400 border-2 border-black shadow-[0_0_10px_rgba(52,211,153,0.7)]" />
                 </div>
                 <div>
                   <h3 className="font-display text-2xl font-bold text-white tracking-tight">Lethal Solutions</h3>
@@ -61,7 +59,7 @@ export function ContactSection() {
             </div>
 
             <p className="text-[14px] text-white/65 mb-8 max-w-2xl leading-relaxed">
-              Open a ticket in <span className="text-white font-semibold px-2 py-0.5 rounded-md bg-[#5865F2]/15 border border-[#5865F2]/25">#contact-us</span> for purchases, setup help, or any questions.
+              Open a ticket in <span className="text-[#f97316] font-bold px-2 py-0.5 rounded-md bg-[#f97316]/10 border border-[#f97316]/25">#contact-us</span> for purchases, setup help, or any questions.
             </p>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
