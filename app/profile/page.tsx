@@ -502,33 +502,34 @@ function LicenseCard({
   onCopy: (k: string) => void
 }) {
   return (
-    <div className="rounded-2xl border border-emerald-500/20 bg-emerald-500/[0.04] p-5">
-      <div className="flex flex-col md:flex-row md:items-start gap-3 mb-4">
+    <div className="group relative rounded-2xl border border-emerald-500/25 bg-gradient-to-br from-emerald-500/[0.06] to-white/[0.02] backdrop-blur-xl p-5 hover:border-emerald-500/45 hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(16,185,129,0.18)] transition-all duration-300 overflow-hidden">
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emerald-400/55 to-transparent pointer-events-none" />
+      <div className="relative flex flex-col md:flex-row md:items-start gap-3 mb-4">
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 mb-1">
-            <span className="font-mono text-[10.5px] font-bold text-white/55">{order.display_id}</span>
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/15 text-[10.5px] font-bold text-emerald-400">
+          <div className="flex items-center gap-2 mb-1.5">
+            <span className="font-mono text-[10.5px] font-bold text-white/65 px-2 py-0.5 rounded bg-white/[0.05] border border-white/[0.08]">{order.display_id}</span>
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-[10px] font-bold uppercase tracking-[0.15em] text-emerald-400">
               <CheckCircle2 className="h-2.5 w-2.5" /> Active
             </span>
           </div>
-          <p className="font-bold text-white text-base">{order.items[0]?.name}</p>
-          <p className="text-sm text-white/50">{order.items[0]?.variant}</p>
+          <p className="font-display font-bold text-white text-[16px] tracking-tight">{order.items[0]?.name}</p>
+          <p className="text-[13px] text-white/65">{order.items[0]?.variant}</p>
         </div>
         <Link
           href={`/download/${order.id}`}
-          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 text-sm font-bold text-emerald-400 transition-colors"
+          className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 border border-emerald-500/35 hover:bg-emerald-500/25 hover:border-emerald-500/55 hover:scale-[1.03] text-sm font-bold text-emerald-400 transition-all shadow-[0_4px_14px_rgba(16,185,129,0.18)]"
         >
           <Download className="h-3.5 w-3.5" /> Open downloads
         </Link>
       </div>
       {order.license_key && (
-        <div className="flex items-center gap-2">
-          <code className="flex-1 p-3 rounded-xl bg-black/40 border border-white/[0.06] font-mono text-sm text-white break-all">
+        <div className="relative flex items-center gap-2">
+          <code className="flex-1 p-3 rounded-xl bg-black/55 border border-white/[0.08] backdrop-blur-md font-mono text-[13px] text-white break-all tracking-wider">
             {order.license_key}
           </code>
           <button
             onClick={() => onCopy(order.license_key!)}
-            className="shrink-0 p-2.5 rounded-xl border border-white/[0.08] bg-white/[0.02] text-white/60 hover:text-white hover:bg-white/[0.06] transition-colors"
+            className="shrink-0 p-2.5 rounded-xl border border-white/[0.10] bg-white/[0.025] text-white/65 hover:text-white hover:bg-white/[0.06] hover:border-[#f97316]/40 transition-all"
             aria-label="Copy license key"
           >
             {copiedKey === order.license_key ? <Check className="h-4 w-4 text-emerald-400" /> : <Copy className="h-4 w-4" />}
