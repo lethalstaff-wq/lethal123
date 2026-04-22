@@ -311,3 +311,12 @@ Using the user object as returned from supabase.auth.getSession() or from some s
  GET /reviews 200 in 686ms (compile: 65ms, proxy.ts: 343ms, render: 278ms)
  GET /api/reviews 200 in 668ms (compile: 1678µs, proxy.ts: 94ms, render: 572ms)
  ✓ Compiled in 122ms
+ GET /profile 200 in 894ms (compile: 522ms, proxy.ts: 345ms, render: 27ms)
+ GET / 200 in 139ms (compile: 65ms, proxy.ts: 3ms, render: 72ms)
+ GET /api/discord-online 200 in 493ms (compile: 3ms, proxy.ts: 16ms, render: 474ms)
+ GET /api/discord-online 200 in 500ms (compile: 6ms, proxy.ts: 5ms, render: 489ms)
+ GET /login 200 in 505ms (compile: 481ms, proxy.ts: 3ms, render: 22ms)
+ GET /api/discord-online 200 in 16ms (compile: 5ms, proxy.ts: 6ms, render: 5ms)
+ GET /api/discord-online 200 in 22ms (compile: 10ms, proxy.ts: 8ms, render: 4ms)
+ GET /api/discord-online 200 in 7ms (compile: 2ms, proxy.ts: 3ms, render: 3ms)
+ ✓ Compiled in 121ms
