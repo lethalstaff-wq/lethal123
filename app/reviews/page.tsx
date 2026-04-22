@@ -284,8 +284,9 @@ export default function ReviewsPage() {
                     className="font-display font-bold tabular-nums tracking-[-0.05em] overflow-visible"
                     style={{
                       fontSize: "clamp(96px, 16vw, 200px)",
-                      lineHeight: 1.08,
-                      paddingBottom: "0.05em",
+                      lineHeight: 1.2,
+                      paddingTop: "0.1em",
+                      paddingBottom: "0.1em",
                       background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)",
                       WebkitBackgroundClip: "text",
                       WebkitTextFillColor: "transparent",
