@@ -308,3 +308,6 @@ Using the user object as returned from supabase.auth.getSession() or from some s
  GET /reviews 200 in 628ms (compile: 57ms, proxy.ts: 286ms, render: 285ms)
  GET /api/reviews 200 in 856ms (compile: 1524µs, proxy.ts: 107ms, render: 748ms)
  ✓ Compiled in 140ms
+ GET /reviews 200 in 686ms (compile: 65ms, proxy.ts: 343ms, render: 278ms)
+ GET /api/reviews 200 in 668ms (compile: 1678µs, proxy.ts: 94ms, render: 572ms)
+ ✓ Compiled in 122ms
