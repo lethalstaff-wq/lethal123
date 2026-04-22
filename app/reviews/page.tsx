@@ -281,12 +281,11 @@ export default function ReviewsPage() {
               ) : (
                 <div className="flex items-end gap-6 sm:gap-10 flex-wrap">
                   <div
-                    className="font-display font-bold tabular-nums tracking-[-0.05em] overflow-visible"
+                    className="font-display font-bold tabular-nums tracking-[-0.05em] inline-block"
                     style={{
                       fontSize: "clamp(96px, 16vw, 200px)",
-                      lineHeight: 1.2,
-                      paddingTop: "0.1em",
-                      paddingBottom: "0.1em",
+                      lineHeight: 1.5,
+                      margin: "-0.2em 0",
                       background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)",
                       WebkitBackgroundClip: "text",
                       WebkitTextFillColor: "transparent",
