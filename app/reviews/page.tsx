@@ -281,18 +281,24 @@ export default function ReviewsPage() {
               ) : (
                 <div className="flex items-end gap-6 sm:gap-10 flex-wrap">
                   <div
-                    className="font-display font-bold tabular-nums tracking-[-0.05em] inline-block"
-                    style={{
-                      fontSize: "clamp(96px, 16vw, 200px)",
-                      lineHeight: 1.5,
-                      margin: "-0.2em 0",
-                      background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                      filter: "drop-shadow(0 0 60px rgba(249,115,22,0.35))",
-                    }}
+                    className="inline-block"
+                    style={{ filter: "drop-shadow(0 0 60px rgba(249,115,22,0.35))" }}
                   >
-                    <CountUp value={avgRating} format={(n) => n.toFixed(1)} />
+                    <span
+                      className="font-display font-bold tabular-nums tracking-[-0.05em] inline-block"
+                      style={{
+                        fontSize: "clamp(96px, 16vw, 200px)",
+                        lineHeight: 1.25,
+                        padding: "0.12em 0.02em 0.08em",
+                        background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                        backgroundClip: "text",
+                        color: "transparent",
+                      }}
+                    >
+                      <CountUp value={avgRating} format={(n) => n.toFixed(1)} />
+                    </span>
                   </div>
                   <div className="flex flex-col gap-2 pb-4">
                     <div className="flex gap-1">
