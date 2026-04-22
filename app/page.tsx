@@ -4,6 +4,8 @@ import { HeroSection } from "@/components/hero-section"
 import { Footer } from "@/components/footer"
 import { ScrollReveal } from "@/components/scroll-reveal"
 import { GlowDivider } from "@/components/glow-divider"
+import { StatsStrip } from "@/components/stats-strip"
+import { organizationJsonLd, websiteJsonLd } from "@/lib/seo-jsonld"
 
 // Dynamic imports for below-the-fold sections — reduces initial JS bundle
 const AboutSection = dynamic(() => import("@/components/about-section").then((m) => ({ default: m.AboutSection })), {
@@ -35,6 +37,16 @@ const FaqSection = dynamic(
 )
 
 
+// Plain hairline — alternates with GlowDivider so we don't get 6+ orange
+// shimmer lines stacked down the page. Same max-width as the glow version.
+function Hairline() {
+  return (
+    <div className="relative max-w-5xl mx-auto">
+      <div className="h-px border-t border-white/[0.06]" />
+    </div>
+  )
+}
+
 function SectionSkeleton() {
   return (
     <div className="py-24 px-4">
@@ -53,36 +65,23 @@ function SectionSkeleton() {
   )
 }
 
-const organizationJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "Lethal Solutions",
-  url: "https://www.lethalsolutions.me",
-  logo: "https://www.lethalsolutions.me/images/logo.png",
-  sameAs: [
-    "https://discord.gg/lethaldma",
-    "https://www.youtube.com/@ujukcheats-x4b",
-    "https://t.me/lethalsolutions",
-  ],
-  contactPoint: {
-    "@type": "ContactPoint",
-    contactType: "customer support",
-    url: "https://discord.gg/lethaldma",
-    availableLanguage: "English",
-  },
-}
-
 export default function Home() {
+  const orgLd = organizationJsonLd()
+  const siteLd = websiteJsonLd()
   return (
     <main className="flex min-h-screen flex-col bg-transparent relative">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(siteLd) }} />
       <Navbar />
       <HeroSection />
+      <ScrollReveal>
+        <StatsStrip />
+      </ScrollReveal>
       <GlowDivider />
       <ScrollReveal>
         <AboutSection />
       </ScrollReveal>
-      <GlowDivider />
+      <Hairline />
       <ScrollReveal delay={100}>
         <ServicesSection />
       </ScrollReveal>
@@ -90,7 +89,7 @@ export default function Home() {
       <ScrollReveal delay={100}>
         <ProcessSection />
       </ScrollReveal>
-      <GlowDivider />
+      <Hairline />
       <ScrollReveal delay={100}>
         <PricingSection />
       </ScrollReveal>
@@ -98,7 +97,7 @@ export default function Home() {
       <ScrollReveal delay={100}>
         <TestimonialsSection />
       </ScrollReveal>
-      <GlowDivider />
+      <Hairline />
       <ScrollReveal delay={100}>
         <FaqSection />
       </ScrollReveal>

@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from "react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
+import { SectionEyebrow } from "@/components/section-eyebrow"
 import {
   Users, Code2, Crown, Headphones, Camera, Search, DollarSign,
   Check, Minus, Plus, Send, CheckCircle2, Shield, Zap, Globe,
@@ -184,18 +185,31 @@ function HeroCounter({ value }: { value: number }) {
 
 // ─── Hooks ───────────────────────────────────────────────────────────────────
 
-function useInView(threshold = 0.15) {
+function useInView(threshold = 0) {
   const ref = useRef<HTMLDivElement>(null)
   const [visible, setVisible] = useState(false)
   useEffect(() => {
     const el = ref.current
     if (!el) return
+    // rootMargin pre-triggers 200px before entry so users never see a blurred void
+    // during fast scrolling. Safety timer forces visibility after 800ms in case the
+    // observer never fires (pinch-zoom, browser bug, reduced motion, etc).
+    const safetyTimer = window.setTimeout(() => setVisible(true), 800)
     const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect() } },
-      { threshold }
+      ([e]) => {
+        if (e.isIntersecting) {
+          window.clearTimeout(safetyTimer)
+          setVisible(true)
+          obs.disconnect()
+        }
+      },
+      { threshold, rootMargin: "200px 0px 200px 0px" },
     )
     obs.observe(el)
-    return () => obs.disconnect()
+    return () => {
+      window.clearTimeout(safetyTimer)
+      obs.disconnect()
+    }
   }, [threshold])
   return { ref, visible }
 }
@@ -207,12 +221,13 @@ function R({ children, d = 0, dir = "up", className = "" }: {
   children: React.ReactNode; d?: number; dir?: "up" | "left" | "right" | "scale"; className?: string
 }) {
   const { ref, visible } = useInView()
-  const t: Record<string, string> = { up: "translateY(40px)", left: "translateX(40px)", right: "translateX(-40px)", scale: "scale(0.95)" }
+  const t: Record<string, string> = { up: "translateY(24px)", left: "translateX(24px)", right: "translateX(-24px)", scale: "scale(0.97)" }
+  // Capped stagger so later elements don't compound into multi-second waits.
+  const delay = Math.min(d, 240)
   return (
     <div ref={ref} className={className} style={{
       opacity: visible ? 1 : 0, transform: visible ? "none" : t[dir],
-      filter: visible ? "blur(0)" : "blur(4px)",
-      transition: `all 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${d}ms`,
+      transition: `opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1) ${delay}ms, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${delay}ms`,
     }}>{children}</div>
   )
 }
@@ -284,14 +299,9 @@ const TAG_CONFIG: Record<string, { icon: typeof Zap; color: string }> = {
 }
 
 function Hdr({ tag, title, sub }: { tag: string; title: React.ReactNode; sub?: string }) {
-  const cfg = TAG_CONFIG[tag]
-  const TagIcon = cfg?.icon
   return (
-    <div className="text-center mb-16">
-      <R><div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/[0.06] bg-white/[0.02] mb-6">
-        {TagIcon && <TagIcon className="h-3.5 w-3.5 text-white/20" />}
-        <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">{tag}</span>
-      </div></R>
+    <div className="text-center mb-12">
+      <R><SectionEyebrow label={tag} /></R>
       <R d={80}><h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-[-0.03em] leading-[1.1] mb-4 lx-text-fade">{title}</h2></R>
       {sub && <R d={140}><p className="text-white/35 text-[15px] leading-relaxed max-w-lg mx-auto">{sub}</p></R>}
     </div>
@@ -299,48 +309,49 @@ function Hdr({ tag, title, sub }: { tag: string; title: React.ReactNode; sub?: s
 }
 
 
-// ─── Corp title with brand cycling ───────────────────────────────────────────
+// ─── Quote card (used by testimonials grid + mobile carousel) ────────────────
 
-const BRANDS = [
-  { name: "Google", color: "#4285F4" },
-  { name: "Apple", color: "#a2aaad" },
-  { name: "Tesla", color: "#e82127" },
-  { name: "Meta", color: "#1877f2" },
-  { name: "Amazon", color: "#ff9900" },
-  { name: "Microsoft", color: "#00a4ef" },
-  { name: "Samsung", color: "#1428a0" },
-  { name: "Netflix", color: "#e50914" },
-]
+type TeamQuote = typeof TEAM_QUOTES[number]
+function QuoteCard({ q }: { q: TeamQuote }) {
+  return (
+    <div className="lx-card lx-shine group p-8 relative overflow-hidden h-full"
+      style={{ borderColor: `${q.grad[0]}40` }}>
+      <div className="absolute top-0 left-0 right-0 h-px" style={{ background: `linear-gradient(90deg, transparent, ${q.grad[1]}30, transparent)` }} />
+      <div className="absolute top-0 left-0 right-0 h-[80px] pointer-events-none" style={{ background: `linear-gradient(180deg, ${q.grad[0]}15, transparent)` }} />
+      <div className="absolute top-4 right-6 text-[80px] font-serif leading-none select-none pointer-events-none" style={{ color: `${q.grad[1]}06` }}>&ldquo;</div>
+      <div className="flex gap-1 mb-6 relative z-10">
+        {[...Array(5)].map((_, j) => (
+          <Star key={j} className="h-3.5 w-3.5 lx-star" style={{ animationDelay: `${j * 0.15}s` }} />
+        ))}
+      </div>
+      <p className="text-[15px] text-white/50 leading-[1.9] mb-8 relative z-10 group-hover:text-white/65 transition-colors duration-500">&ldquo;{q.text}&rdquo;</p>
+      <div className="flex items-center gap-4 pt-6 relative z-10" style={{ borderTop: `1px solid ${q.grad[1]}10` }}>
+        <div className="relative shrink-0">
+          <div className="w-11 h-11 rounded-full overflow-hidden" style={{ boxShadow: `0 0 12px ${q.grad[1]}35, 0 0 4px ${q.grad[1]}20` }}>
+            <img src={q.img} alt={q.name} className="w-full h-full object-cover" loading="lazy" />
+          </div>
+          <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-black flex items-center justify-center">
+            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/60 lx-pulse" />
+          </div>
+        </div>
+        <div>
+          <p className="text-[14px] font-bold text-white/80">{q.name}</p>
+          <p className="text-[11px] font-medium" style={{ color: `${q.grad[1]}70` }}>{q.role} · {q.time}</p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+
+// ─── Corp title — static "Traditional Employer" framing (no brand risk) ──────
 
 function CorpTitle() {
-  const [idx, setIdx] = useState(0)
-  const [fading, setFading] = useState(false)
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setFading(true)
-      setTimeout(() => {
-        setIdx(i => (i + 1) % BRANDS.length)
-        setFading(false)
-      }, 300)
-    }, 2000)
-    return () => clearInterval(interval)
-  }, [])
-
-  const brand = BRANDS[idx]
-
   return (
     <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-[-0.03em] leading-[1.1] mb-4">
       <span className="lx-text-orange">Lethal</span>
       <span className="lx-text-fade"> vs </span>
-      <span className="inline-block transition-all duration-300" style={{
-        color: brand.color,
-        opacity: fading ? 0 : 1,
-        transform: fading ? "translateY(-8px)" : "translateY(0)",
-        filter: fading ? "blur(4px)" : "blur(0)",
-      }}>
-        {brand.name}
-      </span>
+      <span className="text-white/70">Traditional Employers</span>
     </h2>
   )
 }
@@ -370,6 +381,7 @@ export default function ApplyPage() {
   const [showConfetti, setShowConfetti] = useState(false)
   const [heroReady, setHeroReady] = useState(false)
   const [openFaq, setOpenFaq] = useState<number | null>(null)
+  const [showAllFaq, setShowAllFaq] = useState(false)
   const [copied, setCopied] = useState(false)
   const [typed, setTyped] = useState(false)
   const formRef = useRef<HTMLDivElement>(null)
@@ -598,7 +610,7 @@ export default function ApplyPage() {
                       <Copy className="h-3 w-3" /> {copied ? "Copied!" : "Copy"}
                     </button>
                   </div>
-                  <div className={`p-6 font-mono text-[13px] leading-[2.1] overflow-x-auto transition-opacity duration-1000 ${typed ? "opacity-100" : "opacity-20"}`}>
+                  <div className={`p-4 sm:p-6 font-mono text-[11px] sm:text-[13px] leading-[2.1] overflow-x-auto transition-opacity duration-1000 ${typed ? "opacity-100" : "opacity-20"}`}>
                     <p><span className="text-white/20">$</span> <span className="text-white/80">lethal-cli</span> <span className="text-white/40">apply \</span></p>
                     <p className="pl-6"><span className="text-white/30">--position</span> <span className="text-white/60">&quot;your_role&quot;</span> <span className="text-white/10">\</span></p>
                     <p className="pl-6"><span className="text-white/30">--discord</span> <span className="text-white/60">&quot;your_username&quot;</span> <span className="text-white/10">\</span></p>
@@ -627,18 +639,18 @@ export default function ApplyPage() {
             { icon: Star, value: FALLBACK_STATS.satisfactionPercent, suffix: "%", label: "Satisfaction", accent: "#fbbf24" },
             { icon: Clock, display: "24/7", label: "Support", accent: "#22c55e" },
           ].map((stat, i) => (
-            <div key={stat.label} className="group relative p-5 sm:p-6 rounded-2xl bg-white/[0.025] border border-white/[0.06] hover:border-[#f97316]/30 hover:bg-white/[0.04] hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.35),0_0_32px_rgba(249, 115, 22, 0.17)] transition-all duration-500 overflow-hidden">
+            <div key={stat.label} className="group relative p-4 sm:p-6 rounded-2xl bg-white/[0.025] border border-white/[0.06] hover:border-[#f97316]/30 hover:bg-white/[0.04] hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.35),0_0_32px_rgba(249, 115, 22, 0.17)] transition-all duration-500 overflow-hidden">
               {/* Icon orb — colored glow ring */}
-              <div className="relative mb-4 w-11 h-11">
+              <div className="relative mb-3 sm:mb-4 w-10 h-10 sm:w-11 sm:h-11">
                 <div className="absolute inset-0 rounded-xl blur-xl opacity-50 group-hover:opacity-90 transition-opacity duration-500"
                      style={{ background: `${stat.accent}35` }} />
-                <div className="relative w-11 h-11 rounded-xl flex items-center justify-center border border-white/[0.06] group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-500"
+                <div className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center border border-white/[0.06] group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-500"
                      style={{ background: `linear-gradient(135deg, ${stat.accent}18, ${stat.accent}04)` }}>
                   <stat.icon className="h-[18px] w-[18px]" style={{ color: stat.accent, filter: `drop-shadow(0 0 8px ${stat.accent}90)` }} />
                 </div>
               </div>
               {/* Big font-display number with gradient */}
-              <div className="font-display text-4xl sm:text-5xl font-black tracking-[-0.03em] leading-none tabular-nums">
+              <div className="font-display text-3xl sm:text-4xl md:text-5xl font-black tracking-[-0.03em] leading-none tabular-nums">
                 {stat.display ? (
                   <span style={{
                     background: `linear-gradient(135deg, #ffffff 0%, ${stat.accent} 90%)`,
@@ -682,12 +694,7 @@ export default function ApplyPage() {
         <div className="max-w-[1280px] mx-auto">
           {/* Premium section header with large number */}
           <div className="text-center mb-20">
-            <R>
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/[0.06] bg-white/[0.02] mb-6">
-                <Sparkles className="h-3.5 w-3.5 text-white/20" />
-                <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">Open Roles</span>
-              </div>
-            </R>
+            <R><SectionEyebrow label="Open Roles" /></R>
             <R d={80}>
               {/* Big number accent */}
               <div className="relative inline-block mb-4">
@@ -936,10 +943,7 @@ export default function ApplyPage() {
       <section className="relative z-10 px-6 sm:px-10 lg:px-16 py-28">
         <div className="max-w-[680px] mx-auto">
           <div className="text-center mb-16">
-            <R><div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/[0.06] bg-white/[0.02] mb-6">
-              <Zap className="h-3.5 w-3.5 lx-flame" />
-              <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">Compare</span>
-            </div></R>
+            <R><SectionEyebrow label="Compare" /></R>
             <R d={80}><CorpTitle /></R>
             <R d={140}><p className="text-white/25 text-[14px]">Same industry. Different approach.</p></R>
           </div>
@@ -955,7 +959,7 @@ export default function ApplyPage() {
             </div>
             <div className="text-center">
               <div className="inline-flex items-center gap-1.5">
-                <div className="w-3 h-3 rounded-sm lx-corp-dot" />
+                <div className="w-3 h-3 rounded-sm bg-white/15 border border-white/10" />
                 <span className="text-[9px] font-bold uppercase tracking-[0.15em] text-white/20">Corp</span>
               </div>
             </div>
@@ -978,10 +982,10 @@ export default function ApplyPage() {
                     </div>
                   </div>
 
-                  {/* Google ✗ — red on hover */}
+                  {/* Corp ✗ — neutral red on hover */}
                   <div className="flex justify-center">
-                    <div className="w-8 h-8 rounded-lg bg-white/[0.01] border border-white/[0.03] flex items-center justify-center group-hover:bg-[#EA4335]/[0.06] group-hover:border-[#EA4335]/15 transition-all duration-300">
-                      <span className="text-white/40 text-sm group-hover:text-[#EA4335]/50 transition-colors">×</span>
+                    <div className="w-8 h-8 rounded-lg bg-white/[0.01] border border-white/[0.03] flex items-center justify-center group-hover:bg-red-500/[0.06] group-hover:border-red-500/15 transition-all duration-300">
+                      <span className="text-white/40 text-sm group-hover:text-red-400/50 transition-colors">×</span>
                     </div>
                   </div>
                 </div>
@@ -1008,44 +1012,30 @@ export default function ApplyPage() {
       <section className="relative z-10 px-6 sm:px-10 lg:px-16 py-28">
         <div className="max-w-[1000px] mx-auto">
           <Hdr tag="Team" title={<>What Our Team <span className="lx-text-orange">Says</span></>} sub="Real quotes from people who actually work here." />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+          {/* Mobile: horizontal snap carousel (1 visible, scroll to see more) */}
+          <div className="md:hidden -mx-6 sm:-mx-10 px-6 sm:px-10 overflow-x-auto overflow-y-hidden lx-snap-row lx-scrollbar-x" aria-label="Team testimonials carousel">
+            <div className="flex gap-4 snap-x snap-mandatory">
+              {TEAM_QUOTES.map((q, i) => (
+                <R key={i} d={i * 60} className="snap-start shrink-0 w-[85%] max-w-[420px]">
+                  <QuoteCard q={q} />
+                </R>
+              ))}
+            </div>
+          </div>
+
+          {/* Mobile scroll indicator dots */}
+          <div className="md:hidden flex items-center justify-center gap-1.5 mt-5 text-white/20 text-[10px] font-semibold uppercase tracking-[0.18em]">
+            <ChevronRight className="h-3 w-3 -scale-x-100" />
+            <span>swipe</span>
+            <ChevronRight className="h-3 w-3" />
+          </div>
+
+          {/* Desktop: 2-col grid */}
+          <div className="hidden md:grid grid-cols-2 gap-4">
             {TEAM_QUOTES.map((q, i) => (
               <R key={i} d={i * 100}>
-                <div className="lx-card lx-shine group p-8 relative overflow-hidden"
-                  style={{ borderColor: `${q.grad[0]}40` }}>
-
-                  {/* Gradient glow top — role color */}
-                  <div className="absolute top-0 left-0 right-0 h-px" style={{ background: `linear-gradient(90deg, transparent, ${q.grad[1]}30, transparent)` }} />
-                  <div className="absolute top-0 left-0 right-0 h-[80px] pointer-events-none" style={{ background: `linear-gradient(180deg, ${q.grad[0]}15, transparent)` }} />
-
-                  {/* Big quote mark */}
-                  <div className="absolute top-4 right-6 text-[80px] font-serif leading-none select-none pointer-events-none" style={{ color: `${q.grad[1]}06` }}>&ldquo;</div>
-
-                  {/* Stars */}
-                  <div className="flex gap-1 mb-6 relative z-10">
-                    {[...Array(5)].map((_, j) => (
-                      <Star key={j} className="h-3.5 w-3.5 lx-star" style={{ animationDelay: `${j * 0.15}s` }} />
-                    ))}
-                  </div>
-
-                  <p className="text-[15px] text-white/50 leading-[1.9] mb-8 relative z-10 group-hover:text-white/65 transition-colors duration-500">&ldquo;{q.text}&rdquo;</p>
-
-                  <div className="flex items-center gap-4 pt-6 relative z-10" style={{ borderTop: `1px solid ${q.grad[1]}10` }}>
-                    {/* Avatar — round with glow */}
-                    <div className="relative shrink-0">
-                      <div className="w-11 h-11 rounded-full overflow-hidden" style={{ boxShadow: `0 0 12px ${q.grad[1]}35, 0 0 4px ${q.grad[1]}20` }}>
-                        <img src={q.img} alt={q.name} className="w-full h-full object-cover" loading="lazy" />
-                      </div>
-                      <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-black flex items-center justify-center">
-                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/60 lx-pulse" />
-                      </div>
-                    </div>
-                    <div>
-                      <p className="text-[14px] font-bold text-white/80">{q.name}</p>
-                      <p className="text-[11px] font-medium" style={{ color: `${q.grad[1]}70` }}>{q.role} · {q.time}</p>
-                    </div>
-                  </div>
-                </div>
+                <QuoteCard q={q} />
               </R>
             ))}
           </div>
@@ -1066,23 +1056,39 @@ export default function ApplyPage() {
         <div className="max-w-[700px] mx-auto relative">
           <Hdr tag="Apply" title={<>Apply <span className="lx-text-orange">Now</span></>} sub="Takes 2 minutes. We respond within 48 hours. No resume needed." />
 
+          {/* Step counter — clear "Step X of 3" on all viewports */}
+          <R d={120}>
+            <div className="flex items-center justify-center mb-4">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#f97316]/20 bg-[#f97316]/[0.06]">
+                <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#f97316]/80">
+                  Step {formStep + 1} of 3
+                </span>
+                <span className="text-[10px] text-white/30">·</span>
+                <span className="text-[10px] text-white/45">
+                  {["About You", "Schedule", "Experience"][formStep]}
+                </span>
+              </div>
+            </div>
+          </R>
+
           {/* Step tabs — premium pill switcher */}
           <R d={150}>
             <div className="flex items-center justify-center gap-1 p-1 rounded-2xl bg-white/[0.025] border border-white/[0.06] mb-10 max-w-md mx-auto">
               {[
-                { label: "About You", icon: Users, valid: v0 },
-                { label: "Schedule", icon: Clock, valid: v1 },
-                { label: "Experience", icon: Star, valid: v2 },
+                { label: "About You", short: "You", icon: Users, valid: v0 },
+                { label: "Schedule", short: "Time", icon: Clock, valid: v1 },
+                { label: "Experience", short: "Exp", icon: Star, valid: v2 },
               ].map((step, i) => {
                 const act = formStep === i
                 return (
                   <button key={i} onClick={() => setFormStep(i)}
-                    className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-[11px] font-bold uppercase tracking-[0.12em] transition-all duration-300 cursor-pointer ${
+                    className={`flex-1 flex items-center justify-center gap-1.5 sm:gap-2 py-3 rounded-xl text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.12em] transition-all duration-300 cursor-pointer ${
                       act ? "bg-gradient-to-br from-[#f97316]/15 to-[#f97316]/5 text-white border border-[#f97316]/25 shadow-[0_6px_20px_rgba(249, 115, 22, 0.22)]"
                       : step.valid ? "text-emerald-400/70 hover:bg-white/[0.025] border border-transparent"
                       : "text-white/30 hover:bg-white/[0.025] hover:text-white/50 border border-transparent"
                     }`}>
                     {step.valid && !act ? <Check className="h-3.5 w-3.5 text-emerald-400/70" strokeWidth={3} /> : <step.icon className="h-3.5 w-3.5" />}
+                    <span className="sm:hidden">{step.short}</span>
                     <span className="hidden sm:inline">{step.label}</span>
                   </button>
                 )
@@ -1360,7 +1366,7 @@ export default function ApplyPage() {
           <Hdr tag="FAQ" title={<>Common <span className="lx-text-orange">Questions</span></>} sub="Everything you need to know before applying." />
 
           <div className="space-y-3">
-            {FAQ.map((f, i) => (
+            {(showAllFaq ? FAQ : FAQ.slice(0, 3)).map((f, i) => (
               <R key={i} d={i * 50}>
                 <div className={`lx-card lx-shine rounded-xl overflow-hidden group transition-all duration-500 ${openFaq === i ? "lx-faq-open" : ""}`}>
                   {/* Question row */}
@@ -1399,6 +1405,21 @@ export default function ApplyPage() {
             ))}
           </div>
 
+          {/* Show all / show less toggle — only render if more than 3 */}
+          {FAQ.length > 3 && (
+            <R d={200}>
+              <div className="flex justify-center mt-6">
+                <button onClick={() => { setShowAllFaq(v => !v); if (showAllFaq) setOpenFaq(null) }}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/[0.08] bg-white/[0.02] hover:border-[#f97316]/30 hover:bg-[#f97316]/[0.05] transition-all duration-300 cursor-pointer group">
+                  <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-white/55 group-hover:text-[#f97316] transition-colors">
+                    {showAllFaq ? "Show less" : `Show all ${FAQ.length} questions`}
+                  </span>
+                  <ChevronRight className={`h-3.5 w-3.5 text-white/35 group-hover:text-[#f97316] transition-all duration-300 ${showAllFaq ? "-rotate-90" : "rotate-90"}`} />
+                </button>
+              </div>
+            </R>
+          )}
+
           {/* Bottom helper */}
           <R d={500}>
             <div className="text-center mt-10">
@@ -1416,13 +1437,78 @@ export default function ApplyPage() {
           ═══════════════════════════════════════════════════════════ */}
 
       <section className="relative z-10 px-6 sm:px-10 lg:px-16 py-36 overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 60% 35% at 50% 50%, rgba(249, 115, 22, 0.04), transparent)" }} />
-        <div className="max-w-[700px] mx-auto text-center relative">
-          <R><div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/[0.05] bg-white/[0.02] mb-8"><Flame className="h-3.5 w-3.5 text-white/20" /><span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">Your Future</span></div></R>
-          <R d={100}><h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.03em] mb-6 leading-tight lx-text-fade">Stop scrolling.<br /><span className="lx-text-orange relative inline-block">Start building.<span className="absolute left-0 -bottom-1 w-full h-[3px] rounded-full" style={{ background: "linear-gradient(90deg, #f97316, rgba(249, 115, 22, 0.29))", boxShadow: "0 0 15px rgba(249, 115, 22, 0.36)" }} /></span></h2></R>
-          <R d={200}><p className="text-white/30 mb-12 text-[15px] sm:text-[17px] max-w-md mx-auto">The best time to join was yesterday. The second best is <span className="text-white/65 font-semibold">right now</span>.</p></R>
-          <R d={300}><button onClick={() => formRef.current?.scrollIntoView({ behavior: "smooth" })} className="lx-primary px-12 py-4 rounded-xl text-[16px] font-bold text-white inline-flex items-center gap-3 cursor-pointer lx-breathe"><Send className="h-5 w-5" /> Apply Now</button></R>
-          <R d={400}><div className="flex items-center justify-center gap-6 mt-12 flex-wrap">{[{icon:Shield,text:"48h Response"},{icon:Heart,text:"Zero Toxicity"},{icon:Zap,text:"Day-One Impact"},{icon:Globe,text:"Fully Remote"}].map((it, i) => <div key={i} className="flex items-center gap-1.5 text-white/40"><it.icon className="h-3 w-3" /><span className="text-[11px] font-medium">{it.text}</span></div>)}</div></R>
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 65% 45% at 50% 50%, rgba(249, 115, 22, 0.10), transparent)" }} />
+
+        <div className="max-w-[760px] mx-auto relative">
+          {/* Premium glass card with animated conic border */}
+          <R>
+            <div className="relative rounded-[28px] p-[1.5px] overflow-hidden" style={{ background: "conic-gradient(from 0deg, rgba(249,115,22,0.55) 0%, transparent 18%, transparent 82%, rgba(251,191,36,0.55) 100%)" }}>
+              <div className="relative rounded-[26px] bg-gradient-to-br from-[#0c0706] via-black to-[#0b0504] p-10 sm:p-14 overflow-hidden">
+                {/* Corner orange glow */}
+                <div className="absolute -top-24 -right-24 w-[340px] h-[340px] rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(249,115,22,0.22), transparent 62%)", filter: "blur(60px)" }} />
+                <div className="absolute -bottom-20 -left-16 w-[260px] h-[260px] rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(251,191,36,0.14), transparent 60%)", filter: "blur(70px)" }} />
+
+                {/* Subtle grid texture */}
+                <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{
+                  backgroundImage: "linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px)",
+                  backgroundSize: "36px 36px",
+                  maskImage: "radial-gradient(ellipse at center, black 20%, transparent 80%)",
+                  WebkitMaskImage: "radial-gradient(ellipse at center, black 20%, transparent 80%)",
+                }} />
+
+                <div className="relative text-center">
+                  <R><SectionEyebrow label="Your Future" /></R>
+
+                  <R d={100}>
+                    <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.035em] mb-5 leading-[1.04] lx-text-fade">
+                      Stop scrolling.<br />
+                      <span className="lx-text-orange relative inline-block">
+                        Start building.
+                      </span>
+                    </h2>
+                  </R>
+
+                  <R d={200}>
+                    <p className="text-white/45 mb-10 text-[15px] sm:text-[17px] max-w-md mx-auto leading-relaxed">
+                      The best time to join was yesterday. The second best is <span className="text-white/80 font-semibold">right now</span>.
+                    </p>
+                  </R>
+
+                  <R d={300}>
+                    <button
+                      onClick={() => formRef.current?.scrollIntoView({ behavior: "smooth" })}
+                      className="group relative inline-flex items-center gap-3 px-10 sm:px-14 py-4 rounded-2xl font-bold text-[16px] text-white overflow-hidden transition-all duration-300 hover:scale-[1.03] cursor-pointer"
+                      style={{
+                        background: "linear-gradient(135deg, #fbbf24 0%, #f97316 45%, #ea580c 100%)",
+                        boxShadow: "0 12px 40px rgba(249,115,22,0.45), inset 0 1px 0 rgba(255,255,255,0.20)",
+                      }}
+                    >
+                      <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/35 to-transparent transition-transform duration-1000 pointer-events-none" />
+                      <Send className="relative z-10 h-5 w-5" />
+                      <span className="relative z-10">Apply Now</span>
+                      <span className="relative z-10 text-white/70 text-[13px] font-medium pl-1">· 2 min</span>
+                    </button>
+                  </R>
+
+                  <R d={400}>
+                    <div className="flex items-center justify-center gap-x-8 gap-y-3 mt-10 flex-wrap">
+                      {[
+                        { icon: Shield, text: "48h Response" },
+                        { icon: Heart, text: "Zero Toxicity" },
+                        { icon: Zap, text: "Day-One Impact" },
+                        { icon: Globe, text: "Fully Remote" },
+                      ].map((it, i) => (
+                        <div key={i} className="flex items-center gap-1.5 text-white/45">
+                          <it.icon className="h-3.5 w-3.5 text-[#f97316]/80" />
+                          <span className="text-[11px] font-semibold uppercase tracking-[0.12em]">{it.text}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </R>
+                </div>
+              </div>
+            </div>
+          </R>
         </div>
       </section>
 
@@ -1683,6 +1769,12 @@ export default function ApplyPage() {
         .lx-scrollbar::-webkit-scrollbar-track { background: transparent; }
         .lx-scrollbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.06); border-radius: 3px; }
 
+        /* Horizontal scroll snap carousel (mobile testimonials) */
+        .lx-snap-row { scroll-padding-left: 1.5rem; -webkit-overflow-scrolling: touch; padding-bottom: 4px; }
+        .lx-snap-row > .flex { padding-right: 1.5rem; }
+        .lx-scrollbar-x::-webkit-scrollbar { height: 0; background: transparent; }
+        .lx-scrollbar-x { scrollbar-width: none; -ms-overflow-style: none; }
+
         /* (brand cycling done via React state now) */
 
         /* Gold star — loops: dim → fill gold 1-by-1 → hold → dim back */
@@ -1757,23 +1849,6 @@ export default function ApplyPage() {
           mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
           -webkit-mask-composite: xor; mask-composite: exclude;
           animation: bRot 8s linear infinite;
-        }
-
-        /* Google brand square */
-        .lx-corp-dot {
-          opacity: 0.6;
-          animation: corpDotColor 16s ease infinite;
-        }
-        @keyframes corpDotColor {
-          0%, 11%     { background: #4285F4; }
-          12.5%, 23%  { background: #a2aaad; }
-          25%, 36%    { background: #e82127; }
-          37.5%, 48%  { background: #1877f2; }
-          50%, 61%    { background: #ff9900; }
-          62.5%, 73%  { background: #00a4ef; }
-          75%, 86%    { background: #1428a0; }
-          87.5%, 99%  { background: #e50914; }
-          100%        { background: #4285F4; }
         }
 
         /* Focus + scrollbar */

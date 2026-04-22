@@ -153,7 +153,7 @@ export default function TrackOrderPage() {
         <Navbar />
         <section className="flex-1 pt-28 pb-24 px-4">
           <div className="container mx-auto max-w-3xl">
-            <Link href="/track" data-cursor="cta" data-cursor-label="Back" className="cursor-cta inline-flex items-center gap-1.5 text-[13px] text-white/55 hover:text-[#f97316] transition-colors mb-10 group">
+            <Link href="/track" data-cursor="cta" data-cursor-label="Back" className="cursor-cta press-spring group inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-white/[0.08] bg-white/[0.03] backdrop-blur-md text-[12.5px] font-semibold text-white/70 hover:text-[#f97316] hover:border-[#f97316]/35 hover:bg-[#f97316]/[0.06] transition-all mb-10">
               <ArrowRight className="h-3.5 w-3.5 rotate-180 group-hover:-translate-x-0.5 transition-transform" />
               New search
             </Link>
@@ -334,8 +334,10 @@ export default function TrackOrderPage() {
   // No results
   if (orders && orders.length === 0) {
     return (
-      <main className="flex min-h-screen bg-transparent items-center justify-center px-6">
-        <div className="text-center max-w-md relative">
+      <main className="flex min-h-screen flex-col bg-transparent">
+        <Navbar />
+        <div className="flex-1 flex items-center justify-center px-6">
+          <div className="text-center max-w-md relative">
           <div className="relative inline-flex mb-6">
             <Package className="h-16 w-16 text-white/15" style={{ animation: "noOrderBob 3s ease-in-out infinite" }} />
             <span className="absolute -top-1 -right-1 h-3 w-3 rounded-full bg-red-500/80 border-2 border-black animate-pulse" />
@@ -357,6 +359,7 @@ export default function TrackOrderPage() {
               50% { transform: translateY(-8px) rotate(2deg); }
             }
           `}</style>
+          </div>
         </div>
       </main>
     )
@@ -364,17 +367,17 @@ export default function TrackOrderPage() {
 
   // Main form — premium split
   return (
-    <main className="flex h-screen bg-transparent overflow-hidden relative">
+    <main className="flex min-h-screen lg:h-screen flex-col lg:flex-row bg-transparent lg:overflow-hidden relative">
       {/* Top minimal bar */}
       <div className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4">
         <Link
           href="/"
           data-cursor="cta"
           data-cursor-label="Back"
-          className="cursor-cta flex items-center gap-2 text-white/55 hover:text-[#f97316] transition-colors text-[13px] group"
+          className="cursor-cta press-spring group inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-white/[0.08] bg-white/[0.03] backdrop-blur-md text-[12.5px] font-semibold text-white/70 hover:text-[#f97316] hover:border-[#f97316]/35 hover:bg-[#f97316]/[0.06] transition-all"
         >
           <ArrowRight className="h-3.5 w-3.5 rotate-180 group-hover:-translate-x-0.5 transition-transform" />
-          <span className="hidden sm:inline font-semibold">Back</span>
+          <span>Back</span>
         </Link>
 
         <Link href="/status" data-cursor="cta" data-cursor-label="Status" className="cursor-cta flex items-center gap-1.5 text-[12px] text-white/55 hover:text-white transition-colors">
@@ -386,61 +389,104 @@ export default function TrackOrderPage() {
         </Link>
       </div>
 
-      {/* Left — branding */}
-      <div className="hidden lg:flex flex-col justify-between w-[45%] p-12 xl:p-16 relative overflow-hidden border-r border-white/[0.04]">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#f97316]/[0.045] via-transparent to-transparent" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[640px] h-[640px] bg-[#f97316]/[0.03] rounded-full blur-[140px]" style={{ animation: "trackOrb 18s ease-in-out infinite" }} />
-        <div className="absolute top-[30%] right-[5%] w-[300px] h-[300px] bg-amber-400/[0.04] rounded-full blur-[120px]" style={{ animation: "trackOrb 14s ease-in-out infinite reverse" }} />
+      {/* Left — branding (desktop column, mobile stacked hero) */}
+      <div className="flex flex-col justify-between lg:w-[45%] pt-24 pb-10 px-6 lg:p-12 xl:p-16 relative overflow-hidden lg:border-r border-white/[0.04]">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#f97316]/[0.045] via-transparent to-transparent pointer-events-none" />
+        <div className="hidden lg:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[640px] h-[640px] bg-[#f97316]/[0.03] rounded-full blur-[140px]" style={{ animation: "trackOrb 18s ease-in-out infinite" }} />
+        <div className="hidden lg:block absolute top-[18%] right-[5%] w-[300px] h-[300px] bg-amber-400/[0.04] rounded-full blur-[120px]" style={{ animation: "trackOrb 14s ease-in-out infinite reverse" }} />
 
-        <Link href="/" data-cursor="cta" data-cursor-label="Home" className="cursor-cta relative inline-flex items-center gap-2.5">
+        <Link href="/" data-cursor="cta" data-cursor-label="Home" className="cursor-cta relative inline-flex items-center gap-2.5 self-start">
           <Image src="/images/logo.png" alt="Lethal Solutions" width={32} height={32} className="h-8 w-8 object-contain" />
           <span className="text-white font-bold text-lg tracking-tight">Lethal Solutions</span>
         </Link>
 
-        <div className="relative">
+        <div className="relative mt-10 lg:mt-0">
           <div className="inline-flex items-center gap-2 mb-5">
             <span className="w-1.5 h-1.5 rounded-full bg-[#f97316] animate-pulse" />
             <p className="text-[11px] font-bold text-[#f97316]/85 tracking-[0.25em] uppercase">Order Tracking</p>
           </div>
-          <h1 className="font-display text-[44px] xl:text-[72px] font-bold leading-[0.92] tracking-[-0.045em]">
+          <h1 className="font-display text-[40px] sm:text-[52px] lg:text-[44px] xl:text-[72px] font-bold leading-[0.92] tracking-[-0.045em]">
             <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Track your</span>
             <br />
             <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249, 115, 22, 0.46))" }}>order.</span>
           </h1>
-          <p className="mt-7 text-[15px] text-white/55 leading-relaxed max-w-[400px]">
+          <p className="mt-6 lg:mt-7 text-[14px] lg:text-[15px] text-white/55 leading-relaxed max-w-[400px]">
             Enter your order ID or email to check status, view license keys, and access your downloads in seconds.
           </p>
         </div>
 
-        <div className="relative flex items-center gap-6">
-          {[
-            { value: "Instant", label: "Delivery" },
-            { value: "256-bit", label: "Encryption" },
-            { value: "24/7", label: "Support" },
-          ].map((stat, i) => (
-            <div key={stat.label} className="flex items-center gap-6">
-              {i > 0 && <div className="w-px h-10 bg-white/[0.08]" />}
-              <div>
-                <p className="text-2xl font-display font-bold text-white tracking-tight">{stat.value}</p>
-                <p className="text-[10px] text-white/50 mt-0.5 uppercase tracking-[0.18em] font-bold">{stat.label}</p>
+        {/* Stats + timeline preview + ticker (desktop only) */}
+        <div className="hidden lg:flex relative flex-col gap-8 mt-10">
+          <div className="flex items-center gap-6">
+            {[
+              { value: "Instant", label: "Delivery" },
+              { value: "256-bit", label: "Encryption" },
+              { value: "24/7", label: "Support" },
+            ].map((stat, i) => (
+              <div key={stat.label} className="flex items-center gap-6">
+                {i > 0 && <div className="w-px h-10 bg-white/[0.08]" />}
+                <div>
+                  <p className="text-2xl font-display font-bold text-white tracking-tight">{stat.value}</p>
+                  <p className="text-[10px] text-white/50 mt-0.5 uppercase tracking-[0.18em] font-bold">{stat.label}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Timeline preview — greyed until searched */}
+          <div className="relative rounded-2xl border border-white/[0.05] bg-white/[0.015] p-5 backdrop-blur-sm">
+            <p className="text-[10px] font-bold text-white/40 uppercase tracking-[0.2em] mb-4">Journey preview</p>
+            <div className="flex items-center justify-between gap-2">
+              {[
+                { key: "ordered", label: "Ordered" },
+                { key: "paid", label: "Paid" },
+                { key: "license", label: "License" },
+                { key: "active", label: "Active" },
+              ].map((step, i) => (
+                <div key={step.key} className="flex items-center gap-2 flex-1">
+                  <div className="flex flex-col items-center gap-1.5 shrink-0">
+                    <div className="w-7 h-7 rounded-full border border-white/[0.1] bg-white/[0.02] flex items-center justify-center">
+                      <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 text-white/25" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <span className="text-[10px] font-semibold text-white/35 tracking-tight">{step.label}</span>
+                  </div>
+                  {i < 3 && <div className="flex-1 h-px bg-white/[0.06] -mt-5" />}
+                </div>
+              ))}
+            </div>
+            <p className="mt-4 text-[11px] text-white/35 leading-relaxed">
+              Each step lights up as we look up your order.
+            </p>
+          </div>
+
+          {/* Live ticker */}
+          <div className="relative rounded-xl border border-white/[0.05] bg-white/[0.012] px-4 py-2.5 overflow-hidden">
+            <div className="flex items-center gap-3 text-[11.5px] leading-tight">
+              <span className="shrink-0 inline-flex items-center gap-1.5 font-bold text-emerald-400/90 tracking-[0.15em] uppercase text-[10px]">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
+                </span>
+                Live
+              </span>
+              <div className="relative h-5 flex-1 overflow-hidden">
+                <div className="absolute inset-0" style={{ animation: "trackTicker 15s cubic-bezier(0.22,1,0.36,1) infinite" }}>
+                  <div className="h-5 flex items-center text-white/60"><span className="font-mono text-[#f97316]/80 mr-2">01</span>Perm Spoofer delivered to UK <span className="text-white/30 ml-2">· 12s ago</span></div>
+                  <div className="h-5 flex items-center text-white/60"><span className="font-mono text-[#f97316]/80 mr-2">02</span>License activated for DE customer <span className="text-white/30 ml-2">· 34s ago</span></div>
+                  <div className="h-5 flex items-center text-white/60"><span className="font-mono text-[#f97316]/80 mr-2">03</span>Custom firmware dispatched to US <span className="text-white/30 ml-2">· 58s ago</span></div>
+                </div>
               </div>
             </div>
-          ))}
+          </div>
         </div>
       </div>
 
       {/* Right — form */}
-      <div className="flex-1 flex items-center justify-center p-6 md:p-12 relative">
+      <div className="flex-1 flex items-center justify-center px-6 py-10 lg:p-12 relative">
         <div className="w-full max-w-[440px] relative">
-          {/* Mobile logo */}
-          <div className="lg:hidden mb-10">
-            <Link href="/" className="inline-flex items-center gap-2.5">
-              <Image src="/images/logo.png" alt="Lethal Solutions" width={32} height={32} className="h-8 w-8 object-contain" />
-              <span className="text-white font-bold text-lg">Lethal Solutions</span>
-            </Link>
-          </div>
-
-          <div className="mb-8">
+          <div className="mb-7">
             <h2 className="font-display text-[28px] sm:text-3xl font-bold text-white tracking-tight">
               Find your <span style={{ background: "linear-gradient(135deg, #fbbf24, #f97316, #ea580c)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>order</span>
             </h2>
@@ -448,7 +494,7 @@ export default function TrackOrderPage() {
           </div>
 
           {/* Tabs */}
-          <div className="flex gap-1 mb-7 p-1 rounded-xl bg-white/[0.03] border border-white/[0.05]">
+          <div className="flex gap-1 mb-6 p-1 rounded-xl bg-white/[0.03] border border-white/[0.05]">
             {[
               { key: "order_id", label: "Order ID" },
               { key: "email", label: "Email" },
@@ -470,7 +516,7 @@ export default function TrackOrderPage() {
             ))}
           </div>
 
-          <form onSubmit={handleSearch} className="space-y-5">
+          <form onSubmit={handleSearch} className="space-y-4">
             <div key={shakeKey} className={shakeKey > 0 ? "animate-shake" : ""}>
               <label className="text-[11px] font-bold text-white/50 uppercase tracking-[0.15em] mb-2 block">
                 {searchType === "order_id" ? "Order ID" : "Email Address"}
@@ -495,37 +541,58 @@ export default function TrackOrderPage() {
               </div>
             )}
 
-            <Magnetic strength={0.1}>
-              <button
-                type="submit"
-                disabled={loading || !searchValue.trim()}
-                data-cursor="cta"
-                data-cursor-label={loading ? "Search" : "Track"}
-                className="cursor-cta press-spring group relative overflow-hidden flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-[#f97316] to-[#ea580c] px-4 py-3.5 text-[15px] font-bold text-white shadow-[0_0_28px_rgba(249,115,22,0.35)] transition-all hover:shadow-[0_0_50px_rgba(249,115,22,0.6)] hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
-                {loading ? <Loader2 className="relative z-10 h-4 w-4 animate-spin" /> : (
-                  <>
-                    <span className="relative z-10">Track Order</span>
-                    <ArrowRight className="relative z-10 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                  </>
-                )}
-              </button>
-            </Magnetic>
-          </form>
+            <div className="space-y-2">
+              <Magnetic strength={0.1} className="block w-full">
+                <button
+                  type="submit"
+                  disabled={loading || !searchValue.trim()}
+                  data-cursor="cta"
+                  data-cursor-label={loading ? "Search" : "Track"}
+                  className="cursor-cta press-spring group relative overflow-hidden flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-[#f97316] to-[#ea580c] px-6 py-5 text-[17px] font-bold text-white shadow-[0_0_28px_rgba(249,115,22,0.35)] transition-all hover:shadow-[0_0_50px_rgba(249,115,22,0.6)] hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
+                  {loading ? <Loader2 className="relative z-10 h-4 w-4 animate-spin" /> : (
+                    <>
+                      <span className="relative z-10">Track Order</span>
+                      <ArrowRight className="relative z-10 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                    </>
+                  )}
+                </button>
+              </Magnetic>
 
-          <p className="mt-7 text-center text-[11px] text-white/45">
-            Order ID was sent to your email after checkout.{" "}
-            <a href="https://discord.gg/lethaldma" target="_blank" rel="noopener noreferrer" data-cursor="cta" data-cursor-label="Help" className="cursor-cta text-[#f97316]/70 hover:text-[#f97316] underline underline-offset-2 transition-colors font-semibold">
-              Need help?
-            </a>
-          </p>
+              {/* Secondary helper — "Need the order ID?" */}
+              <p className="text-center text-[12px] text-white/55 leading-relaxed">
+                Need the order ID?{" "}
+                <span className="inline-flex items-center gap-1.5 text-white/70">
+                  <ArrowRight className="h-3 w-3 text-[#f97316]/70" />
+                  Check your email
+                </span>
+                <span className="mx-1.5 text-white/25">/</span>
+                <a
+                  href="https://discord.gg/lethaldma"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-cursor="cta"
+                  data-cursor-label="Discord"
+                  className="cursor-cta text-[#f97316]/80 hover:text-[#f97316] underline underline-offset-2 transition-colors font-semibold"
+                >
+                  Ask on Discord
+                </a>
+              </p>
+            </div>
+          </form>
         </div>
 
-        <style jsx>{`
+        <style jsx global>{`
           @keyframes trackOrb {
             0%, 100% { transform: translate(-50%, -50%) scale(1); }
             50% { transform: translate(-45%, -55%) scale(1.08); }
+          }
+          @keyframes trackTicker {
+            0%, 28% { transform: translateY(0); }
+            33%, 61% { transform: translateY(-20px); }
+            66%, 94% { transform: translateY(-40px); }
+            100% { transform: translateY(-60px); }
           }
         `}</style>
       </div>

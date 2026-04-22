@@ -1,0 +1,573 @@
+{
+  "_meta": {
+    "purpose": "Atom-based vocab for scripts/039. Each review built combinatorially (opener + main + suffix) so 8k+ reviews stay unique. Mediums are short (10-20 words). No longs. No bracket tags."
+  },
+
+  "productCategory": {
+    "fortnite-external": "fortnite",
+    "temp-spoofer": "spoofer",
+    "perm-spoofer": "spoofer",
+    "streck": "dma_cheat",
+    "blurred": "dma_cheat",
+    "custom-dma-firmware": "dma_firmware",
+    "dma-basic": "dma_bundle",
+    "dma-advanced": "dma_bundle",
+    "dma-elite": "dma_bundle"
+  },
+
+  "atoms": {
+    "openers": {
+      "us": ["", "", "fr", "ngl", "bro", "no cap", "honestly", "lowkey", "tbh", "yo", "ok so", "fr fr", "fr bro", "so", "damn", "imo", "idk", "ok", "bro lowkey", "fr ngl"],
+      "eu": ["", "", "honestly", "overall", "generally", "personally", "in my experience", "to be fair"],
+      "ru": ["", "", "bro", "bratan", "chuvak", "nu", "v obshchem", "po factu"]
+    },
+    "suffixes": {
+      "us": ["", "", " fr", " bro", " ngl", " no cap", " lmk", " tbh", " for real", " 10/10", " fr fr", ", fw us", " tho", ", idk", " lowkey", ", w shop", ", ty"],
+      "eu": ["", "", ", thanks", ", recommend", ", happy with it", ", no issues", ", thanks a lot"],
+      "ru": ["", " bro", " bratan", " ogon", " top", ", thanks", ", rekomenduyu", " v obshchem"]
+    }
+  },
+
+  "short_5star": {
+    "generic": {
+      "us": [
+        "10/10", "1000/10", "w shop", "w team", "w staff", "w support", "big w", "massive w", "w w w",
+        "ty", "ty bro", "ty fr", "fast delivery", "instant delivery",
+        "mustard", "godly", "insane", "fire", "fire shit", "goated", "the goat",
+        "worth it", "worth every penny", "cheap and clean", "cant beat the price",
+        "solid provider", "best shop", "legit shop", "top tier provider", "top tier",
+        "support is fire", "support goated", "support w", "fast support", "quick support",
+        "setup ez", "setup took 2 min", "easy setup", "smooth setup",
+        "would buy again", "reup coming", "gonna buy again",
+        "works", "it works", "works fr", "just works", "shit works",
+        "clean menu", "clean ui", "finally a clean menu", "menu is fire",
+        "already recced to my squad", "putting my boys on", "gonna tell everyone",
+        "best on the market", "no other shop compares", "no shop beats this",
+        "cheap as hell", "best price fr", "price is right",
+        "love it", "cracked", "actually cracked", "certified w",
+        "replied in 2 min", "support at 3am", "replied instantly"
+      ],
+      "eu": [
+        "10/10", "perfect", "very good", "great product", "well worth it",
+        "excellent support", "fast support", "helpful team", "responsive support",
+        "thanks for the help", "thanks for the fast delivery",
+        "quality product", "professional operation", "polished experience",
+        "recommend", "highly recommend", "would recommend", "would buy again",
+        "happy customer", "no issues", "no complaints", "smooth experience",
+        "best provider i have tried", "better than competitors",
+        "instant delivery", "fair price", "good value"
+      ],
+      "ru": [
+        "10/10", "огонь", "топ", "работает", "pashet", "kupil ne pojalel",
+        "spasibo razrab", "spasibo bratan", "rekomenduyu", "krasava",
+        "all good", "works good", "nice cheat", "ne pojalel",
+        "dostavka bystraya", "nice one", "tested all good"
+      ]
+    },
+    "fortnite": {
+      "us": [
+        "no ban", "still no ban", "3 months no ban", "ud asf", "ud af", "ud fr",
+        "dropped a 40 bomb", "50 bomb ez", "first game 30 bomb", "40+ kills",
+        "aimbot cracked", "prediction cracked", "cracked aimbot",
+        "ranked ez", "ranked ezz", "unreal easy",
+        "won a wager", "won 3 wagers", "wager money ez",
+        "bloom dialed", "no recoil", "recoil off",
+        "tourney ready", "clean in tourney", "survived tourney week",
+        "esp clean", "visuals clean"
+      ],
+      "eu": [
+        "no bans after 3 weeks", "zero detections", "clean for a month",
+        "aimbot is smooth", "prediction is great",
+        "tournament ready", "stable in ranked"
+      ],
+      "ru": [
+        "no ban", "ni odnogo bana", "ud uzhe 2 nedeli", "prediction ogon",
+        "ranked ezz", "aim smooth"
+      ]
+    },
+    "spoofer": {
+      "us": [
+        "first try", "worked first try", "first try no issues",
+        "no bsod", "no bluescreen", "clean boot",
+        "no windows reinstall", "no install drama",
+        "works on msi", "works on asus", "works on b550", "works on amd",
+        "hwid reset ez", "back in faceit", "back in valo", "back in the game",
+        "faceit ready", "valorant ready", "rust ready",
+        "clean spoof", "spoofed clean"
+      ],
+      "eu": [
+        "worked on first try", "no bsod on install", "clean hwid reset",
+        "back in faceit in 10 min", "no windows reinstall"
+      ],
+      "ru": [
+        "pervyi raz vse norm", "no bsod", "ne pereustanavlival vindu",
+        "spoofer top"
+      ]
+    },
+    "dma_cheat": {
+      "us": [
+        "smoothest aimbot ive used", "cleanest esp", "dma hits different",
+        "no software on main pc", "offload is worth it",
+        "undetectable for real", "no detection risk",
+        "menu loads fast", "streamproof works",
+        "best dma cheat", "cleaner than my old dma cheat"
+      ],
+      "eu": [
+        "smooth aimbot, clean esp", "menu is organized", "streamproof solid",
+        "no detection in a month"
+      ],
+      "ru": [
+        "dma cheat top", "smooth aim", "cleaner than old cheat"
+      ]
+    },
+    "dma_bundle": {
+      "us": [
+        "hardware arrived fast", "hardware quality top tier", "no overheating",
+        "firmware flashed first try", "both games work", "setup took an hour",
+        "elite bundle goated", "advanced bundle w", "basic bundle solid",
+        "finally a proper bundle", "hw compat was spot on"
+      ],
+      "eu": [
+        "hardware arrived within a week", "firmware flashed cleanly",
+        "complete bundle, nothing missing", "clear config guide"
+      ],
+      "ru": [
+        "hardware prishel bystro", "firmware prozhyog s pervogo raza",
+        "bundle polnyi"
+      ]
+    },
+    "dma_firmware": {
+      "us": [
+        "firmware flashed first try", "no brick", "flash took 10 min",
+        "custom fw is the way", "cleaner than stock", "fw goated",
+        "stock fw was dogshit, this is clean"
+      ],
+      "eu": [
+        "flashed without issues", "clear flash instructions",
+        "runs stable on my hardware", "improvement over stock"
+      ],
+      "ru": [
+        "firmware prozhyog bystro", "better than stock", "flashnul norm"
+      ]
+    }
+  },
+
+  "medium_5star": {
+    "generic": {
+      "us": [
+        "support replied in {n} min, pretty rare fr",
+        "tried {n} providers before this, none were this smooth",
+        "got my key in 2 min, setup took {n} min",
+        "sketched before buying, {staff} answered everything in dms",
+        "best {n} bucks ive spent in a while",
+        "smooth purchase, already gonna buy again"
+      ],
+      "eu": [
+        "very responsive, replied within {n} minutes",
+        "smoother than the 3 providers i used before this",
+        "happy with the purchase overall",
+        "quick delivery and helpful support"
+      ],
+      "ru": [
+        "support otvechaet za {n} minut",
+        "kupil, poluchil klyuch srazu"
+      ]
+    },
+    "fortnite": {
+      "us": [
+        "{weeks} weeks no ban, ranked ez, wagers bagged",
+        "prediction is clean af, hits every shot",
+        "bought lifetime after testing 1 week key",
+        "{weeks} weeks in tourney, no flags",
+        "40+ kills first game, thing is cracked",
+        "esp clean, bloom dialed, no recoil",
+        "my squad up {n} wins this week fr",
+        "ud for {weeks} weeks, no 24hr",
+        "chapter 6 and still undetected",
+        "stomping unreal lobbies daily"
+      ],
+      "eu": [
+        "three weeks of ranked, no bans",
+        "aimbot smoother than any provider ive used",
+        "tournament mode tested, no issues",
+        "bought lifetime after a weekly test",
+        "prediction is spot on at long range"
+      ],
+      "ru": [
+        "{weeks} nedeli bez bana v ranked",
+        "aim prediction top, ranked ez"
+      ]
+    },
+    "spoofer": {
+      "us": [
+        "worked on my msi tpm 2.0 board first try",
+        "back in valo in 10 min after perma",
+        "{weeks} weeks of use, no bsod",
+        "last provider refused refund, yours just worked",
+        "faceit lost cause before this, back grinding ranked",
+        "hwid reset 3 times, clean every time",
+        "bought perm after {n} temp spoofer uses"
+      ],
+      "eu": [
+        "first try on my asus b550, no bios tweaks",
+        "back in faceit within 10 minutes",
+        "temp spoofer saved my rust account",
+        "survived 3 windows updates no issues"
+      ],
+      "ru": [
+        "perm spoofer rabotaet, reset hwid {n} raz, vsyo ok",
+        "back in faceit za {n} minut"
+      ]
+    },
+    "dma_cheat": {
+      "us": [
+        "blurred menu is the cleanest ive seen on dma",
+        "streck prediction is wild in tarkov",
+        "{weeks} weeks on warzone, no detection",
+        "no software on main pc is the move fr",
+        "streamproof solid across my obs setup",
+        "config took an afternoon, set and forget since"
+      ],
+      "eu": [
+        "{weeks} weeks of tarkov, no detection",
+        "blurred runs smooth, happy with the features",
+        "streck is my main dma cheat now"
+      ],
+      "ru": [
+        "{weeks} nedeli bez bana v warzone",
+        "blurred cheat smooth, menu udobnoe"
+      ]
+    },
+    "dma_bundle": {
+      "us": [
+        "hw arrived in a week, firmware first try, both games smooth",
+        "elite bundle, {staff} walked me through setup in an hour",
+        "basic bundle is plug and play after the flash",
+        "advanced was the right call for extra slot",
+        "{weeks} weeks in, zero issues on the bundle"
+      ],
+      "eu": [
+        "hardware arrived promptly, firmware flashed clean",
+        "advanced bundle runs both games on one flash",
+        "basic bundle is a solid entry to dma",
+        "hardware quality is consistent across components"
+      ],
+      "ru": [
+        "dma bundle postavil za den, vsyo rabotaet",
+        "elite worth it, oba cheat na odnom flash"
+      ]
+    },
+    "dma_firmware": {
+      "us": [
+        "custom fw flashed in {n} min, cleaner than stock",
+        "{weeks} weeks on the custom, no detection",
+        "flash went smooth, paired with my existing card",
+        "stock fw was bait, this one is legit"
+      ],
+      "eu": [
+        "flash was straightforward, clear instructions",
+        "noticeable improvement over stock firmware",
+        "runs more stable than before the flash"
+      ],
+      "ru": [
+        "custom fw luchshe stock",
+        "flashnul za {n} minut, vsyo norm"
+      ]
+    }
+  },
+
+  "short_4star": {
+    "generic": {
+      "us": [
+        "good, menu is a pain", "works, setup took a while", "solid, ui could be better",
+        "works most of the time", "1 crash, support fixed", "works, learning curve",
+        "4/5, ui needs work", "good but not perfect", "runs well, small bugs",
+        "support helpful but slow", "works after a min", "solid, could be faster"
+      ],
+      "eu": [
+        "good overall, minor complaints", "works, setup takes effort",
+        "some crashes early", "solid but not flawless",
+        "works, minor config issues", "4/5, happy overall"
+      ],
+      "ru": [
+        "works, menu slozhnovato", "ok, setup dolgo",
+        "4/5, rabotaet no menu tyazheloe"
+      ]
+    },
+    "fortnite": {
+      "us": [
+        "had a win11 issue at first, reinstalled windows and works now",
+        "windows 24h2 wasnt compat, rolled back to 23h2 and its fine",
+        "windows defender was blocking it, whitelisted and works now",
+        "had to downgrade my windows build but works perfectly now",
+        "fresh windows install fixed it, running smooth since"
+      ],
+      "eu": [
+        "had a windows compat issue at first, reinstalled and works fine now",
+        "windows 24h2 caused issues, rolled back and works",
+        "fresh windows install solved it"
+      ],
+      "ru": [
+        "pereustanovil vindu, sejchas rabotaet",
+        "bila problema v vinde, posle pereustanovki ok"
+      ]
+    },
+    "spoofer": {
+      "us": [
+        "had a bsod on my msi at first, support helped me fix the bios setting, works now",
+        "had compat issues, updated bios and now runs fine",
+        "tpm setting was the issue, toggled it off and works"
+      ],
+      "eu": [
+        "minor bios tweak needed but works fine now",
+        "had mobo compat issue, resolved with a bios setting"
+      ],
+      "ru": [
+        "bila problema s bios, support pomog, teper rabotaet"
+      ]
+    }
+  },
+
+  "short_3star": {
+    "generic": {
+      "us": [
+        "works but menu is ass", "decent for the price",
+        "fixed after a few tries", "it works i guess", "expected more",
+        "few crashes, support sorted", "its fine", "mid, works but meh",
+        "3/5, support slow", "had to troubleshoot", "not bad not great",
+        "kinda works kinda buggy", "messaged support 3 times"
+      ],
+      "eu": [
+        "functional but not great", "works but some bugs",
+        "average, price could be lower", "minor issues throughout",
+        "3/5, support could be faster", "mediocre overall"
+      ],
+      "ru": [
+        "rabotaet no menu slozhnoe", "ok but bugs",
+        "srednee", "est problemy", "3/5"
+      ]
+    },
+    "fortnite": {
+      "us": [
+        "had to reinstall windows to get it running",
+        "windows 24h2 was a pain, works after rollback tho",
+        "took a windows clean install to work, 3/5 for the hassle"
+      ],
+      "eu": [
+        "had to reinstall windows, works now but a hassle",
+        "windows compat took effort to sort out"
+      ],
+      "ru": [
+        "prishlos' vindu pereustanovit', sejchas rabotaet"
+      ]
+    },
+    "spoofer": {
+      "us": [
+        "had to update my bios to get it working, 3/5",
+        "mobo compat was a hassle, works now after bios tweak"
+      ],
+      "eu": [
+        "bios update needed to get it working"
+      ],
+      "ru": [
+        "bios prishlos' obnovlyat'"
+      ]
+    }
+  },
+
+  "short_2star": {
+    "generic": {
+      "us": [
+        "support slow, 2 days for response",
+        "had to reinstall windows",
+        "menu keeps crashing",
+        "works sometimes, not worth the price",
+        "crashes too often",
+        "multiple setup issues",
+        "config is a nightmare",
+        "works but ui is bad"
+      ],
+      "eu": [
+        "had to reinstall to get it running",
+        "support slow, barely works",
+        "multiple crashes on day one",
+        "terrible setup process"
+      ],
+      "ru": [
+        "dolgo otvechali",
+        "prishlos vindu pereustanavlivat",
+        "mnogo bugov"
+      ]
+    }
+  },
+
+  "short_1star": {
+    "fortnite": {
+      "us": [
+        "win 11 24h2 wasnt supported, refund",
+        "windows version too new, refund given",
+        "my windows build wasnt on the compat list, refund",
+        "win 11 23h2 issue, refund",
+        "loader wouldnt launch on my windows, refund",
+        "windows 11 build incompat, refund",
+        "new windows update broke it, refund issued",
+        "win11 insider build unsupported, refund",
+        "windows defender blocking it, refund",
+        "win version issue, refund given"
+      ],
+      "eu": [
+        "windows 24h2 not supported, refund issued",
+        "my windows build was too new, refund received",
+        "windows 11 compat issue, refund",
+        "new windows update caused issues, refund"
+      ],
+      "ru": [
+        "windows slishkom svezhaya, refund",
+        "ne zarabotalo na moyey vinde, refund",
+        "win 11 24h2 ne support, vernuli dengi"
+      ]
+    },
+    "spoofer": {
+      "us": [
+        "motherboard not supported, refund",
+        "my b450 wasnt on compat list, refund given",
+        "ami bios not supported, refund",
+        "insyde bios hp laptop, refund",
+        "mobo unsupported, refunded",
+        "tpm 2.0 block on msi, refund",
+        "asus board combo unsupported, refund",
+        "bios combo not on compat list, refund issued",
+        "old mobo unsupported, refund"
+      ],
+      "eu": [
+        "motherboard unsupported, refund issued",
+        "bios combo not on compat list, refund",
+        "hp insyde bios unsupported, refund",
+        "mobo not supported, refund received"
+      ],
+      "ru": [
+        "mat plata ne support, refund",
+        "bios ne support, vernuli dengi",
+        "unsupported mobo, refund"
+      ]
+    }
+  },
+
+  "staffNames": ["ujuk", "vsx"],
+
+  "emojis": ["💯", "💀", "🙏", "🔥", "😤", "👑", "😏", "❤️"],
+  "emojiProbability": 0.08,
+
+  "typoSubs": {
+    "the": "teh", "and": "nd", "with": "wih", "really": "rly",
+    "because": "bc", "you": "u", "your": "ur", "cheat": "cheeat",
+    "thanks": "thx", "honestly": "honeslty", "banned": "banend",
+    "bought": "boguht", "setup": "setp"
+  },
+  "typoProbability": 0.06,
+
+  "lowercaseProbabilityByCountry": {
+    "us": 0.88, "eu": 0.25, "ru": 0.55
+  },
+
+  "exclamationBoostProbability": 0.07,
+
+  "firstReplyTemplates": {
+    "_meta": "First reply to 1★. Must tell buyer to open a ticket in Discord, not vague 'contact us'.",
+    "ujuk": [
+      "hey bro sorry bout that, open a ticket in our discord with ur order id and we'll sort it",
+      "damn sorry, open a ticket in discord, ping me with the order number and we'll get it refunded",
+      "ayy sorry for that, drop a ticket in our discord support channel with ur order id",
+      "hey sorry, open a support ticket in discord and tag me, we'll handle it asap",
+      "yo sorry bro, make a ticket in our discord with ur order id and we'll take care of it",
+      "sorry for the hassle, open a ticket in discord with the order number, we got u",
+      "hey bro open a ticket in our discord with ur order id, we'll get u sorted same day",
+      "damn sorry, drop a ticket in the discord with ur order id and we'll fix it",
+      "ayy open a ticket in discord and attach the order id, we'll look into it rn"
+    ],
+    "vsx": [
+      "Sorry. Please open a ticket in our Discord with your order ID.",
+      "Apologies. Open a support ticket in Discord with the order ID.",
+      "Sorry, sir. Open a ticket in Discord, include the order ID.",
+      "Apologies. Drop a ticket in our Discord with your order number.",
+      "Sorry. Open a Discord support ticket with the order ID.",
+      "Apologies, sir. Please open a ticket in our Discord."
+    ]
+  },
+
+  "updateResolvedTemplates": {
+    "ujuk_withCause": {
+      "fortnite": [
+        "your windows 11 24h2 build is newer than what our loader currently supports, refund is out, we're adding 24h2 support next patch",
+        "windows 11 insider build broke the loader, refund issued, we dont officially support preview builds yet",
+        "issue was your windows defender aggressively quarantining the loader, refund sent, lmk after whitelisting if u wanna retry",
+        "your windows version needed a rollback for compat, refund went through, apologies for the hassle",
+        "new windows security update broke our loader, refund processed, patch coming this week",
+        "win 11 24h2 compat was the blocker, refund is out, 24h2 patch shipping soon"
+      ],
+      "spoofer": [
+        "your b450 ami bios wasnt on our compat list, refund issued, adding it now",
+        "motherboard combo not officially supported, refund is out, updating our compat table",
+        "insyde bios on hp laptop isnt supported yet, refund went through, working on insyde compat",
+        "tpm 2.0 setting on your msi was blocking the driver load, refund processed, now in troubleshooting guide",
+        "residue from your previous spoofer wasnt fully cleaned, refund sent, added a cleanup tool to the setup guide",
+        "your mobo isnt on our current compat list, refund is out, working to add it next release"
+      ]
+    },
+    "ujuk_simple": [
+      "sorted, refund is out, lmk if u wanna come back",
+      "fixed for u, refund issued, sorry for the hassle",
+      "refund processed bro, ty for being chill",
+      "all good, refund sent",
+      "refund went through, sorry again"
+    ],
+    "vsx_withCause": {
+      "fortnite": [
+        "Cause: Windows 11 24H2 unsupported. Refund issued.",
+        "Cause: Windows insider build, unsupported. Refund processed.",
+        "Cause: Windows Defender quarantined loader. Refund sent.",
+        "Cause: new Windows security update broke loader. Refund issued.",
+        "Cause: Windows build too new. Refund processed."
+      ],
+      "spoofer": [
+        "Cause: AMI BIOS on B450, unsupported. Refund issued.",
+        "Cause: Insyde BIOS on HP laptop, unsupported. Refund sent.",
+        "Cause: TPM 2.0 on MSI blocked driver. Refund issued.",
+        "Cause: motherboard not on compat list. Refund processed.",
+        "Cause: residual old-spoofer artifacts. Refund processed."
+      ]
+    },
+    "vsx_simple": [
+      "Sorted. Refund issued.",
+      "Refund processed, sir.",
+      "Done. Refund sent.",
+      "Handled. Refund out.",
+      "Refund complete."
+    ]
+  },
+
+  "positiveReplyShort": {
+    "ujuk": [
+      "glad it's workin, lmk if anything breaks",
+      "appreciate the kind words bro",
+      "w review ty, enjoy",
+      "ty bro, fw us anytime",
+      "glad ur enjoyin it",
+      "ty for the review",
+      "hell yeah thanks bro",
+      "appreciate it, np",
+      "ty bro, enjoy the dubs",
+      "glad we got u sorted"
+    ],
+    "vsx": [
+      "Thank you.",
+      "Appreciated.",
+      "Thanks, sir.",
+      "Glad to hear.",
+      "Noted, thanks.",
+      "Thanks for the review.",
+      "+",
+      "Appreciated, sir."
+    ]
+  }
+}

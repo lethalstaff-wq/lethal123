@@ -1,0 +1,2283 @@
+[      52ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[      52ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[     257ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[     307ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[     332ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[     332ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[     332ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[     333ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[     534ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[     535ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[     536ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[     536ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[     536ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[     556ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[     556ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /reviews, path: /reviews} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[     556ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:3000/reviews color: rgb(120, 120, 120) color: inherit {o: http://localhost:3000/reviews, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 1.3.1, ts: 1776806225728} /_vercel/insights/view @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[     639ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[     882ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[     883ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[     939ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[     939ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    1040ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[    1243ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/api/reviews:0
+[    1246ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    1246ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    1348ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[    1357ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    1357ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    1421ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    1421ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    1482ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    1483ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    1544ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    1544ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    1606ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    1606ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    1667ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    1667ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    1729ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    1729ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    1793ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    1793ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    1854ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    1854ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    1916ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    1916ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    1979ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    1979ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    2042ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    2042ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    2105ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    2105ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    2155ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    2155ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    2257ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[    2416ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    2416ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    2478ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    2478ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    2543ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    2543ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    2604ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    2605ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    2667ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    2667ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    2730ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    2730ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    2792ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    2792ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    2853ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    2853ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    2915ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    2915ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    2977ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    2977ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    3039ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    3039ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    3103ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    3103ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    3164ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    3164ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    3227ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    3227ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    3289ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    3289ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    3351ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    3352ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    3415ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    3415ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    3476ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    3476ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    3538ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    3538ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    3588ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    3588ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    3647ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    3648ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    3708ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    3708ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    3770ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    3770ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    3832ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    3832ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    3894ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    3894ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    3956ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    3956ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    4019ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    4019ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    4082ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    4082ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    4203ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[    4348ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    4348ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    4409ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    4409ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    4472ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    4472ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    4534ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    4534ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    4609ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    4609ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    4675ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    4675ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    4737ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    4737ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    4801ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    4801ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    4862ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    4862ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    4924ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    4924ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    4986ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    4986ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    5106ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[    5176ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    5176ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    5177ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    5177ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    5237ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    5237ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    5300ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    5300ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    5363ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    5363ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    5424ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    5425ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    5488ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    5488ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    5549ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    5549ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    5615ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    5615ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    5673ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    5673ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    5736ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    5736ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    5799ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    5799ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    5861ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    5861ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    5924ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    5924ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    5986ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    5986ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    6047ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    6048ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    6110ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    6110ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    6173ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    6173ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    6234ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    6234ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    6275ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/api/reviews:0
+[    6328ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    6328ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    6391ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    6391ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    6452ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    6452ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    6514ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    6514ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    6576ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    6577ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    6640ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    6640ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    6702ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    6702ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    6764ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    6764ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    6826ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    6826ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    6889ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    6889ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    6950ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    6951ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    7015ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    7015ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    7077ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    7077ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    7139ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    7139ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    7201ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    7201ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    7261ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    7262ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    7324ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    7324ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    7387ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    7388ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    7449ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    7449ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    7512ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    7512ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    7575ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    7575ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    7637ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    7637ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    7700ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    7700ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    7762ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    7762ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    7823ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    7823ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    7884ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    7884ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    7946ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    7947ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    8009ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    8009ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    8070ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    8071ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    8133ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    8133ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    8194ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    8194ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    8255ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    8255ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    8318ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    8318ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    8410ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    8410ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    8455ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[    8643ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    8643ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    8704ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    8705ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    8767ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    8767ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    8830ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    8830ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    8894ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    8894ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    8954ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    8954ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    9016ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    9017ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    9078ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    9078ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    9139ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    9139ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    9203ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    9203ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    9264ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    9264ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    9328ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[    9328ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117

@@ -1,22 +1,40 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { useCart } from "@/lib/cart-context"
-import { Trash2, Plus, Minus, ShoppingBag, ArrowRight, Zap, MessageCircle, Shield, ArrowLeft, Bitcoin, Sparkles } from "lucide-react"
+import { Trash2, Plus, Minus, ShoppingBag, ArrowRight, Zap, MessageCircle, Shield, ArrowLeft, Bitcoin, Sparkles, Flame, Heart, Ticket } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { DiscordCheckoutModal } from "@/components/discord-checkout-modal"
 import { PRODUCTS, formatPrice } from "@/lib/products"
+import { getWishlist } from "@/lib/wishlist"
 import { toast } from "sonner"
 
 export default function CartPage() {
   const { items, removeItem, updateQuantity, total, clearCart, addItem } = useCart()
   const [showDiscordModal, setShowDiscordModal] = useState(false)
+  const [wishlistCount, setWishlistCount] = useState(0)
   const router = useRouter()
+
+  // Read wishlist count for the empty-cart nudge. Runs only on mount and when
+  // the wishlist changes (via the shared custom event dispatched by toggleWishlist).
+  useEffect(() => {
+    setWishlistCount(getWishlist().length)
+    const handler = () => setWishlistCount(getWishlist().length)
+    window.addEventListener("wishlist-update", handler)
+    return () => window.removeEventListener("wishlist-update", handler)
+  }, [])
+
+  // Popular-right-now tiles for the empty state — surface the three products
+  // marked popular first, then fill with highest-badge products if needed.
+  const popularEmptyState = [
+    ...PRODUCTS.filter((p) => p.popular),
+    ...PRODUCTS.filter((p) => !p.popular && p.badge === "In Stock"),
+  ].slice(0, 3)
 
   // Cross-sell: find products NOT in cart
   const cartProductIds = new Set(items.map(i => i.variant.product_id || i.variant.product?.id))
@@ -76,27 +94,92 @@ export default function CartPage() {
       <main className="flex min-h-screen flex-col bg-transparent">
         <Navbar />
         <section className="flex-1 py-32 px-4 sm:px-6 lg:px-8">
-          <div className="container mx-auto max-w-md text-center">
-            <div className="relative inline-flex mb-8">
-              <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-[#f97316]/[0.08] to-white/[0.02] border border-white/[0.06] flex items-center justify-center backdrop-blur-md shadow-[0_20px_60px_rgba(0,0,0,0.4),0_0_40px_rgba(249,115,22,0.1)]">
-                <ShoppingBag className="h-10 w-10 text-white/55" style={{ animation: "emptyBagBob 3s ease-in-out infinite" }} />
+          <div className="container mx-auto max-w-2xl">
+            {/* Icon + heading + primary CTA */}
+            <div className="text-center">
+              <div className="relative inline-flex mb-8">
+                <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-[#f97316]/[0.08] to-white/[0.02] border border-white/[0.06] flex items-center justify-center backdrop-blur-md shadow-[0_20px_60px_rgba(0,0,0,0.4),0_0_40px_rgba(249,115,22,0.1)]">
+                  <ShoppingBag className="h-10 w-10 text-white/70 animate-wiggle" />
+                </div>
+                <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-red-500 border-2 border-black flex items-center justify-center text-[9px] font-black text-white animate-pulse">0</span>
               </div>
-              <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-red-500 border-2 border-black flex items-center justify-center text-[9px] font-black text-white animate-pulse">0</span>
+              <h1 className="font-display text-3xl sm:text-4xl font-bold mb-3 text-white tracking-tight">Your cart is empty</h1>
+              <p className="text-white/55 mb-7 text-[15px] max-w-sm mx-auto leading-relaxed">
+                Pick a product to secure your setup. Delivery lands in seconds after checkout.
+              </p>
+              <Link
+                href="/products"
+                data-cursor="cta"
+                data-cursor-label="Shop"
+                className="cursor-cta group relative inline-flex items-center gap-2 px-7 py-3.5 overflow-hidden text-white font-bold text-[15px] rounded-xl shadow-[0_0_28px_rgba(249,115,22,0.4)] hover:shadow-[0_0_50px_rgba(249,115,22,0.7)] hover:scale-[1.03] press-spring transition-all"
+                style={{ background: "linear-gradient(135deg, #f97316, #ea580c)" }}
+              >
+                <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
+                <span className="relative z-10">Browse Products</span>
+                <ArrowRight className="relative z-10 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
             </div>
-            <h1 className="font-display text-3xl sm:text-4xl font-bold mb-3 text-white tracking-tight">Your cart is empty</h1>
-            <p className="text-white/55 mb-8 text-[15px] max-w-sm mx-auto leading-relaxed">Pick a product to secure your setup. Delivery in seconds after checkout.</p>
-            <Link href="/products" data-cursor="cta" data-cursor-label="Shop" className="cursor-cta group relative inline-flex items-center gap-2 px-7 py-3.5 overflow-hidden text-white font-bold text-[15px] rounded-xl shadow-[0_0_28px_rgba(249,115,22,0.4)] hover:shadow-[0_0_50px_rgba(249,115,22,0.7)] hover:scale-[1.03] press-spring transition-all" style={{ background: "linear-gradient(135deg, #f97316, #ea580c)" }}>
-              <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
-              <span className="relative z-10">Browse Products</span>
-              <ArrowRight className="relative z-10 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
+
+            {/* Wishlist nudge — only if user has saved items */}
+            {wishlistCount > 0 && (
+              <Link
+                href="/wishlist"
+                className="group mt-8 flex items-center justify-between gap-3 rounded-xl border border-[#f97316]/15 bg-[#f97316]/[0.04] px-4 py-3 hover:border-[#f97316]/35 hover:bg-[#f97316]/[0.07] transition-colors"
+              >
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="w-9 h-9 rounded-lg bg-[#f97316]/10 border border-[#f97316]/20 flex items-center justify-center flex-shrink-0">
+                    <Heart className="h-4 w-4 text-[#f97316] fill-[#f97316]/30" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-[13px] font-semibold text-white truncate">
+                      You have {wishlistCount} {wishlistCount === 1 ? "item" : "items"} saved
+                    </p>
+                    <p className="text-[11px] text-white/50">Move them straight to your cart.</p>
+                  </div>
+                </div>
+                <ArrowRight className="h-4 w-4 text-[#f97316] group-hover:translate-x-1 transition-transform flex-shrink-0" />
+              </Link>
+            )}
+
+            {/* Popular right now — 3 mini product tiles linking to PDPs */}
+            <div className="mt-10">
+              <div className="flex items-center gap-2 mb-3 px-0.5">
+                <Flame className="h-3.5 w-3.5 text-[#f97316]" />
+                <span className="text-[11px] uppercase tracking-[0.22em] text-white/60 font-bold">Popular right now</span>
+                <span className="flex-1 h-px bg-gradient-to-r from-white/[0.06] to-transparent ml-1" />
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {popularEmptyState.map((product) => {
+                  const minPrice = Math.min(...product.variants.map((v) => v.priceInPence))
+                  return (
+                    <Link
+                      key={product.id}
+                      href={`/products/${product.id}`}
+                      className="spotlight-card group flex items-center gap-3 p-3 rounded-xl border border-white/[0.06] bg-white/[0.018] hover:border-[#f97316]/35 hover:-translate-y-0.5 hover:shadow-[0_14px_36px_rgba(0,0,0,0.4),0_0_28px_rgba(249,115,22,0.15)] transition-all"
+                    >
+                      <div className="w-12 h-12 rounded-lg bg-white/[0.03] border border-white/[0.04] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                        <Image src={product.image} alt={product.name} width={48} height={48} className="object-contain" />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-[12px] font-semibold text-white truncate group-hover:text-[#f97316] transition-colors">{product.name}</p>
+                        <p className="text-[11px] text-[#f97316] font-bold">from {formatPrice(minPrice)}</p>
+                      </div>
+                    </Link>
+                  )
+                })}
+              </div>
+            </div>
+
+            {/* Discount teaser pill */}
+            <div className="mt-6 flex justify-center">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-emerald-400/20 bg-emerald-400/[0.05] text-[11px]">
+                <Ticket className="h-3 w-3 text-emerald-400" />
+                <span className="text-white/70">First order?</span>
+                <span className="font-mono font-bold text-emerald-400 tracking-wider">WELCOME10</span>
+                <span className="text-white/45">— 10% off at checkout</span>
+              </div>
+            </div>
           </div>
-          <style jsx>{`
-            @keyframes emptyBagBob {
-              0%, 100% { transform: translateY(0) rotate(0deg); }
-              50% { transform: translateY(-6px) rotate(-3deg); }
-            }
-          `}</style>
         </section>
         <Footer />
       </main>
@@ -107,7 +190,7 @@ export default function CartPage() {
     <main className="flex min-h-screen flex-col bg-transparent">
       <Navbar />
 
-      <section className="flex-1 pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+      <section className="flex-1 pt-32 pb-28 lg:pb-20 px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto max-w-5xl">
           {/* Header */}
           <div className="flex items-center justify-between mb-10">
@@ -292,6 +375,30 @@ export default function CartPage() {
           </div>
         </div>
       </section>
+
+      {/* Mobile bottom-sheet checkout bar — only visible on small screens */}
+      <div className="lg:hidden fixed bottom-0 inset-x-0 z-[60] pointer-events-none">
+        <div className="mx-3 mb-3 pointer-events-auto rounded-2xl border border-white/[0.08] bg-black/85 backdrop-blur-xl shadow-[0_-10px_30px_rgba(0,0,0,0.5),0_0_24px_rgba(249,115,22,0.14)] overflow-hidden">
+          <div className="h-px bg-gradient-to-r from-transparent via-[#f97316]/70 to-transparent" />
+          <div className="p-3 flex items-center gap-3">
+            <div className="flex-1 min-w-0">
+              <p className="text-[9px] uppercase tracking-[0.22em] text-white/40 font-bold">Total</p>
+              <p className="font-display text-[22px] font-black tracking-tight text-white tabular-nums leading-none mt-0.5">£{finalTotal.toFixed(2)}</p>
+              <p className="text-[10px] text-white/40 mt-0.5">{items.length} {items.length === 1 ? "item" : "items"}</p>
+            </div>
+            <button
+              onClick={() => router.push("/checkout")}
+              data-cursor="cta"
+              data-cursor-label="Checkout"
+              className="cursor-cta press-spring inline-flex items-center gap-2 px-5 py-3 rounded-xl font-bold text-[14px] text-white shadow-[0_0_28px_rgba(249,115,22,0.4)] active:scale-[0.97] transition-transform"
+              style={{ background: "linear-gradient(135deg, #f97316, #ea580c)" }}
+            >
+              Checkout
+              <ArrowRight className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+      </div>
 
       <Footer />
 

@@ -1,5 +1,6 @@
 // Server Component — unified premium background across every page.
 // Pure black + drifting orange orbs (top-left, bottom-right) + dot grid + fine grain.
+// Adds a slow 30-second gradient shift overlay so pages never feel identical.
 export function GlobalBackground() {
   return (
     <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden" aria-hidden="true">
@@ -32,6 +33,26 @@ export function GlobalBackground() {
           filter: "blur(160px)",
         }}
       />
+
+      {/* Slow breathing gradient — shifts hue position over 30s so pages don't feel identical */}
+      <div className="absolute inset-0 gb-breath opacity-60" aria-hidden="true" />
+      <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes gbBreath {
+          0%   { background-position: 0% 50%; }
+          50%  { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        .gb-breath {
+          background: radial-gradient(ellipse 120% 80% at 0% 30%, rgba(249,115,22,0.08) 0%, transparent 55%),
+                      radial-gradient(ellipse 100% 80% at 100% 70%, rgba(251,191,36,0.05) 0%, transparent 55%);
+          background-size: 200% 200%;
+          animation: gbBreath 30s ease-in-out infinite;
+          will-change: background-position;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .gb-breath { animation: none; }
+        }
+      `}} />
 
       {/* Dot grid with radial mask — universal texture layer */}
       <div

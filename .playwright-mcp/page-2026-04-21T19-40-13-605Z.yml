@@ -1,0 +1,74 @@
+- generic [active] [ref=e1]:
+  - alert [ref=e2]
+  - generic:
+    - img
+  - button "Open chat" [ref=e3]:
+    - img [ref=e4]
+  - region "Notifications alt+T"
+  - generic:
+    - link "Perm Spoofer New Order · 2m ago Perm Spoofer Verified Dismiss notification":
+      - /url: /products/perm-spoofer
+      - generic:
+        - img "Perm Spoofer"
+      - generic:
+        - generic:
+          - generic: New Order
+          - generic: ·
+          - generic: 2m ago
+        - paragraph: Perm Spoofer
+        - generic:
+          - generic: Verified
+      - button "Dismiss notification": ×
+  - button "Back to top":
+    - img
+    - img
+  - main [ref=e8]:
+    - generic [ref=e9]:
+      - link "Back" [ref=e10]:
+        - /url: /
+        - img [ref=e11]
+        - generic [ref=e13]: Back
+      - link "All systems online" [ref=e14]:
+        - /url: /status
+        - generic [ref=e18]: All systems online
+    - generic [ref=e19]:
+      - link "Lethal Solutions Lethal Solutions" [ref=e23]:
+        - /url: /
+        - img "Lethal Solutions" [ref=e24]
+        - generic [ref=e25]: Lethal Solutions
+      - generic [ref=e26]:
+        - paragraph [ref=e29]: Order Tracking
+        - heading "Track your order." [level=1] [ref=e30]:
+          - text: Track your
+          - text: order.
+        - paragraph [ref=e31]: Enter your order ID or email to check status, view license keys, and access your downloads in seconds.
+      - generic [ref=e32]:
+        - generic [ref=e34]:
+          - paragraph [ref=e35]: Instant
+          - paragraph [ref=e36]: Delivery
+        - generic [ref=e39]:
+          - paragraph [ref=e40]: 256-bit
+          - paragraph [ref=e41]: Encryption
+        - generic [ref=e44]:
+          - paragraph [ref=e45]: 24/7
+          - paragraph [ref=e46]: Support
+    - generic [ref=e48]:
+      - generic [ref=e49]:
+        - heading "Find your order" [level=2] [ref=e50]
+        - paragraph [ref=e51]: Search by order ID or email address to see live status.
+      - generic [ref=e52]:
+        - button "Order ID" [ref=e53]
+        - button "Email" [ref=e54]
+      - generic [ref=e55]:
+        - generic [ref=e56]:
+          - generic [ref=e57]: Order ID
+          - generic [ref=e58]:
+            - textbox "e.g. LS-ABC123XY" [ref=e59]
+            - img
+        - button "Track Order" [disabled] [ref=e61]:
+          - generic [ref=e62]: Track Order
+          - img [ref=e63]
+      - paragraph [ref=e65]:
+        - text: Order ID was sent to your email after checkout.
+        - link "Need help?" [ref=e66]:
+          - /url: https://discord.gg/lethaldma

@@ -135,10 +135,10 @@ export async function GET(request: Request) {
     return NextResponse.json({ message: "Already added today", count: todayCount })
   }
 
-  // ~30 orders/day, growing +1-2 per week
+  // ~15 orders/day, slight growth over time, capped at 25/day
   const weeksSinceLaunch = Math.floor((Date.now() - new Date("2026-01-01").getTime()) / (7 * 864e5))
-  const ordersToday = 30 + Math.min(weeksSinceLaunch, 20)
-  const reviewsToAdd = Math.floor(ordersToday * 0.6) // 60% write review
+  const ordersToday = Math.min(15 + Math.floor(weeksSinceLaunch / 4), 25)
+  const reviewsToAdd = Math.floor(ordersToday * 0.5) // 50% write review
 
   const reviews = []
   const now = new Date()

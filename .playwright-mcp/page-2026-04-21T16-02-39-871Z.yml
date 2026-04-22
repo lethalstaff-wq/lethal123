@@ -1,0 +1,402 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - img
+  - button "Open chat" [ref=e19]:
+    - img [ref=e20]
+  - region "Notifications alt+T"
+  - generic:
+    - link "Perm Spoofer New Order · 2m ago Perm Spoofer Verified Dismiss notification":
+      - /url: /products/perm-spoofer
+      - generic:
+        - img "Perm Spoofer"
+      - generic:
+        - generic:
+          - generic: New Order
+          - generic: ·
+          - generic: 2m ago
+        - paragraph: Perm Spoofer
+        - generic:
+          - generic: Verified
+      - button "Dismiss notification": ×
+  - button "Back to top":
+    - img
+  - main [ref=e24]:
+    - navigation [ref=e25]:
+      - generic [ref=e27]:
+        - link "Lethal Solutions Lethal Solutions" [ref=e28]:
+          - /url: /
+          - generic [ref=e29]:
+            - img "Lethal Solutions" [ref=e32]
+            - generic [ref=e33]: Lethal Solutions
+        - generic [ref=e35]:
+          - link "Home" [ref=e36]:
+            - /url: /
+          - link "Products" [ref=e37]:
+            - /url: /products
+          - link "Guides" [ref=e38]:
+            - /url: /guides
+          - link "Reviews" [ref=e39]:
+            - /url: /reviews
+          - link "Track Order" [ref=e40]:
+            - /url: /track
+          - link "Status" [ref=e41]:
+            - /url: /status
+        - generic [ref=e42]:
+          - button "Open search" [ref=e44]:
+            - img [ref=e45]
+            - generic [ref=e48]: Search…
+            - generic [ref=e49]: ⌘K
+          - link "Customer Login" [ref=e50]:
+            - /url: /login
+            - button "Customer Login" [ref=e51]:
+              - img
+              - text: Customer Login
+          - link "Shopping cart" [ref=e52]:
+            - /url: /cart
+            - button "Shopping cart" [ref=e53]:
+              - img
+    - generic [ref=e56]:
+      - generic [ref=e60]: Referral Program
+      - heading "Earn Rewards" [level=1] [ref=e64]
+      - paragraph [ref=e65]: Invite friends and earn 10% commission on every purchase they make
+      - generic [ref=e66]:
+        - generic [ref=e67]:
+          - img [ref=e69]
+          - heading "1. Share Link" [level=3] [ref=e75]
+          - paragraph [ref=e76]: Share your unique referral link with friends
+        - generic [ref=e77]:
+          - img [ref=e79]
+          - heading "2. Friends Purchase" [level=3] [ref=e84]
+          - paragraph [ref=e85]: When they make a purchase using your link
+        - generic [ref=e86]:
+          - img [ref=e88]
+          - heading "3. Earn 10%" [level=3] [ref=e93]
+          - paragraph [ref=e94]: Get 10% of their purchase as store credit
+    - generic [ref=e97]:
+      - heading "Referral Tiers" [level=2] [ref=e98]
+      - generic [ref=e99]:
+        - generic [ref=e100]:
+          - img [ref=e102]
+          - heading "Bronze" [level=3] [ref=e108]
+          - paragraph [ref=e109]: 1-5 referrals
+          - paragraph [ref=e110]: 10%
+          - list [ref=e111]:
+            - listitem [ref=e112]:
+              - img [ref=e113]
+              - text: 10% commission
+            - listitem [ref=e116]:
+              - img [ref=e117]
+              - text: Standard support
+            - listitem [ref=e120]:
+              - img [ref=e121]
+              - text: Monthly payouts
+        - generic [ref=e124]:
+          - img [ref=e126]
+          - heading "Silver" [level=3] [ref=e128]
+          - paragraph [ref=e129]: 6-15 referrals
+          - paragraph [ref=e130]: 12%
+          - list [ref=e131]:
+            - listitem [ref=e132]:
+              - img [ref=e133]
+              - text: 12% commission
+            - listitem [ref=e136]:
+              - img [ref=e137]
+              - text: Priority support
+            - listitem [ref=e140]:
+              - img [ref=e141]
+              - text: Weekly payouts
+            - listitem [ref=e144]:
+              - img [ref=e145]
+              - text: Early access to new products
+        - generic [ref=e148]:
+          - generic [ref=e149]: BEST
+          - img [ref=e151]
+          - heading "Gold" [level=3] [ref=e153]
+          - paragraph [ref=e154]: 16+ referrals
+          - paragraph [ref=e155]: 15%
+          - list [ref=e156]:
+            - listitem [ref=e157]:
+              - img [ref=e158]
+              - text: 15% commission
+            - listitem [ref=e161]:
+              - img [ref=e162]
+              - text: VIP Discord channel
+            - listitem [ref=e165]:
+              - img [ref=e166]
+              - text: Instant payouts
+            - listitem [ref=e169]:
+              - img [ref=e170]
+              - text: Custom referral code
+            - listitem [ref=e173]:
+              - img [ref=e174]
+              - text: Free product testing
+    - generic [ref=e180]:
+      - generic [ref=e181]:
+        - heading "Top Referrers" [level=2] [ref=e182]:
+          - img [ref=e183]
+          - text: Top Referrers
+        - generic [ref=e185]: This month
+      - generic [ref=e186]:
+        - generic [ref=e187]:
+          - generic [ref=e188]: "1"
+          - generic [ref=e189]:
+            - paragraph [ref=e190]: dr***@gmail.com
+            - paragraph [ref=e191]: 23 referrals · Gold
+          - paragraph [ref=e192]: £187.50
+        - generic [ref=e193]:
+          - generic [ref=e194]: "2"
+          - generic [ref=e195]:
+            - paragraph [ref=e196]: ky***@proton.me
+            - paragraph [ref=e197]: 18 referrals · Gold
+          - paragraph [ref=e198]: £142.20
+        - generic [ref=e199]:
+          - generic [ref=e200]: "3"
+          - generic [ref=e201]:
+            - paragraph [ref=e202]: wr***@gmail.com
+            - paragraph [ref=e203]: 14 referrals · Silver
+          - paragraph [ref=e204]: £98.70
+        - generic [ref=e205]:
+          - generic [ref=e206]: "4"
+          - generic [ref=e207]:
+            - paragraph [ref=e208]: nx***@outlook.com
+            - paragraph [ref=e209]: 11 referrals · Silver
+          - paragraph [ref=e210]: £76.30
+        - generic [ref=e211]:
+          - generic [ref=e212]: "5"
+          - generic [ref=e213]:
+            - paragraph [ref=e214]: bl***@yahoo.com
+            - paragraph [ref=e215]: 8 referrals · Silver
+          - paragraph [ref=e216]: £52.40
+    - generic [ref=e220]:
+      - img [ref=e221]
+      - heading "Login to Start Earning" [level=2] [ref=e225]
+      - paragraph [ref=e226]: Create an account or login to get your referral link
+      - button "Get Started" [ref=e227]:
+        - generic [ref=e228]: Get Started
+        - img [ref=e229]
+    - generic [ref=e232]:
+      - generic [ref=e233]:
+        - generic [ref=e237]: Your Progress
+        - heading "The more you refer, the higher you climb" [level=2] [ref=e239]
+      - generic [ref=e242]:
+        - generic [ref=e243]:
+          - generic [ref=e244]:
+            - img [ref=e246]
+            - generic [ref=e248]:
+              - paragraph [ref=e249]: Loyalty tier
+              - paragraph [ref=e250]: Rookie
+          - generic [ref=e251]:
+            - paragraph [ref=e252]: Lifetime XP
+            - paragraph [ref=e253]: "0"
+        - generic [ref=e255]:
+          - generic [ref=e256]:
+            - img [ref=e258]
+            - generic [ref=e260]: Rookie
+          - generic [ref=e261]:
+            - img [ref=e263]
+            - generic [ref=e265]: Pro
+          - generic [ref=e266]:
+            - img [ref=e268]
+            - generic [ref=e270]: Veteran
+          - generic [ref=e271]:
+            - img [ref=e273]
+            - generic [ref=e275]: Elite
+        - generic [ref=e278]:
+          - generic [ref=e279]:
+            - text: "0"
+            - generic [ref=e280]: / 250 XP in tier
+          - generic [ref=e281]: 250 XP to Pro
+    - generic [ref=e284]:
+      - generic [ref=e285]:
+        - generic [ref=e289]: Top Referrers
+        - heading "This month's leaderboard" [level=2] [ref=e291]
+        - paragraph [ref=e292]: Top 10 referrers this month. Earnings paid out in store credit or crypto on request.
+      - generic [ref=e293]:
+        - generic [ref=e294]:
+          - generic [ref=e295]: Rank
+          - generic [ref=e296]: Player
+          - generic [ref=e297]: Referrals
+          - generic [ref=e298]: Earned
+        - generic [ref=e299]:
+          - img [ref=e302]
+          - generic [ref=e308]:
+            - generic [ref=e309]: Z
+            - generic [ref=e310]:
+              - paragraph [ref=e311]: zk
+              - paragraph [ref=e312]: 🇬🇧
+          - generic [ref=e313]: 142refs
+          - generic [ref=e315]: £1420
+        - generic [ref=e316]:
+          - img [ref=e319]
+          - generic [ref=e325]:
+            - generic [ref=e326]: V
+            - generic [ref=e327]:
+              - paragraph [ref=e328]: vex_
+              - paragraph [ref=e329]: 🇺🇸
+          - generic [ref=e330]: 98refs
+          - generic [ref=e332]: £980
+        - generic [ref=e333]:
+          - img [ref=e336]
+          - generic [ref=e339]:
+            - generic [ref=e340]: R
+            - generic [ref=e341]:
+              - paragraph [ref=e342]: raxo
+              - paragraph [ref=e343]: 🇩🇪
+          - generic [ref=e344]: 87refs
+          - generic [ref=e346]: £870
+        - generic [ref=e347]:
+          - generic [ref=e349]: "4"
+          - generic [ref=e350]:
+            - generic [ref=e351]: R
+            - generic [ref=e352]:
+              - paragraph [ref=e353]: rxn
+              - paragraph [ref=e354]: 🇦🇺
+          - generic [ref=e355]: 64refs
+          - generic [ref=e357]: £640
+        - generic [ref=e358]:
+          - generic [ref=e360]: "5"
+          - generic [ref=e361]:
+            - generic [ref=e362]: T
+            - generic [ref=e363]:
+              - paragraph [ref=e364]: ty1er
+              - paragraph [ref=e365]: 🇨🇦
+          - generic [ref=e366]: 58refs
+          - generic [ref=e368]: £580
+        - generic [ref=e369]:
+          - generic [ref=e371]: "6"
+          - generic [ref=e372]:
+            - generic [ref=e373]: B
+            - generic [ref=e374]:
+              - paragraph [ref=e375]: bixy
+              - paragraph [ref=e376]: 🇫🇷
+          - generic [ref=e377]: 49refs
+          - generic [ref=e379]: £490
+        - generic [ref=e380]:
+          - generic [ref=e382]: "7"
+          - generic [ref=e383]:
+            - generic [ref=e384]: "N"
+            - generic [ref=e385]:
+              - paragraph [ref=e386]: neo_
+              - paragraph [ref=e387]: 🇵🇱
+          - generic [ref=e388]: 42refs
+          - generic [ref=e390]: £420
+        - generic [ref=e391]:
+          - generic [ref=e393]: "8"
+          - generic [ref=e394]:
+            - generic [ref=e395]: M
+            - generic [ref=e396]:
+              - paragraph [ref=e397]: mikez
+              - paragraph [ref=e398]: 🇳🇱
+          - generic [ref=e399]: 38refs
+          - generic [ref=e401]: £380
+        - generic [ref=e402]:
+          - generic [ref=e404]: "9"
+          - generic [ref=e405]:
+            - generic [ref=e406]: D
+            - generic [ref=e407]:
+              - paragraph [ref=e408]: dxn
+              - paragraph [ref=e409]: 🇸🇪
+          - generic [ref=e410]: 31refs
+          - generic [ref=e412]: £310
+        - generic [ref=e413]:
+          - generic [ref=e415]: "10"
+          - generic [ref=e416]:
+            - generic [ref=e417]: C
+            - generic [ref=e418]:
+              - paragraph [ref=e419]: chrxs
+              - paragraph [ref=e420]: 🇪🇸
+          - generic [ref=e421]: 27refs
+          - generic [ref=e423]: £270
+      - paragraph [ref=e424]: Rankings reset on the 1st of every month. £10 per conversion.
+    - generic [ref=e429]:
+      - generic [ref=e430]:
+        - generic [ref=e431]:
+          - generic [ref=e432]:
+            - img "Lethal Solutions" [ref=e435]
+            - generic [ref=e436]: Lethal Solutions
+          - paragraph [ref=e437]: Kernel-level gaming tools trusted by 8,700+ players. Undetected since day one.
+          - generic [ref=e438]:
+            - generic [ref=e439]:
+              - img [ref=e440]
+              - generic [ref=e442]: Secure
+            - generic [ref=e443]:
+              - img [ref=e444]
+              - generic [ref=e446]: Instant
+            - generic [ref=e447]:
+              - img [ref=e448]
+              - generic [ref=e451]: 24/7
+          - generic [ref=e452]:
+            - paragraph [ref=e453]: Connect
+            - generic [ref=e454]:
+              - link "Discord" [ref=e455]:
+                - /url: https://discord.gg/lethaldma
+                - img [ref=e456]
+              - link "YouTube" [ref=e459]:
+                - /url: https://www.youtube.com/@ujukcheats-x4b
+                - img [ref=e460]
+              - link "Telegram" [ref=e463]:
+                - /url: https://t.me/lethalsolutions
+                - img [ref=e464]
+        - generic [ref=e467]:
+          - heading "Products" [level=4] [ref=e468]
+          - list [ref=e469]:
+            - listitem [ref=e470]:
+              - link "All Products" [ref=e471]:
+                - /url: /products
+            - listitem [ref=e472]:
+              - link "Compare" [ref=e473]:
+                - /url: /compare
+            - listitem [ref=e474]:
+              - link "Reviews" [ref=e475]:
+                - /url: /reviews
+            - listitem [ref=e476]:
+              - link "Status" [ref=e477]:
+                - /url: /status
+        - generic [ref=e478]:
+          - heading "Resources" [level=4] [ref=e479]
+          - list [ref=e480]:
+            - listitem [ref=e481]:
+              - link "FAQ" [ref=e482]:
+                - /url: /faq
+            - listitem [ref=e483]:
+              - link "Guides" [ref=e484]:
+                - /url: /guides
+            - listitem [ref=e485]:
+              - link "Changelog" [ref=e486]:
+                - /url: /changelog
+            - listitem [ref=e487]:
+              - link "Success Stories" [ref=e488]:
+                - /url: /stories
+            - listitem [ref=e489]:
+              - link "Referrals" [ref=e490]:
+                - /url: /referrals
+            - listitem [ref=e491]:
+              - link "Join Our Team" [ref=e492]:
+                - /url: /apply
+        - generic [ref=e493]:
+          - heading "Account" [level=4] [ref=e494]
+          - list [ref=e495]:
+            - listitem [ref=e496]:
+              - link "Track Order" [ref=e497]:
+                - /url: /track
+            - listitem [ref=e498]:
+              - link "Downloads" [ref=e499]:
+                - /url: /downloads
+            - listitem [ref=e500]:
+              - link "My Account" [ref=e501]:
+                - /url: /profile
+            - listitem [ref=e502]:
+              - link "Cart" [ref=e503]:
+                - /url: /cart
+      - heading [level=2] [ref=e505]: LETHAL
+      - generic [ref=e506]:
+        - paragraph [ref=e507]: © 2026 Lethal Solutions. All rights reserved.
+        - generic [ref=e508]:
+          - generic [ref=e513]: All systems operational
+          - link "Terms" [ref=e515]:
+            - /url: /terms
+          - link "Privacy" [ref=e517]:
+            - /url: /privacy
+  - button "Open Next.js Dev Tools" [ref=e15] [cursor=pointer]:
+    - img [ref=e16]
+  - alert [ref=e518]

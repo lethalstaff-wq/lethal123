@@ -1,0 +1,282 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - img
+  - button "Open chat" [ref=e2]:
+    - img [ref=e3]
+  - region "Notifications alt+T"
+  - generic:
+    - link "Perm Spoofer New Order · 2m ago Perm Spoofer Verified Dismiss notification":
+      - /url: /products/perm-spoofer
+      - generic:
+        - img "Perm Spoofer"
+      - generic:
+        - generic:
+          - generic: New Order
+          - generic: ·
+          - generic: 2m ago
+        - paragraph: Perm Spoofer
+        - generic:
+          - generic: Verified
+      - button "Dismiss notification": ×
+  - button "Back to top":
+    - img
+    - img
+  - main [ref=e7]:
+    - navigation [ref=e8]:
+      - generic [ref=e10]:
+        - link "Lethal Solutions Lethal Solutions" [ref=e11] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e12]:
+            - img "Lethal Solutions" [ref=e15]
+            - generic [ref=e16]: Lethal Solutions
+        - generic [ref=e18]:
+          - link "Home" [ref=e19] [cursor=pointer]:
+            - /url: /
+          - link "Products" [ref=e20] [cursor=pointer]:
+            - /url: /products
+          - link "Guides" [ref=e21] [cursor=pointer]:
+            - /url: /guides
+          - link "Reviews" [ref=e22] [cursor=pointer]:
+            - /url: /reviews
+          - link "Track Order" [ref=e23] [cursor=pointer]:
+            - /url: /track
+          - link "Status" [ref=e24] [cursor=pointer]:
+            - /url: /status
+        - generic [ref=e25]:
+          - button "Open search" [ref=e27]:
+            - img [ref=e28]
+            - generic [ref=e31]: Search…
+            - generic [ref=e32]: ⌘K
+          - link "Customer Login" [ref=e33] [cursor=pointer]:
+            - /url: /login
+            - button "Customer Login" [ref=e34]:
+              - img
+              - text: Customer Login
+          - link "Shopping cart" [ref=e35] [cursor=pointer]:
+            - /url: /cart
+            - button "Shopping cart" [ref=e36]:
+              - img
+    - generic [ref=e38]:
+      - generic [ref=e42]: Media Library
+      - heading "Watch it live" [level=1] [ref=e46]
+      - paragraph [ref=e47]: Setup walkthroughs, unboxings, gameplay runs and patch recaps — all playable right here.
+    - generic [ref=e50]:
+      - generic [ref=e51]:
+        - generic [ref=e52]:
+          - generic [ref=e55] [cursor=pointer]:
+            - paragraph [ref=e56]: Video src not configured
+            - paragraph [ref=e57]: Captain DMA 100T — flagship unboxing
+          - button "Play" [ref=e58]:
+            - img [ref=e61]
+          - generic [ref=e63]:
+            - generic [ref=e64]:
+              - generic [ref=e65]: Lethal Player
+              - generic [ref=e67]: 3:42
+            - generic [ref=e68]: 18.2k views · 2w ago
+          - generic [ref=e72]:
+            - button "Back 5s" [ref=e73]:
+              - img [ref=e74]
+            - button "Play" [ref=e76]:
+              - img [ref=e77]
+            - button "Forward 5s" [ref=e79]:
+              - img [ref=e80]
+            - generic [ref=e82]:
+              - button "Mute" [ref=e83]:
+                - img [ref=e84]
+              - slider "Volume" [ref=e88]: "0.8"
+            - generic [ref=e89]:
+              - text: 0:00
+              - generic [ref=e90]: / 3:42
+            - generic [ref=e91]:
+              - button "Playback speed" [ref=e93]:
+                - img [ref=e94]
+                - text: 1×
+              - button "Fullscreen" [ref=e97]:
+                - img [ref=e98]
+        - generic [ref=e103]:
+          - generic [ref=e104]:
+            - generic [ref=e105]: Showcase
+            - generic [ref=e106]: 2w ago
+          - heading "Captain DMA 100T — flagship unboxing" [level=2] [ref=e107]
+          - paragraph [ref=e108]: "Inside the box: bracket, card, fuser, JTAG, second-PC cables. Everything you need in one shipment."
+          - generic [ref=e109]:
+            - generic [ref=e110]:
+              - img [ref=e111]
+              - text: 18.2k views
+            - generic [ref=e114]:
+              - img [ref=e115]
+              - text: 3:42
+      - complementary [ref=e118]:
+        - generic [ref=e119]:
+          - button "All" [ref=e120] [cursor=pointer]
+          - button "Showcase" [ref=e121] [cursor=pointer]
+          - button "Setup guides" [ref=e122] [cursor=pointer]
+          - button "Gameplay" [ref=e123] [cursor=pointer]
+          - button "Changelog recaps" [ref=e124] [cursor=pointer]
+        - generic [ref=e125]:
+          - generic [ref=e126]:
+            - paragraph [ref=e127]: Up next
+            - generic [ref=e128]: "8"
+          - generic [ref=e129]:
+            - button "3:42 Captain DMA 100T — flagship unboxing Showcase 18.2k views · 2w ago" [ref=e130] [cursor=pointer]:
+              - generic [ref=e131]:
+                - img [ref=e134]
+                - generic [ref=e136]: 3:42
+              - generic [ref=e137]:
+                - paragraph [ref=e138]: Captain DMA 100T — flagship unboxing
+                - paragraph [ref=e139]: Showcase
+                - paragraph [ref=e140]: 18.2k views · 2w ago
+            - button "6:18 Blurred DMA — Valorant ranked run Gameplay 42.9k views · 3d ago" [ref=e141] [cursor=pointer]:
+              - generic [ref=e142]:
+                - img [ref=e145]
+                - generic [ref=e147]: 6:18
+              - generic [ref=e148]:
+                - paragraph [ref=e149]: Blurred DMA — Valorant ranked run
+                - paragraph [ref=e150]: Gameplay
+                - paragraph [ref=e151]: 42.9k views · 3d ago
+            - button "1:12 Perm Spoofer — 60-second setup Setup guides 27.5k views · 5d ago" [ref=e152] [cursor=pointer]:
+              - generic [ref=e153]:
+                - img [ref=e156]
+                - generic [ref=e158]: 1:12
+              - generic [ref=e159]:
+                - paragraph [ref=e160]: Perm Spoofer — 60-second setup
+                - paragraph [ref=e161]: Setup guides
+                - paragraph [ref=e162]: 27.5k views · 5d ago
+            - button "4:55 Fortnite External — zen headshot run Gameplay 61.7k views · 1w ago" [ref=e163] [cursor=pointer]:
+              - generic [ref=e164]:
+                - img [ref=e167]
+                - generic [ref=e169]: 4:55
+              - generic [ref=e170]:
+                - paragraph [ref=e171]: Fortnite External — zen headshot run
+                - paragraph [ref=e172]: Gameplay
+                - paragraph [ref=e173]: 61.7k views · 1w ago
+            - button "8:01 DMA fuser — step-by-step install Setup guides 9.1k views · 2w ago" [ref=e174] [cursor=pointer]:
+              - generic [ref=e175]:
+                - img [ref=e178]
+                - generic [ref=e180]: 8:01
+              - generic [ref=e181]:
+                - paragraph [ref=e182]: DMA fuser — step-by-step install
+                - paragraph [ref=e183]: Setup guides
+                - paragraph [ref=e184]: 9.1k views · 2w ago
+            - button "2:24 Temp Spoofer — walkthrough Setup guides 11.0k views · 4d ago" [ref=e185] [cursor=pointer]:
+              - generic [ref=e186]:
+                - img [ref=e189]
+                - generic [ref=e191]: 2:24
+              - generic [ref=e192]:
+                - paragraph [ref=e193]: Temp Spoofer — walkthrough
+                - paragraph [ref=e194]: Setup guides
+                - paragraph [ref=e195]: 11.0k views · 4d ago
+            - button "2:51 April changelog — what shipped Changelog recaps 5.4k views · Yesterday" [ref=e196] [cursor=pointer]:
+              - generic [ref=e197]:
+                - img [ref=e200]
+                - generic [ref=e202]: 2:51
+              - generic [ref=e203]:
+                - paragraph [ref=e204]: April changelog — what shipped
+                - paragraph [ref=e205]: Changelog recaps
+                - paragraph [ref=e206]: 5.4k views · Yesterday
+            - button "5:32 Streck DMA — budget showcase Showcase 14.8k views · 1w ago" [ref=e207] [cursor=pointer]:
+              - generic [ref=e208]:
+                - img [ref=e211]
+                - generic [ref=e213]: 5:32
+              - generic [ref=e214]:
+                - paragraph [ref=e215]: Streck DMA — budget showcase
+                - paragraph [ref=e216]: Showcase
+                - paragraph [ref=e217]: 14.8k views · 1w ago
+        - paragraph [ref=e218]: "Keyboard: space play/pause ·← → seek ·f full ·m mute"
+    - generic [ref=e223]:
+      - generic [ref=e224]:
+        - generic [ref=e225]:
+          - generic [ref=e226]:
+            - img "Lethal Solutions" [ref=e229]
+            - generic [ref=e230]: Lethal Solutions
+          - paragraph [ref=e231]: Kernel-level gaming tools trusted by 8,700+ players. Undetected since day one.
+          - generic [ref=e232]:
+            - generic [ref=e233]:
+              - img [ref=e234]
+              - generic [ref=e236]: Secure
+            - generic [ref=e237]:
+              - img [ref=e238]
+              - generic [ref=e240]: Instant
+            - generic [ref=e241]:
+              - img [ref=e242]
+              - generic [ref=e245]: 24/7
+          - generic [ref=e246]:
+            - paragraph [ref=e247]: Connect
+            - generic [ref=e248]:
+              - link "Discord" [ref=e249] [cursor=pointer]:
+                - /url: https://discord.gg/lethaldma
+                - img [ref=e250]
+              - link "YouTube" [ref=e253] [cursor=pointer]:
+                - /url: https://www.youtube.com/@ujukcheats-x4b
+                - img [ref=e254]
+              - link "Telegram" [ref=e257] [cursor=pointer]:
+                - /url: https://t.me/lethalsolutions
+                - img [ref=e258]
+        - generic [ref=e261]:
+          - heading "Products" [level=4] [ref=e262]
+          - list [ref=e263]:
+            - listitem [ref=e264]:
+              - link "All Products" [ref=e265] [cursor=pointer]:
+                - /url: /products
+            - listitem [ref=e266]:
+              - link "Compare" [ref=e267] [cursor=pointer]:
+                - /url: /compare
+            - listitem [ref=e268]:
+              - link "Reviews" [ref=e269] [cursor=pointer]:
+                - /url: /reviews
+            - listitem [ref=e270]:
+              - link "Status" [ref=e271] [cursor=pointer]:
+                - /url: /status
+        - generic [ref=e272]:
+          - heading "Resources" [level=4] [ref=e273]
+          - list [ref=e274]:
+            - listitem [ref=e275]:
+              - link "Setup Guide" [ref=e276] [cursor=pointer]:
+                - /url: /setup
+            - listitem [ref=e277]:
+              - link "Media Library" [ref=e278] [cursor=pointer]:
+                - /url: /media
+            - listitem [ref=e279]:
+              - link "FAQ" [ref=e280] [cursor=pointer]:
+                - /url: /faq
+            - listitem [ref=e281]:
+              - link "Guides" [ref=e282] [cursor=pointer]:
+                - /url: /guides
+            - listitem [ref=e283]:
+              - link "Changelog" [ref=e284] [cursor=pointer]:
+                - /url: /changelog
+            - listitem [ref=e285]:
+              - link "Success Stories" [ref=e286] [cursor=pointer]:
+                - /url: /stories
+            - listitem [ref=e287]:
+              - link "Referrals" [ref=e288] [cursor=pointer]:
+                - /url: /referrals
+            - listitem [ref=e289]:
+              - link "Join Our Team" [ref=e290] [cursor=pointer]:
+                - /url: /apply
+        - generic [ref=e291]:
+          - heading "Account" [level=4] [ref=e292]
+          - list [ref=e293]:
+            - listitem [ref=e294]:
+              - link "Track Order" [ref=e295] [cursor=pointer]:
+                - /url: /track
+            - listitem [ref=e296]:
+              - link "Downloads" [ref=e297] [cursor=pointer]:
+                - /url: /downloads
+            - listitem [ref=e298]:
+              - link "My Account" [ref=e299] [cursor=pointer]:
+                - /url: /profile
+            - listitem [ref=e300]:
+              - link "Cart" [ref=e301] [cursor=pointer]:
+                - /url: /cart
+      - heading [level=2] [ref=e303]: LETHAL
+      - generic [ref=e304]:
+        - paragraph [ref=e305]: © 2026 Lethal Solutions. All rights reserved.
+        - generic [ref=e306]:
+          - generic [ref=e311]: All systems operational
+          - link "Terms" [ref=e313] [cursor=pointer]:
+            - /url: /terms
+          - link "Privacy" [ref=e315] [cursor=pointer]:
+            - /url: /privacy
+  - button "Open Next.js Dev Tools" [ref=e321] [cursor=pointer]:
+    - img [ref=e322]

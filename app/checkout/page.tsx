@@ -32,7 +32,9 @@ const CRYPTO_OPTIONS = [
   { id: "ltc", name: "Litecoin", ticker: "LTC", coingeckoId: "litecoin", address: "ltc1q49qjqxvlr4slkvzm9pxfjshwne62a9dk8283t3", icon: LitecoinIcon, color: "#345D9D", confirmations: "3 confirmations" },
 ]
 
-const PAYPAL_EMAIL = "lethalstaff@gmail.com"
+// PayPal F&F receiving account. Override via NEXT_PUBLIC_PAYPAL_EMAIL env var
+// so it doesn't live in git history.
+const PAYPAL_EMAIL = process.env.NEXT_PUBLIC_PAYPAL_EMAIL || "lethalstaff@gmail.com"
 const TIMER_SECONDS = 30 * 60
 const RATE_KEY_MAP: Record<string, string> = { btc: "btc", erc20: "eth", trc20: "usdt", ltc: "ltc" }
 

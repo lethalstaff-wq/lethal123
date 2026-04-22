@@ -1,0 +1,40 @@
+[     113ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[     215ms] [LOG] [Fast Refresh] done in 202ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[     386ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[     473ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[     830ms] [WARNING] Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly. @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[    1060ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[    1064ms] [LOG] [Fast Refresh] done in 109ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[    1065ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[    1066ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /, path: /} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[    1066ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {o: http://localhost:3000/, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 1.3.1, ts: 1776774004194} /_vercel/insights/view @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[    4125ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[    4130ms] [LOG] [Fast Refresh] done in 106ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  574311ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  574525ms] [LOG] [Fast Refresh] done in 235ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  584299ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  584406ms] [LOG] [Fast Refresh] done in 105ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  585775ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  585907ms] [LOG] [Fast Refresh] done in 233ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  587215ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  588595ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  588691ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  589059ms] [WARNING] Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly. @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  589075ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/favicon.ico:0
+[  589280ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  589280ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /, path: /} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  589281ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {o: http://localhost:3000/, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 1.3.1, ts: 1776774592409} /_vercel/insights/view @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  595781ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  596006ms] [LOG] [Fast Refresh] done in 247ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  647432ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  647605ms] [LOG] [Fast Refresh] done in 182ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  655378ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  655435ms] [LOG] [Fast Refresh] done in 107ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  682520ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  682621ms] [LOG] [Fast Refresh] done in 137ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  689618ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  689715ms] [LOG] [Fast Refresh] done in 77ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  691630ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  691726ms] [LOG] [Fast Refresh] done in 93ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  762157ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  762658ms] [LOG] [Fast Refresh] done in 396ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287

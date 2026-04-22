@@ -1,0 +1,157 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - img
+  - generic:
+    - button "Build a Bundle" [ref=e2]:
+      - img [ref=e3]
+      - text: Build a Bundle
+    - button "Open chat" [ref=e5]:
+      - img [ref=e6]
+  - region "Notifications alt+T"
+  - generic:
+    - link "Perm Spoofer New Order · 2m ago Perm Spoofer Verified Dismiss notification":
+      - /url: /products/perm-spoofer
+      - generic:
+        - img "Perm Spoofer"
+      - generic:
+        - generic:
+          - generic: New Order
+          - generic: ·
+          - generic: 2m ago
+        - paragraph: Perm Spoofer
+        - generic:
+          - generic: Verified
+      - button "Dismiss notification": ×
+  - button "Back to top":
+    - img
+  - main [ref=e11]:
+    - navigation [ref=e12]:
+      - generic [ref=e14]:
+        - link "Lethal Solutions Lethal Solutions" [ref=e15] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e16]:
+            - img "Lethal Solutions" [ref=e17]
+            - generic [ref=e18]: Lethal Solutions
+        - generic [ref=e20]:
+          - link "Home" [ref=e21] [cursor=pointer]:
+            - /url: /
+          - link "Products" [ref=e22] [cursor=pointer]:
+            - /url: /products
+          - link "Guides" [ref=e23] [cursor=pointer]:
+            - /url: /guides
+          - link "Reviews" [ref=e24] [cursor=pointer]:
+            - /url: /reviews
+          - link "Track Order" [ref=e25] [cursor=pointer]:
+            - /url: /track
+          - link "Status" [ref=e26] [cursor=pointer]:
+            - /url: /status
+        - generic [ref=e27]:
+          - button "Search products" [ref=e29]:
+            - img [ref=e30]
+            - generic [ref=e33]: Search...
+          - link "Customer Login" [ref=e34] [cursor=pointer]:
+            - /url: /login
+            - button "Customer Login" [ref=e35]:
+              - img
+              - text: Customer Login
+          - link "Shopping cart" [ref=e36] [cursor=pointer]:
+            - /url: /cart
+            - button "Shopping cart" [ref=e37]:
+              - img
+    - generic [ref=e39]:
+      - generic [ref=e40]:
+        - img [ref=e42]
+        - generic [ref=e45]: "0"
+      - heading "Your cart is empty" [level=1] [ref=e46]
+      - paragraph [ref=e47]: Pick a product to secure your setup. Delivery in seconds after checkout.
+      - link "Browse Products" [ref=e48] [cursor=pointer]:
+        - /url: /products
+        - generic [ref=e49]: Browse Products
+        - img [ref=e50]
+    - generic [ref=e56]:
+      - generic [ref=e57]:
+        - generic [ref=e58]:
+          - generic [ref=e59]:
+            - img "Lethal Solutions" [ref=e60]
+            - generic [ref=e61]: Lethal Solutions
+          - paragraph [ref=e62]: Kernel-level gaming tools trusted by 8,700+ players. Undetected since day one.
+          - generic [ref=e63]:
+            - generic [ref=e64]:
+              - img [ref=e65]
+              - generic [ref=e67]: Secure
+            - generic [ref=e68]:
+              - img [ref=e69]
+              - generic [ref=e71]: Instant
+            - generic [ref=e72]:
+              - img [ref=e73]
+              - generic [ref=e76]: 24/7
+          - generic [ref=e77]:
+            - paragraph [ref=e78]: Connect
+            - generic [ref=e79]:
+              - link "Discord" [ref=e80] [cursor=pointer]:
+                - /url: https://discord.gg/lethaldma
+                - img [ref=e81]
+              - link "YouTube" [ref=e84] [cursor=pointer]:
+                - /url: https://www.youtube.com/@ujukcheats-x4b
+                - img [ref=e85]
+              - link "Telegram" [ref=e88] [cursor=pointer]:
+                - /url: https://t.me/lethalsolutions
+                - img [ref=e89]
+        - generic [ref=e92]:
+          - heading "Products" [level=4] [ref=e93]
+          - list [ref=e94]:
+            - listitem [ref=e95]:
+              - link "All Products" [ref=e96] [cursor=pointer]:
+                - /url: /products
+            - listitem [ref=e97]:
+              - link "Compare" [ref=e98] [cursor=pointer]:
+                - /url: /compare
+            - listitem [ref=e99]:
+              - link "Reviews" [ref=e100] [cursor=pointer]:
+                - /url: /reviews
+            - listitem [ref=e101]:
+              - link "Status" [ref=e102] [cursor=pointer]:
+                - /url: /status
+        - generic [ref=e103]:
+          - heading "Resources" [level=4] [ref=e104]
+          - list [ref=e105]:
+            - listitem [ref=e106]:
+              - link "FAQ" [ref=e107] [cursor=pointer]:
+                - /url: /faq
+            - listitem [ref=e108]:
+              - link "Guides" [ref=e109] [cursor=pointer]:
+                - /url: /guides
+            - listitem [ref=e110]:
+              - link "Changelog" [ref=e111] [cursor=pointer]:
+                - /url: /changelog
+            - listitem [ref=e112]:
+              - link "Referrals" [ref=e113] [cursor=pointer]:
+                - /url: /referrals
+            - listitem [ref=e114]:
+              - link "Join Our Team" [ref=e115] [cursor=pointer]:
+                - /url: /apply
+        - generic [ref=e116]:
+          - heading "Account" [level=4] [ref=e117]
+          - list [ref=e118]:
+            - listitem [ref=e119]:
+              - link "Track Order" [ref=e120] [cursor=pointer]:
+                - /url: /track
+            - listitem [ref=e121]:
+              - link "Downloads" [ref=e122] [cursor=pointer]:
+                - /url: /downloads
+            - listitem [ref=e123]:
+              - link "My Account" [ref=e124] [cursor=pointer]:
+                - /url: /profile
+            - listitem [ref=e125]:
+              - link "Cart" [ref=e126] [cursor=pointer]:
+                - /url: /cart
+      - generic [ref=e127]:
+        - paragraph [ref=e128]: © 2026 Lethal Solutions. All rights reserved.
+        - generic [ref=e129]:
+          - link "Terms" [ref=e130] [cursor=pointer]:
+            - /url: /terms
+          - link "Privacy" [ref=e132] [cursor=pointer]:
+            - /url: /privacy
+  - button "Open Next.js Dev Tools" [ref=e138] [cursor=pointer]:
+    - img [ref=e139]
+  - alert [ref=e142]

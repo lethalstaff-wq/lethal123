@@ -1,0 +1,342 @@
+- generic [active] [ref=e1]:
+  - alert [ref=e2]
+  - generic:
+    - img
+  - region "Notifications alt+T"
+  - button "Back to top":
+    - img
+    - img
+  - main [ref=e5]:
+    - navigation [ref=e6]:
+      - generic [ref=e8]:
+        - link "Lethal Solutions Lethal Solutions" [ref=e9]:
+          - /url: /
+          - generic [ref=e10]:
+            - img "Lethal Solutions" [ref=e13]
+            - generic [ref=e14]: Lethal Solutions
+        - generic [ref=e15]:
+          - button "Open search" [ref=e17]:
+            - img
+          - link:
+            - /url: /login
+          - link "Shopping cart" [ref=e18]:
+            - /url: /cart
+            - button "Shopping cart" [ref=e19]:
+              - img
+          - button "Toggle menu" [ref=e21]:
+            - img
+            - generic [ref=e22]: Toggle menu
+    - generic [ref=e24]:
+      - navigation "Breadcrumb" [ref=e25]:
+        - link [ref=e26]:
+          - /url: /
+          - img [ref=e27]
+        - generic [ref=e30]:
+          - img [ref=e31]
+          - generic [ref=e33]: Compare
+      - generic [ref=e34]:
+        - generic [ref=e38]: Product Comparison
+        - heading "Compare Products" [level=1] [ref=e42]
+        - paragraph [ref=e43]: Find the perfect product for your needs with our detailed comparison
+    - generic [ref=e47]:
+      - button "Cheats" [ref=e48]:
+        - img [ref=e49]
+        - text: Cheats
+      - button "Spoofers" [ref=e51]:
+        - img [ref=e52]
+        - text: Spoofers
+      - button "Bundles" [ref=e54]:
+        - img [ref=e55]
+        - text: Bundles
+    - table [ref=e63]:
+      - rowgroup [ref=e64]:
+        - row "Features Premium Best for Tournaments Blurred DMA £22 Weekly Value Best on Budget Streck DMA £8 Weekly Software Best for Fortnite Fortnite External £10 Daily" [ref=e65]:
+          - columnheader "Features" [ref=e66]:
+            - generic [ref=e67]:
+              - img [ref=e68]
+              - generic [ref=e70]: Features
+          - columnheader "Premium Best for Tournaments Blurred DMA £22 Weekly" [ref=e71]:
+            - generic [ref=e72]:
+              - generic [ref=e73]: Premium
+              - paragraph [ref=e74]: Best for Tournaments
+              - heading "Blurred DMA" [level=3] [ref=e75]
+              - paragraph [ref=e76]: £22
+              - paragraph [ref=e77]: Weekly
+          - columnheader "Value Best on Budget Streck DMA £8 Weekly" [ref=e78]:
+            - generic [ref=e79]:
+              - generic [ref=e80]: Value
+              - paragraph [ref=e81]: Best on Budget
+              - heading "Streck DMA" [level=3] [ref=e82]
+              - paragraph [ref=e83]: £8
+              - paragraph [ref=e84]: Weekly
+          - columnheader "Software Best for Fortnite Fortnite External £10 Daily" [ref=e85]:
+            - generic [ref=e86]:
+              - generic [ref=e87]: Software
+              - paragraph [ref=e88]: Best for Fortnite
+              - heading "Fortnite External" [level=3] [ref=e89]
+              - paragraph [ref=e90]: £10
+              - paragraph [ref=e91]: Daily
+      - rowgroup [ref=e92]:
+        - row "Aimbot Auto-aim assistance" [ref=e93]:
+          - cell "Aimbot Auto-aim assistance" [ref=e94]:
+            - generic [ref=e95]:
+              - paragraph [ref=e96]: Aimbot
+              - paragraph [ref=e97]: Auto-aim assistance
+          - cell [ref=e98]:
+            - img [ref=e100]
+          - cell [ref=e102]:
+            - img [ref=e104]
+          - cell [ref=e106]:
+            - img [ref=e108]
+        - row "Silent Aim Invisible aim adjustment" [ref=e110]:
+          - cell "Silent Aim Invisible aim adjustment" [ref=e111]:
+            - generic [ref=e112]:
+              - paragraph [ref=e113]: Silent Aim
+              - paragraph [ref=e114]: Invisible aim adjustment
+          - cell [ref=e115]:
+            - img [ref=e117]
+          - cell [ref=e119]:
+            - img [ref=e121]
+          - cell [ref=e124]:
+            - img [ref=e126]
+        - row "Triggerbot Auto-fire on target" [ref=e128]:
+          - cell "Triggerbot Auto-fire on target" [ref=e129]:
+            - generic [ref=e130]:
+              - paragraph [ref=e131]: Triggerbot
+              - paragraph [ref=e132]: Auto-fire on target
+          - cell [ref=e133]:
+            - img [ref=e135]
+          - cell [ref=e137]:
+            - img [ref=e139]
+          - cell [ref=e141]:
+            - img [ref=e143]
+        - row "Bullet Prediction Lead target compensation" [ref=e145]:
+          - cell "Bullet Prediction Lead target compensation" [ref=e146]:
+            - generic [ref=e147]:
+              - paragraph [ref=e148]: Bullet Prediction
+              - paragraph [ref=e149]: Lead target compensation
+          - cell [ref=e150]:
+            - img [ref=e152]
+          - cell [ref=e154]:
+            - img [ref=e156]
+          - cell [ref=e158]:
+            - img [ref=e160]
+        - row "Box ESP Player bounding boxes" [ref=e162]:
+          - cell "Box ESP Player bounding boxes" [ref=e163]:
+            - generic [ref=e164]:
+              - paragraph [ref=e165]: Box ESP
+              - paragraph [ref=e166]: Player bounding boxes
+          - cell [ref=e167]:
+            - img [ref=e169]
+          - cell [ref=e171]:
+            - img [ref=e173]
+          - cell [ref=e175]:
+            - img [ref=e177]
+        - row "Skeleton ESP Bone structure overlay" [ref=e179]:
+          - cell "Skeleton ESP Bone structure overlay" [ref=e180]:
+            - generic [ref=e181]:
+              - paragraph [ref=e182]: Skeleton ESP
+              - paragraph [ref=e183]: Bone structure overlay
+          - cell [ref=e184]:
+            - img [ref=e186]
+          - cell [ref=e188]:
+            - img [ref=e190]
+          - cell [ref=e192]:
+            - img [ref=e194]
+        - row "Distance ESP Player distance display" [ref=e196]:
+          - cell "Distance ESP Player distance display" [ref=e197]:
+            - generic [ref=e198]:
+              - paragraph [ref=e199]: Distance ESP
+              - paragraph [ref=e200]: Player distance display
+          - cell [ref=e201]:
+            - img [ref=e203]
+          - cell [ref=e205]:
+            - img [ref=e207]
+          - cell [ref=e209]:
+            - img [ref=e211]
+        - row "Health ESP Health bar display" [ref=e213]:
+          - cell "Health ESP Health bar display" [ref=e214]:
+            - generic [ref=e215]:
+              - paragraph [ref=e216]: Health ESP
+              - paragraph [ref=e217]: Health bar display
+          - cell [ref=e218]:
+            - img [ref=e220]
+          - cell [ref=e222]:
+            - img [ref=e224]
+          - cell [ref=e226]:
+            - img [ref=e228]
+        - row "Weapon ESP Player weapon info" [ref=e230]:
+          - cell "Weapon ESP Player weapon info" [ref=e231]:
+            - generic [ref=e232]:
+              - paragraph [ref=e233]: Weapon ESP
+              - paragraph [ref=e234]: Player weapon info
+          - cell [ref=e235]:
+            - img [ref=e237]
+          - cell [ref=e239]:
+            - img [ref=e241]
+          - cell [ref=e244]:
+            - img [ref=e246]
+        - row "Item ESP Loot & chest locations" [ref=e248]:
+          - cell "Item ESP Loot & chest locations" [ref=e249]:
+            - generic [ref=e250]:
+              - paragraph [ref=e251]: Item ESP
+              - paragraph [ref=e252]: Loot & chest locations
+          - cell [ref=e253]:
+            - img [ref=e255]
+          - cell [ref=e257]:
+            - img [ref=e259]
+          - cell [ref=e261]:
+            - img [ref=e263]
+        - row "Radar Hack Mini-map overlay" [ref=e265]:
+          - cell "Radar Hack Mini-map overlay" [ref=e266]:
+            - generic [ref=e267]:
+              - paragraph [ref=e268]: Radar Hack
+              - paragraph [ref=e269]: Mini-map overlay
+          - cell [ref=e270]:
+            - img [ref=e272]
+          - cell [ref=e274]:
+            - img [ref=e276]
+          - cell [ref=e278]:
+            - img [ref=e280]
+        - row "Stream Proof Hidden from OBS/Discord" [ref=e283]:
+          - cell "Stream Proof Hidden from OBS/Discord" [ref=e284]:
+            - generic [ref=e285]:
+              - paragraph [ref=e286]: Stream Proof
+              - paragraph [ref=e287]: Hidden from OBS/Discord
+          - cell [ref=e288]:
+            - img [ref=e290]
+          - cell [ref=e292]:
+            - img [ref=e294]
+          - cell [ref=e296]:
+            - img [ref=e298]
+        - row "No Recoil Recoil compensation" [ref=e300]:
+          - cell "No Recoil Recoil compensation" [ref=e301]:
+            - generic [ref=e302]:
+              - paragraph [ref=e303]: No Recoil
+              - paragraph [ref=e304]: Recoil compensation
+          - cell [ref=e305]:
+            - img [ref=e307]
+          - cell [ref=e309]:
+            - img [ref=e311]
+          - cell [ref=e314]:
+            - img [ref=e316]
+        - row "FOV Circle Aim range indicator" [ref=e318]:
+          - cell "FOV Circle Aim range indicator" [ref=e319]:
+            - generic [ref=e320]:
+              - paragraph [ref=e321]: FOV Circle
+              - paragraph [ref=e322]: Aim range indicator
+          - cell [ref=e323]:
+            - img [ref=e325]
+          - cell [ref=e327]:
+            - img [ref=e329]
+          - cell [ref=e331]:
+            - img [ref=e333]
+        - row "Add to Cart Add to Cart Add to Cart" [ref=e335]:
+          - cell [ref=e336]
+          - cell "Add to Cart" [ref=e337]:
+            - button "Add to Cart" [ref=e338]:
+              - img
+              - text: Add to Cart
+          - cell "Add to Cart" [ref=e339]:
+            - button "Add to Cart" [ref=e340]:
+              - img
+              - text: Add to Cart
+          - cell "Add to Cart" [ref=e341]:
+            - button "Add to Cart" [ref=e342]:
+              - img
+              - text: Add to Cart
+    - generic [ref=e347]:
+      - generic [ref=e348]:
+        - generic [ref=e349]:
+          - generic [ref=e350]:
+            - img "Lethal Solutions" [ref=e353]
+            - generic [ref=e354]: Lethal Solutions
+          - paragraph [ref=e355]: Kernel-level gaming tools trusted by 8,700+ players. Undetected since day one.
+          - generic [ref=e356]:
+            - generic [ref=e357]:
+              - img [ref=e358]
+              - generic [ref=e360]: Secure
+            - generic [ref=e361]:
+              - img [ref=e362]
+              - generic [ref=e364]: Instant
+            - generic [ref=e365]:
+              - img [ref=e366]
+              - generic [ref=e369]: 24/7
+          - generic [ref=e370]:
+            - paragraph [ref=e371]: Connect
+            - generic [ref=e372]:
+              - link "Discord" [ref=e373]:
+                - /url: https://discord.gg/lethaldma
+                - img [ref=e374]
+              - link "YouTube" [ref=e377]:
+                - /url: https://www.youtube.com/@ujukcheats-x4b
+                - img [ref=e378]
+              - link "Telegram" [ref=e381]:
+                - /url: https://t.me/lethalsolutions
+                - img [ref=e382]
+        - generic [ref=e385]:
+          - heading "Products" [level=4] [ref=e386]
+          - list [ref=e387]:
+            - listitem [ref=e388]:
+              - link "All Products" [ref=e389]:
+                - /url: /products
+            - listitem [ref=e390]:
+              - link "Compare" [ref=e391]:
+                - /url: /compare
+            - listitem [ref=e392]:
+              - link "Reviews" [ref=e393]:
+                - /url: /reviews
+            - listitem [ref=e394]:
+              - link "Status" [ref=e395]:
+                - /url: /status
+        - generic [ref=e396]:
+          - heading "Resources" [level=4] [ref=e397]
+          - list [ref=e398]:
+            - listitem [ref=e399]:
+              - link "Setup Guide" [ref=e400]:
+                - /url: /setup
+            - listitem [ref=e401]:
+              - link "Media Library" [ref=e402]:
+                - /url: /media
+            - listitem [ref=e403]:
+              - link "FAQ" [ref=e404]:
+                - /url: /faq
+            - listitem [ref=e405]:
+              - link "Guides" [ref=e406]:
+                - /url: /guides
+            - listitem [ref=e407]:
+              - link "Changelog" [ref=e408]:
+                - /url: /changelog
+            - listitem [ref=e409]:
+              - link "Success Stories" [ref=e410]:
+                - /url: /stories
+            - listitem [ref=e411]:
+              - link "Referrals" [ref=e412]:
+                - /url: /referrals
+            - listitem [ref=e413]:
+              - link "Join Our Team" [ref=e414]:
+                - /url: /apply
+        - generic [ref=e415]:
+          - heading "Account" [level=4] [ref=e416]
+          - list [ref=e417]:
+            - listitem [ref=e418]:
+              - link "Track Order" [ref=e419]:
+                - /url: /track
+            - listitem [ref=e420]:
+              - link "Downloads" [ref=e421]:
+                - /url: /downloads
+            - listitem [ref=e422]:
+              - link "My Account" [ref=e423]:
+                - /url: /profile
+            - listitem [ref=e424]:
+              - link "Cart" [ref=e425]:
+                - /url: /cart
+      - heading [level=2] [ref=e427]: LETHAL
+      - generic [ref=e428]:
+        - paragraph [ref=e429]: © 2026 Lethal Solutions. All rights reserved.
+        - generic [ref=e430]:
+          - generic [ref=e435]: All systems operational
+          - link "Terms" [ref=e437]:
+            - /url: /terms
+          - link "Privacy" [ref=e439]:
+            - /url: /privacy

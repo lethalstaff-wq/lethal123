@@ -15,6 +15,10 @@ import {
 import { getProductReviewCount } from "@/lib/review-counts"
 import { getProductMeta, type ChangelogEntry } from "@/lib/product-meta"
 import { DiscordCheckoutModal } from "@/components/discord-checkout-modal"
+import { ProductShare } from "@/components/product-share"
+import { fireConfetti } from "@/components/confetti"
+import { PriceHistoryChart } from "@/components/price-history-chart"
+import { ReviewVideoLightbox } from "@/components/review-video-lightbox"
 import { BitcoinIcon, EthereumIcon, LitecoinIcon, PayPalIcon } from "@/components/crypto-icons"
 import { toast } from "sonner"
 import useSWR from "swr"
@@ -108,6 +112,8 @@ export function ProductDetailClient({ product }: { product: Product }) {
     return product.variants[0]
   })
   const [quantity, setQuantity] = useState(1)
+  const [justAdded, setJustAdded] = useState(false)
+  const [buying, setBuying] = useState(false)
   const [showDiscordModal, setShowDiscordModal] = useState(false)
   const [viewingNow, setViewingNow] = useState(0)
   const [showStickyBar, setShowStickyBar] = useState(false)
@@ -151,12 +157,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  const handleAddToCart = () => {
-    if (!selectedVariant) {
-      toast.error("Please select an option first")
-      return
-    }
-    toast.success(`${product.name} added to cart`)
+  const addToCart = () => {
     addItem(
       {
         id: selectedVariant.id,
@@ -184,8 +185,26 @@ export function ProductDetailClient({ product }: { product: Product }) {
     )
   }
 
+  const handleAddToCart = () => {
+    if (!selectedVariant) { toast.error("Please select an option first"); return }
+    if (justAdded) return
+    addToCart()
+    toast.success(`${product.name} added to cart`)
+    setJustAdded(true)
+    // Confetti from the add-to-cart button position
+    const btn = document.querySelector<HTMLButtonElement>('[data-cursor-label="Add"]')
+    if (btn) {
+      const r = btn.getBoundingClientRect()
+      fireConfetti(r.left + r.width / 2, r.top + r.height / 2, 55)
+    }
+    setTimeout(() => setJustAdded(false), 1400)
+  }
+
   const handleBuyNow = () => {
-    handleAddToCart()
+    if (!selectedVariant) { toast.error("Please select an option first"); return }
+    if (buying) return
+    setBuying(true)
+    addToCart()
     router.push("/checkout")
   }
 
@@ -348,9 +367,10 @@ export function ProductDetailClient({ product }: { product: Product }) {
               id="buy-now-btn"
               onClick={handleBuyNow}
               size="lg"
+              disabled={buying}
               data-cursor="cta"
               data-cursor-label="Buy"
-              className="cursor-cta press-spring group relative overflow-hidden w-full h-12 sm:h-14 text-sm sm:text-base font-bold gap-2 rounded-xl bg-gradient-to-br from-[#f97316] to-[#ea580c] hover:brightness-110 hover:scale-[1.02] text-white border-0 shadow-[0_8px_24px_rgba(249,115,22,0.51),inset_0_1px_0_rgba(255,255,255,0.10)] hover:shadow-[0_12px_36px_rgba(249,115,22,0.72)] transition-all"
+              className="cursor-cta press-spring group relative overflow-hidden w-full h-12 sm:h-14 text-sm sm:text-base font-bold gap-2 rounded-xl bg-gradient-to-br from-[#f97316] to-[#ea580c] hover:brightness-110 hover:scale-[1.02] text-white border-0 shadow-[0_8px_24px_rgba(249,115,22,0.51),inset_0_1px_0_rgba(255,255,255,0.10)] hover:shadow-[0_12px_36px_rgba(249,115,22,0.72)] transition-all disabled:opacity-90"
             >
               <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
               <Zap className="relative z-10 h-4 w-4" />
@@ -363,10 +383,23 @@ export function ProductDetailClient({ product }: { product: Product }) {
                 size="lg"
                 data-cursor="cta"
                 data-cursor-label="Add"
-                className="cursor-cta press-spring h-11 sm:h-12 text-xs sm:text-sm font-bold gap-1.5 sm:gap-2 rounded-xl border-white/[0.10] bg-white/[0.025] backdrop-blur-md hover:border-[#f97316]/40 hover:bg-[#f97316]/[0.06] hover:text-[#f97316] transition-all"
+                className={`cursor-cta press-spring h-11 sm:h-12 text-xs sm:text-sm font-bold gap-1.5 sm:gap-2 rounded-xl backdrop-blur-md transition-all ${
+                  justAdded
+                    ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-400"
+                    : "border-white/[0.10] bg-white/[0.025] hover:border-[#f97316]/40 hover:bg-[#f97316]/[0.06] hover:text-[#f97316]"
+                }`}
               >
-                <ShoppingCart className="h-4 w-4" />
-                Add to Cart
+                {justAdded ? (
+                  <>
+                    <Check className="h-4 w-4" strokeWidth={3} />
+                    Added
+                  </>
+                ) : (
+                  <>
+                    <ShoppingCart className="h-4 w-4" />
+                    Add to Cart
+                  </>
+                )}
               </Button>
               <Button
                 onClick={() => setShowDiscordModal(true)}
@@ -391,8 +424,17 @@ export function ProductDetailClient({ product }: { product: Product }) {
             Last purchased <span className="text-white font-bold tabular-nums">{lastPurchased}</span> minutes ago
           </p>
 
+          {/* Price history + share */}
+          <div className="mt-6 pt-6 border-t border-white/[0.05] space-y-4">
+            <PriceHistoryChart slug={product.slug} currentPrice={selectedVariant?.price ?? 0} />
+            <ProductShare productName={product.name} slug={product.slug} price={selectedVariant?.price} />
+          </div>
+
         </div>
       </div>
+
+      {/* Related media row — plays in /media */}
+      <ReviewVideoLightbox productSlug={product.slug} />
 
       {/* ═══ FEATURES — clean section, no heavy panel ═══ */}
       {product.features && product.features.length > 0 && (

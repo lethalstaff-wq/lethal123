@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { Plus } from "lucide-react"
+import { SectionEyebrow } from "@/components/section-eyebrow"
 
 const faqs = [
   { q: "Is it safe to use?", a: "Yes. All products tested daily against latest anti-cheat updates. 99.8% undetected rate. If detection occurs, we patch within 24 hours and extend subscriptions." },
@@ -18,13 +19,10 @@ export function FaqSection() {
   const [open, setOpen] = useState<number | null>(0)
 
   return (
-    <section id="faq" className="py-24 px-6 sm:px-10 relative z-10">
+    <section id="faq" className="py-32 lg:py-40 px-6 sm:px-10 relative z-10">
       <div className="max-w-[760px] mx-auto">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/[0.08] bg-white/[0.03] backdrop-blur-md mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#f97316] animate-pulse" />
-            <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/55">FAQ</span>
-          </div>
+          <SectionEyebrow number="06" label="FAQ" />
           <div className="relative h-px w-44 mx-auto mb-7 bg-white/[0.05] overflow-hidden">
             <div className="absolute inset-y-0 w-24 bg-gradient-to-r from-transparent via-[#f97316]/70 to-transparent" style={{ animation: "heroScan 4s ease-in-out infinite" }} />
           </div>
@@ -36,7 +34,7 @@ export function FaqSection() {
 
         <div className="space-y-3">
           {faqs.map((f, i) => (
-            <div key={i} className={`spotlight-card rounded-2xl overflow-hidden border transition-all duration-300 ${open === i ? "border-[#f97316]/35 bg-gradient-to-br from-[#f97316]/[0.08] to-white/[0.015] shadow-[0_18px_50px_rgba(0,0,0,0.4),0_0_50px_rgba(249, 115, 22, 0.18)]" : "border-white/[0.06] bg-white/[0.015] hover:border-[#f97316]/25 hover:bg-white/[0.03] hover:-translate-y-0.5"}`}>
+            <div key={i} className={`spotlight-card rounded-2xl overflow-hidden border transition-all duration-300 ${open === i ? "border-[#f97316]/35 bg-white/[0.02] shadow-[0_20px_50px_rgba(0,0,0,0.5),0_0_40px_rgba(249,115,22,0.14)]" : "border-white/[0.06] bg-white/[0.015] hover:border-[#f97316]/25 hover:bg-white/[0.03] hover:-translate-y-0.5"}`}>
               <button onClick={() => setOpen(open === i ? null : i)} aria-expanded={open === i} data-cursor="cta" data-cursor-label={open === i ? "Close" : "Open"} className="cursor-cta flex items-center gap-4 w-full p-5 text-left">
                 <span className={`text-[12px] font-bold tabular-nums shrink-0 w-9 h-9 rounded-xl flex items-center justify-center transition-all ${open === i ? "bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white shadow-[0_4px_14px_rgba(249, 115, 22, 0.58)]" : "bg-white/[0.04] border border-white/[0.06] text-white/45"}`}>
                   {(i + 1).toString().padStart(2, "0")}

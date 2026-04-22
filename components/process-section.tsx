@@ -1,6 +1,7 @@
 "use client"
 
 import { ShoppingCart, Lock, Gamepad2 } from "lucide-react"
+import { SectionEyebrow } from "@/components/section-eyebrow"
 
 const steps = [
   { icon: ShoppingCart, title: "Choose", desc: "Pick your product — DMA cheats, spoofers, or full hardware bundles.", num: "01" },
@@ -10,13 +11,10 @@ const steps = [
 
 export function ProcessSection() {
   return (
-    <section className="py-28 px-6 sm:px-10 relative z-10">
+    <section className="py-32 lg:py-40 px-6 sm:px-10 relative z-10">
       <div className="max-w-[1100px] mx-auto">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/[0.06] bg-white/[0.02] mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#f97316] animate-pulse" />
-            <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/45">Workflow</span>
-          </div>
+          <SectionEyebrow number="03" label="Workflow" />
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-[-0.035em] leading-[1.1] mb-4 text-white">
             How it <span style={{ background: "linear-gradient(135deg, #f97316, #fb923c)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>works</span>
           </h2>
@@ -47,12 +45,12 @@ export function ProcessSection() {
                     {/* Inner icon */}
                     <s.icon className="h-9 w-9 text-[#f97316] group-hover:scale-110 transition-transform duration-300" style={{ filter: "drop-shadow(0 0 16px rgba(249, 115, 22, 0.85))" }} />
                     {/* Step number bottom-right */}
-                    <span className="absolute -bottom-1 -right-1 px-2.5 py-1 rounded-full bg-black border border-[#f97316]/40 text-[10px] font-black text-[#f97316] tracking-[0.1em] shadow-[0_4px_12px_rgba(249, 115, 22, 0.36)]">{s.num}</span>
+                    <span className="absolute -bottom-1 -right-1 px-2.5 py-1 rounded-full bg-black border border-[#f97316]/40 text-[10px] font-black text-[#f97316] tracking-[0.1em] tabular-nums shadow-[0_4px_12px_rgba(249, 115, 22, 0.36)]">{s.num}</span>
                   </div>
                 </div>
 
                 {/* Card */}
-                <div className="spotlight-card rounded-2xl p-6 bg-white/[0.015] border border-white/[0.06] hover:border-[#f97316]/35 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_40px_rgba(249, 115, 22, 0.16)] transition-all duration-300 text-center hover:bg-white/[0.03]">
+                <div className="spotlight-card rounded-2xl p-6 bg-white/[0.015] border border-white/[0.06] hover:border-[#f97316]/35 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.5),0_0_40px_rgba(249,115,22,0.16)] transition-all duration-300 text-center hover:bg-white/[0.03]">
                   <h4 className="font-display font-bold text-[20px] mb-2 text-white tracking-tight">{s.title}</h4>
                   <p className="text-[13px] text-white/55 leading-relaxed">{s.desc}</p>
                 </div>

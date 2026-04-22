@@ -1,16 +1,17 @@
 "use client"
 
 import { ArrowRight, Zap, Shield, Headphones, BookOpen, Mail, MessageSquare } from "lucide-react"
+import { SectionEyebrow } from "@/components/section-eyebrow"
+import { useDiscordOnline } from "@/components/discord-online"
 
 export function ContactSection() {
+  const { count: liveOnline, members: liveMembers, invite: liveInvite } = useDiscordOnline()
+  const joinHref = liveInvite ?? "https://discord.gg/lethaldma"
   return (
-    <section id="contact" className="py-24 px-6 sm:px-10 relative z-10">
+    <section id="contact" className="py-32 lg:py-40 px-6 sm:px-10 relative z-10">
       <div className="max-w-[1000px] mx-auto">
         <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/[0.08] bg-white/[0.03] backdrop-blur-md mb-6">
-            <MessageSquare className="h-3.5 w-3.5 text-[#f97316]" />
-            <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/55">Community</span>
-          </div>
+          <SectionEyebrow number="07" label="Community" />
           <div className="relative h-px w-44 mx-auto mb-7 bg-white/[0.05] overflow-hidden">
             <div className="absolute inset-y-0 w-24 bg-gradient-to-r from-transparent via-[#f97316]/70 to-transparent" style={{ animation: "heroScan 4s ease-in-out infinite" }} />
           </div>
@@ -18,7 +19,16 @@ export function ContactSection() {
             <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Join the </span>
             <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249, 115, 22, 0.43))" }}>community</span>
           </h2>
-          <p className="text-white/55 text-[16px] max-w-lg mx-auto">8,700+ members. Get support, share configs, stay ahead.</p>
+          <p className="text-white/55 text-[16px] max-w-lg mx-auto">
+            {liveMembers !== null ? (
+              <>
+                <span className="text-white font-semibold tabular-nums">{liveMembers.toLocaleString()}</span> members.
+              </>
+            ) : (
+              <>8,700+ members.</>
+            )}{" "}
+            Get support, share configs, stay ahead.
+          </p>
         </div>
 
         {/* Discord card */}
@@ -43,15 +53,21 @@ export function ContactSection() {
                         <span className="absolute w-2.5 h-2.5 rounded-full bg-emerald-400/45 animate-ping" />
                         <span className="relative w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.7)]" />
                       </span>
-                      <span className="text-emerald-400 font-bold text-[13px] tabular-nums">3,147</span>
+                      <span className="text-emerald-400 font-bold text-[13px] tabular-nums">
+                        {liveOnline !== null ? liveOnline.toLocaleString() : "—"}
+                      </span>
                       <span className="text-emerald-400/70 text-[12px] font-semibold uppercase tracking-wider">online</span>
                     </span>
                     <span className="text-white/20">&bull;</span>
-                    <span className="text-[13px] text-white/65 font-medium tabular-nums"><span className="text-white font-bold">8,734</span> members</span>
+                    <span className="text-[13px] text-white/65 font-medium tabular-nums">
+                      <span className="text-white font-bold">
+                        {liveMembers !== null ? liveMembers.toLocaleString() : "—"}
+                      </span> members
+                    </span>
                   </div>
                 </div>
               </div>
-              <a href="https://discord.gg/lethaldma" target="_blank" rel="noopener noreferrer"
+              <a href={joinHref} target="_blank" rel="noopener noreferrer"
                 data-cursor="cta"
                 data-cursor-label="Discord"
                 className="cursor-cta press-spring relative overflow-hidden inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl text-[14px] font-bold text-white cursor-pointer group transition-all hover:scale-[1.03] hover:shadow-[0_0_40px_rgba(249,115,22,0.6)]"
@@ -94,7 +110,7 @@ export function ContactSection() {
             <a key={i} href={c.href} target={i === 1 ? "_blank" : undefined} rel={i === 1 ? "noopener noreferrer" : undefined}
               data-cursor="cta"
               data-cursor-label={c.title}
-              className="spotlight-card cursor-cta group flex items-center gap-4 p-5 rounded-2xl border border-white/[0.06] bg-white/[0.015] hover:border-[#f97316]/30 hover:bg-white/[0.03] hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249, 115, 22, 0.14)] transition-all duration-300">
+              className="spotlight-card cursor-cta group flex items-center gap-4 p-5 rounded-2xl border border-white/[0.06] bg-white/[0.015] hover:border-[#f97316]/30 hover:bg-white/[0.03] hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.5),0_0_30px_rgba(249,115,22,0.14)] transition-all duration-300">
               <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06] group-hover:bg-gradient-to-br group-hover:from-[#f97316]/20 group-hover:to-[#ea580c]/10 group-hover:border-[#f97316]/30 transition-all">
                 <c.icon className="h-[18px] w-[18px] text-white/55 group-hover:text-[#f97316] transition-colors" />
               </div>

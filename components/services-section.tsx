@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react"
 import { Shield, Zap, Cpu, RefreshCw, Headphones, Globe } from "lucide-react"
+import { SectionEyebrow } from "@/components/section-eyebrow"
 
 function AnimNum({ value, prefix = "", suffix = "", decimals = 0 }: { value: number; prefix?: string; suffix?: string; decimals?: number }) {
   const [count, setCount] = useState(value)
@@ -56,7 +57,7 @@ function FeatureCard({ f, i }: { f: typeof features[number]; i: number }) {
     <div
       ref={cardRef}
       onMouseMove={onMove}
-      className="spotlight-card group p-7 rounded-2xl bg-white/[0.015] border border-white/[0.06] hover:border-[#f97316]/40 hover:bg-white/[0.03] relative overflow-hidden hover:-translate-y-1.5 hover:shadow-[0_28px_70px_rgba(0,0,0,0.55),0_0_50px_rgba(249,115,22,0.22)] transition-all duration-300"
+      className="spotlight-card group p-7 rounded-2xl bg-white/[0.015] border border-white/[0.06] hover:border-[#f97316]/40 hover:bg-white/[0.03] relative overflow-hidden hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.5),0_0_50px_rgba(249,115,22,0.2)] transition-all duration-300"
     >
       {/* Top gradient accent line */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f97316]/15 to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-500 z-[3]" />
@@ -91,13 +92,10 @@ function FeatureCard({ f, i }: { f: typeof features[number]; i: number }) {
 
 export function ServicesSection() {
   return (
-    <section id="features" className="py-24 px-6 sm:px-10 relative z-10">
+    <section id="features" className="py-32 lg:py-40 px-6 sm:px-10 relative z-10">
       <div className="max-w-[1100px] mx-auto">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/[0.06] bg-white/[0.02] mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#f97316] animate-pulse" />
-            <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/45">Why Choose Us</span>
-          </div>
+          <SectionEyebrow number="02" label="Why Choose Us" />
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-[-0.035em] leading-[1.1] mb-4 text-white">
             Why choose <span style={{ background: "linear-gradient(135deg, #f97316, #fb923c)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Lethal</span>
           </h2>

@@ -195,6 +195,17 @@ html.lenis, html.lenis body { height: auto; }
   50% { transform: translateX(230%); }
 }
 
+/* Empty-state icon wiggle — used on /cart empty state */
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  15% { transform: rotate(-8deg); }
+  30% { transform: rotate(6deg); }
+  45% { transform: rotate(-4deg); }
+  60% { transform: rotate(3deg); }
+  75% { transform: rotate(-2deg); }
+}
+.animate-wiggle { animation: wiggle 3s ease-in-out infinite; transform-origin: 50% 70%; }
+
 /* Global background orb drift (slow, 50-60s cycles) */
 @keyframes gbOrbDrift1 {
   0%, 100% { transform: translate(0, 0) scale(1); }
@@ -298,6 +309,18 @@ html.lenis, html.lenis body { height: auto; }
 .scroll-reveal.visible > *:nth-child(4) { transition-delay: 0.4s; }
 .scroll-reveal.visible > *:nth-child(5) { transition-delay: 0.5s; }
 .scroll-reveal.visible > *:nth-child(6) { transition-delay: 0.6s; }
+
+/* Reduced-motion: scroll-reveal shows immediately without movement */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal, .scroll-reveal-scale {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .scroll-reveal.visible > *, .scroll-reveal-scale.visible > * {
+    transition-delay: 0s !important;
+  }
+}
 
 /* Slow spin animation for configurator gear */
 @keyframes spin-slow {
@@ -710,8 +733,26 @@ button:active:not(:disabled), a[role="button"]:active {
   .word-reveal-word { transform: none !important; animation: none !important; }
 }
 
-/* Cursor-cta marker: native pointer, no custom cursor override.
-   Class is kept as a marker so existing data-cursor attributes remain harmless. */
+/* Hide scrollbars on horizontal-scrolling utility rows */
+.scrollbar-none { scrollbar-width: none; -ms-overflow-style: none; }
+.scrollbar-none::-webkit-scrollbar { display: none; }
+
+/* Custom cursor — hide native cursor on all devices that opted in.
+   `.custom-cursor-active` is added by CursorEffects only on hover-capable, non-reduced-motion devices.
+   While in fullscreen the custom overlay is clipped (fixed el sits outside the FS root),
+   so we restore the native cursor. */
+html.custom-cursor-active:not(.cursor-in-fullscreen),
+html.custom-cursor-active:not(.cursor-in-fullscreen) *,
+html.custom-cursor-active:not(.cursor-in-fullscreen) a,
+html.custom-cursor-active:not(.cursor-in-fullscreen) button,
+html.custom-cursor-active:not(.cursor-in-fullscreen) input,
+html.custom-cursor-active:not(.cursor-in-fullscreen) textarea,
+html.custom-cursor-active:not(.cursor-in-fullscreen) select,
+html.custom-cursor-active:not(.cursor-in-fullscreen) [role="button"] {
+  cursor: none !important;
+}
+
+/* Cursor-cta marker: retained for legacy data-cursor attributes — harmless. */
 .cursor-cta { cursor: pointer; }
 
 /* Page transitions (App Router template.tsx) */
@@ -785,8 +826,17 @@ button:active:not(:disabled), a[role="button"]:active {
 }
 
 /* Soft spring press for any marked button */
-.press-spring { transition: transform 0.2s var(--ease-spring-overshoot); }
+.press-spring { transition: transform 0.28s var(--ease-spring-overshoot); }
 .press-spring:active { transform: scale(0.96); }
+
+/* Silkier global hover transitions: make every interactive element feel softer. */
+a, button, [role="button"], [data-cursor] {
+  transition-property: color, background-color, border-color, box-shadow, opacity, transform;
+  transition-duration: 0.35s;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+/* Preserve faster transitions on components that explicitly declared their own */
+a.transition-none, button.transition-none { transition: none !important; }
 
 /* Ken Burns slow zoom (images on hover inside a group) */
 .ken-burns {
@@ -833,5 +883,93 @@ button:active:not(:disabled), a[role="button"]:active {
 }
 
 /* End of premium foundation block */
+
+/* Polish: kill browser-default blue focus ring globally. Components opt-in to
+   .focus-ring-premium or define their own focus-visible treatment. */
+*:focus { outline: none; }
+*:focus-visible { outline: none; }
+a:focus-visible,
+button:focus-visible:not([class*="focus-"]):not(.cursor-cta) {
+  outline: 2px solid rgba(249, 115, 22, 0.5);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Polish: premium dark skeleton shimmer, replaces generic grey pulse. Apply .skel */
+@keyframes shimmerDark {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.skel {
+  background: linear-gradient(90deg,
+    rgba(255,255,255,0.02) 0%,
+    rgba(255,255,255,0.06) 50%,
+    rgba(255,255,255,0.02) 100%);
+  background-size: 200% 100%;
+  animation: shimmerDark 1.6s ease-in-out infinite;
+  border-radius: 12px;
+}
+
+/* Polish: selection + caret in brand orange — small but it's the kind of detail
+   that makes a build feel hand-tuned. */
+::selection {
+  background: rgba(249, 115, 22, 0.28);
+  color: #fff;
+}
+input, textarea {
+  caret-color: #f97316;
+}
+
+/* Editorial drop cap — used on long-form sections (/stories body). One per section. */
+.drop-cap::first-letter {
+  float: left;
+  font-family: var(--font-display), "Space Grotesk", system-ui, sans-serif;
+  font-size: clamp(44px, 4vw, 68px);
+  line-height: 0.95;
+  padding: 0.15rem 0.55rem 0 0;
+  font-weight: 700;
+  background: linear-gradient(180deg, #ffb366 0%, #f97316 55%, #c2410c 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 18px rgba(249, 115, 22, 0.25));
+}
+
+/* Editorial pull-quote — oversized faded orange opening glyph, subtle drift.
+   Scoped to /stories pull-quotes via `.story-pull-quote` to avoid leakage. */
+.story-pull-quote::before {
+  content: "\201C"; /* U+201C LEFT DOUBLE QUOTATION MARK */
+  position: absolute;
+  top: -24px;
+  left: -12px;
+  font-family: var(--font-display), "Space Grotesk", system-ui, sans-serif;
+  font-weight: 900;
+  font-size: clamp(96px, 11vw, 160px);
+  line-height: 1;
+  color: rgba(249, 115, 22, 0.12);
+  pointer-events: none;
+  user-select: none;
+  animation: story-quote-drift 6s ease-in-out infinite;
+}
+@keyframes story-quote-drift {
+  0%, 100% { transform: translate3d(0, 0, 0); opacity: 0.85; }
+  50%      { transform: translate3d(0, -4px, 0); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .story-pull-quote::before { animation: none; }
+}
+
+/* Reviews wall — card mount animation. Pure CSS (no framer-motion whileInView)
+   so Load More doesn't trigger a layout re-measure in the CSS columns while
+   cards fade in mid-scroll. Do NOT add `contain: layout` here — it ejects the
+   card from CSS-columns flow and middle/right columns render empty. */
+@keyframes reviewCardIn {
+  from { opacity: 0; transform: translate3d(0, 10px, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reviews-card { animation: none !important; }
+  .reviews-card:hover { transform: none !important; }
+}
 
 /* End of custom styles */

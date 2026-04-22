@@ -1,0 +1,58 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - img
+  - region "Notifications alt+T"
+  - button "Back to top":
+    - img
+    - img
+  - main [ref=e4]:
+    - generic [ref=e6]:
+      - link "Lethal Solutions Lethal Solutions" [ref=e8]:
+        - /url: /
+        - img "Lethal Solutions" [ref=e9]
+        - generic [ref=e10]: Lethal Solutions
+      - generic [ref=e11]:
+        - heading "Sign in" [level=2] [ref=e12]
+        - paragraph [ref=e13]: Enter your credentials to continue.
+      - generic [ref=e14]:
+        - button "Login" [ref=e15]: Login
+        - button "Sign Up" [ref=e17]
+      - button "Or sign in with a magic link" [ref=e18]:
+        - img [ref=e19]
+        - text: Or sign in with a magic link
+        - img [ref=e22]
+      - generic [ref=e24]:
+        - generic [ref=e25]:
+          - text: Email
+          - textbox "Email" [ref=e26]:
+            - /placeholder: you@example.com
+        - generic [ref=e27]:
+          - text: Password
+          - generic [ref=e28]:
+            - textbox "Password" [ref=e29]:
+              - /placeholder: ••••••••
+            - link "Forgot?" [ref=e30]:
+              - /url: /forgot-password
+        - button "Sign In" [ref=e32]:
+          - generic [ref=e33]: Sign In
+          - img [ref=e34]
+      - generic [ref=e38]: or continue with
+      - generic [ref=e40]:
+        - button "Google" [ref=e41]:
+          - img [ref=e42]
+          - text: Google
+        - generic [ref=e47]:
+          - button "Discord" [ref=e48]:
+            - img [ref=e49]
+            - text: Discord
+          - generic [ref=e51]: 3,200 online
+      - paragraph [ref=e55]:
+        - text: By continuing, you agree to our
+        - link "Terms" [ref=e56]:
+          - /url: /terms
+        - text: and
+        - link "Privacy Policy" [ref=e57]:
+          - /url: /privacy
+  - button "Open Next.js Dev Tools" [ref=e63] [cursor=pointer]:
+    - img [ref=e64]
+  - alert [ref=e67]

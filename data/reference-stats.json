@@ -1,0 +1,318 @@
+{
+  "legacy_total": 1821,
+  "native_total": 8548,
+  "legacy_date_range": {
+    "oldest": "2025-10-20T16:55:15+00:00",
+    "newest": "2025-11-24T22:41:07+00:00"
+  },
+  "chars": {
+    "min": 4,
+    "max": 209,
+    "median": 32,
+    "p25": 32,
+    "p75": 33,
+    "p90": 48,
+    "p99": 122
+  },
+  "words": {
+    "min": 1,
+    "max": 36,
+    "median": 5,
+    "p25": 5,
+    "p75": 6,
+    "p90": 9
+  },
+  "length_buckets_chars": {
+    "short_lt50": 1652,
+    "medium_50_200": 167,
+    "long_gt200": 2
+  },
+  "rating_counts": {
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 0,
+    "5": 1821
+  },
+  "per_product_legacy": {
+    "perm-spoofer": 293,
+    "temp-spoofer": 350,
+    "fortnite-external": 659,
+    "streck": 190,
+    "blurred": 139,
+    "custom-dma-firmware": 123,
+    "dma-basic": 43,
+    "dma-advanced": 13,
+    "dma-elite": 11
+  },
+  "usernames_50": [
+    "v19163",
+    "tra2ce",
+    "tr2ace",
+    "zekor7",
+    "woeaqq",
+    "ujukch",
+    "ggg200",
+    "enigma",
+    "lukaku",
+    "mherr7",
+    "zendaa",
+    "sergfe",
+    "qnexss",
+    "ruxdle",
+    "ogarko",
+    "rub585",
+    "kaiang",
+    "virtua",
+    "negrip",
+    "pidora",
+    "mupawa",
+    "uhdqoe",
+    "verified buyer",
+    "bokoko",
+    "slavae",
+    "dorosh",
+    "shajxt",
+    "glwu2k",
+    "slavam"
+  ],
+  "products": [
+    {
+      "id": "perm-spoofer",
+      "name": "Perm Spoofer",
+      "description": "Permanent HWID spoofing solution",
+      "image": "/images/products/perm-spoofer.png",
+      "category": "spoofer",
+      "badge": "In Stock",
+      "popular": false,
+      "sell_auth_product_id": null,
+      "sort_order": 0,
+      "created_at": "2026-04-21T18:24:15.195116+00:00",
+      "updated_at": "2026-04-21T18:24:15.195116+00:00"
+    },
+    {
+      "id": "temp-spoofer",
+      "name": "Temp Spoofer",
+      "description": "Temporary HWID spoofing solution",
+      "image": "/images/products/temp-spoofer.png",
+      "category": "spoofer",
+      "badge": "Popular",
+      "popular": true,
+      "sell_auth_product_id": null,
+      "sort_order": 1,
+      "created_at": "2026-04-21T18:24:15.195116+00:00",
+      "updated_at": "2026-04-21T18:24:15.195116+00:00"
+    },
+    {
+      "id": "fortnite-external",
+      "name": "Fortnite External",
+      "description": "Clean UI. Fast setup. Tournament-ready.",
+      "image": "/images/products/fortnite-external.png",
+      "category": "cheat",
+      "badge": "In Stock",
+      "popular": false,
+      "sell_auth_product_id": null,
+      "sort_order": 2,
+      "created_at": "2026-04-21T18:24:15.195116+00:00",
+      "updated_at": "2026-04-21T18:24:15.195116+00:00"
+    },
+    {
+      "id": "custom-dma-firmware",
+      "name": "Custom DMA Firmware",
+      "description": "Built for precision. Designed to endure.",
+      "image": "/images/products/fortnite-external-2.png",
+      "category": "firmware",
+      "badge": "In Stock",
+      "popular": false,
+      "sell_auth_product_id": null,
+      "sort_order": 3,
+      "created_at": "2026-04-21T18:24:15.195116+00:00",
+      "updated_at": "2026-04-21T18:24:15.195116+00:00"
+    },
+    {
+      "id": "streck",
+      "name": "Streck DMA Cheat",
+      "description": "Premium DMA cheat solution",
+      "image": "/images/products/blurred-dma.png",
+      "category": "cheat",
+      "badge": "In Stock",
+      "popular": false,
+      "sell_auth_product_id": null,
+      "sort_order": 4,
+      "created_at": "2026-04-21T18:24:15.195116+00:00",
+      "updated_at": "2026-04-21T18:24:15.195116+00:00"
+    },
+    {
+      "id": "blurred",
+      "name": "Blurred DMA Cheat",
+      "description": "Premium DMA cheat solution",
+      "image": "/images/products/blurred-dma.png",
+      "category": "cheat",
+      "badge": "Popular",
+      "popular": true,
+      "sell_auth_product_id": "210d655a4a941-0000010058682",
+      "sort_order": 5,
+      "created_at": "2026-04-21T18:24:15.195116+00:00",
+      "updated_at": "2026-04-21T18:24:15.195116+00:00"
+    },
+    {
+      "id": "dma-basic",
+      "name": "DMA Basic Bundle",
+      "description": "Reliable foundation for everyday use. Includes: Captain DMA 100T-7th, EAC/BE Emulated, Mini DP Fuser V2, Blurred (30 Days), Macku (Free)",
+      "image": "/images/products/dma-firmware.png",
+      "category": "bundle",
+      "badge": "In Stock",
+      "popular": false,
+      "sell_auth_product_id": null,
+      "sort_order": 6,
+      "created_at": "2026-04-21T18:24:15.195116+00:00",
+      "updated_at": "2026-04-21T18:24:15.195116+00:00"
+    },
+    {
+      "id": "dma-advanced",
+      "name": "DMA Advanced Bundle",
+      "description": "Balanced configuration for creators and semi-pro users. Includes: Captain DMA 100T-7th, Dichen D60 Fuser, Teensy (Firmware Included), EAC/BE Emulated Slotted, Blurred DMA (Quarterly)",
+      "image": "/images/products/dma-firmware.png",
+      "category": "bundle",
+      "badge": "Best Value",
+      "popular": true,
+      "sell_auth_product_id": null,
+      "sort_order": 7,
+      "created_at": "2026-04-21T18:24:15.195116+00:00",
+      "updated_at": "2026-04-21T18:24:15.195116+00:00"
+    },
+    {
+      "id": "dma-elite",
+      "name": "DMA Elite Bundle",
+      "description": "Maximum performance — full emulation & lifetime access. Includes: Captain DMA 100T-7th, Dichen DC500 Fuser, Teensy (Firmware Included), Blurred Lifetime DMA Cheat, EAC/BE, FaceIt, VGK Emulated",
+      "image": "/images/products/dma-firmware.png",
+      "category": "bundle",
+      "badge": "Premium",
+      "popular": false,
+      "sell_auth_product_id": null,
+      "sort_order": 8,
+      "created_at": "2026-04-21T18:24:15.195116+00:00",
+      "updated_at": "2026-04-21T18:24:15.195116+00:00"
+    }
+  ],
+  "variants_by_product": {
+    "blurred": [
+      {
+        "name": "Weekly",
+        "price_usd": 22
+      },
+      {
+        "name": "Monthly",
+        "price_usd": 35
+      },
+      {
+        "name": "Quarterly",
+        "price_usd": 85
+      },
+      {
+        "name": "Lifetime",
+        "price_usd": 385
+      }
+    ],
+    "custom-dma-firmware": [
+      {
+        "name": "EAC / BE Emulated",
+        "price_usd": 200
+      },
+      {
+        "name": "Slotted Edition",
+        "price_usd": 450
+      },
+      {
+        "name": "FaceIt / VGK",
+        "price_usd": 975
+      }
+    ],
+    "dma-advanced": [
+      {
+        "name": "Complete Bundle",
+        "price_usd": 675
+      }
+    ],
+    "dma-basic": [
+      {
+        "name": "Complete Bundle",
+        "price_usd": 425
+      }
+    ],
+    "dma-elite": [
+      {
+        "name": "Complete Bundle",
+        "price_usd": 1500
+      }
+    ],
+    "fortnite-external": [
+      {
+        "name": "1 Day",
+        "price_usd": 10
+      },
+      {
+        "name": "3 Days",
+        "price_usd": 20
+      },
+      {
+        "name": "7 Days",
+        "price_usd": 35
+      },
+      {
+        "name": "30 Days",
+        "price_usd": 80
+      },
+      {
+        "name": "Lifetime",
+        "price_usd": 300
+      }
+    ],
+    "perm-spoofer": [
+      {
+        "name": "One-Time License",
+        "price_usd": 35
+      },
+      {
+        "name": "Lifetime License",
+        "price_usd": 120
+      }
+    ],
+    "streck": [
+      {
+        "name": "7 Days",
+        "price_usd": 8
+      },
+      {
+        "name": "30 Days",
+        "price_usd": 15
+      },
+      {
+        "name": "90 Days",
+        "price_usd": 40
+      },
+      {
+        "name": "Lifetime",
+        "price_usd": 150
+      }
+    ],
+    "temp-spoofer": [
+      {
+        "name": "15-Day License",
+        "price_usd": 20
+      },
+      {
+        "name": "30-Day License",
+        "price_usd": 40
+      },
+      {
+        "name": "180-Day License",
+        "price_usd": 150
+      },
+      {
+        "name": "Lifetime License",
+        "price_usd": 500
+      }
+    ]
+  }
+}

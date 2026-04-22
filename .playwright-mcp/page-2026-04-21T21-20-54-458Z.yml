@@ -1,0 +1,244 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - img
+  - button "Open chat" [ref=e2]:
+    - img [ref=e3]
+  - region "Notifications alt+T"
+  - generic:
+    - generic:
+      - link "Perm Spoofer New Order · 2m ago Perm Spoofer Verified Dismiss notification":
+        - /url: /products/perm-spoofer
+        - generic:
+          - img "Perm Spoofer"
+        - generic:
+          - generic:
+            - generic: New Order
+            - generic: ·
+            - generic: 2m ago
+          - paragraph: Perm Spoofer
+          - generic:
+            - generic: Verified
+        - button "Dismiss notification": ×
+  - button "Back to top":
+    - img
+    - img
+  - main [ref=e7]:
+    - navigation [ref=e8]:
+      - generic [ref=e10]:
+        - link "Lethal Solutions Lethal Solutions" [ref=e11]:
+          - /url: /
+          - generic [ref=e12]:
+            - img "Lethal Solutions" [ref=e15]
+            - generic [ref=e16]: Lethal Solutions
+        - generic [ref=e18]:
+          - link "Home" [ref=e19]:
+            - /url: /
+          - link "Products" [ref=e20]:
+            - /url: /products
+          - link "Guides" [ref=e21]:
+            - /url: /guides
+          - link "Reviews" [ref=e22]:
+            - /url: /reviews
+          - link "Track Order" [ref=e23]:
+            - /url: /track
+          - link "Status" [ref=e24]:
+            - /url: /status
+        - generic [ref=e25]:
+          - button "Open search" [ref=e27]:
+            - img [ref=e28]
+            - generic [ref=e31]: Search…
+            - generic [ref=e32]: ⌘K
+          - link "Customer Login" [ref=e33]:
+            - /url: /login
+            - button "Customer Login" [ref=e34]:
+              - img
+              - text: Customer Login
+          - link "Shopping cart" [ref=e35]:
+            - /url: /cart
+            - button "Shopping cart" [ref=e36]:
+              - img
+    - generic [ref=e38]:
+      - generic [ref=e39]:
+        - generic [ref=e43]: Your Saved
+        - heading "My Wishlist" [level=1] [ref=e47]
+        - paragraph [ref=e48]: 4 saved items
+        - button "Move all to cart" [ref=e50]:
+          - img [ref=e51]
+          - text: Move all to cart
+      - generic [ref=e55]:
+        - generic [ref=e56]:
+          - link "−15% Temp Spoofer" [ref=e57]:
+            - /url: /products/temp-spoofer
+            - generic [ref=e58]:
+              - generic [ref=e59]:
+                - img [ref=e60]
+                - text: −15%
+              - img "Temp Spoofer"
+          - generic [ref=e63]:
+            - generic [ref=e64]:
+              - link "Temp Spoofer" [ref=e65]:
+                - /url: /products/temp-spoofer
+              - paragraph [ref=e66]: Temporary HWID spoofing solution
+            - generic [ref=e67]:
+              - paragraph [ref=e68]: £20
+              - generic [ref=e69]:
+                - button "Remove from wishlist" [ref=e70]:
+                  - img [ref=e71]
+                - button "Add to Cart" [ref=e74]:
+                  - img [ref=e75]
+                  - text: Add to Cart
+        - generic [ref=e79]:
+          - link "Perm Spoofer" [ref=e80]:
+            - /url: /products/perm-spoofer
+            - generic [ref=e81]:
+              - img "Perm Spoofer"
+          - generic [ref=e82]:
+            - generic [ref=e83]:
+              - link "Perm Spoofer" [ref=e84]:
+                - /url: /products/perm-spoofer
+              - paragraph [ref=e85]: Permanent HWID spoofing solution
+            - generic [ref=e86]:
+              - paragraph [ref=e87]: £35
+              - generic [ref=e88]:
+                - button "Remove from wishlist" [ref=e89]:
+                  - img [ref=e90]
+                - button "Add to Cart" [ref=e93]:
+                  - img [ref=e94]
+                  - text: Add to Cart
+        - generic [ref=e98]:
+          - link "Restocking soon Fortnite External" [ref=e99]:
+            - /url: /products/fortnite-external
+            - generic [ref=e100]:
+              - generic [ref=e101]:
+                - img [ref=e102]
+                - text: Restocking soon
+              - img "Fortnite External"
+          - generic [ref=e107]:
+            - generic [ref=e108]:
+              - link "Fortnite External" [ref=e109]:
+                - /url: /products/fortnite-external
+              - paragraph [ref=e110]: Clean UI. Fast setup. Tournament-ready.
+            - generic [ref=e111]:
+              - paragraph [ref=e112]: £10
+              - generic [ref=e113]:
+                - button "Remove from wishlist" [ref=e114]:
+                  - img [ref=e115]
+                - button "Add to Cart" [ref=e118]:
+                  - img [ref=e119]
+                  - text: Add to Cart
+        - generic [ref=e123]:
+          - link "Custom DMA Firmware" [ref=e124]:
+            - /url: /products/custom-dma-firmware
+            - generic [ref=e125]:
+              - img "Custom DMA Firmware"
+          - generic [ref=e126]:
+            - generic [ref=e127]:
+              - link "Custom DMA Firmware" [ref=e128]:
+                - /url: /products/custom-dma-firmware
+              - paragraph [ref=e129]: Built for precision. Designed to endure.
+            - generic [ref=e130]:
+              - paragraph [ref=e131]: £200
+              - generic [ref=e132]:
+                - button "Remove from wishlist" [ref=e133]:
+                  - img [ref=e134]
+                - button "Add to Cart" [ref=e137]:
+                  - img [ref=e138]
+                  - text: Add to Cart
+    - generic [ref=e146]:
+      - generic [ref=e147]:
+        - generic [ref=e148]:
+          - generic [ref=e149]:
+            - img "Lethal Solutions" [ref=e152]
+            - generic [ref=e153]: Lethal Solutions
+          - paragraph [ref=e154]: Kernel-level gaming tools trusted by 8,700+ players. Undetected since day one.
+          - generic [ref=e155]:
+            - generic [ref=e156]:
+              - img [ref=e157]
+              - generic [ref=e159]: Secure
+            - generic [ref=e160]:
+              - img [ref=e161]
+              - generic [ref=e163]: Instant
+            - generic [ref=e164]:
+              - img [ref=e165]
+              - generic [ref=e168]: 24/7
+          - generic [ref=e169]:
+            - paragraph [ref=e170]: Connect
+            - generic [ref=e171]:
+              - link "Discord" [ref=e172]:
+                - /url: https://discord.gg/lethaldma
+                - img [ref=e173]
+              - link "YouTube" [ref=e176]:
+                - /url: https://www.youtube.com/@ujukcheats-x4b
+                - img [ref=e177]
+              - link "Telegram" [ref=e180]:
+                - /url: https://t.me/lethalsolutions
+                - img [ref=e181]
+        - generic [ref=e184]:
+          - heading "Products" [level=4] [ref=e185]
+          - list [ref=e186]:
+            - listitem [ref=e187]:
+              - link "All Products" [ref=e188]:
+                - /url: /products
+            - listitem [ref=e189]:
+              - link "Compare" [ref=e190]:
+                - /url: /compare
+            - listitem [ref=e191]:
+              - link "Reviews" [ref=e192]:
+                - /url: /reviews
+            - listitem [ref=e193]:
+              - link "Status" [ref=e194]:
+                - /url: /status
+        - generic [ref=e195]:
+          - heading "Resources" [level=4] [ref=e196]
+          - list [ref=e197]:
+            - listitem [ref=e198]:
+              - link "Setup Guide" [ref=e199]:
+                - /url: /setup
+            - listitem [ref=e200]:
+              - link "Media Library" [ref=e201]:
+                - /url: /media
+            - listitem [ref=e202]:
+              - link "FAQ" [ref=e203]:
+                - /url: /faq
+            - listitem [ref=e204]:
+              - link "Guides" [ref=e205]:
+                - /url: /guides
+            - listitem [ref=e206]:
+              - link "Changelog" [ref=e207]:
+                - /url: /changelog
+            - listitem [ref=e208]:
+              - link "Success Stories" [ref=e209]:
+                - /url: /stories
+            - listitem [ref=e210]:
+              - link "Referrals" [ref=e211]:
+                - /url: /referrals
+            - listitem [ref=e212]:
+              - link "Join Our Team" [ref=e213]:
+                - /url: /apply
+        - generic [ref=e214]:
+          - heading "Account" [level=4] [ref=e215]
+          - list [ref=e216]:
+            - listitem [ref=e217]:
+              - link "Track Order" [ref=e218]:
+                - /url: /track
+            - listitem [ref=e219]:
+              - link "Downloads" [ref=e220]:
+                - /url: /downloads
+            - listitem [ref=e221]:
+              - link "My Account" [ref=e222]:
+                - /url: /profile
+            - listitem [ref=e223]:
+              - link "Cart" [ref=e224]:
+                - /url: /cart
+      - heading [level=2] [ref=e226]: LETHAL
+      - generic [ref=e227]:
+        - paragraph [ref=e228]: © 2026 Lethal Solutions. All rights reserved.
+        - generic [ref=e229]:
+          - generic [ref=e234]: All systems operational
+          - link "Terms" [ref=e236]:
+            - /url: /terms
+          - link "Privacy" [ref=e238]:
+            - /url: /privacy
+  - button "Open Next.js Dev Tools" [ref=e244] [cursor=pointer]:
+    - img [ref=e245]
+  - alert [ref=e248]

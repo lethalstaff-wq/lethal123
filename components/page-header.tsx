@@ -1,9 +1,12 @@
-// Shared page header — pill + scan-line + gradient H1 + sub.
+// Shared page header — eyebrow + scan-line + gradient H1 + sub.
 // Use on every content page for visual consistency with Home/Apply hero.
 import type { LucideIcon } from "lucide-react"
+import { SectionEyebrow } from "@/components/section-eyebrow"
 
 interface PageHeaderProps {
+  /** Eyebrow label — accepts "pill" prop name for backward compat */
   pill: string
+  /** Deprecated: retained for backward compat with existing call sites */
   icon?: LucideIcon
   /** Title prefix (white→silver) */
   prefix?: string
@@ -16,18 +19,11 @@ interface PageHeaderProps {
   paddingTop?: string
 }
 
-export function PageHeader({ pill, icon: Icon, prefix, accent, suffix, description, paddingTop = "pt-36" }: PageHeaderProps) {
+export function PageHeader({ pill, prefix, accent, suffix, description, paddingTop = "pt-36" }: PageHeaderProps) {
   return (
     <section className={`relative ${paddingTop} pb-16 px-6 sm:px-10 z-10`}>
       <div className="max-w-5xl mx-auto text-center">
-        <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full border border-white/[0.08] bg-white/[0.03] backdrop-blur-md">
-          {Icon ? (
-            <Icon className="h-3.5 w-3.5 text-[#f97316]" />
-          ) : (
-            <span className="w-1.5 h-1.5 rounded-full bg-[#f97316] animate-pulse" />
-          )}
-          <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/55">{pill}</span>
-        </div>
+        <SectionEyebrow label={pill} />
 
         {/* Scan line divider */}
         <div className="relative h-px w-44 mx-auto mb-7 bg-white/[0.05] overflow-hidden">

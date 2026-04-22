@@ -1,0 +1,41 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - img
+  - region "Notifications alt+T"
+  - button "Back to top":
+    - img
+    - img
+  - main [ref=e4]:
+    - generic [ref=e5]:
+      - link [ref=e6]:
+        - /url: /
+        - img [ref=e7]
+      - link [ref=e9]:
+        - /url: /status
+    - generic [ref=e14]:
+      - link "Lethal Solutions Lethal Solutions" [ref=e16]:
+        - /url: /
+        - img "Lethal Solutions" [ref=e17]
+        - generic [ref=e18]: Lethal Solutions
+      - generic [ref=e19]:
+        - heading "Find your order" [level=2] [ref=e20]
+        - paragraph [ref=e21]: Search by order ID or email address to see live status.
+      - generic [ref=e22]:
+        - button "Order ID" [ref=e23]
+        - button "Email" [ref=e24]
+      - generic [ref=e25]:
+        - generic [ref=e26]:
+          - generic [ref=e27]: Order ID
+          - generic [ref=e28]:
+            - textbox "e.g. LS-ABC123XY" [ref=e29]
+            - img
+        - button "Track Order" [disabled] [ref=e31]:
+          - generic [ref=e32]: Track Order
+          - img [ref=e33]
+      - paragraph [ref=e35]:
+        - text: Order ID was sent to your email after checkout.
+        - link "Need help?" [ref=e36]:
+          - /url: https://discord.gg/lethaldma
+  - button "Open Next.js Dev Tools" [ref=e42] [cursor=pointer]:
+    - img [ref=e43]
+  - alert [ref=e46]

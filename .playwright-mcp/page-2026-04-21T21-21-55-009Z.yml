@@ -1,0 +1,840 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - img
+  - button "Open chat" [ref=e2]:
+    - img [ref=e3]
+  - region "Notifications alt+T"
+  - generic:
+    - generic:
+      - link "Perm Spoofer New Order · 2m ago Perm Spoofer Verified Dismiss notification":
+        - /url: /products/perm-spoofer
+        - generic:
+          - img "Perm Spoofer"
+        - generic:
+          - generic:
+            - generic: New Order
+            - generic: ·
+            - generic: 2m ago
+          - paragraph: Perm Spoofer
+          - generic:
+            - generic: Verified
+        - button "Dismiss notification": ×
+  - button "Back to top":
+    - img
+    - img
+  - main [ref=e7]:
+    - navigation [ref=e8]:
+      - generic [ref=e10]:
+        - link "Lethal Solutions Lethal Solutions" [ref=e11]:
+          - /url: /
+          - generic [ref=e12]:
+            - img "Lethal Solutions" [ref=e15]
+            - generic [ref=e16]: Lethal Solutions
+        - generic [ref=e18]:
+          - link "Home" [ref=e19]:
+            - /url: /
+          - link "Products" [ref=e20]:
+            - /url: /products
+          - link "Guides" [ref=e21]:
+            - /url: /guides
+          - link "Reviews" [ref=e22]:
+            - /url: /reviews
+          - link "Track Order" [ref=e23]:
+            - /url: /track
+          - link "Status" [ref=e24]:
+            - /url: /status
+        - generic [ref=e25]:
+          - button "Open search" [ref=e27]:
+            - img [ref=e28]
+            - generic [ref=e31]: Search…
+            - generic [ref=e32]: ⌘K
+          - link "Customer Login" [ref=e33]:
+            - /url: /login
+            - button "Customer Login" [ref=e34]:
+              - img
+              - text: Customer Login
+          - link "Shopping cart" [ref=e35]:
+            - /url: /cart
+            - button "Shopping cart" [ref=e36]:
+              - img
+    - generic [ref=e39]:
+      - generic [ref=e43]: Changelog
+      - heading "Product Updates" [level=1] [ref=e47]
+      - paragraph [ref=e48]: Track all updates, patches, and improvements across our products
+    - generic [ref=e52]:
+      - link "RSS feed" [ref=e53]:
+        - /url: /feed.xml
+        - img [ref=e54]
+        - text: RSS
+      - generic [ref=e58]:
+        - img [ref=e60]
+        - textbox "Email for changelog updates" [ref=e63]:
+          - /placeholder: you@domain.com
+        - button "Subscribe" [ref=e64]
+    - generic [ref=e68]:
+      - generic [ref=e69]:
+        - generic [ref=e70]:
+          - img [ref=e71]
+          - generic [ref=e73]: Filter
+        - button "All" [ref=e74]
+      - generic [ref=e75]:
+        - generic [ref=e76]: Firmware
+        - generic [ref=e77]:
+          - button "Custom DMA Firmware" [ref=e78]
+          - button "Perm Spoofer" [ref=e79]
+          - button "Temp Spoofer" [ref=e80]
+      - generic [ref=e81]:
+        - generic [ref=e82]: Products
+        - generic [ref=e83]:
+          - button "Blurred DMA Cheat" [ref=e84]
+          - button "Streck DMA Cheat" [ref=e85]
+          - button "Fortnite External" [ref=e86]
+          - button "Website" [ref=e87]
+    - generic [ref=e90]:
+      - complementary [ref=e91]:
+        - generic [ref=e92]:
+          - generic [ref=e93]:
+            - img [ref=e94]
+            - text: Jump to
+          - navigation [ref=e97]:
+            - button "Apr 2026 1" [ref=e98]:
+              - generic [ref=e100]: Apr 2026
+              - generic [ref=e101]: "1"
+            - button "Mar 2026 7" [ref=e102]:
+              - generic [ref=e104]: Mar 2026
+              - generic [ref=e105]: "7"
+            - button "Feb 2026 5" [ref=e106]:
+              - generic [ref=e108]: Feb 2026
+              - generic [ref=e109]: "5"
+            - button "Jan 2026 5" [ref=e110]:
+              - generic [ref=e112]: Jan 2026
+              - generic [ref=e113]: "5"
+            - button "Dec 2025 5" [ref=e114]:
+              - generic [ref=e116]: Dec 2025
+              - generic [ref=e117]: "5"
+            - button "Nov 2025 6" [ref=e118]:
+              - generic [ref=e120]: Nov 2025
+              - generic [ref=e121]: "6"
+            - button "Oct 2025 5" [ref=e122]:
+              - generic [ref=e124]: Oct 2025
+              - generic [ref=e125]: "5"
+            - button "Sept 2025 2" [ref=e126]:
+              - generic [ref=e128]: Sept 2025
+              - generic [ref=e129]: "2"
+            - button "Aug 2025 2" [ref=e130]:
+              - generic [ref=e132]: Aug 2025
+              - generic [ref=e133]: "2"
+            - button "Jul 2025 1" [ref=e134]:
+              - generic [ref=e136]: Jul 2025
+              - generic [ref=e137]: "1"
+            - button "Jun 2025 1" [ref=e138]:
+              - generic [ref=e140]: Jun 2025
+              - generic [ref=e141]: "1"
+            - button "Apr 2025 1" [ref=e142]:
+              - generic [ref=e144]: Apr 2025
+              - generic [ref=e145]: "1"
+          - generic [ref=e146]:
+            - generic [ref=e147]: Legend
+            - generic [ref=e148]:
+              - generic [ref=e151]: Feature
+              - generic [ref=e154]: Fix
+              - generic [ref=e157]: Security
+              - generic [ref=e160]: Update
+              - generic [ref=e163]: Patch
+      - generic [ref=e164]:
+        - generic [ref=e166]:
+          - generic [ref=e167]:
+            - generic [ref=e168]: Latest Release
+            - generic [ref=e172]: 3 weeks ago
+          - button "Update 29 Mar 2026 Blurred DMA Cheat v4.2.5 FPS overhead reduced by 40% — runs smoother on mid-range second PCs" [ref=e173]:
+            - generic [ref=e174]:
+              - generic [ref=e175]:
+                - img [ref=e177]
+                - generic [ref=e179]:
+                  - generic [ref=e180]:
+                    - generic [ref=e181]: Update
+                    - generic [ref=e182]: 29 Mar 2026
+                  - heading "Blurred DMA Cheat" [level=3] [ref=e183]
+                  - generic [ref=e184]:
+                    - generic [ref=e185]: v4.2.5
+                    - generic [ref=e186]: FPS overhead reduced by 40% — runs smoother on mid-range second PCs
+              - img [ref=e188]
+        - generic [ref=e190]:
+          - heading "April 2026 1 update" [level=2] [ref=e191]:
+            - text: April 2026
+            - generic [ref=e193]: 1 update
+          - button "Custom DMA Firmware v4.3.0 Patch 2 Apr 2026 2 weeks ago" [ref=e199]:
+            - generic [ref=e200]:
+              - generic [ref=e201]:
+                - img [ref=e203]
+                - generic [ref=e208]:
+                  - generic [ref=e209]:
+                    - generic [ref=e210]: Custom DMA Firmware
+                    - generic [ref=e211]: v4.3.0
+                  - generic [ref=e212]:
+                    - generic [ref=e213]: Patch
+                    - generic [ref=e214]: 2 Apr 2026
+                    - generic [ref=e215]: 2 weeks ago
+              - img [ref=e217]
+        - generic [ref=e219]:
+          - heading "March 2026 7 updates" [level=2] [ref=e220]:
+            - text: March 2026
+            - generic [ref=e222]: 7 updates
+          - generic [ref=e223]:
+            - generic [ref=e227]:
+              - button "Blurred DMA Cheat v4.2.1 Patch 28 Mar 2026" [expanded] [ref=e228]:
+                - generic [ref=e229]:
+                  - generic [ref=e230]:
+                    - img [ref=e232]
+                    - generic [ref=e237]:
+                      - generic [ref=e238]:
+                        - generic [ref=e239]: Blurred DMA Cheat
+                        - generic [ref=e240]: v4.2.1
+                      - generic [ref=e241]:
+                        - generic [ref=e242]: Patch
+                        - generic [ref=e243]: 28 Mar 2026
+                  - img [ref=e245]
+              - list [ref=e248]:
+                - listitem [ref=e249]: Updated for Fortnite v34.10 patch
+                - listitem [ref=e251]: Fixed aimbot prediction for new movement system
+                - listitem [ref=e253]: Optimized ESP rendering performance by 15%
+                - listitem [ref=e255]: Added new bone priority settings for Chapter 6
+            - button "Fortnite External v2.9.0 Patch 25 Mar 2026 3 weeks ago" [ref=e261]:
+              - generic [ref=e262]:
+                - generic [ref=e263]:
+                  - img [ref=e265]
+                  - generic [ref=e270]:
+                    - generic [ref=e271]:
+                      - generic [ref=e272]: Fortnite External
+                      - generic [ref=e273]: v2.9.0
+                    - generic [ref=e274]:
+                      - generic [ref=e275]: Patch
+                      - generic [ref=e276]: 25 Mar 2026
+                      - generic [ref=e277]: 3 weeks ago
+                - img [ref=e279]
+            - button "Website v1.0.0 Feature 25 Mar 2026 3 weeks ago" [ref=e285]:
+              - generic [ref=e286]:
+                - generic [ref=e287]:
+                  - img [ref=e289]
+                  - generic [ref=e291]:
+                    - generic [ref=e292]:
+                      - generic [ref=e293]: Website
+                      - generic [ref=e294]: v1.0.0
+                    - generic [ref=e295]:
+                      - generic [ref=e296]: Feature
+                      - generic [ref=e297]: 25 Mar 2026
+                      - generic [ref=e298]: 3 weeks ago
+                - img [ref=e300]
+            - button "Perm Spoofer v3.5.2 Update 20 Mar 2026 4 weeks ago" [ref=e306]:
+              - generic [ref=e307]:
+                - generic [ref=e308]:
+                  - img [ref=e310]
+                  - generic [ref=e312]:
+                    - generic [ref=e313]:
+                      - generic [ref=e314]: Perm Spoofer
+                      - generic [ref=e315]: v3.5.2
+                    - generic [ref=e316]:
+                      - generic [ref=e317]: Update
+                      - generic [ref=e318]: 20 Mar 2026
+                      - generic [ref=e319]: 4 weeks ago
+                - img [ref=e321]
+            - button "Blurred DMA Cheat v4.2.0 Patch 15 Mar 2026 1 month ago" [ref=e327]:
+              - generic [ref=e328]:
+                - generic [ref=e329]:
+                  - img [ref=e331]
+                  - generic [ref=e336]:
+                    - generic [ref=e337]:
+                      - generic [ref=e338]: Blurred DMA Cheat
+                      - generic [ref=e339]: v4.2.0
+                    - generic [ref=e340]:
+                      - generic [ref=e341]: Patch
+                      - generic [ref=e342]: 15 Mar 2026
+                      - generic [ref=e343]: 1 month ago
+                - img [ref=e345]
+            - button "Custom DMA Firmware v5.1.0 Update 10 Mar 2026 1 month ago" [ref=e351]:
+              - generic [ref=e352]:
+                - generic [ref=e353]:
+                  - img [ref=e355]
+                  - generic [ref=e357]:
+                    - generic [ref=e358]:
+                      - generic [ref=e359]: Custom DMA Firmware
+                      - generic [ref=e360]: v5.1.0
+                    - generic [ref=e361]:
+                      - generic [ref=e362]: Update
+                      - generic [ref=e363]: 10 Mar 2026
+                      - generic [ref=e364]: 1 month ago
+                - img [ref=e366]
+        - generic [ref=e368]:
+          - heading "February 2026 5 updates" [level=2] [ref=e369]:
+            - text: February 2026
+            - generic [ref=e371]: 5 updates
+          - generic [ref=e372]:
+            - button "Streck DMA Cheat v1.8.5 Patch 28 Feb 2026 1 month ago" [ref=e377]:
+              - generic [ref=e378]:
+                - generic [ref=e379]:
+                  - img [ref=e381]
+                  - generic [ref=e386]:
+                    - generic [ref=e387]:
+                      - generic [ref=e388]: Streck DMA Cheat
+                      - generic [ref=e389]: v1.8.5
+                    - generic [ref=e390]:
+                      - generic [ref=e391]: Patch
+                      - generic [ref=e392]: 28 Feb 2026
+                      - generic [ref=e393]: 1 month ago
+                - img [ref=e395]
+            - button "Fortnite External v2.8.5 Patch 22 Feb 2026 1 month ago" [ref=e401]:
+              - generic [ref=e402]:
+                - generic [ref=e403]:
+                  - img [ref=e405]
+                  - generic [ref=e410]:
+                    - generic [ref=e411]:
+                      - generic [ref=e412]: Fortnite External
+                      - generic [ref=e413]: v2.8.5
+                    - generic [ref=e414]:
+                      - generic [ref=e415]: Patch
+                      - generic [ref=e416]: 22 Feb 2026
+                      - generic [ref=e417]: 1 month ago
+                - img [ref=e419]
+            - button "Blurred DMA Cheat v4.1.5 Patch 15 Feb 2026 2 months ago" [ref=e425]:
+              - generic [ref=e426]:
+                - generic [ref=e427]:
+                  - img [ref=e429]
+                  - generic [ref=e434]:
+                    - generic [ref=e435]:
+                      - generic [ref=e436]: Blurred DMA Cheat
+                      - generic [ref=e437]: v4.1.5
+                    - generic [ref=e438]:
+                      - generic [ref=e439]: Patch
+                      - generic [ref=e440]: 15 Feb 2026
+                      - generic [ref=e441]: 2 months ago
+                - img [ref=e443]
+            - button "Perm Spoofer v3.5.0 Security 10 Feb 2026 2 months ago" [ref=e449]:
+              - generic [ref=e450]:
+                - generic [ref=e451]:
+                  - img [ref=e453]
+                  - generic [ref=e455]:
+                    - generic [ref=e456]:
+                      - generic [ref=e457]: Perm Spoofer
+                      - generic [ref=e458]: v3.5.0
+                    - generic [ref=e459]:
+                      - generic [ref=e460]: Security
+                      - generic [ref=e461]: 10 Feb 2026
+                      - generic [ref=e462]: 2 months ago
+                - img [ref=e464]
+            - button "Custom DMA Firmware v5.0.5 Security 5 Feb 2026 2 months ago" [ref=e470]:
+              - generic [ref=e471]:
+                - generic [ref=e472]:
+                  - img [ref=e474]
+                  - generic [ref=e476]:
+                    - generic [ref=e477]:
+                      - generic [ref=e478]: Custom DMA Firmware
+                      - generic [ref=e479]: v5.0.5
+                    - generic [ref=e480]:
+                      - generic [ref=e481]: Security
+                      - generic [ref=e482]: 5 Feb 2026
+                      - generic [ref=e483]: 2 months ago
+                - img [ref=e485]
+        - generic [ref=e487]:
+          - heading "January 2026 5 updates" [level=2] [ref=e488]:
+            - text: January 2026
+            - generic [ref=e490]: 5 updates
+          - generic [ref=e491]:
+            - button "Blurred DMA Cheat v4.1.0 Patch 28 Jan 2026 2 months ago" [ref=e496]:
+              - generic [ref=e497]:
+                - generic [ref=e498]:
+                  - img [ref=e500]
+                  - generic [ref=e505]:
+                    - generic [ref=e506]:
+                      - generic [ref=e507]: Blurred DMA Cheat
+                      - generic [ref=e508]: v4.1.0
+                    - generic [ref=e509]:
+                      - generic [ref=e510]: Patch
+                      - generic [ref=e511]: 28 Jan 2026
+                      - generic [ref=e512]: 2 months ago
+                - img [ref=e514]
+            - button "Streck DMA Cheat v1.8.0 Patch 22 Jan 2026 2 months ago" [ref=e520]:
+              - generic [ref=e521]:
+                - generic [ref=e522]:
+                  - img [ref=e524]
+                  - generic [ref=e529]:
+                    - generic [ref=e530]:
+                      - generic [ref=e531]: Streck DMA Cheat
+                      - generic [ref=e532]: v1.8.0
+                    - generic [ref=e533]:
+                      - generic [ref=e534]: Patch
+                      - generic [ref=e535]: 22 Jan 2026
+                      - generic [ref=e536]: 2 months ago
+                - img [ref=e538]
+            - button "Fortnite External v2.8.0 Patch 15 Jan 2026 3 months ago" [ref=e544]:
+              - generic [ref=e545]:
+                - generic [ref=e546]:
+                  - img [ref=e548]
+                  - generic [ref=e553]:
+                    - generic [ref=e554]:
+                      - generic [ref=e555]: Fortnite External
+                      - generic [ref=e556]: v2.8.0
+                    - generic [ref=e557]:
+                      - generic [ref=e558]: Patch
+                      - generic [ref=e559]: 15 Jan 2026
+                      - generic [ref=e560]: 3 months ago
+                - img [ref=e562]
+            - button "Temp Spoofer v3.4.5 Update 10 Jan 2026 3 months ago" [ref=e568]:
+              - generic [ref=e569]:
+                - generic [ref=e570]:
+                  - img [ref=e572]
+                  - generic [ref=e574]:
+                    - generic [ref=e575]:
+                      - generic [ref=e576]: Temp Spoofer
+                      - generic [ref=e577]: v3.4.5
+                    - generic [ref=e578]:
+                      - generic [ref=e579]: Update
+                      - generic [ref=e580]: 10 Jan 2026
+                      - generic [ref=e581]: 3 months ago
+                - img [ref=e583]
+            - button "Custom DMA Firmware v5.0.0 Feature 5 Jan 2026 3 months ago" [ref=e589]:
+              - generic [ref=e590]:
+                - generic [ref=e591]:
+                  - img [ref=e593]
+                  - generic [ref=e595]:
+                    - generic [ref=e596]:
+                      - generic [ref=e597]: Custom DMA Firmware
+                      - generic [ref=e598]: v5.0.0
+                    - generic [ref=e599]:
+                      - generic [ref=e600]: Feature
+                      - generic [ref=e601]: 5 Jan 2026
+                      - generic [ref=e602]: 3 months ago
+                - img [ref=e604]
+        - generic [ref=e606]:
+          - heading "December 2025 5 updates" [level=2] [ref=e607]:
+            - text: December 2025
+            - generic [ref=e609]: 5 updates
+          - generic [ref=e610]:
+            - button "Blurred DMA Cheat v4.0.5 Patch 28 Dec 2025 3 months ago" [ref=e615]:
+              - generic [ref=e616]:
+                - generic [ref=e617]:
+                  - img [ref=e619]
+                  - generic [ref=e624]:
+                    - generic [ref=e625]:
+                      - generic [ref=e626]: Blurred DMA Cheat
+                      - generic [ref=e627]: v4.0.5
+                    - generic [ref=e628]:
+                      - generic [ref=e629]: Patch
+                      - generic [ref=e630]: 28 Dec 2025
+                      - generic [ref=e631]: 3 months ago
+                - img [ref=e633]
+            - button "Fortnite External v2.7.5 Patch 22 Dec 2025 4 months ago" [ref=e639]:
+              - generic [ref=e640]:
+                - generic [ref=e641]:
+                  - img [ref=e643]
+                  - generic [ref=e648]:
+                    - generic [ref=e649]:
+                      - generic [ref=e650]: Fortnite External
+                      - generic [ref=e651]: v2.7.5
+                    - generic [ref=e652]:
+                      - generic [ref=e653]: Patch
+                      - generic [ref=e654]: 22 Dec 2025
+                      - generic [ref=e655]: 4 months ago
+                - img [ref=e657]
+            - button "Perm Spoofer v3.4.0 Security 15 Dec 2025 4 months ago" [ref=e663]:
+              - generic [ref=e664]:
+                - generic [ref=e665]:
+                  - img [ref=e667]
+                  - generic [ref=e669]:
+                    - generic [ref=e670]:
+                      - generic [ref=e671]: Perm Spoofer
+                      - generic [ref=e672]: v3.4.0
+                    - generic [ref=e673]:
+                      - generic [ref=e674]: Security
+                      - generic [ref=e675]: 15 Dec 2025
+                      - generic [ref=e676]: 4 months ago
+                - img [ref=e678]
+            - button "Streck DMA Cheat v1.7.5 Patch 10 Dec 2025 4 months ago" [ref=e684]:
+              - generic [ref=e685]:
+                - generic [ref=e686]:
+                  - img [ref=e688]
+                  - generic [ref=e693]:
+                    - generic [ref=e694]:
+                      - generic [ref=e695]: Streck DMA Cheat
+                      - generic [ref=e696]: v1.7.5
+                    - generic [ref=e697]:
+                      - generic [ref=e698]: Patch
+                      - generic [ref=e699]: 10 Dec 2025
+                      - generic [ref=e700]: 4 months ago
+                - img [ref=e702]
+            - button "Custom DMA Firmware v4.8.5 Update 5 Dec 2025 4 months ago" [ref=e708]:
+              - generic [ref=e709]:
+                - generic [ref=e710]:
+                  - img [ref=e712]
+                  - generic [ref=e714]:
+                    - generic [ref=e715]:
+                      - generic [ref=e716]: Custom DMA Firmware
+                      - generic [ref=e717]: v4.8.5
+                    - generic [ref=e718]:
+                      - generic [ref=e719]: Update
+                      - generic [ref=e720]: 5 Dec 2025
+                      - generic [ref=e721]: 4 months ago
+                - img [ref=e723]
+        - generic [ref=e725]:
+          - heading "November 2025 6 updates" [level=2] [ref=e726]:
+            - text: November 2025
+            - generic [ref=e728]: 6 updates
+          - generic [ref=e729]:
+            - button "Blurred DMA Cheat v4.0.0 Feature 25 Nov 2025 4 months ago" [ref=e734]:
+              - generic [ref=e735]:
+                - generic [ref=e736]:
+                  - img [ref=e738]
+                  - generic [ref=e740]:
+                    - generic [ref=e741]:
+                      - generic [ref=e742]: Blurred DMA Cheat
+                      - generic [ref=e743]: v4.0.0
+                    - generic [ref=e744]:
+                      - generic [ref=e745]: Feature
+                      - generic [ref=e746]: 25 Nov 2025
+                      - generic [ref=e747]: 4 months ago
+                - img [ref=e749]
+            - button "Fortnite External v2.7.0 Feature 20 Nov 2025 5 months ago" [ref=e755]:
+              - generic [ref=e756]:
+                - generic [ref=e757]:
+                  - img [ref=e759]
+                  - generic [ref=e761]:
+                    - generic [ref=e762]:
+                      - generic [ref=e763]: Fortnite External
+                      - generic [ref=e764]: v2.7.0
+                    - generic [ref=e765]:
+                      - generic [ref=e766]: Feature
+                      - generic [ref=e767]: 20 Nov 2025
+                      - generic [ref=e768]: 5 months ago
+                - img [ref=e770]
+            - button "Temp Spoofer v3.3.5 Update 15 Nov 2025 5 months ago" [ref=e776]:
+              - generic [ref=e777]:
+                - generic [ref=e778]:
+                  - img [ref=e780]
+                  - generic [ref=e782]:
+                    - generic [ref=e783]:
+                      - generic [ref=e784]: Temp Spoofer
+                      - generic [ref=e785]: v3.3.5
+                    - generic [ref=e786]:
+                      - generic [ref=e787]: Update
+                      - generic [ref=e788]: 15 Nov 2025
+                      - generic [ref=e789]: 5 months ago
+                - img [ref=e791]
+            - button "Streck DMA Cheat v1.7.0 Feature 10 Nov 2025 5 months ago" [ref=e797]:
+              - generic [ref=e798]:
+                - generic [ref=e799]:
+                  - img [ref=e801]
+                  - generic [ref=e803]:
+                    - generic [ref=e804]:
+                      - generic [ref=e805]: Streck DMA Cheat
+                      - generic [ref=e806]: v1.7.0
+                    - generic [ref=e807]:
+                      - generic [ref=e808]: Feature
+                      - generic [ref=e809]: 10 Nov 2025
+                      - generic [ref=e810]: 5 months ago
+                - img [ref=e812]
+            - button "Custom DMA Firmware v4.8.0 Security 5 Nov 2025 5 months ago" [ref=e818]:
+              - generic [ref=e819]:
+                - generic [ref=e820]:
+                  - img [ref=e822]
+                  - generic [ref=e824]:
+                    - generic [ref=e825]:
+                      - generic [ref=e826]: Custom DMA Firmware
+                      - generic [ref=e827]: v4.8.0
+                    - generic [ref=e828]:
+                      - generic [ref=e829]: Security
+                      - generic [ref=e830]: 5 Nov 2025
+                      - generic [ref=e831]: 5 months ago
+                - img [ref=e833]
+            - button "Website v0.5.0 Update 1 Nov 2025 5 months ago" [ref=e839]:
+              - generic [ref=e840]:
+                - generic [ref=e841]:
+                  - img [ref=e843]
+                  - generic [ref=e845]:
+                    - generic [ref=e846]:
+                      - generic [ref=e847]: Website
+                      - generic [ref=e848]: v0.5.0
+                    - generic [ref=e849]:
+                      - generic [ref=e850]: Update
+                      - generic [ref=e851]: 1 Nov 2025
+                      - generic [ref=e852]: 5 months ago
+                - img [ref=e854]
+        - generic [ref=e856]:
+          - heading "October 2025 5 updates" [level=2] [ref=e857]:
+            - text: October 2025
+            - generic [ref=e859]: 5 updates
+          - generic [ref=e860]:
+            - button "Blurred DMA Cheat v3.9.5 Patch 28 Oct 2025 5 months ago" [ref=e865]:
+              - generic [ref=e866]:
+                - generic [ref=e867]:
+                  - img [ref=e869]
+                  - generic [ref=e874]:
+                    - generic [ref=e875]:
+                      - generic [ref=e876]: Blurred DMA Cheat
+                      - generic [ref=e877]: v3.9.5
+                    - generic [ref=e878]:
+                      - generic [ref=e879]: Patch
+                      - generic [ref=e880]: 28 Oct 2025
+                      - generic [ref=e881]: 5 months ago
+                - img [ref=e883]
+            - button "Fortnite External v2.6.5 Patch 22 Oct 2025 6 months ago" [ref=e889]:
+              - generic [ref=e890]:
+                - generic [ref=e891]:
+                  - img [ref=e893]
+                  - generic [ref=e898]:
+                    - generic [ref=e899]:
+                      - generic [ref=e900]: Fortnite External
+                      - generic [ref=e901]: v2.6.5
+                    - generic [ref=e902]:
+                      - generic [ref=e903]: Patch
+                      - generic [ref=e904]: 22 Oct 2025
+                      - generic [ref=e905]: 6 months ago
+                - img [ref=e907]
+            - button "Perm Spoofer v3.3.0 Feature 15 Oct 2025 6 months ago" [ref=e913]:
+              - generic [ref=e914]:
+                - generic [ref=e915]:
+                  - img [ref=e917]
+                  - generic [ref=e919]:
+                    - generic [ref=e920]:
+                      - generic [ref=e921]: Perm Spoofer
+                      - generic [ref=e922]: v3.3.0
+                    - generic [ref=e923]:
+                      - generic [ref=e924]: Feature
+                      - generic [ref=e925]: 15 Oct 2025
+                      - generic [ref=e926]: 6 months ago
+                - img [ref=e928]
+            - button "Streck DMA Cheat v1.6.5 Patch 10 Oct 2025 6 months ago" [ref=e934]:
+              - generic [ref=e935]:
+                - generic [ref=e936]:
+                  - img [ref=e938]
+                  - generic [ref=e943]:
+                    - generic [ref=e944]:
+                      - generic [ref=e945]: Streck DMA Cheat
+                      - generic [ref=e946]: v1.6.5
+                    - generic [ref=e947]:
+                      - generic [ref=e948]: Patch
+                      - generic [ref=e949]: 10 Oct 2025
+                      - generic [ref=e950]: 6 months ago
+                - img [ref=e952]
+            - button "Custom DMA Firmware v4.7.5 Update 5 Oct 2025 6 months ago" [ref=e958]:
+              - generic [ref=e959]:
+                - generic [ref=e960]:
+                  - img [ref=e962]
+                  - generic [ref=e964]:
+                    - generic [ref=e965]:
+                      - generic [ref=e966]: Custom DMA Firmware
+                      - generic [ref=e967]: v4.7.5
+                    - generic [ref=e968]:
+                      - generic [ref=e969]: Update
+                      - generic [ref=e970]: 5 Oct 2025
+                      - generic [ref=e971]: 6 months ago
+                - img [ref=e973]
+        - generic [ref=e975]:
+          - heading "September 2025 2 updates" [level=2] [ref=e976]:
+            - text: September 2025
+            - generic [ref=e978]: 2 updates
+          - generic [ref=e979]:
+            - button "Custom DMA Firmware v3.2.0 Security 20 Sept 2025 7 months ago" [ref=e984]:
+              - generic [ref=e985]:
+                - generic [ref=e986]:
+                  - img [ref=e988]
+                  - generic [ref=e990]:
+                    - generic [ref=e991]:
+                      - generic [ref=e992]: Custom DMA Firmware
+                      - generic [ref=e993]: v3.2.0
+                    - generic [ref=e994]:
+                      - generic [ref=e995]: Security
+                      - generic [ref=e996]: 20 Sept 2025
+                      - generic [ref=e997]: 7 months ago
+                - img [ref=e999]
+            - button "Blurred DMA Cheat v3.8.0 Patch 10 Sept 2025 7 months ago" [ref=e1005]:
+              - generic [ref=e1006]:
+                - generic [ref=e1007]:
+                  - img [ref=e1009]
+                  - generic [ref=e1014]:
+                    - generic [ref=e1015]:
+                      - generic [ref=e1016]: Blurred DMA Cheat
+                      - generic [ref=e1017]: v3.8.0
+                    - generic [ref=e1018]:
+                      - generic [ref=e1019]: Patch
+                      - generic [ref=e1020]: 10 Sept 2025
+                      - generic [ref=e1021]: 7 months ago
+                - img [ref=e1023]
+        - generic [ref=e1025]:
+          - heading "August 2025 2 updates" [level=2] [ref=e1026]:
+            - text: August 2025
+            - generic [ref=e1028]: 2 updates
+          - generic [ref=e1029]:
+            - button "Streck DMA Cheat v1.0.0 Feature 12 Aug 2025 8 months ago" [ref=e1034]:
+              - generic [ref=e1035]:
+                - generic [ref=e1036]:
+                  - img [ref=e1038]
+                  - generic [ref=e1040]:
+                    - generic [ref=e1041]:
+                      - generic [ref=e1042]: Streck DMA Cheat
+                      - generic [ref=e1043]: v1.0.0
+                    - generic [ref=e1044]:
+                      - generic [ref=e1045]: Feature
+                      - generic [ref=e1046]: 12 Aug 2025
+                      - generic [ref=e1047]: 8 months ago
+                - img [ref=e1049]
+            - button "Perm Spoofer v3.0.0 Feature 1 Aug 2025 8 months ago" [ref=e1055]:
+              - generic [ref=e1056]:
+                - generic [ref=e1057]:
+                  - img [ref=e1059]
+                  - generic [ref=e1061]:
+                    - generic [ref=e1062]:
+                      - generic [ref=e1063]: Perm Spoofer
+                      - generic [ref=e1064]: v3.0.0
+                    - generic [ref=e1065]:
+                      - generic [ref=e1066]: Feature
+                      - generic [ref=e1067]: 1 Aug 2025
+                      - generic [ref=e1068]: 8 months ago
+                - img [ref=e1070]
+        - generic [ref=e1072]:
+          - heading "July 2025 1 update" [level=2] [ref=e1073]:
+            - text: July 2025
+            - generic [ref=e1075]: 1 update
+          - button "Website v0.1.0 Feature 5 Jul 2025 9 months ago" [ref=e1081]:
+            - generic [ref=e1082]:
+              - generic [ref=e1083]:
+                - img [ref=e1085]
+                - generic [ref=e1087]:
+                  - generic [ref=e1088]:
+                    - generic [ref=e1089]: Website
+                    - generic [ref=e1090]: v0.1.0
+                  - generic [ref=e1091]:
+                    - generic [ref=e1092]: Feature
+                    - generic [ref=e1093]: 5 Jul 2025
+                    - generic [ref=e1094]: 9 months ago
+              - img [ref=e1096]
+        - generic [ref=e1098]:
+          - heading "June 2025 1 update" [level=2] [ref=e1099]:
+            - text: June 2025
+            - generic [ref=e1101]: 1 update
+          - button "Blurred DMA Cheat v3.0.0 Feature 1 Jun 2025 10 months ago" [ref=e1107]:
+            - generic [ref=e1108]:
+              - generic [ref=e1109]:
+                - img [ref=e1111]
+                - generic [ref=e1113]:
+                  - generic [ref=e1114]:
+                    - generic [ref=e1115]: Blurred DMA Cheat
+                    - generic [ref=e1116]: v3.0.0
+                  - generic [ref=e1117]:
+                    - generic [ref=e1118]: Feature
+                    - generic [ref=e1119]: 1 Jun 2025
+                    - generic [ref=e1120]: 10 months ago
+              - img [ref=e1122]
+        - generic [ref=e1124]:
+          - heading "April 2025 1 update" [level=2] [ref=e1125]:
+            - text: April 2025
+            - generic [ref=e1127]: 1 update
+          - button "Website v0.0.1 Feature 15 Apr 2025 1 year ago" [ref=e1133]:
+            - generic [ref=e1134]:
+              - generic [ref=e1135]:
+                - img [ref=e1137]
+                - generic [ref=e1139]:
+                  - generic [ref=e1140]:
+                    - generic [ref=e1141]: Website
+                    - generic [ref=e1142]: v0.0.1
+                  - generic [ref=e1143]:
+                    - generic [ref=e1144]: Feature
+                    - generic [ref=e1145]: 15 Apr 2025
+                    - generic [ref=e1146]: 1 year ago
+              - img [ref=e1148]
+    - generic [ref=e1154]:
+      - generic [ref=e1155]:
+        - generic [ref=e1156]:
+          - generic [ref=e1157]:
+            - img "Lethal Solutions" [ref=e1160]
+            - generic [ref=e1161]: Lethal Solutions
+          - paragraph [ref=e1162]: Kernel-level gaming tools trusted by 8,700+ players. Undetected since day one.
+          - generic [ref=e1163]:
+            - generic [ref=e1164]:
+              - img [ref=e1165]
+              - generic [ref=e1167]: Secure
+            - generic [ref=e1168]:
+              - img [ref=e1169]
+              - generic [ref=e1171]: Instant
+            - generic [ref=e1172]:
+              - img [ref=e1173]
+              - generic [ref=e1176]: 24/7
+          - generic [ref=e1177]:
+            - paragraph [ref=e1178]: Connect
+            - generic [ref=e1179]:
+              - link "Discord" [ref=e1180]:
+                - /url: https://discord.gg/lethaldma
+                - img [ref=e1181]
+              - link "YouTube" [ref=e1184]:
+                - /url: https://www.youtube.com/@ujukcheats-x4b
+                - img [ref=e1185]
+              - link "Telegram" [ref=e1188]:
+                - /url: https://t.me/lethalsolutions
+                - img [ref=e1189]
+        - generic [ref=e1192]:
+          - heading "Products" [level=4] [ref=e1193]
+          - list [ref=e1194]:
+            - listitem [ref=e1195]:
+              - link "All Products" [ref=e1196]:
+                - /url: /products
+            - listitem [ref=e1197]:
+              - link "Compare" [ref=e1198]:
+                - /url: /compare
+            - listitem [ref=e1199]:
+              - link "Reviews" [ref=e1200]:
+                - /url: /reviews
+            - listitem [ref=e1201]:
+              - link "Status" [ref=e1202]:
+                - /url: /status
+        - generic [ref=e1203]:
+          - heading "Resources" [level=4] [ref=e1204]
+          - list [ref=e1205]:
+            - listitem [ref=e1206]:
+              - link "Setup Guide" [ref=e1207]:
+                - /url: /setup
+            - listitem [ref=e1208]:
+              - link "Media Library" [ref=e1209]:
+                - /url: /media
+            - listitem [ref=e1210]:
+              - link "FAQ" [ref=e1211]:
+                - /url: /faq
+            - listitem [ref=e1212]:
+              - link "Guides" [ref=e1213]:
+                - /url: /guides
+            - listitem [ref=e1214]:
+              - link "Changelog" [ref=e1215]:
+                - /url: /changelog
+            - listitem [ref=e1216]:
+              - link "Success Stories" [ref=e1217]:
+                - /url: /stories
+            - listitem [ref=e1218]:
+              - link "Referrals" [ref=e1219]:
+                - /url: /referrals
+            - listitem [ref=e1220]:
+              - link "Join Our Team" [ref=e1221]:
+                - /url: /apply
+        - generic [ref=e1222]:
+          - heading "Account" [level=4] [ref=e1223]
+          - list [ref=e1224]:
+            - listitem [ref=e1225]:
+              - link "Track Order" [ref=e1226]:
+                - /url: /track
+            - listitem [ref=e1227]:
+              - link "Downloads" [ref=e1228]:
+                - /url: /downloads
+            - listitem [ref=e1229]:
+              - link "My Account" [ref=e1230]:
+                - /url: /profile
+            - listitem [ref=e1231]:
+              - link "Cart" [ref=e1232]:
+                - /url: /cart
+      - heading [level=2] [ref=e1234]: LETHAL
+      - generic [ref=e1235]:
+        - paragraph [ref=e1236]: © 2026 Lethal Solutions. All rights reserved.
+        - generic [ref=e1237]:
+          - generic [ref=e1242]: All systems operational
+          - link "Terms" [ref=e1244]:
+            - /url: /terms
+          - link "Privacy" [ref=e1246]:
+            - /url: /privacy
+  - button "Open Next.js Dev Tools" [ref=e1252] [cursor=pointer]:
+    - img [ref=e1253]
+  - alert [ref=e1256]

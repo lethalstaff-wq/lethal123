@@ -1,18 +1,19 @@
 import Link from "next/link"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { ArrowRight, Home, ShoppingBag, Compass } from "lucide-react"
+import { ArrowRight, Home, ShoppingBag } from "lucide-react"
+import { DiscordIcon } from "@/components/icons"
+import { SectionEyebrow } from "@/components/section-eyebrow"
+import { NotFoundOrbs } from "@/components/not-found-orbs"
 
 export default function NotFound() {
   return (
     <main className="min-h-screen bg-transparent">
       <Navbar />
       <section className="flex items-center justify-center min-h-[80vh] px-4 pt-28 pb-20 relative overflow-hidden">
+        <NotFoundOrbs />
         <div className="text-center max-w-lg relative z-10">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/[0.08] bg-white/[0.025] mb-6">
-            <Compass className="h-3.5 w-3.5 text-[#f97316]" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/55">Lost in transit</span>
-          </div>
+          <SectionEyebrow label="Lost in transit" />
 
           <div className="relative mb-8 select-none">
             <p
@@ -71,6 +72,21 @@ export default function NotFound() {
               <ShoppingBag className="h-4 w-4" />
               Browse products
               <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
+            </Link>
+          </div>
+
+          {/* Discord helper row */}
+          <div className="mt-8 pt-6 border-t border-white/[0.06] max-w-xs mx-auto">
+            <p className="text-[12px] text-white/40 mb-3">Still lost? Ask in Discord.</p>
+            <Link
+              href="https://discord.gg/lethaldma"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-cursor="cta"
+              className="cursor-cta inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#5865F2]/[0.10] border border-[#5865F2]/25 text-[#a5b4fc] hover:bg-[#5865F2]/[0.18] hover:text-white hover:border-[#5865F2]/50 transition-all text-[12px] font-semibold"
+            >
+              <DiscordIcon className="h-4 w-4" />
+              Open ticket
             </Link>
           </div>
         </div>

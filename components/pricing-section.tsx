@@ -6,6 +6,7 @@ import { useCart } from "@/lib/cart-context"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { useState, useEffect, useRef } from "react"
+import { SectionEyebrow } from "@/components/section-eyebrow"
 
 function AnimPrice({ value }: { value: number }) {
   const [count, setCount] = useState(value)
@@ -81,7 +82,7 @@ function BundleCard({ b, onAdd }: { b: typeof bundles[number]; onAdd: (b: typeof
           ? "elite-card bg-white/[0.025] border border-white/[0.08] md:scale-[1.04] shadow-[0_0_60px_rgba(249,115,22,0.14)] hover:shadow-[0_0_120px_rgba(249,115,22,0.32)]"
           : b.highlighted
           ? "bg-white/[0.02] border-2 border-[#f97316]/25 shadow-[0_0_60px_rgba(249,115,22,0.08)] md:scale-[1.02] hover:shadow-[0_0_100px_rgba(249,115,22,0.18)]"
-          : "bg-white/[0.012] border border-white/[0.04] hover:border-white/[0.08] hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)]"
+          : "bg-white/[0.012] border border-white/[0.04] hover:border-white/[0.08] hover:shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
       }`}
       style={{
         transition: "background-color 0.3s, border-color 0.3s, box-shadow 0.3s, transform 0.3s cubic-bezier(0.22,1,0.36,1)",
@@ -98,20 +99,23 @@ function BundleCard({ b, onAdd }: { b: typeof bundles[number]; onAdd: (b: typeof
       {/* Top accent */}
       {b.highlighted && <div className="h-[2px] bg-gradient-to-r from-transparent via-[#f97316]/60 to-transparent relative z-[3]" />}
 
-      {/* Popular badge — floats above card, inside top-right corner */}
+      {/* Popular badge — centered floating tab at top */}
       {b.highlighted && (
-        <div className="absolute top-4 right-4 z-[5]">
-          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#f97316]/15 border border-[#f97316]/30 backdrop-blur-sm shadow-[0_4px_14px_rgba(249,115,22,0.3)]">
-            <Crown className="h-3 w-3 text-[#f97316]" />
-            <span className="text-[9px] font-bold uppercase tracking-wider text-[#f97316]">Popular</span>
+        <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-[6]">
+          <div className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-[#f97316] to-[#ea580c] shadow-[0_8px_24px_rgba(249,115,22,0.45)] border border-[#fbbf24]/40">
+            <Crown className="h-3 w-3 text-white" />
+            <span className="text-[10px] font-black uppercase tracking-[0.14em] text-white">Popular</span>
           </div>
         </div>
       )}
 
-      {/* Premium slash-cut badge — top-right ribbon, rounded to card top */}
+      {/* Premium badge — centered floating tab at top (gold) */}
       {b.premium && (
-        <div className="absolute top-0 right-0 z-[5] px-5 py-1.5 text-[10px] font-black uppercase tracking-[0.15em] text-black rounded-tr-2xl" style={{ background: "linear-gradient(135deg, #fbbf24, #f97316)", clipPath: "polygon(14% 0, 100% 0, 100% 100%, 0 100%)", boxShadow: "0 6px 16px rgba(249, 115, 22, 0.51)" }}>
-          Premium
+        <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-[6]">
+          <div className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full shadow-[0_8px_24px_rgba(251,191,36,0.45)] border border-[#fbbf24]/50" style={{ background: "linear-gradient(135deg, #fbbf24, #f97316)" }}>
+            <Crown className="h-3 w-3 text-black" />
+            <span className="text-[10px] font-black uppercase tracking-[0.14em] text-black">Premium</span>
+          </div>
         </div>
       )}
 
@@ -138,40 +142,52 @@ function BundleCard({ b, onAdd }: { b: typeof bundles[number]; onAdd: (b: typeof
         {/* Divider */}
         <div className="h-px bg-white/[0.04] mb-7" />
 
-        {/* Features with stagger */}
-        <div className="space-y-4 mb-8 flex-1">
+        {/* Features with stagger — row highlight on hover */}
+        <div className="space-y-2.5 mb-8 flex-1">
           {b.features.map((f, j) => (
             <div
               key={j}
-              className="flex items-start gap-3"
+              className={`group/row flex items-start gap-3 px-3 -mx-3 py-2 rounded-lg transition-colors duration-300 ${
+                b.highlighted || b.premium ? "hover:bg-[#f97316]/[0.06]" : "hover:bg-white/[0.03]"
+              }`}
               style={{
                 opacity: visible ? 1 : 0,
                 transform: visible ? "translateY(0)" : "translateY(10px)",
-                transition: `opacity 0.45s cubic-bezier(0.34,1.56,0.64,1) ${0.1 + j * 0.08}s, transform 0.45s cubic-bezier(0.34,1.56,0.64,1) ${0.1 + j * 0.08}s`,
+                transition: `opacity 0.45s cubic-bezier(0.34,1.56,0.64,1) ${0.1 + j * 0.08}s, transform 0.45s cubic-bezier(0.34,1.56,0.64,1) ${0.1 + j * 0.08}s, background-color 0.3s ease`,
               }}
             >
-              <div className={`mt-0.5 w-5 h-5 rounded-md flex items-center justify-center shrink-0 ${b.highlighted || b.premium ? "bg-[#f97316]/12" : "bg-white/[0.03]"}`}>
+              <div
+                className={`mt-0.5 w-5 h-5 rounded-md flex items-center justify-center shrink-0 transition-all duration-300 ${
+                  b.highlighted || b.premium
+                    ? "bg-[#f97316]/12 group-hover/row:bg-[#f97316]/25 group-hover/row:shadow-[0_0_12px_rgba(249,115,22,0.6)]"
+                    : "bg-white/[0.03] group-hover/row:bg-white/[0.08]"
+                }`}
+              >
                 <Check className={`h-3 w-3 ${b.highlighted || b.premium ? "text-[#f97316]" : "text-white/55"}`} />
               </div>
-              <span className="text-[14px] text-white/65">{f}</span>
+              <span className={`text-[14px] transition-colors ${b.highlighted || b.premium ? "text-white/70 group-hover/row:text-white" : "text-white/65 group-hover/row:text-white/85"}`}>{f}</span>
             </div>
           ))}
         </div>
 
-        {/* Button */}
+        {/* Button with shine sweep — primary tier (Advanced = recommended) gets a larger button */}
         <button
           onClick={() => onAdd(b)}
           data-cursor="cta"
           data-cursor-label={b.premium ? "Elite" : b.highlighted ? "Get it" : "Add"}
-          className={`cursor-cta press-spring w-full py-4 rounded-xl font-bold text-[15px] flex items-center justify-center gap-2.5 transition-all duration-300 relative z-[3] ${
+          className={`cursor-cta press-spring group/btn w-full rounded-xl font-bold flex items-center justify-center gap-2.5 transition-all duration-300 relative z-[3] overflow-hidden ${
+            b.highlighted ? "py-4 text-[16px]" : "py-3 text-[14px]"
+          } ${
             b.highlighted || b.premium
               ? "text-white hover:brightness-110"
               : "border border-white/[0.08] bg-white/[0.02] text-white/60 hover:border-[#f97316]/35 hover:bg-[#f97316]/[0.06] hover:text-white"
           }`}
           style={b.premium ? { background: "linear-gradient(135deg, #fbbf24, #f97316, #ea580c)", boxShadow: "0 0 40px rgba(249, 115, 22, 0.51)" } : b.highlighted ? { background: "linear-gradient(135deg, #f97316, #ea580c)", boxShadow: "0 0 30px rgba(249, 115, 22, 0.32)" } : {}}
         >
-          <ShoppingCart className="h-4 w-4" />
-          {b.premium ? "Claim Elite" : b.highlighted ? "Get Started" : "Add to Cart"}
+          {/* Shine sweep */}
+          <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
+          <ShoppingCart className="relative z-10 h-4 w-4" />
+          <span className="relative z-10">{b.premium ? "Claim Elite" : b.highlighted ? "Get Started" : "Add to Cart"}</span>
         </button>
       </div>
     </div>
@@ -189,13 +205,10 @@ export function PricingSection() {
   }
 
   return (
-    <section id="pricing" className="py-28 px-6 sm:px-10 relative z-10">
+    <section id="pricing" className="py-32 lg:py-40 px-6 sm:px-10 relative z-10">
       <div className="max-w-[1100px] mx-auto">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/[0.06] bg-white/[0.02] mb-6">
-            <Crown className="h-3.5 w-3.5 text-white/55" />
-            <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">DMA Bundles</span>
-          </div>
+          <SectionEyebrow number="04" label="DMA Bundles" />
           <div className="relative h-px w-44 mx-auto mb-7 bg-white/[0.05] overflow-hidden">
             <div className="absolute inset-y-0 w-24 bg-gradient-to-r from-transparent via-[#f97316]/70 to-transparent" style={{ animation: "heroScan 4s ease-in-out infinite" }} />
           </div>

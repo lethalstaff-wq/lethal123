@@ -1,0 +1,819 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - img
+  - generic:
+    - button "Need help choosing?" [ref=e2534]:
+      - img [ref=e2535]
+      - text: Need help choosing?
+    - button "Build a Bundle" [ref=e1267]:
+      - img [ref=e1268]
+      - text: Build a Bundle
+    - button "Open chat" [ref=e1270]:
+      - img [ref=e1271]
+  - region "Notifications alt+T"
+  - link "Temp Spoofer New Order · 6m ago Temp Spoofer Verified sky***@gmail.com Dismiss notification" [ref=e2538]:
+    - /url: /products/temp-spoofer
+    - img "Temp Spoofer" [ref=e2540]
+    - generic [ref=e2541]:
+      - generic [ref=e2542]:
+        - generic [ref=e2543]: New Order
+        - generic [ref=e2544]: ·
+        - generic [ref=e2545]: 6m ago
+      - paragraph [ref=e2546]: Temp Spoofer
+      - generic [ref=e2547]:
+        - generic [ref=e2548]: Verified
+        - generic [ref=e2552]: sky***@gmail.com
+    - button "Dismiss notification" [ref=e2553]: ×
+  - button "Back to top":
+    - img
+  - main [ref=e1274]:
+    - navigation [ref=e1275]:
+      - generic [ref=e1277]:
+        - link "Lethal Solutions Lethal Solutions" [ref=e1278]:
+          - /url: /
+          - generic [ref=e1279]:
+            - img "Lethal Solutions" [ref=e1280]
+            - generic [ref=e1281]: Lethal Solutions
+        - generic [ref=e1283]:
+          - link "Home" [ref=e1284]:
+            - /url: /
+          - link "Products" [ref=e1285]:
+            - /url: /products
+          - link "Guides" [ref=e1286]:
+            - /url: /guides
+          - link "Reviews" [ref=e1287]:
+            - /url: /reviews
+          - link "Track Order" [ref=e1288]:
+            - /url: /track
+          - link "Status" [ref=e1289]:
+            - /url: /status
+        - generic [ref=e1290]:
+          - button "Search products" [ref=e1292]:
+            - img [ref=e1293]
+            - generic [ref=e1296]: Search...
+          - link "Customer Login" [ref=e1297]:
+            - /url: /login
+            - button "Customer Login" [ref=e1298]:
+              - img
+              - text: Customer Login
+          - link "Shopping cart" [ref=e1299]:
+            - /url: /cart
+            - button "Shopping cart" [ref=e1300]:
+              - img
+    - generic [ref=e1302]:
+      - generic [ref=e1303]:
+        - generic [ref=e1304]:
+          - generic [ref=e1307]: 08/Careers
+          - generic [ref=e1309]:
+            - img [ref=e1313]
+            - generic [ref=e1315]: Now Hiring · 10+ open positions
+          - heading "Join Our Team And Build Lethal Solutions" [level=1] [ref=e1316]:
+            - generic [ref=e1317]: Join Our Team
+            - generic [ref=e1318]: And Build
+            - generic [ref=e1319]: Lethal Solutions
+          - paragraph [ref=e1320]: Work remotely with a team that ships fast. Set your own hours, earn uncapped commissions, and build the best gaming tools on the market.
+          - generic [ref=e1321]:
+            - generic [ref=e1322]: 10+ open roles
+            - generic [ref=e1323]: 100% remote
+            - generic [ref=e1324]: Flexible hours
+          - generic [ref=e1325]:
+            - button "Get started" [ref=e1326]:
+              - text: Get started
+              - img [ref=e1327]
+            - button "Apply directly" [ref=e1329]
+        - generic [ref=e1334]:
+          - generic [ref=e1335]:
+            - generic [ref=e1341]: terminal
+            - button "Copy" [ref=e1342]:
+              - img [ref=e1343]
+              - text: Copy
+          - generic [ref=e1346]:
+            - paragraph [ref=e1347]: $ lethal-cli apply \
+            - paragraph [ref=e1348]: "--position \"your_role\" \\"
+            - paragraph [ref=e1349]: "--discord \"your_username\" \\"
+            - paragraph [ref=e1350]: "--remote true \\"
+            - paragraph [ref=e1351]: "--hours \"flexible\""
+            - paragraph [ref=e1352]: "// Response:"
+            - paragraph [ref=e1353]: "{"
+            - paragraph [ref=e1354]: "\"status\": \"accepted\","
+            - paragraph [ref=e1355]: "\"team_size\": 10,"
+            - paragraph [ref=e1356]: "\"open_slots\": 8,"
+            - paragraph [ref=e1357]: "\"response_time\": \"< 48h\""
+            - paragraph [ref=e1358]: "}"
+            - paragraph [ref=e1359]: $ _
+      - generic [ref=e1360]:
+        - generic [ref=e1361]:
+          - img [ref=e1365]
+          - generic [ref=e1370]:
+            - generic [ref=e1371]: "23"
+            - text: +
+          - paragraph [ref=e1372]: Team Members
+        - generic [ref=e1373]:
+          - img [ref=e1377]
+          - generic [ref=e1379]:
+            - generic [ref=e1380]: 8 734
+            - text: +
+          - paragraph [ref=e1381]: Happy Clients
+        - generic [ref=e1382]:
+          - img [ref=e1386]
+          - generic [ref=e1388]:
+            - generic [ref=e1389]: "97"
+            - text: "%"
+          - paragraph [ref=e1390]: Satisfaction
+        - generic [ref=e1391]:
+          - img [ref=e1395]
+          - generic [ref=e1398]: 24/7
+          - paragraph [ref=e1399]: Support
+    - generic [ref=e1402]:
+      - generic [ref=e1403]:
+        - generic [ref=e1405]:
+          - img [ref=e1406]
+          - generic [ref=e1408]: Open Roles
+        - generic [ref=e1410]:
+          - generic: "8"
+          - heading "Find Your Position" [level=2] [ref=e1411]:
+            - text: Find Your
+            - text: Position
+        - paragraph [ref=e1413]: 8 roles. Fully remote. Flexible hours. Pick what fits.
+      - generic [ref=e1414]:
+        - generic [ref=e1419]:
+          - generic [ref=e1420]:
+            - img [ref=e1424]
+            - generic [ref=e1428]:
+              - heading "Developer" [level=3] [ref=e1429]
+              - generic [ref=e1430]:
+                - generic [ref=e1432]: 2 spots
+                - generic [ref=e1433]: ·
+                - generic [ref=e1434]: Revenue Share
+          - paragraph [ref=e1435]: Build and maintain our tools, website, and backend infrastructure.
+          - generic [ref=e1436]:
+            - generic [ref=e1437]:
+              - img [ref=e1439]
+              - generic [ref=e1441]: Strong Python, TypeScript, or C++
+            - generic [ref=e1442]:
+              - img [ref=e1444]
+              - generic [ref=e1446]: Reverse engineering / anti-cheat exp
+            - generic [ref=e1447]:
+              - img [ref=e1449]
+              - generic [ref=e1451]: Self-driven, no hand-holding
+          - generic [ref=e1452]:
+            - generic [ref=e1453]: Cutting-edge tech
+            - generic [ref=e1454]: Revenue share
+            - generic [ref=e1455]: Choose your stack
+          - button "Apply" [ref=e1456]:
+            - generic [ref=e1457]:
+              - text: Apply
+              - img [ref=e1458]
+        - generic [ref=e1465]:
+          - generic [ref=e1466]:
+            - img [ref=e1470]
+            - generic [ref=e1472]:
+              - heading "Head Manager" [level=3] [ref=e1473]
+              - generic [ref=e1474]:
+                - generic [ref=e1476]: 1 spot
+                - generic [ref=e1477]: ·
+                - generic [ref=e1478]: Revenue Share
+          - paragraph [ref=e1479]: Oversee daily operations, team coordination, and strategic decisions.
+          - generic [ref=e1480]:
+            - generic [ref=e1481]:
+              - img [ref=e1483]
+              - generic [ref=e1485]: Proven leadership experience
+            - generic [ref=e1486]:
+              - img [ref=e1488]
+              - generic [ref=e1490]: Available 20+ hours/week
+            - generic [ref=e1491]:
+              - img [ref=e1493]
+              - generic [ref=e1495]: Business or management background
+          - generic [ref=e1496]:
+            - generic [ref=e1497]: Revenue share
+            - generic [ref=e1498]: Strategic role
+            - generic [ref=e1499]: Shape the future
+          - button "Apply" [ref=e1500]:
+            - generic [ref=e1501]:
+              - text: Apply
+              - img [ref=e1502]
+        - generic [ref=e1507]:
+          - generic [ref=e1509]: HOT
+          - generic [ref=e1510]:
+            - generic [ref=e1511]:
+              - img [ref=e1515]
+              - generic [ref=e1517]:
+                - heading "Support Agent" [level=3] [ref=e1518]
+                - generic [ref=e1519]:
+                  - generic [ref=e1521]: 3 spots
+                  - generic [ref=e1522]: ·
+                  - generic [ref=e1523]: Commission
+            - paragraph [ref=e1524]: Help customers with setup, troubleshooting, and orders via Discord.
+            - generic [ref=e1525]:
+              - generic [ref=e1526]:
+                - img [ref=e1528]
+                - generic [ref=e1530]: Deep knowledge of DMA / spoofers
+              - generic [ref=e1531]:
+                - img [ref=e1533]
+                - generic [ref=e1535]: Response time under 5 minutes
+              - generic [ref=e1536]:
+                - img [ref=e1538]
+                - generic [ref=e1540]: Fluent English, patient
+            - generic [ref=e1541]:
+              - generic [ref=e1542]: Commission per ticket
+              - generic [ref=e1543]: Flexible schedule
+              - generic [ref=e1544]: Growth path
+            - button "Apply" [ref=e1545]:
+              - generic [ref=e1546]:
+                - text: Apply
+                - img [ref=e1547]
+        - generic [ref=e1554]:
+          - generic [ref=e1555]:
+            - img [ref=e1559]
+            - generic [ref=e1562]:
+              - heading "Media Manager" [level=3] [ref=e1563]
+              - generic [ref=e1564]:
+                - generic [ref=e1566]: 2 spots
+                - generic [ref=e1567]: ·
+                - generic [ref=e1568]: Performance
+          - paragraph [ref=e1569]: Create content, manage social media, design and edit videos.
+          - generic [ref=e1570]:
+            - generic [ref=e1571]:
+              - img [ref=e1573]
+              - generic [ref=e1575]: Basic video editing skills
+            - generic [ref=e1576]:
+              - img [ref=e1578]
+              - generic [ref=e1580]: Willingness to learn
+            - generic [ref=e1581]:
+              - img [ref=e1583]
+              - generic [ref=e1585]: We provide all tools free
+          - generic [ref=e1586]:
+            - generic [ref=e1587]: Free Adobe Suite
+            - generic [ref=e1588]: All assets provided
+            - generic [ref=e1589]: Creative freedom
+          - button "Apply" [ref=e1590]:
+            - generic [ref=e1591]:
+              - text: Apply
+              - img [ref=e1592]
+      - generic [ref=e1595]:
+        - generic [ref=e1600]:
+          - generic [ref=e1601]:
+            - img [ref=e1605]
+            - generic [ref=e1608]:
+              - heading "SEO Specialist" [level=3] [ref=e1609]
+              - generic [ref=e1610]:
+                - generic [ref=e1612]: 1 spot
+                - generic [ref=e1613]: ·
+                - generic [ref=e1614]: Bonus-Based
+          - paragraph [ref=e1615]: Optimize search rankings, manage keywords, drive organic traffic.
+          - generic [ref=e1616]:
+            - generic [ref=e1617]:
+              - img [ref=e1619]
+              - generic [ref=e1621]: Proven SEO results
+            - generic [ref=e1622]:
+              - img [ref=e1624]
+              - generic [ref=e1626]: Ahrefs / SEMrush experience
+            - generic [ref=e1627]:
+              - img [ref=e1629]
+              - generic [ref=e1631]: Technical SEO + content
+          - button "Apply" [ref=e1633]:
+            - generic [ref=e1634]:
+              - text: Apply
+              - img [ref=e1635]
+        - generic [ref=e1640]:
+          - generic [ref=e1642]: HOT
+          - generic [ref=e1643]:
+            - generic [ref=e1644]:
+              - img [ref=e1648]
+              - generic [ref=e1650]:
+                - heading "Sales / Reseller" [level=3] [ref=e1651]
+                - generic [ref=e1652]:
+                  - generic [ref=e1654]: 5 spots
+                  - generic [ref=e1655]: ·
+                  - generic [ref=e1656]: Self-Set
+            - paragraph [ref=e1657]: Sell our products on your platform. Up to 80% bulk discount.
+            - generic [ref=e1658]:
+              - generic [ref=e1659]:
+                - img [ref=e1661]
+                - generic [ref=e1663]: Own community or audience
+              - generic [ref=e1664]:
+                - img [ref=e1666]
+                - generic [ref=e1668]: Existing customer base
+              - generic [ref=e1669]:
+                - img [ref=e1671]
+                - generic [ref=e1673]: Hustle mentality
+            - button "Apply" [ref=e1675]:
+              - generic [ref=e1676]:
+                - text: Apply
+                - img [ref=e1677]
+        - generic [ref=e1682]:
+          - generic [ref=e1684]: UNLIMITED
+          - generic [ref=e1685]:
+            - generic [ref=e1686]:
+              - img [ref=e1690]
+              - generic [ref=e1693]:
+                - heading "Content Creator" [level=3] [ref=e1694]
+                - generic [ref=e1695]:
+                  - generic [ref=e1697]: Unlimited
+                  - generic [ref=e1698]: ·
+                  - generic [ref=e1699]: Rev Share
+            - paragraph [ref=e1700]: Make YouTube videos, TikToks, streams about our products. Grow the brand across all platforms.
+            - generic [ref=e1701]:
+              - generic [ref=e1702]:
+                - img [ref=e1704]
+                - generic [ref=e1706]: Active social media presence
+              - generic [ref=e1707]:
+                - img [ref=e1709]
+                - generic [ref=e1711]: Video editing experience
+              - generic [ref=e1712]:
+                - img [ref=e1714]
+                - generic [ref=e1716]: Comfortable on camera or voiceover
+            - button "Apply" [ref=e1718]:
+              - generic [ref=e1719]:
+                - text: Apply
+                - img [ref=e1720]
+      - generic [ref=e1727]:
+        - generic [ref=e1728]:
+          - generic [ref=e1729]:
+            - img [ref=e1731]
+            - generic [ref=e1733]:
+              - generic [ref=e1734]:
+                - heading "Investor / Partner" [level=3] [ref=e1735]
+                - generic [ref=e1736]: OPEN TO ALL
+              - generic [ref=e1737]: Profit Share · No minimum
+          - paragraph [ref=e1738]: Own a piece of Lethal Solutions. We share profits proportionally — invest from $1 and grow with us.
+          - generic [ref=e1739]:
+            - generic [ref=e1740]:
+              - img [ref=e1741]
+              - generic [ref=e1743]: Any amount from $1
+            - generic [ref=e1744]:
+              - img [ref=e1745]
+              - generic [ref=e1747]: Belief in our vision
+            - generic [ref=e1748]:
+              - img [ref=e1749]
+              - generic [ref=e1751]: Long-term mindset
+        - generic [ref=e1752]:
+          - generic [ref=e1753]:
+            - generic [ref=e1754]: Profit share %
+            - generic [ref=e1755]: Proportional equity
+            - generic [ref=e1756]: Insider access
+          - button "Become an Investor" [ref=e1757]:
+            - text: Become an Investor
+            - img [ref=e1758]
+          - paragraph [ref=e1760]: No minimum investment. Profit shared proportionally.
+    - generic [ref=e1763]:
+      - generic [ref=e1764]:
+        - generic [ref=e1769]: Why Us
+        - heading "Why Choose Lethal" [level=2] [ref=e1772]
+        - paragraph [ref=e1774]: Not a corporation. A small team that builds fast, pays well, and respects your time.
+      - generic [ref=e1775]:
+        - generic [ref=e1778]:
+          - img [ref=e1782]
+          - heading "100% Remote" [level=4] [ref=e1785]
+          - paragraph [ref=e1786]: Work from anywhere. No office, no commute, no dress code.
+        - generic [ref=e1789]:
+          - img [ref=e1793]
+          - heading "Flexible Hours" [level=4] [ref=e1796]
+          - paragraph [ref=e1797]: We measure output, not hours. Work when you're productive.
+        - generic [ref=e1800]:
+          - img [ref=e1804]
+          - heading "Ship Fast" [level=4] [ref=e1806]
+          - paragraph [ref=e1807]: Ideas to production in days, not months of meetings.
+        - generic [ref=e1809]:
+          - generic [ref=e1810]: Featured
+          - generic [ref=e1811]:
+            - img [ref=e1815]
+            - heading "Uncapped Earnings" [level=4] [ref=e1818]
+            - paragraph [ref=e1819]: Commission + bonuses with no ceiling. Top performers earn more than most salaries.
+        - generic [ref=e1822]:
+          - img [ref=e1826]
+          - heading "Trusted Brand" [level=4] [ref=e1828]
+          - paragraph [ref=e1829]: 860+ reviews, 99.8% uptime. Customers love us.
+        - generic [ref=e1832]:
+          - img [ref=e1836]
+          - heading "Great Culture" [level=4] [ref=e1838]
+          - paragraph [ref=e1839]: Zero toxicity, mutual respect, no micromanagement.
+        - generic [ref=e1841]:
+          - generic [ref=e1842]: Featured
+          - generic [ref=e1843]:
+            - img [ref=e1847]
+            - heading "Growth Path" [level=4] [ref=e1852]
+            - paragraph [ref=e1853]: Top performers get promoted fast. Start support, become team lead in months.
+        - generic [ref=e1856]:
+          - img [ref=e1860]
+          - heading "Real Impact" [level=4] [ref=e1862]
+          - paragraph [ref=e1863]: Small team = your work directly shapes the product.
+    - generic [ref=e1866]:
+      - generic [ref=e1867]:
+        - generic [ref=e1869]:
+          - img [ref=e1870]
+          - generic [ref=e1872]: Compare
+        - heading "Lethal vs Samsung" [level=2] [ref=e2554]:
+          - text: Lethal vs
+          - generic [ref=e1875]: Samsung
+        - paragraph [ref=e1877]: Same industry. Different approach.
+      - generic [ref=e1878]:
+        - generic [ref=e1883]: Lethal
+        - generic [ref=e1887]: Corp
+      - generic [ref=e1888]:
+        - generic [ref=e1890]:
+          - generic [ref=e1891]:
+            - img [ref=e1892]
+            - generic [ref=e1895]: Remote Work
+          - img [ref=e1898]
+          - generic [ref=e1903]: ×
+        - generic [ref=e1905]:
+          - generic [ref=e1906]:
+            - img [ref=e1907]
+            - generic [ref=e1910]: Flexible Hours
+          - img [ref=e1913]
+          - generic [ref=e1918]: ×
+        - generic [ref=e1920]:
+          - generic [ref=e1921]:
+            - img [ref=e1922]
+            - generic [ref=e1924]: No Micromanagement
+          - img [ref=e1927]
+          - generic [ref=e1932]: ×
+        - generic [ref=e1934]:
+          - generic [ref=e1935]:
+            - img [ref=e1936]
+            - generic [ref=e1939]: Revenue Share
+          - img [ref=e1942]
+          - generic [ref=e1947]: ×
+        - generic [ref=e1949]:
+          - generic [ref=e1950]:
+            - img [ref=e1951]
+            - generic [ref=e1953]: Creative Freedom
+          - img [ref=e1956]
+          - generic [ref=e1961]: ×
+        - generic [ref=e1963]:
+          - generic [ref=e1964]:
+            - img [ref=e1965]
+            - generic [ref=e1967]: Ship in Days
+          - img [ref=e1970]
+          - generic [ref=e1975]: ×
+        - generic [ref=e1977]:
+          - generic [ref=e1978]:
+            - img [ref=e1979]
+            - generic [ref=e1984]: Day-One Impact
+          - img [ref=e1987]
+          - generic [ref=e1992]: ×
+        - generic [ref=e1994]:
+          - generic [ref=e1995]:
+            - img [ref=e1996]
+            - generic [ref=e1998]: Work From Anywhere
+          - img [ref=e2001]
+          - generic [ref=e2006]: ×
+      - paragraph [ref=e2009]: The choice is obvious.
+    - generic [ref=e2012]:
+      - generic [ref=e2013]:
+        - generic [ref=e2018]: Team
+        - heading "What Our Team Says" [level=2] [ref=e2021]
+        - paragraph [ref=e2023]: Real quotes from people who actually work here.
+      - generic [ref=e2024]:
+        - generic [ref=e2026]:
+          - generic: “
+          - generic [ref=e2028]:
+            - img [ref=e2029]
+            - img [ref=e2031]
+            - img [ref=e2033]
+            - img [ref=e2035]
+            - img [ref=e2037]
+          - paragraph [ref=e2039]: “Joined as a dev 6 months ago. Zero micromanagement, full creative freedom. Best decision I made this year.”
+          - generic [ref=e2040]:
+            - img "cipher" [ref=e2043]
+            - generic [ref=e2046]:
+              - paragraph [ref=e2047]: cipher
+              - paragraph [ref=e2048]: Developer · 6 months
+        - generic [ref=e2050]:
+          - generic: “
+          - generic [ref=e2052]:
+            - img [ref=e2053]
+            - img [ref=e2055]
+            - img [ref=e2057]
+            - img [ref=e2059]
+            - img [ref=e2061]
+          - paragraph [ref=e2063]: “Left my 9-5 for this. Commission here beats a salary and I work from my couch. Not going back.”
+          - generic [ref=e2064]:
+            - img "vex" [ref=e2067]
+            - generic [ref=e2070]:
+              - paragraph [ref=e2071]: vex
+              - paragraph [ref=e2072]: Sales · 4 months
+        - generic [ref=e2074]:
+          - generic: “
+          - generic [ref=e2076]:
+            - img [ref=e2077]
+            - img [ref=e2079]
+            - img [ref=e2081]
+            - img [ref=e2083]
+            - img [ref=e2085]
+          - paragraph [ref=e2087]: “Product actually works which makes support easy. Customers thank me instead of yelling at me.”
+          - generic [ref=e2088]:
+            - img "nova" [ref=e2091]
+            - generic [ref=e2094]:
+              - paragraph [ref=e2095]: nova
+              - paragraph [ref=e2096]: Support · 3 months
+        - generic [ref=e2098]:
+          - generic: “
+          - generic [ref=e2100]:
+            - img [ref=e2101]
+            - img [ref=e2103]
+            - img [ref=e2105]
+            - img [ref=e2107]
+            - img [ref=e2109]
+          - paragraph [ref=e2111]: “I handle all the socials and content. Full creative control, no approval chains, just ship it.”
+          - generic [ref=e2112]:
+            - img "flare" [ref=e2115]
+            - generic [ref=e2118]:
+              - paragraph [ref=e2119]: flare
+              - paragraph [ref=e2120]: Media · 2 months
+    - generic [ref=e2123]:
+      - generic [ref=e2124]:
+        - generic [ref=e2129]: Apply
+        - heading "Apply Now" [level=2] [ref=e2132]
+        - paragraph [ref=e2134]: Takes 2 minutes. We respond within 48 hours. No resume needed.
+      - generic [ref=e2136]:
+        - button "About You" [ref=e2137]:
+          - img [ref=e2138]
+          - generic [ref=e2143]: About You
+        - button "Schedule" [ref=e2144]:
+          - img [ref=e2145]
+          - generic [ref=e2148]: Schedule
+        - button "Experience" [ref=e2149]:
+          - img [ref=e2150]
+          - generic [ref=e2152]: Experience
+      - generic [ref=e2157]:
+        - generic [ref=e2158]: 1/9 completed
+        - generic [ref=e2159]: 11%
+      - generic [ref=e2165]:
+        - generic [ref=e2166]:
+          - generic [ref=e2167]:
+            - img [ref=e2168]
+            - generic [ref=e2170]:
+              - paragraph [ref=e2171]: Choose your role
+              - paragraph [ref=e2172]: What position are you applying for?
+          - generic [ref=e2173]:
+            - button "Developer" [ref=e2174]:
+              - img [ref=e2176]
+              - generic [ref=e2180]: Developer
+            - button "Head Manager" [ref=e2181]:
+              - img [ref=e2183]
+              - generic [ref=e2185]: Head Manager
+            - button "Support Agent" [ref=e2186]:
+              - img [ref=e2188]
+              - generic [ref=e2190]: Support Agent
+            - button "Media Manager" [ref=e2191]:
+              - img [ref=e2193]
+              - generic [ref=e2196]: Media Manager
+            - button "SEO Specialist" [ref=e2197]:
+              - img [ref=e2199]
+              - generic [ref=e2202]: SEO Specialist
+            - button "Sales / Reseller" [ref=e2203]:
+              - img [ref=e2205]
+              - generic [ref=e2207]: Sales / Reseller
+            - button "Content Creator" [ref=e2208]:
+              - img [ref=e2210]
+              - generic [ref=e2213]: Content Creator
+            - button "Investor / Partner" [ref=e2214]:
+              - img [ref=e2216]
+              - generic [ref=e2218]: Investor / Partner
+        - generic [ref=e2219]:
+          - generic [ref=e2220]:
+            - img [ref=e2221]
+            - generic [ref=e2223]:
+              - paragraph [ref=e2224]: Discord
+              - paragraph [ref=e2225]: We'll contact you here
+          - textbox "your_username" [ref=e2226]
+        - generic [ref=e2227]:
+          - generic [ref=e2228]:
+            - generic [ref=e2229]:
+              - img [ref=e2230]
+              - generic [ref=e2235]:
+                - paragraph [ref=e2236]: Age
+                - paragraph [ref=e2237]: Must be 16+
+            - generic [ref=e2238]:
+              - button [ref=e2239]:
+                - img [ref=e2240]
+              - generic [ref=e2241]: "18"
+              - button [ref=e2242]:
+                - img [ref=e2243]
+          - generic [ref=e2244]:
+            - generic [ref=e2245]:
+              - img [ref=e2246]
+              - generic [ref=e2249]:
+                - paragraph [ref=e2250]: Timezone
+                - paragraph [ref=e2251]: Where are you based?
+            - generic [ref=e2252]:
+              - button "🇺🇸 Los Angeles" [ref=e2253]:
+                - generic [ref=e2254]: 🇺🇸
+                - generic [ref=e2255]: Los Angeles
+              - button "🇺🇸 Chicago" [ref=e2256]:
+                - generic [ref=e2257]: 🇺🇸
+                - generic [ref=e2258]: Chicago
+              - button "🇺🇸 New York" [ref=e2259]:
+                - generic [ref=e2260]: 🇺🇸
+                - generic [ref=e2261]: New York
+              - button "🇧🇷 São Paulo" [ref=e2262]:
+                - generic [ref=e2263]: 🇧🇷
+                - generic [ref=e2264]: São Paulo
+              - button "🇬🇧 London" [ref=e2265]:
+                - generic [ref=e2266]: 🇬🇧
+                - generic [ref=e2267]: London
+              - button "🇩🇪 Berlin" [ref=e2268]:
+                - generic [ref=e2269]: 🇩🇪
+                - generic [ref=e2270]: Berlin
+              - button "🇫🇷 Paris" [ref=e2271]:
+                - generic [ref=e2272]: 🇫🇷
+                - generic [ref=e2273]: Paris
+              - button "🇺🇦 Kyiv" [ref=e2274]:
+                - generic [ref=e2275]: 🇺🇦
+                - generic [ref=e2276]: Kyiv
+              - button "🇷🇺 Moscow" [ref=e2277]:
+                - generic [ref=e2278]: 🇷🇺
+                - generic [ref=e2279]: Moscow
+              - button "🇹🇷 Istanbul" [ref=e2280]:
+                - generic [ref=e2281]: 🇹🇷
+                - generic [ref=e2282]: Istanbul
+              - button "🇦🇪 Dubai" [ref=e2283]:
+                - generic [ref=e2284]: 🇦🇪
+                - generic [ref=e2285]: Dubai
+              - button "🇮🇳 Mumbai" [ref=e2286]:
+                - generic [ref=e2287]: 🇮🇳
+                - generic [ref=e2288]: Mumbai
+              - button "🇸🇬 Singapore" [ref=e2289]:
+                - generic [ref=e2290]: 🇸🇬
+                - generic [ref=e2291]: Singapore
+              - button "🇯🇵 Tokyo" [ref=e2292]:
+                - generic [ref=e2293]: 🇯🇵
+                - generic [ref=e2294]: Tokyo
+              - button "🇦🇺 Sydney" [ref=e2295]:
+                - generic [ref=e2296]: 🇦🇺
+                - generic [ref=e2297]: Sydney
+        - button "Continue to Schedule" [disabled] [ref=e2298]:
+          - text: Continue to Schedule
+          - img [ref=e2299]
+    - generic [ref=e2303]:
+      - generic [ref=e2304]:
+        - generic [ref=e2309]: FAQ
+        - heading "Common Questions" [level=2] [ref=e2312]
+        - paragraph [ref=e2314]: Everything you need to know before applying.
+      - generic [ref=e2315]:
+        - generic [ref=e2317]:
+          - button "01 Is this paid?" [ref=e2318]:
+            - generic [ref=e2319]: "01"
+            - generic [ref=e2320]: Is this paid?
+            - img [ref=e2322]
+          - paragraph [ref=e2325]: Most roles start commission-based or unpaid during trial. Top performers get promoted to paid positions quickly.
+        - generic [ref=e2327]:
+          - button "02 How many hours do I need?" [ref=e2328]:
+            - generic [ref=e2329]: "02"
+            - generic [ref=e2330]: How many hours do I need?
+            - img [ref=e2332]
+          - paragraph [ref=e2335]: Minimum 5-10h/week for most roles. More hours = more opportunity.
+        - generic [ref=e2337]:
+          - button "03 Do I need experience?" [ref=e2338]:
+            - generic [ref=e2339]: "03"
+            - generic [ref=e2340]: Do I need experience?
+            - img [ref=e2342]
+          - paragraph [ref=e2345]: Depends on the role. Support needs product knowledge, Dev needs coding. Sales just needs hustle.
+        - generic [ref=e2347]:
+          - button "04 How fast do you respond?" [ref=e2348]:
+            - generic [ref=e2349]: "04"
+            - generic [ref=e2350]: How fast do you respond?
+            - img [ref=e2352]
+          - paragraph [ref=e2355]: We review every application within 48 hours via Discord. No ghosting.
+        - generic [ref=e2357]:
+          - button "05 Can I work multiple roles?" [ref=e2358]:
+            - generic [ref=e2359]: "05"
+            - generic [ref=e2360]: Can I work multiple roles?
+            - img [ref=e2362]
+          - paragraph [ref=e2365]: Yes! Many team members wear multiple hats. Start with one and expand.
+        - generic [ref=e2367]:
+          - button "06 What tools do you use?" [ref=e2368]:
+            - generic [ref=e2369]: "06"
+            - generic [ref=e2370]: What tools do you use?
+            - img [ref=e2372]
+          - paragraph [ref=e2375]: Discord, GitHub, Notion. We provide all software and licenses — zero cost.
+        - generic [ref=e2377]:
+          - button "07 What's the culture like?" [ref=e2378]:
+            - generic [ref=e2379]: "07"
+            - generic [ref=e2380]: What's the culture like?
+            - img [ref=e2382]
+          - paragraph [ref=e2385]: Zero toxicity, mutual respect, no micromanagement. Your ideas matter from day one.
+        - generic [ref=e2387]:
+          - button "08 Can I work from anywhere?" [ref=e2388]:
+            - generic [ref=e2389]: "08"
+            - generic [ref=e2390]: Can I work from anywhere?
+            - img [ref=e2392]
+          - paragraph [ref=e2395]: 100% remote. 6+ timezones. Work from your couch, a cafe, or a beach.
+      - paragraph [ref=e2398]:
+        - text: Still have questions?
+        - link "Ask on Discord" [ref=e2399]:
+          - /url: https://discord.gg/lethal
+    - generic [ref=e2406]:
+      - generic [ref=e2411]: Your Future
+      - heading "Stop scrolling. Start building." [level=2] [ref=e2414]:
+        - text: Stop scrolling.
+        - generic [ref=e2415]: Start building.
+      - paragraph [ref=e2417]: The best time to join was yesterday. The second best is right now.
+      - button "Apply Now · 2 min" [ref=e2419]:
+        - img [ref=e2420]
+        - generic [ref=e2423]: Apply Now
+        - generic [ref=e2424]: · 2 min
+      - generic [ref=e2426]:
+        - generic [ref=e2427]:
+          - img [ref=e2428]
+          - generic [ref=e2430]: 48h Response
+        - generic [ref=e2431]:
+          - img [ref=e2432]
+          - generic [ref=e2434]: Zero Toxicity
+        - generic [ref=e2435]:
+          - img [ref=e2436]
+          - generic [ref=e2438]: Day-One Impact
+        - generic [ref=e2439]:
+          - img [ref=e2440]
+          - generic [ref=e2443]: Fully Remote
+    - generic [ref=e2448]:
+      - generic [ref=e2449]:
+        - generic [ref=e2450]:
+          - generic [ref=e2451]:
+            - img "Lethal Solutions" [ref=e2452]
+            - generic [ref=e2453]: Lethal Solutions
+          - paragraph [ref=e2454]: Kernel-level gaming tools trusted by 8,700+ players. Undetected since day one.
+          - generic [ref=e2455]:
+            - generic [ref=e2456]:
+              - img [ref=e2457]
+              - generic [ref=e2459]: Secure
+            - generic [ref=e2460]:
+              - img [ref=e2461]
+              - generic [ref=e2463]: Instant
+            - generic [ref=e2464]:
+              - img [ref=e2465]
+              - generic [ref=e2468]: 24/7
+          - generic [ref=e2469]:
+            - paragraph [ref=e2470]: Connect
+            - generic [ref=e2471]:
+              - link "Discord" [ref=e2472]:
+                - /url: https://discord.gg/lethaldma
+                - img [ref=e2473]
+              - link "YouTube" [ref=e2476]:
+                - /url: https://www.youtube.com/@ujukcheats-x4b
+                - img [ref=e2477]
+              - link "Telegram" [ref=e2480]:
+                - /url: https://t.me/lethalsolutions
+                - img [ref=e2481]
+        - generic [ref=e2484]:
+          - heading "Products" [level=4] [ref=e2485]
+          - list [ref=e2486]:
+            - listitem [ref=e2487]:
+              - link "All Products" [ref=e2488]:
+                - /url: /products
+            - listitem [ref=e2489]:
+              - link "Compare" [ref=e2490]:
+                - /url: /compare
+            - listitem [ref=e2491]:
+              - link "Reviews" [ref=e2492]:
+                - /url: /reviews
+            - listitem [ref=e2493]:
+              - link "Status" [ref=e2494]:
+                - /url: /status
+        - generic [ref=e2495]:
+          - heading "Resources" [level=4] [ref=e2496]
+          - list [ref=e2497]:
+            - listitem [ref=e2498]:
+              - link "FAQ" [ref=e2499]:
+                - /url: /faq
+            - listitem [ref=e2500]:
+              - link "Guides" [ref=e2501]:
+                - /url: /guides
+            - listitem [ref=e2502]:
+              - link "Changelog" [ref=e2503]:
+                - /url: /changelog
+            - listitem [ref=e2504]:
+              - link "Referrals" [ref=e2505]:
+                - /url: /referrals
+            - listitem [ref=e2506]:
+              - link "Join Our Team" [ref=e2507]:
+                - /url: /apply
+        - generic [ref=e2508]:
+          - heading "Account" [level=4] [ref=e2509]
+          - list [ref=e2510]:
+            - listitem [ref=e2511]:
+              - link "Track Order" [ref=e2512]:
+                - /url: /track
+            - listitem [ref=e2513]:
+              - link "Downloads" [ref=e2514]:
+                - /url: /downloads
+            - listitem [ref=e2515]:
+              - link "My Account" [ref=e2516]:
+                - /url: /profile
+            - listitem [ref=e2517]:
+              - link "Cart" [ref=e2518]:
+                - /url: /cart
+      - heading [level=2] [ref=e2520]: LETHAL
+      - generic [ref=e2521]:
+        - paragraph [ref=e2522]: © 2026 Lethal Solutions. All rights reserved.
+        - generic [ref=e2523]:
+          - generic [ref=e2528]: All systems operational
+          - link "Terms" [ref=e2530]:
+            - /url: /terms
+          - link "Privacy" [ref=e2532]:
+            - /url: /privacy
+  - button "Open Next.js Dev Tools" [ref=e1263] [cursor=pointer]:
+    - img [ref=e1264]
+  - alert [ref=e2533]

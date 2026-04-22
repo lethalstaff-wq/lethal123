@@ -1,0 +1,377 @@
+- generic [active] [ref=e1]:
+  - alert [ref=e2]
+  - generic:
+    - img
+  - generic [ref=e5]:
+    - link "Status" [ref=e6]:
+      - /url: /status
+      - button "Status" [ref=e7]:
+        - img
+        - generic [ref=e8]: Status
+    - link "Discord" [ref=e9]:
+      - /url: https://discord.gg/lethaldma
+      - button "Discord" [ref=e10]:
+        - img
+        - generic [ref=e11]: Discord
+  - region "Notifications alt+T"
+  - generic:
+    - link "Perm Spoofer New Order · 2m ago Perm Spoofer Verified Dismiss notification":
+      - /url: /products/perm-spoofer
+      - generic:
+        - img "Perm Spoofer"
+      - generic:
+        - generic:
+          - generic: New Order
+          - generic: ·
+          - generic: 2m ago
+        - paragraph: Perm Spoofer
+        - generic:
+          - generic: Verified
+      - button "Dismiss notification": ×
+  - button "Back to top":
+    - img
+    - img
+  - generic [ref=e14]:
+    - navigation [ref=e15]:
+      - generic [ref=e17]:
+        - link "Lethal Solutions Lethal Solutions" [ref=e18]:
+          - /url: /
+          - generic [ref=e19]:
+            - img "Lethal Solutions" [ref=e22]
+            - generic [ref=e23]: Lethal Solutions
+        - generic [ref=e24]:
+          - button "Open search" [ref=e26]:
+            - img
+          - link:
+            - /url: /login
+          - link "Shopping cart" [ref=e27]:
+            - /url: /cart
+            - button "Shopping cart" [ref=e28]:
+              - img
+          - button "Toggle menu" [ref=e30]:
+            - img
+            - generic [ref=e31]: Toggle menu
+    - main [ref=e32]:
+      - generic [ref=e33]:
+        - navigation "Breadcrumb" [ref=e34]:
+          - link [ref=e35]:
+            - /url: /
+            - img [ref=e36]
+          - generic [ref=e39]:
+            - img [ref=e40]
+            - generic [ref=e42]: Guides
+        - generic [ref=e43]:
+          - generic [ref=e47]: Guides & Resources
+          - heading "Everything You Need" [level=1] [ref=e51]
+          - paragraph [ref=e52]:
+            - text: Setup guides, downloads, and docs for all products.
+            - link "Open a Discord ticket" [ref=e53]:
+              - /url: https://discord.gg/lethaldma
+            - text: if you need help.
+          - generic [ref=e54]:
+            - img [ref=e55]
+            - textbox "Search guides and resources..." [ref=e58]
+        - generic [ref=e59]:
+          - generic [ref=e60]:
+            - heading "Setup Guides" [level=2] [ref=e61]
+            - generic [ref=e62]: 8 guides
+          - generic [ref=e63]:
+            - button "All" [ref=e64]
+            - button "Getting Started" [ref=e65]
+            - button "Setup" [ref=e66]
+            - button "Configuration" [ref=e67]
+            - button "Hardware" [ref=e68]
+            - button "Troubleshooting" [ref=e69]
+          - generic [ref=e70]:
+            - link "01 What are DMA cheats and how do they work Learn about DMA cards, KMBox devices, Fusers, read-only cheats, and how everything works together. Beginner 8 min" [ref=e71]:
+              - /url: /guides/what-is-dma
+              - generic [ref=e73]: "01"
+              - generic [ref=e74]:
+                - heading "What are DMA cheats and how do they work" [level=3] [ref=e75]
+                - paragraph [ref=e76]: Learn about DMA cards, KMBox devices, Fusers, read-only cheats, and how everything works together.
+                - generic [ref=e77]:
+                  - generic [ref=e78]: Beginner
+                  - generic [ref=e79]: 8 min
+              - img [ref=e80]
+            - 'link "02 How to setup your 2nd/Cheat PC for DMA cheating Step-by-step: install drivers, configure USB connections, and get the Lethal Solutions loader running. Intermediate 12 min Video" [ref=e82]':
+              - /url: /guides/second-pc-setup
+              - generic [ref=e84]: "02"
+              - generic [ref=e85]:
+                - heading "How to setup your 2nd/Cheat PC for DMA cheating" [level=3] [ref=e86]
+                - paragraph [ref=e87]: "Step-by-step: install drivers, configure USB connections, and get the Lethal Solutions loader running."
+                - generic [ref=e88]:
+                  - generic [ref=e89]: Intermediate
+                  - generic [ref=e90]: 12 min
+                  - generic [ref=e91]:
+                    - img [ref=e92]
+                    - text: Video
+              - img [ref=e94]
+            - link "03 How to generate a Memory Map (MMAP) Generate an MMAP file to fix slow progress, missing ESP, or aimbot issues. Includes browser-based tool. Intermediate 6 min Video Tool" [ref=e96]:
+              - /url: /guides/memory-map
+              - generic [ref=e98]: "03"
+              - generic [ref=e99]:
+                - heading "How to generate a Memory Map (MMAP)" [level=3] [ref=e100]
+                - paragraph [ref=e101]: Generate an MMAP file to fix slow progress, missing ESP, or aimbot issues. Includes browser-based tool.
+                - generic [ref=e102]:
+                  - generic [ref=e103]: Intermediate
+                  - generic [ref=e104]: 6 min
+                  - generic [ref=e105]:
+                    - img [ref=e106]
+                    - text: Video
+                  - generic [ref=e108]:
+                    - img [ref=e109]
+                    - text: Tool
+              - img [ref=e112]
+            - 'link "04 DMA Troubleshooting — fixes for common issues Fix: Failed to initialize, Unable to locate DTB, Failed to find base address, USB disconnections. All Levels 15 min" [ref=e114]':
+              - /url: /guides/troubleshooting
+              - generic [ref=e116]: "04"
+              - generic [ref=e117]:
+                - heading "DMA Troubleshooting — fixes for common issues" [level=3] [ref=e118]
+                - paragraph [ref=e119]: "Fix: Failed to initialize, Unable to locate DTB, Failed to find base address, USB disconnections."
+                - generic [ref=e120]:
+                  - generic [ref=e121]: All Levels
+                  - generic [ref=e122]: 15 min
+              - img [ref=e123]
+            - 'link "05 How to setup a KMBox Net for DMA cheating Full KMBox Net setup: driver installation, network adapter config, connecting to your gaming PC. Intermediate 10 min Video" [ref=e125]':
+              - /url: /guides/kmbox-net
+              - generic [ref=e127]: "05"
+              - generic [ref=e128]:
+                - heading "How to setup a KMBox Net for DMA cheating" [level=3] [ref=e129]
+                - paragraph [ref=e130]: "Full KMBox Net setup: driver installation, network adapter config, connecting to your gaming PC."
+                - generic [ref=e131]:
+                  - generic [ref=e132]: Intermediate
+                  - generic [ref=e133]: 10 min
+                  - generic [ref=e134]:
+                    - img [ref=e135]
+                    - text: Video
+              - img [ref=e137]
+            - link "06 How to setup a KMBox B+ Pro for DMA cheating Complete KMBox B+ Pro setup guide. Driver install, connection, and troubleshooting. Intermediate 8 min" [ref=e139]:
+              - /url: /guides/kmbox-b-plus
+              - generic [ref=e141]: "06"
+              - generic [ref=e142]:
+                - heading "How to setup a KMBox B+ Pro for DMA cheating" [level=3] [ref=e143]
+                - paragraph [ref=e144]: Complete KMBox B+ Pro setup guide. Driver install, connection, and troubleshooting.
+                - generic [ref=e145]:
+                  - generic [ref=e146]: Intermediate
+                  - generic [ref=e147]: 8 min
+              - img [ref=e148]
+            - link "07 Syncing your System Time How to correctly sync system time on your 2nd PC — required for license activation. Beginner 3 min" [ref=e150]:
+              - /url: /guides/system-time-sync
+              - generic [ref=e152]: "07"
+              - generic [ref=e153]:
+                - heading "Syncing your System Time" [level=3] [ref=e154]
+                - paragraph [ref=e155]: How to correctly sync system time on your 2nd PC — required for license activation.
+                - generic [ref=e156]:
+                  - generic [ref=e157]: Beginner
+                  - generic [ref=e158]: 3 min
+              - img [ref=e159]
+            - 'link "08 How to setup and flash the 4th Gen Dichen Fuser Setup guide for the Dichen Fuser: firmware flashing and EDID spoofing for single-monitor ESP. Advanced 8 min" [ref=e161]':
+              - /url: /guides/fuser-setup
+              - generic [ref=e163]: "08"
+              - generic [ref=e164]:
+                - heading "How to setup and flash the 4th Gen Dichen Fuser" [level=3] [ref=e165]
+                - paragraph [ref=e166]: "Setup guide for the Dichen Fuser: firmware flashing and EDID spoofing for single-monitor ESP."
+                - generic [ref=e167]:
+                  - generic [ref=e168]: Advanced
+                  - generic [ref=e169]: 8 min
+              - img [ref=e170]
+        - generic [ref=e174]: Downloads & Resources
+        - generic [ref=e177]:
+          - generic [ref=e178]:
+            - generic [ref=e179]:
+              - img [ref=e181]
+              - generic [ref=e184]: Required
+            - heading "RustDesk — Remote Access" [level=3] [ref=e185]
+            - paragraph [ref=e186]: Download RustDesk so our team can remotely flash your DMA firmware after purchase.
+            - link "Download RustDesk" [ref=e187]:
+              - /url: https://rustdesk.com/
+              - text: Download RustDesk
+              - img [ref=e188]
+          - generic [ref=e192]:
+            - generic [ref=e193]:
+              - img [ref=e195]
+              - generic [ref=e198]: Required
+            - heading "Visual C++ Redistributables" [level=3] [ref=e199]
+            - paragraph [ref=e200]: Required C++ runtime libraries for the Lethal Solutions loader.
+            - link "Download" [ref=e201]:
+              - /url: https://aka.ms/vs/17/release/vc_redist.x64.exe
+              - text: Download
+              - img [ref=e202]
+          - generic [ref=e206]:
+            - generic [ref=e207]:
+              - img [ref=e209]
+              - generic [ref=e212]: Required
+            - heading "WebView2 Runtime" [level=3] [ref=e213]
+            - paragraph [ref=e214]: Required for the loader UI. Pre-installed on Windows 11.
+            - link "Download" [ref=e215]:
+              - /url: https://go.microsoft.com/fwlink/p/?LinkId=2124703
+              - text: Download
+              - img [ref=e216]
+          - generic [ref=e220]:
+            - generic [ref=e221]:
+              - img [ref=e223]
+              - generic [ref=e226]: Guide
+            - heading "DMA DNA ID Guide" [level=3] [ref=e227]
+            - paragraph [ref=e228]: How to obtain your DNA ID needed for custom firmware generation.
+            - link "Read Guide" [ref=e229]:
+              - /url: /guides/dna-id
+              - text: Read Guide
+              - img [ref=e230]
+          - generic [ref=e232]:
+            - generic [ref=e233]:
+              - img [ref=e235]
+              - generic [ref=e237]: Download
+            - heading "DMA Flash Tools" [level=3] [ref=e238]
+            - paragraph [ref=e239]: Full collection of drivers and flashers for 35T and 75T DMA cards.
+            - link "View Tools" [ref=e240]:
+              - /url: /guides/flash-tools
+              - text: View Tools
+              - img [ref=e241]
+          - generic [ref=e243]:
+            - generic [ref=e244]:
+              - img [ref=e246]
+              - generic [ref=e249]: Tool
+            - heading "RamMap Tool" [level=3] [ref=e250]
+            - paragraph [ref=e251]: Microsoft Sysinternals RamMap for generating MMAP files.
+            - link "Download RAMMap" [ref=e252]:
+              - /url: https://download.sysinternals.com/files/RAMMap.zip
+              - text: Download RAMMap
+              - img [ref=e253]
+          - generic [ref=e257]:
+            - generic [ref=e258]:
+              - img [ref=e260]
+              - generic [ref=e263]: Driver
+            - heading "KMBox Net Driver" [level=3] [ref=e264]
+            - paragraph [ref=e265]: Official WCHUSBNIC driver for KMBox Net network adapter setup.
+            - link "Get from Discord" [ref=e266]:
+              - /url: https://discord.gg/lethaldma
+              - text: Get from Discord
+              - img [ref=e267]
+          - generic [ref=e271]:
+            - generic [ref=e272]:
+              - img [ref=e274]
+              - generic [ref=e277]: PDF
+            - heading "Dichen Fuser Setup PDF" [level=3] [ref=e278]
+            - paragraph [ref=e279]: Official setup and flashing instructions for 4th Gen Dichen Fuser.
+            - link "Get from Discord" [ref=e280]:
+              - /url: https://discord.gg/lethaldma
+              - text: Get from Discord
+              - img [ref=e281]
+          - generic [ref=e285]:
+            - generic [ref=e286]:
+              - img [ref=e288]
+              - generic [ref=e291]: Archive
+            - heading "All Downloads & Files" [level=3] [ref=e292]
+            - paragraph [ref=e293]: Full archive of drivers, tools, firmware flashers, and setup files.
+            - link "Open Discord" [ref=e294]:
+              - /url: https://discord.gg/lethaldma
+              - text: Open Discord
+              - img [ref=e295]
+        - generic [ref=e300]:
+          - heading "Still need help?" [level=2] [ref=e301]
+          - paragraph [ref=e302]: Our support team is available 24/7 on Discord.
+          - generic [ref=e303]:
+            - link "Open Discord Ticket" [ref=e304]:
+              - /url: https://discord.gg/lethaldma
+              - generic [ref=e305]: Open Discord Ticket
+              - img [ref=e306]
+            - link "View Products" [ref=e310]:
+              - /url: /products
+              - text: View Products
+              - img [ref=e311]
+    - contentinfo [ref=e313]:
+      - generic [ref=e317]:
+        - generic [ref=e318]:
+          - generic [ref=e319]:
+            - generic [ref=e320]:
+              - img "Lethal Solutions" [ref=e323]
+              - generic [ref=e324]: Lethal Solutions
+            - paragraph [ref=e325]: Kernel-level gaming tools trusted by 8,700+ players. Undetected since day one.
+            - generic [ref=e326]:
+              - generic [ref=e327]:
+                - img [ref=e328]
+                - generic [ref=e330]: Secure
+              - generic [ref=e331]:
+                - img [ref=e332]
+                - generic [ref=e334]: Instant
+              - generic [ref=e335]:
+                - img [ref=e336]
+                - generic [ref=e339]: 24/7
+            - generic [ref=e340]:
+              - paragraph [ref=e341]: Connect
+              - generic [ref=e342]:
+                - link "Discord" [ref=e343]:
+                  - /url: https://discord.gg/lethaldma
+                  - img [ref=e344]
+                - link "YouTube" [ref=e347]:
+                  - /url: https://www.youtube.com/@ujukcheats-x4b
+                  - img [ref=e348]
+                - link "Telegram" [ref=e351]:
+                  - /url: https://t.me/lethalsolutions
+                  - img [ref=e352]
+          - generic [ref=e355]:
+            - heading "Products" [level=4] [ref=e356]
+            - list [ref=e357]:
+              - listitem [ref=e358]:
+                - link "All Products" [ref=e359]:
+                  - /url: /products
+              - listitem [ref=e360]:
+                - link "Compare" [ref=e361]:
+                  - /url: /compare
+              - listitem [ref=e362]:
+                - link "Reviews" [ref=e363]:
+                  - /url: /reviews
+              - listitem [ref=e364]:
+                - link "Status" [ref=e365]:
+                  - /url: /status
+          - generic [ref=e366]:
+            - heading "Resources" [level=4] [ref=e367]
+            - list [ref=e368]:
+              - listitem [ref=e369]:
+                - link "Setup Guide" [ref=e370]:
+                  - /url: /setup
+              - listitem [ref=e371]:
+                - link "Media Library" [ref=e372]:
+                  - /url: /media
+              - listitem [ref=e373]:
+                - link "FAQ" [ref=e374]:
+                  - /url: /faq
+              - listitem [ref=e375]:
+                - link "Guides" [ref=e376]:
+                  - /url: /guides
+              - listitem [ref=e377]:
+                - link "Changelog" [ref=e378]:
+                  - /url: /changelog
+              - listitem [ref=e379]:
+                - link "Success Stories" [ref=e380]:
+                  - /url: /stories
+              - listitem [ref=e381]:
+                - link "Referrals" [ref=e382]:
+                  - /url: /referrals
+              - listitem [ref=e383]:
+                - link "Join Our Team" [ref=e384]:
+                  - /url: /apply
+          - generic [ref=e385]:
+            - heading "Account" [level=4] [ref=e386]
+            - list [ref=e387]:
+              - listitem [ref=e388]:
+                - link "Track Order" [ref=e389]:
+                  - /url: /track
+              - listitem [ref=e390]:
+                - link "Downloads" [ref=e391]:
+                  - /url: /downloads
+              - listitem [ref=e392]:
+                - link "My Account" [ref=e393]:
+                  - /url: /profile
+              - listitem [ref=e394]:
+                - link "Cart" [ref=e395]:
+                  - /url: /cart
+        - heading [level=2] [ref=e397]: LETHAL
+        - generic [ref=e398]:
+          - paragraph [ref=e399]: © 2026 Lethal Solutions. All rights reserved.
+          - generic [ref=e400]:
+            - generic [ref=e405]: All systems operational
+            - link "Terms" [ref=e407]:
+              - /url: /terms
+            - link "Privacy" [ref=e409]:
+              - /url: /privacy

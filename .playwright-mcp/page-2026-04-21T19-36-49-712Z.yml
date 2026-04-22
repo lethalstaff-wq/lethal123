@@ -1,0 +1,366 @@
+- generic [active] [ref=e1]:
+  - alert [ref=e2]
+  - generic:
+    - img
+  - button "Open chat" [ref=e3]:
+    - img [ref=e4]
+  - region "Notifications alt+T"
+  - generic:
+    - link "Perm Spoofer New Order · 2m ago Perm Spoofer Verified Dismiss notification":
+      - /url: /products/perm-spoofer
+      - generic:
+        - img "Perm Spoofer"
+      - generic:
+        - generic:
+          - generic: New Order
+          - generic: ·
+          - generic: 2m ago
+        - paragraph: Perm Spoofer
+        - generic:
+          - generic: Verified
+      - button "Dismiss notification": ×
+  - button "Back to top":
+    - img
+    - img
+  - main [ref=e8]:
+    - navigation [ref=e9]:
+      - generic [ref=e11]:
+        - link "Lethal Solutions Lethal Solutions" [ref=e12]:
+          - /url: /
+          - generic [ref=e13]:
+            - img "Lethal Solutions" [ref=e16]
+            - generic [ref=e17]: Lethal Solutions
+        - generic [ref=e19]:
+          - link "Home" [ref=e20]:
+            - /url: /
+          - link "Products" [ref=e21]:
+            - /url: /products
+            - text: Products
+          - link "Guides" [ref=e23]:
+            - /url: /guides
+          - link "Reviews" [ref=e24]:
+            - /url: /reviews
+          - link "Track Order" [ref=e25]:
+            - /url: /track
+          - link "Status" [ref=e26]:
+            - /url: /status
+        - generic [ref=e27]:
+          - button "Open search" [ref=e29]:
+            - img [ref=e30]
+            - generic [ref=e33]: Search…
+            - generic [ref=e34]: ⌘K
+          - link "Customer Login" [ref=e35]:
+            - /url: /login
+            - button "Customer Login" [ref=e36]:
+              - img
+              - text: Customer Login
+          - link "Shopping cart" [ref=e37]:
+            - /url: /cart
+            - button "Shopping cart" [ref=e38]:
+              - img
+    - generic [ref=e40]:
+      - generic [ref=e41]:
+        - generic [ref=e42]:
+          - generic [ref=e43]:
+            - generic [ref=e44]:
+              - img
+              - text: Instant Delivery
+            - img "Perm Spoofer" [ref=e46]
+          - generic [ref=e47]:
+            - generic [ref=e48]:
+              - img [ref=e49]
+              - paragraph [ref=e51]: Secure
+              - paragraph [ref=e52]: 256-bit encrypted
+            - generic [ref=e53]:
+              - img [ref=e54]
+              - paragraph [ref=e56]: Instant
+              - paragraph [ref=e57]: Delivered in seconds
+            - generic [ref=e58]:
+              - img [ref=e59]
+              - paragraph [ref=e62]: Worldwide
+              - paragraph [ref=e63]: 73+ countries
+        - generic [ref=e64]:
+          - heading "Perm Spoofer" [level=1] [ref=e65]
+          - paragraph [ref=e66]: Changes your hardware identity at kernel level — motherboard serial, GPU UUID, disk signature, network MAC. Once installed your old HWID no longer exists. Hardware bans become permanently irrelevant. Setup takes under 5 minutes.
+          - generic [ref=e67]:
+            - generic [ref=e68]:
+              - img [ref=e69]
+              - generic [ref=e71]: "5.0"
+            - generic [ref=e72]: 153 Verified Reviews
+            - generic [ref=e73]: ·
+            - generic [ref=e78]: 3 viewing now
+          - generic [ref=e80]: £35
+          - generic [ref=e81]:
+            - paragraph [ref=e82]: Select Option
+            - generic [ref=e83]:
+              - button "One-Time License £35" [ref=e84]:
+                - img [ref=e85]
+                - paragraph [ref=e87]: One-Time License
+                - paragraph [ref=e88]: £35
+              - button "Lifetime License £120" [ref=e89]:
+                - paragraph [ref=e90]: Lifetime License
+                - paragraph [ref=e91]: £120
+          - generic [ref=e92]:
+            - generic [ref=e93]:
+              - button "Decrease quantity" [ref=e94]:
+                - img [ref=e95]
+              - generic [ref=e96]: "1"
+              - button "Increase quantity" [ref=e97]:
+                - img [ref=e98]
+            - generic [ref=e103]: 12 in stock
+          - generic [ref=e104]:
+            - button "Buy Now — £35.00" [ref=e105]:
+              - img
+              - generic [ref=e106]: Buy Now — £35.00
+            - generic [ref=e107]:
+              - button "Add to Cart" [ref=e108]:
+                - img
+                - text: Add to Cart
+              - button "Discord Order" [ref=e109]:
+                - img
+                - text: Discord Order
+          - paragraph [ref=e110]:
+            - text: Last purchased
+            - generic [ref=e114]: "36"
+            - text: minutes ago
+          - generic [ref=e115]:
+            - generic [ref=e116]:
+              - generic [ref=e117]:
+                - generic [ref=e118]:
+                  - paragraph [ref=e119]: 6-month price
+                  - paragraph [ref=e120]: Stable pricing · no hidden hikes
+                - generic [ref=e121]: "-1.1%"
+              - img [ref=e122]
+            - group "Share product" [ref=e127]:
+              - button "Copy link" [ref=e128]:
+                - img [ref=e129]
+                - text: Copy link
+              - link "Share on Discord" [ref=e132]:
+                - /url: https://discord.com/channels/@me?content=Check%20this%20out%3A%20Perm%20Spoofer%20from%20%C2%A335%20%E2%86%92%20https%3A%2F%2Fwww.lethalsolutions.me%2Fproducts%2Fperm-spoofer%3Fr%3Ddiscord
+                - img [ref=e133]
+              - link "Share on Telegram" [ref=e135]:
+                - /url: https://t.me/share/url?url=https%3A%2F%2Fwww.lethalsolutions.me%2Fproducts%2Fperm-spoofer%3Fr%3Dtelegram&text=Perm%20Spoofer%20%C2%B7%20from%20%C2%A335
+                - img [ref=e136]
+              - generic [ref=e138]:
+                - img [ref=e139]
+                - generic [ref=e145]: Earn £10 per sign-up
+      - generic [ref=e147]:
+        - generic [ref=e148]:
+          - generic [ref=e149]:
+            - paragraph [ref=e150]: Watch
+            - heading "See it in action" [level=3] [ref=e151]
+          - link "Open full library" [ref=e152]:
+            - /url: /media
+            - text: Open full library
+            - img [ref=e153]
+        - generic [ref=e155]:
+          - link "0:00 Test 1 0 views · Just now" [ref=e156]:
+            - /url: /media?v=test-1
+            - img [ref=e162]
+            - generic [ref=e164]:
+              - generic [ref=e166]: 0:00
+              - paragraph [ref=e167]: Test 1
+              - paragraph [ref=e168]: 0 views · Just now
+          - link "0:00 Test 2 0 views · Just now" [ref=e169]:
+            - /url: /media?v=test-2
+            - img [ref=e175]
+            - generic [ref=e177]:
+              - generic [ref=e179]: 0:00
+              - paragraph [ref=e180]: Test 2
+              - paragraph [ref=e181]: 0 views · Just now
+          - link "0:00 Test 3 0 views · Just now" [ref=e182]:
+            - /url: /media?v=test-3
+            - img [ref=e188]
+            - generic [ref=e190]:
+              - generic [ref=e192]: 0:00
+              - paragraph [ref=e193]: Test 3
+              - paragraph [ref=e194]: 0 views · Just now
+      - generic [ref=e195]:
+        - generic [ref=e198]: What's included
+        - heading "Everything you get in the box" [level=2] [ref=e199]
+        - generic [ref=e200]:
+          - generic [ref=e201]:
+            - img [ref=e202]
+            - generic [ref=e204]: Kernel-level HWID spoofing
+          - generic [ref=e205]:
+            - img [ref=e206]
+            - generic [ref=e208]: Motherboard serial replacement
+          - generic [ref=e209]:
+            - img [ref=e210]
+            - generic [ref=e212]: GPU UUID reset
+          - generic [ref=e213]:
+            - img [ref=e214]
+            - generic [ref=e216]: Disk signature change
+          - generic [ref=e217]:
+            - img [ref=e218]
+            - generic [ref=e220]: Network adapter MAC reset
+          - generic [ref=e221]:
+            - img [ref=e222]
+            - generic [ref=e224]: Survives all reboots permanently
+          - generic [ref=e225]:
+            - img [ref=e226]
+            - generic [ref=e228]: EAC, BattleEye, Vanguard, Ricochet
+          - generic [ref=e229]:
+            - img [ref=e230]
+            - generic [ref=e232]: Intel + AMD supported
+          - generic [ref=e233]:
+            - img [ref=e234]
+            - generic [ref=e236]: Setup under 5 minutes
+          - generic [ref=e237]:
+            - img [ref=e238]
+            - generic [ref=e240]: Unique hardware profile per user
+          - generic [ref=e241]:
+            - img [ref=e242]
+            - generic [ref=e244]: Lifetime Discord support
+      - generic [ref=e246]:
+        - generic [ref=e248]:
+          - generic [ref=e249]:
+            - img [ref=e251]
+            - generic [ref=e254]: Undetected
+          - generic [ref=e255]:
+            - generic [ref=e256]: "487"
+            - generic [ref=e257]: days
+          - paragraph [ref=e258]: Zero detections across EAC, BattlEye, Vanguard, FaceIt, Ricochet.
+        - generic [ref=e260]:
+          - generic [ref=e261]:
+            - img [ref=e263]
+            - generic [ref=e265]: Patch Response
+          - generic [ref=e267]: <2h
+          - paragraph [ref=e268]: Average downtime after a game patch. You're back online fast.
+        - generic [ref=e270]:
+          - generic [ref=e271]:
+            - img [ref=e273]
+            - generic [ref=e276]: Support
+          - generic [ref=e278]: 24/7
+          - paragraph [ref=e279]: Dedicated Discord team for setup and troubleshooting.
+      - generic [ref=e280]:
+        - generic [ref=e281]:
+          - generic [ref=e282]:
+            - img [ref=e284]
+            - generic [ref=e286]:
+              - heading "Recent Updates" [level=2] [ref=e287]
+              - paragraph [ref=e288]: What shipped lately for Perm Spoofer
+          - link "Full changelog" [ref=e289]:
+            - /url: /changelog
+            - text: Full changelog
+            - img [ref=e290]
+        - generic [ref=e292]:
+          - generic [ref=e293]:
+            - img [ref=e295]
+            - generic [ref=e297]:
+              - generic [ref=e298]:
+                - generic [ref=e299]: Update
+                - generic [ref=e300]: Apr 8, 2026
+              - paragraph [ref=e301]: Updated for Windows 11 25H2
+              - paragraph [ref=e302]: Full compatibility with the latest 25H2 build including hypervisor-enforced code integrity changes.
+          - generic [ref=e303]:
+            - img [ref=e305]
+            - generic [ref=e308]:
+              - generic [ref=e309]:
+                - generic [ref=e310]: Fix
+                - generic [ref=e311]: Mar 22, 2026
+              - paragraph [ref=e312]: MAC randomization for Realtek adapters
+              - paragraph [ref=e313]: Fixed an edge case with Realtek 2.5GbE NICs where the MAC would revert after sleep.
+          - generic [ref=e314]:
+            - img [ref=e316]
+            - generic [ref=e318]:
+              - generic [ref=e319]:
+                - generic [ref=e320]: Feature
+                - generic [ref=e321]: Feb 14, 2026
+              - paragraph [ref=e322]: Per-component spoof toggles
+              - paragraph [ref=e323]: Choose which components to spoof on launch — motherboard, GPU, disk, network, or all.
+    - generic [ref=e328]:
+      - generic [ref=e329]:
+        - generic [ref=e330]:
+          - generic [ref=e331]:
+            - img "Lethal Solutions" [ref=e334]
+            - generic [ref=e335]: Lethal Solutions
+          - paragraph [ref=e336]: Kernel-level gaming tools trusted by 8,700+ players. Undetected since day one.
+          - generic [ref=e337]:
+            - generic [ref=e338]:
+              - img [ref=e339]
+              - generic [ref=e341]: Secure
+            - generic [ref=e342]:
+              - img [ref=e343]
+              - generic [ref=e345]: Instant
+            - generic [ref=e346]:
+              - img [ref=e347]
+              - generic [ref=e350]: 24/7
+          - generic [ref=e351]:
+            - paragraph [ref=e352]: Connect
+            - generic [ref=e353]:
+              - link "Discord" [ref=e354]:
+                - /url: https://discord.gg/lethaldma
+                - img [ref=e355]
+              - link "YouTube" [ref=e358]:
+                - /url: https://www.youtube.com/@ujukcheats-x4b
+                - img [ref=e359]
+              - link "Telegram" [ref=e362]:
+                - /url: https://t.me/lethalsolutions
+                - img [ref=e363]
+        - generic [ref=e366]:
+          - heading "Products" [level=4] [ref=e367]
+          - list [ref=e368]:
+            - listitem [ref=e369]:
+              - link "All Products" [ref=e370]:
+                - /url: /products
+            - listitem [ref=e371]:
+              - link "Compare" [ref=e372]:
+                - /url: /compare
+            - listitem [ref=e373]:
+              - link "Reviews" [ref=e374]:
+                - /url: /reviews
+            - listitem [ref=e375]:
+              - link "Status" [ref=e376]:
+                - /url: /status
+        - generic [ref=e377]:
+          - heading "Resources" [level=4] [ref=e378]
+          - list [ref=e379]:
+            - listitem [ref=e380]:
+              - link "Setup Guide" [ref=e381]:
+                - /url: /setup
+            - listitem [ref=e382]:
+              - link "Media Library" [ref=e383]:
+                - /url: /media
+            - listitem [ref=e384]:
+              - link "FAQ" [ref=e385]:
+                - /url: /faq
+            - listitem [ref=e386]:
+              - link "Guides" [ref=e387]:
+                - /url: /guides
+            - listitem [ref=e388]:
+              - link "Changelog" [ref=e389]:
+                - /url: /changelog
+            - listitem [ref=e390]:
+              - link "Success Stories" [ref=e391]:
+                - /url: /stories
+            - listitem [ref=e392]:
+              - link "Referrals" [ref=e393]:
+                - /url: /referrals
+            - listitem [ref=e394]:
+              - link "Join Our Team" [ref=e395]:
+                - /url: /apply
+        - generic [ref=e396]:
+          - heading "Account" [level=4] [ref=e397]
+          - list [ref=e398]:
+            - listitem [ref=e399]:
+              - link "Track Order" [ref=e400]:
+                - /url: /track
+            - listitem [ref=e401]:
+              - link "Downloads" [ref=e402]:
+                - /url: /downloads
+            - listitem [ref=e403]:
+              - link "My Account" [ref=e404]:
+                - /url: /profile
+            - listitem [ref=e405]:
+              - link "Cart" [ref=e406]:
+                - /url: /cart
+      - heading [level=2] [ref=e408]: LETHAL
+      - generic [ref=e409]:
+        - paragraph [ref=e410]: © 2026 Lethal Solutions. All rights reserved.
+        - generic [ref=e411]:
+          - generic [ref=e416]: All systems operational
+          - link "Terms" [ref=e418]:
+            - /url: /terms
+          - link "Privacy" [ref=e420]:
+            - /url: /privacy

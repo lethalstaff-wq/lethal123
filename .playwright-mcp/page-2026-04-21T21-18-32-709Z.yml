@@ -1,0 +1,111 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - img
+  - button "Open chat" [ref=e2]:
+    - img [ref=e3]
+  - region "Notifications alt+T"
+  - generic:
+    - generic:
+      - link "Perm Spoofer New Order · 2m ago Perm Spoofer Verified Dismiss notification":
+        - /url: /products/perm-spoofer
+        - generic:
+          - img "Perm Spoofer"
+        - generic:
+          - generic:
+            - generic: New Order
+            - generic: ·
+            - generic: 2m ago
+          - paragraph: Perm Spoofer
+          - generic:
+            - generic: Verified
+        - button "Dismiss notification": ×
+  - button "Back to top":
+    - img
+    - img
+  - main [ref=e7]:
+    - generic [ref=e8]:
+      - link "Back" [ref=e9] [cursor=pointer]:
+        - /url: /
+        - img [ref=e10]
+        - generic [ref=e12]: Back
+      - link "All systems online" [ref=e13] [cursor=pointer]:
+        - /url: /status
+        - generic [ref=e17]: All systems online
+    - generic [ref=e18]:
+      - link "Lethal Solutions Lethal Solutions" [ref=e21] [cursor=pointer]:
+        - /url: /
+        - img "Lethal Solutions" [ref=e22]
+        - generic [ref=e23]: Lethal Solutions
+      - generic [ref=e24]:
+        - paragraph [ref=e27]: Order Tracking
+        - heading "Track your order." [level=1] [ref=e28]:
+          - text: Track your
+          - text: order.
+        - paragraph [ref=e29]: Enter your order ID or email to check status, view license keys, and access your downloads in seconds.
+      - generic [ref=e30]:
+        - generic [ref=e31]:
+          - generic [ref=e33]:
+            - paragraph [ref=e34]: Instant
+            - paragraph [ref=e35]: Delivery
+          - generic [ref=e38]:
+            - paragraph [ref=e39]: 256-bit
+            - paragraph [ref=e40]: Encryption
+          - generic [ref=e43]:
+            - paragraph [ref=e44]: 24/7
+            - paragraph [ref=e45]: Support
+        - generic [ref=e46]:
+          - paragraph [ref=e47]: Journey preview
+          - generic [ref=e48]:
+            - generic [ref=e50]:
+              - img [ref=e52]
+              - generic [ref=e54]: Ordered
+            - generic [ref=e57]:
+              - img [ref=e59]
+              - generic [ref=e61]: Paid
+            - generic [ref=e64]:
+              - img [ref=e66]
+              - generic [ref=e68]: License
+            - generic [ref=e71]:
+              - img [ref=e73]
+              - generic [ref=e75]: Active
+          - paragraph [ref=e76]: Each step lights up as we look up your order.
+        - generic [ref=e78]:
+          - generic [ref=e79]: Live
+          - generic [ref=e84]:
+            - generic [ref=e85]:
+              - generic [ref=e86]: "01"
+              - text: Perm Spoofer delivered to UK
+              - generic [ref=e87]: · 12s ago
+            - generic [ref=e88]:
+              - generic [ref=e89]: "02"
+              - text: License activated for DE customer
+              - generic [ref=e90]: · 34s ago
+            - generic [ref=e91]:
+              - generic [ref=e92]: "03"
+              - text: Custom firmware dispatched to US
+              - generic [ref=e93]: · 58s ago
+    - generic [ref=e95]:
+      - generic [ref=e96]:
+        - heading "Find your order" [level=2] [ref=e97]
+        - paragraph [ref=e98]: Search by order ID or email address to see live status.
+      - generic [ref=e99]:
+        - button "Order ID" [ref=e100] [cursor=pointer]
+        - button "Email" [ref=e101] [cursor=pointer]
+      - generic [ref=e102]:
+        - generic [ref=e103]:
+          - generic [ref=e104]: Order ID
+          - generic [ref=e105]:
+            - textbox "e.g. LS-ABC123XY" [ref=e106]
+            - img
+        - generic [ref=e107]:
+          - button "Track Order" [disabled] [ref=e109] [cursor=pointer]:
+            - generic [ref=e110]: Track Order
+            - img [ref=e111]
+          - paragraph [ref=e113]:
+            - text: Need the order ID?
+            - generic [ref=e114]:
+              - img [ref=e115]
+              - text: Check your email
+            - text: /
+            - link "Ask on Discord" [ref=e117] [cursor=pointer]:
+              - /url: https://discord.gg/lethaldma

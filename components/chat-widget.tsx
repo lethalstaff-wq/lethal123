@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { MessageCircle, X, ChevronRight, ExternalLink } from "lucide-react"
 
 const QUICK_FAQ = [
@@ -13,29 +13,22 @@ const QUICK_FAQ = [
 
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false)
-  const [pushed, setPushed] = useState(false)
-
-  useEffect(() => {
-    const onScroll = () => setPushed(window.scrollY > 500)
-    window.addEventListener("scroll", onScroll, { passive: true })
-    return () => window.removeEventListener("scroll", onScroll)
-  }, [])
 
   return (
     <>
-      {/* Button — left side, pushed up when back-to-top is visible */}
+      {/* Button — right side (Intercom/Crisp convention) */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Open chat"
-        style={{ bottom: pushed ? 80 : 24, transition: "bottom 0.6s cubic-bezier(0.16, 1, 0.3, 1)" }}
-        className={`fixed left-6 z-[75] p-3.5 rounded-full bg-black/80 backdrop-blur-xl border border-white/[0.10] text-white/55 hover:border-[#f97316]/40 hover:text-[#f97316] hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(249, 115, 22, 0.26)] shadow-[0_6px_20px_rgba(0,0,0,0.4)] transition-all duration-300 group ${isOpen ? "opacity-0 pointer-events-none" : ""}`}
+        style={{ bottom: 24, transition: "bottom 0.6s cubic-bezier(0.16, 1, 0.3, 1)" }}
+        className={`fixed right-6 z-[75] p-3.5 rounded-full bg-black/80 backdrop-blur-xl border border-white/[0.10] text-white/55 hover:border-[#f97316]/40 hover:text-[#f97316] hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(249, 115, 22, 0.26)] shadow-[0_6px_20px_rgba(0,0,0,0.4)] transition-all duration-300 group ${isOpen ? "opacity-0 pointer-events-none" : ""}`}
       >
         <MessageCircle className="h-[18px] w-[18px] group-hover:scale-110 transition-transform" />
       </button>
 
       {/* Panel */}
       {isOpen && (
-        <div className="fixed bottom-6 left-6 z-[100] w-[calc(100vw-3rem)] sm:w-[360px] bg-black/95 backdrop-blur-xl border border-white/[0.10] rounded-2xl shadow-[0_30px_80px_rgba(0,0,0,0.7),0_0_60px_rgba(249, 115, 22, 0.14)] overflow-hidden animate-in slide-in-from-bottom-4 fade-in duration-300">
+        <div className="fixed bottom-6 right-6 z-[100] w-[calc(100vw-3rem)] sm:w-[360px] bg-black/95 backdrop-blur-xl border border-white/[0.10] rounded-2xl shadow-[0_30px_80px_rgba(0,0,0,0.7),0_0_60px_rgba(249, 115, 22, 0.14)] overflow-hidden animate-in slide-in-from-bottom-4 fade-in duration-300">
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f97316]/60 to-transparent pointer-events-none" />
           {/* Header */}
           <div className="flex items-center justify-between p-4 border-b border-white/[0.06] bg-gradient-to-b from-[#f97316]/[0.04] to-transparent">

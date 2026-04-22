@@ -1,10 +1,23 @@
+import type { Metadata } from "next"
 import { AlertCircle } from "lucide-react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
+import { SectionEyebrow } from "@/components/section-eyebrow"
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Terms of Service",
-  description: "Terms of Service for Lethal Solutions",
+  description:
+    "Terms governing your use of Lethal Solutions — licenses, refunds, permitted use, liability, account rules and disputes.",
+  alternates: { canonical: "/terms" },
+  openGraph: {
+    title: "Terms of Service | Lethal Solutions",
+    description: "Licenses, refunds, permitted use, liability, and account rules.",
+    url: "https://www.lethalsolutions.me/terms",
+    type: "website",
+    siteName: "Lethal Solutions",
+    images: [{ url: "https://www.lethalsolutions.me/images/banner.png", width: 1200, height: 630, alt: "Terms of Service" }],
+  },
+  twitter: { card: "summary_large_image", images: ["https://www.lethalsolutions.me/images/banner.png"] },
 }
 
 export default function TermsPage() {
@@ -14,10 +27,7 @@ export default function TermsPage() {
       <main className="min-h-screen bg-transparent pt-32 pb-20 px-4 relative">
         <div className="container mx-auto max-w-3xl">
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/[0.08] bg-white/[0.03] backdrop-blur-md mb-6">
-              <AlertCircle className="h-3.5 w-3.5 text-[#f97316]" />
-              <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/55">Legal</span>
-            </div>
+            <SectionEyebrow label="Legal" />
             <div className="relative h-px w-44 mx-auto mb-7 bg-white/[0.05] overflow-hidden">
               <div className="absolute inset-y-0 w-24 bg-gradient-to-r from-transparent via-[#f97316]/70 to-transparent" style={{ animation: "heroScan 4s ease-in-out infinite" }} />
             </div>

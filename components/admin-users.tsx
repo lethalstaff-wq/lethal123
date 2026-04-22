@@ -95,16 +95,16 @@ export function AdminUsersClient({ users, currentUserId }: { users: User[]; curr
                   </td>
                 </tr>
               ) : filtered.map((user) => (
-                <tr key={user.id} className="hover:bg-muted/20 transition-colors">
+                <tr key={user.id} className="hover:bg-white/[0.04] transition-colors">
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-3">
-                      <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                        <span className="text-xs font-bold text-primary">{user.email.charAt(0).toUpperCase()}</span>
+                      <div className="h-8 w-8 rounded-full bg-[#f97316]/10 flex items-center justify-center shrink-0">
+                        <span className="text-xs font-bold text-[#f97316]">{user.email.charAt(0).toUpperCase()}</span>
                       </div>
                       <div>
                         <p className="font-medium text-white">{user.email}</p>
                         {user.id === currentUserId && (
-                          <span className="text-[10px] text-primary font-medium">(You)</span>
+                          <span className="text-[10px] text-[#f97316] font-medium">(You)</span>
                         )}
                       </div>
                     </div>
@@ -120,11 +120,11 @@ export function AdminUsersClient({ users, currentUserId }: { users: User[]; curr
                   </td>
                   <td className="px-4 py-3">
                     {user.is_admin ? (
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary/10 text-xs font-medium text-primary">
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#f97316]/10 text-xs font-medium text-[#f97316]">
                         <Shield className="h-3 w-3" /> Admin
                       </span>
                     ) : (
-                      <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-muted text-xs font-medium text-white/55">User</span>
+                      <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-white/[0.04] text-xs font-medium text-white/55">User</span>
                     )}
                   </td>
                   <td className="px-4 py-3 text-white/55 text-xs">{formatDate(user.created_at)}</td>
@@ -146,7 +146,7 @@ export function AdminUsersClient({ users, currentUserId }: { users: User[]; curr
                           size="sm"
                           onClick={() => handleDelete(user.id)}
                           disabled={isPending}
-                          className="h-7 text-xs text-destructive hover:text-destructive gap-1"
+                          className="h-7 text-xs text-red-400 hover:text-red-400 gap-1"
                         >
                           <Trash2 className="h-3 w-3" />
                         </Button>
