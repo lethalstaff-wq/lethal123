@@ -1,7 +1,8 @@
 "use client"
 
 import { useState, useEffect, useMemo } from "react"
-import { ExternalLink, Shield, CheckCircle2, AlertTriangle, XCircle, RefreshCw, Gamepad2, Wrench, ArrowRight, Mail } from "lucide-react"
+import { ExternalLink, Shield, CheckCircle2, AlertTriangle, XCircle, RefreshCw, Gamepad2, Wrench, ArrowRight, Mail, BellRing } from "lucide-react"
+import { toast } from "sonner"
 import Link from "next/link"
 import { PRODUCTS } from "@/lib/products"
 import { Navbar } from "@/components/navbar"
@@ -332,30 +333,43 @@ export default function StatusPage() {
           </div>
 
           {/* 90-day global incident strip */}
-          <div className="mb-10 rounded-2xl border border-white/[0.06] bg-white/[0.015] px-5 py-4">
-            <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5">
-              <div className="flex-1 min-w-0">
+          <div className="mb-10 rounded-2xl border border-white/[0.06] bg-white/[0.015] px-5 py-5">
+            <div className="flex items-center justify-between gap-4 mb-3 flex-wrap">
+              <div className="min-w-0">
                 <p className="text-[11px] uppercase tracking-[0.18em] text-white/35 font-semibold">90-day incident timeline</p>
-                <p className="text-[12px] text-white/55 mt-0.5">
+                <p className="text-[12px] text-white/55 mt-1">
                   <span className="text-emerald-400 font-bold tabular-nums">{90 - incidentCount}</span> green days ·{" "}
                   <span className="text-red-400 font-bold tabular-nums">{incidentCount}</span> incident{incidentCount === 1 ? "" : "s"} · avg patch time{" "}
                   <span className="text-white/80 font-bold">1h 48m</span>
                 </p>
               </div>
-              <div className="flex items-center gap-[2px] h-8" style={{ width: 180 }} role="list" aria-label="90-day incident history">
-                {ninetyDays.map((d) => (
-                  <div key={d.day} className="relative group/dot flex-1 h-full">
-                    <div className={`w-full h-full rounded-[2px] transition-all ${d.status === "up" ? "bg-emerald-500/70 group-hover/dot:bg-emerald-400" : "bg-red-500 group-hover/dot:bg-red-400 shadow-[0_0_8px_rgba(239,68,68,0.6)]"}`} />
-                    <div className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 rounded-md text-[10px] text-white whitespace-nowrap bg-black/95 border border-white/[0.08] opacity-0 group-hover/dot:opacity-100 transition-opacity duration-150 shadow-[0_8px_20px_rgba(0,0,0,0.5)] z-30">
-                      {d.label}
-                    </div>
+              <div className="flex items-center gap-3 text-[10px] text-white/35 shrink-0">
+                <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-[2px] bg-emerald-500/80" /> up</span>
+                <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-[2px] bg-red-500 shadow-[0_0_6px_rgba(239,68,68,0.55)]" /> incident</span>
+              </div>
+            </div>
+
+            {/* Full-width day-bar grid */}
+            <div className="flex items-end gap-[1px] h-9 w-full" role="list" aria-label="90-day incident history">
+              {ninetyDays.map((d) => (
+                <div key={d.day} className="relative group/dot flex-1 h-full min-w-0">
+                  <div
+                    className={`w-full h-full rounded-[1.5px] transition-all duration-200 ${
+                      d.status === "up"
+                        ? "bg-emerald-500/55 group-hover/dot:bg-emerald-400 group-hover/dot:shadow-[0_0_6px_rgba(16,185,129,0.5)]"
+                        : "bg-red-500 group-hover/dot:bg-red-400 shadow-[0_0_10px_rgba(239,68,68,0.65)]"
+                    }`}
+                  />
+                  <div className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 rounded-md text-[10px] text-white whitespace-nowrap bg-black/95 border border-white/[0.08] opacity-0 group-hover/dot:opacity-100 transition-opacity duration-150 shadow-[0_8px_20px_rgba(0,0,0,0.5)] z-30">
+                    {d.label}
                   </div>
-                ))}
-              </div>
-              <div className="flex items-center gap-3 text-[10px] text-white/35">
-                <span className="flex items-center gap-1"><span className="h-1.5 w-1.5 rounded-full bg-emerald-500/70" /> up</span>
-                <span className="flex items-center gap-1"><span className="h-1.5 w-1.5 rounded-full bg-red-500" /> incident</span>
-              </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex items-center justify-between text-[9.5px] text-white/25 uppercase tracking-[0.18em] font-semibold mt-2">
+              <span>90 days ago</span>
+              <span>today</span>
             </div>
           </div>
 
@@ -530,32 +544,7 @@ export default function StatusPage() {
               </span>
             </Link>
 
-            <form
-              onSubmit={(e) => e.preventDefault()}
-              className="flex items-center gap-2 rounded-2xl border border-white/[0.06] bg-white/[0.015] px-4 py-3"
-            >
-              <Mail className="h-4 w-4 text-white/30 shrink-0" />
-              <input
-                type="email"
-                placeholder="you@email.com"
-                aria-label="Email for status alerts"
-                className="flex-1 min-w-0 bg-transparent text-sm text-white placeholder-white/25 focus:outline-none"
-              />
-              <button
-                type="submit"
-                className="press-spring px-3 py-1.5 rounded-lg text-[11px] font-bold text-white bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.06] transition-colors shrink-0"
-              >
-                Subscribe
-              </button>
-              <a
-                href="https://discord.gg/lethaldma"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="press-spring px-3 py-1.5 rounded-lg text-[11px] font-bold text-white bg-[#5865F2]/20 hover:bg-[#5865F2]/30 border border-[#5865F2]/30 transition-colors shrink-0"
-              >
-                Discord
-              </a>
-            </form>
+            <StatusSubscribeForm />
           </div>
 
           {/* Footer */}
@@ -573,5 +562,98 @@ export default function StatusPage() {
         }
       `}</style>
     </>
+  )
+}
+
+/* ════════ Subscribe form with toast feedback ════════ */
+function StatusSubscribeForm() {
+  const [email, setEmail] = useState("")
+  const [submitting, setSubmitting] = useState(false)
+  const [subscribed, setSubscribed] = useState(false)
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    const trimmed = email.trim()
+
+    if (!trimmed) {
+      toast.error("Please enter your email", {
+        description: "We'll use it to send status alerts for your products.",
+      })
+      return
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
+      toast.error("That email doesn't look right", {
+        description: "Double-check for typos and try again.",
+      })
+      return
+    }
+    if (submitting || subscribed) return
+
+    setSubmitting(true)
+    // Simulate network round-trip; later swap in a real /api/status-alerts call.
+    await new Promise((r) => setTimeout(r, 650))
+    setSubmitting(false)
+    setSubscribed(true)
+    toast.success("You're subscribed to status alerts", {
+      description: (
+        <span>
+          We'll email <span className="font-semibold text-white/85">{trimmed}</span> the moment detection state changes.
+        </span>
+      ),
+      duration: 5500,
+    })
+    setEmail("")
+    setTimeout(() => setSubscribed(false), 2800)
+  }
+
+  return (
+    <form
+      onSubmit={handleSubmit}
+      className="flex items-center gap-2 rounded-2xl border border-white/[0.06] bg-white/[0.015] px-4 py-3 focus-within:border-[#f97316]/35 focus-within:bg-white/[0.025] transition-colors"
+    >
+      <Mail className="h-4 w-4 text-white/35 shrink-0" />
+      <input
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="you@email.com"
+        aria-label="Email for status alerts"
+        disabled={submitting || subscribed}
+        className="flex-1 min-w-0 bg-transparent text-sm text-white placeholder-white/25 focus:outline-none disabled:opacity-50"
+      />
+      <button
+        type="submit"
+        disabled={submitting || subscribed}
+        className={`press-spring px-3 py-1.5 rounded-lg text-[11px] font-bold text-white border transition-colors shrink-0 inline-flex items-center gap-1.5 ${
+          subscribed
+            ? "bg-emerald-500/20 border-emerald-500/40 text-emerald-300"
+            : submitting
+              ? "bg-white/[0.05] border-white/[0.06] opacity-70 cursor-wait"
+              : "bg-white/[0.05] hover:bg-[#f97316]/15 border-white/[0.06] hover:border-[#f97316]/35 hover:text-white"
+        }`}
+      >
+        {subscribed ? (
+          <>
+            <CheckCircle2 className="h-3 w-3" /> Subscribed
+          </>
+        ) : submitting ? (
+          <>
+            <RefreshCw className="h-3 w-3 animate-spin" /> …
+          </>
+        ) : (
+          <>
+            <BellRing className="h-3 w-3" /> Subscribe
+          </>
+        )}
+      </button>
+      <a
+        href="https://discord.gg/lethaldma"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="press-spring px-3 py-1.5 rounded-lg text-[11px] font-bold text-white bg-[#5865F2]/20 hover:bg-[#5865F2]/30 border border-[#5865F2]/30 transition-colors shrink-0"
+      >
+        Discord
+      </a>
+    </form>
   )
 }
