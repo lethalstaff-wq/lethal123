@@ -574,7 +574,7 @@ export default function ReferralsPage() {
                 <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 50%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 40px rgba(249,115,22,0.4))" }}>climbing.</span>
               </h2>
             </div>
-            <LoyaltyTierCard xp={1240} />
+            <LoyaltyTierCard />
           </div>
         </section>
       )}

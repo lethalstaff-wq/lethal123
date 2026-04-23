@@ -20,37 +20,95 @@ const TIERS: readonly Tier[] = [
   { key: "elite",   label: "Elite",   icon: Crown,  min: 1800, max: 4000, color: "#fbbf24", glow: "rgba(251,191,36,0.6)"   },
 ] as const
 
-interface Props { xp?: number }
+interface Props {
+  /** If provided, shows the user's real XP. If omitted, auto-cycles through all
+   *  tiers as a slow preview demo. */
+  xp?: number
+}
 
-export function LoyaltyTierCard({ xp = 1240 }: Props) {
+export function LoyaltyTierCard({ xp }: Props) {
   const ref = useRef<HTMLDivElement>(null)
   const [displayXp, setDisplayXp] = useState(0)
-  const [started, setStarted] = useState(false)
+
+  const isPreviewMode = xp === undefined
+  const targetXp = xp ?? 0
 
   useEffect(() => {
     const el = ref.current
     if (!el) return
+
     if (typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
-      setDisplayXp(xp); setStarted(true); return
+      setDisplayXp(targetXp || 2800)
+      return
     }
-    const obs = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting && !started) {
-        setStarted(true)
-        const t0 = performance.now()
-        const tick = (now: number) => {
-          const p = Math.min((now - t0) / 1600, 1)
-          const eased = 1 - Math.pow(1 - p, 4)
-          setDisplayXp(Math.round(eased * xp))
-          if (p < 1) requestAnimationFrame(tick)
-          else setDisplayXp(xp)
+
+    let raf = 0
+    let start = 0
+    let cancelled = false
+    let intersected = !isPreviewMode ? false : false
+
+    const runOneShot = () => {
+      // Logged-in mode: animate from 0 → targetXp once on enter
+      const duration = 1600
+      const tick = (now: number) => {
+        if (cancelled) return
+        if (!start) start = now
+        const p = Math.min((now - start) / duration, 1)
+        const eased = 1 - Math.pow(1 - p, 4)
+        setDisplayXp(Math.round(eased * targetXp))
+        if (p < 1) raf = requestAnimationFrame(tick)
+        else setDisplayXp(targetXp)
+      }
+      raf = requestAnimationFrame(tick)
+    }
+
+    const runPreviewLoop = () => {
+      // Preview mode: slow loop that climbs through every tier then resets
+      const MAX_XP = 3600 // lands mid-Elite
+      const RAMP_MS = 18_000 // ~18s to climb
+      const HOLD_MS = 2_500 // brief hold at top
+      const RESET_MS = 900 // quick fade back to 0
+      const CYCLE_MS = RAMP_MS + HOLD_MS + RESET_MS
+
+      const tick = (now: number) => {
+        if (cancelled) return
+        if (!start) start = now
+        const elapsed = (now - start) % CYCLE_MS
+
+        let value: number
+        if (elapsed < RAMP_MS) {
+          // ease-in-out for smoother tier transitions
+          const p = elapsed / RAMP_MS
+          const eased = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2
+          value = eased * MAX_XP
+        } else if (elapsed < RAMP_MS + HOLD_MS) {
+          value = MAX_XP
+        } else {
+          const p = (elapsed - RAMP_MS - HOLD_MS) / RESET_MS
+          value = MAX_XP * (1 - p)
         }
-        requestAnimationFrame(tick)
+        setDisplayXp(Math.round(value))
+        raf = requestAnimationFrame(tick)
+      }
+      raf = requestAnimationFrame(tick)
+    }
+
+    const obs = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && !intersected) {
+        intersected = true
+        if (isPreviewMode) runPreviewLoop()
+        else runOneShot()
         obs.disconnect()
       }
     }, { threshold: 0.3 })
     obs.observe(el)
-    return () => obs.disconnect()
-  }, [xp, started])
+
+    return () => {
+      cancelled = true
+      cancelAnimationFrame(raf)
+      obs.disconnect()
+    }
+  }, [targetXp, isPreviewMode])
 
   const currentIdx = (() => {
     let i = 0
