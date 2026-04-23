@@ -24,6 +24,7 @@ import {
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { SectionEyebrow } from "@/components/section-eyebrow"
+import { GlossyButton } from "@/components/ui/glossy-button"
 import Link from "next/link"
 
 interface DownloadItem {
@@ -48,11 +49,33 @@ interface OrderLicense {
   createdAt: string
 }
 
-// Faded demo tiles shown pre-auth so users know what they'll unlock.
-const DEMO_TILES = [
-  { name: "Tenebris DMA", version: "4.2.1", updated: "2 days ago" },
-  { name: "Spoofer Pro", version: "3.8.0", updated: "5 days ago" },
-  { name: "KMBox Firmware", version: "2.1.7", updated: "1 week ago" },
+// Real catalogue shown pre-auth so users see the exact products they'll
+// unlock once they verify their key. Metadata is seeded (not live) on purpose
+// — this grid is decorative; the real version + updated timestamp arrive from
+// /api/downloads after verification.
+type Category = "spoofer" | "cheat" | "firmware"
+type Lane = { hex: string; glow: string; rgb: string }
+const LANES: Record<Category, Lane> = {
+  spoofer:  { hex: "#10b981", glow: "rgba(16,185,129,0.35)",  rgb: "16,185,129"  },
+  cheat:    { hex: "#f97316", glow: "rgba(249,115,22,0.38)",  rgb: "249,115,22"  },
+  firmware: { hex: "#3b82f6", glow: "rgba(59,130,246,0.35)",  rgb: "59,130,246"  },
+}
+
+const CATALOGUE_TILES: {
+  name: string
+  category: Category
+  categoryLabel: string
+  version: string
+  size: string
+  undetected: string
+  updated: string
+}[] = [
+  { name: "Perm Spoofer",         category: "spoofer",  categoryLabel: "HWID Spoofer",   version: "v4.4.0", size: "42 MB",  undetected: "236d",  updated: "2 days ago"  },
+  { name: "Temp Spoofer",         category: "spoofer",  categoryLabel: "HWID Spoofer",   version: "v3.8.2", size: "28 MB",  undetected: "217d",  updated: "1 week ago"  },
+  { name: "Fortnite External",    category: "cheat",    categoryLabel: "DMA Cheat",      version: "v7.1.4", size: "64 MB",  undetected: "189d",  updated: "3 days ago"  },
+  { name: "Custom DMA Firmware",  category: "firmware", categoryLabel: "Firmware",       version: "v5.0.0", size: "18 MB",  undetected: "134d",  updated: "8 days ago"  },
+  { name: "Streck DMA Cheat",     category: "cheat",    categoryLabel: "DMA Cheat",      version: "v2.3.8", size: "55 MB",  undetected: "120d",  updated: "2 weeks ago" },
+  { name: "Blurred DMA Cheat",    category: "cheat",    categoryLabel: "DMA Cheat",      version: "v1.9.1", size: "47 MB",  undetected: "164d",  updated: "4 days ago"  },
 ]
 
 export default function DownloadsPage() {
@@ -160,21 +183,18 @@ export default function DownloadsPage() {
                     onKeyDown={(e) => e.key === "Enter" && handleSearch()}
                     className="focus-ring-premium h-14 rounded-xl bg-white/[0.03] border border-white/[0.08] text-[15px] font-mono tracking-wider text-white placeholder:text-white/25 placeholder:font-mono"
                   />
-                  <button
+                  <GlossyButton
                     onClick={handleSearch}
                     disabled={loading}
                     data-cursor="cta"
                     data-cursor-label={loading ? "Wait" : "Verify"}
                     aria-label="Verify license"
-                    className="cursor-cta press-spring group relative overflow-hidden h-14 w-14 rounded-xl bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white flex items-center justify-center flex-shrink-0 hover:shadow-[0_0_40px_rgba(249,115,22,0.6)] transition-all disabled:opacity-50"
+                    shape="block"
+                    size="lg"
+                    className="cursor-cta press-spring h-14 w-14 !px-0 flex-shrink-0"
                   >
-                    <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
-                    {loading ? (
-                      <Loader2 className="relative z-10 h-5 w-5 animate-spin" />
-                    ) : (
-                      <Search className="relative z-10 h-5 w-5" />
-                    )}
-                  </button>
+                    {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : <Search className="h-5 w-5" />}
+                  </GlossyButton>
                 </div>
 
                 {/* Format hint + help link */}
@@ -203,50 +223,149 @@ export default function DownloadsPage() {
               </div>
             </div>
 
-            {/* Demo grid: preview of what unlocks after key entry */}
-            <div className="max-w-4xl mx-auto mt-16">
-              <div className="flex items-center justify-center gap-2 mb-5 text-[11px] font-bold uppercase tracking-[0.22em] text-white/30">
-                <Lock className="h-3 w-3" />
-                Enter your key to unlock
+            {/* Vault catalogue — real product lineup, locked until key is verified */}
+            <div className="max-w-5xl mx-auto mt-20">
+              <div className="text-center mb-8">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/[0.07] bg-white/[0.015] text-[10.5px] font-bold uppercase tracking-[0.22em] text-white/50">
+                  <Lock className="h-3 w-3 text-[#f97316]" />
+                  <span>Inside the vault</span>
+                  <span className="text-white/25">·</span>
+                  <span className="text-white/35">6 products · key required</span>
+                </div>
+                <h2 className="font-display text-[26px] sm:text-[30px] font-bold tracking-[-0.03em] leading-[1.1] mt-4">
+                  <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.8))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                    Every build you'll unlock
+                  </span>
+                </h2>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                {DEMO_TILES.map((tile, i) => (
-                  <div
-                    key={tile.name}
-                    className="group relative rounded-2xl border border-white/[0.04] bg-white/[0.012] p-5 overflow-hidden"
-                    style={{ opacity: 0.35 }}
-                    aria-hidden="true"
-                  >
-                    {/* Shimmer overlay */}
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+                {CATALOGUE_TILES.map((tile, i) => {
+                  const lane = LANES[tile.category]
+                  return (
                     <div
-                      className="pointer-events-none absolute inset-0"
+                      key={tile.name}
+                      className="group/vault relative rounded-2xl overflow-hidden transition-transform duration-500 hover:-translate-y-[2px]"
                       style={{
-                        background:
-                          "linear-gradient(90deg, transparent 0%, rgba(249,115,22,0.08) 50%, transparent 100%)",
-                        backgroundSize: "200% 100%",
-                        animation: `shimmerDark 3s ease-in-out infinite`,
-                        animationDelay: `${i * 0.4}s`,
+                        background: "linear-gradient(180deg, rgba(255,255,255,0.018), rgba(255,255,255,0.006))",
+                        border: "1px solid rgba(255,255,255,0.06)",
+                        boxShadow: "0 20px 50px -30px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.025)",
                       }}
-                    />
-                    <div className="relative flex items-start gap-3 mb-4">
-                      <div className="w-11 h-11 rounded-xl bg-[#f97316]/10 flex items-center justify-center shrink-0">
-                        <Package className="h-5 w-5 text-[#f97316]" />
+                      aria-hidden="true"
+                    >
+                      {/* Status-coloured left rail */}
+                      <span
+                        aria-hidden="true"
+                        className="absolute left-0 top-0 bottom-0 w-[3px] opacity-70 group-hover/vault:opacity-100 transition-opacity"
+                        style={{
+                          background: `linear-gradient(180deg, rgba(${lane.rgb},0) 0%, rgba(${lane.rgb},0.8) 50%, rgba(${lane.rgb},0) 100%)`,
+                        }}
+                      />
+                      {/* Ambient corner glow tinted to lane */}
+                      <span
+                        aria-hidden="true"
+                        className="absolute -top-14 -right-14 w-40 h-40 rounded-full pointer-events-none opacity-40 group-hover/vault:opacity-70 transition-opacity duration-500"
+                        style={{
+                          background: `radial-gradient(circle, ${lane.glow}, transparent 70%)`,
+                          filter: "blur(30px)",
+                        }}
+                      />
+                      {/* Scanline shimmer — slow animated sweep */}
+                      <span
+                        className="pointer-events-none absolute inset-0"
+                        style={{
+                          background: `linear-gradient(115deg, transparent 0%, rgba(${lane.rgb},0.08) 48%, transparent 56%)`,
+                          backgroundSize: "250% 100%",
+                          animation: "vaultShimmer 4.5s ease-in-out infinite",
+                          animationDelay: `${i * 0.4}s`,
+                        }}
+                      />
+
+                      <div className="relative p-5">
+                        {/* Header row: icon tile + category caption + padlock */}
+                        <div className="flex items-start gap-3 mb-4">
+                          <div
+                            className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
+                            style={{
+                              background: `rgba(${lane.rgb},0.10)`,
+                              border: `1px solid rgba(${lane.rgb},0.3)`,
+                              boxShadow: `0 0 16px ${lane.glow.replace("0.35", "0.2").replace("0.38", "0.22")}, inset 0 1px 0 rgba(255,255,255,0.06)`,
+                            }}
+                          >
+                            {tile.category === "firmware" ? (
+                              <Shield className="h-5 w-5" style={{ color: lane.hex }} />
+                            ) : tile.category === "spoofer" ? (
+                              <Package className="h-5 w-5" style={{ color: lane.hex }} />
+                            ) : (
+                              <FileDown className="h-5 w-5" style={{ color: lane.hex }} />
+                            )}
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <p className="text-[9.5px] font-bold uppercase tracking-[0.2em]" style={{ color: lane.hex }}>
+                              {tile.categoryLabel}
+                            </p>
+                            <h3 className="font-display font-bold text-white text-[14.5px] tracking-[-0.01em] mt-0.5 truncate">
+                              {tile.name}
+                            </h3>
+                          </div>
+                          <span
+                            className="shrink-0 w-7 h-7 rounded-lg flex items-center justify-center"
+                            style={{
+                              background: "rgba(255,255,255,0.03)",
+                              border: "1px solid rgba(255,255,255,0.06)",
+                            }}
+                          >
+                            <Lock className="h-3 w-3 text-white/35" />
+                          </span>
+                        </div>
+
+                        {/* Metadata grid: version + size + undetected streak */}
+                        <div className="grid grid-cols-3 gap-2 mb-4">
+                          <div className="rounded-lg px-2.5 py-2 bg-white/[0.02] border border-white/[0.04]">
+                            <p className="text-[8.5px] font-bold uppercase tracking-[0.18em] text-white/30">Version</p>
+                            <p className="text-[11.5px] font-mono font-semibold text-white/75 mt-0.5 tabular-nums">{tile.version}</p>
+                          </div>
+                          <div className="rounded-lg px-2.5 py-2 bg-white/[0.02] border border-white/[0.04]">
+                            <p className="text-[8.5px] font-bold uppercase tracking-[0.18em] text-white/30">Size</p>
+                            <p className="text-[11.5px] font-mono font-semibold text-white/75 mt-0.5 tabular-nums">{tile.size}</p>
+                          </div>
+                          <div className="rounded-lg px-2.5 py-2 bg-white/[0.02] border border-white/[0.04]">
+                            <p className="text-[8.5px] font-bold uppercase tracking-[0.18em] text-white/30">Clean</p>
+                            <p className="text-[11.5px] font-mono font-semibold text-emerald-400 mt-0.5 tabular-nums">{tile.undetected}</p>
+                          </div>
+                        </div>
+
+                        {/* Footer: status chip + updated */}
+                        <div className="flex items-center justify-between pt-3 border-t border-white/[0.04]">
+                          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/25">
+                            <span className="relative flex w-1 h-1">
+                              <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70" style={{ animation: "statusPulse 2s ease-in-out infinite" }} />
+                              <span className="relative inline-flex w-1 h-1 rounded-full bg-emerald-400" />
+                            </span>
+                            <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-emerald-400">Undetected</span>
+                          </span>
+                          <span className="inline-flex items-center gap-1 text-[10px] text-white/40">
+                            <Clock className="h-3 w-3" />
+                            {tile.updated}
+                          </span>
+                        </div>
                       </div>
-                      <div className="min-w-0 flex-1">
-                        <h3 className="font-bold text-white text-sm truncate">{tile.name}</h3>
-                        <p className="text-xs text-white/35 font-mono">v{tile.version}</p>
-                      </div>
-                      <Lock className="h-4 w-4 text-white/30 shrink-0" />
                     </div>
-                    <div className="relative flex items-center justify-between text-[11px] text-white/30">
-                      <span className="flex items-center gap-1">
-                        <Clock className="h-3 w-3" />
-                        Updated {tile.updated}
-                      </span>
-                      <span className="font-mono">—</span>
-                    </div>
-                  </div>
-                ))}
+                  )
+                })}
+              </div>
+
+              {/* Tiny trust row under the grid */}
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-[10.5px] font-bold uppercase tracking-[0.2em] text-white/35">
+                <span className="inline-flex items-center gap-1.5">
+                  <Shield className="h-3 w-3 text-emerald-400/70" /> Lifetime updates
+                </span>
+                <span className="inline-flex items-center gap-1.5">
+                  <Key className="h-3 w-3 text-[#f97316]/70" /> One key · every build
+                </span>
+                <span className="inline-flex items-center gap-1.5">
+                  <Download className="h-3 w-3 text-blue-400/70" /> Instant delivery
+                </span>
               </div>
             </div>
           </div>
