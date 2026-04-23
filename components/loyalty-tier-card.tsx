@@ -182,7 +182,7 @@ export function LoyaltyTierCard({ xp }: Props) {
                       <div className="absolute top-[34px] left-[calc(50%+38px)] right-[calc(-50%+38px)] h-px overflow-hidden pointer-events-none">
                         <div className="absolute inset-0 bg-white/[0.05]" />
                         <div
-                          className="absolute inset-y-0 left-0 transition-[width] duration-[1400ms] ease-out"
+                          className="absolute inset-y-0 left-0"
                           style={{
                             width:
                               i < currentIdx
@@ -190,8 +190,8 @@ export function LoyaltyTierCard({ xp }: Props) {
                                 : i === currentIdx
                                   ? `${tierProgressPct}%`
                                   : "0%",
-                            background: `linear-gradient(90deg, ${currentTier.color}aa, ${currentTier.color})`,
-                            boxShadow: i <= currentIdx ? `0 0 6px ${currentTier.glow}` : "none",
+                            background: `linear-gradient(90deg, ${t.color}aa, ${t.color})`,
+                            boxShadow: i <= currentIdx ? `0 0 6px ${t.glow}` : "none",
                           }}
                         />
                         {/* Traveling particle while on the in-progress segment */}
@@ -301,16 +301,16 @@ export function LoyaltyTierCard({ xp }: Props) {
           </div>
           <div className="relative h-[6px] rounded-full bg-white/[0.04] overflow-hidden">
             <div
-              className="absolute inset-y-0 left-0 rounded-full transition-[width] duration-[1400ms] ease-out"
+              className="absolute inset-y-0 left-0 rounded-full"
               style={{
                 width: `${tierProgressPct}%`,
                 background: `linear-gradient(90deg, ${currentTier.color}aa, ${currentTier.color})`,
                 boxShadow: `0 0 10px ${currentTier.glow}`,
               }}
             />
-            {tierProgressPct > 0 && (
+            {tierProgressPct > 2 && tierProgressPct < 99 && (
               <div
-                className="absolute inset-y-0 left-0 rounded-full overflow-hidden"
+                className="absolute inset-y-0 left-0 rounded-full overflow-hidden pointer-events-none"
                 style={{ width: `${tierProgressPct}%` }}
               >
                 <span
