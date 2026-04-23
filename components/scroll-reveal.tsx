@@ -20,6 +20,9 @@ export function ScrollReveal({ children, className = "", delay = 0, scale = fals
       return
     }
 
+    // Trigger only once the element is ~12% inside the viewport — otherwise
+    // large sections register as "visible" at their top edge and the reveal
+    // runs before the user actually gets to see it.
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -27,7 +30,7 @@ export function ScrollReveal({ children, className = "", delay = 0, scale = fals
           observer.disconnect()
         }
       },
-      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+      { threshold: 0.12, rootMargin: "0px 0px -12% 0px" }
     )
 
     if (ref.current) {

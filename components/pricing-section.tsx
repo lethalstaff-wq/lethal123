@@ -209,9 +209,6 @@ export function PricingSection() {
       <div className="max-w-[1100px] mx-auto">
         <div className="text-center mb-16">
           <SectionEyebrow number="04" label="DMA Bundles" />
-          <div className="relative h-px w-44 mx-auto mb-7 bg-white/[0.05] overflow-hidden">
-            <div className="absolute inset-y-0 w-24 bg-gradient-to-r from-transparent via-[#f97316]/70 to-transparent" style={{ animation: "heroScan 4s ease-in-out infinite" }} />
-          </div>
           <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.04em] leading-[0.95] mb-4">
             <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Choose your </span>
             <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249, 115, 22, 0.43))" }}>package</span>

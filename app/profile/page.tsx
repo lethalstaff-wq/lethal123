@@ -15,6 +15,7 @@ import { LoyaltyCard } from "@/components/loyalty-card"
 import { getLoyaltyStatus } from "@/lib/loyalty"
 import { RenewalRemindersList } from "@/components/renewal-reminders-list"
 import { ProfileSettings } from "@/components/profile-settings"
+import { SectionEyebrow } from "@/components/section-eyebrow"
 
 interface Order {
   id: string
@@ -182,6 +183,11 @@ export default function ProfilePage() {
 
       <section className="pt-28 md:pt-32 pb-16 px-4 sm:px-6">
         <div className="container mx-auto max-w-5xl">
+          {/* Eyebrow — consistent with other pages */}
+          <div className="mb-6">
+            <SectionEyebrow number="01" label="My Account" />
+          </div>
+
           {/* ═══ Hero ═══ */}
           <div
             className={cn(
@@ -189,7 +195,7 @@ export default function ProfilePage() {
               loyalty.current.gradient
             )}
           >
-            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none" />
+            <div className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-[#f97316]/80 to-transparent pointer-events-none z-[1]" />
             <div className="absolute inset-0 bg-black/55 backdrop-blur-md" />
             <div className="absolute -top-20 -right-20 w-72 h-72 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(249, 115, 22, 0.22), transparent 70%)" }} />
             <div className="relative p-6 md:p-8">
@@ -248,8 +254,17 @@ export default function ProfilePage() {
             </div>
           </div>
 
-          {/* ═══ Tabs ═══ */}
-          <div className="flex gap-1 p-1.5 rounded-2xl bg-white/[0.04] border border-white/[0.08] backdrop-blur-md mb-6 overflow-x-auto scrollbar-hide">
+          {/* ═══ Tabs — premium segmented control ═══ */}
+          <div
+            className="flex gap-1 p-1.5 rounded-2xl mb-6 overflow-x-auto scrollbar-hide"
+            style={{
+              background: "linear-gradient(180deg, rgba(255,255,255,0.028), rgba(255,255,255,0.01))",
+              border: "1px solid rgba(255,255,255,0.07)",
+              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03)",
+              backdropFilter: "blur(10px)",
+              WebkitBackdropFilter: "blur(10px)",
+            }}
+          >
             {tabs.map((tab) => {
               const Icon = tab.icon
               const active = activeTab === tab.id
@@ -258,16 +273,25 @@ export default function ProfilePage() {
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
                   className={cn(
-                    "flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-[13px] font-bold whitespace-nowrap transition-all shrink-0",
+                    "relative flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-[12.5px] font-bold whitespace-nowrap shrink-0 transition-[color,background-color,box-shadow] duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)]",
                     active
-                      ? "bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white shadow-[0_4px_14px_rgba(249, 115, 22, 0.58)]"
-                      : "text-white/55 hover:text-white hover:bg-white/[0.06]"
+                      ? "text-white"
+                      : "text-white/50 hover:text-white/85"
                   )}
+                  style={active ? {
+                    background: "linear-gradient(135deg, rgba(249,115,22,0.12), rgba(249,115,22,0.04))",
+                    boxShadow: "inset 0 0 0 1px rgba(249,115,22,0.35), 0 6px 20px -6px rgba(249,115,22,0.45)",
+                  } : undefined}
                 >
-                  <Icon className="h-4 w-4" />
+                  <Icon className={cn("h-3.5 w-3.5 transition-colors", active ? "text-[#f97316]" : "")} />
                   {tab.label}
                   {typeof tab.badge === "number" && tab.badge > 0 && (
-                    <span className={cn("px-1.5 py-0.5 rounded-full text-[10px] font-black tabular-nums", active ? "bg-black/25 text-white" : "bg-white/[0.10] text-white/85")}>
+                    <span
+                      className={cn(
+                        "px-1.5 py-0.5 rounded-full text-[10px] font-black tabular-nums transition-colors",
+                        active ? "bg-[#f97316]/20 text-[#f97316]" : "bg-white/[0.06] text-white/65"
+                      )}
+                    >
                       {tab.badge}
                     </span>
                   )}

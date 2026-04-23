@@ -68,24 +68,33 @@ function ProductCard({ p }: { p: typeof products[number] }) {
         <span className="text-[9px] font-bold uppercase tracking-[0.12em] text-emerald-300/85">In stock</span>
       </div>
 
-      {/* Image with mousemove tilt */}
+      {/* Image with mousemove tilt — no solid bg, card glass shows through */}
       <div
         ref={imgWrapRef}
-        className="relative h-52 overflow-hidden bg-black"
+        className="relative h-52 overflow-hidden"
         style={{
           transform: "rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg))",
           transformStyle: "preserve-3d",
           transition: "transform 0.4s cubic-bezier(0.22,1,0.36,1)",
         }}
       >
+        {/* Soft orange radial behind product to replace the old flat black */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse 70% 60% at 50% 50%, rgba(249,115,22,0.10), transparent 70%)",
+          }}
+        />
         <Image
           src={p.image}
           alt={p.name}
           fill
-          className="object-contain p-6 ken-burns"
+          className="object-contain p-6 ken-burns relative z-[1]"
           sizes="(max-width: 768px) 100vw, 33vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
+        {/* Subtle bottom fade into the info panel */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
       </div>
 
       {/* Info */}

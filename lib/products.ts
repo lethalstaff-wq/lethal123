@@ -124,7 +124,7 @@ export const PRODUCTS: Product[] = [
     description:
       "Reliable foundation for everyday use. Includes: Captain DMA 100T-7th, EAC/BE Emulated, Mini DP Fuser V2, Blurred (30 Days), Macku (Free)",
     longDescription: "Pre-configured and ready to use. No separate purchases, no compatibility guesswork. Ships within 24 hours with lifetime Discord support.",
-    image: "/images/products/dma-firmware.png",
+    image: "/images/products/dmabundle.png",
     category: "bundle",
     badge: "In Stock",
     variants: [{ id: "dma-basic-full", name: "Complete Bundle", priceInPence: 42500 }],
@@ -145,7 +145,7 @@ export const PRODUCTS: Product[] = [
     description:
       "Balanced configuration for creators and semi-pro users. Includes: Captain DMA 100T-7th, Dichen D60 Fuser, Teensy (Firmware Included), EAC/BE Emulated Slotted, Blurred DMA (Quarterly)",
     longDescription: "Slotted firmware reduces detection overlap. Quarterly Blurred keeps you covered long-term. Ships within 24 hours with full technical assistance.",
-    image: "/images/products/dma-firmware.png",
+    image: "/images/products/dmabundle.png",
     category: "bundle",
     badge: "Best Value",
     popular: true,
@@ -169,7 +169,7 @@ export const PRODUCTS: Product[] = [
     description:
       "Maximum performance — full emulation & lifetime access. Includes: Captain DMA 100T-7th, Dichen DC500 Fuser, Teensy (Firmware Included), Blurred Lifetime DMA Cheat, EAC/BE, FaceIt, VGK Emulated",
     longDescription: "Maximum performance, lifetime access, no compromises. Highest-spec hardware with FaceIt and Vanguard emulation. Lifetime hardware replacement and priority Discord access.",
-    image: "/images/products/dma-firmware.png",
+    image: "/images/products/dmabundle.png",
     category: "bundle",
     badge: "Premium",
     variants: [{ id: "dma-elite-full", name: "Complete Bundle", priceInPence: 150000 }],

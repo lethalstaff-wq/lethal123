@@ -7,7 +7,7 @@ import { SectionEyebrow } from "@/components/section-eyebrow"
 import {
   Users, Code2, Crown, Headphones, Camera, Search, DollarSign,
   Check, Minus, Plus, Send, CheckCircle2, Shield, Zap, Globe,
-  ArrowRight, Clock, Star, ChevronRight, Copy,
+  ArrowRight, ArrowUpRight, Clock, Star, ChevronRight, ChevronDown, Copy,
   MessageSquare, Rocket, Heart, Sparkles, TrendingUp, Coffee,
   Flame, Video, Landmark, Briefcase,
 } from "lucide-react"
@@ -103,15 +103,15 @@ const TIMEZONES = [
 
 const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 
-const FAQ = [
-  { q: "Is this paid?", a: "Most roles start commission-based or unpaid during trial. Top performers get promoted to paid positions quickly." },
-  { q: "How many hours do I need?", a: "Minimum 5-10h/week for most roles. More hours = more opportunity." },
-  { q: "Do I need experience?", a: "Depends on the role. Support needs product knowledge, Dev needs coding. Sales just needs hustle." },
-  { q: "How fast do you respond?", a: "We review every application within 48 hours via Discord. No ghosting." },
-  { q: "Can I work multiple roles?", a: "Yes! Many team members wear multiple hats. Start with one and expand." },
-  { q: "What tools do you use?", a: "Discord, GitHub, Notion. We provide all software and licenses — zero cost." },
-  { q: "What's the culture like?", a: "Zero toxicity, mutual respect, no micromanagement. Your ideas matter from day one." },
-  { q: "Can I work from anywhere?", a: "100% remote. 6+ timezones. Work from your couch, a cafe, or a beach." },
+const FAQ: Array<{ q: string; a: string; Icon: typeof Zap; tag: string }> = [
+  { Icon: DollarSign, tag: "Pay",        q: "Is this paid?",               a: "Most roles start commission-based or unpaid during trial. Top performers get promoted to paid positions quickly." },
+  { Icon: Clock,      tag: "Hours",      q: "How many hours do I need?",   a: "Minimum 5-10h/week for most roles. More hours = more opportunity." },
+  { Icon: Star,       tag: "Experience", q: "Do I need experience?",       a: "Depends on the role. Support needs product knowledge, Dev needs coding. Sales just needs hustle." },
+  { Icon: Zap,        tag: "Response",   q: "How fast do you respond?",    a: "We review every application within 48 hours via Discord. No ghosting." },
+  { Icon: Sparkles,   tag: "Roles",      q: "Can I work multiple roles?",  a: "Yes! Many team members wear multiple hats. Start with one and expand." },
+  { Icon: Code2,      tag: "Tools",      q: "What tools do you use?",      a: "Discord, GitHub, Notion. We provide all software and licenses — zero cost." },
+  { Icon: Heart,      tag: "Culture",    q: "What's the culture like?",    a: "Zero toxicity, mutual respect, no micromanagement. Your ideas matter from day one." },
+  { Icon: Globe,      tag: "Remote",     q: "Can I work from anywhere?",   a: "100% remote. 6+ timezones. Work from your couch, a cafe, or a beach." },
 ]
 
 const ROLE_BENEFITS: Record<string, string[]> = {
@@ -191,10 +191,12 @@ function useInView(threshold = 0) {
   useEffect(() => {
     const el = ref.current
     if (!el) return
-    // rootMargin pre-triggers 200px before entry so users never see a blurred void
-    // during fast scrolling. Safety timer forces visibility after 800ms in case the
-    // observer never fires (pinch-zoom, browser bug, reduced motion, etc).
-    const safetyTimer = window.setTimeout(() => setVisible(true), 800)
+    // Trigger only once the element actually enters the viewport (negative
+    // bottom margin = must be ~10% inside). This is what makes the reveal
+    // visible to the user instead of firing before they scroll to it.
+    // Safety timer fallback: still force visible after 2s in case the observer
+    // never fires (pinch-zoom, paint-skipping, reduced motion).
+    const safetyTimer = window.setTimeout(() => setVisible(true), 2000)
     const obs = new IntersectionObserver(
       ([e]) => {
         if (e.isIntersecting) {
@@ -203,7 +205,7 @@ function useInView(threshold = 0) {
           obs.disconnect()
         }
       },
-      { threshold, rootMargin: "200px 0px 200px 0px" },
+      { threshold, rootMargin: "0px 0px -12% 0px" },
     )
     obs.observe(el)
     return () => {
@@ -221,13 +223,20 @@ function R({ children, d = 0, dir = "up", className = "" }: {
   children: React.ReactNode; d?: number; dir?: "up" | "left" | "right" | "scale"; className?: string
 }) {
   const { ref, visible } = useInView()
-  const t: Record<string, string> = { up: "translateY(24px)", left: "translateX(24px)", right: "translateX(-24px)", scale: "scale(0.97)" }
+  const t: Record<string, string> = {
+    up:    "translateY(36px)",
+    left:  "translateX(36px)",
+    right: "translateX(-36px)",
+    scale: "scale(0.94)",
+  }
   // Capped stagger so later elements don't compound into multi-second waits.
-  const delay = Math.min(d, 240)
+  const delay = Math.min(d, 260)
   return (
     <div ref={ref} className={className} style={{
-      opacity: visible ? 1 : 0, transform: visible ? "none" : t[dir],
-      transition: `opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1) ${delay}ms, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${delay}ms`,
+      opacity: visible ? 1 : 0,
+      transform: visible ? "none" : t[dir],
+      transition: `opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1) ${delay}ms, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) ${delay}ms`,
+      willChange: visible ? "auto" : "opacity, transform",
     }}>{children}</div>
   )
 }
@@ -298,12 +307,56 @@ const TAG_CONFIG: Record<string, { icon: typeof Zap; color: string }> = {
   "FAQ": { icon: MessageSquare, color: "#a855f7" },
 }
 
-function Hdr({ tag, title, sub }: { tag: string; title: React.ReactNode; sub?: string }) {
+function Hdr({ number, tag, title, sub }: { number?: string; tag: string; title: React.ReactNode; sub?: string }) {
+  // Curtain-style clip-path reveal when the title enters the viewport —
+  // more dramatic than the default R fade/slide used on smaller elements.
+  const titleRef = useRef<HTMLHeadingElement>(null)
+  const [titleVisible, setTitleVisible] = useState(false)
+  useEffect(() => {
+    const el = titleRef.current
+    if (!el) return
+    // Safety fallback so the title always shows even if the observer never
+    // fires (reduced motion, paint skipping, etc).
+    const safety = window.setTimeout(() => setTitleVisible(true), 900)
+    const obs = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) {
+          window.clearTimeout(safety)
+          setTitleVisible(true)
+          obs.disconnect()
+        }
+      },
+      { threshold: 0.25, rootMargin: "0px 0px -10% 0px" },
+    )
+    obs.observe(el)
+    return () => { window.clearTimeout(safety); obs.disconnect() }
+  }, [])
+
   return (
-    <div className="text-center mb-12">
-      <R><SectionEyebrow label={tag} /></R>
-      <R d={80}><h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-[-0.03em] leading-[1.1] mb-4 lx-text-fade">{title}</h2></R>
-      {sub && <R d={140}><p className="text-white/35 text-[15px] leading-relaxed max-w-lg mx-auto">{sub}</p></R>}
+    <div className="text-center mb-14">
+      <R><SectionEyebrow number={number} label={tag} /></R>
+      <h2
+        ref={titleRef}
+        // leading-[1.08] + paddingBottom keeps descenders (y, p, g, Q) from
+        // clipping — tight leading without the letter-cut ugliness.
+        className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.04em] leading-[1.08] mb-5 mt-2 lx-text-fade"
+        style={{
+          paddingBottom: "0.12em",
+          clipPath: titleVisible
+            ? "inset(-0.35em -0.35em -0.35em 0)"
+            : "inset(-0.35em 100% -0.35em 0)",
+          transition: "clip-path 1.3s cubic-bezier(0.22, 1, 0.36, 1) 0.1s",
+        }}
+      >
+        {title}
+      </h2>
+      {sub && (
+        <R d={140}>
+          <p className="text-white/45 text-[15.5px] leading-relaxed max-w-lg mx-auto">
+            {sub}
+          </p>
+        </R>
+      )}
     </div>
   )
 }
@@ -353,6 +406,140 @@ function CorpTitle() {
       <span className="lx-text-fade"> vs </span>
       <span className="text-white/70">Traditional Employers</span>
     </h2>
+  )
+}
+
+
+// ─── Path timeline showcase — 10 auto-cycling animation variants ────────────
+
+const TIMELINE_STEPS = [
+  { Icon: Send,          title: "You apply",        desc: "2 minutes. No resume." },
+  { Icon: MessageSquare, title: "We reply",         desc: "Under 48h on Discord." },
+  { Icon: Users,         title: "Quick chat",       desc: "Short Discord chat. No whiteboard, just vibes." },
+  { Icon: Rocket,        title: "You're onboarded", desc: "Same week. Ship day one." },
+]
+
+function useTimelineStage(cycle = 18000) {
+  const [stage, setStage] = useState(-1)
+  useEffect(() => {
+    let cancelled = false
+    const timers: number[] = []
+    const run = () => {
+      if (cancelled) return
+      setStage(-1)
+      timers.push(window.setTimeout(() => !cancelled && setStage(0),   500))
+      timers.push(window.setTimeout(() => !cancelled && setStage(1),  4000))
+      timers.push(window.setTimeout(() => !cancelled && setStage(2),  8000))
+      timers.push(window.setTimeout(() => !cancelled && setStage(3), 12000))
+      timers.push(window.setTimeout(() => { if (!cancelled) run() }, cycle))
+    }
+    run()
+    return () => { cancelled = true; timers.forEach(clearTimeout) }
+  }, [cycle])
+  return stage
+}
+
+// Classic radar — radial bubble + dashed ring + traveling particle.
+function PathTimeline() {
+  const stage = useTimelineStage()
+  return (
+    <div className="relative">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
+        {TIMELINE_STEPS.map((s, i) => {
+          const lit = stage >= i, active = stage === i, complete = stage > i
+          return (
+            <div key={i} className="relative">
+              {i < 3 && (
+                <div className="hidden md:block absolute top-[60px] left-[calc(50%+62px)] right-[calc(-50%+62px)] h-px overflow-hidden pointer-events-none">
+                  <div className="absolute inset-0 bg-white/[0.05]" />
+                  <div className="absolute inset-y-0 left-0 transition-[width] duration-[1500ms] ease-[cubic-bezier(0.22,1,0.36,1)]" style={{ width: complete ? "100%" : "0%", background: "linear-gradient(90deg, #fbbf24, #f97316 50%, #c2410c)", boxShadow: complete ? "0 0 8px rgba(249,115,22,0.55)" : "none" }} />
+                  {active && <div className="absolute inset-y-0 w-1/2 bg-gradient-to-r from-transparent via-[#f97316] to-transparent" style={{ animation: "procFlow 1.8s ease-in-out infinite" }} />}
+                </div>
+              )}
+              <div className="relative z-[2] flex flex-col items-center mb-5">
+                <div className="relative w-[120px] h-[120px] rounded-full flex items-center justify-center transition-all duration-[900ms]" style={{ background: "radial-gradient(circle at 30% 30%, rgba(249,115,22,0.32), rgba(0,0,0,0.95) 70%)", boxShadow: lit ? `inset 0 0 0 1px rgba(249,115,22,0.55), 0 0 ${active ? 80 : 40}px rgba(249,115,22,${active ? 0.35 : 0.16})` : "inset 0 0 0 1px rgba(255,255,255,0.08)", opacity: lit ? 1 : 0.45, transform: active ? "scale(1.05)" : "scale(1)", filter: lit ? "none" : "grayscale(0.9)" }}>
+                  {lit && <div className="absolute inset-[-6px] rounded-full border border-[#f97316]/25" style={{ animation: "stepPulse 2.6s ease-in-out infinite" }} />}
+                  {lit && <div className="absolute inset-[-12px] rounded-full border border-dashed border-[#f97316]/20" style={{ animation: "stepRotate 18s linear infinite" }} />}
+                  <s.Icon className="h-9 w-9" strokeWidth={1.9} style={{ color: lit ? "#f97316" : "rgba(255,255,255,0.35)", filter: lit ? "drop-shadow(0 0 16px rgba(249,115,22,0.85))" : "none" }} />
+                  <span className="absolute -bottom-1 -right-1 px-2.5 py-1 rounded-full text-[10px] font-black tabular-nums" style={{ background: "#000", border: `1px solid rgba(249,115,22,${lit ? 0.45 : 0.15})`, color: lit ? "#f97316" : "rgba(255,255,255,0.35)" }}>{String(i + 1).padStart(2, "0")}</span>
+                  {complete && <span className="absolute -bottom-1 -left-1 w-6 h-6 rounded-full bg-emerald-500 ring-[3px] ring-black flex items-center justify-center"><Check className="h-3 w-3 text-white" strokeWidth={3.2} /></span>}
+                </div>
+              </div>
+              <div className="text-center px-2">
+                <h4 className="font-display text-[16px] font-bold text-white mb-1 tracking-tight">{s.title}</h4>
+                <p className="text-[12px] text-white/50">{s.desc}</p>
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+
+
+// ─── Compare row ─────────────────────────────────────────────────────────────
+// Click-to-expand row with short "why this matters" explanation underneath.
+type CompareCol = { key: string; name: string; mark: string; accent?: boolean }
+type CompareRowData = { feat: string; icon: typeof Globe; vals: Record<string, string>; note: string }
+function CompareRow({ row, index, cols, isPositive }: {
+  row: CompareRowData
+  index: number
+  cols: CompareCol[]
+  isPositive: (v: string) => boolean
+}) {
+  const [open, setOpen] = useState(false)
+  return (
+    <R d={index * 40} dir="up">
+      <div
+        className={`border-b border-white/[0.04] last:border-b-0 transition-colors ${open ? "bg-[#f97316]/[0.025]" : "hover:bg-white/[0.015]"}`}
+      >
+        <button
+          onClick={() => setOpen(v => !v)}
+          className="grid grid-cols-[1.4fr_repeat(5,1fr)] w-full text-left group cursor-pointer"
+          aria-expanded={open}
+        >
+          <div className="flex items-center gap-3 px-6 py-4">
+            <row.icon className={`h-3.5 w-3.5 shrink-0 transition-colors ${open ? "text-[#f97316]" : "text-white/30 group-hover:text-[#f97316]/60"}`} />
+            <span className={`text-[13.5px] font-semibold transition-colors ${open ? "text-white" : "text-white/75"}`}>{row.feat}</span>
+            <ChevronDown className={`h-3 w-3 shrink-0 ml-auto transition-all duration-400 ${open ? "rotate-180 text-[#f97316]" : "text-white/25 group-hover:text-white/50"}`} />
+          </div>
+          {cols.map((c) => {
+            const v = row.vals[c.key]
+            const pos = isPositive(v)
+            return (
+              <div
+                key={c.key}
+                className={`px-3 py-4 text-center ${c.accent ? "bg-[#f97316]/[0.025]" : ""}`}
+              >
+                <span
+                  className={`inline-flex items-center gap-1.5 text-[12px] font-semibold ${
+                    c.accent ? "text-[#f97316]" : pos ? "text-emerald-400/80" : "text-white/40"
+                  }`}
+                >
+                  {pos && c.accent && <Check className="h-3 w-3" strokeWidth={3} />}
+                  {v}
+                </span>
+              </div>
+            )
+          })}
+        </button>
+        <div
+          className="grid transition-[grid-template-rows] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+          style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
+        >
+          <div className="overflow-hidden">
+            <div className="px-6 pb-5 pt-1 flex gap-3">
+              <span className="shrink-0 inline-flex items-center gap-1.5 text-[9.5px] font-bold uppercase tracking-[0.22em] text-[#f97316]/80 mt-0.5">
+                <Sparkles className="h-3 w-3" /> Why this matters
+              </span>
+              <p className="text-[13px] text-white/65 leading-[1.7] max-w-[720px]">{row.note}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </R>
   )
 }
 
@@ -417,6 +604,7 @@ export default function ApplyPage() {
   if (agree16 && agreeActive && agreeUnpaid) filled++
   const pct = Math.round((filled / 9) * 100)
 
+  const [sentPulse, setSentPulse] = useState(false)
   const doSubmit = async () => {
     if (!v2 || submitting) return
     setSubmitting(true)
@@ -426,11 +614,18 @@ export default function ApplyPage() {
         body: JSON.stringify({ position, discord, age, timezone: timezone.split("|")[0], hoursPerWeek, availableDays: selectedDays, preferredTime, experience, whyLethal, portfolio }),
       })
       if (!r.ok) throw new Error()
+      // Transient "Sent ✓" state before scroll-jump to success view — gives
+      // the button a tactile confirmation moment instead of vanishing.
+      setSubmitting(false)
+      setSentPulse(true)
+      await new Promise((resolve) => setTimeout(resolve, 550))
       setSubmitted(true); setShowConfetti(true)
       setTimeout(() => setShowConfetti(false), 5000)
       window.scrollTo({ top: 0, behavior: "smooth" })
-    } catch { toast.error("Failed to submit — try again") }
-    setSubmitting(false)
+    } catch {
+      toast.error("Failed to submit — try again")
+      setSubmitting(false)
+    }
   }
 
 
@@ -513,8 +708,41 @@ export default function ApplyPage() {
             </Link>
           </div>
 
+          {/* Post-submit extras — keeps the user engaged instead of a dead page */}
+          <div className="mt-14 grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-[600px] mx-auto">
+            {/* Estimated reply */}
+            <div className="relative rounded-2xl border border-white/[0.07] bg-white/[0.015] p-5 text-left overflow-hidden">
+              <div className="inline-flex items-center gap-1.5 mb-2">
+                <Clock className="h-3.5 w-3.5 text-[#f97316]" />
+                <span className="text-[9.5px] font-bold uppercase tracking-[0.22em] text-[#f97316]/85">ETA</span>
+              </div>
+              <p className="font-display text-[20px] font-bold text-white tabular-nums leading-none mb-1.5">&lt; 48h</p>
+              <p className="text-[11.5px] text-white/45 leading-relaxed">We review every application within 48 hours. Discord DM incoming.</p>
+            </div>
+
+            {/* Share / referral */}
+            <div className="relative rounded-2xl border border-white/[0.07] bg-white/[0.015] p-5 text-left overflow-hidden">
+              <div className="inline-flex items-center gap-1.5 mb-2">
+                <Users className="h-3.5 w-3.5 text-[#fbbf24]" />
+                <span className="text-[9.5px] font-bold uppercase tracking-[0.22em] text-[#fbbf24]/85">Bonus</span>
+              </div>
+              <p className="font-display text-[20px] font-bold text-white leading-tight mb-1.5">Know a legend?</p>
+              <p className="text-[11.5px] text-white/45 leading-relaxed">Refer someone who gets hired — earn $200 when they ship their first week.</p>
+            </div>
+
+            {/* Community preview */}
+            <Link href="https://discord.gg/lethal" target="_blank" className="group relative rounded-2xl border border-white/[0.07] bg-white/[0.015] hover:border-[#5865F2]/35 hover:bg-white/[0.025] p-5 text-left overflow-hidden transition-all">
+              <div className="inline-flex items-center gap-1.5 mb-2">
+                <MessageSquare className="h-3.5 w-3.5 text-[#5865F2]" />
+                <span className="text-[9.5px] font-bold uppercase tracking-[0.22em] text-[#5865F2]/85">While you wait</span>
+              </div>
+              <p className="font-display text-[20px] font-bold text-white leading-tight mb-1.5">Lurk in Discord</p>
+              <p className="text-[11.5px] text-white/45 leading-relaxed inline-flex items-center gap-1">Get a feel for the culture. <ArrowRight className="h-3 w-3 text-[#5865F2] group-hover:translate-x-0.5 transition-transform" /></p>
+            </Link>
+          </div>
+
           {/* Fun text */}
-          <p className="text-white/10 text-[12px] mt-10">Welcome to the team. Let&apos;s build something legendary.</p>
+          <p className="text-white/20 text-[12px] mt-10">Welcome to the team. Let&apos;s build something legendary.</p>
         </div>
       </section>
       <Footer />
@@ -535,345 +763,227 @@ export default function ApplyPage() {
           ═══════════════════════════════════════════════════════════ */}
 
       <section className="relative min-h-screen flex items-center overflow-hidden">
-        {/* Hero accent — layered on top of global bg */}
+        {/* Ambient orbs — matches home hero vibe */}
         <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
-          <div className="absolute top-[20%] right-[5%] w-[640px] h-[480px] rounded-full opacity-70 lx-a1" style={{ background: "radial-gradient(circle, rgba(249, 115, 22, 0.17), transparent 65%)", filter: "blur(130px)" }} />
-          <div className="absolute bottom-[5%] left-[5%] w-[560px] h-[440px] rounded-full opacity-60 lx-a2" style={{ background: "radial-gradient(circle, rgba(234, 88, 12, 0.12), transparent 65%)", filter: "blur(130px)" }} />
+          <div className="absolute top-[25%] left-1/2 -translate-x-1/2 w-[900px] h-[520px] rounded-full opacity-70"
+            style={{ background: "radial-gradient(ellipse, rgba(249,115,22,0.18) 0%, transparent 62%)", filter: "blur(130px)" }} />
+          <div className="absolute bottom-[5%] left-[5%] w-[520px] h-[420px] rounded-full opacity-55"
+            style={{ background: "radial-gradient(circle, rgba(251,191,36,0.10), transparent 65%)", filter: "blur(130px)" }} />
         </div>
 
-        <div className="relative z-10 w-full max-w-[1280px] mx-auto px-6 sm:px-10 lg:px-16 py-32 lg:py-40">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center max-w-[1280px] mx-auto text-left">
-          {/* Left — Text */}
-          <div>
-            <div className={`mb-8 tr ${heroReady ? "o1 ty0" : "o0 ty1"}`}>
-              <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-[#f97316]/20 bg-[#f97316]/[0.06] backdrop-blur-sm">
-                <span className="relative flex items-center justify-center">
-                  <span className="absolute w-2.5 h-2.5 rounded-full bg-[#f97316]/40 animate-ping" />
-                  <span className="relative w-1.5 h-1.5 rounded-full bg-[#f97316]" />
-                </span>
-                <Zap className="h-3.5 w-3.5 text-[#f97316]" />
-                <span className="text-[11px] font-semibold text-[#f97316] uppercase tracking-[0.1em]">
-                  Now Hiring &middot; {FALLBACK_STATS.openPositions}+ open positions
-                </span>
-              </div>
-            </div>
-
-            <h1 className="mb-7 font-display">
-              {["Join Our Team", "And Build"].map((line, i) => (
-                <span key={i} className={`block text-[clamp(2.5rem,6vw,4.75rem)] font-bold tracking-[-0.035em] leading-[1.05] tr ${heroReady ? "o1 ty0" : "o0 ty2"}`}
-                  style={{
-                    transitionDelay: `${200 + i * 150}ms`,
-                    background: "linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(180,180,195,0.85) 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                  }}>{line}</span>
-              ))}
-              <span className={`block text-[clamp(2.5rem,6vw,4.75rem)] font-bold tracking-[-0.035em] leading-[1.05] tr lx-text-orange ${heroReady ? "o1 ty0" : "o0 ty2"}`}
-                style={{ transitionDelay: "500ms", filter: "drop-shadow(0 0 60px rgba(249, 115, 22, 0.43))" }}>Lethal Solutions</span>
-            </h1>
-
-            <p className={`text-[15px] sm:text-[17px] text-white/55 leading-[1.75] mb-8 max-w-[480px] tr ${heroReady ? "o1 ty0" : "o0 ty1"}`} style={{ transitionDelay: "650ms" }}>
-              Work remotely with a team that ships fast. Set your own hours, earn uncapped commissions, and build the best gaming tools on the market.
-            </p>
-
-            <div className={`flex flex-wrap gap-2.5 mb-8 tr ${heroReady ? "o1 ty0" : "o0 ty1"}`} style={{ transitionDelay: "800ms" }}>
-              {[`${FALLBACK_STATS.openPositions}+ open roles`, "100% remote", "Flexible hours"].map((s, i) => <span key={i} className="lx-pill">{s}</span>)}
-            </div>
-
-            <div className={`flex items-center gap-3 tr ${heroReady ? "o1 ty0" : "o0 ty2"}`} style={{ transitionDelay: "950ms" }}>
-              <button onClick={() => document.getElementById("positions")?.scrollIntoView({ behavior: "smooth" })}
-                className="lx-primary px-7 py-3.5 rounded-xl text-[14px] font-semibold text-white flex items-center gap-2 cursor-pointer">
-                Get started <ArrowRight className="h-4 w-4" />
-              </button>
-              <button onClick={() => formRef.current?.scrollIntoView({ behavior: "smooth" })}
-                className="lx-ghost px-7 py-3.5 rounded-xl text-[14px] font-semibold cursor-pointer">Apply directly</button>
-            </div>
+        <div className="relative z-10 w-full max-w-[1100px] mx-auto px-6 sm:px-10 py-32 lg:py-40 text-center">
+          {/* Live-hiring pill */}
+          <div className={`mb-7 tr ${heroReady ? "o1 ty0" : "o0 ty1"}`}>
+            <span className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/[0.03] border border-white/[0.06] backdrop-blur-sm">
+              <span className="relative flex items-center justify-center">
+                <span className="absolute w-2 h-2 rounded-full bg-[#f97316]/40 animate-ping" />
+                <span className="relative w-1.5 h-1.5 rounded-full bg-[#f97316]" style={{ boxShadow: "0 0 10px rgba(249,115,22,0.9)" }} />
+              </span>
+              <span className="text-[10.5px] font-semibold uppercase tracking-[0.3em] text-white/70">
+                Now hiring · {FALLBACK_STATS.openPositions} open roles
+              </span>
+            </span>
           </div>
 
-          {/* Right — Terminal */}
-          <div className={`tr ${heroReady ? "o1 ty0" : "o0 ty3"}`} style={{ transitionDelay: "500ms" }}>
-            <Tilt>
-              <div className="lx-terminal-wrap">
-                <div className="lx-rotating-border" />
-                <div className="relative z-10 rounded-2xl overflow-hidden bg-[#050505]">
-                  <div className="flex items-center justify-between px-5 py-3.5 border-b border-white/[0.05]">
-                    <div className="flex items-center gap-3">
-                      <div className="flex gap-1.5">
-                        <div className="w-[9px] h-[9px] rounded-full lx-dot-red" />
-                        <div className="w-[9px] h-[9px] rounded-full lx-dot-yellow" />
-                        <div className="w-[9px] h-[9px] rounded-full lx-dot-green" />
-                      </div>
-                      <span className="text-[12px] text-white/20 font-mono">terminal</span>
-                    </div>
-                    <button onClick={doCopy} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/[0.05] bg-white/[0.02] text-[11px] text-white/30 hover:text-white/60 hover:border-white/[0.1] transition-all cursor-pointer">
-                      <Copy className="h-3 w-3" /> {copied ? "Copied!" : "Copy"}
-                    </button>
-                  </div>
-                  <div className={`p-4 sm:p-6 font-mono text-[11px] sm:text-[13px] leading-[2.1] overflow-x-auto transition-opacity duration-1000 ${typed ? "opacity-100" : "opacity-20"}`}>
-                    <p><span className="text-white/20">$</span> <span className="text-white/80">lethal-cli</span> <span className="text-white/40">apply \</span></p>
-                    <p className="pl-6"><span className="text-white/30">--position</span> <span className="text-white/60">&quot;your_role&quot;</span> <span className="text-white/10">\</span></p>
-                    <p className="pl-6"><span className="text-white/30">--discord</span> <span className="text-white/60">&quot;your_username&quot;</span> <span className="text-white/10">\</span></p>
-                    <p className="pl-6"><span className="text-white/30">--remote</span> <span className="text-white/80">true</span> <span className="text-white/10">\</span></p>
-                    <p className="pl-6"><span className="text-white/30">--hours</span> <span className="text-white/60">&quot;flexible&quot;</span></p>
-                    <p className="mt-5 text-white/10">// Response:</p>
-                    <p className="text-white/80 mt-1">{"{"}</p>
-                    <p className="pl-5"><span className="text-white/40">&quot;status&quot;</span><span className="text-white/15">:</span> <span className="text-white/90">&quot;accepted&quot;</span><span className="text-white/15">,</span></p>
-                    <p className="pl-5"><span className="text-white/40">&quot;team_size&quot;</span><span className="text-white/15">:</span> <span className="text-white">10</span><span className="text-white/15">,</span></p>
-                    <p className="pl-5"><span className="text-white/40">&quot;open_slots&quot;</span><span className="text-white/15">:</span> <span className="text-white">8</span><span className="text-white/15">,</span></p>
-                    <p className="pl-5"><span className="text-white/40">&quot;response_time&quot;</span><span className="text-white/15">:</span> <span className="text-white">&quot;&lt; 48h&quot;</span></p>
-                    <p className="text-white/80">{"}"}</p>
-                    <p className="mt-3"><span className="text-white/20">$</span> <span className="lx-blink">_</span></p>
-                  </div>
-                </div>
-              </div>
-            </Tilt>
-          </div>
-        </div>
+          {/* Display headline */}
+          <h1 className="font-display mb-6">
+            <span className={`block text-[clamp(2.8rem,7.5vw,5.5rem)] font-bold tracking-[-0.04em] leading-[0.98] tr ${heroReady ? "o1 ty0" : "o0 ty2"}`}
+              style={{
+                transitionDelay: "150ms",
+                background: "linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(180,180,195,0.85) 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}>
+              Work with
+            </span>
+            <span className={`block text-[clamp(2.8rem,7.5vw,5.5rem)] font-bold tracking-[-0.04em] leading-[0.98] tr lx-text-orange ${heroReady ? "o1 ty0" : "o0 ty2"}`}
+              style={{ transitionDelay: "300ms", filter: "drop-shadow(0 0 60px rgba(249, 115, 22, 0.43))" }}>
+              the best team.
+            </span>
+          </h1>
 
-        {/* Stat cards row — premium glass + orb icons + hover underline */}
-        <div className={`mt-16 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 tr ${heroReady ? "o1 ty0" : "o0 ty2"}`} style={{ transitionDelay: "1100ms" }}>
-          {[
-            { icon: Users, value: FALLBACK_STATS.teamMembers, suffix: "+", label: "Team Members", accent: "#f97316" },
-            { icon: Heart, value: FALLBACK_STATS.happyClients, suffix: "+", label: "Happy Clients", accent: "#ec4899" },
-            { icon: Star, value: FALLBACK_STATS.satisfactionPercent, suffix: "%", label: "Satisfaction", accent: "#fbbf24" },
-            { icon: Clock, display: "24/7", label: "Support", accent: "#22c55e" },
-          ].map((stat, i) => (
-            <div key={stat.label} className="group relative p-4 sm:p-6 rounded-2xl bg-white/[0.025] border border-white/[0.06] hover:border-[#f97316]/30 hover:bg-white/[0.04] hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.35),0_0_32px_rgba(249, 115, 22, 0.17)] transition-all duration-500 overflow-hidden">
-              {/* Icon orb — colored glow ring */}
-              <div className="relative mb-3 sm:mb-4 w-10 h-10 sm:w-11 sm:h-11">
-                <div className="absolute inset-0 rounded-xl blur-xl opacity-50 group-hover:opacity-90 transition-opacity duration-500"
-                     style={{ background: `${stat.accent}35` }} />
-                <div className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center border border-white/[0.06] group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-500"
-                     style={{ background: `linear-gradient(135deg, ${stat.accent}18, ${stat.accent}04)` }}>
-                  <stat.icon className="h-[18px] w-[18px]" style={{ color: stat.accent, filter: `drop-shadow(0 0 8px ${stat.accent}90)` }} />
-                </div>
-              </div>
-              {/* Big font-display number with gradient */}
-              <div className="font-display text-3xl sm:text-4xl md:text-5xl font-black tracking-[-0.03em] leading-none tabular-nums">
-                {stat.display ? (
-                  <span style={{
-                    background: `linear-gradient(135deg, #ffffff 0%, ${stat.accent} 90%)`,
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                  }}>{stat.display}</span>
-                ) : (
-                  <>
+          <p className={`text-[15px] sm:text-[17px] text-white/55 leading-[1.65] max-w-[540px] mx-auto mb-10 tr ${heroReady ? "o1 ty0" : "o0 ty1"}`}
+            style={{ transitionDelay: "500ms" }}>
+            Fully remote. Flexible hours. Uncapped commission. Build the products people actually pay for.
+          </p>
+
+          {/* CTAs */}
+          <div className={`flex items-center justify-center gap-3 flex-wrap mb-20 tr ${heroReady ? "o1 ty0" : "o0 ty2"}`} style={{ transitionDelay: "650ms" }}>
+            <button onClick={() => formRef.current?.scrollIntoView({ behavior: "smooth" })}
+              className="lx-primary px-8 py-4 rounded-xl text-[14px] font-bold text-white inline-flex items-center gap-2 cursor-pointer group">
+              Apply now <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            </button>
+            <button onClick={() => document.getElementById("positions")?.scrollIntoView({ behavior: "smooth" })}
+              className="lx-ghost px-8 py-4 rounded-xl text-[14px] font-semibold cursor-pointer">
+              See open roles
+            </button>
+          </div>
+
+          {/* Stats — minimal inline row */}
+          <div className={`grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-8 pt-12 border-t border-white/[0.05] tr ${heroReady ? "o1 ty0" : "o0 ty2"}`}
+            style={{ transitionDelay: "850ms" }}>
+            {[
+              { v: FALLBACK_STATS.teamMembers, suffix: "+", label: "Team members" },
+              { v: FALLBACK_STATS.happyClients, suffix: "+", label: "Happy clients" },
+              { v: FALLBACK_STATS.satisfactionPercent, suffix: "%", label: "Satisfaction", accent: true },
+              { display: "24/7", label: "Support" },
+            ].map((s, i) => (
+              <div key={i} className="text-center sm:text-left">
+                <div className="font-display text-[38px] sm:text-[44px] font-black tracking-[-0.045em] leading-none">
+                  {s.display ? (
                     <span style={{
-                      background: "linear-gradient(180deg, #ffffff 0%, rgba(255,255,255,0.7) 100%)",
+                      background: "linear-gradient(180deg, #fff 0%, rgba(180,180,195,0.8) 100%)",
                       WebkitBackgroundClip: "text",
                       WebkitTextFillColor: "transparent",
-                      backgroundClip: "text",
-                    }}>
-                      <HeroCounter value={stat.value!} />
-                    </span>
-                    <span style={{ color: stat.accent, filter: `drop-shadow(0 0 10px ${stat.accent}60)` }}>{stat.suffix}</span>
-                  </>
-                )}
+                    }}>{s.display}</span>
+                  ) : (
+                    <>
+                      <span style={{
+                        background: "linear-gradient(180deg, #fff 0%, rgba(180,180,195,0.8) 100%)",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                      }}>
+                        <HeroCounter value={s.v!} />
+                      </span>
+                      <span style={{
+                        background: "linear-gradient(180deg, #ffb366, #f97316 60%, #c2410c)",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                      }}>{s.suffix}</span>
+                    </>
+                  )}
+                </div>
+                <p className="mt-2.5 text-[10px] text-white/40 uppercase tracking-[0.22em] font-semibold">{s.label}</p>
               </div>
-              <p className="mt-2.5 text-[10px] text-white/45 uppercase tracking-[0.18em] font-semibold">{stat.label}</p>
-              {/* Orange underline bar on hover */}
-              <div className="absolute bottom-0 left-0 h-[2px] w-0 group-hover:w-full transition-all duration-700 ease-out"
-                   style={{ background: `linear-gradient(90deg, ${stat.accent}, transparent)`, boxShadow: `0 0 12px ${stat.accent}60` }} />
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
 
+          {/* Hero scroll indicator — subtle chevron + "see roles" hint */}
+          <div className={`mt-20 flex flex-col items-center gap-2 tr ${heroReady ? "o1 ty0" : "o0 ty2"}`} style={{ transitionDelay: "1100ms" }}>
+            <span className="text-[9.5px] font-bold uppercase tracking-[0.38em] text-white/25">See roles</span>
+            <button
+              onClick={() => document.getElementById("positions")?.scrollIntoView({ behavior: "smooth" })}
+              aria-label="Scroll to open roles"
+              className="group w-9 h-9 rounded-full border border-white/[0.08] bg-white/[0.02] flex items-center justify-center hover:border-[#f97316]/35 hover:bg-[#f97316]/[0.06] transition-all cursor-pointer"
+              style={{ animation: "heroBounce 2.4s ease-in-out infinite" }}
+            >
+              <ChevronDown className="h-4 w-4 text-white/40 group-hover:text-[#f97316] transition-colors" />
+            </button>
+          </div>
         </div>
       </section>
-
-      <Divider />
 
 
       {/* ═══════════════════════════════════════════════════════════
           2 · POSITIONS
           ═══════════════════════════════════════════════════════════ */}
 
-      <section id="positions" className="relative z-10 px-6 sm:px-10 lg:px-16 py-28">
+      <section id="positions" className="relative z-10 px-6 sm:px-10 lg:px-16 py-32">
         <div className="max-w-[1280px] mx-auto">
-          {/* Premium section header with large number */}
-          <div className="text-center mb-20">
-            <R><SectionEyebrow label="Open Roles" /></R>
-            <R d={80}>
-              {/* Big number accent */}
-              <div className="relative inline-block mb-4">
-                <span className="absolute -top-8 -right-12 text-[120px] sm:text-[160px] font-black text-white/[0.015] leading-none select-none pointer-events-none tabular-nums">8</span>
-                <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.04em] leading-[1.05] relative">
-                  <span className="lx-text-fade">Find Your</span>
-                  <br />
-                  <span className="lx-text-orange">Position</span>
-                </h2>
-              </div>
-            </R>
-            <R d={140}>
-              <p className="text-white/30 text-[15px] leading-relaxed max-w-md mx-auto mt-4">
-                8 roles. Fully remote. Flexible hours. <span className="text-white/50 font-medium">Pick what fits.</span>
-              </p>
-            </R>
-          </div>
-          {/* Row 1: 4 main roles */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-            {POSITIONS.slice(0, 4).map((pos, i) => (
-              <R key={pos.id} d={i * 60}>
-                <Tilt>
-                  <div className="lx-card lx-shine group relative cursor-pointer h-full" onClick={() => goToForm(pos.id)}>
-                    <div className="h-px" style={{ background: `linear-gradient(90deg, transparent, ${pos.color}40, transparent)` }} />
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none rounded-xl" style={{ background: `radial-gradient(ellipse at 50% 0%, ${pos.color}10, transparent 60%)` }} />
-                    {pos.popular && <div className="absolute top-4 right-4 z-10"><span className="text-[9px] font-bold uppercase tracking-[0.18em] px-3 py-1.5 rounded-full" style={{ background: `${pos.color}15`, border: `1px solid ${pos.color}30`, color: pos.color, boxShadow: `0 0 12px ${pos.color}25` }}>HOT</span></div>}
-                    <div className="p-6 relative">
-                      <div className="flex items-center gap-3 mb-4">
-                        {/* Gradient icon tile with glow */}
-                        <div className="relative shrink-0 w-12 h-12">
-                          <div className="absolute inset-0 rounded-xl blur-lg opacity-0 group-hover:opacity-60 transition-opacity duration-500" style={{ background: pos.color }} />
-                          <div className="relative w-12 h-12 rounded-xl flex items-center justify-center border border-white/[0.06] group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-500" style={{ background: pos.grad ? `linear-gradient(135deg, ${pos.grad[0]}, ${pos.grad[1]}60)` : `${pos.color}12` }}>
-                            <pos.icon className="h-[19px] w-[19px]" style={{ color: pos.color, filter: `drop-shadow(0 0 6px ${pos.color}80)` }} />
-                          </div>
-                        </div>
-                        <div>
-                          <h3 className="font-display text-[18px] font-bold text-white tracking-[-0.02em]">{pos.title}</h3>
-                          <div className="flex items-center gap-1.5 mt-1">
-                            <span className="w-1.5 h-1.5 rounded-full lx-pulse" style={{ background: pos.color }} />
-                            <span className="text-[10px] font-semibold uppercase tracking-[0.12em]" style={{ color: `${pos.color}b0` }}>{pos.slots}</span>
-                            <span className="text-white/25 mx-0.5">·</span>
-                            <span className="text-[10px] text-white/55 font-medium">{pos.salary}</span>
-                          </div>
+          <Hdr number="01" tag="Open Roles" title={<>Pick your <span className="lx-text-orange">role.</span></>} sub="8 positions across engineering, support, growth and leadership. Fully remote." />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {POSITIONS.slice(0, 7).map((pos, i) => (
+              <R key={pos.id} d={i * 40} className={pos.id === "content" ? "lg:col-span-2" : ""}>
+                <button
+                  onClick={() => goToForm(pos.id)}
+                  className="spotlight-card group relative w-full h-full text-left rounded-2xl border border-white/[0.06] bg-white/[0.012] p-6 overflow-hidden transition-all duration-400 hover:border-[#f97316]/25 hover:bg-white/[0.025] hover:-translate-y-[2px]"
+                >
+                  <div className="absolute top-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-[#f97316]/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                  {pos.popular && (
+                    <span
+                      className="absolute top-4 right-4 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-[0.2em] text-[#f97316] bg-[#f97316]/[0.10] border border-[#f97316]/25"
+                      style={{ animation: "hotPulse 2.4s ease-in-out infinite" }}
+                    >
+                      <span className="w-1 h-1 rounded-full bg-[#f97316] lx-pulse" />
+                      Hot
+                    </span>
+                  )}
+
+                  <div className="relative z-[2]">
+                    <div className="flex items-center gap-3 mb-4">
+                      <span
+                        className="relative inline-flex items-center justify-center w-11 h-11 rounded-full transition-all duration-400 text-white/55 group-hover:text-[#f97316]"
+                        style={{
+                          background: "rgba(255,255,255,0.025)",
+                          boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.07)",
+                        }}
+                      >
+                        <pos.icon className="h-[17px] w-[17px]" strokeWidth={1.8} />
+                      </span>
+                      <div>
+                        <h3 className="font-display text-[17px] font-bold text-white tracking-[-0.02em] leading-tight">
+                          {pos.title}
+                        </h3>
+                        <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40 mt-0.5">
+                          {pos.slots} · {pos.salary}
                         </div>
                       </div>
-                      <p className="text-[13px] text-white/55 mb-5 leading-[1.7]">{pos.description}</p>
-                      <div className="space-y-2.5 mb-5">
-                        {pos.requirements.map((r, j) => (
-                          <div key={j} className="flex items-start gap-2.5">
-                            <div className="mt-0.5 w-4 h-4 rounded-md flex items-center justify-center shrink-0 border transition-colors duration-300" style={{ background: `${pos.color}10`, borderColor: `${pos.color}25` }}>
-                              <Check className="h-2.5 w-2.5" style={{ color: pos.color }} strokeWidth={3} />
-                            </div>
-                            <span className="text-[12px] text-white/60 leading-[1.55]">{r}</span>
-                          </div>
-                        ))}
-                      </div>
-                      <div className="flex flex-wrap gap-1.5 mb-5">
-                        {pos.perks.map((p, j) => <span key={j} className="text-[10px] px-2.5 py-1 rounded-full border text-white/65 font-semibold tracking-tight" style={{ background: `${pos.color}06`, borderColor: `${pos.color}15` }}>{p}</span>)}
-                      </div>
-                      {/* Apply CTA pill — fills with color on hover */}
-                      <button className="relative w-full py-3 rounded-xl font-bold text-[13px] flex items-center justify-center gap-2 border overflow-hidden transition-all duration-500 cursor-pointer"
-                        style={{ borderColor: `${pos.color}25`, background: `${pos.color}06`, color: `${pos.color}d0` }}>
-                        <span className="relative z-10 flex items-center gap-2 uppercase tracking-[0.14em] text-[11px] group-hover:text-white transition-colors duration-500">
-                          Apply <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform duration-500" />
-                        </span>
-                        <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: `linear-gradient(135deg, ${pos.color}, ${pos.grad ? pos.grad[1] : pos.color})` }} />
-                      </button>
+                    </div>
+                    <p className="text-[13px] text-white/55 leading-[1.7] mb-4">{pos.description}</p>
+                    <div className="space-y-2 mb-4">
+                      {pos.requirements.slice(0, 3).map((r, j) => (
+                        <div key={j} className="flex items-start gap-2 text-[12px] text-white/55">
+                          <Check className="h-3 w-3 mt-1 shrink-0 text-[#f97316]/70" strokeWidth={3} />
+                          <span>{r}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="inline-flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-[0.18em] text-[#f97316]/80 group-hover:text-[#fbbf24] transition-colors">
+                      Apply <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
                     </div>
                   </div>
-                </Tilt>
+                </button>
               </R>
             ))}
           </div>
 
-          {/* Row 2: SEO + Sales + Content Creator — all same height */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-            {POSITIONS.slice(4, 7).map((pos, i) => (
-              <R key={pos.id} d={(i + 4) * 60} className={pos.id === "content" ? "lg:col-span-2" : ""}>
-                <Tilt>
-                  <div className="lx-card lx-shine group relative cursor-pointer h-full" onClick={() => goToForm(pos.id)}
-                    style={pos.id === "content" ? { border: `1px solid ${pos.color}20` } : {}}>
-                    <div className="h-px" style={{ background: `linear-gradient(90deg, transparent, ${pos.color}40, transparent)` }} />
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none rounded-xl" style={{ background: `radial-gradient(ellipse at 50% 0%, ${pos.color}10, transparent 60%)` }} />
-                    {pos.openSlots >= 99
-                      ? <div className="absolute top-4 right-4 z-10"><span className="text-[9px] font-bold uppercase tracking-[0.18em] px-3 py-1.5 rounded-full" style={{ background: `${pos.color}15`, border: `1px solid ${pos.color}30`, color: pos.color, boxShadow: `0 0 12px ${pos.color}25` }}>UNLIMITED</span></div>
-                      : pos.popular && <div className="absolute top-4 right-4 z-10"><span className="text-[9px] font-bold uppercase tracking-[0.18em] px-3 py-1.5 rounded-full" style={{ background: `${pos.color}15`, border: `1px solid ${pos.color}30`, color: pos.color, boxShadow: `0 0 12px ${pos.color}25` }}>HOT</span></div>
-                    }
-                    <div className="p-6 relative h-full flex flex-col">
-                      <div className="flex items-center gap-3 mb-4">
-                        {/* Gradient icon tile with glow */}
-                        <div className="relative shrink-0 w-12 h-12">
-                          <div className="absolute inset-0 rounded-xl blur-lg opacity-0 group-hover:opacity-60 transition-opacity duration-500" style={{ background: pos.color }} />
-                          <div className="relative w-12 h-12 rounded-xl flex items-center justify-center border border-white/[0.06] group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-500" style={{ background: pos.grad ? `linear-gradient(135deg, ${pos.grad[0]}, ${pos.grad[1]}60)` : `${pos.color}12` }}>
-                            <pos.icon className="h-[19px] w-[19px]" style={{ color: pos.color, filter: `drop-shadow(0 0 6px ${pos.color}80)` }} />
-                          </div>
-                        </div>
-                        <div>
-                          <h3 className="font-display text-[18px] font-bold text-white tracking-[-0.02em]">{pos.title}</h3>
-                          <div className="flex items-center gap-1.5 mt-1">
-                            <span className="w-1.5 h-1.5 rounded-full lx-pulse" style={{ background: pos.color }} />
-                            <span className="text-[10px] font-semibold uppercase tracking-[0.12em]" style={{ color: `${pos.color}b0` }}>{pos.slots}</span>
-                            <span className="text-white/25 mx-0.5">·</span>
-                            <span className="text-[10px] text-white/55 font-medium">{pos.salary}</span>
-                          </div>
-                        </div>
-                      </div>
-                      <p className="text-[13px] text-white/55 mb-5 leading-[1.7]">{pos.description}</p>
-                      <div className="space-y-2.5 mb-5">
-                        {pos.requirements.map((r, j) => (
-                          <div key={j} className="flex items-start gap-2.5">
-                            <div className="mt-0.5 w-4 h-4 rounded-md flex items-center justify-center shrink-0 border" style={{ background: `${pos.color}10`, borderColor: `${pos.color}25` }}>
-                              <Check className="h-2.5 w-2.5" style={{ color: pos.color }} strokeWidth={3} />
-                            </div>
-                            <span className="text-[12px] text-white/60 leading-[1.55]">{r}</span>
-                          </div>
-                        ))}
-                      </div>
-                      <div className="mt-auto">
-                        <button className="relative w-full py-3 rounded-xl font-bold text-[13px] flex items-center justify-center gap-2 border overflow-hidden transition-all duration-500 cursor-pointer"
-                          style={{ borderColor: `${pos.color}25`, background: `${pos.color}06`, color: `${pos.color}d0` }}>
-                          <span className="relative z-10 flex items-center gap-2 uppercase tracking-[0.14em] text-[11px] group-hover:text-white transition-colors duration-500">
-                            Apply <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform duration-500" />
-                          </span>
-                          <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: `linear-gradient(135deg, ${pos.color}, ${pos.grad ? pos.grad[1] : pos.color})` }} />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </Tilt>
-              </R>
-            ))}
-          </div>
-
-          {/* Row 3: INVESTOR — Full-width premium card */}
+          {/* Investor — full width premium card (kept for both variants) */}
           {(() => { const pos = POSITIONS[7]; return (
             <R d={500}>
-              <div className="lx-card group relative cursor-pointer overflow-hidden" onClick={() => goToForm(pos.id)}
-                style={{ border: `1px solid ${pos.color}15`, boxShadow: `0 0 60px ${pos.color}04` }}>
-                {/* Gold accent top */}
-                <div className="h-[2px]" style={{ background: `linear-gradient(90deg, transparent 10%, ${pos.color}50, transparent 90%)` }} />
+              <div
+                onClick={() => goToForm(pos.id)}
+                className="spotlight-card group mt-4 relative cursor-pointer overflow-hidden rounded-2xl border border-[#f97316]/25 bg-gradient-to-br from-[#f97316]/[0.06] via-white/[0.012] to-transparent transition-all duration-400 hover:-translate-y-[2px] hover:shadow-[0_30px_70px_-20px_rgba(0,0,0,0.7),0_0_70px_-25px_rgba(249,115,22,0.4)]"
+              >
+                <div className="absolute top-0 left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-[#f97316]/70 to-transparent" />
+                <div className="absolute -top-24 -right-24 w-[300px] h-[300px] rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(249,115,22,0.18), transparent 65%)", filter: "blur(40px)" }} />
 
-                {/* Background glow */}
-                <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse at 30% 50%, ${pos.color}04, transparent 50%)` }} />
-
-                <div className="p-8 sm:p-10 relative">
-                  <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-8 items-center">
-                    <div>
-                      <div className="flex items-center gap-4 mb-5">
-                        <div className="w-14 h-14 rounded-2xl flex items-center justify-center border" style={{ background: `${pos.color}10`, borderColor: `${pos.color}25` }}>
-                          <pos.icon className="h-6 w-6" style={{ color: pos.color }} />
+                <div className="relative grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-10 p-8 sm:p-10 items-center">
+                  <div>
+                    <div className="flex items-center gap-4 mb-5">
+                      <span
+                        className="relative inline-flex items-center justify-center w-12 h-12 rounded-full text-[#f97316]"
+                        style={{
+                          background: "rgba(249,115,22,0.10)",
+                          boxShadow: "inset 0 0 0 1px rgba(249,115,22,0.35), 0 0 24px -6px rgba(249,115,22,0.45)",
+                        }}
+                      >
+                        <pos.icon className="h-5 w-5" strokeWidth={1.8} />
+                      </span>
+                      <div>
+                        <div className="flex items-center gap-3 flex-wrap">
+                          <h3 className="font-display text-[22px] font-bold text-white tracking-[-0.02em]">{pos.title}</h3>
+                          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-[0.2em] text-[#f97316] bg-[#f97316]/[0.10] border border-[#f97316]/25">
+                            Open to all
+                          </span>
                         </div>
-                        <div>
-                          <div className="flex items-center gap-3">
-                            <h3 className="text-xl font-bold text-white/90">{pos.title}</h3>
-                            <span className="text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full" style={{ background: `${pos.color}12`, border: `1px solid ${pos.color}25`, color: pos.color }}>OPEN TO ALL</span>
-                          </div>
-                          <span className="text-[12px] font-medium" style={{ color: pos.color }}>{pos.salary} · No minimum</span>
-                        </div>
-                      </div>
-                      <p className="text-[15px] text-white/50 mb-6 leading-relaxed max-w-lg">{pos.description}</p>
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                        {pos.requirements.map((r, j) => (
-                          <div key={j} className="flex items-center gap-2.5 px-4 py-3 rounded-xl border" style={{ background: `${pos.color}04`, borderColor: `${pos.color}10` }}>
-                            <Check className="h-4 w-4 shrink-0" style={{ color: `${pos.color}60` }} />
-                            <span className="text-[13px] text-white/45 font-medium">{r}</span>
-                          </div>
-                        ))}
+                        <span className="text-[11.5px] text-[#f97316]/85 font-semibold mt-0.5">{pos.salary} · No minimum</span>
                       </div>
                     </div>
-                    <div className="flex flex-col gap-4">
-                      <div className="flex flex-wrap gap-2">
-                        {pos.perks.map((p, j) => <span key={j} className="text-[11px] px-3 py-1.5 rounded-full border font-medium" style={{ background: `${pos.color}08`, borderColor: `${pos.color}18`, color: `${pos.color}` }}>{p}</span>)}
+                    <p className="text-[14.5px] text-white/60 leading-relaxed max-w-lg">{pos.description}</p>
+                  </div>
+                  <div className="flex flex-col gap-3">
+                    {pos.perks.map((p, j) => (
+                      <div key={j} className="flex items-center gap-2 text-[13px] text-white/65">
+                        <Check className="h-3.5 w-3.5 text-[#f97316]" strokeWidth={3} />
+                        {p}
                       </div>
-                      <button className="w-full py-4 rounded-xl font-bold text-[14px] flex items-center justify-center gap-2.5 text-black transition-all duration-300 cursor-pointer group-hover:scale-[1.02]"
-                        style={{ background: `linear-gradient(135deg, ${pos.color}, #fbbf24)`, boxShadow: `0 0 30px ${pos.color}25` }}>
-                        Become an Investor <ArrowRight className="h-4 w-4" />
-                      </button>
-                      <p className="text-[10px] text-white/15 text-center">No minimum investment. Profit shared proportionally.</p>
-                    </div>
+                    ))}
+                    <button
+                      className="lx-primary mt-2 w-full py-3.5 rounded-xl font-bold text-[13px] text-white inline-flex items-center justify-center gap-2 cursor-pointer group/cta"
+                    >
+                      Become investor <ArrowRight className="h-4 w-4 group-hover/cta:translate-x-1 transition-transform" />
+                    </button>
                   </div>
                 </div>
               </div>
@@ -886,49 +996,107 @@ export default function ApplyPage() {
 
 
       {/* ═══════════════════════════════════════════════════════════
-          3 · WHY LETHAL (bento grid)
+          2.5 · TIMELINE (Apply → Reply → Interview → Onboard)
           ═══════════════════════════════════════════════════════════ */}
 
       <section className="relative z-10 px-6 sm:px-10 lg:px-16 py-28">
         <div className="max-w-[1100px] mx-auto">
-          <Hdr tag="Why Us" title={<>Why Choose <span className="lx-text-orange">Lethal</span></>} sub="Not a corporation. A small team that builds fast, pays well, and respects your time." />
+          <Hdr number="02" tag="The Path" title={<>From click to <span className="lx-text-orange">offer.</span></>} sub="Four steps, no ghosting, no cover letters. Here's what happens after you hit submit." />
 
-          {/* Bento grid — mixed sizes (2 wide, 6 normal) for visual interest */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 auto-rows-[minmax(180px,auto)]">
-            {WHY_FEATURES.map((f, i) => {
-              const isWide = f.size === "wide"
-              return (
-                <R key={i} d={i * 50} className={isWide ? "sm:col-span-2" : ""}>
-                  <div className={`lx-card lx-shine group h-full flex flex-col justify-between relative overflow-hidden transition-all duration-500 hover:-translate-y-0.5 ${isWide ? "p-8" : "p-7"}`}>
-                    {/* Hover glow behind icon — orange radial */}
-                    <div className="absolute -top-10 -left-10 w-[240px] h-[240px] rounded-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700"
-                      style={{ background: "radial-gradient(circle, rgba(249, 115, 22, 0.14), transparent 70%)" }} />
+          <PathTimeline />
 
-                    {/* Subtle corner accent for wide cards */}
-                    {isWide && (
-                      <div className="absolute top-4 right-4 text-[9px] font-bold uppercase tracking-[0.18em] text-[#f97316]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Featured</div>
-                    )}
+          {/* Below timeline — key SLAs as pills */}
+          <R d={400}>
+            <div className="flex flex-wrap justify-center gap-2 mt-10">
+              {[
+                { label: "No ghosting · ever" },
+                { label: "Under 48h reply SLA" },
+                { label: "Same-week onboarding" },
+                { label: "Zero take-home tests" },
+              ].map((p, i) => (
+                <span key={i} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/[0.08] bg-white/[0.025] text-[11px] font-semibold text-white/65">
+                  <Check className="h-3 w-3 text-[#f97316]" strokeWidth={3} />
+                  {p.label}
+                </span>
+              ))}
+            </div>
+          </R>
+        </div>
+      </section>
 
-                    <div className="relative z-10">
-                      {/* Icon orb — orange glow on hover */}
-                      <div className="relative mb-5 w-12 h-12">
-                        <div className="absolute inset-0 rounded-xl blur-xl opacity-0 group-hover:opacity-80 transition-opacity duration-500"
-                             style={{ background: "#f97316" }} />
-                        <div className="relative w-12 h-12 rounded-xl flex items-center justify-center border border-white/[0.06] bg-white/[0.025] group-hover:border-[#f97316]/30 group-hover:bg-[#f97316]/[0.08] group-hover:scale-110 group-hover:-rotate-3 transition-all duration-500">
-                          <f.icon className="h-5 w-5 text-white/35 group-hover:text-[#f97316] transition-colors duration-500" />
-                        </div>
-                      </div>
-                      <h4 className={`font-display font-bold mb-2.5 text-white/90 group-hover:text-white tracking-[-0.02em] transition-colors ${isWide ? "text-[22px]" : "text-[17px]"}`}>{f.title}</h4>
-                      <p className={`text-white/40 leading-[1.7] group-hover:text-white/60 transition-colors ${isWide ? "text-[14px] max-w-[420px]" : "text-[13px]"}`}>{f.desc}</p>
+      <Divider />
+
+
+      {/* ═══════════════════════════════════════════════════════════
+          3 · WHY LETHAL (bento grid)
+          ═══════════════════════════════════════════════════════════ */}
+
+      <section className="relative z-10 px-6 sm:px-10 lg:px-16 py-32">
+        <div className="max-w-[1100px] mx-auto">
+          <Hdr number="03" tag="Why Us" title={<>Why Choose <span className="lx-text-orange">Lethal.</span></>} sub="Not a corporation. A small team that builds fast, pays well, and respects your time." />
+
+          <div className="max-w-[1000px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-1">
+            {WHY_FEATURES.map((f, i) => (
+              <R key={i} d={i * 40}>
+                <div className="group relative flex items-start gap-5 py-7 px-4 -mx-4 rounded-xl border-b border-white/[0.04] last:border-b-0 transition-[background-color] duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-[#f97316]/[0.025]">
+                  {/* Ambient orange glow — fades in from the left on hover */}
+                  <div
+                    aria-hidden="true"
+                    className="absolute inset-0 pointer-events-none rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
+                    style={{
+                      background: "radial-gradient(ellipse 55% 100% at 0% 50%, rgba(249,115,22,0.08), transparent 70%)",
+                    }}
+                  />
+                  {/* Left vertical orange bar — grows on hover */}
+                  <span
+                    aria-hidden="true"
+                    className="absolute left-0 top-1/2 -translate-y-1/2 w-[2px] h-0 group-hover:h-[70%] bg-gradient-to-b from-[#fbbf24] via-[#f97316] to-transparent rounded-full transition-[height] duration-[1100ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
+                    style={{ boxShadow: "0 0 14px rgba(249,115,22,0.6)" }}
+                  />
+
+                  {/* Number — outline by default, fills with orange gradient on hover. Parent is
+                      inline-block so absolute children stack instead of laying out side-by-side. */}
+                  <span
+                    className="relative inline-block shrink-0 w-14 h-[42px] font-display text-[42px] font-black leading-none tabular-nums tracking-[-0.05em]"
+                    aria-label={String(i + 1).padStart(2, "0")}
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="absolute inset-0 transition-opacity duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:opacity-0"
+                      style={{
+                        background: "linear-gradient(180deg, rgba(255,255,255,0.18), rgba(255,255,255,0.04))",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                      }}
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
+                      style={{
+                        background: "linear-gradient(180deg, #ffd591, #f97316 55%, #c2410c)",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                        filter: "drop-shadow(0 0 16px rgba(249,115,22,0.5))",
+                      }}
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                  </span>
+
+                  <div className="relative flex-1 pt-1">
+                    <div className="flex items-center gap-2.5 mb-2">
+                      <f.icon className="h-4 w-4 text-[#f97316]/70 group-hover:text-[#f97316] group-hover:scale-110 transition-all duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)]" />
+                      <h4 className="font-display text-[18px] font-bold tracking-[-0.02em] text-white/90 group-hover:text-white transition-colors duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)]">
+                        {f.title}
+                      </h4>
                     </div>
-
-                    {/* Bottom accent bar — slides in on hover */}
-                    <div className="absolute bottom-0 left-0 h-[2px] w-0 group-hover:w-full transition-all duration-700 ease-out"
-                         style={{ background: "linear-gradient(90deg, #f97316, transparent)", boxShadow: "0 0 12px rgba(249, 115, 22, 0.72)" }} />
+                    <p className="text-[13.5px] text-white/50 leading-[1.7] group-hover:text-white/70 transition-colors duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)]">{f.desc}</p>
                   </div>
-                </R>
-              )
-            })}
+                </div>
+              </R>
+            ))}
           </div>
         </div>
       </section>
@@ -940,65 +1108,112 @@ export default function ApplyPage() {
           4 · COMPARISON (Lethal vs Corporate — premium design)
           ═══════════════════════════════════════════════════════════ */}
 
-      <section className="relative z-10 px-6 sm:px-10 lg:px-16 py-28">
-        <div className="max-w-[680px] mx-auto">
-          <div className="text-center mb-16">
-            <R><SectionEyebrow label="Compare" /></R>
-            <R d={80}><CorpTitle /></R>
-            <R d={140}><p className="text-white/25 text-[14px]">Same industry. Different approach.</p></R>
-          </div>
+      <section className="relative z-10 px-6 sm:px-10 lg:px-16 py-32">
+        <div className="max-w-[1100px] mx-auto">
+          <Hdr number="04" tag="Compare" title={<>Lethal <span className="lx-text-fade">vs</span> <span className="lx-text-orange">Big Tech.</span></>} sub="What you actually get here vs what you'd get at FAANG. Same talent pool. Different game." />
 
-          {/* Column headers */}
-          <div className="grid grid-cols-[1fr_90px_90px] gap-2 mb-5 px-5">
-            <div />
-            <div className="text-center">
-              <div className="inline-flex items-center gap-1.5">
-                <div className="w-3 h-3 rounded-sm bg-gradient-to-br from-[#f97316] to-[#ea580c]" />
-                <span className="text-[9px] font-bold uppercase tracking-[0.15em] text-[#f97316]/70">Lethal</span>
-              </div>
-            </div>
-            <div className="text-center">
-              <div className="inline-flex items-center gap-1.5">
-                <div className="w-3 h-3 rounded-sm bg-white/15 border border-white/10" />
-                <span className="text-[9px] font-bold uppercase tracking-[0.15em] text-white/20">Corp</span>
-              </div>
-            </div>
-          </div>
+          {(() => {
+            // Comparison data — Lethal vs the giants. Cells are short answers.
+            const cols: Array<{ key: string; name: string; mark: string; accent?: boolean }> = [
+              { key: "lethal", name: "Lethal",    mark: "L", accent: true },
+              { key: "apple",  name: "Apple",     mark: "" },
+              { key: "google", name: "Google",    mark: "G" },
+              { key: "ms",     name: "Microsoft", mark: "M" },
+              { key: "meta",   name: "Meta",      mark: "M" },
+            ]
+            // All big-tech values below are defensible against public 2023-24
+            // reporting. We don't claim giants are bad — we just show where
+            // Lethal has structural edge for the right person.
+            const rows: Array<{ feat: string; icon: typeof Globe; vals: Record<string, string>; note: string }> = [
+              { feat: "Remote policy",       icon: Globe,      vals: { lethal: "100% anywhere",   apple: "3d office",        google: "3d hybrid",       ms: "Flex hybrid",        meta: "3d hybrid" },
+                note: "Apple enforced 3-day RTO since 2022 with badge tracking. Google, Meta tracked office swipes starting 2023. Lethal team: 7 countries, zero office." },
+              { feat: "Ship cycle",          icon: Zap,        vals: { lethal: "Hours → days",    apple: "Quarters",         google: "Months",          ms: "Months",             meta: "Sprints (weeks)" },
+                note: "Big-tech release windows take weeks to months of approvals. At Lethal, a feature idea in Discord at 2pm can ship by dinner. Real." },
+              { feat: "Onboarding ramp",     icon: Rocket,     vals: { lethal: "Day 1 impact",    apple: "3-6 months",       google: "3-6 months",      ms: "3-6 months",         meta: "3-6 months" },
+                note: "FAANG ramps average 3-6 months before you touch prod (Blind, Levels.fyi). Small teams skip this — your first PR ships week one." },
+              { feat: "Approval layers",     icon: Shield,     vals: { lethal: "None",            apple: "Multi-VP",         google: "Committees",      ms: "VP review",          meta: "Review cycles" },
+                note: "Giants have review committees for design, security, legal, branding. We have one Discord channel and 'yes or no'." },
+              { feat: "Upside model",        icon: TrendingUp, vals: { lethal: "Direct % + comm", apple: "RSUs · 4y vest",   google: "RSUs · 4y vest",  ms: "RSUs · 4y vest",     meta: "RSUs · 4y vest" },
+                note: "RSUs are real money but locked 4 years with cliff. Commission here pays monthly. Top performers out-earn junior L5s." },
+              { feat: "Side projects",       icon: Sparkles,   vals: { lethal: "Encouraged",      apple: "IP concerns",      google: "Must disclose",   ms: "Must disclose",      meta: "Must disclose" },
+                note: "Big-tech IP policies capture anything built on company hardware/time. We encourage side income — you own what you build." },
+              { feat: "Hours flexibility",   icon: Clock,      vals: { lethal: "Set your own",    apple: "Core hours",       google: "Team-aligned",    ms: "Flexible",           meta: "Team-aligned" },
+                note: "Microsoft does have genuinely flexible hours (credit where due). But all FAANG still force team-aligned standups + OKR reviews." },
+              { feat: "Layoffs (2022-24)",   icon: Heart,      vals: { lethal: "Self-funded",     apple: "Targeted cuts",    google: "~12k laid off",   ms: "~10k laid off",      meta: "~21k laid off" },
+                note: "Meta: 21k across 2022-23 (11k + 10k). Google: 12k in Jan 2023. Microsoft: 10k in Jan 2023 + more in 2024. Lethal: no layoffs — we never raised a VC round." },
+            ]
 
-          <div className="space-y-1.5">
-            {COMPARISON_DATA.map((row, i) => (
-              <R key={i} d={i * 40} dir="left">
-                <div className="lx-card grid grid-cols-[1fr_90px_90px] gap-2 items-center py-4 px-5 group hover:bg-white/[0.015]">
-                  <div className="flex items-center gap-3">
-                    <row.icon className="h-3.5 w-3.5 text-white/10 group-hover:text-[#f97316]/40 transition-colors shrink-0" />
-                    <span className="text-[13px] text-white/45 group-hover:text-white/75 transition-colors font-medium">{row.feature}</span>
-                  </div>
+            const isPositive = (v: string) => /100%|anywhere|Hours|Day 1|None|Direct|Encouraged|Set your own|Self-funded/i.test(v)
 
-                  {/* Lethal ✓ — orange glow */}
-                  <div className="flex justify-center">
-                    <div className="relative w-8 h-8 rounded-lg bg-[#f97316]/[0.04] border border-[#f97316]/10 flex items-center justify-center group-hover:bg-[#f97316]/10 group-hover:border-[#f97316]/25 transition-all duration-300">
-                      <Check className="h-3.5 w-3.5 text-[#f97316]/40 group-hover:text-[#f97316]/90 transition-colors" />
-                      <div className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ boxShadow: "0 0 15px rgba(249, 115, 22, 0.17)" }} />
+            return (
+              <>
+                {/* Desktop table */}
+                <div className="hidden md:block overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.012] backdrop-blur-md">
+                  {/* Header row */}
+                  <div className="grid grid-cols-[1.4fr_repeat(5,1fr)] border-b border-white/[0.06]">
+                    <div className="px-6 py-5 text-[10px] font-bold uppercase tracking-[0.22em] text-white/40">
+                      Feature
                     </div>
+                    {cols.map((c) => (
+                      <div
+                        key={c.key}
+                        className={`relative px-3 py-5 text-center ${c.accent ? "bg-gradient-to-b from-[#f97316]/[0.10] to-transparent" : ""}`}
+                      >
+                        {c.accent && (
+                          <div className="absolute top-0 left-2 right-2 h-px bg-gradient-to-r from-transparent via-[#f97316]/70 to-transparent" />
+                        )}
+                        <span className={`text-[12.5px] font-bold uppercase tracking-[0.18em] ${c.accent ? "text-[#f97316]" : "text-white/55"}`}>
+                          {c.name}
+                        </span>
+                      </div>
+                    ))}
                   </div>
 
-                  {/* Corp ✗ — neutral red on hover */}
-                  <div className="flex justify-center">
-                    <div className="w-8 h-8 rounded-lg bg-white/[0.01] border border-white/[0.03] flex items-center justify-center group-hover:bg-red-500/[0.06] group-hover:border-red-500/15 transition-all duration-300">
-                      <span className="text-white/40 text-sm group-hover:text-red-400/50 transition-colors">×</span>
-                    </div>
-                  </div>
+                  {/* Rows */}
+                  {rows.map((row, i) => (
+                    <CompareRow key={i} row={row} index={i} cols={cols} isPositive={isPositive} />
+                  ))}
                 </div>
-              </R>
-            ))}
-          </div>
 
-          {/* Bottom verdict */}
-          <R d={400}>
-            <div className="mt-6 text-center">
-              <p className="text-[11px] text-white/15 italic">The choice is obvious.</p>
-            </div>
-          </R>
+                {/* Mobile — stacked cards */}
+                <div className="md:hidden space-y-4">
+                  {cols.map((c) => (
+                    <div
+                      key={c.key}
+                      className={`rounded-2xl border p-5 ${
+                        c.accent
+                          ? "border-[#f97316]/35 bg-gradient-to-b from-[#f97316]/[0.08] to-transparent shadow-[0_20px_50px_-20px_rgba(249,115,22,0.4)]"
+                          : "border-white/[0.06] bg-white/[0.015]"
+                      }`}
+                    >
+                      <div className={`text-[12px] font-bold uppercase tracking-[0.22em] mb-4 ${c.accent ? "text-[#f97316]" : "text-white/55"}`}>
+                        {c.name}
+                      </div>
+                      <div className="space-y-2.5">
+                        {rows.map((row, i) => (
+                          <div key={i} className="flex items-center justify-between gap-3">
+                            <span className="text-[12px] text-white/55 font-medium">{row.feat}</span>
+                            <span className={`text-[12px] font-semibold ${c.accent ? "text-[#f97316]" : isPositive(row.vals[c.key]) ? "text-emerald-400/80" : "text-white/40"}`}>
+                              {row.vals[c.key]}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Footnote */}
+                <R d={400}>
+                  <p className="text-center text-[11px] text-white/30 mt-8 italic max-w-[560px] mx-auto leading-relaxed">
+                    Big tech data sourced from public 2022-24 reports, SEC filings, return-to-office
+                    policies, and employee reviews (Blind, Glassdoor, Levels.fyi). Not a dig — just
+                    a structural comparison.
+                  </p>
+                </R>
+              </>
+            )
+          })()}
         </div>
       </section>
 
@@ -1009,33 +1224,78 @@ export default function ApplyPage() {
           5 · TEAM QUOTES
           ═══════════════════════════════════════════════════════════ */}
 
-      <section className="relative z-10 px-6 sm:px-10 lg:px-16 py-28">
-        <div className="max-w-[1000px] mx-auto">
-          <Hdr tag="Team" title={<>What Our Team <span className="lx-text-orange">Says</span></>} sub="Real quotes from people who actually work here." />
-
-          {/* Mobile: horizontal snap carousel (1 visible, scroll to see more) */}
-          <div className="md:hidden -mx-6 sm:-mx-10 px-6 sm:px-10 overflow-x-auto overflow-y-hidden lx-snap-row lx-scrollbar-x" aria-label="Team testimonials carousel">
-            <div className="flex gap-4 snap-x snap-mandatory">
-              {TEAM_QUOTES.map((q, i) => (
-                <R key={i} d={i * 60} className="snap-start shrink-0 w-[85%] max-w-[420px]">
-                  <QuoteCard q={q} />
-                </R>
-              ))}
-            </div>
-          </div>
-
-          {/* Mobile scroll indicator dots */}
-          <div className="md:hidden flex items-center justify-center gap-1.5 mt-5 text-white/20 text-[10px] font-semibold uppercase tracking-[0.18em]">
-            <ChevronRight className="h-3 w-3 -scale-x-100" />
-            <span>swipe</span>
-            <ChevronRight className="h-3 w-3" />
-          </div>
+      <section className="relative z-10 px-6 sm:px-10 lg:px-16 py-32">
+        <div className="max-w-[1100px] mx-auto">
+          <Hdr number="05" tag="Team" title={<>From the people <span className="lx-text-orange">inside.</span></>} sub="No marketing fluff — unedited quotes from the team." />
 
           {/* Desktop: 2-col grid */}
-          <div className="hidden md:grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {TEAM_QUOTES.map((q, i) => (
-              <R key={i} d={i * 100}>
-                <QuoteCard q={q} />
+              <R key={i} d={i * 80}>
+                <div
+                  className="group relative rounded-2xl p-8 sm:p-9 overflow-hidden transition-all duration-400 h-full"
+                  style={{
+                    background: "linear-gradient(180deg, rgba(255,255,255,0.025) 0%, rgba(255,255,255,0.01) 100%)",
+                    border: "1px solid rgba(255,255,255,0.06)",
+                    boxShadow: "0 24px 60px -20px rgba(0,0,0,0.55)",
+                  }}
+                >
+                  <div
+                    className="absolute -top-24 -right-24 w-60 h-60 rounded-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+                    style={{
+                      background: "radial-gradient(circle, rgba(249,115,22,0.18), transparent 65%)",
+                      filter: "blur(32px)",
+                    }}
+                  />
+                  <div className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-[#f97316]/35 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                  {/* Large open-quote glyph */}
+                  <div
+                    aria-hidden="true"
+                    className="absolute top-5 right-7 font-display font-black leading-none select-none pointer-events-none"
+                    style={{ fontSize: "72px", color: "rgba(249,115,22,0.08)" }}
+                  >
+                    &ldquo;
+                  </div>
+
+                  {/* 5-star */}
+                  <div className="relative flex gap-1 mb-6">
+                    {[...Array(5)].map((_, j) => (
+                      <Star key={j} className="h-3.5 w-3.5 lx-star" style={{ animationDelay: `${j * 0.15}s` }} />
+                    ))}
+                  </div>
+
+                  {/* Quote */}
+                  <p className="relative text-[15.5px] text-white/75 leading-[1.8] mb-8 font-medium">
+                    {q.text}
+                  </p>
+
+                  {/* Author */}
+                  <div className="relative flex items-center gap-3.5 pt-6 border-t border-white/[0.06]">
+                    <div className="relative shrink-0">
+                      <div className="absolute -inset-[3px] rounded-full bg-[#f97316]/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      <div
+                        className="relative w-11 h-11 rounded-full overflow-hidden"
+                        style={{ boxShadow: "0 0 0 2px rgba(255,255,255,0.08), 0 6px 16px rgba(0,0,0,0.5)" }}
+                      >
+                        <img src={q.img} alt={q.name} className="w-full h-full object-cover" loading="lazy" />
+                      </div>
+                      <span className="absolute -bottom-0.5 -right-0.5 flex items-center justify-center">
+                        <span className="absolute w-2.5 h-2.5 rounded-full bg-emerald-400/45 animate-ping" />
+                        <span className="relative w-2 h-2 rounded-full bg-emerald-400 ring-2 ring-black" />
+                      </span>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[14px] font-bold text-white leading-tight">{q.name}</p>
+                      <p className="text-[11px] text-white/45 mt-0.5">
+                        <span className="text-[#f97316]/85 font-semibold">{q.role}</span>
+                        <span className="text-white/20 mx-1.5">·</span>
+                        {q.time}
+                      </p>
+                    </div>
+                    <ArrowUpRight className="h-4 w-4 text-white/20 group-hover:text-[#f97316] group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all shrink-0" />
+                  </div>
+                </div>
               </R>
             ))}
           </div>
@@ -1054,7 +1314,7 @@ export default function ApplyPage() {
         <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 60% 40% at 50% 30%, rgba(249, 115, 22, 0.04), transparent)" }} />
 
         <div className="max-w-[700px] mx-auto relative">
-          <Hdr tag="Apply" title={<>Apply <span className="lx-text-orange">Now</span></>} sub="Takes 2 minutes. We respond within 48 hours. No resume needed." />
+          <Hdr number="06" tag="Apply" title={<>Apply <span className="lx-text-orange">Now</span></>} sub="Takes 2 minutes. We respond within 48 hours. No resume needed." />
 
           {/* Step counter — clear "Step X of 3" on all viewports */}
           <R d={120}>
@@ -1111,27 +1371,78 @@ export default function ApplyPage() {
           </R>
 
           <R d={250}>
-            {/* Form card — premium glass shell */}
-            <div className="lx-form-wrap">
-              <div className="lx-form-border" />
-              <div className="relative z-10 rounded-2xl overflow-hidden bg-[#0a0a0b]/95 border border-white/[0.06]" style={{ boxShadow: "0 40px 80px rgba(0,0,0,0.55), 0 0 40px rgba(249, 115, 22, 0.07), 0 0 0 1px rgba(255,255,255,0.025) inset" }}>
+            {/* Form card — refined premium glass (matches FAQ / product card language) */}
+            <div
+              className="relative rounded-[24px] overflow-hidden"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(255,255,255,0.022) 0%, rgba(255,255,255,0.008) 100%)",
+                border: "1px solid rgba(255,255,255,0.07)",
+                boxShadow:
+                  "0 50px 120px -40px rgba(0,0,0,0.85), 0 0 80px -30px rgba(249,115,22,0.15), inset 0 1px 0 rgba(255,255,255,0.04)",
+              }}
+            >
+              {/* Top hairline + halo */}
+              <div className="absolute top-0 left-10 right-10 h-px bg-gradient-to-r from-transparent via-[#f97316]/60 to-transparent z-[1]" />
+              <div className="absolute top-0 left-1/3 right-1/3 h-[6px] bg-gradient-to-b from-[#f97316]/22 to-transparent blur-md pointer-events-none z-[1]" />
+
+              {/* Role accent rail — appears on the left edge once a role is selected */}
+              <div
+                aria-hidden="true"
+                className="absolute left-0 top-6 bottom-6 w-[3px] rounded-full transition-all duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] z-[2]"
+                style={{
+                  background: "linear-gradient(180deg, #fbbf24, #f97316 45%, #c2410c)",
+                  boxShadow: sel ? "0 0 16px rgba(249,115,22,0.55)" : "none",
+                  transform: sel ? "scaleY(1)" : "scaleY(0)",
+                  transformOrigin: "top",
+                  opacity: sel ? 1 : 0,
+                }}
+              />
+
+              {/* Ambient corner glow */}
+              <div
+                aria-hidden="true"
+                className="absolute -top-24 -right-24 w-80 h-80 rounded-full pointer-events-none"
+                style={{
+                  background: "radial-gradient(circle, rgba(249,115,22,0.14), transparent 65%)",
+                  filter: "blur(40px)",
+                }}
+              />
+              <div
+                aria-hidden="true"
+                className="absolute -bottom-32 -left-32 w-[420px] h-[420px] rounded-full pointer-events-none"
+                style={{
+                  background: "radial-gradient(circle, rgba(249,115,22,0.07), transparent 65%)",
+                  filter: "blur(50px)",
+                }}
+              />
+
+              <div className="relative z-[2]">
 
               {/* Selected position header */}
               {sel && <>
-                <div className="h-[2px]" style={{ background: `linear-gradient(90deg, transparent 20%, ${sel.color}40, transparent 80%)` }} />
-                <div className="px-7 py-5 border-b border-white/[0.04]" style={{ background: `linear-gradient(135deg, ${sel.color}04, transparent)` }}>
+                <div className="px-7 py-5 border-b border-white/[0.05] bg-[#f97316]/[0.025]">
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl flex items-center justify-center border border-white/[0.05]"
-                      style={{ background: sel.grad ? `linear-gradient(135deg, ${sel.grad[0]}, ${sel.grad[1]}40)` : `${sel.color}08` }}>
-                      <sel.icon className="h-5 w-5" style={{ color: sel.color }} />
+                    <span
+                      className="relative inline-flex items-center justify-center w-11 h-11 rounded-full text-[#f97316] shrink-0"
+                      style={{
+                        background: "rgba(249,115,22,0.10)",
+                        boxShadow: "inset 0 0 0 1px rgba(249,115,22,0.35), 0 0 20px -6px rgba(249,115,22,0.45)",
+                      }}
+                    >
+                      <sel.icon className="h-[17px] w-[17px]" strokeWidth={1.8} />
+                    </span>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-display text-[10px] font-bold uppercase tracking-[0.22em] text-[#f97316]/85 mb-1">Selected role</p>
+                      <p className="font-display text-[16px] font-bold text-white tracking-[-0.015em] leading-tight">{sel.title}</p>
+                      <p className="text-[11.5px] text-white/45 mt-0.5">{sel.slots} · Remote · {sel.salary}</p>
                     </div>
-                    <div className="flex-1">
-                      <p className="font-bold text-[16px] text-white/85">{sel.title}</p>
-                      <p className="text-[11px] text-white/25">{sel.slots} · Remote · {sel.salary}</p>
-                    </div>
-                    <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500/[0.06] border border-emerald-500/10">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500/50 lx-pulse" />
-                      <span className="text-[10px] text-emerald-400/50 font-medium">Hiring</span>
+                    <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500/[0.08] border border-emerald-500/20">
+                      <span className="relative flex items-center justify-center">
+                        <span className="absolute w-1.5 h-1.5 rounded-full bg-emerald-400/40 animate-ping" />
+                        <span className="relative w-1 h-1 rounded-full bg-emerald-400" />
+                      </span>
+                      <span className="text-[10px] text-emerald-400/85 font-bold uppercase tracking-[0.18em]">Hiring</span>
                     </div>
                   </div>
                 </div>
@@ -1140,35 +1451,67 @@ export default function ApplyPage() {
               <div className="p-6 sm:p-8">
 
                 {/* ── STEP 0: About You ── */}
-                {formStep === 0 && <div className="space-y-5 lx-step">
+                {formStep === 0 && <div className="space-y-0 lx-step">
 
-                  {/* Role picker */}
+                  {/* Role picker — clean chip grid */}
                   <div className="lx-field">
-                    <div className="lx-field-header"><Sparkles className="h-4 w-4 text-[#f97316]/40" /><div><p className="lx-field-title">Choose your role</p><p className="lx-field-sub">What position are you applying for?</p></div></div>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-4">
+                    <div className="lx-field-header">
+                      <Sparkles className="h-4 w-4" />
+                      <div>
+                        <p className="lx-field-title">Choose your role</p>
+                        <p className="lx-field-sub">What position are you applying for?</p>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                       {POSITIONS.map(p => {
                         const a = position === p.id
                         return (
-                          <button key={p.id} type="button" onClick={() => setPosition(p.id)}
-                            className={`relative flex flex-col items-center gap-2.5 p-4 rounded-xl text-center transition-all duration-300 cursor-pointer group ${a ? "border-2" : "border border-white/[0.04] hover:border-white/[0.08]"}`}
-                            style={a ? { borderColor: `${p.color}35`, background: `${p.color}06`, boxShadow: `0 0 25px ${p.color}08` } : { background: "rgba(255,255,255,0.01)" }}>
-                            <div className="w-10 h-10 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
-                              style={{ background: a && p.grad ? `linear-gradient(135deg, ${p.grad[0]}, ${p.grad[1]}40)` : `${p.color}08` }}>
-                              <p.icon className="h-4 w-4" style={{ color: a ? p.color : `${p.color}50` }} />
-                            </div>
-                            <span className={`text-[11px] font-semibold truncate w-full ${a ? "text-white/80" : "text-white/30"}`}>{p.title}</span>
-                            {a && <div className="absolute -top-px left-1/2 -translate-x-1/2 w-8 h-[2px] rounded-full" style={{ background: p.color }} />}
+                          <button
+                            key={p.id}
+                            type="button"
+                            onClick={() => setPosition(p.id)}
+                            className={`group relative flex items-center gap-2.5 px-3.5 py-3 rounded-xl text-left transition-all duration-300 cursor-pointer ${
+                              a
+                                ? "bg-[#f97316]/[0.09] border border-[#f97316]/40"
+                                : "bg-white/[0.012] border border-white/[0.06] hover:border-white/[0.14] hover:bg-white/[0.02]"
+                            }`}
+                          >
+                            <span
+                              className={`relative inline-flex items-center justify-center w-8 h-8 rounded-full shrink-0 transition-colors ${
+                                a ? "text-[#f97316]" : "text-white/50 group-hover:text-[#f97316]/80"
+                              }`}
+                              style={{
+                                background: a ? "rgba(249,115,22,0.10)" : "rgba(255,255,255,0.025)",
+                                boxShadow: a
+                                  ? "inset 0 0 0 1px rgba(249,115,22,0.35), 0 0 16px -6px rgba(249,115,22,0.45)"
+                                  : "inset 0 0 0 1px rgba(255,255,255,0.07)",
+                              }}
+                            >
+                              <p.icon className="h-[14px] w-[14px]" strokeWidth={1.9} />
+                            </span>
+                            <span className={`text-[12px] font-semibold truncate ${a ? "text-white" : "text-white/65 group-hover:text-white/85"}`}>
+                              {p.title}
+                            </span>
                           </button>
                         )
                       })}
                     </div>
                     {position && (() => {
-                      const b = ROLE_BENEFITS[position], p = POSITIONS.find(x => x.id === position)
-                      if (!b || !p) return null
-                      return <div className="mt-4 p-4 rounded-xl border border-white/[0.04] bg-white/[0.01] lx-step">
-                        <p className="text-[10px] font-bold uppercase tracking-[0.15em] mb-3" style={{ color: `${p.color}40` }}>Perks</p>
-                        <div className="grid grid-cols-2 gap-2">{b.map((x, i) => <div key={i} className="flex items-center gap-2"><Check className="h-3 w-3 shrink-0" style={{ color: `${p.color}40` }} /><span className="text-[11px] text-white/30">{x}</span></div>)}</div>
-                      </div>
+                      const b = ROLE_BENEFITS[position]
+                      if (!b) return null
+                      return (
+                        <div className="mt-4 px-4 py-3.5 rounded-xl border border-[#f97316]/15 bg-[#f97316]/[0.04]">
+                          <p className="text-[9.5px] font-bold uppercase tracking-[0.22em] text-[#f97316]/80 mb-2.5">Perks</p>
+                          <div className="grid grid-cols-2 gap-x-4 gap-y-1.5">
+                            {b.map((x, i) => (
+                              <div key={i} className="flex items-center gap-1.5">
+                                <Check className="h-3 w-3 shrink-0 text-[#f97316]/70" strokeWidth={2.8} />
+                                <span className="text-[11.5px] text-white/65">{x}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )
                     })()}
                   </div>
 
@@ -1179,14 +1522,14 @@ export default function ApplyPage() {
                       <div><p className="lx-field-title">Discord</p><p className="lx-field-sub">We&apos;ll contact you here</p></div>
                       {discord.length >= 2 && <div className="ml-auto w-5 h-5 rounded-full bg-emerald-500/10 flex items-center justify-center"><Check className="h-3 w-3 text-emerald-400/60" /></div>}
                     </div>
-                    <input type="text" value={discord} onChange={e => setDiscord(e.target.value)} placeholder="your_username" className="lx-input mt-3" />
+                    <input type="text" value={discord} onChange={e => setDiscord(e.target.value)} placeholder="your_username" className="lx-input" />
                   </div>
 
                   {/* Age + Timezone */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="lx-field">
                       <div className="lx-field-header"><Users className="h-4 w-4 text-white/15" /><div><p className="lx-field-title">Age</p><p className="lx-field-sub">Must be 16+</p></div></div>
-                      <div className="flex items-center gap-3 mt-3 p-2 rounded-xl border border-white/[0.04] bg-white/[0.01]">
+                      <div className="flex items-center gap-3 p-2 rounded-xl border border-white/[0.06] bg-white/[0.015]">
                         <button type="button" onClick={() => setAge(Math.max(16, age - 1))} className="w-10 h-10 rounded-xl bg-white/[0.03] hover:bg-white/[0.06] flex items-center justify-center text-white/30 hover:text-white/60 transition-all cursor-pointer active:scale-90"><Minus className="h-4 w-4" /></button>
                         <span className="flex-1 text-center text-2xl font-bold tabular-nums text-white/80">{age}</span>
                         <button type="button" onClick={() => setAge(Math.min(50, age + 1))} className="w-10 h-10 rounded-xl bg-white/[0.03] hover:bg-white/[0.06] flex items-center justify-center text-white/30 hover:text-white/60 transition-all cursor-pointer active:scale-90"><Plus className="h-4 w-4" /></button>
@@ -1194,7 +1537,11 @@ export default function ApplyPage() {
                     </div>
                     <div className="lx-field">
                       <div className="lx-field-header"><Globe className="h-4 w-4 text-white/15" /><div><p className="lx-field-title">Timezone</p><p className="lx-field-sub">Where are you based?</p></div></div>
-                      <div className="flex flex-wrap gap-1.5 mt-3 max-h-[130px] overflow-y-auto lx-scrollbar pr-1">
+                      <div
+                        className="flex flex-wrap gap-1.5 max-h-[160px] overflow-y-auto lx-scrollbar pr-1"
+                        style={{ overscrollBehavior: "contain" }}
+                        onWheel={(e) => e.stopPropagation()}
+                      >
                         {TIMEZONES.map((tz, i) => { const s = timezone === `${tz.v}|${tz.l}`; return (
                           <button key={`${tz.l}-${i}`} type="button" onClick={() => setTimezone(`${tz.v}|${tz.l}`)}
                             className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-[11px] font-medium transition-all cursor-pointer ${s ? "bg-white/[0.06] text-white/80 border border-white/[0.12]" : "bg-white/[0.01] border border-white/[0.04] text-white/25 hover:border-white/[0.08]"}`}>
@@ -1212,11 +1559,11 @@ export default function ApplyPage() {
                 </div>}
 
                 {/* ── STEP 1: Schedule ── */}
-                {formStep === 1 && <div className="space-y-5 lx-step">
+                {formStep === 1 && <div className="space-y-0 lx-step">
 
                   <div className="lx-field">
                     <div className="lx-field-header"><Clock className="h-4 w-4 text-white/15" /><div><p className="lx-field-title">Hours per week</p><p className="lx-field-sub">How much time can you commit?</p></div></div>
-                    <div className="grid grid-cols-5 gap-2 mt-4">
+                    <div className="grid grid-cols-5 gap-2">
                       {[
                         { v: "5-10h", label: "Part-time" },
                         { v: "10-20h", label: "Half" },
@@ -1239,7 +1586,7 @@ export default function ApplyPage() {
 
                   <div className="lx-field">
                     <div className="lx-field-header"><Star className="h-4 w-4 text-white/15" /><div><p className="lx-field-title">Available days</p><p className="lx-field-sub">Select all that apply</p></div></div>
-                    <div className="grid grid-cols-7 gap-1.5 mt-4">
+                    <div className="grid grid-cols-7 gap-1.5">
                       {DAYS.map(d => {
                         const active = selectedDays.includes(d)
                         const isWeekend = d === "Sat" || d === "Sun"
@@ -1257,7 +1604,7 @@ export default function ApplyPage() {
 
                   <div className="lx-field">
                     <div className="lx-field-header"><Coffee className="h-4 w-4 text-white/15" /><div><p className="lx-field-title">Preferred time</p><p className="lx-field-sub">When do you work best?</p></div></div>
-                    <div className="grid grid-cols-3 sm:grid-cols-5 gap-2 mt-4">
+                    <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
                       {[
                         { v: "Morning", t: "6am-12pm", icon: <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/></svg>, color: "#fbbf24" },
                         { v: "Afternoon", t: "12-6pm", icon: <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2"/><path d="M6 6l8 0M18 12h2" strokeOpacity="0.4"/></svg>, color: "#f97316" },
@@ -1291,11 +1638,11 @@ export default function ApplyPage() {
                 </div>}
 
                 {/* ── STEP 2: Experience ── */}
-                {formStep === 2 && <div className="space-y-5 lx-step">
+                {formStep === 2 && <div className="space-y-0 lx-step">
 
                   <div className="lx-field">
                     <div className="lx-field-header"><Code2 className="h-4 w-4 text-white/15" /><div><p className="lx-field-title">Your experience</p><p className="lx-field-sub">Skills, past projects, relevant background</p></div></div>
-                    <textarea value={experience} onChange={e => setExperience(e.target.value)} placeholder="Tell us what you've done and what you're good at..." rows={5} className="lx-textarea mt-3"
+                    <textarea value={experience} onChange={e => setExperience(e.target.value)} placeholder="Tell us what you've done and what you're good at..." rows={5} className="lx-textarea"
                       style={{ borderColor: experience.length >= 50 ? "rgba(34,197,94,0.15)" : undefined }} />
                     <div className="flex items-center justify-between mt-2">
                       <p className={`text-[11px] ${experience.length >= 50 ? "text-emerald-400/60" : "text-white/40"}`}>
@@ -1307,7 +1654,7 @@ export default function ApplyPage() {
 
                   <div className="lx-field">
                     <div className="lx-field-header"><Heart className="h-4 w-4 text-white/15" /><div><p className="lx-field-title">Why Lethal?</p><p className="lx-field-sub">What excites you about joining us?</p></div></div>
-                    <textarea value={whyLethal} onChange={e => setWhyLethal(e.target.value)} placeholder="What draws you to this role and our team?" rows={4} className="lx-textarea mt-3"
+                    <textarea value={whyLethal} onChange={e => setWhyLethal(e.target.value)} placeholder="What draws you to this role and our team?" rows={4} className="lx-textarea"
                       style={{ borderColor: whyLethal.length >= 30 ? "rgba(34,197,94,0.15)" : undefined }} />
                     <div className="flex items-center justify-between mt-2">
                       <p className={`text-[11px] ${whyLethal.length >= 30 ? "text-emerald-400/60" : "text-white/40"}`}>
@@ -1319,13 +1666,13 @@ export default function ApplyPage() {
 
                   <div className="lx-field">
                     <div className="lx-field-header"><ArrowRight className="h-4 w-4 text-white/15" /><div><p className="lx-field-title">Portfolio</p><p className="lx-field-sub">Optional — link to your work</p></div></div>
-                    <input type="url" value={portfolio} onChange={e => setPortfolio(e.target.value)} placeholder="https://your-portfolio.com" className="lx-input mt-3" />
+                    <input type="url" value={portfolio} onChange={e => setPortfolio(e.target.value)} placeholder="https://your-portfolio.com" className="lx-input" />
                   </div>
 
                   {/* Agreements */}
                   <div className="lx-field">
                     <div className="lx-field-header"><Shield className="h-4 w-4 text-white/15" /><div><p className="lx-field-title">Agreements</p><p className="lx-field-sub">Please confirm all three</p></div></div>
-                    <div className="space-y-3 mt-4">
+                    <div className="space-y-3">
                       {[{c:agree16,s:setAgree16,l:"I confirm I'm at least 16 years old"},{c:agreeActive,s:setAgreeActive,l:"I agree to be active and maintain professionalism"},{c:agreeUnpaid,s:setAgreeUnpaid,l:"I understand this may be initially unpaid / commission-based"}].map((it, i) => (
                         <label key={i} className={`flex items-start gap-3 cursor-pointer group p-3.5 rounded-xl border transition-all duration-300 ${it.c ? "border-[#f97316]/25 bg-[#f97316]/[0.04]" : "border-white/[0.05] hover:border-white/[0.10] bg-white/[0.015] hover:bg-white/[0.025]"}`} onClick={() => it.s(!it.c)}>
                           <div className={`mt-0.5 h-5 w-5 rounded-md border-2 flex items-center justify-center shrink-0 transition-all duration-300 ${it.c ? "bg-gradient-to-br from-[#f97316] to-[#ea580c] border-[#f97316] shadow-[0_0_12px_rgba(249, 115, 22, 0.72)]" : "border-white/[0.12] group-hover:border-white/[0.25]"}`}>
@@ -1339,9 +1686,20 @@ export default function ApplyPage() {
 
                   <div className="flex gap-3 pt-1">
                     <button onClick={() => setFormStep(1)} className="lx-ghost flex-1 py-3.5 rounded-xl text-[12px] font-bold uppercase tracking-[0.14em] cursor-pointer">Back</button>
-                    <button onClick={doSubmit} disabled={!v2 || submitting}
-                      className="relative flex-[2] lx-primary py-4 rounded-xl text-[13px] font-bold text-white flex items-center justify-center gap-2.5 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer group lx-breathe overflow-hidden uppercase tracking-[0.14em]">
-                      {submitting ? <span className="animate-spin h-4 w-4 border-2 border-white/25 border-t-white rounded-full" /> : <><Send className="h-4 w-4" /> Submit Application <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" /></>}
+                    <button onClick={doSubmit} disabled={!v2 || submitting || sentPulse}
+                      className={`relative flex-[2] py-4 rounded-xl text-[13px] font-bold text-white flex items-center justify-center gap-2.5 disabled:cursor-not-allowed cursor-pointer group overflow-hidden uppercase tracking-[0.14em] transition-all duration-300 ${sentPulse ? "" : "lx-primary lx-breathe disabled:opacity-30"}`}
+                      style={sentPulse ? {
+                        background: "linear-gradient(135deg, #22c55e, #16a34a)",
+                        boxShadow: "0 0 35px rgba(34,197,94,0.55), inset 0 1px 0 rgba(255,255,255,0.2)",
+                      } : undefined}
+                    >
+                      {submitting ? (
+                        <span className="animate-spin h-4 w-4 border-2 border-white/25 border-t-white rounded-full" />
+                      ) : sentPulse ? (
+                        <><CheckCircle2 className="h-4 w-4" /> Sent</>
+                      ) : (
+                        <><Send className="h-4 w-4" /> Submit Application <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" /></>
+                      )}
                       {/* Sheen sweep */}
                       <span className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700" style={{ background: "linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.18) 50%, transparent 70%)", transform: "translateX(-100%)", animation: "sheenSweep 1.2s ease-out" }} />
                     </button>
@@ -1361,69 +1719,133 @@ export default function ApplyPage() {
           7 · FAQ
           ═══════════════════════════════════════════════════════════ */}
 
-      <section className="relative z-10 px-6 sm:px-10 lg:px-16 py-28">
-        <div className="max-w-[700px] mx-auto">
-          <Hdr tag="FAQ" title={<>Common <span className="lx-text-orange">Questions</span></>} sub="Everything you need to know before applying." />
+      <section className="relative z-10 px-6 sm:px-10 lg:px-16 py-32">
+        <div className="max-w-[820px] mx-auto">
+          <Hdr number="07" tag="FAQ" title={<>Common <span className="lx-text-orange">Questions</span></>} sub="Everything worth knowing before you apply." />
 
           <div className="space-y-3">
-            {(showAllFaq ? FAQ : FAQ.slice(0, 3)).map((f, i) => (
-              <R key={i} d={i * 50}>
-                <div className={`lx-card lx-shine rounded-xl overflow-hidden group transition-all duration-500 ${openFaq === i ? "lx-faq-open" : ""}`}>
-                  {/* Question row */}
-                  <button onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                    className="flex items-center gap-4 w-full p-6 text-left cursor-pointer">
-                    {/* Number */}
-                    <span className={`text-[12px] font-bold tabular-nums shrink-0 w-7 h-7 rounded-lg flex items-center justify-center transition-all duration-300 ${
-                      openFaq === i ? "bg-[#f97316]/15 text-[#f97316]" : "bg-white/[0.03] text-white/15"
-                    }`}>
-                      {(i + 1).toString().padStart(2, "0")}
-                    </span>
-
-                    <span className={`text-[15px] font-semibold flex-1 pr-4 transition-colors duration-300 ${
-                      openFaq === i ? "text-white/90" : "text-white/50 group-hover:text-white/70"
-                    }`}>{f.q}</span>
-
-                    {/* Animated plus/minus icon */}
-                    <div className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 transition-all duration-300 ${
-                      openFaq === i ? "bg-[#f97316]/10 rotate-45" : "bg-white/[0.02] group-hover:bg-white/[0.04]"
-                    }`}>
-                      <Plus className={`h-3.5 w-3.5 transition-colors duration-300 ${openFaq === i ? "text-[#f97316]" : "text-white/15"}`} />
-                    </div>
-                  </button>
-
-                  {/* Answer */}
-                  <div className="grid transition-all duration-500" style={{ gridTemplateRows: openFaq === i ? "1fr" : "0fr" }}>
-                    <div className="overflow-hidden">
-                      <div className="px-6 pb-6 pl-[4.25rem]">
-                        <div className="h-px bg-gradient-to-r from-[#f97316]/10 via-white/[0.03] to-transparent mb-5" />
-                        <p className="text-[14px] text-white/40 leading-[1.9]">{f.a}</p>
+            {(showAllFaq ? FAQ : FAQ.slice(0, 4)).map((f, i) => {
+              const isOpen = openFaq === i
+              return (
+                <R key={i} d={i * 50}>
+                  <div
+                    className={`spotlight-card group relative rounded-2xl border overflow-hidden transition-all duration-400 ${
+                      isOpen
+                        ? "border-[#f97316]/35 bg-white/[0.025] shadow-[0_30px_70px_-20px_rgba(0,0,0,0.7),0_0_60px_-25px_rgba(249,115,22,0.35)]"
+                        : "border-white/[0.06] bg-white/[0.015] hover:border-[#f97316]/22 hover:bg-white/[0.025] hover:-translate-y-[1px]"
+                    }`}
+                  >
+                    {isOpen && (
+                      <>
+                        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f97316]/80 to-transparent z-[1]" />
+                        <div className="absolute top-0 left-1/4 right-1/4 h-[6px] bg-gradient-to-b from-[#f97316]/35 to-transparent blur-md pointer-events-none z-[1]" />
+                      </>
+                    )}
+                    <button
+                      onClick={() => setOpenFaq(isOpen ? null : i)}
+                      aria-expanded={isOpen}
+                      className="relative z-[2] flex items-center gap-5 w-full px-6 py-5 text-left cursor-pointer"
+                    >
+                      <span
+                        className={`shrink-0 w-11 h-11 rounded-full flex items-center justify-center transition-all duration-400 ${
+                          isOpen ? "text-[#f97316]" : "text-white/55 group-hover:text-[#f97316]/85"
+                        }`}
+                        style={{
+                          background: isOpen ? "rgba(249,115,22,0.10)" : "rgba(255,255,255,0.03)",
+                          boxShadow: isOpen
+                            ? "inset 0 0 0 1px rgba(249,115,22,0.35), 0 0 24px -6px rgba(249,115,22,0.45)"
+                            : "inset 0 0 0 1px rgba(255,255,255,0.08)",
+                        }}
+                      >
+                        <f.Icon className="h-[17px] w-[17px]" strokeWidth={1.8} />
+                      </span>
+                      <span className="flex-1 min-w-0">
+                        <span
+                          className={`block text-[10px] font-semibold uppercase tracking-[0.22em] transition-colors ${
+                            isOpen ? "text-[#f97316]/85" : "text-white/35 group-hover:text-white/45"
+                          }`}
+                        >
+                          {String(i + 1).padStart(2, "0")} &middot; {f.tag}
+                        </span>
+                        <span
+                          className={`block mt-1.5 font-display text-[16px] sm:text-[17px] font-semibold tracking-[-0.012em] leading-[1.25] transition-colors ${
+                            isOpen ? "text-white" : "text-white/80 group-hover:text-white"
+                          }`}
+                        >
+                          {f.q}
+                        </span>
+                      </span>
+                      <span
+                        className={`shrink-0 w-9 h-9 rounded-full flex items-center justify-center transition-all duration-400 ${
+                          isOpen ? "bg-[#f97316]/[0.14] text-[#f97316] rotate-180" : "bg-white/[0.03] text-white/50 group-hover:text-[#f97316]/80"
+                        }`}
+                        style={{
+                          boxShadow: isOpen ? "inset 0 0 0 1px rgba(249,115,22,0.30)" : "inset 0 0 0 1px rgba(255,255,255,0.07)",
+                        }}
+                      >
+                        <ChevronDown className="h-4 w-4" strokeWidth={2} />
+                      </span>
+                    </button>
+                    <div
+                      className="grid relative z-[2] transition-[grid-template-rows] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+                      style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
+                    >
+                      <div className="overflow-hidden">
+                        <div className="pl-[4.75rem] pr-6 pb-6">
+                          <div className="relative pl-5">
+                            <span className="absolute left-0 top-1.5 bottom-1.5 w-px bg-gradient-to-b from-[#f97316]/70 via-[#f97316]/20 to-transparent" />
+                            <p className="text-[14.5px] text-white/70 leading-[1.85]">{f.a}</p>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </R>
-            ))}
+                </R>
+              )
+            })}
           </div>
 
-          {/* Show all / show less toggle — only render if more than 3 */}
-          {FAQ.length > 3 && (
+          {/* Show all / show less toggle */}
+          {FAQ.length > 4 && (
             <R d={200}>
-              <div className="flex justify-center mt-6">
+              <div className="flex justify-center mt-8">
                 <button onClick={() => { setShowAllFaq(v => !v); if (showAllFaq) setOpenFaq(null) }}
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/[0.08] bg-white/[0.02] hover:border-[#f97316]/30 hover:bg-[#f97316]/[0.05] transition-all duration-300 cursor-pointer group">
-                  <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-white/55 group-hover:text-[#f97316] transition-colors">
-                    {showAllFaq ? "Show less" : `Show all ${FAQ.length} questions`}
+                  <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-white/55 group-hover:text-[#f97316] transition-colors">
+                    {showAllFaq ? "Show less" : `Show all ${FAQ.length}`}
                   </span>
-                  <ChevronRight className={`h-3.5 w-3.5 text-white/35 group-hover:text-[#f97316] transition-all duration-300 ${showAllFaq ? "-rotate-90" : "rotate-90"}`} />
+                  <ChevronDown className={`h-3.5 w-3.5 text-white/35 group-hover:text-[#f97316] transition-all duration-300 ${showAllFaq ? "rotate-180" : ""}`} />
                 </button>
               </div>
             </R>
           )}
 
-          {/* Bottom helper */}
-          <R d={500}>
-            <div className="text-center mt-10">
-              <p className="text-[12px] text-white/15">Still have questions? <Link href="https://discord.gg/lethal" target="_blank" className="text-[#f97316]/50 hover:text-[#f97316]/80 transition-colors">Ask on Discord</Link></p>
+          {/* FAQ stats — completeness indicator */}
+          <R d={450}>
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[11px] text-white/35 font-semibold uppercase tracking-[0.22em]">
+              <span className="inline-flex items-center gap-1.5">
+                <Check className="h-3 w-3 text-[#f97316]" strokeWidth={3} />
+                {FAQ.length} questions · answered
+              </span>
+              <span className="w-px h-3 bg-white/[0.12]" />
+              <span>~30 sec read</span>
+              <span className="w-px h-3 bg-white/[0.12]" />
+              <span>Updated weekly</span>
+            </div>
+          </R>
+
+          {/* Discord helper */}
+          <R d={550}>
+            <div className="mt-8 flex items-center justify-center gap-3 text-[13px]">
+              <span className="text-white/40">Didn&apos;t find your answer?</span>
+              <Link
+                href="https://discord.gg/lethal"
+                target="_blank"
+                className="inline-flex items-center gap-1.5 text-[#f97316] font-semibold hover:text-[#fbbf24] transition-colors"
+              >
+                Ask on Discord
+                <ArrowRight className="h-3 w-3" />
+              </Link>
             </div>
           </R>
         </div>
@@ -1436,80 +1858,86 @@ export default function ApplyPage() {
           8 · FINAL CTA
           ═══════════════════════════════════════════════════════════ */}
 
-      <section className="relative z-10 px-6 sm:px-10 lg:px-16 py-36 overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 65% 45% at 50% 50%, rgba(249, 115, 22, 0.10), transparent)" }} />
+      <section className="relative z-10 px-6 sm:px-10 lg:px-16 py-40 overflow-hidden">
+        {/* Ambient glow */}
+        <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[500px] rounded-full opacity-80"
+            style={{ background: "radial-gradient(ellipse, rgba(249,115,22,0.14), transparent 62%)", filter: "blur(130px)" }} />
+        </div>
 
-        <div className="max-w-[760px] mx-auto relative">
-          {/* Premium glass card with animated conic border */}
+        <div className="relative max-w-[820px] mx-auto text-center">
           <R>
-            <div className="relative rounded-[28px] p-[1.5px] overflow-hidden" style={{ background: "conic-gradient(from 0deg, rgba(249,115,22,0.55) 0%, transparent 18%, transparent 82%, rgba(251,191,36,0.55) 100%)" }}>
-              <div className="relative rounded-[26px] bg-gradient-to-br from-[#0c0706] via-black to-[#0b0504] p-10 sm:p-14 overflow-hidden">
-                {/* Corner orange glow */}
-                <div className="absolute -top-24 -right-24 w-[340px] h-[340px] rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(249,115,22,0.22), transparent 62%)", filter: "blur(60px)" }} />
-                <div className="absolute -bottom-20 -left-16 w-[260px] h-[260px] rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(251,191,36,0.14), transparent 60%)", filter: "blur(70px)" }} />
+            <SectionEyebrow number="08" label="Apply" />
+          </R>
+          <R d={80}>
+            <h2 className="font-display mb-6 mt-3">
+              <span
+                className="block text-[clamp(2.6rem,6.5vw,4.8rem)] font-bold tracking-[-0.045em] leading-[1]"
+                style={{
+                  background: "linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(180,180,195,0.85) 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  paddingBottom: "0.14em",
+                  marginBottom: "-0.14em",
+                }}
+              >
+                Enough scrolling.
+              </span>
+              <span
+                className="block text-[clamp(2.6rem,6.5vw,4.8rem)] font-bold tracking-[-0.045em] leading-[1] lx-text-orange"
+                style={{
+                  filter: "drop-shadow(0 0 60px rgba(249, 115, 22, 0.43))",
+                  paddingBottom: "0.14em",
+                }}
+              >
+                Start now.
+              </span>
+            </h2>
+          </R>
 
-                {/* Subtle grid texture */}
-                <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{
-                  backgroundImage: "linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px)",
-                  backgroundSize: "36px 36px",
-                  maskImage: "radial-gradient(ellipse at center, black 20%, transparent 80%)",
-                  WebkitMaskImage: "radial-gradient(ellipse at center, black 20%, transparent 80%)",
-                }} />
+          <R d={150}>
+            <p className="text-white/50 text-[16px] sm:text-[17.5px] leading-relaxed max-w-[520px] mx-auto mb-12">
+              Application takes 2 minutes. We DM within 48 hours. No resume, no cover letter — just show up.
+            </p>
+          </R>
 
-                <div className="relative text-center">
-                  <R><SectionEyebrow label="Your Future" /></R>
+          <R d={250}>
+            <div className="flex items-center justify-center gap-3 flex-wrap">
+              <button
+                onClick={() => formRef.current?.scrollIntoView({ behavior: "smooth" })}
+                className="lx-primary relative inline-flex items-center gap-2.5 px-9 py-4 rounded-xl font-bold text-[15px] text-white overflow-hidden cursor-pointer group"
+              >
+                <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
+                <Send className="relative z-10 h-4 w-4" />
+                <span className="relative z-10">Apply now</span>
+                <ArrowRight className="relative z-10 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </button>
+              <Link
+                href="/"
+                className="lx-ghost inline-flex items-center gap-2 px-7 py-4 rounded-xl font-semibold text-[14px] cursor-pointer"
+              >
+                Back to home
+              </Link>
+            </div>
+          </R>
 
-                  <R d={100}>
-                    <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.035em] mb-5 leading-[1.04] lx-text-fade">
-                      Stop scrolling.<br />
-                      <span className="lx-text-orange relative inline-block">
-                        Start building.
-                      </span>
-                    </h2>
-                  </R>
-
-                  <R d={200}>
-                    <p className="text-white/45 mb-10 text-[15px] sm:text-[17px] max-w-md mx-auto leading-relaxed">
-                      The best time to join was yesterday. The second best is <span className="text-white/80 font-semibold">right now</span>.
-                    </p>
-                  </R>
-
-                  <R d={300}>
-                    <button
-                      onClick={() => formRef.current?.scrollIntoView({ behavior: "smooth" })}
-                      className="group relative inline-flex items-center gap-3 px-10 sm:px-14 py-4 rounded-2xl font-bold text-[16px] text-white overflow-hidden transition-all duration-300 hover:scale-[1.03] cursor-pointer"
-                      style={{
-                        background: "linear-gradient(135deg, #fbbf24 0%, #f97316 45%, #ea580c 100%)",
-                        boxShadow: "0 12px 40px rgba(249,115,22,0.45), inset 0 1px 0 rgba(255,255,255,0.20)",
-                      }}
-                    >
-                      <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/35 to-transparent transition-transform duration-1000 pointer-events-none" />
-                      <Send className="relative z-10 h-5 w-5" />
-                      <span className="relative z-10">Apply Now</span>
-                      <span className="relative z-10 text-white/70 text-[13px] font-medium pl-1">· 2 min</span>
-                    </button>
-                  </R>
-
-                  <R d={400}>
-                    <div className="flex items-center justify-center gap-x-8 gap-y-3 mt-10 flex-wrap">
-                      {[
-                        { icon: Shield, text: "48h Response" },
-                        { icon: Heart, text: "Zero Toxicity" },
-                        { icon: Zap, text: "Day-One Impact" },
-                        { icon: Globe, text: "Fully Remote" },
-                      ].map((it, i) => (
-                        <div key={i} className="flex items-center gap-1.5 text-white/45">
-                          <it.icon className="h-3.5 w-3.5 text-[#f97316]/80" />
-                          <span className="text-[11px] font-semibold uppercase tracking-[0.12em]">{it.text}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </R>
-                </div>
-              </div>
+          <R d={350}>
+            <div className="mt-14 flex items-center justify-center gap-x-8 gap-y-3 flex-wrap text-[11px] text-white/35 font-semibold uppercase tracking-[0.22em]">
+              {[
+                { Icon: Shield, text: "48h response" },
+                { Icon: Heart,  text: "Zero toxicity" },
+                { Icon: Zap,    text: "Day-one impact" },
+                { Icon: Globe,  text: "Fully remote" },
+              ].map(({ Icon, text }, i) => (
+                <span key={i} className="inline-flex items-center gap-1.5">
+                  <Icon className="h-3 w-3 text-[#f97316]/70" />
+                  {text}
+                </span>
+              ))}
             </div>
           </R>
         </div>
+
       </section>
 
       <Footer />
@@ -1623,6 +2051,35 @@ export default function ApplyPage() {
           0% { background-position: 250% 50%; }
           100% { background-position: -250% 50%; }
         }
+
+        /* Subtitle hover shimmer — dead-text → live chrome on hover */
+        .lx-sub-shimmer {
+          display: inline-block;
+          color: rgba(255,255,255,0.45);
+          transition: filter 0.4s ease, color 0.4s ease;
+          cursor: default;
+          will-change: background;
+        }
+        .lx-sub-shimmer:hover {
+          color: transparent;
+          background: linear-gradient(
+            105deg,
+            rgba(255,255,255,0.6) 0%,
+            rgba(255,255,255,0.95) 14%,
+            rgba(249,115,22,0.75) 28%,
+            rgba(255,255,255,0.95) 42%,
+            rgba(200,200,215,0.55) 56%,
+            rgba(255,255,255,0.9) 70%,
+            rgba(249,115,22,0.75) 84%,
+            rgba(255,255,255,0.7) 100%
+          );
+          background-size: 240% 100%;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          animation: chromeShimmer 3.2s ease-in-out infinite;
+          filter: drop-shadow(0 0 14px rgba(249,115,22,0.22));
+        }
         .lx-underline { position: relative; display: inline-block; }
         .lx-underline::after { content: ""; position: absolute; left: 0; bottom: 4px; width: 100%; height: 3px; background: linear-gradient(90deg, rgba(249, 115, 22, 0.8), rgba(249, 115, 22, 0.22)); border-radius: 2px; box-shadow: 0 0 15px rgba(249, 115, 22, 0.29); }
 
@@ -1718,49 +2175,54 @@ export default function ApplyPage() {
           70%, 100% { background: #22c55e; }
         }
 
-        /* Form field card — premium glass */
+        /* Form fields — Apple-minimal divider list (no per-field glass card).
+           Each field has a thin hairline separator below it; last field has none. */
         .lx-field {
-          padding: 22px;
-          border-radius: 18px;
-          border: 1px solid rgba(255,255,255,0.06);
-          background: rgba(255,255,255,0.025);
-          transition: all 0.35s ease;
+          padding: 24px 0;
+          border: none;
+          border-bottom: 1px solid rgba(255,255,255,0.05);
+          background: transparent;
+          border-radius: 0;
+          transition: none;
           position: relative;
         }
+        .lx-field:first-of-type { padding-top: 4px; }
+        .lx-field:last-of-type { border-bottom: none; padding-bottom: 4px; }
         .lx-field:hover {
-          border-color: rgba(255,255,255,0.10);
-          background: rgba(255,255,255,0.04);
-          transform: translateY(-1px);
+          background: transparent;
+          transform: none;
+          border-color: rgba(255,255,255,0.05);
         }
         .lx-field:focus-within {
-          border-color: rgba(249, 115, 22, 0.51);
-          background: rgba(249, 115, 22, 0.05);
-          box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.14), 0 20px 50px rgba(0,0,0,0.25), 0 0 40px rgba(249, 115, 22, 0.17);
+          background: transparent;
+          box-shadow: none;
+          border-color: rgba(255,255,255,0.05);
         }
         .lx-field-header {
           display: flex;
           align-items: flex-start;
-          gap: 12px;
+          gap: 11px;
+          margin-bottom: 14px;
         }
         .lx-field-header > svg {
           margin-top: 2px;
           flex-shrink: 0;
-          color: #f97316;
-          filter: drop-shadow(0 0 6px rgba(249, 115, 22, 0.51));
+          color: rgba(249,115,22,0.75);
+          filter: none;
         }
         .lx-field-title {
           font-family: var(--font-display), "Space Grotesk", system-ui, sans-serif;
-          font-size: 11px;
+          font-size: 10.5px;
           font-weight: 700;
-          color: rgba(255,255,255,0.95);
+          color: rgba(255,255,255,0.9);
           line-height: 1.3;
-          letter-spacing: 0.18em;
+          letter-spacing: 0.22em;
           text-transform: uppercase;
         }
         .lx-field-sub {
           font-size: 12px;
-          color: rgba(255,255,255,0.45);
-          margin-top: 5px;
+          color: rgba(255,255,255,0.4);
+          margin-top: 4px;
           letter-spacing: -0.005em;
         }
 
@@ -1860,6 +2322,27 @@ export default function ApplyPage() {
         @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.05); opacity: 1; } }
         @keyframes floatIcon { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
         @keyframes sheenSweep { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+        @keyframes applyTicker { from { transform: translate(0, -50%); } to { transform: translate(-33.333%, -50%); } }
+        @keyframes heroBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+        @keyframes hotPulse {
+          0%, 100% { box-shadow: 0 0 0 0 rgba(249,115,22,0.45); }
+          50% { box-shadow: 0 0 0 6px rgba(249,115,22,0); }
+        }
+        /* Timeline effects */
+        @keyframes stepPulse { 0%, 100% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.06); opacity: 1; } }
+        @keyframes stepRotate { to { transform: rotate(360deg); } }
+        @keyframes stepRotateReverse { to { transform: rotate(-360deg); } }
+        @keyframes procFlow { 0% { transform: translateX(-100%); } 100% { transform: translateX(200%); } }
+        @keyframes timelineRipple {
+          0%   { transform: scale(1);    opacity: 0.85; }
+          100% { transform: scale(1.65); opacity: 0; }
+        }
+        @keyframes timelineTravel {
+          0%, 4%   { left: 0%;   opacity: 0; transform: translate(-50%, -50%) scale(0.4); }
+          15%      { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+          85%      { opacity: 1; }
+          96%, 100%{ left: 100%; opacity: 0; transform: translate(-50%, -50%) scale(0.4); }
+        }
 
         @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
       `}</style>

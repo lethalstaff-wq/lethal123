@@ -5,25 +5,40 @@ import { NextResponse } from "next/server"
 // (Server Settings → Widget → Enable Server Widget).
 const SERVER_ID = "1428073546604740690"
 const WIDGET = `https://ptb.discord.com/api/guilds/${SERVER_ID}/widget.json`
-const INVITE = `https://discord.com/api/v10/invites/gyfaBmB6?with_counts=true&with_expiration=true`
 
 export const revalidate = 300
 
+// Extract invite code from a URL like https://discord.com/invite/ABCDE123 or
+// https://ptb.discord.com/invite/ABCDE123. Returns null if the URL doesn't
+// match the expected shape.
+function extractInviteCode(url: string | undefined | null): string | null {
+  if (!url) return null
+  const m = url.match(/\/invite\/([A-Za-z0-9-]+)/)
+  return m ? m[1] : null
+}
+
 export async function GET() {
   try {
-    // Widget gives live presence (online). Invite endpoint additionally gives
-    // approximate total member count. Fetch both in parallel.
-    const [widgetRes, inviteRes] = await Promise.all([
-      fetch(WIDGET, { next: { revalidate: 300 } }),
-      fetch(INVITE, { next: { revalidate: 300 } }),
-    ])
-
+    // Step 1: widget gives live presence + a fresh instant_invite. The invite
+    // code in widget auto-rotates when Discord admins refresh it, so we pull
+    // it dynamically instead of hardcoding — hardcoded invites die silently
+    // and kill the members count.
+    const widgetRes = await fetch(WIDGET, { next: { revalidate: 300 } })
     const widget = widgetRes.ok
       ? ((await widgetRes.json()) as { presence_count?: number; instant_invite?: string; name?: string })
       : null
-    const invite = inviteRes.ok
-      ? ((await inviteRes.json()) as { approximate_member_count?: number; approximate_presence_count?: number; guild?: { name?: string } })
-      : null
+
+    // Step 2: use widget's invite (or env override) to query member count.
+    const inviteCode = extractInviteCode(widget?.instant_invite) || process.env.DISCORD_INVITE_CODE || null
+
+    let invite: { approximate_member_count?: number; approximate_presence_count?: number; guild?: { name?: string } } | null = null
+    if (inviteCode) {
+      const res = await fetch(
+        `https://discord.com/api/v10/invites/${inviteCode}?with_counts=true&with_expiration=true`,
+        { next: { revalidate: 300 } },
+      )
+      if (res.ok) invite = await res.json()
+    }
 
     const online =
       typeof widget?.presence_count === "number"

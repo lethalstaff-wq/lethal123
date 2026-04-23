@@ -282,8 +282,10 @@ html.lenis, html.lenis body { height: auto; }
 
 .scroll-reveal {
   opacity: 0;
-  transform: translateY(40px);
-  transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(56px);
+  transition: opacity 0.95s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.95s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
 }
 
 .scroll-reveal.visible {
@@ -293,8 +295,10 @@ html.lenis, html.lenis body { height: auto; }
 
 .scroll-reveal-scale {
   opacity: 0;
-  transform: scale(0.95);
-  transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: scale(0.93);
+  transition: opacity 0.95s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.95s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
 }
 
 .scroll-reveal-scale.visible {

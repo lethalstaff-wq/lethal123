@@ -10,6 +10,7 @@ import {
 import Link from "next/link"
 import { SignOutButton } from "@/components/sign-out-button"
 import { createClient } from "@/lib/supabase/client"
+import { SectionEyebrow } from "@/components/section-eyebrow"
 
 type OrderItem = {
   product_variant_id: string
@@ -151,6 +152,11 @@ export function DashboardClient({ user, orders, totalSpent, activeLicenses, memb
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8">
       <div className="container mx-auto max-w-6xl">
+        {/* Eyebrow */}
+        <div className="mb-6">
+          <SectionEyebrow number="01" label="Dashboard" />
+        </div>
+
         {/* Hero Banner */}
         <div className="relative rounded-3xl bg-gradient-to-br from-[#f97316]/15 via-white/[0.015] to-[#ea580c]/10 border border-white/[0.10] p-6 md:p-8 mb-8 overflow-hidden shadow-[0_24px_60px_rgba(0,0,0,0.4),0_0_60px_rgba(249, 115, 22, 0.14)]">
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f97316]/55 to-transparent pointer-events-none" />
@@ -192,22 +198,36 @@ export function DashboardClient({ user, orders, totalSpent, activeLicenses, memb
           ))}
         </div>
 
-        {/* Navigation Tabs */}
-        <div className="flex gap-1 mb-6 overflow-x-auto pb-2 p-1.5 rounded-2xl bg-white/[0.04] border border-white/[0.08] backdrop-blur-md">
-          {tabs.map(tab => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-[13px] transition-all whitespace-nowrap ${
-                activeTab === tab.id
-                  ? "bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white shadow-[0_4px_14px_rgba(249, 115, 22, 0.58)]"
-                  : "text-white/55 hover:text-white hover:bg-white/[0.06]"
-              }`}
-            >
-              <tab.icon className="h-4 w-4" />
-              {tab.label}
-            </button>
-          ))}
+        {/* Navigation Tabs — premium segmented control */}
+        <div
+          className="flex gap-1 mb-6 overflow-x-auto p-1.5 rounded-2xl scrollbar-hide"
+          style={{
+            background: "linear-gradient(180deg, rgba(255,255,255,0.028), rgba(255,255,255,0.01))",
+            border: "1px solid rgba(255,255,255,0.07)",
+            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03)",
+            backdropFilter: "blur(10px)",
+            WebkitBackdropFilter: "blur(10px)",
+          }}
+        >
+          {tabs.map(tab => {
+            const active = activeTab === tab.id
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`relative flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-[12.5px] whitespace-nowrap transition-[color,background-color,box-shadow] duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                  active ? "text-white" : "text-white/50 hover:text-white/85"
+                }`}
+                style={active ? {
+                  background: "linear-gradient(135deg, rgba(249,115,22,0.12), rgba(249,115,22,0.04))",
+                  boxShadow: "inset 0 0 0 1px rgba(249,115,22,0.35), 0 6px 20px -6px rgba(249,115,22,0.45)",
+                } : undefined}
+              >
+                <tab.icon className={`h-3.5 w-3.5 transition-colors ${active ? "text-[#f97316]" : ""}`} />
+                {tab.label}
+              </button>
+            )
+          })}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

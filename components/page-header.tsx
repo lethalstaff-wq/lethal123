@@ -26,12 +26,6 @@ export function PageHeader({ pill, prefix, accent, suffix, description, paddingT
         <SectionEyebrow label={pill} />
 
         {/* Scan line divider */}
-        <div className="relative h-px w-44 mx-auto mb-7 bg-white/[0.05] overflow-hidden">
-          <div
-            className="absolute inset-y-0 w-24 bg-gradient-to-r from-transparent via-[#f97316]/70 to-transparent"
-            style={{ animation: "heroScan 4s ease-in-out infinite" }}
-          />
-        </div>
 
         <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-bold tracking-[-0.04em] leading-[0.95] mb-6">
           {prefix && (

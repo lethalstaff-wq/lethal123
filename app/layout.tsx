@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/next"
 import { CartProvider } from "@/lib/cart-context"
 import { ThemeProvider } from "@/components/theme-provider"
 import { GlobalBackground } from "@/components/global-background"
+import { ScrollToTop } from "@/components/scroll-to-top"
 import { MobileBottomBar } from "@/components/mobile-bottom-bar"
 import { LenisProvider } from "@/components/lenis-provider"
 import { ChatWidget } from "@/components/chat-widget"
@@ -118,6 +119,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
           <LenisProvider />
           <GlobalBackground />
+          <ScrollToTop />
           <CartProvider>
             <ClientOverlays />
             <MobileBottomBar />

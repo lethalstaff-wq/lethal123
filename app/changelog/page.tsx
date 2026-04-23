@@ -17,7 +17,44 @@ interface ChangelogEntry {
 
 // Realistic changelog from April 2025 to present
 const CHANGELOG_DATA: ChangelogEntry[] = [
-  // April 2026
+  // April 2026 — latest
+  {
+    version: "4.4.0",
+    date: "2026-04-20",
+    product: "Perm Spoofer",
+    type: "feature",
+    changes: [
+      "New TPM 2.0 emulation layer — survives full OS reinstall",
+      "Kernel driver re-signed under refreshed EV cert",
+      "Ryzen 7000 / 9000 series compatibility fixes",
+      "Spoof now applies within 4 seconds (down from ~9s)",
+    ]
+  },
+  {
+    version: "5.0.0",
+    date: "2026-04-15",
+    product: "Custom DMA Firmware",
+    type: "feature",
+    changes: [
+      "Major firmware rewrite — v5 signature scheme",
+      "Updated for Vanguard (VGK) v2.14 signature format",
+      "Fixed rare DMA controller reset on Ryzen 7000-series boards",
+      "EAC emulation now survives game restart without reload",
+      "Reduced firmware flash time by 35%",
+      "New signed build for Captain DMA 100T-7th",
+    ]
+  },
+  {
+    version: "4.3.1",
+    date: "2026-04-09",
+    product: "Blurred DMA Cheat",
+    type: "patch",
+    changes: [
+      "Quickfix for Fortnite v40.20 patch (movement delta)",
+      "Memory offset refresh for Valorant 8.07",
+      "Fixed ESP flicker on ultrawide displays",
+    ]
+  },
   {
     version: "4.3.0",
     date: "2026-04-02",
@@ -713,10 +750,7 @@ export default function ChangelogPage() {
       <section className="relative pt-32 pb-10 overflow-hidden">
         <div className="container mx-auto px-4 relative">
           <div className="max-w-2xl mx-auto text-center">
-            <SectionEyebrow label="Changelog" />
-            <div className="relative h-px w-44 mx-auto mb-7 bg-white/[0.05] overflow-hidden">
-              <div className="absolute inset-y-0 w-24 bg-gradient-to-r from-transparent via-[#f97316]/70 to-transparent" style={{ animation: "heroScan 4s ease-in-out infinite" }} />
-            </div>
+            <SectionEyebrow number="01" label="Changelog" />
             <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-bold tracking-[-0.04em] leading-[0.95] mb-6">
               <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Product </span>
               <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249, 115, 22, 0.43))" }}>Updates</span>

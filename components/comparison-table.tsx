@@ -1,92 +1,138 @@
 "use client"
 
-import { Check, X } from "lucide-react"
+import {
+  Check, Shield, Zap, Headphones, Truck, Infinity as InfinityIcon, Cpu,
+  Fingerprint, RotateCcw, Activity, LineChart, type LucideIcon,
+} from "lucide-react"
 import { SectionEyebrow } from "@/components/section-eyebrow"
 
-const rows = [
-  { label: "Kernel-level undetection", lethal: true, cheap: false },
-  { label: "Under-2h patch response", lethal: true, cheap: false },
-  { label: "Live Discord support 24/7", lethal: true, cheap: false },
-  { label: "Instant digital delivery", lethal: true, cheap: "partial" },
-  { label: "Lifetime license option", lethal: true, cheap: false },
-  { label: "Custom DMA firmware", lethal: true, cheap: false },
-  { label: "HWID spoof after hardware ban", lethal: true, cheap: "partial" },
-  { label: "Refund if doesn't work", lethal: true, cheap: false },
-  { label: "Weekly stress tests vs anti-cheat", lethal: true, cheap: false },
-  { label: "Transparent uptime monitoring", lethal: true, cheap: false },
-] as const
+type Feature = { Icon: LucideIcon; label: string; value: string }
 
-function Cell({ value }: { value: true | false | "partial" }) {
-  if (value === true) {
-    return (
-      <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-emerald-500/10 border border-emerald-500/30 shadow-[inset_0_0_0_1px_rgba(16,185,129,0.10)]">
-        <Check className="h-4 w-4 text-emerald-400" strokeWidth={2.5} />
-      </span>
-    )
-  }
-  if (value === "partial") {
-    return (
-      <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-amber-500/10 border border-amber-500/25 text-amber-300 text-[11px] font-bold">
-        —
-      </span>
-    )
-  }
-  return (
-    <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-red-500/[0.06] border border-red-500/20">
-      <X className="h-4 w-4 text-red-400/70" strokeWidth={2.5} />
-    </span>
-  )
-}
+const FEATURES: Feature[] = [
+  { Icon: Shield,       label: "Undetection level",    value: "Kernel-level, signed" },
+  { Icon: Zap,          label: "Patch response",       value: "Under 2 hours" },
+  { Icon: Headphones,   label: "Live support",         value: "24/7 · <5 min reply" },
+  { Icon: Truck,        label: "Delivery",             value: "Instant dashboard" },
+  { Icon: InfinityIcon, label: "License model",        value: "Lifetime available" },
+  { Icon: Cpu,          label: "DMA firmware",         value: "Custom per-customer" },
+  { Icon: Fingerprint,  label: "HWID spoof depth",     value: "Kernel-level rewrite" },
+  { Icon: RotateCcw,    label: "Refund policy",        value: "No-questions · 24h" },
+  { Icon: Activity,     label: "Anti-cheat testing",   value: "Weekly stress tests" },
+  { Icon: LineChart,    label: "Uptime transparency",  value: "Public /status page" },
+]
 
 export function ComparisonTable() {
   return (
-    <section className="py-24 px-6 sm:px-10 relative z-10">
-      <div className="max-w-[960px] mx-auto">
-        <div className="text-center mb-12">
-          <SectionEyebrow label="Why Lethal" />
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-[-0.035em] leading-[1.1] mb-4">
-            <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Lethal vs </span>
-            <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 40px rgba(249, 115, 22, 0.4))" }}>cheap providers</span>
+    <section className="py-32 lg:py-40 px-6 sm:px-10 relative z-10 overflow-hidden">
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: "radial-gradient(ellipse 55% 45% at 50% 30%, rgba(249,115,22,0.08), transparent 65%)" }}
+      />
+
+      <div className="relative max-w-[1200px] mx-auto">
+        {/* Header */}
+        <div className="text-center mb-14">
+          <SectionEyebrow number="02" label="Why Lethal" />
+          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.04em] leading-[0.98] mb-5 mt-2" style={{ paddingBottom: "0.1em" }}>
+            <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Lethal </span>
+            <span className="text-white/35">vs</span>
+            <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249, 115, 22, 0.43))" }}>
+              {" "}cheap providers.
+            </span>
           </h2>
-          <p className="text-white/55 text-[15px] max-w-lg mx-auto">
-            What you actually get for £10-50 less elsewhere.
+          <p className="text-white/50 text-[15.5px] max-w-[540px] mx-auto leading-relaxed">
+            The 10 things that actually matter. Every one delivered, audit-proof.
           </p>
         </div>
 
-        <div className="rounded-2xl overflow-hidden border border-white/[0.06] bg-white/[0.012] backdrop-blur-sm">
-          {/* Header row */}
-          <div className="grid grid-cols-[1fr_auto_auto] items-center px-6 sm:px-8 py-4 border-b border-white/[0.06] bg-white/[0.02]">
-            <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/40">Feature</div>
-            <div className="w-24 text-center">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#f97316]/15 border border-[#f97316]/30 text-[10px] font-black uppercase tracking-[0.18em] text-[#f97316]">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#f97316] shadow-[0_0_8px_rgba(249,115,22,0.8)]" />
-                Lethal
-              </span>
-            </div>
-            <div className="w-24 text-center">
-              <span className="inline-flex items-center px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.06] text-[10px] font-black uppercase tracking-[0.18em] text-white/40">
-                Cheap
-              </span>
-            </div>
-          </div>
-          {/* Body rows */}
-          {rows.map((r, i) => (
-            <div
-              key={r.label}
-              className={`grid grid-cols-[1fr_auto_auto] items-center px-6 sm:px-8 py-4 transition-colors hover:bg-white/[0.02] ${
-                i !== rows.length - 1 ? "border-b border-white/[0.04]" : ""
-              }`}
+        {/* Manifesto — no big outer card, content sits on section background */}
+        <div className="relative max-w-[1100px] mx-auto">
+          {/* Manifesto pill */}
+          <div className="text-center mb-10">
+            <span
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.22em]"
+              style={{
+                background: "rgba(249,115,22,0.12)",
+                boxShadow: "inset 0 0 0 1px rgba(249,115,22,0.4)",
+                color: "#f97316",
+              }}
             >
-              <div className="text-[14px] text-white/75 font-medium pr-6">{r.label}</div>
-              <div className="w-24 flex justify-center"><Cell value={r.lethal} /></div>
-              <div className="w-24 flex justify-center"><Cell value={r.cheap} /></div>
-            </div>
-          ))}
-        </div>
+              <span className="relative flex items-center justify-center">
+                <span className="absolute w-2 h-2 rounded-full bg-[#f97316]/40 animate-ping" />
+                <span className="relative w-1.5 h-1.5 rounded-full bg-[#f97316]" />
+              </span>
+              Manifesto
+            </span>
+          </div>
 
-        <p className="text-center text-[11px] text-white/30 mt-5 uppercase tracking-[0.18em]">
-          Data based on common features across £10-£30 providers.
-        </p>
+          {/* 2-col glass feature rows — each keeps its border, hover lifts forward */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {FEATURES.map((f, i) => (
+              <div
+                key={f.label}
+                className="group/item relative flex items-start gap-4 px-5 py-5 rounded-2xl cursor-default overflow-hidden transition-all duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[3px] hover:border-[#f97316]/25"
+                style={{
+                  background: "rgba(255,255,255,0.012)",
+                  border: "1px solid rgba(255,255,255,0.07)",
+                  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03)",
+                }}
+              >
+                {/* Hover-only ambient orange glow */}
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-0 opacity-0 group-hover/item:opacity-100 transition-opacity duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] pointer-events-none"
+                  style={{
+                    background: "radial-gradient(ellipse 70% 120% at 0% 50%, rgba(249,115,22,0.09), transparent 70%)",
+                  }}
+                />
+
+                {/* Number */}
+                <span
+                  className="relative shrink-0 font-display text-[30px] font-black tabular-nums leading-none tracking-[-0.05em] w-10 transition-all duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
+                  style={{
+                    background: "linear-gradient(180deg, rgba(255,255,255,0.22), rgba(255,255,255,0.06))",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                  }}
+                >
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+
+                {/* Content */}
+                <div className="relative flex-1 min-w-0 pt-0.5">
+                  <div className="flex items-center gap-2 mb-1">
+                    <f.Icon
+                      className="h-3.5 w-3.5 text-[#f97316] transition-transform duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/item:scale-110"
+                      strokeWidth={2}
+                    />
+                    <span className="font-display text-[15px] font-bold tracking-tight text-white">
+                      {f.label}
+                    </span>
+                  </div>
+                  <p className="text-[12.5px] text-white/55 leading-[1.55] group-hover/item:text-white/70 transition-colors duration-300">
+                    {f.value}
+                  </p>
+                </div>
+
+                {/* Verified check */}
+                <span
+                  className="relative shrink-0 mt-1 w-6 h-6 rounded-full bg-emerald-500/10 flex items-center justify-center transition-all duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/item:bg-emerald-500/20 group-hover/item:scale-110"
+                  style={{ boxShadow: "inset 0 0 0 1px rgba(16,185,129,0.3)" }}
+                >
+                  <Check className="h-3 w-3 text-emerald-400" strokeWidth={3} />
+                </span>
+              </div>
+            ))}
+          </div>
+
+          {/* Bottom callout */}
+          <div className="mt-12 text-center">
+            <p className="text-[12px] text-white/45 uppercase tracking-[0.22em] font-bold">
+              10/10 · No compromises · Audit-proof
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   )
