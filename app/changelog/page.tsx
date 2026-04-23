@@ -6,7 +6,6 @@ import { Footer } from "@/components/footer"
 import { Clock, Zap, Bug, Shield, Sparkles, ChevronDown, Filter, RefreshCw, Rss, Mail, Check, BellRing, Sparkle } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { SectionEyebrow } from "@/components/section-eyebrow"
-import { GlossyButton } from "@/components/ui/glossy-button"
 
 interface ChangelogEntry {
   version: string
@@ -598,11 +597,18 @@ const TYPE_CONFIG = {
   },
 } as const
 
-/** Split filter categories into two semantic rows. */
-const FILTER_GROUPS = {
-  firmware: ["Custom DMA Firmware", "Perm Spoofer", "Temp Spoofer"],
-  products: ["Blurred DMA Cheat", "Streck DMA Cheat", "Fortnite External", "Website"],
-} as const
+/** Flat product list — no Firmware/Products categorisation, since "Firmware"
+ *  realistically only covers Custom DMA Firmware and the split looked
+ *  arbitrary. One row, alphabetical-ish. */
+const FILTER_PRODUCTS = [
+  "Perm Spoofer",
+  "Temp Spoofer",
+  "Custom DMA Firmware",
+  "Fortnite External",
+  "Streck DMA Cheat",
+  "Blurred DMA Cheat",
+  "Website",
+] as const
 
 function formatDate(dateStr: string) {
   return new Date(dateStr).toLocaleDateString("en-GB", {
@@ -801,15 +807,31 @@ export default function ChangelogPage() {
                     className="h-11 w-full rounded-full bg-white/[0.025] border border-white/[0.07] pl-10 pr-3 text-[13px] text-white placeholder:text-white/30 outline-none focus:border-[#f97316]/40 focus:bg-white/[0.04] transition-colors"
                   />
                 </div>
-                <GlossyButton
+                <button
                   type="submit"
-                  shape="pill"
-                  size="md"
-                  className="shrink-0 h-11"
-                  leftIcon={subscribed ? <Check className="h-3.5 w-3.5" /> : <BellRing className="h-3.5 w-3.5" />}
+                  disabled={subscribed}
+                  className={cn(
+                    "shrink-0 group/sub relative inline-flex items-center justify-center gap-2 h-11 px-5 rounded-full text-[12px] font-bold uppercase tracking-[0.18em] transition-all duration-300",
+                    subscribed
+                      ? "text-emerald-300"
+                      : "text-white hover:-translate-y-0.5",
+                  )}
+                  style={
+                    subscribed
+                      ? {
+                          background: "rgba(16,185,129,0.12)",
+                          boxShadow: "inset 0 0 0 1px rgba(16,185,129,0.4), 0 0 18px rgba(16,185,129,0.25)",
+                        }
+                      : {
+                          background: "linear-gradient(180deg, rgba(255,180,118,0.12) 0%, rgba(249,115,22,0.18) 50%, rgba(194,65,12,0.22) 100%)",
+                          boxShadow:
+                            "inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -1px 0 rgba(0,0,0,0.18), inset 0 0 0 1px rgba(249,115,22,0.55), 0 8px 22px -8px rgba(249,115,22,0.55)",
+                        }
+                  }
                 >
-                  {subscribed ? "Sent" : "Subscribe"}
-                </GlossyButton>
+                  {subscribed ? <Check className="h-3.5 w-3.5" strokeWidth={3} /> : <BellRing className="h-3.5 w-3.5" />}
+                  <span>{subscribed ? "Subscribed" : "Subscribe"}</span>
+                </button>
                 <a
                   href="/feed.xml"
                   onClick={(e) => { e.preventDefault(); alert("RSS feed coming soon — subscribe via email above to stay up to date.") }}
@@ -839,13 +861,7 @@ export default function ChangelogPage() {
               </div>
               <FilterChip label="All" active={selectedProduct === "All"} onClick={() => setSelectedProduct("All")} variant="all" />
               <span className="hidden sm:block h-4 w-px bg-white/[0.07] mx-1" />
-              <span className="text-[9.5px] font-bold uppercase tracking-[0.22em] text-white/30 shrink-0">Firmware</span>
-              {FILTER_GROUPS.firmware.map((p) => (
-                <FilterChip key={p} label={p} active={selectedProduct === p} onClick={() => setSelectedProduct(p)} />
-              ))}
-              <span className="hidden sm:block h-4 w-px bg-white/[0.07] mx-1" />
-              <span className="text-[9.5px] font-bold uppercase tracking-[0.22em] text-white/30 shrink-0">Products</span>
-              {FILTER_GROUPS.products.map((p) => (
+              {FILTER_PRODUCTS.map((p) => (
                 <FilterChip key={p} label={p} active={selectedProduct === p} onClick={() => setSelectedProduct(p)} />
               ))}
             </div>
