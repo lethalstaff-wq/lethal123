@@ -3,9 +3,10 @@
 import { useEffect, useMemo, useRef, useState } from "react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { Clock, Zap, Bug, Shield, Sparkles, ChevronDown, Filter, RefreshCw, Rss, Mail, Check } from "lucide-react"
+import { Clock, Zap, Bug, Shield, Sparkles, ChevronDown, Filter, RefreshCw, Rss, Mail, Check, BellRing } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { SectionEyebrow } from "@/components/section-eyebrow"
+import { GlossyButton } from "@/components/ui/glossy-button"
 
 interface ChangelogEntry {
   version: string
@@ -559,41 +560,46 @@ const TYPE_CONFIG = {
     icon: Sparkles,
     label: "Feature",
     dot: "bg-emerald-400",
+    rgb: "16,185,129",
     iconTint: "text-emerald-300",
-    iconBg: "bg-emerald-500/12",
-    chip: "bg-emerald-500 text-white shadow-[0_4px_14px_rgba(16,185,129,0.35)]",
+    iconBg: "bg-emerald-500/12 border-emerald-500/30",
+    chip: "bg-emerald-500/12 text-emerald-300 border-emerald-500/30",
   },
   fix: {
     icon: Bug,
     label: "Fix",
     dot: "bg-amber-400",
+    rgb: "251,191,36",
     iconTint: "text-amber-300",
-    iconBg: "bg-amber-500/12",
-    chip: "bg-amber-500 text-black shadow-[0_4px_14px_rgba(245,158,11,0.4)]",
+    iconBg: "bg-amber-500/12 border-amber-500/30",
+    chip: "bg-amber-500/12 text-amber-300 border-amber-500/30",
   },
   security: {
     icon: Shield,
     label: "Security",
     dot: "bg-sky-400",
+    rgb: "56,189,248",
     iconTint: "text-sky-300",
-    iconBg: "bg-sky-500/12",
-    chip: "bg-sky-500 text-white shadow-[0_4px_14px_rgba(14,165,233,0.35)]",
+    iconBg: "bg-sky-500/12 border-sky-500/30",
+    chip: "bg-sky-500/12 text-sky-300 border-sky-500/30",
   },
   improvement: {
     icon: Zap,
     label: "Update",
     dot: "bg-violet-400",
+    rgb: "167,139,250",
     iconTint: "text-violet-300",
-    iconBg: "bg-violet-500/12",
-    chip: "bg-violet-500 text-white shadow-[0_4px_14px_rgba(139,92,246,0.35)]",
+    iconBg: "bg-violet-500/12 border-violet-500/30",
+    chip: "bg-violet-500/12 text-violet-300 border-violet-500/30",
   },
   patch: {
     icon: RefreshCw,
     label: "Patch",
     dot: "bg-[#f97316]",
+    rgb: "249,115,22",
     iconTint: "text-[#fb923c]",
-    iconBg: "bg-[#f97316]/12",
-    chip: "bg-[#f97316] text-white shadow-[0_4px_14px_rgba(249,115,22,0.4)]",
+    iconBg: "bg-[#f97316]/12 border-[#f97316]/30",
+    chip: "bg-[#f97316]/12 text-[#fb923c] border-[#f97316]/30",
   },
 } as const
 
@@ -762,117 +768,97 @@ export default function ChangelogPage() {
         </div>
       </section>
 
-      {/* RSS + Subscribe row (aligns to timeline column). Hidden on very small screens → moved below on mobile. */}
+      {/* Subscribe row — premium glass card matching the rest of the site */}
       <section className="pb-6">
         <div className="container mx-auto px-4">
           <div className="max-w-[1180px] mx-auto">
-            <div className="flex flex-col-reverse md:flex-row md:items-center md:justify-end gap-3">
-              <a
-                href="/feed.xml"
-                onClick={(e) => { e.preventDefault(); alert("RSS feed coming soon — subscribe via email below to stay up to date.") }}
-                className="inline-flex items-center justify-center gap-2 px-3.5 py-2 rounded-full border border-white/[0.08] bg-white/[0.02] text-[12px] font-semibold text-white/70 hover:text-white hover:border-[#f97316]/40 hover:bg-[#f97316]/8 transition-all self-start md:self-auto"
-                aria-label="RSS feed"
-              >
-                <Rss className="h-3.5 w-3.5 text-[#f97316]" />
-                RSS
-              </a>
+            <div
+              className="relative rounded-2xl border border-white/[0.06] bg-white/[0.014] overflow-hidden flex flex-col sm:flex-row sm:items-center gap-3 px-4 py-3"
+              style={{ boxShadow: "0 20px 50px -30px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.025)" }}
+            >
+              <span
+                aria-hidden="true"
+                className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-[#f97316]/45 to-transparent"
+              />
+              <div className="flex items-center gap-3 sm:flex-1">
+                <span
+                  className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
+                  style={{
+                    background: "rgba(249,115,22,0.10)",
+                    border: "1px solid rgba(249,115,22,0.30)",
+                    boxShadow: "0 0 14px rgba(249,115,22,0.18), inset 0 1px 0 rgba(255,255,255,0.06)",
+                  }}
+                >
+                  <BellRing className="h-4 w-4 text-[#f97316]" />
+                </span>
+                <div className="min-w-0">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/40">Stay in the loop</p>
+                  <p className="text-[13px] font-semibold text-white/85 mt-0.5">Get an email the moment a new build ships</p>
+                </div>
+              </div>
               <form
                 onSubmit={handleSubscribe}
-                className="flex items-stretch gap-0 rounded-full border border-white/[0.08] bg-white/[0.02] overflow-hidden focus-within:border-[#f97316]/45 transition-colors w-full md:w-auto"
+                className="flex items-center gap-2 sm:shrink-0 w-full sm:w-auto"
               >
-                <div className="flex items-center pl-3.5 pr-2 text-white/45">
-                  <Mail className="h-3.5 w-3.5" />
+                <div className="relative flex-1 sm:w-60">
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-white/35 pointer-events-none" />
+                  <input
+                    type="email"
+                    required
+                    placeholder="you@domain.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    aria-label="Email for changelog updates"
+                    className="h-10 w-full rounded-full bg-white/[0.025] border border-white/[0.07] pl-9 pr-3 text-[13px] text-white placeholder:text-white/30 outline-none focus:border-[#f97316]/40 focus:bg-white/[0.04] transition-colors"
+                  />
                 </div>
-                <input
-                  type="email"
-                  required
-                  placeholder="you@domain.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="bg-transparent outline-none text-[13px] text-white placeholder:text-white/35 min-w-0 md:w-52 py-2 flex-1"
-                  aria-label="Email for changelog updates"
-                />
-                <button
+                <GlossyButton
                   type="submit"
-                  className={cn(
-                    "px-4 py-2 text-[12px] font-bold uppercase tracking-[0.14em] transition-colors",
-                    subscribed
-                      ? "bg-emerald-500/90 text-white"
-                      : "bg-[#f97316] hover:bg-[#ea7411] text-white"
-                  )}
+                  shape="pill"
+                  size="md"
+                  className="shrink-0"
+                  leftIcon={subscribed ? <Check className="h-3.5 w-3.5" /> : <BellRing className="h-3.5 w-3.5" />}
                 >
-                  {subscribed ? (
-                    <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5" />Sent</span>
-                  ) : "Subscribe"}
-                </button>
+                  {subscribed ? "Sent" : "Subscribe"}
+                </GlossyButton>
+                <a
+                  href="/feed.xml"
+                  onClick={(e) => { e.preventDefault(); alert("RSS feed coming soon — subscribe via email above to stay up to date.") }}
+                  className="hidden sm:inline-flex items-center justify-center w-10 h-10 rounded-full border border-white/[0.07] bg-white/[0.025] text-white/55 hover:text-[#f97316] hover:border-[#f97316]/40 transition-colors shrink-0"
+                  aria-label="RSS feed"
+                  title="RSS"
+                >
+                  <Rss className="h-4 w-4" />
+                </a>
               </form>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Filter — split into firmware + products rows */}
+      {/* Filter — unified premium segmented bar (matches /status / navbar) */}
       <section className="pb-8">
         <div className="container mx-auto px-4">
           <div className="max-w-[1180px] mx-auto">
-            <div className="flex flex-col gap-3">
-              <div className="flex items-center gap-3 flex-wrap">
-                <div className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/35 min-w-[90px]">
-                  <Filter className="h-3 w-3" />
-                  <span>Filter</span>
-                </div>
-                <button
-                  onClick={() => setSelectedProduct("All")}
-                  className={cn(
-                    "px-3.5 py-1.5 rounded-full text-[12px] font-bold transition-all",
-                    selectedProduct === "All"
-                      ? "bg-[#f97316] text-white shadow-[0_4px_14px_rgba(249,115,22,0.4)]"
-                      : "bg-white/[0.03] text-white/60 hover:bg-white/[0.06] hover:text-white border border-white/[0.05]"
-                  )}
-                >
-                  All
-                </button>
+            <div
+              className="relative rounded-2xl border border-white/[0.06] bg-white/[0.012] px-4 py-3 flex items-start sm:items-center gap-3 flex-wrap"
+              style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,0.02)" }}
+            >
+              <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.22em] text-white/40 shrink-0">
+                <Filter className="h-3 w-3" />
+                Filter
               </div>
-
-              <div className="flex items-center gap-3 flex-wrap">
-                <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/30 min-w-[90px]">Firmware</div>
-                <div className="flex flex-wrap gap-1.5">
-                  {FILTER_GROUPS.firmware.map((product) => (
-                    <button
-                      key={product}
-                      onClick={() => setSelectedProduct(product)}
-                      className={cn(
-                        "px-3.5 py-1.5 rounded-full text-[12px] font-bold transition-all",
-                        selectedProduct === product
-                          ? "bg-[#f97316] text-white shadow-[0_4px_14px_rgba(249,115,22,0.4)]"
-                          : "bg-white/[0.03] text-white/60 hover:bg-white/[0.06] hover:text-white border border-white/[0.05]"
-                      )}
-                    >
-                      {product}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3 flex-wrap">
-                <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/30 min-w-[90px]">Products</div>
-                <div className="flex flex-wrap gap-1.5">
-                  {FILTER_GROUPS.products.map((product) => (
-                    <button
-                      key={product}
-                      onClick={() => setSelectedProduct(product)}
-                      className={cn(
-                        "px-3.5 py-1.5 rounded-full text-[12px] font-bold transition-all",
-                        selectedProduct === product
-                          ? "bg-[#f97316] text-white shadow-[0_4px_14px_rgba(249,115,22,0.4)]"
-                          : "bg-white/[0.03] text-white/60 hover:bg-white/[0.06] hover:text-white border border-white/[0.05]"
-                      )}
-                    >
-                      {product}
-                    </button>
-                  ))}
-                </div>
-              </div>
+              <FilterChip label="All"  active={selectedProduct === "All"} onClick={() => setSelectedProduct("All")} variant="all" />
+              <span className="hidden sm:block h-5 w-px bg-white/[0.06]" />
+              <span className="text-[9.5px] font-bold uppercase tracking-[0.22em] text-white/30 shrink-0">Firmware</span>
+              {FILTER_GROUPS.firmware.map((p) => (
+                <FilterChip key={p} label={p} active={selectedProduct === p} onClick={() => setSelectedProduct(p)} />
+              ))}
+              <span className="hidden sm:block h-5 w-px bg-white/[0.06]" />
+              <span className="text-[9.5px] font-bold uppercase tracking-[0.22em] text-white/30 shrink-0">Products</span>
+              {FILTER_GROUPS.products.map((p) => (
+                <FilterChip key={p} label={p} active={selectedProduct === p} onClick={() => setSelectedProduct(p)} />
+              ))}
             </div>
           </div>
         </div>
@@ -915,9 +901,12 @@ export default function ChangelogPage() {
 
             {/* Left sticky rail — desktop only */}
             <aside className="hidden md:block">
-              <div className="sticky top-28">
-                <div className="flex items-center gap-2 mb-4 text-[10px] font-semibold uppercase tracking-[0.28em] text-white/35">
-                  <Clock className="h-3 w-3" />
+              <div
+                className="sticky top-28 rounded-2xl border border-white/[0.06] bg-white/[0.012] p-4"
+                style={{ boxShadow: "0 20px 50px -30px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.025)" }}
+              >
+                <div className="flex items-center gap-2 mb-3 text-[10px] font-bold uppercase tracking-[0.22em] text-white/40">
+                  <Clock className="h-3 w-3 text-[#f97316]" />
                   Jump to
                 </div>
                 <nav className="flex flex-col gap-0.5">
@@ -928,24 +917,24 @@ export default function ChangelogPage() {
                         key={g.anchor}
                         onClick={() => scrollToMonth(g.anchor)}
                         className={cn(
-                          "group relative flex items-center justify-between gap-3 text-left pl-4 pr-3 py-2 rounded-lg transition-all",
-                          active
-                            ? "bg-[#f97316]/12 text-white"
-                            : "text-white/55 hover:text-white hover:bg-white/[0.02]"
+                          "group relative flex items-center justify-between gap-3 text-left pl-4 pr-3 py-2 rounded-lg transition-colors duration-200",
+                          active ? "text-white" : "text-white/55 hover:text-white hover:bg-white/[0.025]"
                         )}
+                        style={
+                          active
+                            ? {
+                                background: "linear-gradient(90deg, rgba(249,115,22,0.10) 0%, rgba(249,115,22,0.02) 100%)",
+                                boxShadow: "inset 3px 0 0 rgba(249,115,22,0.85)",
+                              }
+                            : undefined
+                        }
                       >
-                        <span
-                          className={cn(
-                            "absolute left-0 top-1.5 bottom-1.5 w-[2px] rounded-full transition-all",
-                            active ? "bg-[#f97316] shadow-[0_0_10px_rgba(249,115,22,0.7)]" : "bg-transparent group-hover:bg-white/15"
-                          )}
-                        />
-                        <span className="text-[13px] font-bold tracking-tight">{g.short}</span>
+                        <span className="text-[12.5px] font-bold tracking-tight">{g.short}</span>
                         <span
                           className={cn(
                             "text-[10px] font-mono tabular-nums px-1.5 py-0.5 rounded-md transition-colors",
                             active
-                              ? "bg-[#f97316]/25 text-[#ffb366]"
+                              ? "bg-[#f97316]/22 text-[#ffb366]"
                               : "bg-white/[0.04] text-white/40 group-hover:text-white/65"
                           )}
                         >
@@ -955,14 +944,14 @@ export default function ChangelogPage() {
                     )
                   })}
                 </nav>
-                <div className="mt-6 pt-5 border-t border-white/[0.05]">
-                  <div className="text-[10px] font-semibold uppercase tracking-[0.28em] text-white/30 mb-2">Legend</div>
-                  <div className="flex flex-col gap-1.5">
+                <div className="mt-4 pt-3 border-t border-white/[0.05]">
+                  <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/35 mb-2.5">Legend</div>
+                  <div className="grid grid-cols-2 gap-x-2 gap-y-1.5">
                     {(Object.keys(TYPE_CONFIG) as Array<keyof typeof TYPE_CONFIG>).map((k) => {
                       const t = TYPE_CONFIG[k]
                       return (
-                        <div key={k} className="flex items-center gap-2 text-[11px]">
-                          <span className={cn("w-1.5 h-1.5 rounded-full", t.dot)} />
+                        <div key={k} className="flex items-center gap-1.5 text-[10.5px]">
+                          <span className={cn("w-1.5 h-1.5 rounded-full", t.dot)} style={{ boxShadow: `0 0 6px rgba(${t.rgb},0.6)` }} />
                           <span className="text-white/55">{t.label}</span>
                         </div>
                       )
@@ -990,15 +979,26 @@ export default function ChangelogPage() {
                   ref={(el) => { monthRefs.current[g.anchor] = el }}
                   className="mb-12 scroll-mt-28"
                 >
-                  <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
-                    <div className="w-3 h-3 rounded-full bg-[#f97316] shadow-[0_0_10px_rgba(249,115,22,0.65)]" />
-                    {g.long}
-                    <span className="text-sm font-normal text-white/45 font-mono tabular-nums">
+                  <div className="flex items-center gap-3 mb-6">
+                    <span
+                      className="w-2 h-2 rounded-full bg-[#f97316] shrink-0"
+                      style={{ boxShadow: "0 0 10px rgba(249,115,22,0.7)" }}
+                    />
+                    <h2 className="font-display text-[20px] font-bold tracking-[-0.02em] text-white">{g.long}</h2>
+                    <span className="h-px flex-1 bg-gradient-to-r from-white/[0.12] via-white/[0.06] to-transparent" />
+                    <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40 tabular-nums shrink-0">
                       {g.entries.length} {g.entries.length === 1 ? "update" : "updates"}
                     </span>
-                  </h2>
+                  </div>
 
-                  <div className="space-y-4 pl-6 border-l-2 border-white/[0.06]">
+                  <div className="relative space-y-4 pl-6">
+                    <span
+                      aria-hidden="true"
+                      className="absolute left-0 top-2 bottom-2 w-px"
+                      style={{
+                        background: "linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 50%, rgba(255,255,255,0) 100%)",
+                      }}
+                    />
                     {g.entries.map((entry, index) => {
                       // Skip if the featured card already surfaced this exact entry on top —
                       // no point in double-rendering the hero item in its month list.
@@ -1056,78 +1056,113 @@ function TimelineCard({
 }) {
   const typeConfig = TYPE_CONFIG[entry.type]
   const TypeIcon = typeConfig.icon
+  const rgb = typeConfig.rgb
   return (
     <div className="relative pl-6">
-      {/* Timeline dot */}
-      <div className={cn(
-        "absolute -left-[9px] w-4 h-4 rounded-full border-2 border-white/[0.10]",
-        typeConfig.iconBg
-      )} />
-      <div className={cn(
-        "absolute -left-[9px] w-4 h-4 rounded-full opacity-50",
-        typeConfig.iconBg
-      )} style={{ filter: "blur(6px)" }} />
+      {/* Timeline dot anchored to the rail */}
+      <span
+        aria-hidden="true"
+        className="absolute -left-[7px] top-7 w-3 h-3 rounded-full"
+        style={{
+          background: `radial-gradient(circle at 30% 30%, rgba(${rgb},1), rgba(${rgb},0.6) 70%)`,
+          boxShadow: `0 0 12px rgba(${rgb},0.7), inset 0 0 0 1.5px rgba(0,0,0,0.6)`,
+        }}
+      />
 
-      <div className={cn(
-        "spotlight-card rounded-2xl border overflow-hidden transition-all duration-300",
-        isExpanded
-          ? "border-[#f97316]/30 bg-white/[0.03] shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_40px_rgba(249,115,22,0.16)]"
-          : "border-white/[0.06] bg-white/[0.015] hover:border-[#f97316]/25 hover:bg-white/[0.03] hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(0,0,0,0.35)]"
-      )}>
+      <div
+        className="group/card relative rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-[2px]"
+        style={{
+          background: "linear-gradient(180deg, rgba(255,255,255,0.018), rgba(255,255,255,0.006))",
+          border: "1px solid rgba(255,255,255,0.06)",
+          boxShadow: isExpanded
+            ? `0 24px 60px -30px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(${rgb},0.32), inset 0 1px 0 rgba(255,255,255,0.025), 0 0 30px rgba(${rgb},0.12)`
+            : "0 18px 44px -30px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.02)",
+        }}
+      >
+        {/* Status-coloured left rail */}
+        <span
+          aria-hidden="true"
+          className="absolute left-0 top-0 bottom-0 w-[3px] opacity-70 group-hover/card:opacity-100 transition-opacity"
+          style={{
+            background: `linear-gradient(180deg, rgba(${rgb},0) 0%, rgba(${rgb},0.7) 50%, rgba(${rgb},0) 100%)`,
+          }}
+        />
+        {/* Hover ambient wash */}
+        <span
+          aria-hidden="true"
+          className="absolute -top-12 -right-12 w-48 h-32 pointer-events-none opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"
+          style={{
+            background: `radial-gradient(circle, rgba(${rgb},0.15), transparent 70%)`,
+            filter: "blur(28px)",
+          }}
+        />
+
         <button
           onClick={onToggle}
           aria-expanded={isExpanded}
           data-cursor="cta"
           data-cursor-label={isExpanded ? "Close" : "Open"}
-          className="cursor-cta w-full p-5 text-left"
+          className="cursor-cta relative w-full p-5 text-left"
         >
           <div className="flex items-start justify-between gap-4">
             <div className="flex items-start gap-4 min-w-0">
-              <div className={cn(
-                "w-11 h-11 rounded-xl flex items-center justify-center shrink-0 border border-white/[0.06]",
-                typeConfig.iconBg
-              )}>
-                <TypeIcon className={cn("h-5 w-5", typeConfig.iconTint)} />
+              <div
+                className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
+                style={{
+                  background: `rgba(${rgb},0.10)`,
+                  border: `1px solid rgba(${rgb},0.3)`,
+                  boxShadow: `0 0 14px rgba(${rgb},0.18), inset 0 1px 0 rgba(255,255,255,0.06)`,
+                }}
+              >
+                <TypeIcon className="h-5 w-5" style={{ color: `rgb(${rgb})` }} />
               </div>
               <div className="min-w-0">
                 <div className="flex items-center gap-3 mb-1.5 flex-wrap">
-                  <span className="font-display font-bold text-white tracking-tight truncate">{entry.product}</span>
-                  <span className="font-mono text-[12px] text-white/55 px-2 py-0.5 rounded-md bg-white/[0.04] border border-white/[0.06]">v{entry.version}</span>
+                  <span className="font-display font-bold text-white tracking-[-0.01em] text-[15px] truncate">{entry.product}</span>
+                  <span className="font-mono text-[11.5px] text-white/65 px-2 py-0.5 rounded-md bg-white/[0.04] border border-white/[0.06] tabular-nums">v{entry.version}</span>
                 </div>
                 <div className="flex items-center gap-2.5 flex-wrap">
                   <span className={cn(
-                    "inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-[0.2em]",
+                    "inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-[0.18em] border",
                     typeConfig.chip
                   )}>
                     {typeConfig.label}
                   </span>
-                  <span className="text-[12px] text-white/65 font-medium">{formatDate(entry.date)}</span>
+                  <span className="text-[11.5px] text-white/55 font-semibold uppercase tracking-[0.14em]">{formatDate(entry.date)}</span>
                   {!isExpanded && (
-                    <span className="font-mono text-[11px] text-white/45 tabular-nums">
-                      {relativeTime(entry.date)}
-                    </span>
+                    <span className="font-mono text-[10.5px] text-white/35 tabular-nums">· {relativeTime(entry.date)}</span>
                   )}
                 </div>
               </div>
             </div>
-            <div className={cn(
-              "w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-1 transition-all",
-              isExpanded ? "bg-[#f97316]/15 border border-[#f97316]/30" : "bg-white/[0.04] border border-white/[0.06]"
-            )}>
-              <ChevronDown className={cn(
-                "h-4 w-4 transition-all",
-                isExpanded ? "rotate-180 text-[#f97316]" : "text-white/55"
-              )} />
+            <div
+              className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-1 transition-all"
+              style={
+                isExpanded
+                  ? { background: `rgba(${rgb},0.16)`, border: `1px solid rgba(${rgb},0.4)` }
+                  : { background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }
+              }
+            >
+              <ChevronDown
+                className="h-4 w-4 transition-all"
+                style={{
+                  color: isExpanded ? `rgb(${rgb})` : "rgba(255,255,255,0.55)",
+                  transform: isExpanded ? "rotate(180deg)" : "none",
+                }}
+              />
             </div>
           </div>
         </button>
 
         {isExpanded && (
-          <div className="px-5 pb-5 pt-2 border-t border-white/[0.06]">
+          <div className="relative px-5 pb-5 pt-3 border-t border-white/[0.05]">
             <ul className="space-y-2 pl-14">
               {entry.changes.map((change, i) => (
-                <li key={i} className="flex items-start gap-3 text-[14px] text-white/65 leading-relaxed">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#f97316] mt-2 shrink-0 shadow-[0_0_6px_rgba(249,115,22,0.85)]" />
+                <li key={i} className="flex items-start gap-3 text-[13.5px] text-white/70 leading-relaxed">
+                  <span
+                    className="w-1.5 h-1.5 rounded-full mt-2 shrink-0"
+                    style={{ background: `rgb(${rgb})`, boxShadow: `0 0 6px rgba(${rgb},0.7)` }}
+                  />
                   {change}
                 </li>
               ))}
@@ -1154,35 +1189,43 @@ function FeaturedCard({
 }) {
   const typeConfig = TYPE_CONFIG[entry.type]
   const TypeIcon = typeConfig.icon
+  const rgb = typeConfig.rgb
   return (
     <div className="relative mb-10">
-      {/* ambient glow */}
       <div
-        aria-hidden
-        className="absolute -inset-4 rounded-[28px] pointer-events-none opacity-70"
+        className="relative rounded-3xl overflow-hidden"
         style={{
-          background: "radial-gradient(60% 60% at 30% 30%, rgba(249,115,22,0.25), transparent 70%)",
-          filter: "blur(30px)",
-        }}
-      />
-      <div
-        className="spotlight-card relative rounded-[24px] border-2 overflow-hidden transition-all"
-        style={{
-          borderColor: "rgba(249,115,22,0.55)",
-          background: "linear-gradient(180deg, rgba(249,115,22,0.08), rgba(255,255,255,0.015) 55%)",
-          boxShadow: "0 30px 70px rgba(0,0,0,0.45), 0 0 55px rgba(249,115,22,0.22), inset 0 1px 0 rgba(255,255,255,0.06)",
+          background: `linear-gradient(180deg, rgba(${rgb},0.06), rgba(255,255,255,0.012) 55%)`,
+          border: `1px solid rgba(${rgb},0.30)`,
+          boxShadow: `0 40px 100px -45px rgba(0,0,0,0.85), 0 0 60px rgba(${rgb},0.18), inset 0 1px 0 rgba(255,255,255,0.04)`,
         }}
       >
-        {/* top status bar */}
-        <div className="flex items-center justify-between gap-3 px-6 pt-5 pb-1">
-          <div className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.3em] text-[#ffb366]">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full rounded-full bg-[#f97316] opacity-60 animate-ping" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#f97316]" />
+        {/* Top accent hairline */}
+        <span
+          aria-hidden="true"
+          className="absolute top-0 left-10 right-10 h-px"
+          style={{ background: `linear-gradient(90deg, transparent, rgba(${rgb},0.7), transparent)` }}
+        />
+        {/* Ambient corner blob */}
+        <span
+          aria-hidden="true"
+          className="absolute -top-24 -right-24 w-80 h-80 rounded-full pointer-events-none opacity-55"
+          style={{
+            background: `radial-gradient(circle, rgba(${rgb},0.22), transparent 70%)`,
+            filter: "blur(50px)",
+          }}
+        />
+
+        {/* Top status bar */}
+        <div className="relative flex items-center justify-between gap-3 px-6 pt-5 pb-1">
+          <div className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.28em]" style={{ color: `rgb(${rgb})` }}>
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full rounded-full opacity-65" style={{ background: `rgb(${rgb})`, animation: "statusPulse 2s ease-in-out infinite" }} />
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5" style={{ background: `rgb(${rgb})` }} />
             </span>
-            Latest Release
+            Latest release
           </div>
-          <span className="font-mono text-[11px] text-white/45 tabular-nums">
+          <span className="font-mono text-[10.5px] text-white/40 tabular-nums uppercase tracking-[0.18em]">
             {relativeTime(entry.date)}
           </span>
         </div>
@@ -1192,30 +1235,34 @@ function FeaturedCard({
           aria-expanded={isExpanded}
           data-cursor="cta"
           data-cursor-label={isExpanded ? "Close" : "Open"}
-          className="cursor-cta w-full p-6 pt-3 text-left"
+          className="cursor-cta relative w-full p-6 pt-3 text-left"
         >
           <div className="flex items-start justify-between gap-4">
             <div className="flex items-start gap-5 min-w-0">
-              <div className={cn(
-                "w-16 h-16 rounded-2xl flex items-center justify-center shrink-0 border border-white/[0.08]",
-                typeConfig.iconBg
-              )}>
-                <TypeIcon className={cn("h-7 w-7", typeConfig.iconTint)} />
+              <div
+                className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center shrink-0"
+                style={{
+                  background: `rgba(${rgb},0.14)`,
+                  border: `1px solid rgba(${rgb},0.35)`,
+                  boxShadow: `0 0 24px rgba(${rgb},0.28), inset 0 1px 0 rgba(255,255,255,0.07)`,
+                }}
+              >
+                <TypeIcon className="h-6 w-6 sm:h-7 sm:w-7" style={{ color: `rgb(${rgb})`, filter: `drop-shadow(0 0 10px rgba(${rgb},0.6))` }} />
               </div>
               <div className="min-w-0">
                 <div className="flex items-center gap-3 mb-3 flex-wrap">
                   <span className={cn(
-                    "inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-[0.2em]",
+                    "inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-[0.18em] border",
                     typeConfig.chip
                   )}>
                     {typeConfig.label}
                   </span>
-                  <span className="text-[12px] text-white/60 font-medium">{formatDate(entry.date)}</span>
+                  <span className="text-[11px] text-white/55 font-bold uppercase tracking-[0.18em]">{formatDate(entry.date)}</span>
                 </div>
-                <h3 className="font-display text-3xl sm:text-4xl font-bold tracking-[-0.02em] leading-[1.05] mb-2">
+                <h3 className="font-display text-[28px] sm:text-[34px] font-bold tracking-[-0.025em] leading-[1.05] mb-2">
                   <span
                     style={{
-                      background: "linear-gradient(180deg, #ffffff, #d0d0d0)",
+                      background: "linear-gradient(180deg, #ffffff, rgba(200,200,215,0.8))",
                       WebkitBackgroundClip: "text",
                       WebkitTextFillColor: "transparent",
                     }}
@@ -1223,34 +1270,44 @@ function FeaturedCard({
                     {entry.product}
                   </span>
                 </h3>
-                <div className="flex items-center gap-2.5 flex-wrap">
-                  <span className="font-mono text-[13px] text-white/70 px-2.5 py-1 rounded-md bg-white/[0.05] border border-white/[0.08]">
+                <div className="flex items-start gap-2.5 flex-wrap">
+                  <span className="font-mono text-[12px] text-white/70 px-2 py-1 rounded-md bg-white/[0.04] border border-white/[0.07] tabular-nums shrink-0">
                     v{entry.version}
                   </span>
-                  <span className="text-[13px] text-white/55">
+                  <span className="text-[13px] text-white/60 leading-relaxed">
                     {entry.changes[0]}
                   </span>
                 </div>
               </div>
             </div>
-            <div className={cn(
-              "w-9 h-9 rounded-full flex items-center justify-center shrink-0 mt-1 transition-all",
-              isExpanded ? "bg-[#f97316]/20 border border-[#f97316]/40" : "bg-white/[0.04] border border-white/[0.08]"
-            )}>
-              <ChevronDown className={cn(
-                "h-5 w-5 transition-all",
-                isExpanded ? "rotate-180 text-[#f97316]" : "text-white/65"
-              )} />
+            <div
+              className="w-9 h-9 rounded-full flex items-center justify-center shrink-0 mt-1 transition-all"
+              style={
+                isExpanded
+                  ? { background: `rgba(${rgb},0.18)`, border: `1px solid rgba(${rgb},0.4)` }
+                  : { background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }
+              }
+            >
+              <ChevronDown
+                className="h-5 w-5 transition-all"
+                style={{
+                  color: isExpanded ? `rgb(${rgb})` : "rgba(255,255,255,0.65)",
+                  transform: isExpanded ? "rotate(180deg)" : "none",
+                }}
+              />
             </div>
           </div>
         </button>
 
         {isExpanded && (
-          <div className="px-6 pb-6 pt-0 border-t border-[#f97316]/15">
-            <ul className="space-y-2.5 pt-4 pl-[84px]">
+          <div className="relative px-6 pb-6 pt-0 border-t" style={{ borderColor: `rgba(${rgb},0.15)` }}>
+            <ul className="space-y-2.5 pt-4 pl-[80px]">
               {entry.changes.map((change, i) => (
-                <li key={i} className="flex items-start gap-3 text-[14.5px] text-white/75 leading-relaxed">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#f97316] mt-2 shrink-0 shadow-[0_0_8px_rgba(249,115,22,0.9)]" />
+                <li key={i} className="flex items-start gap-3 text-[14px] text-white/72 leading-relaxed">
+                  <span
+                    className="w-1.5 h-1.5 rounded-full mt-2 shrink-0"
+                    style={{ background: `rgb(${rgb})`, boxShadow: `0 0 8px rgba(${rgb},0.8)` }}
+                  />
                   {change}
                 </li>
               ))}
@@ -1259,5 +1316,43 @@ function FeaturedCard({
         )}
       </div>
     </div>
+  )
+}
+
+/* ---------------------------------------------------------------- */
+/* Filter chip — premium pill with inset orange tint when active     */
+/* ---------------------------------------------------------------- */
+
+function FilterChip({
+  label,
+  active,
+  onClick,
+  variant = "default",
+}: {
+  label: string
+  active: boolean
+  onClick: () => void
+  variant?: "default" | "all"
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className={cn(
+        "shrink-0 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.14em] transition-colors duration-200",
+        active ? "text-white" : "text-white/55 hover:text-white/85",
+      )}
+      style={
+        active
+          ? {
+              background: "linear-gradient(180deg, rgba(249,115,22,0.18) 0%, rgba(249,115,22,0.06) 100%)",
+              boxShadow: "inset 0 0 0 1px rgba(249,115,22,0.4), 0 4px 14px -4px rgba(249,115,22,0.45)",
+            }
+          : variant === "all"
+            ? { background: "rgba(255,255,255,0.04)", boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.06)" }
+            : { background: "rgba(255,255,255,0.02)", boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.04)" }
+      }
+    >
+      {label}
+    </button>
   )
 }
