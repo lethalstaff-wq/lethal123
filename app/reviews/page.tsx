@@ -8,7 +8,7 @@ import {
   Star, CheckCircle2, TrendingUp, Loader2, Search, ChevronDown,
   MessageSquare, SlidersHorizontal, X, Quote, ArrowRight,
 } from "lucide-react"
-import useSWR from "swr"
+import useSWR, { mutate } from "swr"
 import { Breadcrumbs } from "@/components/breadcrumbs"
 import Link from "next/link"
 import { SupportAvatar, type SupportPersona } from "@/components/support-avatar"
@@ -149,6 +149,15 @@ export default function ReviewsPage() {
   })
   const allReviews = data?.reviews ?? []
   const realCount = data?.totalCount ?? allReviews.length
+
+  // Keep /api/reviews/count cache synced so the home hero / testimonials /
+  // anywhere else useReviewCount() is mounted immediately reflects the true
+  // number the user just saw on this page.
+  useEffect(() => {
+    if (typeof data?.totalCount === "number" && data.totalCount > 0) {
+      mutate("/api/reviews/count", { totalCount: data.totalCount }, false)
+    }
+  }, [data?.totalCount])
 
   const [filterRating, setFilterRating] = useState<number | null>(null)
   const [filterProduct, setFilterProduct] = useState<string | null>(null)
