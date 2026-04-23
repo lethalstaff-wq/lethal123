@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { Navbar } from "@/components/navbar"
+import { SectionEyebrow } from "@/components/section-eyebrow"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { useCart } from "@/lib/cart-context"
@@ -193,18 +194,19 @@ export default function CartPage() {
       <section className="flex-1 pt-32 pb-28 lg:pb-20 px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto max-w-5xl">
           {/* Header */}
-          <div className="flex items-center justify-between mb-10">
-            <div>
-              <Link href="/products" className="inline-flex items-center gap-1.5 text-sm text-white/55 hover:text-[#f97316] transition-colors mb-3 font-medium">
-                <ArrowLeft className="h-3.5 w-3.5" />
-                Continue Shopping
-              </Link>
-              <h1 className="font-display text-4xl sm:text-5xl font-bold tracking-[-0.04em] leading-[1]">
-                <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Shopping </span>
-                <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249, 115, 22, 0.43))" }}>Cart</span>
-              </h1>
-              <p className="text-[14px] text-white/55 mt-2">{items.length} {items.length === 1 ? "item" : "items"} in your cart</p>
+          <div className="mb-10">
+            <Link href="/products" className="inline-flex items-center gap-1.5 text-sm text-white/55 hover:text-[#f97316] transition-colors mb-4 font-medium">
+              <ArrowLeft className="h-3.5 w-3.5" />
+              Continue Shopping
+            </Link>
+            <div className="mb-3">
+              <SectionEyebrow number="01" label="Cart" />
             </div>
+            <h1 className="font-display text-4xl sm:text-5xl font-bold tracking-[-0.04em] leading-[1] mt-2" style={{ paddingBottom: "0.08em" }}>
+              <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Shopping </span>
+              <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249, 115, 22, 0.43))" }}>Cart</span>
+            </h1>
+            <p className="text-[14px] text-white/55 mt-2">{items.length} {items.length === 1 ? "item" : "items"} in your cart</p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
