@@ -328,22 +328,52 @@ export default function StatusPage() {
             </p>
           </div>
 
-          {/* Stats — wrap on mobile to prevent horizontal scroll */}
-          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-6 sm:gap-x-8 mb-14">
-            {[
-              { value: `${undetectedCount}/${totalProducts}`, label: "Undetected", color: "text-emerald-400" },
-              { value: "99.8%", label: "Rate", color: "text-white" },
-              { value: "<2h", label: "Patch time", color: "text-white" },
-              { value: "24/7", label: "Monitoring", color: "text-white" },
-            ].map((stat, i) => (
-              <div key={i} className="flex items-center gap-4 sm:gap-8">
-                {i > 0 && <div className="hidden sm:block w-px h-6 bg-white/[0.06]" />}
-                <div className="text-center">
-                  <p className={`text-xl font-bold ${stat.color}`}>{stat.value}</p>
-                  <p className="text-[10px] text-white/20 uppercase tracking-wider mt-0.5">{stat.label}</p>
-                </div>
-              </div>
-            ))}
+          {/* Operations panel — 4 hero metrics unified */}
+          <div
+            className="relative rounded-3xl border border-white/[0.07] bg-white/[0.014] overflow-hidden mb-10"
+            style={{ boxShadow: "0 30px 80px -40px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.025)" }}
+          >
+            <div className="absolute top-0 left-10 right-10 h-px bg-gradient-to-r from-transparent via-emerald-500/45 to-transparent" />
+            <div
+              aria-hidden="true"
+              className="absolute -top-20 left-1/2 -translate-x-1/2 w-[70%] h-40 pointer-events-none opacity-55"
+              style={{ background: "radial-gradient(ellipse, rgba(16,185,129,0.12), transparent 70%)", filter: "blur(40px)" }}
+            />
+
+            <div className="relative grid grid-cols-2 md:grid-cols-4">
+              <HeroMetric
+                value={`${undetectedCount}/${totalProducts}`}
+                label="Products undetected"
+                gradient="linear-gradient(180deg, #6ee7b7 0%, #10b981 55%, #047857 100%)"
+                glow="rgba(16,185,129,0.35)"
+                icon={<CheckCircle2 className="h-3.5 w-3.5" />}
+                iconColor="text-emerald-400"
+              />
+              <HeroMetric
+                value="99.8%"
+                label="Detection rate"
+                gradient="linear-gradient(180deg, #ffffff 0%, #cbd5e1 60%, #94a3b8 100%)"
+                glow="rgba(148,163,184,0.25)"
+                icon={<Shield className="h-3.5 w-3.5" />}
+                iconColor="text-white/70"
+              />
+              <HeroMetric
+                value="<2h"
+                label="Avg patch time"
+                gradient="linear-gradient(180deg, #ffb366 0%, #f97316 55%, #c2410c 100%)"
+                glow="rgba(249,115,22,0.35)"
+                icon={<Wrench className="h-3.5 w-3.5" />}
+                iconColor="text-[#f97316]"
+              />
+              <HeroMetric
+                value="24/7"
+                label="Monitoring"
+                gradient="linear-gradient(180deg, #93c5fd 0%, #3b82f6 55%, #1d4ed8 100%)"
+                glow="rgba(59,130,246,0.3)"
+                icon={<RefreshCw className="h-3.5 w-3.5" />}
+                iconColor="text-blue-400"
+              />
+            </div>
           </div>
 
           {/* 90-day global incident strip */}
@@ -480,39 +510,57 @@ export default function StatusPage() {
             )
           })()}
 
-          {/* Filter & Legend */}
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-            <div className="inline-flex gap-1 p-1 rounded-xl border border-white/[0.04] bg-white/[0.015]">
-              {(["all", "cheats", "spoofers", "firmware"] as const).map((f) => (
-                <button
-                  key={f}
-                  onClick={() => setFilter(f)}
-                  className={`px-4 py-2 rounded-lg text-xs font-medium transition-all capitalize ${
-                    filter === f
-                      ? "bg-white/[0.08] text-white"
-                      : "text-white/25 hover:text-white/45"
-                  }`}
-                >
-                  {f === "all" ? "All" : f}
-                </button>
-              ))}
+          {/* Products panel header — filter tabs + legend + live meta */}
+          <div
+            className="relative rounded-2xl border border-white/[0.06] bg-white/[0.012] px-4 py-3.5 mb-4 flex items-center justify-between gap-4 flex-wrap"
+            style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,0.02)" }}
+          >
+            <div className="flex items-center gap-3">
+              <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/40 hidden sm:block">
+                Filter
+              </p>
+              <div
+                className="inline-flex items-center gap-0.5 rounded-full p-1 border border-white/[0.07] bg-white/[0.025]"
+                style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03)" }}
+              >
+                {(["all", "cheats", "spoofers", "firmware"] as const).map((f) => {
+                  const active = filter === f
+                  return (
+                    <button
+                      key={f}
+                      onClick={() => setFilter(f)}
+                      className={`relative px-3.5 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.16em] transition-colors duration-200 ${
+                        active ? "text-white" : "text-white/40 hover:text-white/70"
+                      }`}
+                      style={
+                        active
+                          ? {
+                              background:
+                                "linear-gradient(180deg, rgba(249,115,22,0.18) 0%, rgba(249,115,22,0.08) 100%)",
+                              boxShadow:
+                                "inset 0 0 0 1px rgba(249,115,22,0.38), 0 4px 14px -4px rgba(249,115,22,0.45)",
+                            }
+                          : undefined
+                      }
+                    >
+                      {f === "all" ? "All" : f}
+                    </button>
+                  )
+                })}
+              </div>
             </div>
 
-            <div className="flex items-center gap-5 text-[11px]">
-              <div className="flex items-center gap-1.5">
-                <span className="h-2 w-2 rounded-full bg-emerald-400"></span>
-                <span className="text-white/25">Undetected</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <span className="h-2 w-2 rounded-full bg-yellow-400"></span>
-                <span className="text-white/25">Testing</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <span className="h-2 w-2 rounded-full bg-red-400"></span>
-                <span className="text-white/25">Updating</span>
-              </div>
-              <span className="text-white/15">
-                Updated {lastUpdated === 0 ? "now" : `${lastUpdated}m ago`}
+            <div className="flex items-center gap-4 text-[10px]">
+              <LegendPill color="bg-emerald-400" label="Undetected" />
+              <LegendPill color="bg-yellow-400" label="Testing" />
+              <LegendPill color="bg-red-400" label="Updating" />
+              <div className="h-4 w-px bg-white/[0.06] hidden sm:block" />
+              <span className="inline-flex items-center gap-1.5 text-white/35 font-semibold uppercase tracking-[0.18em]">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70" style={{ animation: "statusPulse 2s ease-in-out infinite" }} />
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
+                </span>
+                <span>{lastUpdated === 0 ? "Live · just now" : `Updated ${lastUpdated}m ago`}</span>
               </span>
             </div>
           </div>
@@ -535,118 +583,179 @@ export default function StatusPage() {
                 product.id === "custom-dma-firmware" ? { label: "SIGNED", color: "text-teal-300", dot: "bg-teal-400" } :
                 { label: "STABLE", color: "text-sky-300", dot: "bg-sky-400" }
 
+              const accentRgb =
+                product.status === "undetected" ? "16,185,129" :
+                product.status === "testing" ? "251,191,36" :
+                product.status === "updating" ? "239,68,68" :
+                product.status === "maintenance" ? "59,130,246" : "239,68,68"
+
               return (
                 <div
                   key={product.id}
-                  className="spotlight-card group flex flex-col md:flex-row md:items-center gap-4 p-5 rounded-2xl bg-white/[0.015] border border-white/[0.06] hover:border-[#f97316]/30 hover:bg-white/[0.03] hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249, 115, 22, 0.14)] transition-all duration-300"
+                  className="group relative rounded-2xl border border-white/[0.06] bg-white/[0.014] overflow-hidden transition-all duration-300 hover:-translate-y-[2px]"
+                  style={{
+                    boxShadow: "0 20px 50px -30px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.02)",
+                  }}
                 >
-                  {/* Product Info */}
-                  <div className="flex items-center gap-4 flex-1 min-w-0">
-                    <div className="relative w-14 h-14 rounded-xl overflow-hidden border border-white/[0.06] flex-shrink-0 bg-white/[0.02]">
-                      <Image
-                        src={product.image}
-                        alt={product.name}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <div className="min-w-0">
-                      <h3 className="font-display font-bold text-white truncate tracking-tight">{product.name}</h3>
-                      <p className="text-[13px] text-white/55">{product.category}</p>
-                    </div>
-                  </div>
+                  {/* Left accent rail — colored by status */}
+                  <div
+                    aria-hidden="true"
+                    className="absolute top-0 bottom-0 left-0 w-[3px] opacity-80 group-hover:opacity-100 transition-opacity"
+                    style={{
+                      background: `linear-gradient(180deg, rgba(${accentRgb},0) 0%, rgba(${accentRgb},0.7) 50%, rgba(${accentRgb},0) 100%)`,
+                    }}
+                  />
+                  {/* Ambient hover wash */}
+                  <div
+                    aria-hidden="true"
+                    className="absolute -left-20 -top-10 w-60 h-40 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    style={{
+                      background: `radial-gradient(circle, rgba(${accentRgb},0.10), transparent 70%)`,
+                      filter: "blur(40px)",
+                    }}
+                  />
 
-                  {/* Games */}
-                  <div className="hidden lg:flex items-center gap-2 min-w-[180px]">
-                    <Gamepad2 className="h-4 w-4 text-white/30 shrink-0" />
-                    <p className="text-sm text-white/55 truncate">
-                      {product.games?.join(", ")}
-                    </p>
-                  </div>
-
-                  {/* 30-day Sparkline (SVG line, not uniform bars) — inline on mobile too */}
-                  <div className="shrink-0 w-full md:w-[160px]">
-                    <svg width="160" height="28" viewBox="0 0 160 28" preserveAspectRatio="none" aria-label="30-day uptime trend" className="block w-full h-7">
-                      <defs>
-                        <linearGradient id="sparkFillGreen" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#34d399" stopOpacity="0.35" />
-                          <stop offset="100%" stopColor="#34d399" stopOpacity="0" />
-                        </linearGradient>
-                        <linearGradient id="sparkFillAmber" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#fbbf24" stopOpacity="0.35" />
-                          <stop offset="100%" stopColor="#fbbf24" stopOpacity="0" />
-                        </linearGradient>
-                        <linearGradient id="sparkFillRed" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#f87171" stopOpacity="0.35" />
-                          <stop offset="100%" stopColor="#f87171" stopOpacity="0" />
-                        </linearGradient>
-                      </defs>
-                      <path d={spark.fillD} fill={sparkFill} />
-                      <path d={spark.d} fill="none" stroke={sparkStroke} strokeWidth="1.5" strokeLinejoin="round" strokeLinecap="round" />
-                      <circle cx="159" cy={spark.lastY} r="2" fill={sparkStroke} />
-                    </svg>
-                    <div className="flex items-center justify-between mt-1">
-                      <span className="text-[9px] text-white/25 uppercase tracking-[0.14em]">30d</span>
-                      <span className="text-[10px] text-white/55 font-mono tabular-nums">{getUptimePercent(product.id)}%</span>
-                    </div>
-                  </div>
-
-                  {/* Days Undetected */}
-                  <div className="hidden md:flex items-center gap-2 min-w-[100px]">
-                    <Shield className="h-4 w-4 text-emerald-400/60" />
-                    <span className="text-sm text-white/55"><span className="text-emerald-400 font-bold">{getDaysUndetected(product.id)}</span> days</span>
-                  </div>
-
-                  {/* Status — primary chip + secondary state + last incident */}
-                  <div className="flex flex-col items-start md:items-end gap-1 min-w-[150px]">
-                    <div className="flex items-center gap-2">
-                      <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg ${statusConfig.bgLight}`}>
-                        <span
-                          className={`h-2 w-2 rounded-full ${statusConfig.bg}`}
-                          style={product.status === "undetected" ? { animation: "statusPulse 2s ease-in-out infinite" } : {}}
+                  <div className="relative flex flex-col md:flex-row md:items-center gap-4 p-5">
+                    {/* Product Info */}
+                    <div className="flex items-center gap-4 flex-1 min-w-0">
+                      <div className="relative w-14 h-14 rounded-xl overflow-hidden flex-shrink-0"
+                           style={{
+                             border: `1px solid rgba(${accentRgb},0.18)`,
+                             boxShadow: `0 0 16px rgba(${accentRgb},0.15), inset 0 1px 0 rgba(255,255,255,0.05)`,
+                             background: "rgba(255,255,255,0.02)",
+                           }}>
+                        <Image
+                          src={product.image}
+                          alt={product.name}
+                          fill
+                          className="object-cover"
                         />
-                        <span className={`text-[11px] font-bold tracking-wider ${statusConfig.color}`}>
-                          {statusConfig.label}
-                        </span>
                       </div>
-                      {secondary && (
-                        <div className="hidden md:flex items-center gap-1.5 px-2 py-1 rounded-md bg-white/[0.03] border border-white/[0.04]">
-                          <span className={`h-1.5 w-1.5 rounded-full ${secondary.dot}`} />
-                          <span className={`text-[10px] font-semibold tracking-wider ${secondary.color}`}>{secondary.label}</span>
-                        </div>
-                      )}
+                      <div className="min-w-0">
+                        <h3 className="font-display font-bold text-white truncate tracking-[-0.01em] text-[15px]">{product.name}</h3>
+                        <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/40 mt-1">{product.category}</p>
+                      </div>
                     </div>
-                    <span className="text-[10px] text-white/35">
-                      Last incident <span className="tabular-nums">{getLastIncident(product.id)}</span>
-                    </span>
-                  </div>
 
-                  {/* Link */}
-                  <Link
-                    href={`/products/${product.id}`}
-                    data-cursor="cta"
-                    data-cursor-label="View"
-                    className="cursor-cta press-spring flex items-center justify-center w-10 h-10 rounded-xl bg-white/[0.03] hover:bg-[#f97316]/10 hover:text-[#f97316] hover:shadow-[0_0_18px_rgba(249,115,22,0.35)] transition-all shrink-0"
-                  >
-                    <ExternalLink className="h-4 w-4 text-white/55" />
-                  </Link>
+                    {/* Games */}
+                    <div className="hidden lg:flex items-center gap-2 min-w-[170px]">
+                      <Gamepad2 className="h-3.5 w-3.5 text-white/30 shrink-0" />
+                      <p className="text-[12px] text-white/50 truncate">
+                        {product.games?.join(", ")}
+                      </p>
+                    </div>
+
+                    {/* 30-day Sparkline */}
+                    <div className="shrink-0 w-full md:w-[150px]">
+                      <svg width="150" height="32" viewBox="0 0 150 32" preserveAspectRatio="none" aria-label="30-day uptime trend" className="block w-full h-8">
+                        <defs>
+                          <linearGradient id="sparkFillGreen" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="#34d399" stopOpacity="0.4" />
+                            <stop offset="100%" stopColor="#34d399" stopOpacity="0" />
+                          </linearGradient>
+                          <linearGradient id="sparkFillAmber" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="#fbbf24" stopOpacity="0.4" />
+                            <stop offset="100%" stopColor="#fbbf24" stopOpacity="0" />
+                          </linearGradient>
+                          <linearGradient id="sparkFillRed" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="#f87171" stopOpacity="0.4" />
+                            <stop offset="100%" stopColor="#f87171" stopOpacity="0" />
+                          </linearGradient>
+                        </defs>
+                        <path d={spark.fillD} fill={sparkFill} />
+                        <path d={spark.d} fill="none" stroke={sparkStroke} strokeWidth="1.5" strokeLinejoin="round" strokeLinecap="round" filter={`drop-shadow(0 0 4px ${sparkStroke}88)`} />
+                        <circle cx="149" cy={spark.lastY} r="2.2" fill={sparkStroke} filter={`drop-shadow(0 0 6px ${sparkStroke})`} />
+                      </svg>
+                      <div className="flex items-center justify-between mt-1">
+                        <span className="text-[9px] font-bold text-white/30 uppercase tracking-[0.18em]">30d</span>
+                        <span className="text-[10.5px] font-mono font-bold text-white/70 tabular-nums">{getUptimePercent(product.id)}%</span>
+                      </div>
+                    </div>
+
+                    {/* Days Undetected — stat-pair style */}
+                    <div className="hidden md:flex flex-col items-start min-w-[90px]">
+                      <span className="font-display text-[18px] font-black tabular-nums leading-none tracking-[-0.02em] text-emerald-400">
+                        {getDaysUndetected(product.id)}
+                      </span>
+                      <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/35 mt-1.5">Days clean</span>
+                    </div>
+
+                    {/* Status — cockpit readout stacked */}
+                    <div className="flex flex-col items-start md:items-end gap-1.5 min-w-[160px]">
+                      <div className="flex items-center gap-2 flex-wrap md:justify-end">
+                        <div
+                          className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg"
+                          style={{
+                            background: `rgba(${accentRgb},0.10)`,
+                            border: `1px solid rgba(${accentRgb},0.28)`,
+                            boxShadow: `0 0 14px rgba(${accentRgb},0.18)`,
+                          }}
+                        >
+                          <span
+                            className={`h-1.5 w-1.5 rounded-full ${statusConfig.bg}`}
+                            style={product.status === "undetected" ? { animation: "statusPulse 2s ease-in-out infinite" } : {}}
+                          />
+                          <span className={`text-[10px] font-black tracking-[0.18em] uppercase ${statusConfig.color}`}>
+                            {statusConfig.label}
+                          </span>
+                        </div>
+                        {secondary && (
+                          <div className="hidden md:flex items-center gap-1.5 px-2 py-1 rounded-md bg-white/[0.03] border border-white/[0.05]">
+                            <span className={`h-1 w-1 rounded-full ${secondary.dot}`} />
+                            <span className={`text-[9.5px] font-bold tracking-[0.16em] uppercase ${secondary.color}`}>{secondary.label}</span>
+                          </div>
+                        )}
+                      </div>
+                      <span className="text-[10px] text-white/35 inline-flex items-center gap-1.5">
+                        <span className="h-1 w-1 rounded-full bg-white/20" />
+                        Last incident <span className="tabular-nums text-white/50 font-semibold">{getLastIncident(product.id)}</span>
+                      </span>
+                    </div>
+
+                    {/* Link */}
+                    <Link
+                      href={`/products/${product.id}`}
+                      data-cursor="cta"
+                      data-cursor-label="View"
+                      className="cursor-cta press-spring flex items-center justify-center w-10 h-10 rounded-xl bg-white/[0.025] border border-white/[0.05] hover:bg-[#f97316]/12 hover:border-[#f97316]/40 hover:text-[#f97316] hover:shadow-[0_0_18px_rgba(249,115,22,0.35)] transition-all shrink-0"
+                    >
+                      <ExternalLink className="h-4 w-4 text-white/55" />
+                    </Link>
+                  </div>
                 </div>
               )
             })}
           </div>
 
-          {/* Changelog link + Subscribe row */}
+          {/* Changelog link + Subscribe row — paired premium cards */}
           <div className="mb-12 grid gap-4 md:grid-cols-2">
             <Link
               href="/changelog"
-              className="group flex items-center justify-between gap-4 rounded-2xl border border-white/[0.06] bg-white/[0.015] px-5 py-4 hover:border-[#f97316]/30 hover:bg-white/[0.03] transition-all"
+              className="group relative rounded-2xl border border-white/[0.06] bg-white/[0.014] overflow-hidden flex items-center justify-between gap-4 px-5 py-4 hover:border-[#f97316]/30 hover:-translate-y-[2px] transition-all"
+              style={{ boxShadow: "0 20px 50px -30px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.025)" }}
             >
-              <div>
-                <p className="text-[11px] uppercase tracking-[0.18em] text-white/35 font-semibold">Product updates</p>
-                <p className="text-sm text-white/80 mt-0.5">Patches, releases & maintenance log</p>
+              <div
+                aria-hidden="true"
+                className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-[#f97316]/40 to-transparent opacity-60 group-hover:opacity-100 transition-opacity"
+              />
+              <div className="flex items-center gap-3">
+                <span
+                  className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
+                  style={{
+                    background: "rgba(249,115,22,0.10)",
+                    border: "1px solid rgba(249,115,22,0.30)",
+                    boxShadow: "0 0 14px rgba(249,115,22,0.18), inset 0 1px 0 rgba(255,255,255,0.06)",
+                  }}
+                >
+                  <Wrench className="h-4 w-4 text-[#f97316]" />
+                </span>
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/40">Product updates</p>
+                  <p className="text-[13.5px] font-semibold text-white/85 mt-0.5">Patches, releases & maintenance log</p>
+                </div>
               </div>
-              <span className="flex items-center gap-1.5 text-[#f97316] text-[13px] font-bold whitespace-nowrap">
-                See full changelog
+              <span className="flex items-center gap-1.5 text-[#f97316] text-[12px] font-bold uppercase tracking-[0.14em] whitespace-nowrap">
+                Full changelog
                 <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
               </span>
             </Link>
@@ -669,6 +778,58 @@ export default function StatusPage() {
         }
       `}</style>
     </>
+  )
+}
+
+/* ════════ Hero operations panel metric ════════ */
+function HeroMetric({
+  value,
+  label,
+  gradient,
+  glow,
+  icon,
+  iconColor,
+}: {
+  value: string
+  label: string
+  gradient: string
+  glow: string
+  icon: React.ReactNode
+  iconColor: string
+}) {
+  return (
+    <div className="relative px-6 py-7 text-center md:text-left border-b md:border-b-0 md:border-r last:border-r-0 border-white/[0.05] overflow-hidden">
+      <div
+        aria-hidden="true"
+        className="absolute -bottom-12 left-1/2 -translate-x-1/2 w-40 h-20 pointer-events-none opacity-40"
+        style={{ background: `radial-gradient(ellipse, ${glow}, transparent 70%)`, filter: "blur(30px)" }}
+      />
+      <div className="relative flex items-center gap-2 justify-center md:justify-start mb-2">
+        <span className={iconColor}>{icon}</span>
+        <span className="text-[9.5px] font-bold uppercase tracking-[0.22em] text-white/40">{label}</span>
+      </div>
+      <p
+        className="relative font-display text-[32px] sm:text-[36px] font-black tabular-nums leading-none tracking-[-0.03em]"
+        style={{
+          background: gradient,
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+          filter: `drop-shadow(0 0 20px ${glow})`,
+        }}
+      >
+        {value}
+      </p>
+    </div>
+  )
+}
+
+/* ════════ Legend pill ════════ */
+function LegendPill({ color, label }: { color: string; label: string }) {
+  return (
+    <span className="inline-flex items-center gap-1.5 text-white/35 uppercase tracking-[0.18em] font-semibold">
+      <span className={`h-1.5 w-1.5 rounded-full ${color}`} />
+      <span>{label}</span>
+    </span>
   )
 }
 
@@ -728,9 +889,23 @@ function StatusSubscribeForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex items-center gap-2 rounded-2xl border border-white/[0.06] bg-white/[0.015] px-4 py-3 focus-within:border-[#f97316]/35 focus-within:bg-white/[0.025] transition-colors"
+      className="relative rounded-2xl border border-white/[0.06] bg-white/[0.014] overflow-hidden flex items-center gap-2 px-4 py-3 focus-within:border-emerald-500/30 transition-colors"
+      style={{ boxShadow: "0 20px 50px -30px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.025)" }}
     >
-      <Mail className="h-4 w-4 text-white/35 shrink-0" />
+      <span
+        aria-hidden="true"
+        className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-emerald-500/45 to-transparent opacity-60"
+      />
+      <span
+        className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
+        style={{
+          background: "rgba(16,185,129,0.10)",
+          border: "1px solid rgba(16,185,129,0.30)",
+          boxShadow: "0 0 14px rgba(16,185,129,0.18), inset 0 1px 0 rgba(255,255,255,0.06)",
+        }}
+      >
+        <Mail className="h-4 w-4 text-emerald-400" />
+      </span>
       <input
         type="email"
         value={email}
