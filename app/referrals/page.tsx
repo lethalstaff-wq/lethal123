@@ -505,7 +505,7 @@ export default function ReferralsPage() {
       {/* ═══════════════ LEADERBOARD ═══════════════ */}
       <section className="py-20">
         <div className="container mx-auto px-4">
-          <div className="max-w-[720px] mx-auto">
+          <div className="max-w-[780px] mx-auto">
             <div className="text-center mb-10">
               <SectionEyebrow number={isLoggedIn ? "03" : "04"} label="Top Referrers" />
               <h2 className="font-display text-4xl sm:text-5xl font-bold tracking-[-0.04em] leading-[1] mb-4 mt-2" style={{ paddingBottom: "0.08em" }}>
@@ -514,50 +514,192 @@ export default function ReferralsPage() {
               </h2>
             </div>
 
-            <div className="rounded-2xl overflow-hidden border border-white/[0.06] bg-white/[0.012]">
-              <div className="flex items-center justify-between px-5 py-4 border-b border-white/[0.05] bg-white/[0.01]">
-                <div className="flex items-center gap-2">
-                  <Flame className="h-4 w-4 text-[#f97316]" />
-                  <span className="font-display text-[10.5px] font-bold uppercase tracking-[0.22em] text-white/60">Top 5 · April</span>
+            <div
+              className="relative rounded-3xl overflow-hidden border border-white/[0.07] bg-white/[0.014]"
+              style={{ boxShadow: "0 40px 100px -40px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.02)" }}
+            >
+              {/* Top accent line */}
+              <div className="absolute top-0 left-10 right-10 h-px bg-gradient-to-r from-transparent via-[#f97316]/50 to-transparent" />
+              {/* Ambient corner glow */}
+              <div
+                aria-hidden="true"
+                className="absolute -top-20 -right-20 w-64 h-64 rounded-full pointer-events-none opacity-40"
+                style={{ background: "radial-gradient(circle, rgba(251,191,36,0.18), transparent 70%)", filter: "blur(40px)" }}
+              />
+
+              {/* Header */}
+              <div className="relative flex items-center justify-between px-6 py-5 border-b border-white/[0.05]">
+                <div className="flex items-center gap-3">
+                  <span
+                    className="w-8 h-8 rounded-full flex items-center justify-center"
+                    style={{
+                      background: "rgba(249,115,22,0.10)",
+                      border: "1px solid rgba(249,115,22,0.35)",
+                      boxShadow: "0 0 20px rgba(249,115,22,0.25), inset 0 1px 0 rgba(255,255,255,0.06)",
+                    }}
+                  >
+                    <Flame className="h-3.5 w-3.5 text-[#f97316]" />
+                  </span>
+                  <div className="leading-tight">
+                    <p className="font-display text-[11px] font-bold uppercase tracking-[0.22em] text-white/75">Top 5 · April 2026</p>
+                    <p className="text-[9.5px] text-white/35 uppercase tracking-[0.18em] font-semibold mt-1">Refreshed hourly · Resets 1st of month</p>
+                  </div>
                 </div>
-                <span className="text-[10px] text-white/35 uppercase tracking-[0.2em] font-semibold">Live</span>
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full shrink-0"
+                      style={{ background: "rgba(16,185,129,0.08)", border: "1px solid rgba(16,185,129,0.28)" }}>
+                  <span className="relative flex w-1.5 h-1.5">
+                    <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70" style={{ animation: "leaderPing 1.8s cubic-bezier(0,0,0.2,1) infinite" }} />
+                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
+                  </span>
+                  <span className="text-[9.5px] uppercase tracking-[0.2em] font-bold text-emerald-400">Live</span>
+                </span>
               </div>
 
-              <div className="divide-y divide-white/[0.03]">
+              {/* Rows */}
+              <div className="divide-y divide-white/[0.035]">
                 {LEADERBOARD.map((e) => {
-                  const max = Math.max(...LEADERBOARD.map((x) => x.value))
-                  const pct = Math.max(8, Math.round((e.value / max) * 100))
+                  const max = LEADERBOARD[0].value
+                  const pct = Math.max(6, Math.round((e.value / max) * 100))
+                  const isFirst = e.rank === 1
+                  const isSecond = e.rank === 2
+                  const isThird = e.rank === 3
                   const isTop3 = e.rank <= 3
+
+                  const medalColor = isFirst ? "#fbbf24" : isSecond ? "#e5e7eb" : isThird ? "#d97706" : "rgba(255,255,255,0.45)"
+                  const medalGlow = isFirst ? "rgba(251,191,36,0.45)" : isSecond ? "rgba(229,231,235,0.35)" : isThird ? "rgba(217,119,6,0.4)" : "rgba(255,255,255,0.08)"
+                  const medalBg = isFirst ? "rgba(251,191,36,0.10)" : isSecond ? "rgba(229,231,235,0.08)" : isThird ? "rgba(217,119,6,0.10)" : "rgba(255,255,255,0.035)"
+                  const MedalIcon = isFirst ? Crown : isTop3 ? Medal : null
+                  const tierHex = e.tier === "Gold" ? "#fbbf24" : e.tier === "Silver" ? "#e5e7eb" : "#d97706"
+                  const earningsGradient = isFirst ? "linear-gradient(180deg, #fde68a 0%, #fbbf24 55%, #d97706 100%)"
+                    : isSecond ? "linear-gradient(180deg, #f9fafb 0%, #d1d5db 55%, #9ca3af 100%)"
+                    : isThird ? "linear-gradient(180deg, #fed7aa 0%, #f97316 55%, #9a3412 100%)" : undefined
+
                   return (
-                    <div key={e.rank} className="px-5 py-4 flex items-center gap-4 hover:bg-white/[0.02] transition-colors">
-                      <span className={cn(
-                        "w-8 h-8 rounded-full flex items-center justify-center text-[14px] font-black shrink-0 tabular-nums",
-                        e.rank === 1 ? "bg-yellow-400/15 text-yellow-400"  :
-                        e.rank === 2 ? "bg-gray-300/15 text-gray-300"      :
-                        e.rank === 3 ? "bg-amber-600/15 text-amber-500"    :
-                        "bg-white/[0.04] text-white/55"
-                      )}>{e.rank}</span>
-                      <div className="flex-1 min-w-0">
-                        <p className="font-semibold text-white text-[13.5px] truncate">{e.name}</p>
-                        <p className="text-[10.5px] text-white/45 tabular-nums mb-2">{e.refs} refs · {e.tier}</p>
-                        <div className="relative h-[4px] rounded-full bg-white/[0.04] overflow-hidden">
-                          <div
-                            className="absolute inset-y-0 left-0 rounded-full transition-all"
+                    <div
+                      key={e.rank}
+                      className="relative group flex items-center gap-4 sm:gap-5 px-5 sm:px-6 py-4 sm:py-5 hover:bg-white/[0.02] transition-colors"
+                      style={isFirst ? { background: "linear-gradient(90deg, rgba(251,191,36,0.045), rgba(249,115,22,0.015) 45%, transparent 75%)" } : undefined}
+                    >
+                      {/* Rank medal */}
+                      <div className="shrink-0 relative">
+                        <div
+                          className="w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-black font-display text-[14px] tabular-nums"
+                          style={{
+                            background: medalBg,
+                            border: `1px solid ${medalGlow}`,
+                            color: medalColor,
+                            boxShadow: isTop3
+                              ? `inset 0 1px 0 rgba(255,255,255,0.14), 0 0 22px ${medalGlow}`
+                              : "inset 0 1px 0 rgba(255,255,255,0.04)",
+                          }}
+                        >
+                          {MedalIcon ? (
+                            <MedalIcon
+                              className="h-5 w-5"
+                              strokeWidth={2}
+                              style={{ color: medalColor, filter: `drop-shadow(0 0 10px ${medalGlow})` }}
+                            />
+                          ) : (
+                            e.rank
+                          )}
+                        </div>
+                        {isFirst && (
+                          <span
+                            className="absolute -top-1.5 -right-1.5 text-[8px] font-black px-1.5 py-[1.5px] rounded-full uppercase tracking-[0.1em]"
                             style={{
-                              width: `${pct}%`,
-                              background: isTop3 ? "linear-gradient(90deg, #fbbf24, #f97316)" : "linear-gradient(90deg, rgba(249,115,22,0.4), rgba(249,115,22,0.6))",
-                              boxShadow: isTop3 ? "0 0 12px rgba(249,115,22,0.55)" : undefined,
+                              background: "linear-gradient(180deg, #fde68a, #f59e0b)",
+                              color: "#1a1200",
+                              boxShadow: "0 4px 12px -2px rgba(251,191,36,0.6)",
                             }}
-                          />
+                          >
+                            #1
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Name + tier + bar */}
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+                          <p className={cn("font-semibold truncate", isTop3 ? "text-white text-[14.5px]" : "text-white/80 text-[13.5px]")}>
+                            {e.name}
+                          </p>
+                          <span
+                            className="inline-flex items-center px-1.5 py-[2px] rounded-full text-[9px] font-bold uppercase tracking-[0.15em] shrink-0"
+                            style={{ background: `${tierHex}15`, color: tierHex, border: `1px solid ${tierHex}35` }}
+                          >
+                            {e.tier}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <span className="inline-flex items-center gap-1 text-[10.5px] text-white/50 tabular-nums shrink-0">
+                            <Users className="h-3 w-3 text-white/35" strokeWidth={2} />
+                            {e.refs} refs
+                          </span>
+                          <div className="flex-1 relative h-[5px] rounded-full bg-white/[0.035] overflow-hidden max-w-[260px]">
+                            <div
+                              className="absolute inset-y-0 left-0 rounded-full"
+                              style={{
+                                width: `${pct}%`,
+                                background: isTop3
+                                  ? `linear-gradient(90deg, ${medalColor}aa, ${medalColor})`
+                                  : "linear-gradient(90deg, rgba(249,115,22,0.4), rgba(249,115,22,0.75))",
+                                boxShadow: isTop3 ? `0 0 10px ${medalGlow}` : "0 0 6px rgba(249,115,22,0.3)",
+                              }}
+                            />
+                            {isFirst && (
+                              <span
+                                className="absolute inset-y-0 w-8 pointer-events-none"
+                                style={{
+                                  background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent)",
+                                  animation: "leaderShine 2.4s ease-in-out infinite",
+                                }}
+                              />
+                            )}
+                          </div>
                         </div>
                       </div>
-                      <p className={cn("text-[15px] font-black tabular-nums shrink-0 min-w-[70px] text-right", isTop3 ? "text-[#f97316]" : "text-white/85")}>
-                        £{e.value.toFixed(2)}
-                      </p>
+
+                      {/* Earnings */}
+                      <div className="shrink-0 text-right">
+                        <p
+                          className={cn("font-display text-[17px] sm:text-[18px] font-black tabular-nums leading-none", isTop3 ? "" : "text-white/85")}
+                          style={earningsGradient ? {
+                            background: earningsGradient,
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent",
+                            filter: isFirst ? "drop-shadow(0 0 18px rgba(251,191,36,0.35))" : undefined,
+                          } : undefined}
+                        >
+                          £{e.value.toFixed(2)}
+                        </p>
+                        <p className="text-[9px] text-white/35 uppercase tracking-[0.2em] font-semibold mt-1">Earned</p>
+                      </div>
                     </div>
                   )
                 })}
               </div>
+
+              {/* Footer note */}
+              <div className="relative px-6 py-3.5 border-t border-white/[0.04] bg-white/[0.01] flex items-center justify-between">
+                <span className="text-[10px] text-white/35 uppercase tracking-[0.2em] font-semibold">
+                  {LEADERBOARD.length} of {LEADERBOARD.length} shown
+                </span>
+                <span className="text-[10px] text-white/45 font-semibold inline-flex items-center gap-1.5">
+                  Next reset in <span className="text-white/70 tabular-nums">7d 04h</span>
+                </span>
+              </div>
+
+              <style jsx>{`
+                @keyframes leaderPing {
+                  0%   { transform: scale(1);    opacity: 0.7; }
+                  75%  { transform: scale(2.2);  opacity: 0; }
+                  100% { transform: scale(2.2);  opacity: 0; }
+                }
+                @keyframes leaderShine {
+                  0%   { transform: translateX(-120%); }
+                  100% { transform: translateX(520%); }
+                }
+              `}</style>
             </div>
           </div>
         </div>
