@@ -92,7 +92,7 @@ export default function ReferralsPage() {
   }, [])
 
   const shareLink = referralCode
-    ? `https://lethalsolutions.com?ref=${referralCode}`
+    ? `https://lethalsolutions.me/ref/${referralCode}`
     : ""
 
   const copyCode = () => {
@@ -240,16 +240,24 @@ export default function ReferralsPage() {
                 ))}
               </div>
 
-              {/* Referral link card — muted so it doesn't overwhelm History below */}
+              {/* Referral link card — subtle sweep on hover (no cursor-dot spotlight) */}
               <div
-                className="spotlight-card relative rounded-2xl p-7 overflow-hidden"
+                className="group relative rounded-2xl p-7 overflow-hidden transition-[border-color,box-shadow] duration-500"
                 style={{
                   background: "linear-gradient(135deg, rgba(249,115,22,0.035), rgba(255,255,255,0.012) 60%)",
                   border: "1px solid rgba(249,115,22,0.12)",
                   boxShadow: "0 20px 50px -25px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.03)",
                 }}
               >
-                <div className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-[#f97316]/40 to-transparent" />
+                <div className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-[#f97316]/40 to-transparent transition-opacity duration-500 group-hover:via-[#f97316]/80" />
+                {/* Wide ambient hover wash — no cursor-following dot */}
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-[600ms] pointer-events-none"
+                  style={{
+                    background: "radial-gradient(ellipse 120% 90% at 50% 0%, rgba(249,115,22,0.10), transparent 60%)",
+                  }}
+                />
                 <div className="flex items-center gap-2 mb-4">
                   <Share2 className="h-4 w-4 text-[#f97316]" />
                   <span className="font-display text-[10.5px] font-bold uppercase tracking-[0.22em] text-[#f97316]">Your link</span>

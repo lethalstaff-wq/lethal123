@@ -84,7 +84,13 @@ export function Navbar() {
 
             {/* Center nav — pill with layoutId morph */}
             <div className="hidden lg:flex items-center absolute left-1/2 -translate-x-1/2">
-              <div className="flex items-center gap-0.5 rounded-full px-1.5 py-1 backdrop-blur-xl bg-white/[0.04] border border-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
+              <div
+                className="flex items-center gap-0.5 rounded-full px-1.5 py-1 backdrop-blur-xl bg-white/[0.035] border border-white/[0.07]"
+                style={{
+                  boxShadow:
+                    "inset 0 1px 0 rgba(255,255,255,0.05), inset 0 0 0 0.5px rgba(255,255,255,0.02), 0 8px 32px -12px rgba(0,0,0,0.5)",
+                }}
+              >
                 {navLinks.map((link) => {
                   const isActive = link.href === "/" ? pathname === "/" : pathname.startsWith(link.href)
                   return (
@@ -96,13 +102,38 @@ export function Navbar() {
                       className={`cursor-cta relative px-4 py-1.5 text-[13px] font-semibold rounded-full transition-colors duration-200 ${
                         isActive ? "text-white" : "text-white/55 hover:text-white"
                       }`}
+                      style={
+                        isActive
+                          ? { textShadow: "0 1px 2px rgba(90,30,0,0.35)" }
+                          : undefined
+                      }
                     >
                       {isActive && (
                         <motion.span
                           layoutId="navbar-active-pill"
-                          className="absolute inset-0 rounded-full bg-gradient-to-br from-[#f97316] to-[#ea580c] shadow-[0_4px_14px_rgba(249,115,22,0.6)]"
+                          className="absolute inset-0 rounded-full overflow-hidden"
+                          style={{
+                            background:
+                              "linear-gradient(180deg, #fb923c 0%, #f97316 52%, #ea580c 100%)",
+                            boxShadow: [
+                              "inset 0 1px 0 rgba(255,255,255,0.32)",
+                              "inset 0 -1px 0 rgba(0,0,0,0.22)",
+                              "inset 0 0 0 0.5px rgba(255,255,255,0.22)",
+                              "0 2px 6px -1px rgba(249,115,22,0.45)",
+                              "0 8px 24px -6px rgba(249,115,22,0.6)",
+                            ].join(", "),
+                          }}
                           transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                        />
+                        >
+                          {/* Glossy top sheen */}
+                          <span
+                            className="absolute inset-x-0 top-0 h-1/2 rounded-t-full pointer-events-none"
+                            style={{
+                              background:
+                                "linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 100%)",
+                            }}
+                          />
+                        </motion.span>
                       )}
                       <span className="relative z-[2]">{link.label}</span>
                     </Link>
