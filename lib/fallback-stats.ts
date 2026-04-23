@@ -4,7 +4,7 @@
 export const FALLBACK_STATS = {
   // Home
   ordersToday: 18,
-  reviewsCount: 3447,
+  reviewsCount: 3457,
   undetectedRate: 99.8,
   patchTimeHours: 2,
   uniqueBuilds: 2147,

@@ -5,7 +5,8 @@ import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion
 import { ArrowRight } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
-import { getTotalReviewCount, getOrdersToday } from "@/lib/review-counts"
+import { getOrdersToday } from "@/lib/review-counts"
+import { useReviewCount } from "@/hooks/use-review-count"
 import { FALLBACK_STATS } from "@/lib/fallback-stats"
 import { Magnetic } from "@/components/magnetic-button"
 
@@ -79,7 +80,7 @@ function CharReveal({ text, delayBase = 0, className = "", styleOverride }: { te
 export function HeroSection() {
   const ordersRaw = getOrdersToday()
   const ordersToday = ordersRaw > 0 ? ordersRaw : FALLBACK_STATS.ordersToday
-  const totalReviews = getTotalReviewCount() || FALLBACK_STATS.reviewsCount
+  const totalReviews = useReviewCount()
   const sectionRef = useRef<HTMLElement>(null)
   const reduced = useReducedMotion()
 

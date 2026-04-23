@@ -3,7 +3,7 @@
 import { memo } from "react"
 import { Star, MessageSquare, ArrowRight } from "lucide-react"
 import Link from "next/link"
-import { getTotalReviewCount } from "@/lib/review-counts"
+import { useReviewCount } from "@/hooks/use-review-count"
 import { SectionEyebrow } from "@/components/section-eyebrow"
 
 const testimonials = [
@@ -102,7 +102,7 @@ function VerticalColumn({ items, reverse, speed = 40 }: { items: typeof testimon
 }
 
 export function TestimonialsSection() {
-  const total = getTotalReviewCount()
+  const total = useReviewCount()
   // Split testimonials into 3 groups
   const col1 = testimonials.filter((_, i) => i % 3 === 0)
   const col2 = testimonials.filter((_, i) => i % 3 === 1)

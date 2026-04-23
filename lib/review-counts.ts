@@ -1,7 +1,9 @@
 // Review counts — matches seeded DB data (legacy + currently-visible native).
 // Refresh with `node --env-file=.env.local -e "..."` when seed changes.
+// Used only as a fallback for SSR/first paint — live value comes from
+// /api/reviews/count via useReviewCount().
 
-const TOTAL_REVIEWS = 3447
+const TOTAL_REVIEWS = 3457
 
 export const PRODUCT_REVIEW_COUNTS: Record<string, number> = {
   "fortnite-external": 1282,
