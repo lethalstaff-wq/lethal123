@@ -20,6 +20,7 @@ import Image from "next/image"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { Magnetic } from "@/components/magnetic-button"
+import { GlossyButton } from "@/components/ui/glossy-button"
 
 type OrderStatus = "pending" | "processing" | "completed" | "cancelled" | "refunded"
 
@@ -543,21 +544,19 @@ export default function TrackOrderPage() {
 
             <div className="space-y-2">
               <Magnetic strength={0.1} className="block w-full">
-                <button
+                <GlossyButton
                   type="submit"
+                  shape="block"
+                  size="xl"
+                  full
                   disabled={loading || !searchValue.trim()}
                   data-cursor="cta"
                   data-cursor-label={loading ? "Search" : "Track"}
-                  className="cursor-cta press-spring group relative overflow-hidden flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-[#f97316] to-[#ea580c] px-6 py-5 text-[17px] font-bold text-white shadow-[0_0_28px_rgba(249,115,22,0.35)] transition-all hover:shadow-[0_0_50px_rgba(249,115,22,0.6)] hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="cursor-cta press-spring"
+                  rightIcon={loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <ArrowRight className="h-4 w-4 transition-transform group-hover/glossy:translate-x-0.5" />}
                 >
-                  <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
-                  {loading ? <Loader2 className="relative z-10 h-4 w-4 animate-spin" /> : (
-                    <>
-                      <span className="relative z-10">Track Order</span>
-                      <ArrowRight className="relative z-10 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                    </>
-                  )}
-                </button>
+                  {loading ? "Tracking…" : "Track Order"}
+                </GlossyButton>
               </Magnetic>
 
               {/* Secondary helper — "Need the order ID?" */}

@@ -5,6 +5,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
+import { GlossyButton } from "@/components/ui/glossy-button"
 import { Badge } from "@/components/ui/badge"
 import { useCart } from "@/lib/cart-context"
 import {
@@ -363,19 +364,20 @@ export function ProductDetailClient({ product }: { product: Product }) {
 
           {/* CTA Buttons */}
           <div className="space-y-2.5 sm:space-y-3 mb-6">
-            <Button
+            <GlossyButton
               id="buy-now-btn"
               onClick={handleBuyNow}
-              size="lg"
               disabled={buying}
               data-cursor="cta"
               data-cursor-label="Buy"
-              className="cursor-cta press-spring group relative overflow-hidden w-full h-12 sm:h-14 text-sm sm:text-base font-bold gap-2 rounded-xl bg-gradient-to-br from-[#f97316] to-[#ea580c] hover:brightness-110 hover:scale-[1.02] text-white border-0 shadow-[0_8px_24px_rgba(249,115,22,0.51),inset_0_1px_0_rgba(255,255,255,0.10)] hover:shadow-[0_12px_36px_rgba(249,115,22,0.72)] transition-all disabled:opacity-90"
+              shape="block"
+              size="lg"
+              full
+              className="cursor-cta press-spring h-12 sm:h-14 text-sm sm:text-base"
+              leftIcon={<Zap className="h-4 w-4" />}
             >
-              <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
-              <Zap className="relative z-10 h-4 w-4" />
-              <span className="relative z-10">Buy Now — {"£"}{total.toFixed(2)}</span>
-            </Button>
+              Buy Now — £{total.toFixed(2)}
+            </GlossyButton>
             <div className="grid grid-cols-2 gap-2 sm:gap-3">
               <Button
                 onClick={handleAddToCart}
@@ -612,9 +614,9 @@ export function ProductDetailClient({ product }: { product: Product }) {
               <p className="text-sm font-bold">{product.name}</p>
               <p className="text-lg font-black text-[#f97316]">{"£"}{selectedVariant.price}</p>
             </div>
-            <button onClick={handleBuyNow} className="px-6 py-3 rounded-xl bg-[#f97316] text-white font-bold text-sm">
+            <GlossyButton onClick={handleBuyNow} shape="block" size="md">
               Buy Now
-            </button>
+            </GlossyButton>
           </div>
         </div>
       )}

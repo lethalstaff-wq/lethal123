@@ -5,6 +5,7 @@ import { SectionEyebrow } from "@/components/section-eyebrow"
 import { useDiscordOnline } from "@/components/discord-online"
 import { FALLBACK_STATS } from "@/lib/fallback-stats"
 import { DiscordIcon, TelegramIcon } from "@/components/icons"
+import { GlossyLink } from "@/components/ui/glossy-button"
 
 type Stats = { online: number; members: number; invite: string }
 
@@ -23,24 +24,21 @@ const MEMBERS: Member[] = [
 function CommunityCTA({ s }: { s: Stats }) {
   return (
     <div className="flex items-center justify-center gap-3 flex-wrap">
-      <a
+      <GlossyLink
         href={s.invite}
         target="_blank"
         rel="noopener noreferrer"
-        className="relative overflow-hidden inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl text-[14px] font-bold text-white group"
-        style={{
-          background: "linear-gradient(135deg, #f97316, #ea580c)",
-          boxShadow: "0 14px 38px rgba(249,115,22,0.55), inset 0 1px 0 rgba(255,255,255,0.18)",
-        }}
+        shape="block"
+        size="md"
+        className="h-11 px-5"
+        leftIcon={<DiscordIcon className="h-3.5 w-3.5" />}
+        rightIcon={<ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/glossy:translate-x-1" />}
       >
-        <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
-        <DiscordIcon className="relative z-10 h-4 w-4" />
-        <span className="relative z-10">Join Discord</span>
-        <ArrowRight className="relative z-10 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-      </a>
+        Join Discord
+      </GlossyLink>
       <a
         href="mailto:support@lethalsolutions.me"
-        className="inline-flex items-center gap-1.5 px-4 py-3 rounded-xl text-[13px] font-semibold text-white/70 bg-white/[0.025] border border-white/[0.07] hover:border-[#f97316]/30 hover:text-white transition-all"
+        className="inline-flex items-center gap-1.5 h-11 px-4 rounded-xl text-[13px] font-semibold text-white/70 bg-white/[0.025] border border-white/[0.07] hover:border-[#f97316]/30 hover:text-white transition-all"
       >
         <Mail className="h-3.5 w-3.5" /> Email
       </a>
@@ -48,7 +46,7 @@ function CommunityCTA({ s }: { s: Stats }) {
         href="https://t.me/lethalsolutions"
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-1.5 px-4 py-3 rounded-xl text-[13px] font-semibold text-white/70 bg-white/[0.025] border border-white/[0.07] hover:border-[#f97316]/30 hover:text-white transition-all"
+        className="inline-flex items-center gap-1.5 h-11 px-4 rounded-xl text-[13px] font-semibold text-white/70 bg-white/[0.025] border border-white/[0.07] hover:border-[#f97316]/30 hover:text-white transition-all"
       >
         <TelegramIcon className="h-3.5 w-3.5" /> Telegram
       </a>

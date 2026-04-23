@@ -14,6 +14,7 @@ import { DiscordCheckoutModal } from "@/components/discord-checkout-modal"
 import { PRODUCTS, formatPrice } from "@/lib/products"
 import { getWishlist } from "@/lib/wishlist"
 import { toast } from "sonner"
+import { GlossyButton, GlossyLink } from "@/components/ui/glossy-button"
 
 export default function CartPage() {
   const { items, removeItem, updateQuantity, total, clearCart, addItem } = useCart()
@@ -108,17 +109,16 @@ export default function CartPage() {
               <p className="text-white/55 mb-7 text-[15px] max-w-sm mx-auto leading-relaxed">
                 Pick a product to secure your setup. Delivery lands in seconds after checkout.
               </p>
-              <Link
+              <GlossyLink
                 href="/products"
                 data-cursor="cta"
                 data-cursor-label="Shop"
-                className="cursor-cta group relative inline-flex items-center gap-2 px-7 py-3.5 overflow-hidden text-white font-bold text-[15px] rounded-xl shadow-[0_0_28px_rgba(249,115,22,0.4)] hover:shadow-[0_0_50px_rgba(249,115,22,0.7)] hover:scale-[1.03] press-spring transition-all"
-                style={{ background: "linear-gradient(135deg, #f97316, #ea580c)" }}
+                size="lg"
+                className="cursor-cta press-spring"
+                rightIcon={<ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/glossy:translate-x-1" />}
               >
-                <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
-                <span className="relative z-10">Browse Products</span>
-                <ArrowRight className="relative z-10 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
+                Browse Products
+              </GlossyLink>
             </div>
 
             {/* Wishlist nudge — only if user has saved items */}
@@ -328,17 +328,18 @@ export default function CartPage() {
                   </div>
 
                   {/* Checkout button */}
-                  <button
+                  <GlossyButton
                     onClick={() => router.push("/checkout")}
                     data-cursor="cta"
                     data-cursor-label="Checkout"
-                    className="cursor-cta press-spring group relative overflow-hidden w-full flex items-center justify-center gap-2 font-bold py-4 rounded-xl text-white text-[15px] shadow-[0_0_28px_rgba(249,115,22,0.35)] hover:shadow-[0_0_50px_rgba(249,115,22,0.6)] hover:-translate-y-0.5 transition-all"
-                    style={{ background: "linear-gradient(135deg, #f97316, #ea580c)" }}
+                    shape="block"
+                    size="lg"
+                    full
+                    className="cursor-cta press-spring"
+                    rightIcon={<ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/glossy:translate-x-1" />}
                   >
-                    <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
-                    <span className="relative z-10">Proceed to Checkout</span>
-                    <ArrowRight className="relative z-10 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                  </button>
+                    Proceed to Checkout
+                  </GlossyButton>
 
                   {/* Accepted methods */}
                   <div className="mt-4 flex items-center justify-center gap-3">
@@ -388,16 +389,17 @@ export default function CartPage() {
               <p className="font-display text-[22px] font-black tracking-tight text-white tabular-nums leading-none mt-0.5">£{finalTotal.toFixed(2)}</p>
               <p className="text-[10px] text-white/40 mt-0.5">{items.length} {items.length === 1 ? "item" : "items"}</p>
             </div>
-            <button
+            <GlossyButton
               onClick={() => router.push("/checkout")}
               data-cursor="cta"
               data-cursor-label="Checkout"
-              className="cursor-cta press-spring inline-flex items-center gap-2 px-5 py-3 rounded-xl font-bold text-[14px] text-white shadow-[0_0_28px_rgba(249,115,22,0.4)] active:scale-[0.97] transition-transform"
-              style={{ background: "linear-gradient(135deg, #f97316, #ea580c)" }}
+              shape="block"
+              size="md"
+              className="cursor-cta press-spring"
+              rightIcon={<ArrowRight className="h-4 w-4" />}
             >
               Checkout
-              <ArrowRight className="h-4 w-4" />
-            </button>
+            </GlossyButton>
           </div>
         </div>
       </div>

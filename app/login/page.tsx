@@ -9,6 +9,7 @@ import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { Loader2, ArrowRight, XCircle, CheckCircle2, Mail, ArrowLeft } from "lucide-react"
 import { Magnetic } from "@/components/magnetic-button"
+import { GlossyButton } from "@/components/ui/glossy-button"
 import { useDiscordOnline } from "@/components/discord-online"
 
 export default function LoginPage() {
@@ -221,9 +222,25 @@ export default function LoginPage() {
                   {activeTab === tab.key && (
                     <motion.span
                       layoutId="login-tab-active"
-                      className="absolute inset-0 rounded-lg bg-gradient-to-br from-[#f97316] to-[#ea580c] shadow-[0_4px_14px_rgba(249,115,22,0.58)]"
+                      className="absolute inset-0 rounded-lg overflow-hidden"
+                      style={{
+                        background: "linear-gradient(180deg, #fb923c 0%, #f97316 52%, #ea580c 100%)",
+                        boxShadow: [
+                          "inset 0 1px 0 rgba(255,255,255,0.32)",
+                          "inset 0 -1px 0 rgba(0,0,0,0.22)",
+                          "inset 0 0 0 0.5px rgba(255,255,255,0.22)",
+                          "0 2px 6px -1px rgba(249,115,22,0.45)",
+                          "0 8px 24px -6px rgba(249,115,22,0.6)",
+                        ].join(", "),
+                      }}
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                    />
+                    >
+                      <span
+                        aria-hidden="true"
+                        className="absolute inset-x-0 top-0 h-1/2 rounded-t-lg pointer-events-none"
+                        style={{ background: "linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 100%)" }}
+                      />
+                    </motion.span>
                   )}
                   <span className="relative z-[2]">{tab.label}</span>
                 </button>
@@ -277,18 +294,19 @@ export default function LoginPage() {
               )}
 
               <Magnetic strength={0.1} className="block w-full">
-              <button
-                type="submit"
-                data-cursor="cta"
-                data-cursor-label={isLoading ? "Wait" : "Send link"}
-                className="cursor-cta press-spring group relative overflow-hidden flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-[#f97316] to-[#ea580c] px-4 py-3.5 text-[15px] font-bold text-white shadow-[0_0_28px_rgba(249,115,22,0.35)] transition-all hover:shadow-[0_0_50px_rgba(249,115,22,0.6)] hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
-                disabled={isLoading}
-              >
-                <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
-                {isLoading ? <Loader2 className="relative z-10 h-4 w-4 animate-spin" /> : (
-                  <><Mail className="relative z-10 h-4 w-4" /><span className="relative z-10">Send magic link</span></>
-                )}
-              </button>
+                <GlossyButton
+                  type="submit"
+                  shape="block"
+                  size="lg"
+                  full
+                  disabled={isLoading}
+                  data-cursor="cta"
+                  data-cursor-label={isLoading ? "Wait" : "Send link"}
+                  className="cursor-cta press-spring"
+                  leftIcon={isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Mail className="h-4 w-4" />}
+                >
+                  {isLoading ? "Sending…" : "Send magic link"}
+                </GlossyButton>
               </Magnetic>
 
               <button
@@ -350,18 +368,19 @@ export default function LoginPage() {
               )}
 
               <Magnetic strength={0.1} className="block w-full">
-              <button
-                type="submit"
-                data-cursor="cta"
-                data-cursor-label={isLoading ? "Wait" : activeTab === "login" ? "Sign In" : "Sign Up"}
-                className="cursor-cta press-spring group relative overflow-hidden flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-[#f97316] to-[#ea580c] px-4 py-3.5 text-[15px] font-bold text-white shadow-[0_0_28px_rgba(249,115,22,0.35)] transition-all hover:shadow-[0_0_50px_rgba(249,115,22,0.6)] hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
-                disabled={isLoading}
-              >
-                <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
-                {isLoading ? <Loader2 className="relative z-10 h-4 w-4 animate-spin" /> : (
-                  <><span className="relative z-10">Sign In</span><ArrowRight className="relative z-10 h-4 w-4 transition-transform group-hover:translate-x-0.5" /></>
-                )}
-              </button>
+                <GlossyButton
+                  type="submit"
+                  shape="block"
+                  size="lg"
+                  full
+                  disabled={isLoading}
+                  data-cursor="cta"
+                  data-cursor-label={isLoading ? "Wait" : "Sign In"}
+                  className="cursor-cta press-spring"
+                  rightIcon={isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <ArrowRight className="h-4 w-4 transition-transform group-hover/glossy:translate-x-0.5" />}
+                >
+                  {isLoading ? "Signing in…" : "Sign In"}
+                </GlossyButton>
               </Magnetic>
             </motion.form>
           )}
@@ -406,18 +425,19 @@ export default function LoginPage() {
               )}
 
               <Magnetic strength={0.1} className="block w-full">
-              <button
-                type="submit"
-                data-cursor="cta"
-                data-cursor-label={isLoading ? "Wait" : "Sign Up"}
-                className="cursor-cta press-spring group relative overflow-hidden flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-[#f97316] to-[#ea580c] px-4 py-3.5 text-[15px] font-bold text-white shadow-[0_0_28px_rgba(249,115,22,0.35)] transition-all hover:shadow-[0_0_50px_rgba(249,115,22,0.6)] hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
-                disabled={isLoading}
-              >
-                <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
-                {isLoading ? <Loader2 className="relative z-10 h-4 w-4 animate-spin" /> : (
-                  <><span className="relative z-10">Create Account</span><ArrowRight className="relative z-10 h-4 w-4 transition-transform group-hover:translate-x-0.5" /></>
-                )}
-              </button>
+                <GlossyButton
+                  type="submit"
+                  shape="block"
+                  size="lg"
+                  full
+                  disabled={isLoading}
+                  data-cursor="cta"
+                  data-cursor-label={isLoading ? "Wait" : "Sign Up"}
+                  className="cursor-cta press-spring"
+                  rightIcon={isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <ArrowRight className="h-4 w-4 transition-transform group-hover/glossy:translate-x-0.5" />}
+                >
+                  {isLoading ? "Creating…" : "Create Account"}
+                </GlossyButton>
               </Magnetic>
             </motion.form>
           )}

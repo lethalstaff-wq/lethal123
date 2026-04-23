@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { useState, useEffect, useRef } from "react"
 import { SectionEyebrow } from "@/components/section-eyebrow"
+import { GlossyButton } from "@/components/ui/glossy-button"
 
 function AnimPrice({ value }: { value: number }) {
   const [count, setCount] = useState(value)
@@ -170,25 +171,62 @@ function BundleCard({ b, onAdd }: { b: typeof bundles[number]; onAdd: (b: typeof
           ))}
         </div>
 
-        {/* Button with shine sweep — primary tier (Advanced = recommended) gets a larger button */}
-        <button
-          onClick={() => onAdd(b)}
-          data-cursor="cta"
-          data-cursor-label={b.premium ? "Elite" : b.highlighted ? "Get it" : "Add"}
-          className={`cursor-cta press-spring group/btn w-full rounded-xl font-bold flex items-center justify-center gap-2.5 transition-all duration-300 relative z-[3] overflow-hidden ${
-            b.highlighted ? "py-4 text-[16px]" : "py-3 text-[14px]"
-          } ${
-            b.highlighted || b.premium
-              ? "text-white hover:brightness-110"
-              : "border border-white/[0.08] bg-white/[0.02] text-white/60 hover:border-[#f97316]/35 hover:bg-[#f97316]/[0.06] hover:text-white"
-          }`}
-          style={b.premium ? { background: "linear-gradient(135deg, #fbbf24, #f97316, #ea580c)", boxShadow: "0 0 40px rgba(249, 115, 22, 0.51)" } : b.highlighted ? { background: "linear-gradient(135deg, #f97316, #ea580c)", boxShadow: "0 0 30px rgba(249, 115, 22, 0.32)" } : {}}
-        >
-          {/* Shine sweep */}
-          <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
-          <ShoppingCart className="relative z-10 h-4 w-4" />
-          <span className="relative z-10">{b.premium ? "Claim Elite" : b.highlighted ? "Get Started" : "Add to Cart"}</span>
-        </button>
+        {/* Bundle CTA — unified size across all 3 tiers. Elite keeps its gold
+            gradient (premium differentiator); Basic + Advanced use the shared
+            glossy-orange site-wide primary CTA style. */}
+        {b.premium ? (
+          <button
+            onClick={() => onAdd(b)}
+            data-cursor="cta"
+            data-cursor-label="Elite"
+            className="cursor-cta press-spring group/btn relative z-[3] w-full h-12 rounded-xl font-bold text-[14px] text-white flex items-center justify-center gap-2.5 transition-transform duration-300 hover:-translate-y-0.5 overflow-hidden"
+            style={{
+              background: "linear-gradient(180deg, #fde68a 0%, #fbbf24 45%, #f97316 100%)",
+              boxShadow: [
+                "inset 0 1px 0 rgba(255,255,255,0.45)",
+                "inset 0 -1px 0 rgba(0,0,0,0.22)",
+                "inset 0 0 0 0.5px rgba(255,255,255,0.3)",
+                "0 2px 6px -1px rgba(251,191,36,0.5)",
+                "0 8px 28px -6px rgba(251,191,36,0.7)",
+              ].join(", "),
+              textShadow: "0 1px 2px rgba(90,30,0,0.35)",
+            }}
+          >
+            <span
+              aria-hidden="true"
+              className="absolute inset-x-0 top-0 h-1/2 rounded-t-xl pointer-events-none"
+              style={{ background: "linear-gradient(180deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 100%)" }}
+            />
+            <ShoppingCart className="relative z-[1] h-4 w-4" />
+            <span className="relative z-[1]">Claim Elite</span>
+          </button>
+        ) : b.highlighted ? (
+          <GlossyButton
+            onClick={() => onAdd(b)}
+            shape="block"
+            size="md"
+            full
+            data-cursor="cta"
+            data-cursor-label="Get it"
+            className="cursor-cta press-spring h-12"
+            leftIcon={<ShoppingCart className="h-4 w-4" />}
+          >
+            Get Started
+          </GlossyButton>
+        ) : (
+          <GlossyButton
+            onClick={() => onAdd(b)}
+            shape="block"
+            size="md"
+            full
+            data-cursor="cta"
+            data-cursor-label="Add"
+            className="cursor-cta press-spring h-12"
+            leftIcon={<ShoppingCart className="h-4 w-4" />}
+          >
+            Add to Cart
+          </GlossyButton>
+        )}
       </div>
     </div>
   )

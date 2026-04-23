@@ -9,6 +9,7 @@ import { getOrdersToday } from "@/lib/review-counts"
 import { useReviewCount } from "@/hooks/use-review-count"
 import { FALLBACK_STATS } from "@/lib/fallback-stats"
 import { Magnetic } from "@/components/magnetic-button"
+import { GlossyLink } from "@/components/ui/glossy-button"
 
 function Counter({ value }: { value: number }) {
   const [count, setCount] = useState(value)
@@ -242,15 +243,16 @@ export function HeroSection() {
           transition={{ duration: 0.9, delay: 1.55, ease: [0.22, 1, 0.36, 1] }}
         >
           <Magnetic strength={0.22}>
-            <Link
+            <GlossyLink
               href="/products"
               data-cursor="cta"
-              className="cursor-cta group relative inline-flex items-center gap-2.5 px-8 py-4 rounded-xl overflow-hidden bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white font-bold text-[15px] shadow-[0_0_40px_rgba(249,115,22,0.41)] hover:shadow-[0_0_80px_rgba(249,115,22,0.75)] hover:scale-[1.03] transition-all duration-300 press-spring"
+              shape="block"
+              size="xl"
+              className="cursor-cta press-spring"
+              rightIcon={<ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/glossy:translate-x-1" />}
             >
-              <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/35 to-transparent transition-transform duration-1000 pointer-events-none" />
-              <span className="relative z-10">Browse Products</span>
-              <ArrowRight className="relative z-10 h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
-            </Link>
+              Browse Products
+            </GlossyLink>
           </Magnetic>
 
           <Magnetic strength={0.15}>
