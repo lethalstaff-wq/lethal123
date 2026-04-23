@@ -260,13 +260,8 @@ export default function DownloadsPage() {
             {/* Vault catalogue — real product lineup, locked until key is verified */}
             <div className="max-w-5xl mx-auto mt-20">
               <div className="text-center mb-8">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/[0.07] bg-white/[0.015] text-[10.5px] font-bold uppercase tracking-[0.22em] text-white/50">
-                  <Lock className="h-3 w-3 text-[#f97316]" />
-                  <span>Inside the vault</span>
-                  <span className="text-white/25">·</span>
-                  <span className="text-white/35">6 products · key required</span>
-                </div>
-                <h2 className="font-display text-[26px] sm:text-[30px] font-bold tracking-[-0.03em] leading-[1.1] mt-4">
+                <SectionEyebrow number="02" label="Inside The Vault" />
+                <h2 className="font-display text-[26px] sm:text-[30px] font-bold tracking-[-0.03em] leading-[1.1] mt-2">
                   <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.8))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
                     Every build you'll unlock
                   </span>
