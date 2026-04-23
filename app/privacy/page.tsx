@@ -27,7 +27,7 @@ export default function PrivacyPage() {
       <main className="min-h-screen bg-transparent pt-32 pb-20 px-4 relative">
         <div className="container mx-auto max-w-3xl">
           <div className="text-center mb-12">
-            <SectionEyebrow label="Legal" />
+            <SectionEyebrow number="01" label="Legal" />
             <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-bold tracking-[-0.04em] leading-[0.95] mb-5">
               <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Privacy </span>
               <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249, 115, 22, 0.43))" }}>Policy</span>
