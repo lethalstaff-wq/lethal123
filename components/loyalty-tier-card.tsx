@@ -63,12 +63,12 @@ export function LoyaltyTierCard({ xp }: Props) {
     }
 
     const runPreviewLoop = () => {
-      // Preview mode: slow loop that climbs through every tier then resets
-      const MAX_XP = 3600 // lands mid-Elite
-      const RAMP_MS = 18_000 // ~18s to climb
-      const HOLD_MS = 2_500 // brief hold at top
-      const RESET_MS = 900 // quick fade back to 0
-      const CYCLE_MS = RAMP_MS + HOLD_MS + RESET_MS
+      // Preview mode: climb all the way to MAX, hold, then snap back to 0 — no slow rewind
+      const MAX_XP = TIERS[TIERS.length - 1].max // fully fills Elite (4000)
+      const RAMP_MS = 20_000 // ~20s to climb through every tier
+      const HOLD_MS = 2_200 // brief hold at the very end
+      const GAP_MS = 600 // tiny pause at 0 before starting over
+      const CYCLE_MS = RAMP_MS + HOLD_MS + GAP_MS
 
       const tick = (now: number) => {
         if (cancelled) return
@@ -77,15 +77,14 @@ export function LoyaltyTierCard({ xp }: Props) {
 
         let value: number
         if (elapsed < RAMP_MS) {
-          // ease-in-out for smoother tier transitions
           const p = elapsed / RAMP_MS
           const eased = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2
           value = eased * MAX_XP
         } else if (elapsed < RAMP_MS + HOLD_MS) {
           value = MAX_XP
         } else {
-          const p = (elapsed - RAMP_MS - HOLD_MS) / RESET_MS
-          value = MAX_XP * (1 - p)
+          // instant reset — no slow drain back
+          value = 0
         }
         setDisplayXp(Math.round(value))
         raf = requestAnimationFrame(tick)
