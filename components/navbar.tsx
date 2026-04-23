@@ -167,14 +167,46 @@ export function Navbar() {
 
               </div>
 
-              {/* Login or My Account */}
-              <Link href={isAuthed ? "/profile" : "/login"}>
+              {/* Login or My Account — matches active nav pill treatment */}
+              <Link href={isAuthed ? "/profile" : "/login"} className="hidden sm:inline-flex">
                 <Button
                   size="sm"
-                  className="hidden sm:inline-flex bg-gradient-to-br from-[#f97316] to-[#ea580c] hover:brightness-110 text-white text-xs font-bold rounded-full px-4 h-8 gap-1.5 shadow-[0_4px_14px_rgba(249, 115, 22, 0.46)] hover:shadow-[0_6px_20px_rgba(249, 115, 22, 0.72)] hover:-translate-y-0.5 transition-all duration-300 border-0"
+                  className="group/login relative overflow-hidden text-white text-xs font-bold rounded-full px-4 h-8 gap-1.5 border-0 hover:-translate-y-0.5 transition-transform duration-300"
+                  style={{
+                    background:
+                      "linear-gradient(180deg, #fb923c 0%, #f97316 52%, #ea580c 100%)",
+                    boxShadow: [
+                      "inset 0 1px 0 rgba(255,255,255,0.32)",
+                      "inset 0 -1px 0 rgba(0,0,0,0.22)",
+                      "inset 0 0 0 0.5px rgba(255,255,255,0.22)",
+                      "0 2px 6px -1px rgba(249,115,22,0.45)",
+                      "0 8px 24px -6px rgba(249,115,22,0.6)",
+                    ].join(", "),
+                    textShadow: "0 1px 2px rgba(90,30,0,0.35)",
+                  }}
                 >
-                  <User className="h-3.5 w-3.5" />
-                  {isAuthed ? "My Account" : "Customer Login"}
+                  {/* Glossy top sheen — same as active nav pill */}
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-x-0 top-0 h-1/2 rounded-t-full pointer-events-none"
+                    style={{
+                      background:
+                        "linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 100%)",
+                    }}
+                  />
+                  {/* Hover glow amplifier */}
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-0 rounded-full opacity-0 group-hover/login:opacity-100 transition-opacity duration-300 pointer-events-none"
+                    style={{
+                      boxShadow:
+                        "0 4px 12px -2px rgba(249,115,22,0.6), 0 12px 32px -6px rgba(249,115,22,0.7)",
+                    }}
+                  />
+                  <User className="relative z-[1] h-3.5 w-3.5" />
+                  <span className="relative z-[1]">
+                    {isAuthed ? "My Account" : "Customer Login"}
+                  </span>
                 </Button>
               </Link>
 
