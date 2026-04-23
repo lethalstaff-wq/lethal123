@@ -913,6 +913,12 @@ button:focus-visible:not([class*="focus-"]):not(.cursor-cta) {
   100% { background-position:  150% 0; }
 }
 
+/* Rotating dashed ring used around icon tiles on hover (/downloads vault +
+   loyalty-tier icons). */
+@keyframes tierRotate {
+  to { transform: rotate(360deg); }
+}
+
 /* Pulsing green status dot (used on /status and /downloads). */
 @keyframes statusPulse {
   0%, 100% { opacity: 0.7; transform: scale(1);   }

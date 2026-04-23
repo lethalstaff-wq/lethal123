@@ -61,21 +61,24 @@ const LANES: Record<Category, Lane> = {
   firmware: { hex: "#3b82f6", glow: "rgba(59,130,246,0.35)",  rgb: "59,130,246"  },
 }
 
+// Cells shown per tile are facts that match /products + /status exactly, so no
+// existing customer ever sees a "wait, that's not my version" moment. No
+// version / file-size — both are live values that only appear post-auth in the
+// real download manifest; advertising them here would just invite confusion.
 const CATALOGUE_TILES: {
   name: string
   category: Category
   categoryLabel: string
-  version: string
-  size: string
-  undetected: string
-  updated: string
+  platform: string     // which games / anti-cheats it covers
+  build: string        // engine / delivery (External DMA, Kernel Spoofer, Firmware, etc.)
+  undetected: string   // clean-streak — same number shown on /status
 }[] = [
-  { name: "Perm Spoofer",         category: "spoofer",  categoryLabel: "HWID Spoofer",   version: "v4.4.0", size: "42 MB",  undetected: "236d",  updated: "2 days ago"  },
-  { name: "Temp Spoofer",         category: "spoofer",  categoryLabel: "HWID Spoofer",   version: "v3.8.2", size: "28 MB",  undetected: "217d",  updated: "1 week ago"  },
-  { name: "Fortnite External",    category: "cheat",    categoryLabel: "DMA Cheat",      version: "v7.1.4", size: "64 MB",  undetected: "189d",  updated: "3 days ago"  },
-  { name: "Custom DMA Firmware",  category: "firmware", categoryLabel: "Firmware",       version: "v5.0.0", size: "18 MB",  undetected: "134d",  updated: "8 days ago"  },
-  { name: "Streck DMA Cheat",     category: "cheat",    categoryLabel: "DMA Cheat",      version: "v2.3.8", size: "55 MB",  undetected: "120d",  updated: "2 weeks ago" },
-  { name: "Blurred DMA Cheat",    category: "cheat",    categoryLabel: "DMA Cheat",      version: "v1.9.1", size: "47 MB",  undetected: "164d",  updated: "4 days ago"  },
+  { name: "Perm Spoofer",        category: "spoofer",  categoryLabel: "HWID Spoofer", platform: "All games",         build: "Kernel · Permanent",  undetected: "236d" },
+  { name: "Temp Spoofer",        category: "spoofer",  categoryLabel: "HWID Spoofer", platform: "All games",         build: "Kernel · Reboot-based", undetected: "217d" },
+  { name: "Fortnite External",   category: "cheat",    categoryLabel: "DMA Cheat",    platform: "Fortnite",          build: "External · DMA",        undetected: "189d" },
+  { name: "Custom DMA Firmware", category: "firmware", categoryLabel: "Firmware",     platform: "EAC · BE · FaceIt", build: "Signed firmware",       undetected: "134d" },
+  { name: "Streck DMA Cheat",    category: "cheat",    categoryLabel: "DMA Cheat",    platform: "Fortnite · Apex",   build: "External · DMA",        undetected: "120d" },
+  { name: "Blurred DMA Cheat",   category: "cheat",    categoryLabel: "DMA Cheat",    platform: "FN · Apex · Rust",  build: "External · DMA",        undetected: "164d" },
 ]
 
 export default function DownloadsPage() {
@@ -245,14 +248,32 @@ export default function DownloadsPage() {
                   return (
                     <div
                       key={tile.name}
-                      className="group/vault relative rounded-2xl overflow-hidden transition-transform duration-500 hover:-translate-y-[2px]"
+                      className="vault-tile group/vault relative rounded-2xl overflow-hidden transition-all duration-500 hover:-translate-y-[3px]"
                       style={{
-                        background: "linear-gradient(180deg, rgba(255,255,255,0.018), rgba(255,255,255,0.006))",
+                        background: "linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.006))",
                         border: "1px solid rgba(255,255,255,0.06)",
                         boxShadow: "0 20px 50px -30px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.025)",
+                        ["--lane-rgb" as string]: lane.rgb,
+                        ["--lane-hex" as string]: lane.hex,
                       }}
-                      aria-hidden="true"
                     >
+                      {/* Hover select: lane-coloured inner ring + outer bloom — cleanly
+                          indicates "this one is focused" without a shifting border. */}
+                      <span
+                        aria-hidden="true"
+                        className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 group-hover/vault:opacity-100 transition-opacity duration-300"
+                        style={{
+                          boxShadow: `inset 0 0 0 1px rgba(${lane.rgb},0.45), 0 0 0 1px rgba(${lane.rgb},0.18), 0 26px 60px -24px rgba(${lane.rgb},0.5)`,
+                        }}
+                      />
+                      {/* Top hairline that brightens into lane colour on hover */}
+                      <span
+                        aria-hidden="true"
+                        className="absolute top-0 left-8 right-8 h-px opacity-0 group-hover/vault:opacity-100 transition-opacity duration-500"
+                        style={{
+                          background: `linear-gradient(90deg, transparent, rgba(${lane.rgb},0.75), transparent)`,
+                        }}
+                      />
                       {/* Status-coloured left rail */}
                       <span
                         aria-hidden="true"
@@ -264,13 +285,13 @@ export default function DownloadsPage() {
                       {/* Ambient corner glow tinted to lane */}
                       <span
                         aria-hidden="true"
-                        className="absolute -top-14 -right-14 w-40 h-40 rounded-full pointer-events-none opacity-40 group-hover/vault:opacity-70 transition-opacity duration-500"
+                        className="absolute -top-14 -right-14 w-40 h-40 rounded-full pointer-events-none opacity-40 group-hover/vault:opacity-80 transition-opacity duration-500"
                         style={{
                           background: `radial-gradient(circle, ${lane.glow}, transparent 70%)`,
                           filter: "blur(30px)",
                         }}
                       />
-                      {/* Scanline shimmer — slow animated sweep */}
+                      {/* Slow diagonal shimmer */}
                       <span
                         className="pointer-events-none absolute inset-0"
                         style={{
@@ -285,19 +306,28 @@ export default function DownloadsPage() {
                         {/* Header row: icon tile + category caption + padlock */}
                         <div className="flex items-start gap-3 mb-4">
                           <div
-                            className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
+                            className="relative w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
                             style={{
                               background: `rgba(${lane.rgb},0.10)`,
                               border: `1px solid rgba(${lane.rgb},0.3)`,
                               boxShadow: `0 0 16px ${lane.glow.replace("0.35", "0.2").replace("0.38", "0.22")}, inset 0 1px 0 rgba(255,255,255,0.06)`,
                             }}
                           >
+                            {/* Rotating conic ring — appears on hover, adds radar feel */}
+                            <span
+                              aria-hidden="true"
+                              className="absolute inset-[-4px] rounded-xl pointer-events-none opacity-0 group-hover/vault:opacity-100 transition-opacity duration-300"
+                              style={{
+                                border: `1px dashed rgba(${lane.rgb},0.4)`,
+                                animation: "tierRotate 14s linear infinite",
+                              }}
+                            />
                             {tile.category === "firmware" ? (
-                              <Shield className="h-5 w-5" style={{ color: lane.hex }} />
+                              <Shield className="relative h-5 w-5" style={{ color: lane.hex }} />
                             ) : tile.category === "spoofer" ? (
-                              <Package className="h-5 w-5" style={{ color: lane.hex }} />
+                              <Package className="relative h-5 w-5" style={{ color: lane.hex }} />
                             ) : (
-                              <FileDown className="h-5 w-5" style={{ color: lane.hex }} />
+                              <FileDown className="relative h-5 w-5" style={{ color: lane.hex }} />
                             )}
                           </div>
                           <div className="min-w-0 flex-1">
@@ -309,44 +339,47 @@ export default function DownloadsPage() {
                             </h3>
                           </div>
                           <span
-                            className="shrink-0 w-7 h-7 rounded-lg flex items-center justify-center"
+                            className="shrink-0 w-7 h-7 rounded-lg flex items-center justify-center transition-transform duration-400 group-hover/vault:rotate-[18deg]"
                             style={{
                               background: "rgba(255,255,255,0.03)",
                               border: "1px solid rgba(255,255,255,0.06)",
                             }}
                           >
-                            <Lock className="h-3 w-3 text-white/35" />
+                            <Lock className="h-3 w-3 text-white/35 group-hover/vault:text-white/60 transition-colors" />
                           </span>
                         </div>
 
-                        {/* Metadata grid: version + size + undetected streak */}
-                        <div className="grid grid-cols-3 gap-2 mb-4">
-                          <div className="rounded-lg px-2.5 py-2 bg-white/[0.02] border border-white/[0.04]">
-                            <p className="text-[8.5px] font-bold uppercase tracking-[0.18em] text-white/30">Version</p>
-                            <p className="text-[11.5px] font-mono font-semibold text-white/75 mt-0.5 tabular-nums">{tile.version}</p>
+                        {/* Metadata — facts that match /products + /status */}
+                        <div className="grid grid-cols-2 gap-2 mb-3">
+                          <div className="rounded-lg px-2.5 py-2 bg-white/[0.02] border border-white/[0.05]">
+                            <p className="text-[8.5px] font-bold uppercase tracking-[0.18em] text-white/30">Covers</p>
+                            <p className="text-[11.5px] font-semibold text-white/80 mt-0.5 truncate">{tile.platform}</p>
                           </div>
-                          <div className="rounded-lg px-2.5 py-2 bg-white/[0.02] border border-white/[0.04]">
-                            <p className="text-[8.5px] font-bold uppercase tracking-[0.18em] text-white/30">Size</p>
-                            <p className="text-[11.5px] font-mono font-semibold text-white/75 mt-0.5 tabular-nums">{tile.size}</p>
-                          </div>
-                          <div className="rounded-lg px-2.5 py-2 bg-white/[0.02] border border-white/[0.04]">
-                            <p className="text-[8.5px] font-bold uppercase tracking-[0.18em] text-white/30">Clean</p>
-                            <p className="text-[11.5px] font-mono font-semibold text-emerald-400 mt-0.5 tabular-nums">{tile.undetected}</p>
+                          <div className="rounded-lg px-2.5 py-2 bg-white/[0.02] border border-white/[0.05]">
+                            <p className="text-[8.5px] font-bold uppercase tracking-[0.18em] text-white/30">Build</p>
+                            <p className="text-[11.5px] font-semibold text-white/80 mt-0.5 truncate">{tile.build}</p>
                           </div>
                         </div>
 
-                        {/* Footer: status chip + updated */}
+                        {/* Footer row: clean streak pill + locked-until-key note */}
                         <div className="flex items-center justify-between pt-3 border-t border-white/[0.04]">
-                          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/25">
+                          <span
+                            className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full"
+                            style={{
+                              background: "rgba(16,185,129,0.10)",
+                              border: "1px solid rgba(16,185,129,0.28)",
+                              boxShadow: "0 0 10px rgba(16,185,129,0.18)",
+                            }}
+                          >
                             <span className="relative flex w-1 h-1">
                               <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70" style={{ animation: "statusPulse 2s ease-in-out infinite" }} />
                               <span className="relative inline-flex w-1 h-1 rounded-full bg-emerald-400" />
                             </span>
-                            <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-emerald-400">Undetected</span>
+                            <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-emerald-400 tabular-nums">{tile.undetected} clean</span>
                           </span>
-                          <span className="inline-flex items-center gap-1 text-[10px] text-white/40">
-                            <Clock className="h-3 w-3" />
-                            {tile.updated}
+                          <span className="inline-flex items-center gap-1 text-[10px] text-white/35 font-semibold uppercase tracking-[0.16em]">
+                            <Key className="h-3 w-3" />
+                            Key unlocks build
                           </span>
                         </div>
                       </div>
