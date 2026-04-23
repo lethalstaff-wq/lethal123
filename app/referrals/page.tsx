@@ -329,65 +329,79 @@ export default function ReferralsPage() {
               <p className="text-white/45 text-[15px] max-w-md mx-auto">Four tiers. Lifetime. No downgrades.</p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {/* Extra top padding on the grid so the featured badge that sits outside the card never clips */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-5 items-stretch">
               {TIERS.map((tier) => (
                 <div
                   key={tier.name}
                   className={cn(
-                    "spotlight-card group relative p-6 rounded-2xl overflow-hidden transition-all duration-500 hover:-translate-y-1",
+                    "spotlight-card group relative rounded-2xl transition-all duration-500 hover:-translate-y-1",
                     tier.featured
-                      ? "border-[#f97316]/40 shadow-[0_30px_70px_-20px_rgba(0,0,0,0.7),0_0_60px_-15px_rgba(249,115,22,0.4)]"
-                      : "border-white/[0.06] hover:border-white/[0.12]",
+                      ? "lg:-mt-4 lg:mb-0 shadow-[0_30px_70px_-20px_rgba(0,0,0,0.7),0_0_60px_-15px_rgba(249,115,22,0.4)]"
+                      : "hover:border-white/[0.12]",
                   )}
                   style={{
                     background: tier.featured
-                      ? "linear-gradient(180deg, rgba(249,115,22,0.07) 0%, rgba(255,255,255,0.012) 60%, rgba(255,255,255,0.003) 100%)"
+                      ? "linear-gradient(180deg, rgba(249,115,22,0.08) 0%, rgba(255,255,255,0.015) 60%, rgba(255,255,255,0.003) 100%)"
                       : "rgba(255,255,255,0.012)",
-                    border: tier.featured ? "1px solid rgba(249,115,22,0.4)" : undefined,
+                    border: tier.featured ? "1px solid rgba(249,115,22,0.4)" : "1px solid rgba(255,255,255,0.06)",
+                    // NB: intentionally NO overflow-hidden here — the "Most popular" pill has to bleed above the card.
                   }}
                 >
                   {tier.featured && (
-                    <>
-                      <div className="absolute top-0 left-4 right-4 h-px bg-gradient-to-r from-transparent via-[#f97316] to-transparent" />
-                      <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-full text-[9px] font-black uppercase tracking-[0.22em] inline-flex items-center gap-1" style={{ background: "#f97316", color: "#fff", boxShadow: "0 6px 18px -4px rgba(249,115,22,0.7)" }}>
-                        <Sparkles className="h-2.5 w-2.5" /> Most popular
-                      </div>
-                    </>
-                  )}
-                  {tier.name === "Platinum" && (
-                    <span className="absolute top-4 right-4 inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-[0.22em]" style={{ background: "rgba(103,232,249,0.15)", boxShadow: "inset 0 0 0 1px rgba(103,232,249,0.35)", color: "#67e8f9" }}>
-                      New
-                    </span>
-                  )}
-
-                  <div
-                    aria-hidden="true"
-                    className="absolute -top-16 -right-16 w-48 h-48 rounded-full pointer-events-none opacity-60"
-                    style={{ background: `radial-gradient(circle, ${tier.hex}22, transparent 65%)`, filter: "blur(28px)" }}
-                  />
-
-                  <div className="relative">
-                    <div className="flex items-center justify-between mb-5">
-                      <span className="inline-flex items-center justify-center w-12 h-12 rounded-full" style={{ background: `${tier.hex}15`, boxShadow: `inset 0 0 0 1px ${tier.hex}35${tier.featured ? `, 0 0 22px -4px ${tier.hex}66` : ""}` }}>
-                        <tier.Icon className="h-5 w-5" style={{ color: tier.hex, filter: tier.featured ? `drop-shadow(0 0 12px ${tier.hex}aa)` : undefined }} strokeWidth={1.9} />
-                      </span>
-                      <div className="text-right">
-                        <div className="font-display text-[26px] font-black tabular-nums leading-none" style={{ color: tier.hex }}>{tier.commission}</div>
-                        <div className="text-[9.5px] text-white/40 uppercase tracking-[0.22em] font-semibold mt-1">Commission</div>
-                      </div>
+                    <div
+                      className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1.5 rounded-full text-[9.5px] font-black uppercase tracking-[0.2em] inline-flex items-center gap-1.5 z-[3] whitespace-nowrap"
+                      style={{
+                        background: "linear-gradient(135deg, #fbbf24, #f97316)",
+                        color: "#fff",
+                        boxShadow: "0 8px 24px -4px rgba(249,115,22,0.75), inset 0 1px 0 rgba(255,255,255,0.25)",
+                      }}
+                    >
+                      <Sparkles className="h-3 w-3" />
+                      Most popular
                     </div>
-                    <h3 className="font-display text-[19px] font-bold tracking-tight mb-1" style={tier.featured ? { color: tier.hex } : { color: "#fff" }}>
-                      {tier.name}
-                    </h3>
-                    <p className="text-[12px] text-white/45 mb-5 tabular-nums">{tier.refs} referrals</p>
-                    <ul className="space-y-2.5">
-                      {tier.perks.map((perk) => (
-                        <li key={perk} className="flex items-start gap-2 text-[12.5px] text-white/60">
-                          <CheckCircle2 className="h-3 w-3 shrink-0 mt-0.5" style={{ color: tier.featured ? "#f97316" : `${tier.hex}aa` }} />
-                          <span>{perk}</span>
-                        </li>
-                      ))}
-                    </ul>
+                  )}
+
+                  {/* Inner wrapper with overflow so the ambient glow stays clipped inside but badge above still shows */}
+                  <div className="relative p-6 rounded-2xl overflow-hidden h-full">
+                    {tier.featured && (
+                      <div className="absolute top-0 left-4 right-4 h-px bg-gradient-to-r from-transparent via-[#f97316] to-transparent" />
+                    )}
+                    {tier.name === "Platinum" && (
+                      <span className="absolute top-4 right-4 inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-[0.22em] z-[2]" style={{ background: "rgba(103,232,249,0.15)", boxShadow: "inset 0 0 0 1px rgba(103,232,249,0.35)", color: "#67e8f9" }}>
+                        New
+                      </span>
+                    )}
+
+                    <div
+                      aria-hidden="true"
+                      className="absolute -top-16 -right-16 w-48 h-48 rounded-full pointer-events-none opacity-60"
+                      style={{ background: `radial-gradient(circle, ${tier.hex}22, transparent 65%)`, filter: "blur(28px)" }}
+                    />
+
+                    <div className="relative">
+                      <div className="flex items-center justify-between mb-5">
+                        <span className="inline-flex items-center justify-center w-12 h-12 rounded-full" style={{ background: `${tier.hex}15`, boxShadow: `inset 0 0 0 1px ${tier.hex}35${tier.featured ? `, 0 0 22px -4px ${tier.hex}66` : ""}` }}>
+                          <tier.Icon className="h-5 w-5" style={{ color: tier.hex, filter: tier.featured ? `drop-shadow(0 0 12px ${tier.hex}aa)` : undefined }} strokeWidth={1.9} />
+                        </span>
+                        <div className="text-right">
+                          <div className="font-display text-[26px] font-black tabular-nums leading-none" style={{ color: tier.hex }}>{tier.commission}</div>
+                          <div className="text-[9.5px] text-white/40 uppercase tracking-[0.22em] font-semibold mt-1">Commission</div>
+                        </div>
+                      </div>
+                      <h3 className="font-display text-[19px] font-bold tracking-tight mb-1" style={tier.featured ? { color: tier.hex } : { color: "#fff" }}>
+                        {tier.name}
+                      </h3>
+                      <p className="text-[12px] text-white/45 mb-5 tabular-nums">{tier.refs} referrals</p>
+                      <ul className="space-y-2.5">
+                        {tier.perks.map((perk) => (
+                          <li key={perk} className="flex items-start gap-2 text-[12.5px] text-white/60">
+                            <CheckCircle2 className="h-3 w-3 shrink-0 mt-0.5" style={{ color: tier.featured ? "#f97316" : `${tier.hex}aa` }} />
+                            <span>{perk}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
                 </div>
               ))}

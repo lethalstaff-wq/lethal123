@@ -98,13 +98,15 @@ export function LoyaltyTierCard({ xp = 1240 }: LoyaltyTierCardProps) {
 
         {/* Tier ladder */}
         <div className="relative mb-3">
-          <div className="flex items-end justify-between relative">
+          {/* Each column is flex-1 so the 4 icons sit at 12.5 / 37.5 / 62.5 / 87.5% of the row.
+              Connecting line spans from first-icon-center to last-icon-center. */}
+          <div className="flex items-start relative">
             {TIERS.map((t) => {
               const reached = displayXp >= t.min
               const isCurrent = t.key === currentTier.key
               const TierIcon = t.icon
               return (
-                <div key={t.key} className="flex flex-col items-center relative z-[2]">
+                <div key={t.key} className="flex-1 flex flex-col items-center relative z-[2]">
                   <span
                     className="w-8 h-8 rounded-full flex items-center justify-center border transition-all duration-500"
                     style={{
@@ -121,17 +123,17 @@ export function LoyaltyTierCard({ xp = 1240 }: LoyaltyTierCardProps) {
                 </div>
               )
             })}
-          </div>
-          {/* Connecting line w/ progress fill */}
-          <div className="absolute left-4 right-4 top-4 h-px bg-white/[0.06] overflow-hidden">
-            <div
-              className="absolute inset-y-0 left-0 transition-[width] duration-[1400ms] ease-out"
-              style={{
-                width: `${((TIERS.findIndex((t) => t.key === currentTier.key) + tierProgressPct / 100) / (TIERS.length - 1)) * 100}%`,
-                background: `linear-gradient(90deg, ${TIERS[0].color}99, ${currentTier.color})`,
-                boxShadow: `0 0 8px ${currentTier.glow.replace("0.5", "0.6").replace("0.55", "0.6")}`,
-              }}
-            />
+            {/* Connecting line — spans between first and last icon centers (12.5% to 87.5% of row) */}
+            <div className="absolute left-[12.5%] right-[12.5%] top-4 h-px -translate-y-1/2 bg-white/[0.06] overflow-hidden z-[1]">
+              <div
+                className="absolute inset-y-0 left-0 transition-[width] duration-[1400ms] ease-out"
+                style={{
+                  width: `${((TIERS.findIndex((t) => t.key === currentTier.key) + tierProgressPct / 100) / (TIERS.length - 1)) * 100}%`,
+                  background: `linear-gradient(90deg, ${TIERS[0].color}99, ${currentTier.color})`,
+                  boxShadow: `0 0 8px ${currentTier.glow.replace("0.5", "0.6").replace("0.55", "0.6")}`,
+                }}
+              />
+            </div>
           </div>
         </div>
 
