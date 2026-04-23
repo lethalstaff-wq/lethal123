@@ -769,48 +769,85 @@ export default function ChangelogPage() {
         </div>
       </section>
 
-      {/* Subscribe — centered single-line editorial inline field */}
-      <section className="pb-10">
+      {/* Subscribe — wide premium card spanning the timeline width */}
+      <section className="pb-8">
         <div className="container mx-auto px-4">
-          <form
-            onSubmit={handleSubscribe}
-            className="group/sub relative mx-auto flex items-center justify-center gap-3 max-w-[460px]"
-          >
-            <span className="text-[10.5px] font-bold uppercase tracking-[0.22em] text-white/35 shrink-0 hidden sm:inline">
-              Patch notes
-            </span>
-            <span className="hidden sm:block w-6 h-px bg-white/[0.10] shrink-0" />
-            <input
-              type="email"
-              required
-              placeholder="email me when a build ships"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              disabled={subscribed}
-              aria-label="Email for changelog updates"
-              className={cn(
-                "flex-1 min-w-0 h-9 bg-transparent text-[13px] text-white placeholder:text-white/30 outline-none disabled:opacity-55 border-b transition-colors duration-300",
-                subscribed
-                  ? "border-emerald-500/55"
-                  : "border-white/[0.10] focus:border-[#f97316]/55",
-              )}
-            />
-            <button
-              type="submit"
-              disabled={subscribed || !email}
-              aria-label={subscribed ? "Subscribed" : "Subscribe"}
-              className={cn(
-                "shrink-0 inline-flex items-center justify-center w-9 h-9 transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed",
-                subscribed
-                  ? "text-emerald-400"
-                  : "text-white/45 hover:text-[#f97316]",
-              )}
+          <div className="max-w-[1180px] mx-auto">
+            <div
+              className="relative rounded-2xl border border-white/[0.06] bg-white/[0.014] overflow-hidden flex flex-col md:flex-row md:items-center gap-4 px-5 py-4"
+              style={{ boxShadow: "0 22px 50px -30px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.025)" }}
             >
-              {subscribed
-                ? <Check className="h-4 w-4" strokeWidth={2.6} />
-                : <ArrowRight className="h-4 w-4 transition-transform group-focus-within/sub:translate-x-0.5" strokeWidth={2.2} />}
-            </button>
-          </form>
+              <span aria-hidden="true" className="absolute top-0 left-10 right-10 h-px bg-gradient-to-r from-transparent via-[#f97316]/45 to-transparent" />
+              <div className="flex items-center gap-3 md:flex-1 min-w-0">
+                <span
+                  className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+                  style={{
+                    background: "rgba(249,115,22,0.10)",
+                    border: "1px solid rgba(249,115,22,0.30)",
+                    boxShadow: "0 0 14px rgba(249,115,22,0.18), inset 0 1px 0 rgba(255,255,255,0.06)",
+                  }}
+                >
+                  <BellRing className="h-4 w-4 text-[#f97316]" />
+                </span>
+                <div className="min-w-0">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/40">Stay in the loop</p>
+                  <p className="text-[13.5px] font-semibold text-white/85 mt-0.5">Get an email the moment a new build ships — no spam, just patch notes.</p>
+                </div>
+              </div>
+              <form
+                onSubmit={handleSubscribe}
+                className={cn(
+                  "group/sub relative flex items-center w-full md:w-[340px] md:shrink-0 h-11 transition-all duration-300",
+                  subscribed && "opacity-95",
+                )}
+              >
+                {/* Hairline underline that breathes under the field */}
+                <span
+                  aria-hidden="true"
+                  className="absolute left-1 right-1 bottom-0 h-px transition-colors duration-300"
+                  style={{
+                    background: subscribed
+                      ? "linear-gradient(90deg, transparent, rgba(16,185,129,0.6), transparent)"
+                      : "linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent)",
+                  }}
+                />
+                <span
+                  aria-hidden="true"
+                  className="absolute left-1 right-1 bottom-0 h-px opacity-0 group-focus-within/sub:opacity-100 transition-opacity duration-300"
+                  style={{
+                    background: "linear-gradient(90deg, transparent, rgba(249,115,22,0.85), transparent)",
+                    boxShadow: "0 0 12px rgba(249,115,22,0.5)",
+                  }}
+                />
+                <Mail className="h-3.5 w-3.5 text-white/35 shrink-0 mr-2.5" />
+                <input
+                  type="email"
+                  required
+                  placeholder="you@domain.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  disabled={subscribed}
+                  aria-label="Email for changelog updates"
+                  className="flex-1 min-w-0 h-full bg-transparent text-[13px] text-white placeholder:text-white/30 outline-none disabled:opacity-60"
+                />
+                <button
+                  type="submit"
+                  disabled={subscribed}
+                  className={cn(
+                    "shrink-0 inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-[0.18em] transition-all duration-300",
+                    subscribed
+                      ? "text-emerald-400"
+                      : "text-[#f97316] hover:text-[#ffb366]",
+                  )}
+                >
+                  {subscribed ? "Subscribed" : "Notify me"}
+                  {subscribed
+                    ? <Check className="h-3.5 w-3.5" strokeWidth={3} />
+                    : <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover/sub:translate-x-0.5" strokeWidth={2.4} />}
+                </button>
+              </form>
+            </div>
+          </div>
         </div>
       </section>
 
