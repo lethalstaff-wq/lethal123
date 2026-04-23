@@ -90,13 +90,44 @@ export default function DownloadsPage() {
   const [downloadingId, setDownloadingId] = useState<string | null>(null)
 
   const handleSearch = async () => {
-    if (!searchValue.trim()) return
+    const trimmed = searchValue.trim()
+    if (!trimmed) return
 
     setLoading(true)
     setError(null)
 
+    // Client-side preview mode — lets anyone see what the unlocked state looks
+    // like without a real license record in the DB. Never hits the server.
+    if (trimmed.toUpperCase() === "LS-DEMO-PREVIEW-ONLY") {
+      await new Promise((r) => setTimeout(r, 650))
+      setLicense({
+        orderId: "demo-preview",
+        displayId: "LS-PREVIEW-2026",
+        licenseKey: "LS-DEMO-PREVIEW-ONLY",
+        email: "preview@lethalsolutions.me",
+        expiresAt: null,
+        createdAt: new Date().toISOString(),
+        products: CATALOGUE_TILES.map((t, i) => ({
+          id: `preview-${i}`,
+          name: t.name,
+          variant: "Lifetime License",
+          version: "1.0.0-preview",
+          size: "— MB",
+          updated: "Preview",
+          status: "ready",
+          downloadUrl: "",
+          instructions: [
+            "This is a preview of the post-verification state.",
+            "Enter a real licence key to download the actual build.",
+          ],
+        })),
+      })
+      setLoading(false)
+      return
+    }
+
     try {
-      const res = await fetch(`/api/downloads?key=${encodeURIComponent(searchValue.trim())}`)
+      const res = await fetch(`/api/downloads?key=${encodeURIComponent(trimmed)}`)
       const data = await res.json()
 
       if (!res.ok) {
