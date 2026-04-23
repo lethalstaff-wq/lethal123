@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { Clock, Zap, Bug, Shield, Sparkles, ChevronDown, Filter, RefreshCw, Rss, Mail, Check, BellRing, Sparkle } from "lucide-react"
+import { Clock, Zap, Bug, Shield, Sparkles, ChevronDown, Filter, RefreshCw, Rss, Mail, Check, BellRing, Sparkle, ArrowRight } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { SectionEyebrow } from "@/components/section-eyebrow"
 
@@ -794,53 +794,56 @@ export default function ChangelogPage() {
                   <p className="text-[13.5px] font-semibold text-white/85 mt-0.5">Get an email the moment a new build ships — no spam, just patch notes.</p>
                 </div>
               </div>
-              <form onSubmit={handleSubscribe} className="flex items-center gap-2 md:shrink-0 w-full md:w-auto">
-                <div className="relative flex-1 md:w-72">
-                  <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-white/35 pointer-events-none" />
-                  <input
-                    type="email"
-                    required
-                    placeholder="you@domain.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    aria-label="Email for changelog updates"
-                    className="h-11 w-full rounded-full bg-white/[0.025] border border-white/[0.07] pl-10 pr-3 text-[13px] text-white placeholder:text-white/30 outline-none focus:border-[#f97316]/40 focus:bg-white/[0.04] transition-colors"
-                  />
-                </div>
+              <form
+                onSubmit={handleSubscribe}
+                className={cn(
+                  "group/sub relative flex items-center w-full md:w-[360px] md:shrink-0 h-11 rounded-full bg-white/[0.025] border transition-all duration-300",
+                  subscribed
+                    ? "border-emerald-500/45"
+                    : "border-white/[0.07] focus-within:border-[#f97316]/45 focus-within:bg-white/[0.04]",
+                )}
+                style={
+                  subscribed
+                    ? { boxShadow: "inset 0 1px 0 rgba(255,255,255,0.025), 0 0 22px rgba(16,185,129,0.18)" }
+                    : { boxShadow: "inset 0 1px 0 rgba(255,255,255,0.025)" }
+                }
+              >
+                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-white/35 pointer-events-none" />
+                <input
+                  type="email"
+                  required
+                  placeholder="you@domain.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  disabled={subscribed}
+                  aria-label="Email for changelog updates"
+                  className="flex-1 min-w-0 h-full bg-transparent pl-10 pr-2 text-[13px] text-white placeholder:text-white/30 outline-none disabled:opacity-60"
+                />
                 <button
                   type="submit"
                   disabled={subscribed}
+                  aria-label={subscribed ? "Subscribed" : "Subscribe"}
                   className={cn(
-                    "shrink-0 group/sub relative inline-flex items-center justify-center gap-2 h-11 px-5 rounded-full text-[12px] font-bold uppercase tracking-[0.18em] transition-all duration-300",
+                    "shrink-0 mr-1 my-1 relative inline-flex items-center justify-center w-9 h-9 rounded-full transition-all duration-300",
                     subscribed
                       ? "text-emerald-300"
-                      : "text-white hover:-translate-y-0.5",
+                      : "text-white hover:scale-[1.06]",
                   )}
                   style={
                     subscribed
                       ? {
-                          background: "rgba(16,185,129,0.12)",
-                          boxShadow: "inset 0 0 0 1px rgba(16,185,129,0.4), 0 0 18px rgba(16,185,129,0.25)",
+                          background: "rgba(16,185,129,0.18)",
+                          boxShadow: "inset 0 0 0 1px rgba(16,185,129,0.45)",
                         }
                       : {
-                          background: "linear-gradient(180deg, rgba(255,180,118,0.12) 0%, rgba(249,115,22,0.18) 50%, rgba(194,65,12,0.22) 100%)",
+                          background: "linear-gradient(180deg, #fb923c 0%, #f97316 55%, #ea580c 100%)",
                           boxShadow:
-                            "inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -1px 0 rgba(0,0,0,0.18), inset 0 0 0 1px rgba(249,115,22,0.55), 0 8px 22px -8px rgba(249,115,22,0.55)",
+                            "inset 0 1px 0 rgba(255,255,255,0.32), inset 0 -1px 0 rgba(0,0,0,0.18), 0 0 0 1px rgba(0,0,0,0.35), 0 4px 14px -2px rgba(249,115,22,0.55)",
                         }
                   }
                 >
-                  {subscribed ? <Check className="h-3.5 w-3.5" strokeWidth={3} /> : <BellRing className="h-3.5 w-3.5" />}
-                  <span>{subscribed ? "Subscribed" : "Subscribe"}</span>
+                  {subscribed ? <Check className="h-4 w-4" strokeWidth={3} /> : <ArrowRight className="h-4 w-4" strokeWidth={2.4} />}
                 </button>
-                <a
-                  href="/feed.xml"
-                  onClick={(e) => { e.preventDefault(); alert("RSS feed coming soon — subscribe via email above to stay up to date.") }}
-                  className="hidden sm:inline-flex items-center justify-center w-11 h-11 rounded-full border border-white/[0.07] bg-white/[0.025] text-white/55 hover:text-[#f97316] hover:border-[#f97316]/40 transition-colors shrink-0"
-                  aria-label="RSS feed"
-                  title="RSS"
-                >
-                  <Rss className="h-4 w-4" />
-                </a>
               </form>
             </div>
           </div>
