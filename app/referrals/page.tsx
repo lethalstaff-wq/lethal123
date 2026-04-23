@@ -5,7 +5,7 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import {
   Users, Coins, Copy, Check, Share2, ArrowRight, Loader2, CheckCircle2, Clock,
-  Trophy, Medal, Crown, Star, Flame, Gem, Sparkles,
+  Trophy, Medal, Crown, Star, Flame, Gem, Sparkles, Gift,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { createClient } from "@/lib/supabase/client"
@@ -114,43 +114,113 @@ export default function ReferralsPage() {
     <main className="min-h-screen bg-transparent">
       <Navbar />
 
-      {/* ═══════════════ HERO ═══════════════ */}
-      <section className="relative pt-32 pb-16 overflow-hidden">
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 pointer-events-none"
-          style={{ background: "radial-gradient(ellipse 50% 45% at 50% 20%, rgba(249,115,22,0.10), transparent 65%)" }}
-        />
+      {/* ═══════════════ HERO — full-bleed premium like /status / Home ═══════════════ */}
+      <section className="relative pt-32 pb-20 overflow-hidden">
+        {/* Ambient radial glows */}
+        <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-[20%] left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full opacity-80" style={{ background: "radial-gradient(ellipse, rgba(249,115,22,0.16), transparent 62%)", filter: "blur(130px)" }} />
+          <div className="absolute bottom-[5%] right-[10%] w-[500px] h-[400px] rounded-full opacity-50" style={{ background: "radial-gradient(circle, rgba(251,191,36,0.08), transparent 65%)", filter: "blur(130px)" }} />
+        </div>
+
         <div className="relative container mx-auto px-4">
-          <div className="max-w-[720px] mx-auto text-center">
+          <div className="max-w-[820px] mx-auto text-center">
+            {/* Live status pill */}
+            {!isLoggedIn && (
+              <div className="mb-7">
+                <span className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/[0.03] border border-white/[0.06] backdrop-blur-sm">
+                  <span className="relative flex items-center justify-center">
+                    <span className="absolute w-2 h-2 rounded-full bg-[#f97316]/40 animate-ping" />
+                    <span className="relative w-1.5 h-1.5 rounded-full bg-[#f97316]" style={{ boxShadow: "0 0 10px rgba(249,115,22,0.9)" }} />
+                  </span>
+                  <span className="text-[10.5px] font-semibold uppercase tracking-[0.3em] text-white/70">
+                    Open to everyone · No approval needed
+                  </span>
+                </span>
+              </div>
+            )}
+
             <SectionEyebrow number="01" label="Referral Program" />
-            <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-bold tracking-[-0.04em] leading-[0.95] mb-5 mt-2" style={{ paddingBottom: "0.1em" }}>
-              <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Earn up to </span>
-              <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249, 115, 22, 0.43))" }}>20%</span>
+
+            <h1 className="font-display mb-6 mt-2">
+              <span className="block text-[clamp(2.8rem,7.5vw,5.5rem)] font-bold tracking-[-0.04em] leading-[0.98]"
+                style={{
+                  background: "linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(180,180,195,0.85) 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  paddingBottom: "0.1em",
+                }}>
+                Earn up to
+              </span>
+              <span className="block text-[clamp(2.8rem,7.5vw,5.5rem)] font-bold tracking-[-0.04em] leading-[0.98]"
+                style={{
+                  background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  filter: "drop-shadow(0 0 60px rgba(249, 115, 22, 0.43))",
+                  paddingBottom: "0.1em",
+                }}>
+                20% commission.
+              </span>
             </h1>
-            <p className="text-[17px] text-white/55 max-w-xl mx-auto leading-relaxed mb-8">
-              Invite friends, climb tiers, earn commission on every purchase they make. Paid out to store credit instantly.
+
+            <p className="text-[16px] sm:text-[17.5px] text-white/55 leading-[1.7] max-w-[560px] mx-auto mb-10">
+              Invite friends, climb tiers, earn commission on every purchase they make. Paid out to store credit instantly — no clawbacks, no waiting.
             </p>
 
             {!isLoggedIn && (
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+              <div className="flex items-center justify-center gap-3 flex-wrap mb-14">
                 <button
                   onClick={() => router.push("/login")}
-                  className="press-spring group relative overflow-hidden inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-white font-bold text-[14px] transition-all hover:-translate-y-0.5"
+                  className="press-spring group relative overflow-hidden inline-flex items-center gap-2 px-8 py-4 rounded-xl text-white font-bold text-[14px] transition-all hover:-translate-y-0.5"
                   style={{
                     background: "linear-gradient(135deg, #f97316, #ea580c)",
                     boxShadow: "0 14px 38px rgba(249,115,22,0.5), inset 0 1px 0 rgba(255,255,255,0.18)",
                   }}
                 >
                   <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
+                  <Gift className="relative z-10 h-4 w-4" />
                   <span className="relative z-10">Get your referral link</span>
                   <ArrowRight className="relative z-10 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </button>
-                <a href="#tiers" className="inline-flex items-center gap-1.5 px-5 py-3 rounded-xl text-white/65 hover:text-white text-[13px] font-semibold transition-colors">
-                  See tiers & rewards →
+                <a href="#tiers" className="inline-flex items-center gap-1.5 px-7 py-4 rounded-xl border border-white/[0.10] bg-white/[0.025] text-white/75 hover:text-white hover:border-white/[0.18] text-[14px] font-semibold transition-all">
+                  See tiers
                 </a>
               </div>
             )}
+
+            {/* Hero stats row — credibility signals, matches Home hero */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-8 pt-10 border-t border-white/[0.05] max-w-[720px] mx-auto">
+              {[
+                { v: "20%", sub: "Top commission", accent: true },
+                { v: "£0",  sub: "Min payout" },
+                { v: "24h", sub: "Auto attribution" },
+                { v: "∞",   sub: "Lifetime tier" },
+              ].map((s, i) => (
+                <div key={i} className="text-center">
+                  <div className="font-display text-[36px] sm:text-[42px] font-black tracking-[-0.045em] leading-none tabular-nums"
+                    style={
+                      s.accent
+                        ? {
+                            background: "linear-gradient(180deg, #ffb366, #f97316 55%, #c2410c)",
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent",
+                            filter: "drop-shadow(0 0 30px rgba(249,115,22,0.45))",
+                          }
+                        : {
+                            background: "linear-gradient(180deg, #fff 0%, rgba(180,180,195,0.8) 100%)",
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent",
+                          }
+                    }
+                  >
+                    {s.v}
+                  </div>
+                  <p className="mt-2.5 text-[10px] text-white/40 uppercase tracking-[0.22em] font-semibold">
+                    {s.sub}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -280,11 +350,9 @@ export default function ReferralsPage() {
                 </h2>
               </div>
 
-              <div className="grid md:grid-cols-3 gap-5 relative">
-                {/* Subtle connector line on desktop */}
-                <div className="hidden md:block absolute top-[58px] left-[18%] right-[18%] h-px bg-gradient-to-r from-transparent via-[#f97316]/25 to-transparent" />
-
-                {STEPS.map((step, i) => (
+              {/* Cards without a connector line — cleaner and avoids the misaligned line bug. */}
+              <div className="grid md:grid-cols-3 gap-5">
+                {STEPS.map((step) => (
                   <div
                     key={step.n}
                     className="spotlight-card group relative p-7 rounded-2xl overflow-hidden transition-all duration-400 hover:-translate-y-1"
@@ -329,28 +397,27 @@ export default function ReferralsPage() {
               <p className="text-white/45 text-[15px] max-w-md mx-auto">Four tiers. Lifetime. No downgrades.</p>
             </div>
 
-            {/* Extra top padding on the grid so the featured badge that sits outside the card never clips */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-5 items-stretch">
+            {/* Premium tall cards — same energy as DMA bundles on Home. pt-5 so the badge that bleeds above never clips */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 pt-5 items-stretch">
               {TIERS.map((tier) => (
                 <div
                   key={tier.name}
                   className={cn(
-                    "spotlight-card group relative rounded-2xl transition-all duration-500 hover:-translate-y-1",
+                    "spotlight-card group relative rounded-2xl transition-all duration-500 hover:-translate-y-1.5",
                     tier.featured
-                      ? "lg:-mt-4 lg:mb-0 shadow-[0_30px_70px_-20px_rgba(0,0,0,0.7),0_0_60px_-15px_rgba(249,115,22,0.4)]"
-                      : "hover:border-white/[0.12]",
+                      ? "lg:-mt-5 lg:mb-0 shadow-[0_0_60px_rgba(249,115,22,0.14)] hover:shadow-[0_0_100px_rgba(249,115,22,0.3)]"
+                      : "hover:shadow-[0_20px_50px_rgba(0,0,0,0.5)]",
                   )}
                   style={{
                     background: tier.featured
-                      ? "linear-gradient(180deg, rgba(249,115,22,0.08) 0%, rgba(255,255,255,0.015) 60%, rgba(255,255,255,0.003) 100%)"
+                      ? "linear-gradient(180deg, rgba(249,115,22,0.08) 0%, rgba(255,255,255,0.018) 60%, rgba(255,255,255,0.003) 100%)"
                       : "rgba(255,255,255,0.012)",
-                    border: tier.featured ? "1px solid rgba(249,115,22,0.4)" : "1px solid rgba(255,255,255,0.06)",
-                    // NB: intentionally NO overflow-hidden here — the "Most popular" pill has to bleed above the card.
+                    border: tier.featured ? "2px solid rgba(249,115,22,0.3)" : "1px solid rgba(255,255,255,0.06)",
                   }}
                 >
                   {tier.featured && (
                     <div
-                      className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1.5 rounded-full text-[9.5px] font-black uppercase tracking-[0.2em] inline-flex items-center gap-1.5 z-[3] whitespace-nowrap"
+                      className="absolute -top-3 left-1/2 -translate-x-1/2 px-3.5 py-1.5 rounded-full text-[9.5px] font-black uppercase tracking-[0.2em] inline-flex items-center gap-1.5 z-[3] whitespace-nowrap"
                       style={{
                         background: "linear-gradient(135deg, #fbbf24, #f97316)",
                         color: "#fff",
@@ -362,42 +429,82 @@ export default function ReferralsPage() {
                     </div>
                   )}
 
-                  {/* Inner wrapper with overflow so the ambient glow stays clipped inside but badge above still shows */}
-                  <div className="relative p-6 rounded-2xl overflow-hidden h-full">
+                  {/* Taller inner — matches DMA bundle depth (p-8) and a guaranteed min height so lists with fewer perks still look substantial */}
+                  <div className="relative p-7 sm:p-8 rounded-2xl overflow-hidden h-full flex flex-col" style={{ minHeight: "460px" }}>
                     {tier.featured && (
-                      <div className="absolute top-0 left-4 right-4 h-px bg-gradient-to-r from-transparent via-[#f97316] to-transparent" />
+                      <div className="absolute top-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-[#f97316] to-transparent" />
                     )}
                     {tier.name === "Platinum" && (
-                      <span className="absolute top-4 right-4 inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-[0.22em] z-[2]" style={{ background: "rgba(103,232,249,0.15)", boxShadow: "inset 0 0 0 1px rgba(103,232,249,0.35)", color: "#67e8f9" }}>
+                      <span className="absolute top-5 right-5 inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-[0.22em] z-[2]" style={{ background: "rgba(103,232,249,0.15)", boxShadow: "inset 0 0 0 1px rgba(103,232,249,0.35)", color: "#67e8f9" }}>
                         New
                       </span>
                     )}
 
                     <div
                       aria-hidden="true"
-                      className="absolute -top-16 -right-16 w-48 h-48 rounded-full pointer-events-none opacity-60"
-                      style={{ background: `radial-gradient(circle, ${tier.hex}22, transparent 65%)`, filter: "blur(28px)" }}
+                      className="absolute -top-16 -right-16 w-52 h-52 rounded-full pointer-events-none opacity-70"
+                      style={{ background: `radial-gradient(circle, ${tier.hex}28, transparent 65%)`, filter: "blur(32px)" }}
                     />
 
-                    <div className="relative">
-                      <div className="flex items-center justify-between mb-5">
-                        <span className="inline-flex items-center justify-center w-12 h-12 rounded-full" style={{ background: `${tier.hex}15`, boxShadow: `inset 0 0 0 1px ${tier.hex}35${tier.featured ? `, 0 0 22px -4px ${tier.hex}66` : ""}` }}>
-                          <tier.Icon className="h-5 w-5" style={{ color: tier.hex, filter: tier.featured ? `drop-shadow(0 0 12px ${tier.hex}aa)` : undefined }} strokeWidth={1.9} />
+                    <div className="relative flex-1 flex flex-col">
+                      {/* Tier label above icon */}
+                      <p className="text-[10.5px] font-bold uppercase tracking-[0.22em] mb-2" style={{ color: tier.featured ? "#f97316" : "rgba(255,255,255,0.4)" }}>
+                        {tier.refs} referrals
+                      </p>
+
+                      {/* Icon + name row */}
+                      <div className="flex items-center gap-3 mb-6">
+                        <span
+                          className="inline-flex items-center justify-center w-14 h-14 rounded-xl shrink-0"
+                          style={{
+                            background: `linear-gradient(135deg, ${tier.hex}25, ${tier.hex}08)`,
+                            boxShadow: `inset 0 0 0 1px ${tier.hex}40${tier.featured ? `, 0 0 28px -4px ${tier.hex}77` : ""}`,
+                          }}
+                        >
+                          <tier.Icon className="h-6 w-6" style={{ color: tier.hex, filter: tier.featured ? `drop-shadow(0 0 14px ${tier.hex}cc)` : `drop-shadow(0 0 8px ${tier.hex}66)` }} strokeWidth={1.9} />
                         </span>
-                        <div className="text-right">
-                          <div className="font-display text-[26px] font-black tabular-nums leading-none" style={{ color: tier.hex }}>{tier.commission}</div>
-                          <div className="text-[9.5px] text-white/40 uppercase tracking-[0.22em] font-semibold mt-1">Commission</div>
-                        </div>
+                        <h3 className="font-display text-[24px] font-bold tracking-tight" style={tier.featured ? { color: tier.hex } : { color: "#fff" }}>
+                          {tier.name}
+                        </h3>
                       </div>
-                      <h3 className="font-display text-[19px] font-bold tracking-tight mb-1" style={tier.featured ? { color: tier.hex } : { color: "#fff" }}>
-                        {tier.name}
-                      </h3>
-                      <p className="text-[12px] text-white/45 mb-5 tabular-nums">{tier.refs} referrals</p>
-                      <ul className="space-y-2.5">
+
+                      {/* Big commission display */}
+                      <div className="mb-7">
+                        <div className="font-display text-[56px] font-black tabular-nums leading-none tracking-[-0.04em]"
+                          style={
+                            tier.featured
+                              ? {
+                                  background: `linear-gradient(135deg, #fbbf24, ${tier.hex}, #c2410c)`,
+                                  WebkitBackgroundClip: "text",
+                                  WebkitTextFillColor: "transparent",
+                                  filter: `drop-shadow(0 0 30px ${tier.hex}55)`,
+                                }
+                              : { color: tier.hex }
+                          }>
+                          {tier.commission}
+                        </div>
+                        <p className="text-[12px] text-white/45 mt-2 uppercase tracking-[0.2em] font-semibold">
+                          Commission rate
+                        </p>
+                      </div>
+
+                      {/* Divider */}
+                      <div className="h-px bg-white/[0.05] mb-6" />
+
+                      {/* Perks list — bigger spacing, larger check bubbles */}
+                      <ul className="space-y-3 flex-1">
                         {tier.perks.map((perk) => (
-                          <li key={perk} className="flex items-start gap-2 text-[12.5px] text-white/60">
-                            <CheckCircle2 className="h-3 w-3 shrink-0 mt-0.5" style={{ color: tier.featured ? "#f97316" : `${tier.hex}aa` }} />
-                            <span>{perk}</span>
+                          <li key={perk} className="flex items-start gap-3">
+                            <span
+                              className="mt-0.5 w-5 h-5 rounded-md flex items-center justify-center shrink-0"
+                              style={{
+                                background: tier.featured ? "rgba(249,115,22,0.15)" : `${tier.hex}15`,
+                                boxShadow: tier.featured ? "0 0 10px rgba(249,115,22,0.35)" : undefined,
+                              }}
+                            >
+                              <CheckCircle2 className="h-3 w-3" style={{ color: tier.featured ? "#f97316" : tier.hex }} strokeWidth={2.5} />
+                            </span>
+                            <span className="text-[13px] text-white/70 leading-[1.55]">{perk}</span>
                           </li>
                         ))}
                       </ul>
