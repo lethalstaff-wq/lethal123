@@ -26,9 +26,12 @@ export function ProcessSection() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 relative">
             {steps.map((s, i) => (
               <div key={i} className="group relative">
-                {/* Connector segment to next badge (renders to right of all badges except last) */}
+                {/* Connector segment to next badge (renders to right of all badges except last).
+                    Left offset = column center (50%) + circle radius (60px) + breathing margin.
+                    Right offset = -50% past column edge, then pulled back to stop 2px before next circle.
+                    The 48px pullback on the right accounts for the 20px grid gap AND the next circle's edge. */}
                 {i < steps.length - 1 && (
-                  <div className="hidden md:block absolute top-[60px] left-[calc(50%+62px)] right-[calc(-50%+62px)] h-px pointer-events-none overflow-hidden">
+                  <div className="hidden md:block absolute top-[60px] left-[calc(50%+68px)] right-[calc(-50%+48px)] h-px pointer-events-none overflow-hidden">
                     <div className="absolute inset-0 bg-[#f97316]/15" />
                     <div className="absolute inset-y-0 w-1/2 bg-gradient-to-r from-transparent via-[#f97316] to-transparent" style={{ animation: "procFlow 3s ease-in-out infinite", animationDelay: `${i * 0.6}s` }} />
                   </div>
