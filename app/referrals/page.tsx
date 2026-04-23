@@ -124,21 +124,6 @@ export default function ReferralsPage() {
 
         <div className="relative container mx-auto px-4">
           <div className="max-w-[820px] mx-auto text-center">
-            {/* Live status pill */}
-            {!isLoggedIn && (
-              <div className="mb-7">
-                <span className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/[0.03] border border-white/[0.06] backdrop-blur-sm">
-                  <span className="relative flex items-center justify-center">
-                    <span className="absolute w-2 h-2 rounded-full bg-[#f97316]/40 animate-ping" />
-                    <span className="relative w-1.5 h-1.5 rounded-full bg-[#f97316]" style={{ boxShadow: "0 0 10px rgba(249,115,22,0.9)" }} />
-                  </span>
-                  <span className="text-[10.5px] font-semibold uppercase tracking-[0.3em] text-white/70">
-                    Open to everyone · No approval needed
-                  </span>
-                </span>
-              </div>
-            )}
-
             <SectionEyebrow number="01" label="Referral Program" />
 
             <h1 className="font-display mb-6 mt-2">
@@ -255,16 +240,16 @@ export default function ReferralsPage() {
                 ))}
               </div>
 
-              {/* Referral link card */}
+              {/* Referral link card — muted so it doesn't overwhelm History below */}
               <div
                 className="spotlight-card relative rounded-2xl p-7 overflow-hidden"
                 style={{
-                  background: "linear-gradient(135deg, rgba(249,115,22,0.08), rgba(255,255,255,0.012) 50%)",
-                  border: "1px solid rgba(249,115,22,0.25)",
-                  boxShadow: "0 30px 70px -25px rgba(249,115,22,0.35), inset 0 1px 0 rgba(255,255,255,0.04)",
+                  background: "linear-gradient(135deg, rgba(249,115,22,0.035), rgba(255,255,255,0.012) 60%)",
+                  border: "1px solid rgba(249,115,22,0.12)",
+                  boxShadow: "0 20px 50px -25px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.03)",
                 }}
               >
-                <div className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-[#f97316]/70 to-transparent" />
+                <div className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-[#f97316]/40 to-transparent" />
                 <div className="flex items-center gap-2 mb-4">
                   <Share2 className="h-4 w-4 text-[#f97316]" />
                   <span className="font-display text-[10.5px] font-bold uppercase tracking-[0.22em] text-[#f97316]">Your link</span>
