@@ -2,6 +2,7 @@
 
 import { Package, Star, Users, ShoppingCart, Clock, CheckCircle2, XCircle, AlertCircle, DollarSign, Activity, ArrowUpRight, ArrowDownRight, Zap, RefreshCw, Mail, Shield } from "lucide-react"
 import { useState } from "react"
+import { SectionEyebrow } from "@/components/section-eyebrow"
 
 type Stats = {
   totalProducts: number
@@ -75,7 +76,10 @@ export function AdminDashboardClient({ stats, recentOrders, recentUsers }: {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Dashboard</h1>
+          <div className="mb-3">
+            <SectionEyebrow number="01" label="Admin" />
+          </div>
+          <h1 className="font-display text-3xl font-bold text-white tracking-tight mt-1" style={{ paddingBottom: "0.06em" }}>Dashboard</h1>
           <p className="text-sm text-white/55 mt-1">Welcome back! Here&apos;s what&apos;s happening with your store.</p>
         </div>
         <button
