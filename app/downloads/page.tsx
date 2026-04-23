@@ -77,8 +77,8 @@ const CATALOGUE_TILES: {
   { name: "Temp Spoofer",        category: "spoofer",  categoryLabel: "HWID Spoofer", platform: "All games",         build: "Kernel · Reboot-based", undetected: "217d" },
   { name: "Fortnite External",   category: "cheat",    categoryLabel: "DMA Cheat",    platform: "Fortnite",          build: "External · DMA",        undetected: "189d" },
   { name: "Custom DMA Firmware", category: "firmware", categoryLabel: "Firmware",     platform: "EAC · BE · FaceIt", build: "Signed firmware",       undetected: "134d" },
-  { name: "Streck DMA Cheat",    category: "cheat",    categoryLabel: "DMA Cheat",    platform: "Fortnite · Apex",   build: "External · DMA",        undetected: "120d" },
-  { name: "Blurred DMA Cheat",   category: "cheat",    categoryLabel: "DMA Cheat",    platform: "FN · Apex · Rust",  build: "External · DMA",        undetected: "164d" },
+  { name: "Streck DMA Cheat",    category: "cheat",    categoryLabel: "DMA Cheat",    platform: "Fortnite",          build: "External · DMA",        undetected: "120d" },
+  { name: "Blurred DMA Cheat",   category: "cheat",    categoryLabel: "DMA Cheat",    platform: "Fortnite",          build: "External · DMA",        undetected: "164d" },
 ]
 
 export default function DownloadsPage() {
