@@ -15,6 +15,10 @@ import {
 import { getProductReviewCount } from "@/lib/review-counts"
 import { getProductMeta, type ChangelogEntry } from "@/lib/product-meta"
 import { DiscordCheckoutModal } from "@/components/discord-checkout-modal"
+import { ProductShare } from "@/components/product-share"
+import { fireConfetti } from "@/components/confetti"
+import { PriceHistoryChart } from "@/components/price-history-chart"
+import { ReviewVideoLightbox } from "@/components/review-video-lightbox"
 import { BitcoinIcon, EthereumIcon, LitecoinIcon, PayPalIcon } from "@/components/crypto-icons"
 import { toast } from "sonner"
 import useSWR from "swr"
@@ -45,18 +49,18 @@ function ChangelogRow({ entry }: { entry: ChangelogEntry }) {
   const style = CHANGELOG_STYLES[entry.type] ?? CHANGELOG_STYLES.update
   const Icon = style.icon
   return (
-    <div className="flex gap-4 rounded-xl border border-white/[0.06] bg-white/[0.02] p-4 hover:border-white/[0.12] transition-colors">
-      <div className={`shrink-0 w-9 h-9 rounded-lg flex items-center justify-center ${style.bg}`}>
-        <Icon className={`h-4 w-4 ${style.text}`} />
+    <div className="group flex gap-4 rounded-2xl border border-white/[0.06] bg-white/[0.015] p-4 hover:border-[#f97316]/25 hover:bg-white/[0.03] hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(0,0,0,0.35)] transition-all duration-300">
+      <div className={`shrink-0 w-10 h-10 rounded-xl flex items-center justify-center border border-white/[0.08] ${style.bg}`}>
+        <Icon className={`h-[18px] w-[18px] ${style.text}`} style={{ filter: `drop-shadow(0 0 6px currentColor)` }} />
       </div>
       <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-2 mb-1 flex-wrap">
-          <span className={`text-[10px] font-bold uppercase tracking-wider ${style.text}`}>{style.label}</span>
-          <span className="text-[11px] text-white/30">{formatChangelogDate(entry.date)}</span>
+        <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+          <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-[0.15em] border border-white/[0.08] ${style.bg} ${style.text}`}>{style.label}</span>
+          <span className="text-[11px] text-white/55 font-medium">{formatChangelogDate(entry.date)}</span>
         </div>
-        <p className="text-sm font-semibold text-white/90">{entry.title}</p>
+        <p className="font-display text-[14px] font-bold text-white tracking-tight">{entry.title}</p>
         {entry.description && (
-          <p className="text-[12.5px] text-white/45 leading-relaxed mt-1">{entry.description}</p>
+          <p className="text-[12.5px] text-white/65 leading-relaxed mt-1">{entry.description}</p>
         )}
       </div>
     </div>
@@ -108,6 +112,8 @@ export function ProductDetailClient({ product }: { product: Product }) {
     return product.variants[0]
   })
   const [quantity, setQuantity] = useState(1)
+  const [justAdded, setJustAdded] = useState(false)
+  const [buying, setBuying] = useState(false)
   const [showDiscordModal, setShowDiscordModal] = useState(false)
   const [viewingNow, setViewingNow] = useState(0)
   const [showStickyBar, setShowStickyBar] = useState(false)
@@ -151,12 +157,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  const handleAddToCart = () => {
-    if (!selectedVariant) {
-      toast.error("Please select an option first")
-      return
-    }
-    toast.success(`${product.name} added to cart`)
+  const addToCart = () => {
     addItem(
       {
         id: selectedVariant.id,
@@ -184,8 +185,26 @@ export function ProductDetailClient({ product }: { product: Product }) {
     )
   }
 
+  const handleAddToCart = () => {
+    if (!selectedVariant) { toast.error("Please select an option first"); return }
+    if (justAdded) return
+    addToCart()
+    toast.success(`${product.name} added to cart`)
+    setJustAdded(true)
+    // Confetti from the add-to-cart button position
+    const btn = document.querySelector<HTMLButtonElement>('[data-cursor-label="Add"]')
+    if (btn) {
+      const r = btn.getBoundingClientRect()
+      fireConfetti(r.left + r.width / 2, r.top + r.height / 2, 55)
+    }
+    setTimeout(() => setJustAdded(false), 1400)
+  }
+
   const handleBuyNow = () => {
-    handleAddToCart()
+    if (!selectedVariant) { toast.error("Please select an option first"); return }
+    if (buying) return
+    setBuying(true)
+    addToCart()
     router.push("/checkout")
   }
 
@@ -201,7 +220,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
 
         {/* ═══ LEFT: Image ═══ */}
         <div>
-          <div className="relative aspect-square rounded-2xl bg-gradient-to-br from-card/80 to-secondary/20 border border-white/[0.06]/40 overflow-hidden group">
+          <div className="spotlight-card relative aspect-square rounded-2xl bg-gradient-to-br from-card/80 to-secondary/20 border border-white/[0.06] overflow-hidden group">
             <Badge className="absolute top-4 left-4 z-10 bg-emerald-500/15 text-emerald-400 border-emerald-500/20 backdrop-blur-sm">
               <Zap className="h-3 w-3 mr-1" />
               Instant Delivery
@@ -219,22 +238,18 @@ export function ProductDetailClient({ product }: { product: Product }) {
           </div>
 
           {/* Trust badges under image */}
-          <div className="grid grid-cols-3 gap-2 sm:gap-4 mt-4 sm:mt-6">
-            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-3 sm:p-4 text-center">
-              <Shield className="h-5 w-5 sm:h-6 sm:w-6 mx-auto mb-1.5 sm:mb-2 text-white/40" />
-              <p className="font-semibold text-xs sm:text-sm">Secure</p>
-              <p className="text-[10px] sm:text-xs text-white/40">Encrypted</p>
-            </div>
-            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-3 sm:p-4 text-center">
-              <Zap className="h-5 w-5 sm:h-6 sm:w-6 mx-auto mb-1.5 sm:mb-2 text-white/40" />
-              <p className="font-semibold text-xs sm:text-sm">Instant</p>
-              <p className="text-[10px] sm:text-xs text-white/40">Delivery</p>
-            </div>
-            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-3 sm:p-4 text-center">
-              <Globe className="h-5 w-5 sm:h-6 sm:w-6 mx-auto mb-1.5 sm:mb-2 text-white/40" />
-              <p className="font-semibold text-xs sm:text-sm">Global</p>
-              <p className="text-[10px] sm:text-xs text-white/40">Support</p>
-            </div>
+          <div className="grid grid-cols-3 gap-2 sm:gap-3 mt-4 sm:mt-6">
+            {[
+              { icon: Shield, title: "Secure", desc: "256-bit encrypted" },
+              { icon: Zap, title: "Instant", desc: "Delivered in seconds" },
+              { icon: Globe, title: "Worldwide", desc: "73+ countries" },
+            ].map(({ icon: Icon, title, desc }) => (
+              <div key={title} className="spotlight-card group rounded-xl border border-white/[0.07] bg-white/[0.025] backdrop-blur-md p-3 sm:p-4 text-center hover:border-[#f97316]/30 hover:bg-white/[0.04] hover:-translate-y-0.5 transition-all duration-300">
+                <Icon className="h-5 w-5 sm:h-6 sm:w-6 mx-auto mb-2 text-white/65 group-hover:text-[#f97316] transition-colors" />
+                <p className="font-display font-bold text-[12px] sm:text-[13px] text-white tracking-tight">{title}</p>
+                <p className="text-[10px] sm:text-[11px] text-white/55 mt-0.5">{desc}</p>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -251,37 +266,37 @@ export function ProductDetailClient({ product }: { product: Product }) {
 
           {/* Description */}
           {product.longDescription && (
-            <p className="text-white/40 text-sm leading-relaxed mb-5 max-w-lg">
+            <p className="text-white/55 text-sm leading-relaxed mb-5 max-w-lg">
               {product.longDescription}
             </p>
           )}
 
           {/* Rating */}
           <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-6">
-            <div className="flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full bg-yellow-500/10 border border-yellow-500/20">
-              <Star className="h-3.5 w-3.5 sm:h-4 sm:w-4 fill-yellow-400 text-yellow-400" />
-              <span className="font-bold text-xs sm:text-sm text-yellow-400">5.0</span>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 backdrop-blur-sm">
+              <Star className="h-3.5 w-3.5 sm:h-4 sm:w-4 fill-amber-400 text-amber-400" style={{ filter: "drop-shadow(0 0 6px rgba(245,158,11,0.5))" }} />
+              <span className="font-display font-bold text-[13px] sm:text-sm text-amber-400 tabular-nums">5.0</span>
             </div>
-            <span className="text-xs sm:text-sm text-white/40">{reviewCount} Verified Reviews</span>
-            <span className="hidden sm:inline text-white/40/30">·</span>
-            <div className="flex items-center gap-1.5">
+            <span className="text-[12px] sm:text-[13px] text-white/65"><span className="text-white font-bold tabular-nums">{reviewCount}</span> Verified Reviews</span>
+            <span className="hidden sm:inline text-white/30">·</span>
+            <div className="inline-flex items-center gap-1.5">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500" />
               </span>
-              <span className="text-xs sm:text-sm text-white/40">{viewingNow} viewing now</span>
+              <span className="text-[12px] sm:text-[13px] text-white/65"><span className="text-red-400 font-bold tabular-nums">{viewingNow}</span> viewing now</span>
             </div>
           </div>
 
           {/* Price */}
           <div className="flex items-baseline gap-2 mb-6 sm:mb-8">
-            <span className="text-3xl sm:text-4xl font-black">{"£"}{selectedVariant.price}</span>
+            <span className="font-display text-4xl sm:text-5xl font-black tracking-tight text-white">{"£"}{selectedVariant.price}</span>
           </div>
 
           {/* Variant Selection */}
           {product.variants.length > 1 && (
             <div className="mb-8">
-              <p className="text-xs font-semibold uppercase tracking-widest text-white/40 mb-3">Select Option</p>
+              <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/65 mb-3">Select Option</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {product.variants.map((variant) => (
                   <button
@@ -289,15 +304,15 @@ export function ProductDetailClient({ product }: { product: Product }) {
                     onClick={() => setSelectedVariant(variant)}
                     className={`relative p-4 rounded-xl border-2 text-left transition-all duration-200 ${
                       selectedVariant.id === variant.id
-                        ? "border-primary bg-primary/[0.06] shadow-lg shadow-primary/5"
-                        : "border-white/[0.06]/50 hover:border-primary/40 bg-white/[0.02]/30"
+                        ? "border-[#f97316] bg-[#f97316]/[0.06] shadow-lg shadow-primary/5"
+                        : "border-white/[0.06] hover:border-[#f97316]/40 bg-white/[0.02]"
                     }`}
                   >
                     {selectedVariant.id === variant.id && (
-                      <Check className="absolute top-3.5 right-3.5 h-4 w-4 text-primary" />
+                      <Check className="absolute top-3.5 right-3.5 h-4 w-4 text-[#f97316]" />
                     )}
                     <p className="font-semibold text-sm">{variant.name}</p>
-                    <p className="text-white/40 text-sm mt-0.5">{"£"}{variant.price}</p>
+                    <p className="text-white/55 text-sm mt-0.5">{"£"}{variant.price}</p>
                   </button>
                 ))}
               </div>
@@ -306,17 +321,19 @@ export function ProductDetailClient({ product }: { product: Product }) {
 
           {/* Quantity & Stock */}
           <div className="flex items-center gap-5 mb-6">
-            <div className="flex items-center border border-white/[0.06]/50 rounded-xl overflow-hidden">
+            <div className="flex items-center border border-white/[0.10] rounded-xl overflow-hidden bg-white/[0.025] backdrop-blur-md">
               <button
+                aria-label="Decrease quantity"
                 onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                className="p-3 hover:bg-white/[0.04] transition-colors text-white/40 hover:text-white"
+                className="p-3 hover:bg-[#f97316]/10 hover:text-[#f97316] transition-colors text-white/65"
               >
                 <Minus className="h-4 w-4" />
               </button>
-              <span className="w-12 text-center font-bold text-sm">{quantity}</span>
+              <span className="w-12 text-center font-display font-bold text-[15px] text-white tabular-nums">{quantity}</span>
               <button
+                aria-label="Increase quantity"
                 onClick={() => setQuantity(quantity + 1)}
-                className="p-3 hover:bg-white/[0.04] transition-colors text-white/40 hover:text-white"
+                className="p-3 hover:bg-[#f97316]/10 hover:text-[#f97316] transition-colors text-white/65"
               >
                 <Plus className="h-4 w-4" />
               </button>
@@ -350,26 +367,47 @@ export function ProductDetailClient({ product }: { product: Product }) {
               id="buy-now-btn"
               onClick={handleBuyNow}
               size="lg"
-              className="w-full h-12 sm:h-14 text-sm sm:text-base font-bold gap-2 rounded-xl bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all"
+              disabled={buying}
+              data-cursor="cta"
+              data-cursor-label="Buy"
+              className="cursor-cta press-spring group relative overflow-hidden w-full h-12 sm:h-14 text-sm sm:text-base font-bold gap-2 rounded-xl bg-gradient-to-br from-[#f97316] to-[#ea580c] hover:brightness-110 hover:scale-[1.02] text-white border-0 shadow-[0_8px_24px_rgba(249,115,22,0.51),inset_0_1px_0_rgba(255,255,255,0.10)] hover:shadow-[0_12px_36px_rgba(249,115,22,0.72)] transition-all disabled:opacity-90"
             >
-              <Zap className="h-4 w-4" />
-              Buy Now — {"£"}{total.toFixed(2)}
+              <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
+              <Zap className="relative z-10 h-4 w-4" />
+              <span className="relative z-10">Buy Now — {"£"}{total.toFixed(2)}</span>
             </Button>
             <div className="grid grid-cols-2 gap-2 sm:gap-3">
               <Button
                 onClick={handleAddToCart}
                 variant="outline"
                 size="lg"
-                className="h-11 sm:h-12 text-xs sm:text-sm font-semibold gap-1.5 sm:gap-2 rounded-xl border-white/[0.06]/50 hover:border-primary/40 hover:bg-primary/5"
+                data-cursor="cta"
+                data-cursor-label="Add"
+                className={`cursor-cta press-spring h-11 sm:h-12 text-xs sm:text-sm font-bold gap-1.5 sm:gap-2 rounded-xl backdrop-blur-md transition-all ${
+                  justAdded
+                    ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-400"
+                    : "border-white/[0.10] bg-white/[0.025] hover:border-[#f97316]/40 hover:bg-[#f97316]/[0.06] hover:text-[#f97316]"
+                }`}
               >
-                <ShoppingCart className="h-4 w-4" />
-                Add to Cart
+                {justAdded ? (
+                  <>
+                    <Check className="h-4 w-4" strokeWidth={3} />
+                    Added
+                  </>
+                ) : (
+                  <>
+                    <ShoppingCart className="h-4 w-4" />
+                    Add to Cart
+                  </>
+                )}
               </Button>
               <Button
                 onClick={() => setShowDiscordModal(true)}
                 variant="outline"
                 size="lg"
-                className="h-11 sm:h-12 text-xs sm:text-sm font-semibold gap-1.5 sm:gap-2 rounded-xl border-[#5865F2]/30 text-[#5865F2] hover:bg-[#5865F2]/10 hover:border-[#5865F2]/50"
+                data-cursor="cta"
+                data-cursor-label="Discord"
+                className="cursor-cta press-spring h-11 sm:h-12 text-xs sm:text-sm font-bold gap-1.5 sm:gap-2 rounded-xl border-[#5865F2]/35 bg-[#5865F2]/[0.06] text-[#5865F2] hover:bg-[#5865F2]/15 hover:border-[#5865F2]/55 hover:text-white transition-all"
               >
                 <MessageCircle className="h-4 w-4" />
                 Discord Order
@@ -378,97 +416,120 @@ export function ProductDetailClient({ product }: { product: Product }) {
           </div>
 
           {/* Last purchased */}
-          <p className="text-center text-[11px] text-white/25 mt-3 flex items-center justify-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500/60" />
-            Last purchased {lastPurchased} minutes ago
+          <p className="text-center text-[11px] text-white/55 mt-3 flex items-center justify-center gap-1.5 font-medium">
+            <span className="relative flex items-center justify-center">
+              <span className="absolute w-2 h-2 rounded-full bg-emerald-400/40 animate-ping" />
+              <span className="relative w-1.5 h-1.5 rounded-full bg-emerald-400" />
+            </span>
+            Last purchased <span className="text-white font-bold tabular-nums">{lastPurchased}</span> minutes ago
           </p>
+
+          {/* Price history + share */}
+          <div className="mt-6 pt-6 border-t border-white/[0.05] space-y-4">
+            <PriceHistoryChart slug={product.slug} currentPrice={selectedVariant?.price ?? 0} />
+            <ProductShare productName={product.name} slug={product.slug} price={selectedVariant?.price} />
+          </div>
 
         </div>
       </div>
 
-      {/* ═══ FEATURES — Full width below ═══ */}
+      {/* Related media row — plays in /media */}
+      <ReviewVideoLightbox productSlug={product.slug} />
+
+      {/* ═══ FEATURES — clean section, no heavy panel ═══ */}
       {product.features && product.features.length > 0 && (
         <div className="mt-16">
-          <h2 className="text-lg font-bold text-white mb-5">What&apos;s Included</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-3">
+          <div className="flex items-center gap-2 mb-5">
+            <div className="w-1 h-5 rounded-full bg-[#f97316]" />
+            <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/55">What&apos;s included</span>
+          </div>
+          <h2 className="font-display text-2xl sm:text-3xl font-bold text-white mb-6 tracking-tight">
+            Everything you get in the <span className="text-[#f97316]">box</span>
+          </h2>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
             {product.features.map((feature, idx) => (
-              <div key={idx} className="flex items-center gap-2.5">
-                <Check className="h-3.5 w-3.5 text-[#f97316]/60 shrink-0" />
-                <span className="text-[14px] text-white/50">{feature}</span>
+              <div key={idx} className="flex items-center gap-3 py-2.5 group">
+                <Check className="h-4 w-4 text-[#f97316] shrink-0 group-hover:scale-110 transition-transform" style={{ filter: "drop-shadow(0 0 6px rgba(249, 115, 22, 0.72))" }} />
+                <span className="text-[14px] text-white/75 group-hover:text-white transition-colors">{feature}</span>
               </div>
             ))}
           </div>
         </div>
       )}
 
-      {/* ═══ Proof of Work — Undetected / Patch Response / Support ═══ */}
-      <div className="mt-14 pt-10 border-t border-white/[0.04]">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {meta.undetectedSinceDays ? (
-            <div className="rounded-xl border border-emerald-500/15 bg-emerald-500/[0.03] p-5">
-              <div className="flex items-center gap-2 mb-3">
-                <ShieldCheck className="h-4 w-4 text-emerald-400" />
-                <span className="text-[11px] font-semibold uppercase tracking-wider text-emerald-400">Undetected</span>
+      {/* ═══ Proof of Work — premium glass cards with corner glow + animated stat numbers ═══ */}
+      <div className="mt-14 pt-10 border-t border-white/[0.06]">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {/* Undetected */}
+          <div className="spotlight-card group relative rounded-2xl border border-emerald-500/25 bg-gradient-to-br from-emerald-500/[0.06] to-white/[0.015] p-6 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_36px_rgba(16,185,129,0.18)] transition-all duration-300 overflow-hidden">
+            <div className="absolute -top-12 -right-12 w-40 h-40 rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ background: "radial-gradient(circle, rgba(16,185,129,0.18), transparent 70%)" }} />
+            <div className="relative">
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-8 h-8 rounded-lg bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center">
+                  <ShieldCheck className="h-4 w-4 text-emerald-400" style={{ filter: "drop-shadow(0 0 8px rgba(16,185,129,0.5))" }} />
+                </div>
+                <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-emerald-400">{meta.undetectedSinceDays ? "Undetected" : "Proven Safe"}</span>
               </div>
-              <div className="flex items-baseline gap-1.5 mb-1">
-                <span className="text-3xl font-black text-white">{meta.undetectedSinceDays}</span>
-                <span className="text-sm text-white/40">days</span>
+              <div className="flex items-baseline gap-1.5 mb-2">
+                <span className="font-display text-4xl font-black text-white tracking-tight">{meta.undetectedSinceDays || "100%"}</span>
+                {meta.undetectedSinceDays && <span className="text-[13px] text-white/65 font-medium">days</span>}
               </div>
-              <p className="text-[12px] text-white/40 leading-relaxed">Zero detections across EAC, BattlEye, Vanguard, FaceIt, Ricochet.</p>
+              <p className="text-[12px] text-white/65 leading-relaxed">{meta.undetectedSinceDays ? "Zero detections across EAC, BattlEye, Vanguard, FaceIt, Ricochet." : "Thousands of verified clean sessions."}</p>
             </div>
-          ) : (
-            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-5">
-              <Shield className="h-4 w-4 text-[#f97316]/60 mb-2.5" />
-              <h3 className="font-semibold text-sm text-white/80 mb-1">Proven Safe</h3>
-              <p className="text-[13px] text-white/30 leading-relaxed">Thousands of verified clean sessions.</p>
-            </div>
-          )}
-          {meta.lastPatchResponseHours ? (
-            <div className="rounded-xl border border-primary/15 bg-primary/[0.03] p-5">
-              <div className="flex items-center gap-2 mb-3">
-                <Zap className="h-4 w-4 text-primary" />
-                <span className="text-[11px] font-semibold uppercase tracking-wider text-primary">Patch Response</span>
+          </div>
+
+          {/* Patch Response */}
+          <div className="spotlight-card group relative rounded-2xl border border-[#f97316]/25 bg-gradient-to-br from-[#f97316]/[0.06] to-white/[0.015] p-6 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_36px_rgba(249, 115, 22, 0.26)] transition-all duration-300 overflow-hidden">
+            <div className="absolute -top-12 -right-12 w-40 h-40 rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ background: "radial-gradient(circle, rgba(249, 115, 22, 0.26), transparent 70%)" }} />
+            <div className="relative">
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-8 h-8 rounded-lg bg-[#f97316]/15 border border-[#f97316]/30 flex items-center justify-center">
+                  <Zap className="h-4 w-4 text-[#f97316]" style={{ filter: "drop-shadow(0 0 8px rgba(249, 115, 22, 0.8))" }} />
+                </div>
+                <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#f97316]">{meta.lastPatchResponseHours ? "Patch Response" : "Instant Delivery"}</span>
               </div>
-              <div className="flex items-baseline gap-1.5 mb-1">
-                <span className="text-3xl font-black text-white">&lt;{meta.lastPatchResponseHours}h</span>
+              <div className="flex items-baseline gap-1.5 mb-2">
+                <span className="font-display text-4xl font-black text-white tracking-tight">{meta.lastPatchResponseHours ? `<${meta.lastPatchResponseHours}h` : "<1m"}</span>
               </div>
-              <p className="text-[12px] text-white/40 leading-relaxed">Average downtime after a game patch. You're back online fast.</p>
+              <p className="text-[12px] text-white/65 leading-relaxed">{meta.lastPatchResponseHours ? "Average downtime after a game patch. You're back online fast." : "License key arrives in seconds."}</p>
             </div>
-          ) : (
-            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-5">
-              <Zap className="h-4 w-4 text-[#f97316]/60 mb-2.5" />
-              <h3 className="font-semibold text-sm text-white/80 mb-1">Instant Delivery</h3>
-              <p className="text-[13px] text-white/30 leading-relaxed">License key arrives in seconds.</p>
+          </div>
+
+          {/* Support */}
+          <div className="spotlight-card group relative rounded-2xl border border-blue-500/25 bg-gradient-to-br from-blue-500/[0.06] to-white/[0.015] p-6 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_36px_rgba(59,130,246,0.18)] transition-all duration-300 overflow-hidden">
+            <div className="absolute -top-12 -right-12 w-40 h-40 rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ background: "radial-gradient(circle, rgba(59,130,246,0.18), transparent 70%)" }} />
+            <div className="relative">
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-8 h-8 rounded-lg bg-blue-500/15 border border-blue-500/30 flex items-center justify-center">
+                  <Clock className="h-4 w-4 text-blue-400" style={{ filter: "drop-shadow(0 0 8px rgba(59,130,246,0.5))" }} />
+                </div>
+                <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-blue-400">Support</span>
+              </div>
+              <div className="flex items-baseline gap-1.5 mb-2">
+                <span className="font-display text-4xl font-black text-white tracking-tight">24/7</span>
+              </div>
+              <p className="text-[12px] text-white/65 leading-relaxed">Dedicated Discord team for setup and troubleshooting.</p>
             </div>
-          )}
-          <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-5">
-            <div className="flex items-center gap-2 mb-3">
-              <Clock className="h-4 w-4 text-white/50" />
-              <span className="text-[11px] font-semibold uppercase tracking-wider text-white/50">Support</span>
-            </div>
-            <div className="flex items-baseline gap-1.5 mb-1">
-              <span className="text-3xl font-black text-white">24/7</span>
-            </div>
-            <p className="text-[12px] text-white/40 leading-relaxed">Dedicated Discord team for setup and troubleshooting.</p>
           </div>
         </div>
       </div>
 
       {/* ═══ Recent Updates / Per-product Changelog ═══ */}
       {meta.changelog && meta.changelog.length > 0 && (
-        <div className="mt-12 pt-10 border-t border-white/[0.04]">
+        <div className="mt-12 pt-10 border-t border-white/[0.06]">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-primary/15 flex items-center justify-center">
-                <Sparkles className="h-4 w-4 text-primary" />
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#f97316]/25 to-[#ea580c]/15 border border-[#f97316]/30 flex items-center justify-center shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_18px_rgba(249, 115, 22, 0.26)]">
+                <Sparkles className="h-[18px] w-[18px] text-[#f97316]" style={{ filter: "drop-shadow(0 0 8px rgba(249, 115, 22, 0.8))" }} />
               </div>
               <div>
-                <h2 className="text-xl font-bold">Recent Updates</h2>
-                <p className="text-xs text-white/40">What shipped lately for {product.name}</p>
+                <h2 className="font-display text-2xl font-bold tracking-tight text-white">Recent Updates</h2>
+                <p className="text-[12px] text-white/65 mt-0.5">What shipped lately for {product.name}</p>
               </div>
             </div>
-            <Link href="/changelog" className="text-xs text-primary hover:text-primary/80 flex items-center gap-1 transition-colors">
-              Full changelog <ArrowRight className="h-3 w-3" />
+            <Link href="/changelog" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.10] text-[12px] text-white/65 font-bold hover:border-[#f97316]/35 hover:text-[#f97316] hover:bg-[#f97316]/[0.06] transition-all">
+              Full changelog <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
           <div className="space-y-3">
@@ -479,59 +540,62 @@ export function ProductDetailClient({ product }: { product: Product }) {
         </div>
       )}
 
-      {/* ═══ What Buyers Say ═══ */}
+      {/* ═══ What Buyers Say — premium review cards ═══ */}
       {productReviews.length > 0 && (
-        <div className="mt-12">
+        <div className="mt-12 pt-10 border-t border-white/[0.06]">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-amber-500/15 flex items-center justify-center">
-                <Star className="h-4 w-4 text-amber-400" />
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500/25 to-amber-600/15 border border-amber-500/30 flex items-center justify-center shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_18px_rgba(245,158,11,0.18)]">
+                <Star className="h-[18px] w-[18px] text-amber-400 fill-amber-400" style={{ filter: "drop-shadow(0 0 8px rgba(245,158,11,0.55))" }} />
               </div>
               <div>
-                <h2 className="text-xl font-bold">What Buyers Say</h2>
-                <p className="text-xs text-white/40">{reviewCount} verified reviews</p>
+                <h2 className="font-display text-2xl font-bold tracking-tight text-white">What Buyers Say</h2>
+                <p className="text-[12px] text-white/65 mt-0.5"><span className="text-white font-bold tabular-nums">{reviewCount}</span> verified reviews</p>
               </div>
             </div>
-            <Link href={`/reviews`} className="text-xs text-primary hover:text-primary/80 flex items-center gap-1 transition-colors">
-              See all reviews <ArrowRight className="h-3 w-3" />
+            <Link href={`/reviews`} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.10] text-[12px] text-white/65 font-bold hover:border-[#f97316]/35 hover:text-[#f97316] hover:bg-[#f97316]/[0.06] transition-all">
+              See all reviews <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {productReviews.map((review) => (
-              <div key={review.id} className="rounded-xl border border-white/[0.06]/30 bg-white/[0.02]/30 p-5 hover:border-white/[0.06]/50 transition-colors">
-                {/* Stars */}
-                <div className="flex items-center gap-2 mb-3">
-                  <div className="flex gap-0.5">
+              <div key={review.id} className="spotlight-card group rounded-2xl border border-white/[0.06] bg-white/[0.015] p-5 hover:border-[#f97316]/25 hover:bg-white/[0.03] hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249, 115, 22, 0.12)] transition-all duration-300 relative overflow-hidden">
+                {/* Big quote mark */}
+                <div className="absolute top-2 right-4 text-[80px] font-serif leading-none select-none pointer-events-none text-[#f97316]/[0.06] group-hover:text-[#f97316]/[0.10] transition-colors">&ldquo;</div>
+
+                {/* Stars + Verified */}
+                <div className="flex items-center gap-2 mb-3 relative z-[1]">
+                  <div className="flex gap-1">
                     {Array.from({ length: 5 }).map((_, i) => (
-                      <Star key={i} className={`h-3.5 w-3.5 ${i < review.rating ? "fill-amber-400 text-amber-400" : "fill-muted text-muted"}`} />
+                      <Star key={i} className={`h-3.5 w-3.5 ${i < review.rating ? "gold-star" : "fill-white/[0.10] text-white/[0.10]"}`} style={i < review.rating ? { animationDelay: `${i * 0.12}s` } : {}} />
                     ))}
                   </div>
-                  <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-emerald-500/10 text-[10px] font-medium text-emerald-500">
-                    <CheckCircle2 className="h-2.5 w-2.5" /> Verified
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-[10px] font-bold text-emerald-400 ml-auto">
+                    <CheckCircle2 className="h-3 w-3" /> Verified
                   </span>
                 </div>
 
                 {/* Text */}
-                <p className="text-sm text-white/85 leading-relaxed mb-3">{review.text}</p>
+                <p className="text-[14px] text-white/85 leading-[1.7] mb-3 relative z-[1]">{review.text}</p>
 
                 {/* Team response */}
                 {review.team_response && (
-                  <div className="mb-3 rounded-lg bg-primary/[0.04] border border-primary/10 p-3">
-                    <p className="text-[11px] font-semibold text-primary mb-1">Lethal Team</p>
-                    <p className="text-xs text-white/60 leading-relaxed">{review.team_response}</p>
+                  <div className="mb-3 rounded-xl bg-gradient-to-br from-[#f97316]/[0.08] to-white/[0.02] border border-[#f97316]/20 p-3 relative z-[1]">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#f97316] mb-1.5">Lethal Team Response</p>
+                    <p className="text-[12px] text-white/75 leading-relaxed">{review.team_response}</p>
                   </div>
                 )}
 
                 {/* Footer */}
-                <div className="flex items-center justify-between pt-3 border-t border-white/[0.06]/20">
-                  <span className="text-xs text-white/40 font-mono">{maskEmail(review.email)}</span>
+                <div className="flex items-center justify-between pt-3 border-t border-white/[0.06] relative z-[1]">
+                  <span className="text-[11px] text-white/55 font-mono">{maskEmail(review.email)}</span>
                   <div className="flex items-center gap-3">
                     {review.helpful > 0 && (
-                      <span className="text-[10px] text-white/40 flex items-center gap-1">
-                        <ThumbsUp className="h-3 w-3" /> {review.helpful}
+                      <span className="text-[10px] text-white/55 font-semibold flex items-center gap-1">
+                        <ThumbsUp className="h-3 w-3 text-[#f97316]" /> {review.helpful}
                       </span>
                     )}
-                    <span className="text-[10px] text-white/40">{formatTimeAgo(review.created_at)}</span>
+                    <span className="text-[10px] text-white/55 font-medium">{formatTimeAgo(review.created_at)}</span>
                   </div>
                 </div>
               </div>
@@ -542,13 +606,13 @@ export function ProductDetailClient({ product }: { product: Product }) {
 
       {/* Sticky Add to Cart bar (mobile) */}
       {showStickyBar && (
-        <div className="fixed bottom-0 left-0 right-0 z-[70] bg-black/95 backdrop-blur-xl border-t border-white/[0.06]/30 px-4 py-3 lg:hidden">
+        <div className="fixed bottom-0 left-0 right-0 z-[70] bg-black/95 backdrop-blur-xl border-t border-white/[0.06] px-4 py-3 lg:hidden">
           <div className="flex items-center justify-between max-w-7xl mx-auto">
             <div>
               <p className="text-sm font-bold">{product.name}</p>
-              <p className="text-lg font-black text-primary">{"£"}{selectedVariant.price}</p>
+              <p className="text-lg font-black text-[#f97316]">{"£"}{selectedVariant.price}</p>
             </div>
-            <button onClick={handleBuyNow} className="px-6 py-3 rounded-xl bg-primary text-white font-bold text-sm">
+            <button onClick={handleBuyNow} className="px-6 py-3 rounded-xl bg-[#f97316] text-white font-bold text-sm">
               Buy Now
             </button>
           </div>

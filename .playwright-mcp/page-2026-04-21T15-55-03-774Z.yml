@@ -1,0 +1,402 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - img
+  - generic [ref=e31]:
+    - link "Status" [ref=e32]:
+      - /url: /status
+      - button "Status" [ref=e33]:
+        - img
+        - generic [ref=e34]: Status
+    - link "Discord" [ref=e35]:
+      - /url: https://discord.gg/lethaldma
+      - button "Discord" [ref=e36]:
+        - img
+        - generic [ref=e37]: Discord
+  - region "Notifications alt+T"
+  - generic:
+    - link "Perm Spoofer New Order · 2m ago Perm Spoofer Verified Dismiss notification":
+      - /url: /products/perm-spoofer
+      - generic:
+        - img "Perm Spoofer"
+      - generic:
+        - generic:
+          - generic: New Order
+          - generic: ·
+          - generic: 2m ago
+        - paragraph: Perm Spoofer
+        - generic:
+          - generic: Verified
+      - button "Dismiss notification": ×
+  - button "Back to top":
+    - img
+  - main [ref=e40]:
+    - navigation [ref=e41]:
+      - generic [ref=e43]:
+        - link "Lethal Solutions Lethal Solutions" [ref=e44]:
+          - /url: /
+          - generic [ref=e45]:
+            - img "Lethal Solutions" [ref=e48]
+            - generic [ref=e49]: Lethal Solutions
+        - generic [ref=e50]:
+          - button "Open search" [ref=e52]:
+            - img
+          - link:
+            - /url: /login
+          - link "Shopping cart" [ref=e53]:
+            - /url: /cart
+            - button "Shopping cart" [ref=e54]:
+              - img
+          - button "Toggle menu" [ref=e56]:
+            - img
+            - generic [ref=e57]: Toggle menu
+    - generic [ref=e59]:
+      - generic [ref=e63]: Full Catalog
+      - heading "Our Products" [level=1] [ref=e67]
+      - paragraph [ref=e68]: Premium gaming solutions designed for competitive players.
+    - generic [ref=e71]:
+      - generic [ref=e73]:
+        - button "All Products" [ref=e74]: All Products
+        - button "Bundles" [ref=e76]
+        - button "Cheats" [ref=e77]
+        - button "Spoofers" [ref=e78]
+        - button "Firmware" [ref=e79]
+      - paragraph [ref=e81]: Showing 9 products
+      - generic [ref=e82]:
+        - link "In Stock Perm Spoofer Instant Delivery · 2 options Perm Spoofer Permanent HWID spoofing solution From £35" [ref=e83]:
+          - /url: /products/perm-spoofer
+          - generic [ref=e84]:
+            - generic [ref=e86]: In Stock
+            - img "Perm Spoofer" [ref=e89]
+            - generic [ref=e90]:
+              - generic [ref=e91]:
+                - generic [ref=e92]:
+                  - img [ref=e93]
+                  - text: Instant Delivery
+                - generic [ref=e95]: ·
+                - generic [ref=e96]: 2 options
+              - generic [ref=e97]:
+                - heading "Perm Spoofer" [level=3] [ref=e98]
+                - paragraph [ref=e99]: Permanent HWID spoofing solution
+              - generic [ref=e100]:
+                - generic [ref=e101]:
+                  - paragraph [ref=e102]: From
+                  - paragraph [ref=e103]: £35
+                - img [ref=e105]
+        - link "Popular Popular Temp Spoofer Instant Delivery · 4 options Temp Spoofer Temporary HWID spoofing solution From £20" [ref=e107]:
+          - /url: /products/temp-spoofer
+          - generic [ref=e108]:
+            - generic [ref=e109]:
+              - generic [ref=e111]:
+                - img [ref=e112]
+                - text: Popular
+              - generic [ref=e114]: Popular
+            - img "Temp Spoofer" [ref=e117]
+            - generic [ref=e118]:
+              - generic [ref=e119]:
+                - generic [ref=e120]:
+                  - img [ref=e121]
+                  - text: Instant Delivery
+                - generic [ref=e123]: ·
+                - generic [ref=e124]: 4 options
+              - generic [ref=e125]:
+                - heading "Temp Spoofer" [level=3] [ref=e126]
+                - paragraph [ref=e127]: Temporary HWID spoofing solution
+              - generic [ref=e128]:
+                - generic [ref=e129]:
+                  - paragraph [ref=e130]: From
+                  - paragraph [ref=e131]: £20
+                - img [ref=e133]
+        - link "In Stock Fortnite External Instant Delivery · 5 options Fortnite External Clean UI. Fast setup. Tournament-ready. From £10" [ref=e135]:
+          - /url: /products/fortnite-external
+          - generic [ref=e136]:
+            - generic [ref=e138]: In Stock
+            - img "Fortnite External" [ref=e141]
+            - generic [ref=e142]:
+              - generic [ref=e143]:
+                - generic [ref=e144]:
+                  - img [ref=e145]
+                  - text: Instant Delivery
+                - generic [ref=e147]: ·
+                - generic [ref=e148]: 5 options
+              - generic [ref=e149]:
+                - heading "Fortnite External" [level=3] [ref=e150]
+                - paragraph [ref=e151]: Clean UI. Fast setup. Tournament-ready.
+              - generic [ref=e152]:
+                - generic [ref=e153]:
+                  - paragraph [ref=e154]: From
+                  - paragraph [ref=e155]: £10
+                - img [ref=e157]
+        - link "In Stock Custom DMA Firmware Instant Delivery · 3 options Custom DMA Firmware Built for precision. Designed to endure. From £200" [ref=e159]:
+          - /url: /products/custom-dma-firmware
+          - generic [ref=e160]:
+            - generic [ref=e162]: In Stock
+            - img "Custom DMA Firmware" [ref=e165]
+            - generic [ref=e166]:
+              - generic [ref=e167]:
+                - generic [ref=e168]:
+                  - img [ref=e169]
+                  - text: Instant Delivery
+                - generic [ref=e171]: ·
+                - generic [ref=e172]: 3 options
+              - generic [ref=e173]:
+                - heading "Custom DMA Firmware" [level=3] [ref=e174]
+                - paragraph [ref=e175]: Built for precision. Designed to endure.
+              - generic [ref=e176]:
+                - generic [ref=e177]:
+                  - paragraph [ref=e178]: From
+                  - paragraph [ref=e179]: £200
+                - img [ref=e181]
+        - link "In Stock Streck DMA Cheat Instant Delivery · 4 options Streck DMA Cheat Premium DMA cheat solution From £8" [ref=e183]:
+          - /url: /products/streck
+          - generic [ref=e184]:
+            - generic [ref=e186]: In Stock
+            - img "Streck DMA Cheat" [ref=e189]
+            - generic [ref=e190]:
+              - generic [ref=e191]:
+                - generic [ref=e192]:
+                  - img [ref=e193]
+                  - text: Instant Delivery
+                - generic [ref=e195]: ·
+                - generic [ref=e196]: 4 options
+              - generic [ref=e197]:
+                - heading "Streck DMA Cheat" [level=3] [ref=e198]
+                - paragraph [ref=e199]: Premium DMA cheat solution
+              - generic [ref=e200]:
+                - generic [ref=e201]:
+                  - paragraph [ref=e202]: From
+                  - paragraph [ref=e203]: £8
+                - img [ref=e205]
+        - link "Popular Popular Blurred DMA Cheat Instant Delivery · 4 options Blurred DMA Cheat Premium DMA cheat solution From £22" [ref=e207]:
+          - /url: /products/blurred
+          - generic [ref=e208]:
+            - generic [ref=e209]:
+              - generic [ref=e211]:
+                - img [ref=e212]
+                - text: Popular
+              - generic [ref=e214]: Popular
+            - img "Blurred DMA Cheat" [ref=e217]
+            - generic [ref=e218]:
+              - generic [ref=e219]:
+                - generic [ref=e220]:
+                  - img [ref=e221]
+                  - text: Instant Delivery
+                - generic [ref=e223]: ·
+                - generic [ref=e224]: 4 options
+              - generic [ref=e225]:
+                - heading "Blurred DMA Cheat" [level=3] [ref=e226]
+                - paragraph [ref=e227]: Premium DMA cheat solution
+              - generic [ref=e228]:
+                - generic [ref=e229]:
+                  - paragraph [ref=e230]: From
+                  - paragraph [ref=e231]: £22
+                - img [ref=e233]
+        - 'link "Bundle In Stock DMA Basic Bundle Instant Delivery DMA Basic Bundle Reliable foundation for everyday use. Includes: Captain DMA 100T-7th, EAC/BE Emulated, Mini DP Fuser V2, Blurred (30 Days), Macku (Free) From £425" [ref=e235]':
+          - /url: /products/dma-basic
+          - generic [ref=e236]:
+            - generic [ref=e237]:
+              - generic [ref=e239]:
+                - img [ref=e240]
+                - text: Bundle
+              - generic [ref=e243]: In Stock
+            - img "DMA Basic Bundle" [ref=e246]
+            - generic [ref=e247]:
+              - generic [ref=e249]:
+                - img [ref=e250]
+                - text: Instant Delivery
+              - generic [ref=e252]:
+                - heading "DMA Basic Bundle" [level=3] [ref=e253]
+                - paragraph [ref=e254]: "Reliable foundation for everyday use. Includes: Captain DMA 100T-7th, EAC/BE Emulated, Mini DP Fuser V2, Blurred (30 Days), Macku (Free)"
+              - generic [ref=e255]:
+                - generic [ref=e256]:
+                  - paragraph [ref=e257]: From
+                  - paragraph [ref=e258]: £425
+                - img [ref=e260]
+        - 'link "Popular Bundle Best Value DMA Advanced Bundle Instant Delivery DMA Advanced Bundle Balanced configuration for creators and semi-pro users. Includes: Captain DMA 100T-7th, Dichen D60 Fuser, Teensy (Firmware Included), EAC/BE Emulated Slotted, Blurred DMA (Quarterly) From £675" [ref=e262]':
+          - /url: /products/dma-advanced
+          - generic [ref=e263]:
+            - generic [ref=e264]:
+              - generic [ref=e265]:
+                - generic [ref=e266]:
+                  - img [ref=e267]
+                  - text: Popular
+                - generic [ref=e269]:
+                  - img [ref=e270]
+                  - text: Bundle
+              - generic [ref=e273]: Best Value
+            - img "DMA Advanced Bundle" [ref=e276]
+            - generic [ref=e277]:
+              - generic [ref=e279]:
+                - img [ref=e280]
+                - text: Instant Delivery
+              - generic [ref=e282]:
+                - heading "DMA Advanced Bundle" [level=3] [ref=e283]
+                - paragraph [ref=e284]: "Balanced configuration for creators and semi-pro users. Includes: Captain DMA 100T-7th, Dichen D60 Fuser, Teensy (Firmware Included), EAC/BE Emulated Slotted, Blurred DMA (Quarterly)"
+              - generic [ref=e285]:
+                - generic [ref=e286]:
+                  - paragraph [ref=e287]: From
+                  - paragraph [ref=e288]: £675
+                - img [ref=e290]
+        - 'link "Bundle Premium DMA Elite Bundle Instant Delivery DMA Elite Bundle Maximum performance — full emulation & lifetime access. Includes: Captain DMA 100T-7th, Dichen DC500 Fuser, Teensy (Firmware Included), Blurred Lifetime DMA Cheat, EAC/BE, FaceIt, VGK Emulated From £1500" [ref=e292]':
+          - /url: /products/dma-elite
+          - generic [ref=e293]:
+            - generic [ref=e294]:
+              - generic [ref=e296]:
+                - img [ref=e297]
+                - text: Bundle
+              - generic [ref=e300]: Premium
+            - img "DMA Elite Bundle" [ref=e303]
+            - generic [ref=e304]:
+              - generic [ref=e306]:
+                - img [ref=e307]
+                - text: Instant Delivery
+              - generic [ref=e309]:
+                - heading "DMA Elite Bundle" [level=3] [ref=e310]
+                - paragraph [ref=e311]: "Maximum performance — full emulation & lifetime access. Includes: Captain DMA 100T-7th, Dichen DC500 Fuser, Teensy (Firmware Included), Blurred Lifetime DMA Cheat, EAC/BE, FaceIt, VGK Emulated"
+              - generic [ref=e312]:
+                - generic [ref=e313]:
+                  - paragraph [ref=e314]: From
+                  - paragraph [ref=e315]: £1500
+                - img [ref=e317]
+    - generic [ref=e320]:
+      - generic [ref=e321]:
+        - generic [ref=e325]: Why Lethal
+        - heading "Lethal vs cheap providers" [level=2] [ref=e327]
+        - paragraph [ref=e328]: What you actually get for £10-50 less elsewhere.
+      - generic [ref=e329]:
+        - generic [ref=e330]:
+          - generic [ref=e331]: Feature
+          - generic [ref=e333]: Lethal
+          - generic [ref=e336]: Cheap
+        - generic [ref=e337]:
+          - generic [ref=e338]: Kernel-level undetection
+          - img [ref=e341]
+          - img [ref=e345]
+        - generic [ref=e348]:
+          - generic [ref=e349]: Under-2h patch response
+          - img [ref=e352]
+          - img [ref=e356]
+        - generic [ref=e359]:
+          - generic [ref=e360]: Live Discord support 24/7
+          - img [ref=e363]
+          - img [ref=e367]
+        - generic [ref=e370]:
+          - generic [ref=e371]: Instant digital delivery
+          - img [ref=e374]
+          - generic [ref=e377]: —
+        - generic [ref=e378]:
+          - generic [ref=e379]: Lifetime license option
+          - img [ref=e382]
+          - img [ref=e386]
+        - generic [ref=e389]:
+          - generic [ref=e390]: Custom DMA firmware
+          - img [ref=e393]
+          - img [ref=e397]
+        - generic [ref=e400]:
+          - generic [ref=e401]: HWID spoof after hardware ban
+          - img [ref=e404]
+          - generic [ref=e407]: —
+        - generic [ref=e408]:
+          - generic [ref=e409]: Refund if doesn't work
+          - img [ref=e412]
+          - img [ref=e416]
+        - generic [ref=e419]:
+          - generic [ref=e420]: Weekly stress tests vs anti-cheat
+          - img [ref=e423]
+          - img [ref=e427]
+        - generic [ref=e430]:
+          - generic [ref=e431]: Transparent uptime monitoring
+          - img [ref=e434]
+          - img [ref=e438]
+      - paragraph [ref=e441]: Data based on common features across £10-£30 providers.
+    - generic [ref=e446]:
+      - generic [ref=e447]:
+        - generic [ref=e448]:
+          - generic [ref=e449]:
+            - img "Lethal Solutions" [ref=e452]
+            - generic [ref=e453]: Lethal Solutions
+          - paragraph [ref=e454]: Kernel-level gaming tools trusted by 8,700+ players. Undetected since day one.
+          - generic [ref=e455]:
+            - generic [ref=e456]:
+              - img [ref=e457]
+              - generic [ref=e459]: Secure
+            - generic [ref=e460]:
+              - img [ref=e461]
+              - generic [ref=e463]: Instant
+            - generic [ref=e464]:
+              - img [ref=e465]
+              - generic [ref=e468]: 24/7
+          - generic [ref=e469]:
+            - paragraph [ref=e470]: Connect
+            - generic [ref=e471]:
+              - link "Discord" [ref=e472]:
+                - /url: https://discord.gg/lethaldma
+                - img [ref=e473]
+              - link "YouTube" [ref=e476]:
+                - /url: https://www.youtube.com/@ujukcheats-x4b
+                - img [ref=e477]
+              - link "Telegram" [ref=e480]:
+                - /url: https://t.me/lethalsolutions
+                - img [ref=e481]
+        - generic [ref=e484]:
+          - heading "Products" [level=4] [ref=e485]
+          - list [ref=e486]:
+            - listitem [ref=e487]:
+              - link "All Products" [ref=e488]:
+                - /url: /products
+            - listitem [ref=e489]:
+              - link "Compare" [ref=e490]:
+                - /url: /compare
+            - listitem [ref=e491]:
+              - link "Reviews" [ref=e492]:
+                - /url: /reviews
+            - listitem [ref=e493]:
+              - link "Status" [ref=e494]:
+                - /url: /status
+        - generic [ref=e495]:
+          - heading "Resources" [level=4] [ref=e496]
+          - list [ref=e497]:
+            - listitem [ref=e498]:
+              - link "FAQ" [ref=e499]:
+                - /url: /faq
+            - listitem [ref=e500]:
+              - link "Guides" [ref=e501]:
+                - /url: /guides
+            - listitem [ref=e502]:
+              - link "Changelog" [ref=e503]:
+                - /url: /changelog
+            - listitem [ref=e504]:
+              - link "Success Stories" [ref=e505]:
+                - /url: /stories
+            - listitem [ref=e506]:
+              - link "Referrals" [ref=e507]:
+                - /url: /referrals
+            - listitem [ref=e508]:
+              - link "Join Our Team" [ref=e509]:
+                - /url: /apply
+        - generic [ref=e510]:
+          - heading "Account" [level=4] [ref=e511]
+          - list [ref=e512]:
+            - listitem [ref=e513]:
+              - link "Track Order" [ref=e514]:
+                - /url: /track
+            - listitem [ref=e515]:
+              - link "Downloads" [ref=e516]:
+                - /url: /downloads
+            - listitem [ref=e517]:
+              - link "My Account" [ref=e518]:
+                - /url: /profile
+            - listitem [ref=e519]:
+              - link "Cart" [ref=e520]:
+                - /url: /cart
+      - heading [level=2] [ref=e522]: LETHAL
+      - generic [ref=e523]:
+        - paragraph [ref=e524]: © 2026 Lethal Solutions. All rights reserved.
+        - generic [ref=e525]:
+          - generic [ref=e530]: All systems operational
+          - link "Terms" [ref=e532]:
+            - /url: /terms
+          - link "Privacy" [ref=e534]:
+            - /url: /privacy
+  - button "Open Next.js Dev Tools" [ref=e25] [cursor=pointer]:
+    - img [ref=e26]
+  - alert [ref=e535]

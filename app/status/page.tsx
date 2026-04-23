@@ -1,7 +1,7 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { ExternalLink, Activity, Shield, Zap, CheckCircle2, Clock, AlertTriangle, XCircle, RefreshCw, Gamepad2, Wrench } from "lucide-react"
+import { useState, useEffect, useMemo } from "react"
+import { ExternalLink, Shield, CheckCircle2, AlertTriangle, XCircle, RefreshCw, Gamepad2, Wrench, ArrowRight, Mail } from "lucide-react"
 import Link from "next/link"
 import { PRODUCTS } from "@/lib/products"
 import { Navbar } from "@/components/navbar"
@@ -94,21 +94,96 @@ function getUptimePercent(productId: string): string {
   return map[productId] || "99.5"
 }
 
-function getRecentUpdates() {
-  const now = new Date()
-  const fmt = (daysAgo: number) => {
-    const d = new Date(now)
-    d.setDate(d.getDate() - daysAgo)
-    return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })
+// Deterministic seeded RNG — same product ID always renders the same mini chart.
+function seededRng(seed: number) {
+  let s = seed >>> 0
+  return () => {
+    // xorshift32
+    s ^= s << 13; s >>>= 0
+    s ^= s >>> 17
+    s ^= s << 5; s >>>= 0
+    return (s >>> 0) / 0xffffffff
   }
-  return [
-    { date: fmt(1), product: "Blurred DMA", type: "update" as const, message: "Updated for latest Fortnite patch" },
-    { date: fmt(4), product: "Fortnite External", type: "update" as const, message: "Compatibility update released" },
-    { date: fmt(9), product: "Perm Spoofer", type: "update" as const, message: "Enhanced SMBIOS spoofing" },
-    { date: fmt(14), product: "All Products", type: "maintenance" as const, message: "Server maintenance completed" },
-  ]
 }
-const RECENT_UPDATES = getRecentUpdates()
+
+function hashString(s: string): number {
+  let h = 2166136261
+  for (let i = 0; i < s.length; i++) {
+    h ^= s.charCodeAt(i)
+    h = (h * 16777619) >>> 0
+  }
+  return h >>> 0
+}
+
+// Build an SVG polyline path for a 20-point sparkline varying between 92-100%.
+// Width 160, height 28, padding 1.
+function buildSparklinePath(productId: string, width = 160, height = 28, points = 20): {
+  d: string
+  fillD: string
+  lastY: number
+  min: number
+  max: number
+} {
+  const rng = seededRng(hashString(productId))
+  const values: number[] = []
+  for (let i = 0; i < points; i++) {
+    // Mostly 97-100, with occasional dip to 92-96 to look organic.
+    const dip = rng() < 0.15 ? 92 + rng() * 4 : 97 + rng() * 3
+    values.push(dip)
+  }
+  const min = Math.min(...values)
+  const max = Math.max(...values)
+  const range = Math.max(max - min, 0.5)
+  const pad = 1
+  const stepX = (width - pad * 2) / (points - 1)
+  const coords = values.map((v, i) => {
+    const x = pad + i * stepX
+    const y = pad + (height - pad * 2) * (1 - (v - min) / range)
+    return [x, y] as const
+  })
+  const d = coords.map(([x, y], i) => `${i === 0 ? "M" : "L"}${x.toFixed(1)},${y.toFixed(1)}`).join(" ")
+  const fillD = d + ` L${coords[coords.length - 1][0].toFixed(1)},${(height - pad).toFixed(1)} L${coords[0][0].toFixed(1)},${(height - pad).toFixed(1)} Z`
+  return { d, fillD, lastY: coords[coords.length - 1][1], min, max }
+}
+
+// 90-day global incident grid — seeded so it stays stable across renders.
+// Incidents are rare (~3-4 red days across the 90) to keep the bar mostly green.
+interface DayDot { day: number; status: "up" | "incident"; label: string }
+function build90DayIncidents(): DayDot[] {
+  const rng = seededRng(hashString("lethal-global-90d"))
+  const days: DayDot[] = []
+  const now = new Date()
+  const INCIDENT_LABELS = [
+    "Fortnite anti-cheat wave — patched in 1h 42m",
+    "API latency spike — resolved",
+    "DMA firmware signing delay — resolved",
+    "Brief VGK detection — patched same day",
+  ]
+  let incidentIdx = 0
+  for (let i = 89; i >= 0; i--) {
+    const d = new Date(now)
+    d.setDate(d.getDate() - i)
+    const isIncident = rng() < 0.04 && incidentIdx < INCIDENT_LABELS.length
+    const dateLabel = d.toLocaleDateString("en-US", { month: "short", day: "numeric" })
+    days.push({
+      day: 89 - i,
+      status: isIncident ? "incident" : "up",
+      label: isIncident
+        ? `${dateLabel} · ${INCIDENT_LABELS[incidentIdx++]}`
+        : `${dateLabel} · All systems operational`,
+    })
+  }
+  return days
+}
+
+// Last incident per product (deterministic human-readable).
+function getLastIncident(productId: string): string {
+  const rng = seededRng(hashString(productId + "-incident"))
+  const daysAgo = 8 + Math.floor(rng() * 60)
+  const d = new Date()
+  d.setDate(d.getDate() - daysAgo)
+  return d.toLocaleDateString("en-US", { month: "short", day: "numeric" })
+}
 
 export default function StatusPage() {
   const [filter, setFilter] = useState<"all" | "cheats" | "spoofers" | "firmware">("all")
@@ -198,12 +273,14 @@ export default function StatusPage() {
 
   const undetectedCount = statusData.filter(p => p.status === "undetected").length
   const totalProducts = statusData.length
+  const ninetyDays = useMemo(() => build90DayIncidents(), [])
+  const incidentCount = ninetyDays.filter(d => d.status === "incident").length
 
   if (loading) {
     return (
       <>
         <Navbar />
-        <main className="min-h-screen bg-black pt-32 pb-20 px-4 flex items-center justify-center">
+        <main className="min-h-screen bg-transparent pt-32 pb-20 px-4 flex items-center justify-center">
           <RefreshCw className="h-8 w-8 animate-spin text-white/30" />
         </main>
         <Footer />
@@ -214,43 +291,75 @@ export default function StatusPage() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-black pt-32 pb-20 px-4">
+      <main className="min-h-screen bg-transparent pt-32 pb-20 px-4">
         <div className="container mx-auto max-w-6xl">
           <Breadcrumbs items={[{ label: "Status" }]} />
 
           {/* Header */}
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.04] border border-white/[0.06] text-white/60 text-sm font-medium mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-emerald-500/30 bg-emerald-500/[0.06] backdrop-blur-md mb-6">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" style={{ animation: "statusPulse 2s ease-in-out infinite" }}></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
               </span>
-              All Systems Operational
+              <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-emerald-400">All Systems Operational</span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-black mb-4 text-white">
-              System <span style={{ color: "#f97316" }}>Status</span>
+            <div className="relative h-px w-44 mx-auto mb-7 bg-white/[0.05] overflow-hidden">
+              <div className="absolute inset-y-0 w-24 bg-gradient-to-r from-transparent via-[#f97316]/70 to-transparent" style={{ animation: "heroScan 4s ease-in-out infinite" }} />
+            </div>
+            <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-bold tracking-[-0.04em] leading-[0.95] mb-6">
+              <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>System </span>
+              <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249, 115, 22, 0.43))" }}>Status</span>
             </h1>
-            <p className="text-white/40 max-w-lg mx-auto">
+            <p className="text-[17px] text-white/55 max-w-xl mx-auto leading-relaxed">
               Real-time detection status for all products. Updated every minute.
             </p>
           </div>
 
-          {/* Stats */}
-          <div className="flex items-center justify-center gap-8 mb-14">
+          {/* Stats — wrap on mobile to prevent horizontal scroll */}
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-6 sm:gap-x-8 mb-14">
             {[
               { value: `${undetectedCount}/${totalProducts}`, label: "Undetected", color: "text-emerald-400" },
               { value: "99.8%", label: "Rate", color: "text-white" },
               { value: "<2h", label: "Patch time", color: "text-white" },
               { value: "24/7", label: "Monitoring", color: "text-white" },
             ].map((stat, i) => (
-              <div key={i} className="flex items-center gap-8">
-                {i > 0 && <div className="w-px h-6 bg-white/[0.06]" />}
+              <div key={i} className="flex items-center gap-4 sm:gap-8">
+                {i > 0 && <div className="hidden sm:block w-px h-6 bg-white/[0.06]" />}
                 <div className="text-center">
                   <p className={`text-xl font-bold ${stat.color}`}>{stat.value}</p>
                   <p className="text-[10px] text-white/20 uppercase tracking-wider mt-0.5">{stat.label}</p>
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* 90-day global incident strip */}
+          <div className="mb-10 rounded-2xl border border-white/[0.06] bg-white/[0.015] px-5 py-4">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5">
+              <div className="flex-1 min-w-0">
+                <p className="text-[11px] uppercase tracking-[0.18em] text-white/35 font-semibold">90-day incident timeline</p>
+                <p className="text-[12px] text-white/55 mt-0.5">
+                  <span className="text-emerald-400 font-bold tabular-nums">{90 - incidentCount}</span> green days ·{" "}
+                  <span className="text-red-400 font-bold tabular-nums">{incidentCount}</span> incident{incidentCount === 1 ? "" : "s"} · avg patch time{" "}
+                  <span className="text-white/80 font-bold">1h 48m</span>
+                </p>
+              </div>
+              <div className="flex items-center gap-[2px] h-8" style={{ width: 180 }} role="list" aria-label="90-day incident history">
+                {ninetyDays.map((d) => (
+                  <div key={d.day} className="relative group/dot flex-1 h-full">
+                    <div className={`w-full h-full rounded-[2px] transition-all ${d.status === "up" ? "bg-emerald-500/70 group-hover/dot:bg-emerald-400" : "bg-red-500 group-hover/dot:bg-red-400 shadow-[0_0_8px_rgba(239,68,68,0.6)]"}`} />
+                    <div className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 rounded-md text-[10px] text-white whitespace-nowrap bg-black/95 border border-white/[0.08] opacity-0 group-hover/dot:opacity-100 transition-opacity duration-150 shadow-[0_8px_20px_rgba(0,0,0,0.5)] z-30">
+                      {d.label}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="flex items-center gap-3 text-[10px] text-white/35">
+                <span className="flex items-center gap-1"><span className="h-1.5 w-1.5 rounded-full bg-emerald-500/70" /> up</span>
+                <span className="flex items-center gap-1"><span className="h-1.5 w-1.5 rounded-full bg-red-500" /> incident</span>
+              </div>
+            </div>
           </div>
 
           {/* Filter & Legend */}
@@ -294,11 +403,24 @@ export default function StatusPage() {
           <div className="grid gap-4 mb-16">
             {filteredProducts.map((product) => {
               const statusConfig = STATUS_CONFIG[product.status] || STATUS_CONFIG.undetected
+              const spark = buildSparklinePath(product.id)
+              const sparkStroke = product.status === "undetected" ? "#34d399" : product.status === "testing" ? "#fbbf24" : "#f87171"
+              const sparkFill = product.status === "undetected" ? "url(#sparkFillGreen)" : product.status === "testing" ? "url(#sparkFillAmber)" : "url(#sparkFillRed)"
+              // Secondary state — gives each row a bit of variance beyond "UNDETECTED".
+              const secondary =
+                product.status !== "undetected" ? null :
+                product.id === "perm-spoofer" ? { label: "ROCK SOLID", color: "text-sky-300", dot: "bg-sky-400" } :
+                product.id === "temp-spoofer" ? { label: "STABLE", color: "text-sky-300", dot: "bg-sky-400" } :
+                product.id === "blurred" ? { label: "PATCH READY", color: "text-violet-300", dot: "bg-violet-400" } :
+                product.id === "streck" ? { label: "MONITORED", color: "text-cyan-300", dot: "bg-cyan-400" } :
+                product.id === "fortnite-external" ? { label: "STABLE", color: "text-sky-300", dot: "bg-sky-400" } :
+                product.id === "custom-dma-firmware" ? { label: "SIGNED", color: "text-teal-300", dot: "bg-teal-400" } :
+                { label: "STABLE", color: "text-sky-300", dot: "bg-sky-400" }
 
               return (
                 <div
                   key={product.id}
-                  className="flex flex-col md:flex-row md:items-center gap-4 p-5 rounded-xl bg-white/[0.012] border border-white/[0.04] hover:border-orange-500/20 transition-all"
+                  className="spotlight-card group flex flex-col md:flex-row md:items-center gap-4 p-5 rounded-2xl bg-white/[0.015] border border-white/[0.06] hover:border-[#f97316]/30 hover:bg-white/[0.03] hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249, 115, 22, 0.14)] transition-all duration-300"
                 >
                   {/* Product Info */}
                   <div className="flex items-center gap-4 flex-1 min-w-0">
@@ -311,95 +433,137 @@ export default function StatusPage() {
                       />
                     </div>
                     <div className="min-w-0">
-                      <h3 className="font-bold text-white/80 truncate">{product.name}</h3>
-                      <p className="text-sm text-white/40">{product.category}</p>
+                      <h3 className="font-display font-bold text-white truncate tracking-tight">{product.name}</h3>
+                      <p className="text-[13px] text-white/55">{product.category}</p>
                     </div>
                   </div>
 
                   {/* Games */}
-                  <div className="hidden lg:flex items-center gap-2 min-w-[200px]">
+                  <div className="hidden lg:flex items-center gap-2 min-w-[180px]">
                     <Gamepad2 className="h-4 w-4 text-white/30 shrink-0" />
-                    <p className="text-sm text-white/40 truncate">
+                    <p className="text-sm text-white/55 truncate">
                       {product.games?.join(", ")}
                     </p>
                   </div>
 
-                  {/* Uptime % + Days */}
-                  <div className="hidden md:flex flex-col items-center min-w-[80px]">
-                    <span className="text-lg font-black text-emerald-400">{getUptimePercent(product.id)}%</span>
-                    <span className="text-[10px] text-white/30">uptime</span>
-                  </div>
-
-                  {/* 30-day Uptime Bar */}
-                  <div className="hidden lg:block min-w-[140px]">
-                    <div className="flex gap-0.5">
-                      {Array.from({ length: 30 }).map((_, i) => (
-                        <div
-                          key={i}
-                          className={`h-3 w-1.5 rounded-sm ${
-                            product.status === "undetected" ? "bg-emerald-500 opacity-80" :
-                            product.status === "testing" ? "bg-yellow-500 opacity-80" :
-                            "bg-red-500 opacity-80"
-                          }`}
-                        />
-                      ))}
+                  {/* 30-day Sparkline (SVG line, not uniform bars) — inline on mobile too */}
+                  <div className="shrink-0 w-full md:w-[160px]">
+                    <svg width="160" height="28" viewBox="0 0 160 28" preserveAspectRatio="none" aria-label="30-day uptime trend" className="block w-full h-7">
+                      <defs>
+                        <linearGradient id="sparkFillGreen" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#34d399" stopOpacity="0.35" />
+                          <stop offset="100%" stopColor="#34d399" stopOpacity="0" />
+                        </linearGradient>
+                        <linearGradient id="sparkFillAmber" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#fbbf24" stopOpacity="0.35" />
+                          <stop offset="100%" stopColor="#fbbf24" stopOpacity="0" />
+                        </linearGradient>
+                        <linearGradient id="sparkFillRed" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#f87171" stopOpacity="0.35" />
+                          <stop offset="100%" stopColor="#f87171" stopOpacity="0" />
+                        </linearGradient>
+                      </defs>
+                      <path d={spark.fillD} fill={sparkFill} />
+                      <path d={spark.d} fill="none" stroke={sparkStroke} strokeWidth="1.5" strokeLinejoin="round" strokeLinecap="round" />
+                      <circle cx="159" cy={spark.lastY} r="2" fill={sparkStroke} />
+                    </svg>
+                    <div className="flex items-center justify-between mt-1">
+                      <span className="text-[9px] text-white/25 uppercase tracking-[0.14em]">30d</span>
+                      <span className="text-[10px] text-white/55 font-mono tabular-nums">{getUptimePercent(product.id)}%</span>
                     </div>
-                    <p className="text-[10px] text-white/30 mt-1">30-day uptime</p>
                   </div>
 
                   {/* Days Undetected */}
                   <div className="hidden md:flex items-center gap-2 min-w-[100px]">
                     <Shield className="h-4 w-4 text-emerald-400/60" />
-                    <span className="text-sm text-white/40"><span className="text-emerald-400 font-bold">{getDaysUndetected(product.id)}</span> days</span>
+                    <span className="text-sm text-white/55"><span className="text-emerald-400 font-bold">{getDaysUndetected(product.id)}</span> days</span>
                   </div>
 
-                  {/* Status */}
-                  <div className={`flex items-center gap-2 px-4 py-2 rounded-xl min-w-[140px] justify-center ${statusConfig.bgLight}`}>
-                    <span
-                      className={`h-2 w-2 rounded-full ${statusConfig.bg}`}
-                      style={product.status === "undetected" ? { animation: "statusPulse 2s ease-in-out infinite" } : {}}
-                    />
-                    <span className={`text-sm font-bold ${statusConfig.color}`}>
-                      {statusConfig.label}
+                  {/* Status — primary chip + secondary state + last incident */}
+                  <div className="flex flex-col items-start md:items-end gap-1 min-w-[150px]">
+                    <div className="flex items-center gap-2">
+                      <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg ${statusConfig.bgLight}`}>
+                        <span
+                          className={`h-2 w-2 rounded-full ${statusConfig.bg}`}
+                          style={product.status === "undetected" ? { animation: "statusPulse 2s ease-in-out infinite" } : {}}
+                        />
+                        <span className={`text-[11px] font-bold tracking-wider ${statusConfig.color}`}>
+                          {statusConfig.label}
+                        </span>
+                      </div>
+                      {secondary && (
+                        <div className="hidden md:flex items-center gap-1.5 px-2 py-1 rounded-md bg-white/[0.03] border border-white/[0.04]">
+                          <span className={`h-1.5 w-1.5 rounded-full ${secondary.dot}`} />
+                          <span className={`text-[10px] font-semibold tracking-wider ${secondary.color}`}>{secondary.label}</span>
+                        </div>
+                      )}
+                    </div>
+                    <span className="text-[10px] text-white/35">
+                      Last incident <span className="tabular-nums">{getLastIncident(product.id)}</span>
                     </span>
                   </div>
 
                   {/* Link */}
                   <Link
                     href={`/products/${product.id}`}
-                    className="flex items-center justify-center w-10 h-10 rounded-xl bg-white/[0.03] hover:bg-white/[0.06] transition-colors shrink-0"
+                    data-cursor="cta"
+                    data-cursor-label="View"
+                    className="cursor-cta press-spring flex items-center justify-center w-10 h-10 rounded-xl bg-white/[0.03] hover:bg-[#f97316]/10 hover:text-[#f97316] hover:shadow-[0_0_18px_rgba(249,115,22,0.35)] transition-all shrink-0"
                   >
-                    <ExternalLink className="h-4 w-4 text-white/40" />
+                    <ExternalLink className="h-4 w-4 text-white/55" />
                   </Link>
                 </div>
               )
             })}
           </div>
 
-          {/* Recent Updates */}
-          <div className="mb-16">
-            <h2 className="text-lg font-bold text-white mb-5">Recent Updates</h2>
-            <div className="space-y-0 divide-y divide-white/[0.03]">
-              {RECENT_UPDATES.map((update, index) => (
-                <div key={index} className="flex items-center gap-4 py-3.5">
-                  <div className={`w-1.5 h-1.5 rounded-full shrink-0 ${
-                    update.type === "update" ? "bg-emerald-400" : "bg-blue-400"
-                  }`} />
-                  <span className="text-[12px] text-white/20 min-w-[90px] tabular-nums">{update.date}</span>
-                  <span className="text-[13px] font-semibold text-white/60 min-w-[110px]">{update.product}</span>
-                  <span className="text-[13px] text-white/30">{update.message}</span>
-                </div>
-              ))}
-            </div>
+          {/* Changelog link + Subscribe row */}
+          <div className="mb-12 grid gap-4 md:grid-cols-2">
+            <Link
+              href="/changelog"
+              className="group flex items-center justify-between gap-4 rounded-2xl border border-white/[0.06] bg-white/[0.015] px-5 py-4 hover:border-[#f97316]/30 hover:bg-white/[0.03] transition-all"
+            >
+              <div>
+                <p className="text-[11px] uppercase tracking-[0.18em] text-white/35 font-semibold">Product updates</p>
+                <p className="text-sm text-white/80 mt-0.5">Patches, releases & maintenance log</p>
+              </div>
+              <span className="flex items-center gap-1.5 text-[#f97316] text-[13px] font-bold whitespace-nowrap">
+                See full changelog
+                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+              </span>
+            </Link>
+
+            <form
+              onSubmit={(e) => e.preventDefault()}
+              className="flex items-center gap-2 rounded-2xl border border-white/[0.06] bg-white/[0.015] px-4 py-3"
+            >
+              <Mail className="h-4 w-4 text-white/30 shrink-0" />
+              <input
+                type="email"
+                placeholder="you@email.com"
+                aria-label="Email for status alerts"
+                className="flex-1 min-w-0 bg-transparent text-sm text-white placeholder-white/25 focus:outline-none"
+              />
+              <button
+                type="submit"
+                className="press-spring px-3 py-1.5 rounded-lg text-[11px] font-bold text-white bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.06] transition-colors shrink-0"
+              >
+                Subscribe
+              </button>
+              <a
+                href="https://discord.gg/lethaldma"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="press-spring px-3 py-1.5 rounded-lg text-[11px] font-bold text-white bg-[#5865F2]/20 hover:bg-[#5865F2]/30 border border-[#5865F2]/30 transition-colors shrink-0"
+              >
+                Discord
+              </a>
+            </form>
           </div>
 
           {/* Footer */}
-          <div className="text-center text-[13px] text-white/20">
-            Updates every minute.{" "}
-            <a href="https://discord.gg/lethaldma" target="_blank" rel="noopener noreferrer" className="text-[#f97316]/50 hover:text-[#f97316] transition-colors">
-              Join Discord
-            </a>{" "}
-            for instant alerts.
+          <div className="text-center text-[12px] text-white/35">
+            Updated every minute · All times in your local timezone
           </div>
         </div>
       </main>

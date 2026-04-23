@@ -44,7 +44,7 @@ export function RenewalRemindersList() {
 
   if (loading) {
     return (
-      <div className="rounded-2xl border border-white/[0.04] bg-white/[0.012] p-6 text-white/40 text-sm">
+      <div className="rounded-2xl border border-white/[0.04] bg-white/[0.012] p-6 text-white/55 text-sm">
         Loading renewal reminders…
       </div>
     )
@@ -80,14 +80,14 @@ export function RenewalRemindersList() {
                       <RefreshCw className="h-2.5 w-2.5" /> Active
                     </span>
                   )}
-                  <span className="text-[10.5px] text-white/40">
+                  <span className="text-[10.5px] text-white/55">
                     {r.duration_days ? `${r.duration_days}-day plan` : "Subscription"}
                   </span>
                 </div>
                 <p className="text-sm font-semibold text-white/90 truncate">
                   {r.variant_name || r.variant_id}
                 </p>
-                <p className="text-xs text-white/40 mt-1 flex items-center gap-1.5">
+                <p className="text-xs text-white/55 mt-1 flex items-center gap-1.5">
                   <Calendar className="h-3 w-3" />
                   {isSent
                     ? `Reminder sent ${remindAt.toLocaleDateString("en-GB")}`
@@ -107,7 +107,7 @@ export function RenewalRemindersList() {
                   <button
                     onClick={() => cancel(r.id)}
                     disabled={cancellingId === r.id}
-                    className="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-[10.5px] text-white/40 hover:text-red-400 hover:bg-red-500/[0.06] transition-colors disabled:opacity-50"
+                    className="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-[10.5px] text-white/55 hover:text-red-400 hover:bg-red-500/[0.06] transition-colors disabled:opacity-50"
                   >
                     <X className="h-3 w-3" /> Cancel
                   </button>

@@ -21,8 +21,8 @@ export default function ReferralRedirectPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-black">
       <div className="text-center">
-        <Loader2 className="h-8 w-8 animate-spin text-primary mx-auto mb-4" />
-        <p className="text-muted-foreground">Applying referral code...</p>
+        <Loader2 className="h-8 w-8 animate-spin text-[#f97316] mx-auto mb-4" />
+        <p className="text-white/55">Applying referral code...</p>
       </div>
     </div>
   )

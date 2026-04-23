@@ -49,7 +49,7 @@ export default async function DashboardPage() {
 
   // Member tier based on order count
   const orderCount = userOrders.length
-  let memberTier = { name: "New", color: "text-muted-foreground", bg: "bg-muted" }
+  let memberTier = { name: "New", color: "text-white/55", bg: "bg-white/[0.04]" }
   if (orderCount >= 6) {
     memberTier = { name: "VIP", color: "text-amber-500", bg: "bg-amber-500/10" }
   } else if (orderCount >= 3) {
@@ -66,7 +66,7 @@ export default async function DashboardPage() {
   })
 
   return (
-    <main className="flex min-h-screen flex-col bg-black">
+    <main className="flex min-h-screen flex-col bg-transparent">
       <Navbar />
       <DashboardClient 
         user={{

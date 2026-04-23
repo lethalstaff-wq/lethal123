@@ -8,9 +8,10 @@ export async function GET(request: NextRequest) {
   const orderId = searchParams.get("id")
   const secret = searchParams.get("secret")
   
-  // Simple secret check
-  const adminSecret = process.env.ADMIN_SECRET || "lethal"
-  if (secret !== adminSecret) {
+  // Secret check — require env var, no plaintext fallback.
+  // If ADMIN_SECRET isn't set the endpoint is locked out (safer than a weak default).
+  const adminSecret = process.env.ADMIN_SECRET
+  if (!adminSecret || secret !== adminSecret) {
     return new NextResponse(renderHtml("Access Denied", "Invalid authorization.", "error"), {
       headers: { "Content-Type": "text/html" },
       status: 401,
@@ -193,7 +194,7 @@ function renderHtml(title: string, message: string, type: "success" | "error"): 
       display: inline-block;
       margin-top: 24px;
       padding: 12px 24px;
-      background: #EF6F29;
+      background: #f97316;
       color: #fff;
       text-decoration: none;
       border-radius: 8px;

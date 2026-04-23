@@ -14,6 +14,12 @@ const GUIDE_SLUGS = [
   "flash-tools",
 ]
 
+const STORY_SLUGS = [
+  "bronze-to-gold-valorant",
+  "dma-3-patch-cycles",
+  "hwid-reset-same-day",
+]
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://www.lethalsolutions.me"
   const now = new Date()
@@ -25,12 +31,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/status`, lastModified: now, changeFrequency: "daily", priority: 0.8 },
     { url: `${baseUrl}/faq`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${baseUrl}/guides`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${baseUrl}/stories`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${baseUrl}/setup`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${baseUrl}/media`, lastModified: now, changeFrequency: "weekly", priority: 0.6 },
     { url: `${baseUrl}/compare`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${baseUrl}/changelog`, lastModified: now, changeFrequency: "weekly", priority: 0.6 },
     { url: `${baseUrl}/referrals`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${baseUrl}/apply`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
-    { url: `${baseUrl}/track`, lastModified: now, changeFrequency: "yearly", priority: 0.5 },
-    { url: `${baseUrl}/downloads`, lastModified: now, changeFrequency: "yearly", priority: 0.5 },
     { url: `${baseUrl}/terms`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
     { url: `${baseUrl}/privacy`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
   ]
@@ -49,5 +56,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }))
 
-  return [...staticPages, ...productPages, ...guidePages]
+  const storyPages: MetadataRoute.Sitemap = STORY_SLUGS.map((slug) => ({
+    url: `${baseUrl}/stories/${slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.5,
+  }))
+
+  return [...staticPages, ...productPages, ...guidePages, ...storyPages]
 }

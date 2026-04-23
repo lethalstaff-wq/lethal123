@@ -1,0 +1,329 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - img
+  - button "Open chat" [ref=e2]:
+    - img [ref=e3]
+  - region "Notifications alt+T"
+  - generic:
+    - generic:
+      - link "Perm Spoofer New Order · 2m ago Perm Spoofer Verified Dismiss notification":
+        - /url: /products/perm-spoofer
+        - generic:
+          - img "Perm Spoofer"
+        - generic:
+          - generic:
+            - generic: New Order
+            - generic: ·
+            - generic: 2m ago
+          - paragraph: Perm Spoofer
+          - generic:
+            - generic: Verified
+        - button "Dismiss notification": ×
+  - button "Back to top":
+    - img
+    - img
+  - main [ref=e7]:
+    - navigation [ref=e8]:
+      - generic [ref=e10]:
+        - link "Lethal Solutions Lethal Solutions" [ref=e11]:
+          - /url: /
+          - generic [ref=e12]:
+            - img "Lethal Solutions" [ref=e15]
+            - generic [ref=e16]: Lethal Solutions
+        - generic [ref=e18]:
+          - link "Home" [ref=e19]:
+            - /url: /
+          - link "Products" [ref=e20]:
+            - /url: /products
+          - link "Guides" [ref=e21]:
+            - /url: /guides
+          - link "Reviews" [ref=e22]:
+            - /url: /reviews
+          - link "Track Order" [ref=e23]:
+            - /url: /track
+          - link "Status" [ref=e24]:
+            - /url: /status
+        - generic [ref=e25]:
+          - button "Open search" [ref=e27]:
+            - img [ref=e28]
+            - generic [ref=e31]: Search…
+            - generic [ref=e32]: ⌘K
+          - link "Customer Login" [ref=e33]:
+            - /url: /login
+            - button "Customer Login" [ref=e34]:
+              - img
+              - text: Customer Login
+          - link "Shopping cart" [ref=e35]:
+            - /url: /cart
+            - button "Shopping cart" [ref=e36]:
+              - img
+    - generic [ref=e38]:
+      - generic [ref=e39]:
+        - generic [ref=e40]: Issue 01
+        - generic [ref=e42]: Case studies
+      - heading "Players who came back." [level=1] [ref=e43]
+      - generic [ref=e44]:
+        - paragraph [ref=e45]: Three stories pulled from our Discord. Names changed, screenshots real, edits for length only.
+        - generic [ref=e47]:
+          - generic [ref=e48]: 3 stories
+          - generic [ref=e50]: Monthly drops
+      - navigation "Jump to story" [ref=e51]:
+        - generic [ref=e52]: Jump to
+        - button "01 Bronze to gold · vex_" [ref=e53]:
+          - generic [ref=e54]: "01"
+          - generic [ref=e55]: Bronze to gold
+          - generic [ref=e56]: ·
+          - generic [ref=e57]: vex_
+        - button "02 3 patch cycles · zk" [ref=e58]:
+          - generic [ref=e59]: "02"
+          - generic [ref=e60]: 3 patch cycles
+          - generic [ref=e61]: ·
+          - generic [ref=e62]: zk
+        - button "03 HWID reset · rxn" [ref=e63]:
+          - generic [ref=e64]: "03"
+          - generic [ref=e65]: HWID reset
+          - generic [ref=e66]: ·
+          - generic [ref=e67]: rxn
+    - generic [ref=e69]:
+      - article [ref=e70]:
+        - generic:
+          - generic: "01"
+        - generic [ref=e71]:
+          - complementary [ref=e72]:
+            - generic [ref=e73]:
+              - generic [ref=e74]: "01"
+              - generic [ref=e76]: The climb
+            - generic [ref=e77]:
+              - generic [ref=e78]: V
+              - generic [ref=e79]:
+                - paragraph [ref=e80]: vex_
+                - paragraph [ref=e81]: 3 months ago
+            - generic [ref=e82]:
+              - generic [ref=e83]:
+                - term [ref=e84]: Game
+                - definition [ref=e85]: Valorant
+              - generic [ref=e86]:
+                - term [ref=e87]: Stack
+                - definition [ref=e88]: Private aimbot · VPN-locked account
+          - generic [ref=e89]:
+            - heading "From bronze to gold in two weeks." [level=2] [ref=e90]
+            - paragraph [ref=e91]: “Hard-stuck silver for 8 months. Hit Gold 2 by the weekend. First clutch of my life.”
+            - generic [ref=e92]:
+              - paragraph [ref=e93]: vex hit us on Discord after a 32-match losing streak. They'd tried two cheaper aimbots and burned both accounts in a week.
+              - paragraph [ref=e94]: Our support walked them through the private-build setup in twelve minutes. Configured smoothing to 0.4, FOV to 3°, humanized the flick curve. Everything runs through a VPN-locked account so Riot's fingerprint never matches their main.
+              - paragraph [ref=e95]: Two Sundays later they dropped a screenshot of the Gold 2 badge in our channel. No ban. No flags. No drama. Just a clean run.
+            - generic [ref=e96]:
+              - generic [ref=e97]:
+                - generic [ref=e98]:
+                  - img [ref=e99]
+                  - generic [ref=e105]: Rank gained
+                - paragraph [ref=e106]: +5 tiers
+              - generic [ref=e107]:
+                - generic [ref=e108]:
+                  - img [ref=e109]
+                  - generic [ref=e111]: Time to gold
+                - paragraph [ref=e112]: 14 days
+              - generic [ref=e113]:
+                - generic [ref=e114]:
+                  - img [ref=e115]
+                  - generic [ref=e117]: Detections
+                - paragraph [ref=e118]: "0"
+            - button "Next story 3 patch cycles" [ref=e120]:
+              - generic [ref=e121]: Next story
+              - generic [ref=e123]: 3 patch cycles
+              - img [ref=e124]
+      - article [ref=e126]:
+        - generic:
+          - generic: "02"
+        - generic [ref=e127]:
+          - complementary [ref=e128]:
+            - generic [ref=e129]:
+              - generic [ref=e130]: "02"
+              - generic [ref=e132]: The long game
+            - generic [ref=e133]:
+              - generic [ref=e134]: Z
+              - generic [ref=e135]:
+                - paragraph [ref=e136]: zk
+                - paragraph [ref=e137]: Ongoing
+            - generic [ref=e138]:
+              - generic [ref=e139]:
+                - term [ref=e140]: Game
+                - definition [ref=e141]: Valorant
+              - generic [ref=e142]:
+                - term [ref=e143]: Stack
+                - definition [ref=e144]: Captain 100T + custom firmware
+          - generic [ref=e145]:
+            - heading "Survived three Vanguard patch cycles." [level=2] [ref=e146]
+            - paragraph [ref=e147]: “Tried four other providers before Lethal. Every one caught a wave. Eight months on Captain 100T now — zero bans.”
+            - generic [ref=e148]:
+              - paragraph [ref=e149]: zk ordered the DMA Elite bundle. Shipped discreetly to an EU address in plain packaging — no logos, no branding, no customs drama.
+              - paragraph [ref=e150]: Three times in the last eight months Vanguard pushed a new detection wave overnight. All three times our firmware was already patched before zk's coffee finished brewing. Auto-update ran in the background. They didn't even open a support ticket.
+              - paragraph [ref=e151]: That's the whole deal. You pay once, the infrastructure keeps you ahead of the curve, and you stop thinking about it.
+            - generic [ref=e152]:
+              - generic [ref=e153]:
+                - generic [ref=e154]:
+                  - img [ref=e155]
+                  - generic [ref=e157]: Days undetected
+                - paragraph [ref=e158]: "247"
+              - generic [ref=e159]:
+                - generic [ref=e160]:
+                  - img [ref=e161]
+                  - generic [ref=e163]: Patches survived
+                - paragraph [ref=e164]: "3"
+              - generic [ref=e165]:
+                - generic [ref=e166]:
+                  - img [ref=e167]
+                  - generic [ref=e173]: Patch-to-update
+                - paragraph [ref=e174]: < 2h
+            - button "Next story HWID reset" [ref=e176]:
+              - generic [ref=e177]: Next story
+              - generic [ref=e179]: HWID reset
+              - img [ref=e180]
+      - article [ref=e182]:
+        - generic:
+          - generic: "03"
+        - generic [ref=e183]:
+          - complementary [ref=e184]:
+            - generic [ref=e185]:
+              - generic [ref=e186]: "03"
+              - generic [ref=e188]: The comeback
+            - generic [ref=e189]:
+              - generic [ref=e190]: R
+              - generic [ref=e191]:
+                - paragraph [ref=e192]: rxn
+                - paragraph [ref=e193]: 6 months ago
+            - generic [ref=e194]:
+              - generic [ref=e195]:
+                - term [ref=e196]: Game
+                - definition [ref=e197]: Warzone
+              - generic [ref=e198]:
+                - term [ref=e199]: Stack
+                - definition [ref=e200]: Perm Spoofer + crypto checkout
+          - generic [ref=e201]:
+            - heading "HWID reset same-day, after a three-year ban." [level=2] [ref=e202]
+            - paragraph [ref=e203]: “Hardware banned in 2022 for using a scam provider. Thought my PC was dead for Warzone. Five minutes later I was queueing.”
+            - generic [ref=e204]:
+              - paragraph [ref=e205]: rxn bought Perm Spoofer at 2:17 AM with Bitcoin. Download link hit their inbox in ninety seconds.
+              - paragraph [ref=e206]: Clean reboot. Launcher relogin. Warzone opened without a single flag. No queue penalty, no shadow ban detection. Their old account — alive since 2020 — came back from the dead.
+              - paragraph [ref=e207]: They've been running on the same hardware for six months. No second ban. No stress.
+            - generic [ref=e208]:
+              - generic [ref=e209]:
+                - generic [ref=e210]:
+                  - img [ref=e211]
+                  - generic [ref=e213]: Ban age
+                - paragraph [ref=e214]: 3 years
+              - generic [ref=e215]:
+                - generic [ref=e216]:
+                  - img [ref=e217]
+                  - generic [ref=e219]: Setup time
+                - paragraph [ref=e220]: 4 min
+              - generic [ref=e221]:
+                - generic [ref=e222]:
+                  - img [ref=e223]
+                  - generic [ref=e229]: Account lifespan
+                - paragraph [ref=e230]: 6+ mo
+      - generic [ref=e231]:
+        - paragraph [ref=e232]: Your move
+        - heading "Your story next?" [level=3] [ref=e233]
+        - link "Start your comeback" [ref=e234]:
+          - /url: /products
+          - text: Start your comeback
+          - img [ref=e235]
+    - generic [ref=e241]:
+      - generic [ref=e242]:
+        - generic [ref=e243]:
+          - generic [ref=e244]:
+            - img "Lethal Solutions" [ref=e247]
+            - generic [ref=e248]: Lethal Solutions
+          - paragraph [ref=e249]: Kernel-level gaming tools trusted by 8,700+ players. Undetected since day one.
+          - generic [ref=e250]:
+            - generic [ref=e251]:
+              - img [ref=e252]
+              - generic [ref=e254]: Secure
+            - generic [ref=e255]:
+              - img [ref=e256]
+              - generic [ref=e258]: Instant
+            - generic [ref=e259]:
+              - img [ref=e260]
+              - generic [ref=e263]: 24/7
+          - generic [ref=e264]:
+            - paragraph [ref=e265]: Connect
+            - generic [ref=e266]:
+              - link "Discord" [ref=e267]:
+                - /url: https://discord.gg/lethaldma
+                - img [ref=e268]
+              - link "YouTube" [ref=e271]:
+                - /url: https://www.youtube.com/@ujukcheats-x4b
+                - img [ref=e272]
+              - link "Telegram" [ref=e275]:
+                - /url: https://t.me/lethalsolutions
+                - img [ref=e276]
+        - generic [ref=e279]:
+          - heading "Products" [level=4] [ref=e280]
+          - list [ref=e281]:
+            - listitem [ref=e282]:
+              - link "All Products" [ref=e283]:
+                - /url: /products
+            - listitem [ref=e284]:
+              - link "Compare" [ref=e285]:
+                - /url: /compare
+            - listitem [ref=e286]:
+              - link "Reviews" [ref=e287]:
+                - /url: /reviews
+            - listitem [ref=e288]:
+              - link "Status" [ref=e289]:
+                - /url: /status
+        - generic [ref=e290]:
+          - heading "Resources" [level=4] [ref=e291]
+          - list [ref=e292]:
+            - listitem [ref=e293]:
+              - link "Setup Guide" [ref=e294]:
+                - /url: /setup
+            - listitem [ref=e295]:
+              - link "Media Library" [ref=e296]:
+                - /url: /media
+            - listitem [ref=e297]:
+              - link "FAQ" [ref=e298]:
+                - /url: /faq
+            - listitem [ref=e299]:
+              - link "Guides" [ref=e300]:
+                - /url: /guides
+            - listitem [ref=e301]:
+              - link "Changelog" [ref=e302]:
+                - /url: /changelog
+            - listitem [ref=e303]:
+              - link "Success Stories" [ref=e304]:
+                - /url: /stories
+            - listitem [ref=e305]:
+              - link "Referrals" [ref=e306]:
+                - /url: /referrals
+            - listitem [ref=e307]:
+              - link "Join Our Team" [ref=e308]:
+                - /url: /apply
+        - generic [ref=e309]:
+          - heading "Account" [level=4] [ref=e310]
+          - list [ref=e311]:
+            - listitem [ref=e312]:
+              - link "Track Order" [ref=e313]:
+                - /url: /track
+            - listitem [ref=e314]:
+              - link "Downloads" [ref=e315]:
+                - /url: /downloads
+            - listitem [ref=e316]:
+              - link "My Account" [ref=e317]:
+                - /url: /profile
+            - listitem [ref=e318]:
+              - link "Cart" [ref=e319]:
+                - /url: /cart
+      - heading [level=2] [ref=e321]: LETHAL
+      - generic [ref=e322]:
+        - paragraph [ref=e323]: © 2026 Lethal Solutions. All rights reserved.
+        - generic [ref=e324]:
+          - generic [ref=e329]: All systems operational
+          - link "Terms" [ref=e331]:
+            - /url: /terms
+          - link "Privacy" [ref=e333]:
+            - /url: /privacy
+  - button "Open Next.js Dev Tools" [ref=e339] [cursor=pointer]:
+    - img [ref=e340]
+  - alert [ref=e343]

@@ -1,0 +1,803 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - img
+  - region "Notifications alt+T"
+  - button "Back to top":
+    - img
+    - img
+  - main [ref=e4]:
+    - navigation [ref=e5]:
+      - generic [ref=e7]:
+        - link "Lethal Solutions Lethal Solutions" [ref=e8] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e9]:
+            - img "Lethal Solutions" [ref=e12]
+            - generic [ref=e13]: Lethal Solutions
+        - generic [ref=e14]:
+          - button "Open search" [ref=e16]:
+            - img
+          - link:
+            - /url: /login
+          - link "Shopping cart" [ref=e17] [cursor=pointer]:
+            - /url: /cart
+            - button "Shopping cart" [ref=e18]:
+              - img
+          - button "Toggle menu" [ref=e20]:
+            - img
+            - generic [ref=e21]: Toggle menu
+    - generic [ref=e23]:
+      - navigation "Breadcrumb" [ref=e24]:
+        - link [ref=e25] [cursor=pointer]:
+          - /url: /
+          - img [ref=e26]
+        - generic [ref=e29]:
+          - img [ref=e30]
+          - generic [ref=e32]: FAQ
+      - generic [ref=e33]:
+        - generic [ref=e37]: Help Center
+        - heading "Common Questions" [level=1] [ref=e41]
+        - paragraph [ref=e42]: Find answers to common questions about our products and services
+        - generic [ref=e43]:
+          - img
+          - textbox "Search questions" [ref=e44]:
+            - /placeholder: Search questions...
+        - generic [ref=e46]: 25 answers across 7 topics
+    - generic [ref=e49]:
+      - generic [ref=e51]:
+        - img [ref=e52]
+        - generic [ref=e54]: Quick answers
+      - generic [ref=e55]:
+        - 'button "Getting Started How long does delivery take? Digital products are delivered instantly after payment confirmation. Crypto payments require blockchain confirmations: Bitcoin needs 2 confirmations (~20 min), Litecoin ~5 min, USDT TRC-20 ~3 min. DMA firmware orders may take 24-48 hours as they require custom generation for your specific hardware. Read answer" [ref=e56]':
+          - generic [ref=e57]:
+            - img [ref=e59]
+            - generic [ref=e62]: Getting Started
+          - generic [ref=e63]: How long does delivery take?
+          - generic [ref=e64]: "Digital products are delivered instantly after payment confirmation. Crypto payments require blockchain confirmations: Bitcoin needs 2 confirmations (~20 min), Litecoin ~5 min, USDT TRC-20 ~3 min. DMA firmware orders may take 24-48 hours as they require custom generation for your specific hardware."
+          - generic [ref=e65]:
+            - text: Read answer
+            - img [ref=e66]
+        - button "Getting Started What payment methods do you accept? We accept Bitcoin (BTC), Ethereum (ETH), Litecoin (LTC), USDT on TRC-20 and ERC-20 networks, and PayPal (Friends & Family). Cryptocurrency payments are processed instantly. PayPal orders may take up to 30 minutes for manual verification. We do not accept credit cards or bank transfers. Read answer" [ref=e68]:
+          - generic [ref=e69]:
+            - img [ref=e71]
+            - generic [ref=e73]: Getting Started
+          - generic [ref=e74]: What payment methods do you accept?
+          - generic [ref=e75]: We accept Bitcoin (BTC), Ethereum (ETH), Litecoin (LTC), USDT on TRC-20 and ERC-20 networks, and PayPal (Friends & Family). Cryptocurrency payments are processed instantly. PayPal orders may take up to 30 minutes for manual verification. We do not accept credit cards or bank transfers.
+          - generic [ref=e76]:
+            - text: Read answer
+            - img [ref=e77]
+        - button "Safety Are your products safe and undetected? Yes. We continuously update all products to maintain undetected status. Check our Status page for real-time detection status. DMA products are inherently undetectable due to hardware-level operation. Software products receive updates within 24-48 hours of any game patch. Read answer" [ref=e79]:
+          - generic [ref=e80]:
+            - img [ref=e82]
+            - generic [ref=e85]: Safety
+          - generic [ref=e86]: Are your products safe and undetected?
+          - generic [ref=e87]: Yes. We continuously update all products to maintain undetected status. Check our Status page for real-time detection status. DMA products are inherently undetectable due to hardware-level operation. Software products receive updates within 24-48 hours of any game patch.
+          - generic [ref=e88]:
+            - text: Read answer
+            - img [ref=e89]
+    - generic [ref=e93]:
+      - generic [ref=e95]:
+        - button "All 25" [ref=e96]:
+          - generic [ref=e97]: All
+          - generic [ref=e98]: "25"
+        - button "Getting Started 4" [ref=e99]:
+          - generic [ref=e100]: Getting Started
+          - generic [ref=e101]: "4"
+        - button "Spoofer 3" [ref=e102]:
+          - generic [ref=e103]: Spoofer
+          - generic [ref=e104]: "3"
+        - button "DMA Products 4" [ref=e105]:
+          - generic [ref=e106]: DMA Products
+          - generic [ref=e107]: "4"
+        - button "Firmware 3" [ref=e108]:
+          - generic [ref=e109]: Firmware
+          - generic [ref=e110]: "3"
+        - button "Technical 4" [ref=e111]:
+          - generic [ref=e112]: Technical
+          - generic [ref=e113]: "4"
+        - button "Orders & Support 4" [ref=e114]:
+          - generic [ref=e115]: Orders & Support
+          - generic [ref=e116]: "4"
+        - button "Safety 3" [ref=e117]:
+          - generic [ref=e118]: Safety
+          - generic [ref=e119]: "3"
+      - generic [ref=e121]:
+        - generic [ref=e122]:
+          - generic [ref=e123]:
+            - generic [ref=e124]: Getting Started
+            - generic [ref=e125]: 4 questions
+          - generic [ref=e127]:
+            - generic [ref=e128]:
+              - button "Getting Started How do I purchase a product?" [ref=e129] [cursor=pointer]:
+                - generic [ref=e130]:
+                  - img [ref=e132]
+                  - generic [ref=e135]:
+                    - generic [ref=e136]: Getting Started
+                    - heading "How do I purchase a product?" [level=3] [ref=e137]
+                - img [ref=e139]
+              - region:
+                - generic [ref=e141]:
+                  - paragraph [ref=e143]: Browse our products page, select the variant that fits your needs, add it to cart, and proceed to checkout. We accept Bitcoin, Ethereum, Litecoin, USDT (TRC-20/ERC-20), and PayPal (Friends & Family). After payment confirmation, you'll receive your license key and download link via email within minutes.
+                  - generic [ref=e144]:
+                    - generic [ref=e145]: Was this helpful?
+                    - button "Yes" [ref=e146]:
+                      - img [ref=e147]
+                      - text: "Yes"
+                    - button "No" [ref=e149]:
+                      - img [ref=e150]
+                      - text: "No"
+                    - button "Copy link to this question" [ref=e152]:
+                      - img [ref=e153]
+                      - text: Copy link
+            - generic [ref=e156]:
+              - button "Getting Started How long does delivery take?" [ref=e157] [cursor=pointer]:
+                - generic [ref=e158]:
+                  - img [ref=e160]
+                  - generic [ref=e163]:
+                    - generic [ref=e164]: Getting Started
+                    - heading "How long does delivery take?" [level=3] [ref=e165]
+                - img [ref=e167]
+              - region:
+                - generic [ref=e169]:
+                  - paragraph [ref=e171]: "Digital products are delivered instantly after payment confirmation. Crypto payments require blockchain confirmations: Bitcoin needs 2 confirmations (~20 min), Litecoin ~5 min, USDT TRC-20 ~3 min. DMA firmware orders may take 24-48 hours as they require custom generation for your specific hardware."
+                  - generic [ref=e172]:
+                    - generic [ref=e173]: Was this helpful?
+                    - button "Yes" [ref=e174]:
+                      - img [ref=e175]
+                      - text: "Yes"
+                    - button "No" [ref=e177]:
+                      - img [ref=e178]
+                      - text: "No"
+                    - button "Copy link to this question" [ref=e180]:
+                      - img [ref=e181]
+                      - text: Copy link
+            - generic [ref=e184]:
+              - button "Getting Started What payment methods do you accept?" [ref=e185] [cursor=pointer]:
+                - generic [ref=e186]:
+                  - img [ref=e188]
+                  - generic [ref=e191]:
+                    - generic [ref=e192]: Getting Started
+                    - heading "What payment methods do you accept?" [level=3] [ref=e193]
+                - img [ref=e195]
+              - region:
+                - generic [ref=e197]:
+                  - paragraph [ref=e199]: We accept Bitcoin (BTC), Ethereum (ETH), Litecoin (LTC), USDT on TRC-20 and ERC-20 networks, and PayPal (Friends & Family). Cryptocurrency payments are processed instantly. PayPal orders may take up to 30 minutes for manual verification. We do not accept credit cards or bank transfers.
+                  - generic [ref=e200]:
+                    - generic [ref=e201]: Was this helpful?
+                    - button "Yes" [ref=e202]:
+                      - img [ref=e203]
+                      - text: "Yes"
+                    - button "No" [ref=e205]:
+                      - img [ref=e206]
+                      - text: "No"
+                    - button "Copy link to this question" [ref=e208]:
+                      - img [ref=e209]
+                      - text: Copy link
+            - generic [ref=e212]:
+              - button "Getting Started Do I need any special hardware?" [ref=e213] [cursor=pointer]:
+                - generic [ref=e214]:
+                  - img [ref=e216]
+                  - generic [ref=e219]:
+                    - generic [ref=e220]: Getting Started
+                    - heading "Do I need any special hardware?" [level=3] [ref=e221]
+                - img [ref=e223]
+              - region:
+                - generic [ref=e225]:
+                  - paragraph [ref=e227]: For software products (Spoofer, Fortnite External), you only need a Windows 10/11 PC. For DMA cheats (Blurred, Streck), you need a DMA card (we sell complete bundles with Captain DMA 100T-7th), a second PC or laptop, and a fuser or capture card.
+                  - generic [ref=e228]:
+                    - generic [ref=e229]: Was this helpful?
+                    - button "Yes" [ref=e230]:
+                      - img [ref=e231]
+                      - text: "Yes"
+                    - button "No" [ref=e233]:
+                      - img [ref=e234]
+                      - text: "No"
+                    - button "Copy link to this question" [ref=e236]:
+                      - img [ref=e237]
+                      - text: Copy link
+        - generic [ref=e240]:
+          - generic [ref=e241]:
+            - generic [ref=e242]: Spoofer
+            - generic [ref=e243]: 3 questions
+          - generic [ref=e245]:
+            - generic [ref=e246]:
+              - button "Spoofer What does the HWID Spoofer do?" [ref=e247] [cursor=pointer]:
+                - generic [ref=e248]:
+                  - img [ref=e250]
+                  - generic [ref=e253]:
+                    - generic [ref=e254]: Spoofer
+                    - heading "What does the HWID Spoofer do?" [level=3] [ref=e255]
+                - img [ref=e257]
+              - region:
+                - generic [ref=e259]:
+                  - paragraph [ref=e261]: "Our spoofer changes your hardware identifiers (HWID) that games and anti-cheats use to track bans. It spoofs: Disk serials, motherboard UUID, MAC addresses, SMBIOS data, GPU identifiers, and more. This allows you to play on a fresh identity after a hardware ban."
+                  - generic [ref=e262]:
+                    - generic [ref=e263]: Was this helpful?
+                    - button "Yes" [ref=e264]:
+                      - img [ref=e265]
+                      - text: "Yes"
+                    - button "No" [ref=e267]:
+                      - img [ref=e268]
+                      - text: "No"
+                    - button "Copy link to this question" [ref=e270]:
+                      - img [ref=e271]
+                      - text: Copy link
+            - generic [ref=e274]:
+              - button "Spoofer What's the difference between Perm and Temp Spoofer?" [ref=e275] [cursor=pointer]:
+                - generic [ref=e276]:
+                  - img [ref=e278]
+                  - generic [ref=e281]:
+                    - generic [ref=e282]: Spoofer
+                    - heading "What's the difference between Perm and Temp Spoofer?" [level=3] [ref=e283]
+                - img [ref=e285]
+              - region:
+                - generic [ref=e287]:
+                  - paragraph [ref=e289]: Perm Spoofer makes permanent changes to your hardware identifiers that persist across reboots. Temp Spoofer applies changes only for the current session - when you restart, your original HWIDs return. Perm is more convenient, Temp is safer for some use cases.
+                  - generic [ref=e290]:
+                    - generic [ref=e291]: Was this helpful?
+                    - button "Yes" [ref=e292]:
+                      - img [ref=e293]
+                      - text: "Yes"
+                    - button "No" [ref=e295]:
+                      - img [ref=e296]
+                      - text: "No"
+                    - button "Copy link to this question" [ref=e298]:
+                      - img [ref=e299]
+                      - text: Copy link
+            - generic [ref=e302]:
+              - button "Spoofer Will the spoofer remove my existing ban?" [ref=e303] [cursor=pointer]:
+                - generic [ref=e304]:
+                  - img [ref=e306]
+                  - generic [ref=e309]:
+                    - generic [ref=e310]: Spoofer
+                    - heading "Will the spoofer remove my existing ban?" [level=3] [ref=e311]
+                - img [ref=e313]
+              - region:
+                - generic [ref=e315]:
+                  - paragraph [ref=e317]: The spoofer doesn't remove bans - it changes your hardware identity so the game sees you as a new user. Your banned account remains banned, but you can create a new account and play without being flagged by your hardware.
+                  - generic [ref=e318]:
+                    - generic [ref=e319]: Was this helpful?
+                    - button "Yes" [ref=e320]:
+                      - img [ref=e321]
+                      - text: "Yes"
+                    - button "No" [ref=e323]:
+                      - img [ref=e324]
+                      - text: "No"
+                    - button "Copy link to this question" [ref=e326]:
+                      - img [ref=e327]
+                      - text: Copy link
+        - generic [ref=e330]:
+          - generic [ref=e331]:
+            - generic [ref=e332]: DMA Products
+            - generic [ref=e333]: 4 questions
+          - generic [ref=e335]:
+            - generic [ref=e336]:
+              - button "DMA Products What is DMA cheating and why is it undetected?" [ref=e337] [cursor=pointer]:
+                - generic [ref=e338]:
+                  - img [ref=e340]
+                  - generic [ref=e343]:
+                    - generic [ref=e344]: DMA Products
+                    - heading "What is DMA cheating and why is it undetected?" [level=3] [ref=e345]
+                - img [ref=e347]
+              - region:
+                - generic [ref=e349]:
+                  - paragraph [ref=e351]: DMA (Direct Memory Access) uses external hardware to read game memory from a separate computer. Since no software runs on your gaming PC, anti-cheats cannot detect it. The DMA card reads memory directly through PCIe, completely bypassing kernel-level anti-cheat protection.
+                  - generic [ref=e352]:
+                    - generic [ref=e353]: Was this helpful?
+                    - button "Yes" [ref=e354]:
+                      - img [ref=e355]
+                      - text: "Yes"
+                    - button "No" [ref=e357]:
+                      - img [ref=e358]
+                      - text: "No"
+                    - button "Copy link to this question" [ref=e360]:
+                      - img [ref=e361]
+                      - text: Copy link
+            - generic [ref=e364]:
+              - button "DMA Products What hardware do I need for DMA?" [ref=e365] [cursor=pointer]:
+                - generic [ref=e366]:
+                  - img [ref=e368]
+                  - generic [ref=e371]:
+                    - generic [ref=e372]: DMA Products
+                    - heading "What hardware do I need for DMA?" [level=3] [ref=e373]
+                - img [ref=e375]
+              - region:
+                - generic [ref=e377]:
+                  - paragraph [ref=e379]: "You need: 1) A DMA card (Captain DMA 100T-7th recommended), 2) A second PC or laptop to run the cheat software, 3) A fuser or HDMI capture card. Our bundles include everything except the second PC."
+                  - generic [ref=e380]:
+                    - generic [ref=e381]: Was this helpful?
+                    - button "Yes" [ref=e382]:
+                      - img [ref=e383]
+                      - text: "Yes"
+                    - button "No" [ref=e385]:
+                      - img [ref=e386]
+                      - text: "No"
+                    - button "Copy link to this question" [ref=e388]:
+                      - img [ref=e389]
+                      - text: Copy link
+            - generic [ref=e392]:
+              - button "DMA Products What's included in the DMA bundles?" [ref=e393] [cursor=pointer]:
+                - generic [ref=e394]:
+                  - img [ref=e396]
+                  - generic [ref=e399]:
+                    - generic [ref=e400]: DMA Products
+                    - heading "What's included in the DMA bundles?" [level=3] [ref=e401]
+                - img [ref=e403]
+              - region:
+                - generic [ref=e405]:
+                  - paragraph [ref=e407]: "Basic Bundle: Captain DMA card, EAC/BE firmware, Mini DP Fuser, 30-day Blurred license, Macku cheat. Advanced Bundle adds: Dichen D60 Fuser, Teensy with firmware, Slotted firmware, Quarterly Blurred. Elite Bundle: DC500 Fuser, Lifetime Blurred, full FaceIt/VGK emulation."
+                  - generic [ref=e408]:
+                    - generic [ref=e409]: Was this helpful?
+                    - button "Yes" [ref=e410]:
+                      - img [ref=e411]
+                      - text: "Yes"
+                    - button "No" [ref=e413]:
+                      - img [ref=e414]
+                      - text: "No"
+                    - button "Copy link to this question" [ref=e416]:
+                      - img [ref=e417]
+                      - text: Copy link
+            - generic [ref=e420]:
+              - button "DMA Products What's the difference between Blurred and Streck?" [ref=e421] [cursor=pointer]:
+                - generic [ref=e422]:
+                  - img [ref=e424]
+                  - generic [ref=e427]:
+                    - generic [ref=e428]: DMA Products
+                    - heading "What's the difference between Blurred and Streck?" [level=3] [ref=e429]
+                - img [ref=e431]
+              - region:
+                - generic [ref=e433]:
+                  - paragraph [ref=e435]: Blurred is our premium DMA cheat supporting 6 games (Fortnite, Apex, Rust, PUBG, and more) with full radar, stream-proof overlay, and FaceIt/Vanguard bypass. Streck is a budget-friendly option for Fortnite and Apex with core ESP and aimbot. Both are undetected. Check the Compare page for detailed feature comparison.
+                  - generic [ref=e436]:
+                    - generic [ref=e437]: Was this helpful?
+                    - button "Yes" [ref=e438]:
+                      - img [ref=e439]
+                      - text: "Yes"
+                    - button "No" [ref=e441]:
+                      - img [ref=e442]
+                      - text: "No"
+                    - button "Copy link to this question" [ref=e444]:
+                      - img [ref=e445]
+                      - text: Copy link
+        - generic [ref=e448]:
+          - generic [ref=e449]:
+            - generic [ref=e450]: Firmware
+            - generic [ref=e451]: 3 questions
+          - generic [ref=e453]:
+            - generic [ref=e454]:
+              - button "Firmware What games does the custom firmware support?" [ref=e455] [cursor=pointer]:
+                - generic [ref=e456]:
+                  - img [ref=e458]
+                  - generic [ref=e461]:
+                    - generic [ref=e462]: Firmware
+                    - heading "What games does the custom firmware support?" [level=3] [ref=e463]
+                - img [ref=e465]
+              - region:
+                - generic [ref=e467]:
+                  - paragraph [ref=e469]: "EAC/BE Emulated: All EasyAntiCheat and BattlEye games (Fortnite, Apex, Rust, etc). Slotted Edition: Same games with reduced detection overlap. FaceIt/VGK: Adds support for FaceIt anti-cheat and Valorant's Vanguard (VGK). Supports 75T, 100T, M.2, and ZDMA cards."
+                  - generic [ref=e470]:
+                    - generic [ref=e471]: Was this helpful?
+                    - button "Yes" [ref=e472]:
+                      - img [ref=e473]
+                      - text: "Yes"
+                    - button "No" [ref=e475]:
+                      - img [ref=e476]
+                      - text: "No"
+                    - button "Copy link to this question" [ref=e478]:
+                      - img [ref=e479]
+                      - text: Copy link
+            - generic [ref=e482]:
+              - button "Firmware How do I get my firmware installed?" [ref=e483] [cursor=pointer]:
+                - generic [ref=e484]:
+                  - img [ref=e486]
+                  - generic [ref=e489]:
+                    - generic [ref=e490]: Firmware
+                    - heading "How do I get my firmware installed?" [level=3] [ref=e491]
+                - img [ref=e493]
+              - region:
+                - generic [ref=e495]:
+                  - paragraph [ref=e497]: After purchase, download RustDesk and provide us your connection ID via Discord. Our team will remotely flash the firmware to your DMA card. The process takes 15-30 minutes. You'll need to be present to confirm actions on your PC.
+                  - generic [ref=e498]:
+                    - generic [ref=e499]: Was this helpful?
+                    - button "Yes" [ref=e500]:
+                      - img [ref=e501]
+                      - text: "Yes"
+                    - button "No" [ref=e503]:
+                      - img [ref=e504]
+                      - text: "No"
+                    - button "Copy link to this question" [ref=e506]:
+                      - img [ref=e507]
+                      - text: Copy link
+            - generic [ref=e510]:
+              - button "Firmware What is a DNA ID and why do you need it?" [ref=e511] [cursor=pointer]:
+                - generic [ref=e512]:
+                  - img [ref=e514]
+                  - generic [ref=e517]:
+                    - generic [ref=e518]: Firmware
+                    - heading "What is a DNA ID and why do you need it?" [level=3] [ref=e519]
+                - img [ref=e521]
+              - region:
+                - generic [ref=e523]:
+                  - paragraph [ref=e525]: Your DNA ID is a unique identifier for your specific DMA card. We use it to generate custom firmware that only works on your hardware. This prevents reselling and ensures maximum security. Follow our Knowledge Base guide to obtain your DNA ID.
+                  - generic [ref=e526]:
+                    - generic [ref=e527]: Was this helpful?
+                    - button "Yes" [ref=e528]:
+                      - img [ref=e529]
+                      - text: "Yes"
+                    - button "No" [ref=e531]:
+                      - img [ref=e532]
+                      - text: "No"
+                    - button "Copy link to this question" [ref=e534]:
+                      - img [ref=e535]
+                      - text: Copy link
+        - generic [ref=e538]:
+          - generic [ref=e539]:
+            - generic [ref=e540]: Technical
+            - generic [ref=e541]: 4 questions
+          - generic [ref=e543]:
+            - generic [ref=e544]:
+              - button "Technical What are the system requirements?" [ref=e545] [cursor=pointer]:
+                - generic [ref=e546]:
+                  - img [ref=e548]
+                  - generic [ref=e551]:
+                    - generic [ref=e552]: Technical
+                    - heading "What are the system requirements?" [level=3] [ref=e553]
+                - img [ref=e555]
+              - region:
+                - generic [ref=e557]:
+                  - paragraph [ref=e559]: "Gaming PC: Windows 10/11 64-bit, disable Secure Boot and virtualization (VT-x) for spoofer. Second PC (DMA): Any Windows/Linux system with USB 3.0. Minimum 8GB RAM recommended. Specific requirements listed on each product page."
+                  - generic [ref=e560]:
+                    - generic [ref=e561]: Was this helpful?
+                    - button "Yes" [ref=e562]:
+                      - img [ref=e563]
+                      - text: "Yes"
+                    - button "No" [ref=e565]:
+                      - img [ref=e566]
+                      - text: "No"
+                    - button "Copy link to this question" [ref=e568]:
+                      - img [ref=e569]
+                      - text: Copy link
+            - generic [ref=e572]:
+              - button "Technical The loader won't start, what should I do?" [ref=e573] [cursor=pointer]:
+                - generic [ref=e574]:
+                  - img [ref=e576]
+                  - generic [ref=e579]:
+                    - generic [ref=e580]: Technical
+                    - heading "The loader won't start, what should I do?" [level=3] [ref=e581]
+                - img [ref=e583]
+              - region:
+                - generic [ref=e585]:
+                  - paragraph [ref=e587]: 1) Run as Administrator, 2) Disable Windows Defender real-time protection, 3) Add exclusion for the loader folder, 4) Disable any other antivirus, 5) Ensure you're on Windows 10/11 64-bit, 6) Try compatibility mode for Windows 10. Contact Discord support if issues persist.
+                  - generic [ref=e588]:
+                    - generic [ref=e589]: Was this helpful?
+                    - button "Yes" [ref=e590]:
+                      - img [ref=e591]
+                      - text: "Yes"
+                    - button "No" [ref=e593]:
+                      - img [ref=e594]
+                      - text: "No"
+                    - button "Copy link to this question" [ref=e596]:
+                      - img [ref=e597]
+                      - text: Copy link
+            - generic [ref=e600]:
+              - button "Technical Can I use a VPN with your products?" [ref=e601] [cursor=pointer]:
+                - generic [ref=e602]:
+                  - img [ref=e604]
+                  - generic [ref=e607]:
+                    - generic [ref=e608]: Technical
+                    - heading "Can I use a VPN with your products?" [level=3] [ref=e609]
+                - img [ref=e611]
+              - region:
+                - generic [ref=e613]:
+                  - paragraph [ref=e615]: Yes, VPNs are recommended for additional privacy. For DMA setups, the VPN should run on your gaming PC. For software cheats, ensure the VPN doesn't interfere with the loader's connection. We recommend NordVPN or Mullvad with split tunneling enabled.
+                  - generic [ref=e616]:
+                    - generic [ref=e617]: Was this helpful?
+                    - button "Yes" [ref=e618]:
+                      - img [ref=e619]
+                      - text: "Yes"
+                    - button "No" [ref=e621]:
+                      - img [ref=e622]
+                      - text: "No"
+                    - button "Copy link to this question" [ref=e624]:
+                      - img [ref=e625]
+                      - text: Copy link
+            - generic [ref=e628]:
+              - button "Technical How do I reset my HWID if I change PC?" [ref=e629] [cursor=pointer]:
+                - generic [ref=e630]:
+                  - img [ref=e632]
+                  - generic [ref=e635]:
+                    - generic [ref=e636]: Technical
+                    - heading "How do I reset my HWID if I change PC?" [level=3] [ref=e637]
+                - img [ref=e639]
+              - region:
+                - generic [ref=e641]:
+                  - paragraph [ref=e643]: Each license is tied to one HWID. If you change PC or reinstall Windows, contact us on Discord with your order ID for a free HWID reset. We allow 1-2 resets per month. For Blurred/Streck, use the in-loader reset option if available.
+                  - generic [ref=e644]:
+                    - generic [ref=e645]: Was this helpful?
+                    - button "Yes" [ref=e646]:
+                      - img [ref=e647]
+                      - text: "Yes"
+                    - button "No" [ref=e649]:
+                      - img [ref=e650]
+                      - text: "No"
+                    - button "Copy link to this question" [ref=e652]:
+                      - img [ref=e653]
+                      - text: Copy link
+        - generic [ref=e656]:
+          - generic [ref=e657]:
+            - generic [ref=e658]: Orders & Support
+            - generic [ref=e659]: 4 questions
+          - generic [ref=e661]:
+            - generic [ref=e662]:
+              - button "Orders & Support How do I track my order status?" [ref=e663] [cursor=pointer]:
+                - generic [ref=e664]:
+                  - img [ref=e666]
+                  - generic [ref=e669]:
+                    - generic [ref=e670]: Orders & Support
+                    - heading "How do I track my order status?" [level=3] [ref=e671]
+                - img [ref=e673]
+              - region:
+                - generic [ref=e675]:
+                  - paragraph [ref=e677]: Visit the Track Order page and enter your Order ID (from confirmation email) or the email address you used. You'll see payment status, processing status, and download links once ready.
+                  - generic [ref=e678]:
+                    - generic [ref=e679]: Was this helpful?
+                    - button "Yes" [ref=e680]:
+                      - img [ref=e681]
+                      - text: "Yes"
+                    - button "No" [ref=e683]:
+                      - img [ref=e684]
+                      - text: "No"
+                    - button "Copy link to this question" [ref=e686]:
+                      - img [ref=e687]
+                      - text: Copy link
+            - generic [ref=e690]:
+              - button "Orders & Support My payment hasn't been verified - what should I do?" [ref=e691] [cursor=pointer]:
+                - generic [ref=e692]:
+                  - img [ref=e694]
+                  - generic [ref=e697]:
+                    - generic [ref=e698]: Orders & Support
+                    - heading "My payment hasn't been verified - what should I do?" [level=3] [ref=e699]
+                - img [ref=e701]
+              - region:
+                - generic [ref=e703]:
+                  - paragraph [ref=e705]: Check that you sent the exact amount shown (including network fees on your end). Bitcoin needs 2 confirmations, Litecoin 6, USDT is usually instant. If it's been over 1 hour, open a Discord ticket with your Order ID and transaction hash (TXID).
+                  - generic [ref=e706]:
+                    - generic [ref=e707]: Was this helpful?
+                    - button "Yes" [ref=e708]:
+                      - img [ref=e709]
+                      - text: "Yes"
+                    - button "No" [ref=e711]:
+                      - img [ref=e712]
+                      - text: "No"
+                    - button "Copy link to this question" [ref=e714]:
+                      - img [ref=e715]
+                      - text: Copy link
+            - generic [ref=e718]:
+              - button "Orders & Support Do you offer refunds?" [ref=e719] [cursor=pointer]:
+                - generic [ref=e720]:
+                  - img [ref=e722]
+                  - generic [ref=e725]:
+                    - generic [ref=e726]: Orders & Support
+                    - heading "Do you offer refunds?" [level=3] [ref=e727]
+                - img [ref=e729]
+              - region:
+                - generic [ref=e731]:
+                  - paragraph [ref=e733]: If a product doesn't work on your setup and our support team can't resolve it, we issue a full refund within 24 hours of purchase. For subscription products, we offer partial refunds for unused time. Open a ticket on Discord to request a refund.
+                  - generic [ref=e734]:
+                    - generic [ref=e735]: Was this helpful?
+                    - button "Yes" [ref=e736]:
+                      - img [ref=e737]
+                      - text: "Yes"
+                    - button "No" [ref=e739]:
+                      - img [ref=e740]
+                      - text: "No"
+                    - button "Copy link to this question" [ref=e742]:
+                      - img [ref=e743]
+                      - text: Copy link
+            - generic [ref=e746]:
+              - button "Orders & Support How do I contact support?" [ref=e747] [cursor=pointer]:
+                - generic [ref=e748]:
+                  - img [ref=e750]
+                  - generic [ref=e753]:
+                    - generic [ref=e754]: Orders & Support
+                    - heading "How do I contact support?" [level=3] [ref=e755]
+                - img [ref=e757]
+              - region:
+                - generic [ref=e759]:
+                  - paragraph [ref=e761]: "Join our Discord server and open a ticket in the #support channel. Average response time is under 15 minutes during EU/US business hours. For urgent issues, tag @Staff in your ticket. Include your Order ID for faster help."
+                  - generic [ref=e762]:
+                    - generic [ref=e763]: Was this helpful?
+                    - button "Yes" [ref=e764]:
+                      - img [ref=e765]
+                      - text: "Yes"
+                    - button "No" [ref=e767]:
+                      - img [ref=e768]
+                      - text: "No"
+                    - button "Copy link to this question" [ref=e770]:
+                      - img [ref=e771]
+                      - text: Copy link
+        - generic [ref=e774]:
+          - generic [ref=e775]:
+            - generic [ref=e776]: Safety
+            - generic [ref=e777]: 3 questions
+          - generic [ref=e779]:
+            - generic [ref=e780]:
+              - button "Safety Are your products safe and undetected?" [ref=e781] [cursor=pointer]:
+                - generic [ref=e782]:
+                  - img [ref=e784]
+                  - generic [ref=e787]:
+                    - generic [ref=e788]: Safety
+                    - heading "Are your products safe and undetected?" [level=3] [ref=e789]
+                - img [ref=e791]
+              - region:
+                - generic [ref=e793]:
+                  - paragraph [ref=e795]: Yes. We continuously update all products to maintain undetected status. Check our Status page for real-time detection status. DMA products are inherently undetectable due to hardware-level operation. Software products receive updates within 24-48 hours of any game patch.
+                  - generic [ref=e796]:
+                    - generic [ref=e797]: Was this helpful?
+                    - button "Yes" [ref=e798]:
+                      - img [ref=e799]
+                      - text: "Yes"
+                    - button "No" [ref=e801]:
+                      - img [ref=e802]
+                      - text: "No"
+                    - button "Copy link to this question" [ref=e804]:
+                      - img [ref=e805]
+                      - text: Copy link
+            - generic [ref=e808]:
+              - button "Safety What happens if a product gets detected?" [ref=e809] [cursor=pointer]:
+                - generic [ref=e810]:
+                  - img [ref=e812]
+                  - generic [ref=e815]:
+                    - generic [ref=e816]: Safety
+                    - heading "What happens if a product gets detected?" [level=3] [ref=e817]
+                - img [ref=e819]
+              - region:
+                - generic [ref=e821]:
+                  - paragraph [ref=e823]: If detection occurs, we immediately work on an update (usually within 24 hours). We'll notify all users via Discord. If you get banned during a detection window that was our fault, we offer license extension or replacement at our discretion. Always check Status page before playing.
+                  - generic [ref=e824]:
+                    - generic [ref=e825]: Was this helpful?
+                    - button "Yes" [ref=e826]:
+                      - img [ref=e827]
+                      - text: "Yes"
+                    - button "No" [ref=e829]:
+                      - img [ref=e830]
+                      - text: "No"
+                    - button "Copy link to this question" [ref=e832]:
+                      - img [ref=e833]
+                      - text: Copy link
+            - generic [ref=e836]:
+              - button "Safety How do you update products after game patches?" [ref=e837] [cursor=pointer]:
+                - generic [ref=e838]:
+                  - img [ref=e840]
+                  - generic [ref=e843]:
+                    - generic [ref=e844]: Safety
+                    - heading "How do you update products after game patches?" [level=3] [ref=e845]
+                - img [ref=e847]
+              - region:
+                - generic [ref=e849]:
+                  - paragraph [ref=e851]: Our team monitors all supported games 24/7. When a patch drops, we test immediately and push updates within hours. Major anti-cheat updates may take 24-48 hours. Blurred and Streck have auto-update features. Spoofer updates are manual downloads from your license panel.
+                  - generic [ref=e852]:
+                    - generic [ref=e853]: Was this helpful?
+                    - button "Yes" [ref=e854]:
+                      - img [ref=e855]
+                      - text: "Yes"
+                    - button "No" [ref=e857]:
+                      - img [ref=e858]
+                      - text: "No"
+                    - button "Copy link to this question" [ref=e860]:
+                      - img [ref=e861]
+                      - text: Copy link
+    - generic [ref=e867]:
+      - link "Track Order Check your order status and download products" [ref=e868] [cursor=pointer]:
+        - /url: /track
+        - img [ref=e869]
+        - heading "Track Order" [level=3] [ref=e872]
+        - paragraph [ref=e873]: Check your order status and download products
+      - link "Status Page View real-time detection status of products" [ref=e874] [cursor=pointer]:
+        - /url: /status
+        - img [ref=e875]
+        - heading "Status Page" [level=3] [ref=e878]
+        - paragraph [ref=e879]: View real-time detection status of products
+      - link "Discord Support Get help from our support team" [ref=e880] [cursor=pointer]:
+        - /url: https://discord.gg/lethaldma
+        - img [ref=e881]
+        - heading "Discord Support" [level=3] [ref=e883]:
+          - text: Discord Support
+          - img [ref=e884]
+        - paragraph [ref=e888]: Get help from our support team
+    - generic [ref=e893]:
+      - generic [ref=e894]:
+        - generic [ref=e895]:
+          - generic [ref=e896]:
+            - img "Lethal Solutions" [ref=e899]
+            - generic [ref=e900]: Lethal Solutions
+          - paragraph [ref=e901]: Kernel-level gaming tools trusted by 8,700+ players. Undetected since day one.
+          - generic [ref=e902]:
+            - generic [ref=e903]:
+              - img [ref=e904]
+              - generic [ref=e906]: Secure
+            - generic [ref=e907]:
+              - img [ref=e908]
+              - generic [ref=e910]: Instant
+            - generic [ref=e911]:
+              - img [ref=e912]
+              - generic [ref=e915]: 24/7
+          - generic [ref=e916]:
+            - paragraph [ref=e917]: Connect
+            - generic [ref=e918]:
+              - link "Discord" [ref=e919] [cursor=pointer]:
+                - /url: https://discord.gg/lethaldma
+                - img [ref=e920]
+              - link "YouTube" [ref=e923] [cursor=pointer]:
+                - /url: https://www.youtube.com/@ujukcheats-x4b
+                - img [ref=e924]
+              - link "Telegram" [ref=e927] [cursor=pointer]:
+                - /url: https://t.me/lethalsolutions
+                - img [ref=e928]
+        - generic [ref=e931]:
+          - heading "Products" [level=4] [ref=e932]
+          - list [ref=e933]:
+            - listitem [ref=e934]:
+              - link "All Products" [ref=e935] [cursor=pointer]:
+                - /url: /products
+            - listitem [ref=e936]:
+              - link "Compare" [ref=e937] [cursor=pointer]:
+                - /url: /compare
+            - listitem [ref=e938]:
+              - link "Reviews" [ref=e939] [cursor=pointer]:
+                - /url: /reviews
+            - listitem [ref=e940]:
+              - link "Status" [ref=e941] [cursor=pointer]:
+                - /url: /status
+        - generic [ref=e942]:
+          - heading "Resources" [level=4] [ref=e943]
+          - list [ref=e944]:
+            - listitem [ref=e945]:
+              - link "Setup Guide" [ref=e946] [cursor=pointer]:
+                - /url: /setup
+            - listitem [ref=e947]:
+              - link "Media Library" [ref=e948] [cursor=pointer]:
+                - /url: /media
+            - listitem [ref=e949]:
+              - link "FAQ" [ref=e950] [cursor=pointer]:
+                - /url: /faq
+            - listitem [ref=e951]:
+              - link "Guides" [ref=e952] [cursor=pointer]:
+                - /url: /guides
+            - listitem [ref=e953]:
+              - link "Changelog" [ref=e954] [cursor=pointer]:
+                - /url: /changelog
+            - listitem [ref=e955]:
+              - link "Success Stories" [ref=e956] [cursor=pointer]:
+                - /url: /stories
+            - listitem [ref=e957]:
+              - link "Referrals" [ref=e958] [cursor=pointer]:
+                - /url: /referrals
+            - listitem [ref=e959]:
+              - link "Join Our Team" [ref=e960] [cursor=pointer]:
+                - /url: /apply
+        - generic [ref=e961]:
+          - heading "Account" [level=4] [ref=e962]
+          - list [ref=e963]:
+            - listitem [ref=e964]:
+              - link "Track Order" [ref=e965] [cursor=pointer]:
+                - /url: /track
+            - listitem [ref=e966]:
+              - link "Downloads" [ref=e967] [cursor=pointer]:
+                - /url: /downloads
+            - listitem [ref=e968]:
+              - link "My Account" [ref=e969] [cursor=pointer]:
+                - /url: /profile
+            - listitem [ref=e970]:
+              - link "Cart" [ref=e971] [cursor=pointer]:
+                - /url: /cart
+      - heading [level=2] [ref=e973]: LETHAL
+      - generic [ref=e974]:
+        - paragraph [ref=e975]: © 2026 Lethal Solutions. All rights reserved.
+        - generic [ref=e976]:
+          - generic [ref=e981]: All systems operational
+          - link "Terms" [ref=e983] [cursor=pointer]:
+            - /url: /terms
+          - link "Privacy" [ref=e985] [cursor=pointer]:
+            - /url: /privacy
+  - button "Open Next.js Dev Tools" [ref=e991] [cursor=pointer]:
+    - img [ref=e992]

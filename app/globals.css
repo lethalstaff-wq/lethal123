@@ -5,25 +5,26 @@
 @theme inline {
   --font-sans: "Inter", "Inter Fallback", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", "JetBrains Mono Fallback", monospace;
+  --font-display: var(--font-display), "Space Grotesk", "Inter Fallback", system-ui, sans-serif;
   --color-background: #000000;
   --color-foreground: #fafafa;
   --color-card: #1a1a1a;
   --color-card-foreground: #fafafa;
   --color-popover: #1a1a1a;
   --color-popover-foreground: #fafafa;
-  --color-primary: #EF6F29;
+  --color-primary: #f97316;
   --color-primary-foreground: #ffffff;
   --color-secondary: #1c1c1f;
   --color-secondary-foreground: #fafafa;
   --color-muted: #1c1c1f;
   --color-muted-foreground: #a1a1aa;
-  --color-accent: #FFB347;
+  --color-accent: #fb923c;
   --color-accent-foreground: #ffffff;
   --color-destructive: #ef4444;
   --color-destructive-foreground: #ffffff;
   --color-border: #1f1f23;
   --color-input: #1f1f23;
-  --color-ring: #EF6F29;
+  --color-ring: #f97316;
   --radius-sm: 0.375rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
@@ -38,25 +39,25 @@
   --card-foreground: #fafafa;
   --popover: #1a1a1a;
   --popover-foreground: #fafafa;
-  --primary: #EF6F29;
+  --primary: #f97316;
   --primary-foreground: #ffffff;
   --secondary: #1c1c1f;
   --secondary-foreground: #fafafa;
   --muted: #1c1c1f;
   --muted-foreground: #a1a1aa;
-  --accent: #FFB347;
+  --accent: #fb923c;
   --accent-foreground: #ffffff;
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
   --border: rgba(255, 255, 255, 0.08);
   --input: rgba(255, 255, 255, 0.08);
-  --ring: #EF6F29;
+  --ring: #f97316;
   --radius: 0.75rem;
   --accent-dark: #CC5500;
-  --border-subtle: rgba(239, 111, 41, 0.15);
-  --glow: rgba(239, 111, 41, 0.1);
+  --border-subtle: rgba(249, 115, 22, 0.22);
+  --glow: rgba(249, 115, 22, 0.14);
   --success: #22c55e;
-  --warning: #EF6F29;
+  --warning: #f97316;
   --error: #ef4444;
   --primary-rgb: 239, 111, 41;
 }
@@ -75,13 +76,13 @@
   --secondary-foreground: #0a0a0b;
   --muted: #f4f4f5;
   --muted-foreground: #71717a;
-  --accent: #EF6F29;
+  --accent: #f97316;
   --accent-foreground: #ffffff;
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
   --border: rgba(0, 0, 0, 0.08);
   --input: rgba(0, 0, 0, 0.08);
-  --ring: #EF6F29;
+  --ring: #f97316;
 }
 
 @layer base {
@@ -99,7 +100,7 @@
 
 /* Gradient text - Orange */
 .gradient-text {
-  background: linear-gradient(135deg, #EF6F29 0%, #FFB347 50%, #fbbf24 100%);
+  background: linear-gradient(135deg, #f97316 0%, #fb923c 50%, #fbbf24 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -155,17 +156,23 @@
 }
 .card-hover:hover {
   transform: translateY(-4px);
-  box-shadow: 0 20px 40px -15px rgba(239, 111, 41, 0.15);
+  box-shadow: 0 20px 40px -15px rgba(249, 115, 22, 0.22);
 }
 
-/* Scrollbar */
-html { scroll-behavior: smooth; }
-::selection { background-color: rgba(239, 111, 41, 0.3); color: inherit; }
+/* Scrollbar — Lenis handles scroll; native smooth would conflict */
+html { scroll-behavior: auto; }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+.lenis.lenis-scrolling iframe { pointer-events: none; }
+
+::selection { background-color: rgba(249, 115, 22, 0.43); color: inherit; }
 
 ::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: var(--background); }
 ::-webkit-scrollbar-thumb { 
-  background: #EF6F29;
+  background: #f97316;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover { background: #CC5500; }
@@ -181,6 +188,48 @@ html { scroll-behavior: smooth; }
 }
 .animate-marquee { animation: marquee 35s linear infinite; }
 .animate-marquee-reverse { animation: marquee-reverse 35s linear infinite; }
+
+/* Hero scan line — used on multiple page headers */
+@keyframes heroScan {
+  0%, 100% { transform: translateX(-130%); }
+  50% { transform: translateX(230%); }
+}
+
+/* Empty-state icon wiggle — used on /cart empty state */
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  15% { transform: rotate(-8deg); }
+  30% { transform: rotate(6deg); }
+  45% { transform: rotate(-4deg); }
+  60% { transform: rotate(3deg); }
+  75% { transform: rotate(-2deg); }
+}
+.animate-wiggle { animation: wiggle 3s ease-in-out infinite; transform-origin: 50% 70%; }
+
+/* Global background orb drift (slow, 50-60s cycles) */
+@keyframes gbOrbDrift1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(40px, 60px) scale(1.05); }
+  66% { transform: translate(-30px, 30px) scale(0.97); }
+}
+@keyframes gbOrbDrift2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-50px, -40px) scale(1.08); }
+}
+.gb-orb-1 { animation: gbOrbDrift1 52s ease-in-out infinite; will-change: transform; }
+.gb-orb-2 { animation: gbOrbDrift2 68s ease-in-out infinite; will-change: transform; }
+
+/* Animated gold rating stars — pulses gold, staggered per child */
+.gold-star {
+  fill: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.18);
+  animation: goldStarLoop 4.2s ease infinite;
+}
+@keyframes goldStarLoop {
+  0%, 8%   { fill: rgba(255, 255, 255, 0.10); color: rgba(255, 255, 255, 0.14); filter: none; }
+  22%, 68% { fill: #fbbf24; color: #fbbf24; filter: drop-shadow(0 0 4px rgba(251, 191, 36, 0.8)); }
+  85%, 100% { fill: rgba(255, 255, 255, 0.10); color: rgba(255, 255, 255, 0.14); filter: none; }
+}
 
 /* Wheel spin */
 @keyframes wheel-spin {
@@ -261,6 +310,18 @@ html { scroll-behavior: smooth; }
 .scroll-reveal.visible > *:nth-child(5) { transition-delay: 0.5s; }
 .scroll-reveal.visible > *:nth-child(6) { transition-delay: 0.6s; }
 
+/* Reduced-motion: scroll-reveal shows immediately without movement */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal, .scroll-reveal-scale {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .scroll-reveal.visible > *, .scroll-reveal-scale.visible > * {
+    transition-delay: 0s !important;
+  }
+}
+
 /* Slow spin animation for configurator gear */
 @keyframes spin-slow {
   from { transform: rotate(0deg); }
@@ -290,7 +351,7 @@ html { scroll-behavior: smooth; }
   position: absolute;
   inset: -2px;
   border-radius: inherit;
-  background: linear-gradient(135deg, #EF6F29, #FFB347);
+  background: linear-gradient(135deg, #f97316, #fb923c);
   opacity: 0;
   z-index: -1;
   transition: opacity 0.3s ease;
@@ -336,8 +397,8 @@ html { scroll-behavior: smooth; }
 
 /* Border glow animation */
 @keyframes border-glow {
-  0%, 100% { border-color: rgba(239, 111, 41, 0.2); }
-  50% { border-color: rgba(239, 111, 41, 0.5); }
+  0%, 100% { border-color: rgba(249, 115, 22, 0.29); }
+  50% { border-color: rgba(249, 115, 22, 0.72); }
 }
 .animate-border-glow {
   animation: border-glow 2s ease-in-out infinite;
@@ -355,7 +416,7 @@ html { scroll-behavior: smooth; }
   inset: 0;
   padding: 1px;
   border-radius: inherit;
-  background: linear-gradient(135deg, #EF6F29 0%, transparent 50%, #FFB347 100%);
+  background: linear-gradient(135deg, #f97316 0%, transparent 50%, #fb923c 100%);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
@@ -384,7 +445,7 @@ button:active:not(:disabled), a[role="button"]:active {
   position: absolute;
   inset: -1px;
   border-radius: inherit;
-  background: linear-gradient(135deg, #EF6F29, #FFB347);
+  background: linear-gradient(135deg, #f97316, #fb923c);
   opacity: 0;
   filter: blur(16px);
   z-index: -1;
@@ -428,7 +489,7 @@ button:active:not(:disabled), a[role="button"]:active {
   inset: -1px;
   border-radius: inherit;
   padding: 1px;
-  background: conic-gradient(from var(--gradient-angle, 0deg), transparent 60%, #EF6F29 80%, #FFB347 90%, transparent 100%);
+  background: conic-gradient(from var(--gradient-angle, 0deg), transparent 60%, #f97316 80%, #fb923c 90%, transparent 100%);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
@@ -451,7 +512,7 @@ button:active:not(:disabled), a[role="button"]:active {
   bottom: -2px;
   width: 0;
   height: 2px;
-  background: linear-gradient(90deg, #EF6F29, #FFB347);
+  background: linear-gradient(90deg, #f97316, #fb923c);
   border-radius: 1px;
   transition: width 0.3s ease;
 }
@@ -460,7 +521,7 @@ button:active:not(:disabled), a[role="button"]:active {
 /* Button glow micro-interactions */
 .btn-glow:hover {
   transform: translateY(-1px);
-  box-shadow: 0 8px 25px -5px rgba(239, 111, 41, 0.3);
+  box-shadow: 0 8px 25px -5px rgba(249, 115, 22, 0.43);
 }
 .btn-glow:active { transform: translateY(0) scale(0.98); }
 
@@ -526,24 +587,24 @@ button:active:not(:disabled), a[role="button"]:active {
 
 /* Popular card persistent glow */
 .popular-glow {
-  box-shadow: 0 0 40px rgba(239, 111, 41, 0.08), 0 0 80px rgba(239, 111, 41, 0.04);
+  box-shadow: 0 0 40px rgba(249, 115, 22, 0.12), 0 0 80px rgba(249, 115, 22, 0.06);
 }
 .popular-glow:hover {
-  box-shadow: 0 0 50px rgba(239, 111, 41, 0.15), 0 0 100px rgba(239, 111, 41, 0.06);
+  box-shadow: 0 0 50px rgba(249, 115, 22, 0.22), 0 0 100px rgba(249, 115, 22, 0.09);
 }
 
 /* Ghost button orange fill on hover */
 .btn-ghost-orange {
-  border: 1px solid rgba(239, 111, 41, 0.5);
+  border: 1px solid rgba(249, 115, 22, 0.72);
   background: transparent;
-  color: #EF6F29;
+  color: #f97316;
   transition: all 0.3s ease;
 }
 .btn-ghost-orange:hover {
-  background: linear-gradient(135deg, #EF6F29, #FF8C42);
+  background: linear-gradient(135deg, #f97316, #fb923c);
   color: #ffffff;
   border-color: transparent;
-  box-shadow: 0 8px 25px -5px rgba(239, 111, 41, 0.3);
+  box-shadow: 0 8px 25px -5px rgba(249, 115, 22, 0.43);
 }
 
 /* Gradient border for popular card using pseudo-element */
@@ -557,13 +618,358 @@ button:active:not(:disabled), a[role="button"]:active {
   inset: 0;
   padding: 2px;
   border-radius: inherit;
-  background: linear-gradient(135deg, #EF6F29, #FFB347, #EF6F29);
+  background: linear-gradient(135deg, #f97316, #fb923c, #f97316);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
   z-index: 1;
+}
+
+/* ==========================================================================
+   $100k redesign — premium foundation tokens + utilities (added Apr 2026)
+   ==========================================================================
+   Tokens centralize ad-hoc rgba usages across components.
+   Utilities: spotlight-follow, per-char mask reveal, cursor-cta marker,
+   card tilt, kinetic word-swap, route-transition fade.
+   Safe-add: only new selectors, no overrides of existing styles.
+*/
+
+:root {
+  /* Brand scale (existing --primary kept, these are extras) */
+  --brand: #f97316;
+  --brand-2: #fb923c;
+  --brand-3: #fbbf24;
+  --brand-deep: #c2410c;
+  --brand-dim: rgba(249, 115, 22, 0.12);
+  --brand-mid: rgba(249, 115, 22, 0.30);
+  --brand-glow: rgba(249, 115, 22, 0.45);
+  --brand-halo: 0 0 60px rgba(249, 115, 22, 0.35);
+
+  /* Surface scale — for cards/hover/elevated */
+  --surface-0: rgba(255, 255, 255, 0.012);
+  --surface-1: rgba(255, 255, 255, 0.022);
+  --surface-2: rgba(255, 255, 255, 0.035);
+  --surface-3: rgba(255, 255, 255, 0.055);
+  --surface-4: rgba(255, 255, 255, 0.08);
+  --border-hair: rgba(255, 255, 255, 0.06);
+  --border-soft: rgba(255, 255, 255, 0.08);
+  --border-mid: rgba(255, 255, 255, 0.12);
+
+  /* Shadow scale */
+  --shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.18);
+  --shadow-card: 0 14px 36px rgba(0, 0, 0, 0.35);
+  --shadow-lift: 0 22px 56px rgba(0, 0, 0, 0.45);
+  --shadow-halo-soft: 0 0 40px rgba(249, 115, 22, 0.18);
+  --shadow-halo-hard: 0 0 80px rgba(249, 115, 22, 0.32);
+
+  /* Easing */
+  --ease-out-premium: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring-overshoot: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-material: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Spotlight-follow — element sets --mx/--my on mousemove.
+   We only add the radial gradient; we never force position/z-index on children
+   (that breaks absolute-positioned layers like shine sweeps and badges). */
+.spotlight-card {
+  position: relative;
+  --mx: 50%;
+  --my: 50%;
+}
+.spotlight-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(360px circle at var(--mx) var(--my),
+    rgba(249, 115, 22, 0.15),
+    rgba(249, 115, 22, 0.05) 35%,
+    transparent 55%);
+  opacity: 0;
+  transition: opacity 0.35s var(--ease-out-premium);
+  pointer-events: none;
+  z-index: 0;
+}
+.spotlight-card:hover::before { opacity: 1; }
+
+/* Per-character mask reveal — container has overflow:hidden around each line */
+.char-reveal-line {
+  display: block;
+  overflow: hidden;
+  line-height: 1;
+}
+.char-reveal-char {
+  display: inline-block;
+  transform: translateY(110%);
+  animation: charRevealUp 0.9s var(--ease-out-premium) forwards;
+  animation-delay: var(--char-delay, 0ms);
+  will-change: transform;
+}
+@keyframes charRevealUp {
+  from { transform: translateY(110%); }
+  to   { transform: translateY(0); }
+}
+
+/* Per-word mask reveal (simpler than per-char) */
+.word-reveal-wrap {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  line-height: 1;
+}
+.word-reveal-word {
+  display: inline-block;
+  transform: translateY(120%);
+  animation: charRevealUp 0.8s var(--ease-out-premium) forwards;
+  animation-delay: var(--word-delay, 0ms);
+  will-change: transform;
+}
+
+/* Respect reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .char-reveal-char,
+  .word-reveal-word { transform: none !important; animation: none !important; }
+}
+
+/* Hide scrollbars on horizontal-scrolling utility rows */
+.scrollbar-none { scrollbar-width: none; -ms-overflow-style: none; }
+.scrollbar-none::-webkit-scrollbar { display: none; }
+
+/* Custom cursor — hide native cursor on all devices that opted in.
+   `.custom-cursor-active` is added by CursorEffects only on hover-capable, non-reduced-motion devices.
+   While in fullscreen the custom overlay is clipped (fixed el sits outside the FS root),
+   so we restore the native cursor. */
+html.custom-cursor-active:not(.cursor-in-fullscreen),
+html.custom-cursor-active:not(.cursor-in-fullscreen) *,
+html.custom-cursor-active:not(.cursor-in-fullscreen) a,
+html.custom-cursor-active:not(.cursor-in-fullscreen) button,
+html.custom-cursor-active:not(.cursor-in-fullscreen) input,
+html.custom-cursor-active:not(.cursor-in-fullscreen) textarea,
+html.custom-cursor-active:not(.cursor-in-fullscreen) select,
+html.custom-cursor-active:not(.cursor-in-fullscreen) [role="button"] {
+  cursor: none !important;
+}
+
+/* Cursor-cta marker: retained for legacy data-cursor attributes — harmless. */
+.cursor-cta { cursor: pointer; }
+
+/* Page transitions (App Router template.tsx) */
+@keyframes routeFadeIn {
+  0%   { opacity: 0; transform: translateY(10px); filter: blur(6px); }
+  60%  { opacity: 1; }
+  100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+.route-fade { animation: routeFadeIn 0.55s var(--ease-out-premium) both; }
+
+/* Orange "in-page" loading bar driven by navigation events */
+@keyframes routeBarSlide {
+  0%   { transform: translateX(-100%); }
+  55%  { transform: translateX(-20%); }
+  100% { transform: translateX(100%); }
+}
+.route-bar { animation: routeBarSlide 1.2s var(--ease-material) infinite; }
+
+/* Grain heartbeat — pairs with global-background grain */
+@keyframes grainBreath {
+  0%, 100% { opacity: 0.018; }
+  50%      { opacity: 0.028; }
+}
+
+/* Kinetic word swap — swaps inside one headline on loop */
+.kinetic-word {
+  display: inline-block;
+  position: relative;
+  vertical-align: baseline;
+}
+.kinetic-word > span {
+  position: absolute;
+  inset: 0;
+  display: inline-block;
+  animation: kineticSwap 8s infinite;
+  will-change: opacity, transform;
+}
+.kinetic-word > span:nth-child(1) { animation-delay: 0s; }
+.kinetic-word > span:nth-child(2) { animation-delay: 2.7s; }
+.kinetic-word > span:nth-child(3) { animation-delay: 5.4s; }
+@keyframes kineticSwap {
+  0%, 30%    { opacity: 1; transform: translateY(0); }
+  33%, 97%   { opacity: 0; transform: translateY(-8px); }
+  98%        { opacity: 0; transform: translateY(8px); }
+  100%       { opacity: 1; transform: translateY(0); }
+}
+
+/* Shake on form error */
+@keyframes errorShake {
+  0%, 100% { transform: translateX(0); }
+  20%      { transform: translateX(-5px); }
+  40%      { transform: translateX(5px); }
+  60%      { transform: translateX(-4px); }
+  80%      { transform: translateX(4px); }
+}
+.animate-shake { animation: errorShake 0.42s var(--ease-material) both; }
+
+/* Confetti dust — single-fire particle cluster (CSS-only) */
+@keyframes confettiPop {
+  0%   { opacity: 0; transform: translate(0, 0) scale(0.4); }
+  10%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--cx, 30px), var(--cy, -50px)) scale(1); }
+}
+.confetti-dot {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  pointer-events: none;
+  animation: confettiPop 0.9s var(--ease-spring-overshoot) forwards;
+}
+
+/* Soft spring press for any marked button */
+.press-spring { transition: transform 0.28s var(--ease-spring-overshoot); }
+.press-spring:active { transform: scale(0.96); }
+
+/* Silkier global hover transitions: make every interactive element feel softer. */
+a, button, [role="button"], [data-cursor] {
+  transition-property: color, background-color, border-color, box-shadow, opacity, transform;
+  transition-duration: 0.35s;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+/* Preserve faster transitions on components that explicitly declared their own */
+a.transition-none, button.transition-none { transition: none !important; }
+
+/* Ken Burns slow zoom (images on hover inside a group) */
+.ken-burns {
+  transition: transform 0.7s var(--ease-out-premium);
+  will-change: transform;
+}
+.group:hover .ken-burns {
+  transform: scale(1.07);
+}
+
+/* Subtle card tilt on hover — for use WITH JS that sets --rx/--ry */
+.tilt-3d {
+  transform-style: preserve-3d;
+  transform: perspective(1200px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.25s var(--ease-out-premium);
+  will-change: transform;
+}
+
+/* Focus ring premium */
+.focus-ring-premium:focus-visible {
+  outline: 0;
+  box-shadow:
+    0 0 0 2px rgba(249, 115, 22, 0.55),
+    0 0 0 6px rgba(249, 115, 22, 0.12),
+    0 0 40px rgba(249, 115, 22, 0.2);
+  border-color: rgba(249, 115, 22, 0.5) !important;
+}
+
+/* SVG check-draw for success states */
+@keyframes svgCheckDraw {
+  to { stroke-dashoffset: 0; }
+}
+.svg-check-path {
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: svgCheckDraw 0.55s var(--ease-out-premium) forwards;
+  animation-delay: 0.1s;
+}
+
+/* Progress circle ring on back-to-top */
+.ring-progress {
+  transform: rotate(-90deg);
+  transition: stroke-dashoffset 0.1s linear;
+}
+
+/* End of premium foundation block */
+
+/* Polish: kill browser-default blue focus ring globally. Components opt-in to
+   .focus-ring-premium or define their own focus-visible treatment. */
+*:focus { outline: none; }
+*:focus-visible { outline: none; }
+a:focus-visible,
+button:focus-visible:not([class*="focus-"]):not(.cursor-cta) {
+  outline: 2px solid rgba(249, 115, 22, 0.5);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Polish: premium dark skeleton shimmer, replaces generic grey pulse. Apply .skel */
+@keyframes shimmerDark {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.skel {
+  background: linear-gradient(90deg,
+    rgba(255,255,255,0.02) 0%,
+    rgba(255,255,255,0.06) 50%,
+    rgba(255,255,255,0.02) 100%);
+  background-size: 200% 100%;
+  animation: shimmerDark 1.6s ease-in-out infinite;
+  border-radius: 12px;
+}
+
+/* Polish: selection + caret in brand orange — small but it's the kind of detail
+   that makes a build feel hand-tuned. */
+::selection {
+  background: rgba(249, 115, 22, 0.28);
+  color: #fff;
+}
+input, textarea {
+  caret-color: #f97316;
+}
+
+/* Editorial drop cap — used on long-form sections (/stories body). One per section. */
+.drop-cap::first-letter {
+  float: left;
+  font-family: var(--font-display), "Space Grotesk", system-ui, sans-serif;
+  font-size: clamp(44px, 4vw, 68px);
+  line-height: 0.95;
+  padding: 0.15rem 0.55rem 0 0;
+  font-weight: 700;
+  background: linear-gradient(180deg, #ffb366 0%, #f97316 55%, #c2410c 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 18px rgba(249, 115, 22, 0.25));
+}
+
+/* Editorial pull-quote — oversized faded orange opening glyph, subtle drift.
+   Scoped to /stories pull-quotes via `.story-pull-quote` to avoid leakage. */
+.story-pull-quote::before {
+  content: "\201C"; /* U+201C LEFT DOUBLE QUOTATION MARK */
+  position: absolute;
+  top: -24px;
+  left: -12px;
+  font-family: var(--font-display), "Space Grotesk", system-ui, sans-serif;
+  font-weight: 900;
+  font-size: clamp(96px, 11vw, 160px);
+  line-height: 1;
+  color: rgba(249, 115, 22, 0.12);
+  pointer-events: none;
+  user-select: none;
+  animation: story-quote-drift 6s ease-in-out infinite;
+}
+@keyframes story-quote-drift {
+  0%, 100% { transform: translate3d(0, 0, 0); opacity: 0.85; }
+  50%      { transform: translate3d(0, -4px, 0); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .story-pull-quote::before { animation: none; }
+}
+
+/* Reviews wall — card mount animation. Pure CSS (no framer-motion whileInView)
+   so Load More doesn't trigger a layout re-measure in the CSS columns while
+   cards fade in mid-scroll. Do NOT add `contain: layout` here — it ejects the
+   card from CSS-columns flow and middle/right columns render empty. */
+@keyframes reviewCardIn {
+  from { opacity: 0; transform: translate3d(0, 10px, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reviews-card { animation: none !important; }
+  .reviews-card:hover { transform: none !important; }
 }
 
 /* End of custom styles */

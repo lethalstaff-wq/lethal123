@@ -119,8 +119,8 @@ export function AdminReviews({ reviews, totalCount, products }: {
     <div className="space-y-6">
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-foreground">Reviews</h1>
-          <p className="text-sm text-muted-foreground mt-1">{totalCount.toLocaleString()} total reviews (showing latest {reviews.length})</p>
+          <h1 className="text-2xl font-bold text-white">Reviews</h1>
+          <p className="text-sm text-white/55 mt-1">{totalCount.toLocaleString()} total reviews (showing latest {reviews.length})</p>
         </div>
         <div className="flex items-center gap-2">
           <input ref={fileRef} type="file" accept=".json" onChange={handleImport} className="hidden" />
@@ -141,57 +141,57 @@ export function AdminReviews({ reviews, totalCount, products }: {
 
       {/* Add review form */}
       {showAdd && (
-        <div className="rounded-xl border border-border bg-card p-5 space-y-4">
-          <h3 className="font-semibold text-foreground text-sm">New Review</h3>
+        <div className="rounded-xl border border-white/[0.08] bg-white/[0.025] p-5 space-y-4">
+          <h3 className="font-semibold text-white text-sm">New Review</h3>
           <div className="grid grid-cols-2 gap-3">
             <div className="col-span-2">
-              <Label className="text-xs text-muted-foreground">Review Text</Label>
+              <Label className="text-xs text-white/55">Review Text</Label>
               <textarea
                 value={newReview.text}
                 onChange={(e) => setNewReview((r) => ({ ...r, text: e.target.value }))}
-                className="mt-1 w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground min-h-[80px] resize-y"
+                className="mt-1 w-full rounded-md border border-white/[0.08] bg-white/[0.02] px-3 py-2 text-sm text-white min-h-[80px] resize-y"
                 placeholder="Review text..."
               />
             </div>
             <div>
-              <Label className="text-xs text-muted-foreground">Username</Label>
-              <Input value={newReview.username} onChange={(e) => setNewReview((r) => ({ ...r, username: e.target.value }))} className="mt-1 bg-background text-sm" placeholder="e.g. zk" />
+              <Label className="text-xs text-white/55">Username</Label>
+              <Input value={newReview.username} onChange={(e) => setNewReview((r) => ({ ...r, username: e.target.value }))} className="mt-1 bg-white/[0.02] text-sm" placeholder="e.g. zk" />
             </div>
             <div>
-              <Label className="text-xs text-muted-foreground">Email</Label>
-              <Input value={newReview.email} onChange={(e) => setNewReview((r) => ({ ...r, email: e.target.value }))} className="mt-1 bg-background text-sm" placeholder="e.g. user@gmail.com" />
+              <Label className="text-xs text-white/55">Email</Label>
+              <Input value={newReview.email} onChange={(e) => setNewReview((r) => ({ ...r, email: e.target.value }))} className="mt-1 bg-white/[0.02] text-sm" placeholder="e.g. user@gmail.com" />
             </div>
             <div>
-              <Label className="text-xs text-muted-foreground">Product</Label>
+              <Label className="text-xs text-white/55">Product</Label>
               <select
                 value={newReview.product_id}
                 onChange={(e) => setNewReview((r) => ({ ...r, product_id: e.target.value }))}
-                className="mt-1 w-full h-9 rounded-md border border-border bg-background px-3 text-sm text-foreground"
+                className="mt-1 w-full h-9 rounded-md border border-white/[0.08] bg-white/[0.02] px-3 text-sm text-white"
               >
                 <option value="">Select product</option>
                 {products.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}
               </select>
             </div>
             <div>
-              <Label className="text-xs text-muted-foreground">Rating</Label>
+              <Label className="text-xs text-white/55">Rating</Label>
               <select
                 value={newReview.rating}
                 onChange={(e) => setNewReview((r) => ({ ...r, rating: Number(e.target.value) }))}
-                className="mt-1 w-full h-9 rounded-md border border-border bg-background px-3 text-sm text-foreground"
+                className="mt-1 w-full h-9 rounded-md border border-white/[0.08] bg-white/[0.02] px-3 text-sm text-white"
               >
                 {[5, 4, 3, 2, 1].map((n) => <option key={n} value={n}>{n} Stars</option>)}
               </select>
             </div>
             <div className="col-span-2">
-              <Label className="text-xs text-muted-foreground">Team Response (optional)</Label>
-              <Input value={newReview.team_response} onChange={(e) => setNewReview((r) => ({ ...r, team_response: e.target.value }))} className="mt-1 bg-background text-sm" placeholder="Team response..." />
+              <Label className="text-xs text-white/55">Team Response (optional)</Label>
+              <Input value={newReview.team_response} onChange={(e) => setNewReview((r) => ({ ...r, team_response: e.target.value }))} className="mt-1 bg-white/[0.02] text-sm" placeholder="Team response..." />
             </div>
             <div className="flex items-center gap-4">
-              <label className="flex items-center gap-2 text-sm text-muted-foreground">
+              <label className="flex items-center gap-2 text-sm text-white/55">
                 <input type="checkbox" checked={newReview.refunded} onChange={(e) => setNewReview((r) => ({ ...r, refunded: e.target.checked }))} className="rounded" />
                 Refunded
               </label>
-              <label className="flex items-center gap-2 text-sm text-muted-foreground">
+              <label className="flex items-center gap-2 text-sm text-white/55">
                 <input type="checkbox" checked={newReview.is_auto} onChange={(e) => setNewReview((r) => ({ ...r, is_auto: e.target.checked }))} className="rounded" />
                 Auto feedback
               </label>
@@ -210,8 +210,8 @@ export function AdminReviews({ reviews, totalCount, products }: {
       {/* Filters */}
       <div className="flex items-center gap-3">
         <div className="relative flex-1 max-w-xs">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search reviews..." className="pl-9 bg-card text-sm" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/55" />
+          <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search reviews..." className="pl-9 bg-white/[0.025] text-sm" />
         </div>
         <div className="flex items-center gap-1">
           {[null, 5, 4, 3, 2, 1].map((r) => (
@@ -220,7 +220,7 @@ export function AdminReviews({ reviews, totalCount, products }: {
               onClick={() => setFilterRating(r)}
               className={cn(
                 "px-2.5 py-1 rounded-md text-xs font-medium transition-colors",
-                filterRating === r ? "bg-primary text-primary-foreground" : "bg-muted/50 text-muted-foreground hover:text-foreground"
+                filterRating === r ? "bg-[#f97316] text-white" : "bg-white/[0.06] text-white/55 hover:text-white"
               )}
             >
               {r === null ? "All" : `${r}*`}
@@ -236,19 +236,19 @@ export function AdminReviews({ reviews, totalCount, products }: {
           const productName = products.find((p) => p.id === r.product_id)?.name ?? r.product_id
 
           return (
-            <div key={r.id} className="rounded-xl border border-border bg-card p-4">
+            <div key={r.id} className="rounded-xl border border-white/[0.08] bg-white/[0.025] p-4">
               {isEditing ? (
                 <div className="space-y-3">
                   <textarea
                     value={editForm.text ?? ""}
                     onChange={(e) => setEditForm((f) => ({ ...f, text: e.target.value }))}
-                    className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground min-h-[60px] resize-y"
+                    className="w-full rounded-md border border-white/[0.08] bg-white/[0.02] px-3 py-2 text-sm text-white min-h-[60px] resize-y"
                   />
                   <div className="flex items-center gap-3 flex-wrap">
                     <select
                       value={editForm.rating ?? 5}
                       onChange={(e) => setEditForm((f) => ({ ...f, rating: Number(e.target.value) }))}
-                      className="h-8 rounded-md border border-border bg-background px-2 text-sm text-foreground"
+                      className="h-8 rounded-md border border-white/[0.08] bg-white/[0.02] px-2 text-sm text-white"
                     >
                       {[5, 4, 3, 2, 1].map((n) => <option key={n} value={n}>{n} Stars</option>)}
                     </select>
@@ -256,13 +256,13 @@ export function AdminReviews({ reviews, totalCount, products }: {
                       value={editForm.team_response ?? ""}
                       onChange={(e) => setEditForm((f) => ({ ...f, team_response: e.target.value || null }))}
                       placeholder="Team response..."
-                      className="h-8 text-sm bg-background flex-1 max-w-xs"
+                      className="h-8 text-sm bg-white/[0.02] flex-1 max-w-xs"
                     />
-                    <label className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                    <label className="flex items-center gap-1.5 text-xs text-white/55">
                       <input type="checkbox" checked={editForm.refunded ?? false} onChange={(e) => setEditForm((f) => ({ ...f, refunded: e.target.checked }))} className="rounded" />
                       Refunded
                     </label>
-                    <label className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                    <label className="flex items-center gap-1.5 text-xs text-white/55">
                       <input type="checkbox" checked={editForm.is_auto ?? false} onChange={(e) => setEditForm((f) => ({ ...f, is_auto: e.target.checked }))} className="rounded" />
                       Auto
                     </label>
@@ -281,22 +281,22 @@ export function AdminReviews({ reviews, totalCount, products }: {
                     <div className="flex items-center gap-2 mb-1.5">
                       <div className="flex">
                         {Array.from({ length: 5 }).map((_, i) => (
-                          <Star key={i} className={cn("h-3 w-3", i < r.rating ? "fill-yellow-500 text-yellow-500" : "text-muted-foreground/30")} />
+                          <Star key={i} className={cn("h-3 w-3", i < r.rating ? "fill-yellow-500 text-yellow-500" : "text-white/40")} />
                         ))}
                       </div>
-                      <span className="text-xs text-muted-foreground">{productName}</span>
+                      <span className="text-xs text-white/55">{productName}</span>
                       {r.is_auto && <span className="text-[10px] px-1.5 py-0.5 rounded bg-blue-500/10 text-blue-400 font-medium">Auto</span>}
                       {r.refunded && <span className="text-[10px] px-1.5 py-0.5 rounded bg-red-500/10 text-red-400 font-medium">Refunded</span>}
                       {r.verified && <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-medium">Verified</span>}
                     </div>
-                    <p className="text-sm text-foreground/85 leading-relaxed">{r.text}</p>
+                    <p className="text-sm text-white/85 leading-relaxed">{r.text}</p>
                     {r.team_response && (
-                      <div className="mt-2 flex items-start gap-2 pl-3 border-l-2 border-primary/30">
-                        <MessageSquare className="h-3 w-3 text-primary mt-0.5 shrink-0" />
-                        <p className="text-xs text-muted-foreground">{r.team_response}</p>
+                      <div className="mt-2 flex items-start gap-2 pl-3 border-l-2 border-[#f97316]/30">
+                        <MessageSquare className="h-3 w-3 text-[#f97316] mt-0.5 shrink-0" />
+                        <p className="text-xs text-white/55">{r.team_response}</p>
                       </div>
                     )}
-                    <div className="flex items-center gap-3 mt-2 text-xs text-muted-foreground">
+                    <div className="flex items-center gap-3 mt-2 text-xs text-white/55">
                       <span>{r.username}</span>
                       <span>{r.email}</span>
                       <span>Helpful: {r.helpful}</span>
@@ -306,7 +306,7 @@ export function AdminReviews({ reviews, totalCount, products }: {
                     <Button size="sm" variant="ghost" className="h-7 w-7 p-0" onClick={() => startEdit(r)}>
                       <Pencil className="h-3 w-3" />
                     </Button>
-                    <Button size="sm" variant="ghost" className="h-7 w-7 p-0 text-destructive hover:text-destructive" onClick={() => removeReview(r.id)}>
+                    <Button size="sm" variant="ghost" className="h-7 w-7 p-0 text-red-400 hover:text-red-400" onClick={() => removeReview(r.id)}>
                       <Trash2 className="h-3 w-3" />
                     </Button>
                   </div>
@@ -317,7 +317,7 @@ export function AdminReviews({ reviews, totalCount, products }: {
         })}
 
         {filtered.length === 0 && (
-          <div className="text-center py-12 text-muted-foreground text-sm">
+          <div className="text-center py-12 text-white/55 text-sm">
             No reviews found. {totalCount === 0 ? "Import reviews using the JSON upload button." : "Try adjusting your filters."}
           </div>
         )}

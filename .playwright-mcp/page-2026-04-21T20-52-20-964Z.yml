@@ -1,0 +1,352 @@
+- generic [active] [ref=e1]:
+  - alert [ref=e2]
+  - generic:
+    - img
+  - generic [ref=e5]:
+    - link "Status" [ref=e6]:
+      - /url: /status
+      - button "Status" [ref=e7]:
+        - img
+        - generic [ref=e8]: Status
+    - link "Discord" [ref=e9]:
+      - /url: https://discord.gg/lethaldma
+      - button "Discord" [ref=e10]:
+        - img
+        - generic [ref=e11]: Discord
+  - region "Notifications alt+T"
+  - button "Back to top":
+    - img
+    - img
+  - main [ref=e14]:
+    - navigation [ref=e15]:
+      - generic [ref=e17]:
+        - link "Lethal Solutions Lethal Solutions" [ref=e18]:
+          - /url: /
+          - generic [ref=e19]:
+            - img "Lethal Solutions" [ref=e22]
+            - generic [ref=e23]: Lethal Solutions
+        - generic [ref=e24]:
+          - button "Open search" [ref=e26]:
+            - img
+          - link:
+            - /url: /login
+          - link "Shopping cart" [ref=e27]:
+            - /url: /cart
+            - button "Shopping cart" [ref=e28]:
+              - img
+          - button "Toggle menu" [ref=e30]:
+            - img
+            - generic [ref=e31]: Toggle menu
+    - generic [ref=e33]:
+      - navigation "Breadcrumb" [ref=e34]:
+        - link [ref=e35]:
+          - /url: /
+          - img [ref=e36]
+        - generic [ref=e39]:
+          - img [ref=e40]
+          - generic [ref=e42]: FAQ
+      - generic [ref=e43]:
+        - generic [ref=e47]: Help Center
+        - heading "Common Questions" [level=1] [ref=e51]
+        - paragraph [ref=e52]: Find answers to common questions about our products and services
+        - generic [ref=e53]:
+          - img [ref=e54]
+          - textbox "Search questions..." [ref=e57]
+    - generic [ref=e60]:
+      - button "All" [ref=e61]
+      - button "Getting Started" [ref=e62]
+      - button "Spoofer" [ref=e63]
+      - button "DMA Products" [ref=e64]
+      - button "Firmware" [ref=e65]
+      - button "Technical" [ref=e66]
+      - button "Orders & Support" [ref=e67]
+      - button "Safety" [ref=e68]
+    - generic [ref=e71]:
+      - button "Getting Started How do I purchase a product?" [ref=e73]:
+        - generic [ref=e74]:
+          - img [ref=e76]
+          - generic [ref=e79]:
+            - text: Getting Started
+            - heading "How do I purchase a product?" [level=3] [ref=e80]
+        - img [ref=e82]
+      - button "Getting Started How long does delivery take?" [ref=e85]:
+        - generic [ref=e86]:
+          - img [ref=e88]
+          - generic [ref=e91]:
+            - text: Getting Started
+            - heading "How long does delivery take?" [level=3] [ref=e92]
+        - img [ref=e94]
+      - button "Getting Started What payment methods do you accept?" [ref=e97]:
+        - generic [ref=e98]:
+          - img [ref=e100]
+          - generic [ref=e103]:
+            - text: Getting Started
+            - heading "What payment methods do you accept?" [level=3] [ref=e104]
+        - img [ref=e106]
+      - button "Getting Started Do I need any special hardware?" [ref=e109]:
+        - generic [ref=e110]:
+          - img [ref=e112]
+          - generic [ref=e115]:
+            - text: Getting Started
+            - heading "Do I need any special hardware?" [level=3] [ref=e116]
+        - img [ref=e118]
+      - button "Spoofer What does the HWID Spoofer do?" [ref=e121]:
+        - generic [ref=e122]:
+          - img [ref=e124]
+          - generic [ref=e127]:
+            - text: Spoofer
+            - heading "What does the HWID Spoofer do?" [level=3] [ref=e128]
+        - img [ref=e130]
+      - button "Spoofer What's the difference between Perm and Temp Spoofer?" [ref=e133]:
+        - generic [ref=e134]:
+          - img [ref=e136]
+          - generic [ref=e139]:
+            - text: Spoofer
+            - heading "What's the difference between Perm and Temp Spoofer?" [level=3] [ref=e140]
+        - img [ref=e142]
+      - button "Spoofer Will the spoofer remove my existing ban?" [ref=e145]:
+        - generic [ref=e146]:
+          - img [ref=e148]
+          - generic [ref=e151]:
+            - text: Spoofer
+            - heading "Will the spoofer remove my existing ban?" [level=3] [ref=e152]
+        - img [ref=e154]
+      - button "DMA Products What is DMA cheating and why is it undetected?" [ref=e157]:
+        - generic [ref=e158]:
+          - img [ref=e160]
+          - generic [ref=e163]:
+            - text: DMA Products
+            - heading "What is DMA cheating and why is it undetected?" [level=3] [ref=e164]
+        - img [ref=e166]
+      - button "DMA Products What hardware do I need for DMA?" [ref=e169]:
+        - generic [ref=e170]:
+          - img [ref=e172]
+          - generic [ref=e175]:
+            - text: DMA Products
+            - heading "What hardware do I need for DMA?" [level=3] [ref=e176]
+        - img [ref=e178]
+      - button "DMA Products What's included in the DMA bundles?" [ref=e181]:
+        - generic [ref=e182]:
+          - img [ref=e184]
+          - generic [ref=e187]:
+            - text: DMA Products
+            - heading "What's included in the DMA bundles?" [level=3] [ref=e188]
+        - img [ref=e190]
+      - button "DMA Products What's the difference between Blurred and Streck?" [ref=e193]:
+        - generic [ref=e194]:
+          - img [ref=e196]
+          - generic [ref=e199]:
+            - text: DMA Products
+            - heading "What's the difference between Blurred and Streck?" [level=3] [ref=e200]
+        - img [ref=e202]
+      - button "Firmware What games does the custom firmware support?" [ref=e205]:
+        - generic [ref=e206]:
+          - img [ref=e208]
+          - generic [ref=e211]:
+            - text: Firmware
+            - heading "What games does the custom firmware support?" [level=3] [ref=e212]
+        - img [ref=e214]
+      - button "Firmware How do I get my firmware installed?" [ref=e217]:
+        - generic [ref=e218]:
+          - img [ref=e220]
+          - generic [ref=e223]:
+            - text: Firmware
+            - heading "How do I get my firmware installed?" [level=3] [ref=e224]
+        - img [ref=e226]
+      - button "Firmware What is a DNA ID and why do you need it?" [ref=e229]:
+        - generic [ref=e230]:
+          - img [ref=e232]
+          - generic [ref=e235]:
+            - text: Firmware
+            - heading "What is a DNA ID and why do you need it?" [level=3] [ref=e236]
+        - img [ref=e238]
+      - button "Technical What are the system requirements?" [ref=e241]:
+        - generic [ref=e242]:
+          - img [ref=e244]
+          - generic [ref=e247]:
+            - text: Technical
+            - heading "What are the system requirements?" [level=3] [ref=e248]
+        - img [ref=e250]
+      - button "Technical The loader won't start, what should I do?" [ref=e253]:
+        - generic [ref=e254]:
+          - img [ref=e256]
+          - generic [ref=e259]:
+            - text: Technical
+            - heading "The loader won't start, what should I do?" [level=3] [ref=e260]
+        - img [ref=e262]
+      - button "Technical Can I use a VPN with your products?" [ref=e265]:
+        - generic [ref=e266]:
+          - img [ref=e268]
+          - generic [ref=e271]:
+            - text: Technical
+            - heading "Can I use a VPN with your products?" [level=3] [ref=e272]
+        - img [ref=e274]
+      - button "Technical How do I reset my HWID if I change PC?" [ref=e277]:
+        - generic [ref=e278]:
+          - img [ref=e280]
+          - generic [ref=e283]:
+            - text: Technical
+            - heading "How do I reset my HWID if I change PC?" [level=3] [ref=e284]
+        - img [ref=e286]
+      - button "Orders & Support How do I track my order status?" [ref=e289]:
+        - generic [ref=e290]:
+          - img [ref=e292]
+          - generic [ref=e295]:
+            - text: Orders & Support
+            - heading "How do I track my order status?" [level=3] [ref=e296]
+        - img [ref=e298]
+      - button "Orders & Support My payment hasn't been verified - what should I do?" [ref=e301]:
+        - generic [ref=e302]:
+          - img [ref=e304]
+          - generic [ref=e307]:
+            - text: Orders & Support
+            - heading "My payment hasn't been verified - what should I do?" [level=3] [ref=e308]
+        - img [ref=e310]
+      - button "Orders & Support Do you offer refunds?" [ref=e313]:
+        - generic [ref=e314]:
+          - img [ref=e316]
+          - generic [ref=e319]:
+            - text: Orders & Support
+            - heading "Do you offer refunds?" [level=3] [ref=e320]
+        - img [ref=e322]
+      - button "Orders & Support How do I contact support?" [ref=e325]:
+        - generic [ref=e326]:
+          - img [ref=e328]
+          - generic [ref=e331]:
+            - text: Orders & Support
+            - heading "How do I contact support?" [level=3] [ref=e332]
+        - img [ref=e334]
+      - button "Safety Are your products safe and undetected?" [ref=e337]:
+        - generic [ref=e338]:
+          - img [ref=e340]
+          - generic [ref=e343]:
+            - text: Safety
+            - heading "Are your products safe and undetected?" [level=3] [ref=e344]
+        - img [ref=e346]
+      - button "Safety What happens if a product gets detected?" [ref=e349]:
+        - generic [ref=e350]:
+          - img [ref=e352]
+          - generic [ref=e355]:
+            - text: Safety
+            - heading "What happens if a product gets detected?" [level=3] [ref=e356]
+        - img [ref=e358]
+      - button "Safety How do you update products after game patches?" [ref=e361]:
+        - generic [ref=e362]:
+          - img [ref=e364]
+          - generic [ref=e367]:
+            - text: Safety
+            - heading "How do you update products after game patches?" [level=3] [ref=e368]
+        - img [ref=e370]
+    - generic [ref=e375]:
+      - link "Track Order Check your order status and download products" [ref=e376]:
+        - /url: /track
+        - img [ref=e377]
+        - heading "Track Order" [level=3] [ref=e380]
+        - paragraph [ref=e381]: Check your order status and download products
+      - link "Status Page View real-time detection status of products" [ref=e382]:
+        - /url: /status
+        - img [ref=e383]
+        - heading "Status Page" [level=3] [ref=e386]
+        - paragraph [ref=e387]: View real-time detection status of products
+      - link "Discord Support Get help from our support team" [ref=e388]:
+        - /url: https://discord.gg/lethaldma
+        - img [ref=e389]
+        - heading "Discord Support" [level=3] [ref=e391]:
+          - text: Discord Support
+          - img [ref=e392]
+        - paragraph [ref=e396]: Get help from our support team
+    - generic [ref=e401]:
+      - generic [ref=e402]:
+        - generic [ref=e403]:
+          - generic [ref=e404]:
+            - img "Lethal Solutions" [ref=e407]
+            - generic [ref=e408]: Lethal Solutions
+          - paragraph [ref=e409]: Kernel-level gaming tools trusted by 8,700+ players. Undetected since day one.
+          - generic [ref=e410]:
+            - generic [ref=e411]:
+              - img [ref=e412]
+              - generic [ref=e414]: Secure
+            - generic [ref=e415]:
+              - img [ref=e416]
+              - generic [ref=e418]: Instant
+            - generic [ref=e419]:
+              - img [ref=e420]
+              - generic [ref=e423]: 24/7
+          - generic [ref=e424]:
+            - paragraph [ref=e425]: Connect
+            - generic [ref=e426]:
+              - link "Discord" [ref=e427]:
+                - /url: https://discord.gg/lethaldma
+                - img [ref=e428]
+              - link "YouTube" [ref=e431]:
+                - /url: https://www.youtube.com/@ujukcheats-x4b
+                - img [ref=e432]
+              - link "Telegram" [ref=e435]:
+                - /url: https://t.me/lethalsolutions
+                - img [ref=e436]
+        - generic [ref=e439]:
+          - heading "Products" [level=4] [ref=e440]
+          - list [ref=e441]:
+            - listitem [ref=e442]:
+              - link "All Products" [ref=e443]:
+                - /url: /products
+            - listitem [ref=e444]:
+              - link "Compare" [ref=e445]:
+                - /url: /compare
+            - listitem [ref=e446]:
+              - link "Reviews" [ref=e447]:
+                - /url: /reviews
+            - listitem [ref=e448]:
+              - link "Status" [ref=e449]:
+                - /url: /status
+        - generic [ref=e450]:
+          - heading "Resources" [level=4] [ref=e451]
+          - list [ref=e452]:
+            - listitem [ref=e453]:
+              - link "Setup Guide" [ref=e454]:
+                - /url: /setup
+            - listitem [ref=e455]:
+              - link "Media Library" [ref=e456]:
+                - /url: /media
+            - listitem [ref=e457]:
+              - link "FAQ" [ref=e458]:
+                - /url: /faq
+            - listitem [ref=e459]:
+              - link "Guides" [ref=e460]:
+                - /url: /guides
+            - listitem [ref=e461]:
+              - link "Changelog" [ref=e462]:
+                - /url: /changelog
+            - listitem [ref=e463]:
+              - link "Success Stories" [ref=e464]:
+                - /url: /stories
+            - listitem [ref=e465]:
+              - link "Referrals" [ref=e466]:
+                - /url: /referrals
+            - listitem [ref=e467]:
+              - link "Join Our Team" [ref=e468]:
+                - /url: /apply
+        - generic [ref=e469]:
+          - heading "Account" [level=4] [ref=e470]
+          - list [ref=e471]:
+            - listitem [ref=e472]:
+              - link "Track Order" [ref=e473]:
+                - /url: /track
+            - listitem [ref=e474]:
+              - link "Downloads" [ref=e475]:
+                - /url: /downloads
+            - listitem [ref=e476]:
+              - link "My Account" [ref=e477]:
+                - /url: /profile
+            - listitem [ref=e478]:
+              - link "Cart" [ref=e479]:
+                - /url: /cart
+      - heading [level=2] [ref=e481]: LETHAL
+      - generic [ref=e482]:
+        - paragraph [ref=e483]: © 2026 Lethal Solutions. All rights reserved.
+        - generic [ref=e484]:
+          - generic [ref=e489]: All systems operational
+          - link "Terms" [ref=e491]:
+            - /url: /terms
+          - link "Privacy" [ref=e493]:
+            - /url: /privacy

@@ -113,7 +113,7 @@ export default function AdminStatusPage() {
   if (loading) {
     return (
       <div className="p-6 max-w-6xl mx-auto flex items-center justify-center min-h-[400px]">
-        <RefreshCw className="h-8 w-8 animate-spin text-muted-foreground" />
+        <RefreshCw className="h-8 w-8 animate-spin text-white/55" />
       </div>
     )
   }
@@ -131,7 +131,7 @@ export default function AdminStatusPage() {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold">Status Management</h1>
-          <p className="text-muted-foreground text-sm mt-1">
+          <p className="text-white/55 text-sm mt-1">
             Control product detection statuses in real-time
           </p>
         </div>
@@ -139,7 +139,7 @@ export default function AdminStatusPage() {
           <Link 
             href="/status" 
             target="_blank"
-            className="flex items-center gap-2 px-4 py-2 rounded-lg border border-border hover:border-primary/50 text-sm transition-colors"
+            className="flex items-center gap-2 px-4 py-2 rounded-lg border border-white/[0.08] hover:border-[#f97316]/50 text-sm transition-colors"
           >
             <ExternalLink className="h-4 w-4" />
             View Public Page
@@ -147,7 +147,7 @@ export default function AdminStatusPage() {
           <button
             onClick={saveStatuses}
             disabled={saving}
-            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors disabled:opacity-50"
+            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#f97316] text-white text-sm font-medium hover:bg-[#ea580c] transition-colors disabled:opacity-50"
           >
             {saving ? <RefreshCw className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
             {saving ? "Saving..." : "Save Changes"}
@@ -197,7 +197,7 @@ export default function AdminStatusPage() {
 
       {/* Quick Actions */}
       <div className="flex items-center gap-2 mb-6">
-        <span className="text-sm text-muted-foreground mr-2">Set all to:</span>
+        <span className="text-sm text-white/55 mr-2">Set all to:</span>
         {STATUS_OPTIONS.map(opt => (
           <button
             key={opt.value}
@@ -224,9 +224,9 @@ export default function AdminStatusPage() {
       </div>
 
       {/* Products List */}
-      <div className="rounded-xl border border-border overflow-hidden">
-        <div className="bg-muted/30 px-4 py-3 border-b border-border">
-          <p className="text-sm font-medium text-muted-foreground">
+      <div className="rounded-xl border border-white/[0.08] overflow-hidden">
+        <div className="bg-white/[0.05] px-4 py-3 border-b border-white/[0.08]">
+          <p className="text-sm font-medium text-white/55">
             {PRODUCTS.length} Products • {operationalCount} Operational
           </p>
         </div>
@@ -237,10 +237,10 @@ export default function AdminStatusPage() {
             return (
               <div 
                 key={product.id} 
-                className="flex items-center justify-between p-4 hover:bg-muted/20 transition-colors"
+                className="flex items-center justify-between p-4 hover:bg-white/[0.04] transition-colors"
               >
                 <div className="flex items-center gap-4">
-                  <div className="relative w-12 h-12 rounded-lg overflow-hidden border border-border">
+                  <div className="relative w-12 h-12 rounded-lg overflow-hidden border border-white/[0.08]">
                     <Image
                       src={product.image}
                       alt={product.name}
@@ -250,7 +250,7 @@ export default function AdminStatusPage() {
                   </div>
                   <div>
                     <h3 className="font-medium">{product.name}</h3>
-                    <p className="text-xs text-muted-foreground capitalize">{product.category}</p>
+                    <p className="text-xs text-white/55 capitalize">{product.category}</p>
                   </div>
                 </div>
                 
@@ -299,7 +299,7 @@ export default function AdminStatusPage() {
 
       {/* Last saved indicator */}
       {lastSaved && (
-        <div className="mt-4 flex items-center justify-center gap-2 text-sm text-muted-foreground">
+        <div className="mt-4 flex items-center justify-center gap-2 text-sm text-white/55">
           <CheckCircle2 className="h-4 w-4 text-emerald-500" />
           Last saved: {lastSaved.toLocaleTimeString()}
         </div>

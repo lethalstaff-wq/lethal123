@@ -1,0 +1,13 @@
+[    1053ms] [INFO] %c[libdiscore] 
+font-weight: bold;
+color: purple;
+ [experiment_manager] Loaded experiments from cache @ https://discord.com/assets/sentry.f1f39ecc4b9d768e.js:14
+[    1113ms] [LOG] %c[ProcessUtilsElectron] 
+font-weight: bold;
+color: purple;
+ setMemoryInformation not available. @ https://discord.com/assets/sentry.f1f39ecc4b9d768e.js:14
+[    1280ms] [LOG] %c[default] 
+font-weight: bold;
+color: purple;
+ [BUILD INFO] Release Channel: stable, Build Number: 532435, Version Hash: d09b198644904fb85fff1bd9e39727693e29738a @ https://discord.com/assets/sentry.f1f39ecc4b9d768e.js:14
+[    1281ms] [LOG] AppCrashedFatalReport: getLastCrash not supported. @ https://discord.com/assets/sentry.f1f39ecc4b9d768e.js:14

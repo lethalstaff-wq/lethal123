@@ -125,13 +125,13 @@ function MmapTool() {
             <Settings className="h-8 w-8 text-[#f97316]" />
           </div>
           {processing ? (
-            <p className="text-white/40 font-mono">
+            <p className="text-white/55 font-mono">
               <span className="terminal-cursor">Processing {fileName}</span>
             </p>
           ) : fileName ? (
             <p className="text-[#f97316] font-medium">{fileName} loaded</p>
           ) : (
-            <p className="text-white/40">Click here to select your .RMP file or drag it here</p>
+            <p className="text-white/55">Click here to select your .RMP file or drag it here</p>
           )}
         </label>
       </div>
@@ -630,10 +630,10 @@ export default function GuidePage() {
 
   if (!guide) {
     return (
-      <div className="min-h-screen bg-black">
+      <div className="min-h-screen bg-transparent">
         <Navbar />
         <div className="pt-32 pb-20 px-4 text-center">
-          <h1 className="text-2xl font-bold mb-4">Guide not found</h1>
+          <h1 className="font-display text-3xl font-bold mb-4 text-white tracking-tight">Guide not found</h1>
           <Link href="/guides">
             <Button>Back to Guides</Button>
           </Link>
@@ -644,46 +644,49 @@ export default function GuidePage() {
   }
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-transparent">
       <Navbar />
 
-      <article className="pt-28 pb-20 px-4 sm:px-6 lg:px-8">
-        <div className="container mx-auto max-w-[680px]">
+      <article className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto max-w-[760px]">
           {/* Back link */}
-          <Link href="/guides" className="inline-flex items-center gap-1.5 text-[13px] text-white/25 hover:text-white/50 transition-colors mb-10">
+          <Link href="/guides" className="inline-flex items-center gap-1.5 text-[13px] text-white/55 hover:text-[#f97316] transition-colors mb-10 font-medium">
             <ArrowLeft className="h-3.5 w-3.5" />
             Back to Guides
           </Link>
 
           {/* Header */}
           <header className="mb-10 pb-10 border-b border-white/[0.06]">
-            <div className="flex flex-wrap items-center gap-2.5 mb-4">
-              <span className={`text-[11px] font-semibold px-2.5 py-1 rounded-md ${
-                guide.difficulty === "Beginner" ? "bg-emerald-500/10 text-emerald-400" :
-                guide.difficulty === "Intermediate" ? "bg-amber-500/10 text-amber-400" :
-                guide.difficulty === "Advanced" ? "bg-red-500/10 text-red-400" :
-                "bg-blue-500/10 text-blue-400"
+            <div className="flex flex-wrap items-center gap-2 mb-5">
+              <span className={`text-[10px] font-bold uppercase tracking-[0.15em] px-3 py-1.5 rounded-full border ${
+                guide.difficulty === "Beginner" ? "bg-emerald-500/10 border-emerald-500/25 text-emerald-400" :
+                guide.difficulty === "Intermediate" ? "bg-amber-500/10 border-amber-500/25 text-amber-400" :
+                guide.difficulty === "Advanced" ? "bg-red-500/10 border-red-500/25 text-red-400" :
+                "bg-blue-500/10 border-blue-500/25 text-blue-400"
               }`}>
                 {guide.difficulty}
               </span>
-              <span className="text-[11px] text-white/20">{guide.readTime}</span>
+              <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-white/65">
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" strokeLinecap="round" /></svg>
+                {guide.readTime}
+              </span>
               {guide.videoId && (
-                <span className="flex items-center gap-1 text-[11px] text-red-400/60">
-                  <Play className="h-2.5 w-2.5 fill-current" /> Video included
+                <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] px-3 py-1.5 rounded-full bg-red-500/10 border border-red-500/25 text-red-400">
+                  <Play className="h-2.5 w-2.5 fill-current" /> Video
                 </span>
               )}
             </div>
-            <h1 className="text-[26px] sm:text-[32px] font-bold leading-[1.2] tracking-tight text-white mb-3">
-              {guide.title}
+            <h1 className="font-display text-[34px] sm:text-[44px] lg:text-[52px] font-bold leading-[0.95] tracking-[-0.04em] mb-4">
+              <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>{guide.title}</span>
             </h1>
-            <p className="text-[15px] text-white/40 leading-relaxed">
+            <p className="text-[16px] text-white/65 leading-relaxed">
               {guide.description}
             </p>
           </header>
 
           {/* Video Embed */}
           {guide.videoId && (
-            <div className="mb-10 rounded-xl overflow-hidden border border-white/[0.06]">
+            <div className="mb-10 rounded-2xl overflow-hidden border border-white/[0.10] shadow-[0_24px_60px_rgba(0,0,0,0.5),0_0_60px_rgba(249, 115, 22, 0.14)]">
               <div className="relative pb-[56.25%] h-0">
                 <iframe
                   className="absolute top-0 left-0 w-full h-full"
@@ -701,46 +704,53 @@ export default function GuidePage() {
 
           {/* Content — blog-style prose */}
           <div className="guide-prose">
-            {guide.sections.map((section, index) => (
-              <div key={index} className="mb-8">
-                {/* Section title */}
-                <h2 className="text-[18px] font-bold text-white mb-3 flex items-center gap-2.5">
-                  {section.type === "warning" && <span className="text-amber-400 text-sm">⚠</span>}
-                  {section.type === "tip" && <span className="text-emerald-400 text-sm">💡</span>}
-                  {section.type === "info" && <span className="text-blue-400 text-sm">ℹ</span>}
-                  {section.title}
-                </h2>
+            {guide.sections.map((section, index) => {
+              const cardBg = section.type === "warning" ? "bg-amber-500/[0.04] border-amber-500/15" :
+                             section.type === "tip"     ? "bg-emerald-500/[0.04] border-emerald-500/15" :
+                             section.type === "info"    ? "bg-blue-500/[0.04] border-blue-500/15" :
+                             "bg-transparent border-transparent"
+              const isCallout = section.type === "warning" || section.type === "tip" || section.type === "info"
+              return (
+                <div key={index} className={`mb-7 ${isCallout ? `rounded-2xl border ${cardBg} p-5` : ""}`}>
+                  {/* Section title */}
+                  <h2 className="font-display text-[20px] sm:text-[22px] font-bold text-white mb-3 flex items-center gap-2.5 tracking-tight">
+                    {section.type === "warning" && <span className="text-amber-400 text-base">⚠</span>}
+                    {section.type === "tip" && <span className="text-emerald-400 text-base">💡</span>}
+                    {section.type === "info" && <span className="text-blue-400 text-base">ℹ</span>}
+                    {section.title}
+                  </h2>
 
-                {/* Section content */}
-                <p className="text-[15px] text-white/50 leading-[1.8] mb-0">
-                  {section.content}
-                </p>
+                  {/* Section content */}
+                  <p className="text-[15px] text-white/65 leading-[1.85] mb-0">
+                    {section.content}
+                  </p>
 
-                {/* Steps / list */}
-                {section.steps && (
-                  <ul className="mt-4 space-y-1.5 pl-1">
-                    {section.steps.map((step, i) => (
-                      <li key={i} className="flex items-baseline gap-3 text-[14px]">
-                        <span className="text-[#f97316] font-semibold shrink-0">&bull;</span>
-                        <span className="text-white/55 leading-relaxed">{step}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
+                  {/* Steps / list */}
+                  {section.steps && (
+                    <ul className="mt-4 space-y-2 pl-1">
+                      {section.steps.map((step, i) => (
+                        <li key={i} className="flex items-baseline gap-3 text-[14px]">
+                          <span className="text-[#f97316] font-bold shrink-0">&bull;</span>
+                          <span className="text-white/65 leading-relaxed">{step}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
 
-                {/* Visual divider between sections */}
-                {index < guide.sections.length - 1 && (
-                  <div className="mt-8 h-px bg-white/[0.03]" />
-                )}
-              </div>
-            ))}
+                  {/* Visual divider between sections */}
+                  {!isCallout && index < guide.sections.length - 1 && (
+                    <div className="mt-8 h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
+                  )}
+                </div>
+              )
+            })}
           </div>
 
           {/* Footer */}
           <div className="mt-12 pt-8 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-[13px] text-white/20">
+            <p className="text-[13px] text-white/55">
               Still stuck?{" "}
-              <a href="https://discord.gg/lethaldma" target="_blank" rel="noopener noreferrer" className="text-[#f97316]/60 hover:text-[#f97316] transition-colors">
+              <a href="https://discord.gg/lethaldma" target="_blank" rel="noopener noreferrer" className="text-[#f97316] hover:text-[#fbbf24] font-semibold transition-colors">
                 Open a ticket on Discord
               </a>
             </p>

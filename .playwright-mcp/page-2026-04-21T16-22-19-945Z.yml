@@ -1,0 +1,205 @@
+- generic [active] [ref=e22]:
+  - generic:
+    - img
+  - button "Open chat" [ref=e23]:
+    - img [ref=e24]
+  - region "Notifications alt+T"
+  - generic:
+    - link "Perm Spoofer New Order · 2m ago Perm Spoofer Verified Dismiss notification":
+      - /url: /products/perm-spoofer
+      - generic:
+        - img "Perm Spoofer"
+      - generic:
+        - generic:
+          - generic: New Order
+          - generic: ·
+          - generic: 2m ago
+        - paragraph: Perm Spoofer
+        - generic:
+          - generic: Verified
+      - button "Dismiss notification": ×
+  - button "Back to top":
+    - img
+    - img
+  - main [ref=e28]:
+    - navigation [ref=e29]:
+      - generic [ref=e31]:
+        - link "Lethal Solutions Lethal Solutions" [ref=e32]:
+          - /url: /
+          - generic [ref=e33]:
+            - img "Lethal Solutions" [ref=e36]
+            - generic [ref=e37]: Lethal Solutions
+        - generic [ref=e39]:
+          - link "Home" [ref=e40]:
+            - /url: /
+          - link "Products" [ref=e41]:
+            - /url: /products
+          - link "Guides" [ref=e42]:
+            - /url: /guides
+          - link "Reviews" [ref=e43]:
+            - /url: /reviews
+          - link "Track Order" [ref=e44]:
+            - /url: /track
+          - link "Status" [ref=e45]:
+            - /url: /status
+        - generic [ref=e46]:
+          - button "Open search" [ref=e48]:
+            - img [ref=e49]
+            - generic [ref=e52]: Search…
+            - generic [ref=e53]: ⌘K
+          - link "Customer Login" [ref=e54]:
+            - /url: /login
+            - button "Customer Login" [ref=e55]:
+              - img
+              - text: Customer Login
+          - link "Shopping cart" [ref=e56]:
+            - /url: /cart
+            - button "Shopping cart" [ref=e57]:
+              - img
+    - generic [ref=e59]:
+      - generic [ref=e63]: Setup Guide
+      - heading "Up and running in 5 minutes" [level=1] [ref=e67]
+      - paragraph [ref=e68]: Five steps. No bloat. No confusion. Scroll through — each step reveals as you go.
+    - generic [ref=e70]:
+      - generic [ref=e71]:
+        - generic [ref=e73]:
+          - img [ref=e75]
+          - generic [ref=e78]:
+            - generic [ref=e79]:
+              - generic [ref=e80]: STEP 01
+              - generic [ref=e82]: Instant delivery after checkout
+            - heading "Purchase & receive license" [level=3] [ref=e83]
+            - paragraph [ref=e84]: Pay with crypto or PayPal. Your license key and download link arrive in your inbox within 60 seconds. No human review, no queue.
+        - generic [ref=e86]:
+          - img [ref=e88]
+          - generic [ref=e91]:
+            - generic [ref=e92]:
+              - generic [ref=e93]: STEP 02
+              - generic [ref=e95]: One input — seconds
+            - heading "Activate your key" [level=3] [ref=e96]
+            - paragraph [ref=e97]: Paste your license in the launcher. We handle hardware binding, refresh tokens, and all the boring stuff invisibly.
+        - generic [ref=e99]:
+          - img [ref=e101]
+          - generic [ref=e103]:
+            - generic [ref=e104]:
+              - generic [ref=e105]: STEP 03
+              - generic [ref=e107]: Signed binary, 4 MB
+            - heading "Download loader" [level=3] [ref=e108]
+            - paragraph [ref=e109]: Small, signed, single-file loader. No installers, no registry writes. Runs once, streams the latest build directly into memory.
+        - generic [ref=e111]:
+          - img [ref=e113]
+          - generic [ref=e115]:
+            - generic [ref=e116]:
+              - generic [ref=e117]: STEP 04
+              - generic [ref=e119]: Any order, anti-cheat safe
+            - heading "Launch game" [level=3] [ref=e120]
+            - paragraph [ref=e121]: Open the loader before or after the game — both work. Our injection engine attaches safely without triggering Vanguard, EAC, BattlEye, or Ricochet.
+        - generic [ref=e123]:
+          - img [ref=e125]
+          - generic [ref=e127]:
+            - generic [ref=e128]:
+              - generic [ref=e129]: STEP 05
+              - generic [ref=e131]: Day one. Week fifty.
+            - heading "Play undetected" [level=3] [ref=e132]
+            - paragraph [ref=e133]: You're in. Any patch lands, we push an update within 2 hours on average. Discord support is live 24/7 if anything feels off.
+      - generic [ref=e135]:
+        - generic [ref=e140]: checkout · success
+        - generic [ref=e142]:
+          - generic [ref=e144]: ✓ Payment verified
+          - generic [ref=e146]: ✓ License generated
+          - generic [ref=e148]: → license.key (sent to inbox)
+    - generic [ref=e159]:
+      - generic [ref=e160]:
+        - generic [ref=e161]:
+          - generic [ref=e162]:
+            - img "Lethal Solutions" [ref=e165]
+            - generic [ref=e166]: Lethal Solutions
+          - paragraph [ref=e167]: Kernel-level gaming tools trusted by 8,700+ players. Undetected since day one.
+          - generic [ref=e168]:
+            - generic [ref=e169]:
+              - img [ref=e170]
+              - generic [ref=e172]: Secure
+            - generic [ref=e173]:
+              - img [ref=e174]
+              - generic [ref=e176]: Instant
+            - generic [ref=e177]:
+              - img [ref=e178]
+              - generic [ref=e181]: 24/7
+          - generic [ref=e182]:
+            - paragraph [ref=e183]: Connect
+            - generic [ref=e184]:
+              - link "Discord" [ref=e185]:
+                - /url: https://discord.gg/lethaldma
+                - img [ref=e186]
+              - link "YouTube" [ref=e189]:
+                - /url: https://www.youtube.com/@ujukcheats-x4b
+                - img [ref=e190]
+              - link "Telegram" [ref=e193]:
+                - /url: https://t.me/lethalsolutions
+                - img [ref=e194]
+        - generic [ref=e197]:
+          - heading "Products" [level=4] [ref=e198]
+          - list [ref=e199]:
+            - listitem [ref=e200]:
+              - link "All Products" [ref=e201]:
+                - /url: /products
+            - listitem [ref=e202]:
+              - link "Compare" [ref=e203]:
+                - /url: /compare
+            - listitem [ref=e204]:
+              - link "Reviews" [ref=e205]:
+                - /url: /reviews
+            - listitem [ref=e206]:
+              - link "Status" [ref=e207]:
+                - /url: /status
+        - generic [ref=e208]:
+          - heading "Resources" [level=4] [ref=e209]
+          - list [ref=e210]:
+            - listitem [ref=e211]:
+              - link "Setup Guide" [ref=e212]:
+                - /url: /setup
+            - listitem [ref=e213]:
+              - link "FAQ" [ref=e214]:
+                - /url: /faq
+            - listitem [ref=e215]:
+              - link "Guides" [ref=e216]:
+                - /url: /guides
+            - listitem [ref=e217]:
+              - link "Changelog" [ref=e218]:
+                - /url: /changelog
+            - listitem [ref=e219]:
+              - link "Success Stories" [ref=e220]:
+                - /url: /stories
+            - listitem [ref=e221]:
+              - link "Referrals" [ref=e222]:
+                - /url: /referrals
+            - listitem [ref=e223]:
+              - link "Join Our Team" [ref=e224]:
+                - /url: /apply
+        - generic [ref=e225]:
+          - heading "Account" [level=4] [ref=e226]
+          - list [ref=e227]:
+            - listitem [ref=e228]:
+              - link "Track Order" [ref=e229]:
+                - /url: /track
+            - listitem [ref=e230]:
+              - link "Downloads" [ref=e231]:
+                - /url: /downloads
+            - listitem [ref=e232]:
+              - link "My Account" [ref=e233]:
+                - /url: /profile
+            - listitem [ref=e234]:
+              - link "Cart" [ref=e235]:
+                - /url: /cart
+      - heading [level=2] [ref=e237]: LETHAL
+      - generic [ref=e238]:
+        - paragraph [ref=e239]: © 2026 Lethal Solutions. All rights reserved.
+        - generic [ref=e240]:
+          - generic [ref=e245]: All systems operational
+          - link "Terms" [ref=e247]:
+            - /url: /terms
+          - link "Privacy" [ref=e249]:
+            - /url: /privacy
+  - button "Open Next.js Dev Tools" [ref=e18] [cursor=pointer]:
+    - img [ref=e19]
+  - alert [ref=e250]

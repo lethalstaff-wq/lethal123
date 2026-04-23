@@ -1,0 +1,387 @@
+- generic [active] [ref=e1]:
+  - alert [ref=e2]
+  - generic:
+    - img
+  - generic [ref=e5]:
+    - link "Status" [ref=e6]:
+      - /url: /status
+      - button "Status" [ref=e7]:
+        - img
+        - generic [ref=e8]: Status
+    - link "Discord" [ref=e9]:
+      - /url: https://discord.gg/lethaldma
+      - button "Discord" [ref=e10]:
+        - img
+        - generic [ref=e11]: Discord
+  - region "Notifications alt+T"
+  - button "Back to top":
+    - img
+    - img
+  - main [ref=e14]:
+    - navigation [ref=e15]:
+      - generic [ref=e17]:
+        - link "Lethal Solutions Lethal Solutions" [ref=e18]:
+          - /url: /
+          - generic [ref=e19]:
+            - img "Lethal Solutions" [ref=e22]
+            - generic [ref=e23]: Lethal Solutions
+        - generic [ref=e24]:
+          - button "Open search" [ref=e26]:
+            - img
+          - link:
+            - /url: /login
+          - link "Shopping cart" [ref=e27]:
+            - /url: /cart
+            - button "Shopping cart" [ref=e28]:
+              - img
+          - button "Toggle menu" [ref=e30]:
+            - img
+            - generic [ref=e31]: Toggle menu
+    - generic [ref=e32]:
+      - generic [ref=e33]:
+        - heading "Dominate With Confidence" [level=1] [ref=e36]:
+          - generic "Dominate With" [ref=e37]:
+            - generic [ref=e38]: D
+            - generic [ref=e39]: o
+            - generic [ref=e40]: m
+            - generic [ref=e41]: i
+            - generic [ref=e42]: "n"
+            - generic [ref=e43]: a
+            - generic [ref=e44]: t
+            - generic [ref=e45]: e
+            - generic [ref=e47]: W
+            - generic [ref=e48]: i
+            - generic [ref=e49]: t
+            - generic [ref=e50]: h
+          - generic "Confidence" [ref=e52]:
+            - generic [ref=e53]: C
+            - generic [ref=e54]: o
+            - generic [ref=e55]: "n"
+            - generic [ref=e56]: f
+            - generic [ref=e57]: i
+            - generic [ref=e58]: d
+            - generic [ref=e59]: e
+            - generic [ref=e60]: "n"
+            - generic [ref=e61]: c
+            - generic [ref=e62]: e
+        - paragraph [ref=e64]: Kernel-level spoofers, external cheats, and custom DMA firmware. Undetected. Instant delivery. 24/7 support.
+        - generic [ref=e65]:
+          - link "Browse Products" [ref=e67]:
+            - /url: /products
+            - generic [ref=e68]: Browse Products
+            - img [ref=e69]
+          - link "View Reviews • 862" [ref=e72]:
+            - /url: /reviews
+            - generic [ref=e73]: View Reviews
+            - generic [ref=e74]: •
+            - generic [ref=e75]: "862"
+        - generic [ref=e76]:
+          - generic [ref=e77]: Accepted
+          - generic [ref=e78]:
+            - generic "Bitcoin" [ref=e79]:
+              - img "Bitcoin" [ref=e80]
+            - generic "Ethereum" [ref=e81]:
+              - img "Ethereum" [ref=e82]
+            - generic "Litecoin" [ref=e83]:
+              - img "Litecoin" [ref=e84]
+            - generic "Tether" [ref=e85]:
+              - img "Tether" [ref=e86]
+            - generic "PayPal" [ref=e87]:
+              - img "PayPal" [ref=e88]
+      - button "Scroll to products" [ref=e89]:
+        - generic [ref=e90]: Scroll
+        - generic [ref=e91]:
+          - img [ref=e92]
+          - img [ref=e94]
+          - img [ref=e97]
+    - generic [ref=e102]:
+      - generic [ref=e104]:
+        - generic [ref=e106]: 0+
+        - generic [ref=e107]: Players
+      - generic [ref=e110]:
+        - generic [ref=e112]: 0.0%
+        - generic [ref=e113]: Undetection
+      - generic [ref=e116]:
+        - generic [ref=e118]: 0d
+        - generic [ref=e119]: Clean streak
+      - generic [ref=e122]:
+        - generic [ref=e124]: <0h
+        - generic [ref=e125]: Patch time
+    - generic [ref=e128]:
+      - generic [ref=e129]:
+        - generic [ref=e132]:
+          - generic [ref=e133]: "02"
+          - generic [ref=e134]: /
+          - generic [ref=e135]: Why Choose Us
+        - heading "Why choose Lethal" [level=2] [ref=e137]
+        - paragraph [ref=e138]: Superior technology. Relentless execution.
+      - generic [ref=e139]:
+        - generic [ref=e140]:
+          - generic: "01"
+          - generic [ref=e142]:
+            - generic [ref=e143]:
+              - img [ref=e145]
+              - generic [ref=e147]:
+                - paragraph [ref=e148]:
+                  - generic [ref=e149]: 99.8%
+                - paragraph [ref=e150]: undetected
+            - heading "Kernel-Level Dominance" [level=4] [ref=e151]
+            - paragraph [ref=e152]: We operate at the system's deepest level. While others get detected, we stay invisible.
+        - generic [ref=e154]:
+          - generic: "02"
+          - generic [ref=e156]:
+            - generic [ref=e157]:
+              - img [ref=e159]
+              - generic [ref=e161]:
+                - paragraph [ref=e162]:
+                  - generic [ref=e163]: <2h
+                - paragraph [ref=e164]: patch time
+            - heading "Zero-Hour Response" [level=4] [ref=e165]
+            - paragraph [ref=e166]: Game updated? We're already on it. Average patch time under 2 hours.
+        - generic [ref=e168]:
+          - generic: "03"
+          - generic [ref=e170]:
+            - generic [ref=e171]:
+              - img [ref=e173]
+              - generic [ref=e176]:
+                - paragraph [ref=e177]:
+                  - generic [ref=e178]: 2147+
+                - paragraph [ref=e179]: unique builds
+            - heading "Ghost Technology" [level=4] [ref=e180]
+            - paragraph [ref=e181]: Every build is unique. Your software has its own signature, making detection impossible.
+        - generic [ref=e183]:
+          - generic: "04"
+          - generic [ref=e185]:
+            - generic [ref=e186]:
+              - img [ref=e188]
+              - generic [ref=e193]:
+                - paragraph [ref=e194]:
+                  - generic [ref=e195]: 24/7
+                - paragraph [ref=e196]: monitoring
+            - heading "Live Protection" [level=4] [ref=e197]
+            - paragraph [ref=e198]: Real-time threat detection and automatic updates. Always ahead of anti-cheat.
+        - generic [ref=e200]:
+          - generic: "05"
+          - generic [ref=e202]:
+            - generic [ref=e203]:
+              - img [ref=e205]
+              - generic [ref=e207]:
+                - paragraph [ref=e208]:
+                  - generic [ref=e209]: <5m
+                - paragraph [ref=e210]: response
+            - heading "Elite Support" [level=4] [ref=e211]
+            - paragraph [ref=e212]: Dedicated team on Discord. Screen share setup help. We don't sleep.
+        - generic [ref=e214]:
+          - generic: "06"
+          - generic [ref=e216]:
+            - generic [ref=e217]:
+              - img [ref=e219]
+              - generic [ref=e222]:
+                - paragraph [ref=e223]:
+                  - generic [ref=e224]: 67+
+                - paragraph [ref=e225]: countries
+            - heading "Worldwide Network" [level=4] [ref=e226]
+            - paragraph [ref=e227]: Infrastructure on 6 continents. Discreet worldwide operations.
+    - generic [ref=e231]:
+      - generic [ref=e232]:
+        - generic [ref=e235]:
+          - generic [ref=e236]: "04"
+          - generic [ref=e237]: /
+          - generic [ref=e238]: DMA Bundles
+        - heading "Choose your package" [level=2] [ref=e242]
+        - paragraph [ref=e243]: Complete setups with premium hardware. One purchase, everything included.
+      - generic [ref=e244]:
+        - generic [ref=e246]:
+          - generic [ref=e247]:
+            - paragraph [ref=e248]: DMA Bundle
+            - heading "Basic" [level=3] [ref=e249]
+            - paragraph [ref=e250]: Reliable foundation for everyday use.
+          - generic [ref=e251]:
+            - generic [ref=e252]:
+              - generic [ref=e253]: £
+              - generic [ref=e254]: "425"
+            - paragraph [ref=e255]: one-time payment
+          - generic [ref=e257]:
+            - generic [ref=e258]:
+              - img [ref=e260]
+              - generic [ref=e262]: Captain DMA 100T-7th
+            - generic [ref=e263]:
+              - img [ref=e265]
+              - generic [ref=e267]: EAC/BE Emulated
+            - generic [ref=e268]:
+              - img [ref=e270]
+              - generic [ref=e272]: Mini DP Fuser V2
+            - generic [ref=e273]:
+              - img [ref=e275]
+              - generic [ref=e277]: Blurred (30 Days)
+            - generic [ref=e278]:
+              - img [ref=e280]
+              - generic [ref=e282]: Macku (Free)
+          - button "Add to Cart" [ref=e283]:
+            - img [ref=e284]
+            - generic [ref=e288]: Add to Cart
+        - generic [ref=e289]:
+          - generic [ref=e292]:
+            - img [ref=e293]
+            - generic [ref=e295]: Popular
+          - generic [ref=e296]:
+            - generic [ref=e297]:
+              - paragraph [ref=e298]: DMA Bundle
+              - heading "Advanced" [level=3] [ref=e299]
+              - paragraph [ref=e300]: Balanced config for semi-pro gamers.
+            - generic [ref=e301]:
+              - generic [ref=e302]:
+                - generic [ref=e303]: £
+                - generic [ref=e304]: "675"
+              - paragraph [ref=e305]: one-time payment
+            - generic [ref=e307]:
+              - generic [ref=e308]:
+                - img [ref=e310]
+                - generic [ref=e312]: Captain DMA 100T-7th
+              - generic [ref=e313]:
+                - img [ref=e315]
+                - generic [ref=e317]: Dichen D60 Fuser
+              - generic [ref=e318]:
+                - img [ref=e320]
+                - generic [ref=e322]: Teensy (Firmware Included)
+              - generic [ref=e323]:
+                - img [ref=e325]
+                - generic [ref=e327]: EAC/BE Emulated Slotted
+              - generic [ref=e328]:
+                - img [ref=e330]
+                - generic [ref=e332]: Blurred DMA (Quarterly)
+            - button "Get Started" [ref=e333]:
+              - img [ref=e334]
+              - generic [ref=e338]: Get Started
+        - generic [ref=e339]:
+          - generic [ref=e341]:
+            - img [ref=e342]
+            - generic [ref=e344]: Premium
+          - generic [ref=e345]:
+            - generic [ref=e346]:
+              - paragraph [ref=e347]: DMA Bundle
+              - heading "Elite" [level=3] [ref=e348]
+              - paragraph [ref=e349]: Maximum performance. Lifetime access.
+            - generic [ref=e350]:
+              - generic [ref=e351]:
+                - generic [ref=e352]: £
+                - generic [ref=e353]: "1500"
+              - paragraph [ref=e354]: one-time payment
+            - generic [ref=e356]:
+              - generic [ref=e357]:
+                - img [ref=e359]
+                - generic [ref=e361]: Captain DMA 100T-7th
+              - generic [ref=e362]:
+                - img [ref=e364]
+                - generic [ref=e366]: Dichen DC500 Fuser
+              - generic [ref=e367]:
+                - img [ref=e369]
+                - generic [ref=e371]: Teensy (Firmware Included)
+              - generic [ref=e372]:
+                - img [ref=e374]
+                - generic [ref=e376]: Blurred Lifetime DMA Cheat
+              - generic [ref=e377]:
+                - img [ref=e379]
+                - generic [ref=e381]: EAC/BE, FaceIt, VGK Emulated
+            - button "Claim Elite" [ref=e382]:
+              - img [ref=e383]
+              - generic [ref=e387]: Claim Elite
+      - generic [ref=e388]:
+        - paragraph [ref=e389]: All bundles include discreet shipping and lifetime Discord support.
+        - link "View all individual products →" [ref=e390]:
+          - /url: /products
+    - generic [ref=e395]:
+      - generic [ref=e396]:
+        - generic [ref=e397]:
+          - generic [ref=e398]:
+            - img "Lethal Solutions" [ref=e401]
+            - generic [ref=e402]: Lethal Solutions
+          - paragraph [ref=e403]: Kernel-level gaming tools trusted by 8,700+ players. Undetected since day one.
+          - generic [ref=e404]:
+            - generic [ref=e405]:
+              - img [ref=e406]
+              - generic [ref=e408]: Secure
+            - generic [ref=e409]:
+              - img [ref=e410]
+              - generic [ref=e412]: Instant
+            - generic [ref=e413]:
+              - img [ref=e414]
+              - generic [ref=e417]: 24/7
+          - generic [ref=e418]:
+            - paragraph [ref=e419]: Connect
+            - generic [ref=e420]:
+              - link "Discord" [ref=e421]:
+                - /url: https://discord.gg/lethaldma
+                - img [ref=e422]
+              - link "YouTube" [ref=e425]:
+                - /url: https://www.youtube.com/@ujukcheats-x4b
+                - img [ref=e426]
+              - link "Telegram" [ref=e429]:
+                - /url: https://t.me/lethalsolutions
+                - img [ref=e430]
+        - generic [ref=e433]:
+          - heading "Products" [level=4] [ref=e434]
+          - list [ref=e435]:
+            - listitem [ref=e436]:
+              - link "All Products" [ref=e437]:
+                - /url: /products
+            - listitem [ref=e438]:
+              - link "Compare" [ref=e439]:
+                - /url: /compare
+            - listitem [ref=e440]:
+              - link "Reviews" [ref=e441]:
+                - /url: /reviews
+            - listitem [ref=e442]:
+              - link "Status" [ref=e443]:
+                - /url: /status
+        - generic [ref=e444]:
+          - heading "Resources" [level=4] [ref=e445]
+          - list [ref=e446]:
+            - listitem [ref=e447]:
+              - link "Setup Guide" [ref=e448]:
+                - /url: /setup
+            - listitem [ref=e449]:
+              - link "Media Library" [ref=e450]:
+                - /url: /media
+            - listitem [ref=e451]:
+              - link "FAQ" [ref=e452]:
+                - /url: /faq
+            - listitem [ref=e453]:
+              - link "Guides" [ref=e454]:
+                - /url: /guides
+            - listitem [ref=e455]:
+              - link "Changelog" [ref=e456]:
+                - /url: /changelog
+            - listitem [ref=e457]:
+              - link "Success Stories" [ref=e458]:
+                - /url: /stories
+            - listitem [ref=e459]:
+              - link "Referrals" [ref=e460]:
+                - /url: /referrals
+            - listitem [ref=e461]:
+              - link "Join Our Team" [ref=e462]:
+                - /url: /apply
+        - generic [ref=e463]:
+          - heading "Account" [level=4] [ref=e464]
+          - list [ref=e465]:
+            - listitem [ref=e466]:
+              - link "Track Order" [ref=e467]:
+                - /url: /track
+            - listitem [ref=e468]:
+              - link "Downloads" [ref=e469]:
+                - /url: /downloads
+            - listitem [ref=e470]:
+              - link "My Account" [ref=e471]:
+                - /url: /profile
+            - listitem [ref=e472]:
+              - link "Cart" [ref=e473]:
+                - /url: /cart
+      - heading [level=2] [ref=e475]: LETHAL
+      - generic [ref=e476]:
+        - paragraph [ref=e477]: © 2026 Lethal Solutions. All rights reserved.
+        - generic [ref=e478]:
+          - generic [ref=e483]: All systems operational
+          - link "Terms" [ref=e485]:
+            - /url: /terms
+          - link "Privacy" [ref=e487]:
+            - /url: /privacy

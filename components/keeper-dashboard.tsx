@@ -112,17 +112,21 @@ export function KeeperDashboard() {
 
   useEffect(() => {
     async function autoConnect() {
-      // Try Supabase first for auto-discovered tunnel URL
+      // Try Supabase first for auto-discovered tunnel URL (reads env vars — no hardcoded project)
       try {
-        const res = await fetch(
-          "https://ldfrgkvypmwfjyhgdpbs.supabase.co/rest/v1/keeper_config?id=eq.keeper&select=tunnel_url",
-          { headers: { apikey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxkZnJna3Z5cG13Zmp5aGdkcGJzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgwMTA4MDcsImV4cCI6MjA4MzU4NjgwN30.DiJdRrR3cLeuED4qPgNcfOOxRywB0ym-GWZRpboJHDY" } }
-        )
-        const rows = await res.json()
-        if (rows?.[0]?.tunnel_url) {
-          setUrl(rows[0].tunnel_url)
-          connect(rows[0].tunnel_url)
-          return
+        const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+        const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+        if (url && key) {
+          const res = await fetch(
+            `${url}/rest/v1/keeper_config?id=eq.keeper&select=tunnel_url`,
+            { headers: { apikey: key } },
+          )
+          const rows = await res.json()
+          if (rows?.[0]?.tunnel_url) {
+            setUrl(rows[0].tunnel_url)
+            connect(rows[0].tunnel_url)
+            return
+          }
         }
       } catch {}
       // Fallback to localStorage
@@ -157,7 +161,7 @@ export function KeeperDashboard() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Header */}
-      <header className="border-b border-border/50 bg-card/50 backdrop-blur-xl sticky top-0 z-50">
+      <header className="border-b border-white/[0.06] bg-card/50 backdrop-blur-xl sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center">
@@ -170,12 +174,12 @@ export function KeeperDashboard() {
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-2">
               <div className={`w-2 h-2 rounded-full ${connected ? "bg-green-500 animate-pulse" : "bg-red-500"}`} />
-              <span className="text-xs text-muted-foreground">
+              <span className="text-xs text-white/55">
                 {connected ? `Online — ${s?.ready || 0} accounts` : connecting ? "Connecting..." : "Offline"}
               </span>
             </div>
             {connected && s && (
-              <span className="text-xs text-muted-foreground font-mono">UP {s.uptime}</span>
+              <span className="text-xs text-white/55 font-mono">UP {s.uptime}</span>
             )}
           </div>
         </div>
@@ -184,13 +188,13 @@ export function KeeperDashboard() {
       <div className="max-w-7xl mx-auto w-full px-6 py-8 flex flex-col gap-6 flex-1">
         {/* Connection bar */}
         {!connected && (
-          <div className="rounded-xl border border-border bg-card p-6">
-            <p className="text-sm text-muted-foreground mb-3">
+          <div className="rounded-xl border border-white/[0.08] bg-white/[0.025] p-6">
+            <p className="text-sm text-white/55 mb-3">
               Enter your Keeper URL (ngrok or direct)
             </p>
             <div className="flex gap-3">
               <input
-                className="flex-1 bg-secondary border border-border rounded-lg px-4 py-2.5 text-sm font-mono text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="flex-1 bg-secondary border border-white/[0.08] rounded-lg px-4 py-2.5 text-sm font-mono text-white placeholder:text-white/55 focus:outline-none focus:ring-2 focus:ring-primary/50"
                 placeholder="https://abc123.ngrok-free.app"
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
@@ -213,16 +217,16 @@ export function KeeperDashboard() {
             {/* Stats cards */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <StatCard label="Accounts" value={`${s.ready}/${s.total}`} color={s.ready === s.total && s.ready > 0 ? "text-green-500" : s.ready > 0 ? "text-yellow-500" : "text-red-500"} />
-              <StatCard label="Errors" value={s.errors} color={s.errors > 0 ? "text-red-500" : "text-muted-foreground"} />
-              <StatCard label="DMs" value={s.dms} color={s.dms > 0 ? "text-primary" : "text-muted-foreground"} />
-              <StatCard label="Latency" value={s.avg_lat >= 0 ? `${s.avg_lat}ms` : "--"} color={s.avg_lat < 0 ? "text-muted-foreground" : s.avg_lat < 100 ? "text-green-500" : s.avg_lat < 300 ? "text-yellow-500" : "text-red-500"} />
+              <StatCard label="Errors" value={s.errors} color={s.errors > 0 ? "text-red-500" : "text-white/55"} />
+              <StatCard label="DMs" value={s.dms} color={s.dms > 0 ? "text-primary" : "text-white/55"} />
+              <StatCard label="Latency" value={s.avg_lat >= 0 ? `${s.avg_lat}ms` : "--"} color={s.avg_lat < 0 ? "text-white/55" : s.avg_lat < 100 ? "text-green-500" : s.avg_lat < 300 ? "text-yellow-500" : "text-red-500"} />
             </div>
 
             {/* Activity summary */}
             {Object.keys(s.games).length > 0 && (
-              <div className="rounded-xl border border-border bg-card px-5 py-3 flex items-center gap-3 text-sm">
+              <div className="rounded-xl border border-white/[0.08] bg-white/[0.025] px-5 py-3 flex items-center gap-3 text-sm">
                 <span className="text-primary font-semibold">Activities:</span>
-                <span className="text-muted-foreground">
+                <span className="text-white/55">
                   {Object.entries(s.games).map(([g, n]) => `${GAME_NAMES[g] || g}: ${n}`).join(", ")}
                 </span>
               </div>
@@ -235,7 +239,7 @@ export function KeeperDashboard() {
                   key={t}
                   onClick={() => setTab(t)}
                   className={`px-4 py-2 text-sm font-medium rounded-md transition-all ${
-                    tab === t ? "bg-primary text-white" : "text-muted-foreground hover:text-foreground"
+                    tab === t ? "bg-primary text-white" : "text-white/55 hover:text-white"
                   }`}
                 >
                   {t === "overview" ? "Overview" : t === "accounts" ? `Accounts (${accounts.length})` : t === "logs" ? "Logs" : `DMs (${s.dms})`}
@@ -247,15 +251,15 @@ export function KeeperDashboard() {
             {tab === "overview" && (
               <div className="grid md:grid-cols-2 gap-6">
                 {/* Accounts mini table */}
-                <div className="rounded-xl border border-border bg-card overflow-hidden">
-                  <div className="px-5 py-4 border-b border-border flex items-center justify-between">
+                <div className="rounded-xl border border-white/[0.08] bg-white/[0.025] overflow-hidden">
+                  <div className="px-5 py-4 border-b border-white/[0.08] flex items-center justify-between">
                     <h3 className="font-semibold text-sm">Accounts</h3>
-                    <span className="text-xs text-muted-foreground">{accounts.length} total</span>
+                    <span className="text-xs text-white/55">{accounts.length} total</span>
                   </div>
                   <div className="overflow-auto max-h-[400px]">
                     <table className="w-full text-sm">
                       <thead>
-                        <tr className="text-xs text-muted-foreground border-b border-border">
+                        <tr className="text-xs text-white/55 border-b border-white/[0.08]">
                           <th className="px-4 py-2 text-left">#</th>
                           <th className="px-4 py-2 text-left">Account</th>
                           <th className="px-4 py-2 text-left">Status</th>
@@ -265,8 +269,8 @@ export function KeeperDashboard() {
                       </thead>
                       <tbody>
                         {accounts.map((a) => (
-                          <tr key={a.index} className="border-b border-border/50 hover:bg-secondary/50 transition-colors">
-                            <td className="px-4 py-2 font-mono text-muted-foreground">{a.index + 1}</td>
+                          <tr key={a.index} className="border-b border-white/[0.06] hover:bg-secondary/50 transition-colors">
+                            <td className="px-4 py-2 font-mono text-white/55">{a.index + 1}</td>
                             <td className="px-4 py-2 font-medium">
                               {a.username}
                               {a.is_staff && <span className="ml-2 text-[10px] px-1.5 py-0.5 rounded bg-primary/20 text-primary font-bold">STAFF</span>}
@@ -278,7 +282,7 @@ export function KeeperDashboard() {
                                 {a.ready ? a.status : a.connected ? "connecting" : "offline"}
                               </span>
                             </td>
-                            <td className={`px-4 py-2 font-mono text-xs ${a.latency < 0 ? "text-muted-foreground" : a.latency < 100 ? "text-green-500" : a.latency < 300 ? "text-yellow-500" : "text-red-500"}`}>
+                            <td className={`px-4 py-2 font-mono text-xs ${a.latency < 0 ? "text-white/55" : a.latency < 100 ? "text-green-500" : a.latency < 300 ? "text-yellow-500" : "text-red-500"}`}>
                               {a.latency >= 0 ? `${a.latency}ms` : "--"}
                             </td>
                             <td className="px-4 py-2 text-xs text-primary font-semibold">{GAME_NAMES[a.activity] || "—"}</td>
@@ -290,20 +294,20 @@ export function KeeperDashboard() {
                 </div>
 
                 {/* Logs */}
-                <div className="rounded-xl border border-border bg-card overflow-hidden">
-                  <div className="px-5 py-4 border-b border-border">
+                <div className="rounded-xl border border-white/[0.08] bg-white/[0.025] overflow-hidden">
+                  <div className="px-5 py-4 border-b border-white/[0.08]">
                     <h3 className="font-semibold text-sm">Logs</h3>
                   </div>
                   <div className="overflow-auto max-h-[400px] p-4 flex flex-col gap-1 font-mono text-xs">
                     {(data?.logs || []).slice(-20).reverse().map((l, i) => (
-                      <div key={i} className="text-muted-foreground leading-relaxed">{stripRich(l)}</div>
+                      <div key={i} className="text-white/55 leading-relaxed">{stripRich(l)}</div>
                     ))}
                   </div>
                 </div>
 
                 {/* Quick actions */}
-                <div className="rounded-xl border border-border bg-card overflow-hidden md:col-span-2">
-                  <div className="px-5 py-4 border-b border-border">
+                <div className="rounded-xl border border-white/[0.08] bg-white/[0.025] overflow-hidden md:col-span-2">
+                  <div className="px-5 py-4 border-b border-white/[0.08]">
                     <h3 className="font-semibold text-sm">Quick Actions</h3>
                   </div>
                   <div className="p-5 flex flex-col gap-4">
@@ -312,7 +316,7 @@ export function KeeperDashboard() {
                         <button
                           key={g}
                           onClick={() => sendCmd(`${g} all`)}
-                          className="px-3 py-1.5 text-xs font-semibold rounded-lg border border-border bg-secondary hover:border-primary/50 hover:text-primary transition-all"
+                          className="px-3 py-1.5 text-xs font-semibold rounded-lg border border-white/[0.08] bg-secondary hover:border-primary/50 hover:text-primary transition-all"
                         >
                           {GAME_NAMES[g]}
                         </button>
@@ -326,7 +330,7 @@ export function KeeperDashboard() {
                     </div>
                     <div className="flex gap-2">
                       <input
-                        className="flex-1 bg-secondary border border-border rounded-lg px-3 py-2 text-sm font-mono text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
+                        className="flex-1 bg-secondary border border-white/[0.08] rounded-lg px-3 py-2 text-sm font-mono text-white placeholder:text-white/55 focus:outline-none focus:ring-2 focus:ring-primary/50"
                         placeholder="Enter command..."
                         value={cmd}
                         onChange={(e) => setCmd(e.target.value)}
@@ -350,11 +354,11 @@ export function KeeperDashboard() {
             )}
 
             {tab === "accounts" && (
-              <div className="rounded-xl border border-border bg-card overflow-hidden">
+              <div className="rounded-xl border border-white/[0.08] bg-white/[0.025] overflow-hidden">
                 <div className="overflow-auto">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="text-xs text-muted-foreground border-b border-border bg-secondary/50">
+                      <tr className="text-xs text-white/55 border-b border-white/[0.08] bg-secondary/50">
                         <th className="px-4 py-3 text-left">#</th>
                         <th className="px-4 py-3 text-left">Account</th>
                         <th className="px-4 py-3 text-left">Status</th>
@@ -368,8 +372,8 @@ export function KeeperDashboard() {
                     </thead>
                     <tbody>
                       {accounts.map((a) => (
-                        <tr key={a.index} className="border-b border-border/50 hover:bg-secondary/30 transition-colors">
-                          <td className="px-4 py-2.5 font-mono text-muted-foreground">{a.index + 1}</td>
+                        <tr key={a.index} className="border-b border-white/[0.06] hover:bg-secondary/30 transition-colors">
+                          <td className="px-4 py-2.5 font-mono text-white/55">{a.index + 1}</td>
                           <td className="px-4 py-2.5 font-medium">
                             {a.username}
                             {a.is_staff && <span className="ml-2 text-[10px] px-1.5 py-0.5 rounded bg-primary/20 text-primary font-bold">STAFF</span>}
@@ -381,14 +385,14 @@ export function KeeperDashboard() {
                               {a.ready ? a.status : a.connected ? "connecting" : "offline"}
                             </span>
                           </td>
-                          <td className="px-4 py-2.5 font-mono text-xs text-muted-foreground">{a.uptime}</td>
-                          <td className={`px-4 py-2.5 font-mono text-xs ${a.latency < 0 ? "text-muted-foreground" : a.latency < 100 ? "text-green-500" : a.latency < 300 ? "text-yellow-500" : "text-red-500"}`}>
+                          <td className="px-4 py-2.5 font-mono text-xs text-white/55">{a.uptime}</td>
+                          <td className={`px-4 py-2.5 font-mono text-xs ${a.latency < 0 ? "text-white/55" : a.latency < 100 ? "text-green-500" : a.latency < 300 ? "text-yellow-500" : "text-red-500"}`}>
                             {a.latency >= 0 ? `${a.latency}ms` : "--"}
                           </td>
-                          <td className="px-4 py-2.5 text-muted-foreground">{a.ready ? a.guilds : "--"}</td>
+                          <td className="px-4 py-2.5 text-white/55">{a.ready ? a.guilds : "--"}</td>
                           <td className="px-4 py-2.5 text-xs text-primary font-semibold">{GAME_NAMES[a.activity] || "—"}</td>
-                          <td className="px-4 py-2.5 text-xs text-muted-foreground font-mono">{a.proxy || "Direct"}</td>
-                          <td className="px-4 py-2.5 text-xs text-muted-foreground max-w-[160px] truncate">{a.last_action}</td>
+                          <td className="px-4 py-2.5 text-xs text-white/55 font-mono">{a.proxy || "Direct"}</td>
+                          <td className="px-4 py-2.5 text-xs text-white/55 max-w-[160px] truncate">{a.last_action}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -398,31 +402,31 @@ export function KeeperDashboard() {
             )}
 
             {tab === "logs" && (
-              <div className="rounded-xl border border-border bg-card overflow-hidden">
+              <div className="rounded-xl border border-white/[0.08] bg-white/[0.025] overflow-hidden">
                 <div className="overflow-auto max-h-[600px] p-5 flex flex-col gap-1 font-mono text-xs">
                   {(data?.logs || []).slice().reverse().map((l, i) => (
-                    <div key={i} className="text-muted-foreground leading-relaxed py-0.5">{stripRich(l)}</div>
+                    <div key={i} className="text-white/55 leading-relaxed py-0.5">{stripRich(l)}</div>
                   ))}
                 </div>
               </div>
             )}
 
             {tab === "dms" && (
-              <div className="rounded-xl border border-border bg-card overflow-hidden">
+              <div className="rounded-xl border border-white/[0.08] bg-white/[0.025] overflow-hidden">
                 <div className="overflow-auto max-h-[600px]">
                   {(data?.dms || []).length === 0 ? (
-                    <div className="p-8 text-center text-muted-foreground text-sm">No DMs yet</div>
+                    <div className="p-8 text-center text-white/55 text-sm">No DMs yet</div>
                   ) : (
-                    <div className="divide-y divide-border/50">
+                    <div className="divide-y divide-white/[0.06]">
                       {(data?.dms || []).slice().reverse().map((dm, i) => (
                         <div key={i} className="px-5 py-3 hover:bg-secondary/30 transition-colors">
                           <div className="flex items-center gap-2 mb-1">
-                            <span className="text-xs font-mono text-muted-foreground">{dm.time}</span>
+                            <span className="text-xs font-mono text-white/55">{dm.time}</span>
                             <span className="text-xs text-primary font-semibold">{dm.account}</span>
-                            <span className="text-xs text-muted-foreground">from</span>
+                            <span className="text-xs text-white/55">from</span>
                             <span className="text-xs font-semibold">{dm.from}</span>
                           </div>
-                          <p className="text-sm text-foreground/80">{dm.content}</p>
+                          <p className="text-sm text-white/85">{dm.content}</p>
                         </div>
                       ))}
                     </div>
@@ -432,7 +436,7 @@ export function KeeperDashboard() {
             )}
 
             {/* Connection info */}
-            <div className="flex items-center justify-between text-xs text-muted-foreground border-t border-border pt-4">
+            <div className="flex items-center justify-between text-xs text-white/55 border-t border-white/[0.08] pt-4">
               <span className="font-mono">{url}</span>
               <button
                 onClick={() => {
@@ -456,9 +460,9 @@ export function KeeperDashboard() {
 
 function StatCard({ label, value, color }: { label: string; value: string | number; color: string }) {
   return (
-    <div className="rounded-xl border border-border bg-card p-5 hover:border-primary/20 transition-all">
+    <div className="rounded-xl border border-white/[0.08] bg-white/[0.025] p-5 hover:border-primary/20 transition-all">
       <div className={`text-2xl font-bold font-mono tracking-tight ${color}`}>{value}</div>
-      <div className="text-xs text-muted-foreground font-medium uppercase tracking-wider mt-1">{label}</div>
+      <div className="text-xs text-white/55 font-medium uppercase tracking-wider mt-1">{label}</div>
     </div>
   )
 }

@@ -1,0 +1,34 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - img
+  - generic [ref=e4]:
+    - link "Status" [ref=e5]:
+      - /url: /status
+      - button "Status" [ref=e6]:
+        - img
+        - generic [ref=e7]: Status
+    - link "Discord" [ref=e8]:
+      - /url: https://discord.gg/lethaldma
+      - button "Discord" [ref=e9]:
+        - img
+        - generic [ref=e10]: Discord
+  - region "Notifications alt+T"
+  - generic:
+    - link "Perm Spoofer New Order · 2m ago Perm Spoofer Verified Dismiss notification":
+      - /url: /products/perm-spoofer
+      - generic:
+        - img "Perm Spoofer"
+      - generic:
+        - generic:
+          - generic: New Order
+          - generic: ·
+          - generic: 2m ago
+        - paragraph: Perm Spoofer
+        - generic:
+          - generic: Verified
+      - button "Dismiss notification": ×
+  - button "Back to top":
+    - img
+    - img
+  - generic [ref=e19]: Loading
+  - alert [ref=e20]

@@ -35,7 +35,7 @@ function statusBadge(status: string) {
     case "paid":
       return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 text-xs font-medium text-emerald-500"><CheckCircle2 className="h-3 w-3" />Confirmed</span>
     case "cancelled": return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-red-500/10 text-xs font-medium text-red-500"><XCircle className="h-3 w-3" />Cancelled</span>
-    default: return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-muted text-xs font-medium text-muted-foreground">{status}</span>
+    default: return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/[0.04] text-xs font-medium text-white/55">{status}</span>
   }
 }
 
@@ -75,12 +75,12 @@ export function AdminDashboardClient({ stats, recentOrders, recentUsers }: {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-foreground">Dashboard</h1>
-          <p className="text-sm text-muted-foreground mt-1">Welcome back! Here&apos;s what&apos;s happening with your store.</p>
+          <h1 className="text-2xl font-bold text-white">Dashboard</h1>
+          <p className="text-sm text-white/55 mt-1">Welcome back! Here&apos;s what&apos;s happening with your store.</p>
         </div>
-        <button 
+        <button
           onClick={handleRefresh}
-          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-colors text-sm font-medium"
+          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#f97316]/10 text-[#f97316] hover:bg-[#f97316]/20 transition-colors text-sm font-medium"
         >
           <RefreshCw className={`h-4 w-4 ${refreshing ? 'animate-spin' : ''}`} />
           Refresh
@@ -133,15 +133,15 @@ export function AdminDashboardClient({ stats, recentOrders, recentUsers }: {
           <ArrowUpRight className="h-4 w-4 text-emerald-500/50 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
         </a>
         
-        <a href="/admin/emails" className="flex items-center gap-3 p-4 rounded-xl border border-primary/20 bg-primary/5 hover:bg-primary/10 transition-colors group">
-          <div className="p-2 rounded-lg bg-primary/10">
-            <Mail className="h-5 w-5 text-primary" />
+        <a href="/admin/emails" className="flex items-center gap-3 p-4 rounded-xl border border-[#f97316]/20 bg-[#f97316]/[0.05] hover:bg-[#f97316]/10 transition-colors group">
+          <div className="p-2 rounded-lg bg-[#f97316]/10">
+            <Mail className="h-5 w-5 text-[#f97316]" />
           </div>
           <div>
-            <p className="text-lg font-bold text-primary">5</p>
-            <p className="text-xs text-primary/70">Email Templates</p>
+            <p className="text-lg font-bold text-[#f97316]">5</p>
+            <p className="text-xs text-[#f97316]/70">Email Templates</p>
           </div>
-          <ArrowUpRight className="h-4 w-4 text-primary/50 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+          <ArrowUpRight className="h-4 w-4 text-[#f97316]/50 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
         </a>
         
         <a href="/admin/status" className="flex items-center gap-3 p-4 rounded-xl border border-emerald-500/20 bg-emerald-500/5 hover:bg-emerald-500/10 transition-colors group">
@@ -159,16 +159,16 @@ export function AdminDashboardClient({ stats, recentOrders, recentUsers }: {
       {/* Stat Cards with Trends */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {statCards.map((card) => (
-          <div key={card.label} className="rounded-xl border border-border bg-card p-5 hover:border-primary/20 transition-colors">
+          <div key={card.label} className="rounded-xl border border-white/[0.08] bg-white/[0.025] p-5 hover:border-[#f97316]/20 transition-colors">
             <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">{card.label}</span>
+              <span className="text-xs font-medium text-white/55 uppercase tracking-wider">{card.label}</span>
               <div className={`p-2 rounded-lg ${card.bg}`}>
                 <card.icon className={`h-4 w-4 ${card.color}`} />
               </div>
             </div>
-            <p className="text-3xl font-bold text-foreground">{typeof card.value === 'number' ? card.value.toLocaleString() : card.value}</p>
+            <p className="text-3xl font-bold text-white">{typeof card.value === 'number' ? card.value.toLocaleString() : card.value}</p>
             <div className="flex items-center justify-between mt-2">
-              <p className="text-xs text-muted-foreground">{card.sub}</p>
+              <p className="text-xs text-white/55">{card.sub}</p>
               {card.trend && (
                 <span className={`flex items-center gap-0.5 text-xs font-medium ${card.trendUp ? 'text-emerald-500' : 'text-red-500'}`}>
                   {card.trendUp ? <ArrowUpRight className="h-3 w-3" /> : <ArrowDownRight className="h-3 w-3" />}
@@ -183,31 +183,31 @@ export function AdminDashboardClient({ stats, recentOrders, recentUsers }: {
       {/* Activity Timeline & Orders */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Recent Activity */}
-        <div className="rounded-xl border border-border bg-card">
-          <div className="p-5 border-b border-border">
+        <div className="rounded-xl border border-white/[0.08] bg-white/[0.025]">
+          <div className="p-5 border-b border-white/[0.08]">
             <div className="flex items-center gap-2">
-              <Activity className="h-4 w-4 text-muted-foreground" />
-              <h2 className="font-semibold text-foreground text-sm">Live Activity</h2>
+              <Activity className="h-4 w-4 text-white/55" />
+              <h2 className="font-semibold text-white text-sm">Live Activity</h2>
             </div>
           </div>
           <div className="p-4 space-y-4 max-h-[400px] overflow-y-auto">
             {recentOrders.length === 0 && recentUsers.length === 0 ? (
               <div className="text-center py-8">
-                <Zap className="h-8 w-8 text-muted-foreground/20 mx-auto mb-3" />
-                <p className="text-sm text-muted-foreground">No recent activity</p>
+                <Zap className="h-8 w-8 text-white/40 mx-auto mb-3" />
+                <p className="text-sm text-white/55">No recent activity</p>
               </div>
             ) : (
               <>
                 {recentOrders.slice(0, 5).map((order, idx) => (
                   <div key={order.id} className="flex items-start gap-3">
-                    <div className="mt-1 h-2 w-2 rounded-full bg-primary shrink-0" />
+                    <div className="mt-1 h-2 w-2 rounded-full bg-[#f97316] shrink-0" />
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm text-foreground">
+                      <p className="text-sm text-white">
                         <span className="font-medium">{order.user_email?.split('@')[0] || 'Guest'}</span>
                         {' '}placed an order
                       </p>
-                      <p className="text-xs text-muted-foreground mt-0.5">
-                        {order.order_display_id && <span className="text-primary font-mono">{order.order_display_id}</span>}
+                      <p className="text-xs text-white/55 mt-0.5">
+                        {order.order_display_id && <span className="text-[#f97316] font-mono">{order.order_display_id}</span>}
                         {' '}{"\u00A3"}{(order.total_pence / 100).toFixed(2)} - {formatTime(order.created_at)}
                       </p>
                     </div>
@@ -217,11 +217,11 @@ export function AdminDashboardClient({ stats, recentOrders, recentUsers }: {
                   <div key={user.id} className="flex items-start gap-3">
                     <div className="mt-1 h-2 w-2 rounded-full bg-emerald-500 shrink-0" />
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm text-foreground">
+                      <p className="text-sm text-white">
                         <span className="font-medium">{user.email.split('@')[0]}</span>
                         {' '}registered
                       </p>
-                      <p className="text-xs text-muted-foreground mt-0.5">{formatTime(user.created_at)}</p>
+                      <p className="text-xs text-white/55 mt-0.5">{formatTime(user.created_at)}</p>
                     </div>
                   </div>
                 ))}
@@ -231,36 +231,36 @@ export function AdminDashboardClient({ stats, recentOrders, recentUsers }: {
         </div>
 
         {/* Recent Orders - Larger */}
-        <div className="lg:col-span-2 rounded-xl border border-border bg-card">
-          <div className="p-5 border-b border-border flex items-center justify-between">
+        <div className="lg:col-span-2 rounded-xl border border-white/[0.08] bg-white/[0.025]">
+          <div className="p-5 border-b border-white/[0.08] flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <ShoppingCart className="h-4 w-4 text-muted-foreground" />
-              <h2 className="font-semibold text-foreground text-sm">Recent Orders</h2>
+              <ShoppingCart className="h-4 w-4 text-white/55" />
+              <h2 className="font-semibold text-white text-sm">Recent Orders</h2>
             </div>
-            <a href="/admin/orders" className="text-xs text-primary hover:underline">View all</a>
+            <a href="/admin/orders" className="text-xs text-[#f97316] hover:underline">View all</a>
           </div>
           {recentOrders.length === 0 ? (
             <div className="p-10 text-center">
-              <AlertCircle className="h-8 w-8 text-muted-foreground/20 mx-auto mb-3" />
-              <p className="text-sm text-muted-foreground">No orders yet</p>
-              <p className="text-xs text-muted-foreground/60 mt-1">Orders will appear here when customers check out</p>
+              <AlertCircle className="h-8 w-8 text-white/40 mx-auto mb-3" />
+              <p className="text-sm text-white/55">No orders yet</p>
+              <p className="text-xs text-white/40 mt-1">Orders will appear here when customers check out</p>
             </div>
           ) : (
-            <div className="divide-y divide-border">
+            <div className="divide-y divide-white/[0.06]">
               {recentOrders.map((order) => (
-                <div key={order.id} className="p-4 flex items-center justify-between hover:bg-muted/30 transition-colors">
+                <div key={order.id} className="p-4 flex items-center justify-between hover:bg-white/[0.05] transition-colors">
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
                       {order.order_display_id && (
-                        <span className="text-primary font-mono font-bold text-sm">{order.order_display_id}</span>
+                        <span className="text-[#f97316] font-mono font-bold text-sm">{order.order_display_id}</span>
                       )}
                       {statusBadge(order.status)}
                     </div>
-                    <p className="text-sm text-muted-foreground mt-1">
+                    <p className="text-sm text-white/55 mt-1">
                       {order.user_email || "Guest"} -- {order.payment_method || "unknown"} -- {formatTime(order.created_at)}
                     </p>
                   </div>
-                  <p className="text-lg font-bold text-foreground tabular-nums shrink-0">{"\u00A3"}{(order.total_pence / 100).toFixed(2)}</p>
+                  <p className="text-lg font-bold text-white tabular-nums shrink-0">{"\u00A3"}{(order.total_pence / 100).toFixed(2)}</p>
                 </div>
               ))}
             </div>
@@ -269,39 +269,39 @@ export function AdminDashboardClient({ stats, recentOrders, recentUsers }: {
       </div>
 
       {/* Recent Users */}
-      <div className="rounded-xl border border-border bg-card">
-        <div className="p-5 border-b border-border flex items-center justify-between">
+      <div className="rounded-xl border border-white/[0.08] bg-white/[0.025]">
+        <div className="p-5 border-b border-white/[0.08] flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Users className="h-4 w-4 text-muted-foreground" />
-            <h2 className="font-semibold text-foreground text-sm">Recent Registrations</h2>
+            <Users className="h-4 w-4 text-white/55" />
+            <h2 className="font-semibold text-white text-sm">Recent Registrations</h2>
           </div>
-          <a href="/admin/users" className="text-xs text-primary hover:underline">View all</a>
+          <a href="/admin/users" className="text-xs text-[#f97316] hover:underline">View all</a>
         </div>
         {recentUsers.length === 0 ? (
           <div className="p-10 text-center">
-            <AlertCircle className="h-8 w-8 text-muted-foreground/20 mx-auto mb-3" />
-            <p className="text-sm text-muted-foreground">No registered users yet</p>
+            <AlertCircle className="h-8 w-8 text-white/40 mx-auto mb-3" />
+            <p className="text-sm text-white/55">No registered users yet</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-4">
             {recentUsers.map((user) => (
-              <div key={user.id} className="p-4 rounded-lg border border-border hover:border-primary/20 transition-colors">
+              <div key={user.id} className="p-4 rounded-lg border border-white/[0.08] hover:border-[#f97316]/20 transition-colors">
                 <div className="flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                    <span className="text-sm font-bold text-primary">{user.email?.charAt(0).toUpperCase()}</span>
+                  <div className="h-10 w-10 rounded-full bg-[#f97316]/10 flex items-center justify-center shrink-0">
+                    <span className="text-sm font-bold text-[#f97316]">{user.email?.charAt(0).toUpperCase()}</span>
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="text-sm font-medium text-foreground truncate">{user.email}</p>
-                    <p className="text-xs text-muted-foreground mt-0.5">{formatTime(user.created_at)}</p>
+                    <p className="text-sm font-medium text-white truncate">{user.email}</p>
+                    <p className="text-xs text-white/55 mt-0.5">{formatTime(user.created_at)}</p>
                   </div>
                 </div>
                 <div className="mt-3 flex items-center justify-between">
                   {user.is_admin ? (
-                    <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-primary/10 text-xs font-medium text-primary">Admin</span>
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-[#f97316]/10 text-xs font-medium text-[#f97316]">Admin</span>
                   ) : (
-                    <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-muted text-xs font-medium text-muted-foreground">User</span>
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-white/[0.04] text-xs font-medium text-white/55">User</span>
                   )}
-                  <span className="text-xs text-muted-foreground font-mono">{user.id.slice(0, 8)}</span>
+                  <span className="text-xs text-white/55 font-mono">{user.id.slice(0, 8)}</span>
                 </div>
               </div>
             ))}

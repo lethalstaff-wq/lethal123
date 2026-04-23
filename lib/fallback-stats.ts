@@ -1,0 +1,31 @@
+// Fallback statistics — used if live data fails or while computing
+// These are the canonical "display values" for marketing/hero sections
+
+export const FALLBACK_STATS = {
+  // Home
+  ordersToday: 18,
+  reviewsCount: 3457,
+  undetectedRate: 99.8,
+  patchTimeHours: 2,
+  uniqueBuilds: 2147,
+  monitoringHours: 24,
+  monitoringDays: 7,
+  responseMinutes: 5,
+  countriesCount: 67,
+  discordOnline: 3147,
+  discordMembers: 8734,
+  // Apply
+  teamMembers: 23,
+  happyClients: 8734,
+  satisfactionPercent: 97,
+  supportHoursPerDay: 24,
+  supportDaysPerWeek: 7,
+  openPositions: 10,
+} as const
+
+// Bundle prices (canonical — match /products and /lib/db-products.ts)
+export const FALLBACK_BUNDLES = {
+  basic: 425,
+  advanced: 675,
+  elite: 1500,
+} as const

@@ -1,0 +1,54 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - img
+  - region "Notifications alt+T"
+  - button "Back to top":
+    - img
+    - img
+  - main [ref=e4]:
+    - generic [ref=e5]:
+      - link "Back" [ref=e6]:
+        - /url: /
+        - img [ref=e7]
+        - generic [ref=e9]: Back
+      - link [ref=e10]:
+        - /url: /status
+    - generic [ref=e14]:
+      - link "Lethal Solutions Lethal Solutions" [ref=e15]:
+        - /url: /
+        - img "Lethal Solutions" [ref=e16]
+        - generic [ref=e17]: Lethal Solutions
+      - generic [ref=e18]:
+        - paragraph [ref=e21]: Order Tracking
+        - heading "Track your order." [level=1] [ref=e22]:
+          - text: Track your
+          - text: order.
+        - paragraph [ref=e23]: Enter your order ID or email to check status, view license keys, and access your downloads in seconds.
+    - generic [ref=e25]:
+      - generic [ref=e26]:
+        - heading "Find your order" [level=2] [ref=e27]
+        - paragraph [ref=e28]: Search by order ID or email address to see live status.
+      - generic [ref=e29]:
+        - button "Order ID" [ref=e30]
+        - button "Email" [ref=e31]
+      - generic [ref=e32]:
+        - generic [ref=e33]:
+          - generic [ref=e34]: Order ID
+          - generic [ref=e35]:
+            - textbox "e.g. LS-ABC123XY" [ref=e36]
+            - img
+        - generic [ref=e37]:
+          - button "Track Order" [disabled] [ref=e39]:
+            - generic [ref=e40]: Track Order
+            - img [ref=e41]
+          - paragraph [ref=e43]:
+            - text: Need the order ID?
+            - generic [ref=e44]:
+              - img [ref=e45]
+              - text: Check your email
+            - text: /
+            - link "Ask on Discord" [ref=e47]:
+              - /url: https://discord.gg/lethaldma
+  - button "Open Next.js Dev Tools" [ref=e53] [cursor=pointer]:
+    - img [ref=e54]
+  - alert [ref=e57]

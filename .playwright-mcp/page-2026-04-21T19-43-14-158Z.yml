@@ -1,0 +1,177 @@
+- generic [active] [ref=e1]:
+  - alert [ref=e2]
+  - generic:
+    - img
+  - button "Open chat" [ref=e3]:
+    - img [ref=e4]
+  - region "Notifications alt+T"
+  - generic:
+    - link "Perm Spoofer New Order · 2m ago Perm Spoofer Verified Dismiss notification":
+      - /url: /products/perm-spoofer
+      - generic:
+        - img "Perm Spoofer"
+      - generic:
+        - generic:
+          - generic: New Order
+          - generic: ·
+          - generic: 2m ago
+        - paragraph: Perm Spoofer
+        - generic:
+          - generic: Verified
+      - button "Dismiss notification": ×
+  - button "Back to top":
+    - img
+    - img
+  - main [ref=e8]:
+    - navigation [ref=e9]:
+      - generic [ref=e11]:
+        - link "Lethal Solutions Lethal Solutions" [ref=e12]:
+          - /url: /
+          - generic [ref=e13]:
+            - img "Lethal Solutions" [ref=e16]
+            - generic [ref=e17]: Lethal Solutions
+        - generic [ref=e19]:
+          - link "Home" [ref=e20]:
+            - /url: /
+          - link "Products" [ref=e21]:
+            - /url: /products
+          - link "Guides" [ref=e22]:
+            - /url: /guides
+          - link "Reviews" [ref=e23]:
+            - /url: /reviews
+          - link "Track Order" [ref=e24]:
+            - /url: /track
+          - link "Status" [ref=e25]:
+            - /url: /status
+        - generic [ref=e26]:
+          - button "Open search" [ref=e28]:
+            - img [ref=e29]
+            - generic [ref=e32]: Search…
+            - generic [ref=e33]: ⌘K
+          - link "Customer Login" [ref=e34]:
+            - /url: /login
+            - button "Customer Login" [ref=e35]:
+              - img
+              - text: Customer Login
+          - link "Shopping cart" [ref=e36]:
+            - /url: /cart
+            - button "Shopping cart" [ref=e37]:
+              - img
+    - generic [ref=e39]:
+      - generic [ref=e43]: Lost in transit
+      - generic [ref=e45]:
+        - paragraph [ref=e46]: "404"
+        - paragraph [ref=e48]: "404"
+      - heading "This page went dark" [level=1] [ref=e49]
+      - paragraph [ref=e50]: The page you're looking for doesn't exist or has been moved. Let's get you back on track.
+      - generic [ref=e51]:
+        - link "Back to home" [ref=e52]:
+          - /url: /
+          - img [ref=e53]
+          - generic [ref=e56]: Back to home
+        - link "Browse products" [ref=e57]:
+          - /url: /products
+          - img [ref=e58]
+          - text: Browse products
+          - img [ref=e61]
+      - generic [ref=e63]:
+        - paragraph [ref=e64]: Still lost? Ask in Discord.
+        - link "Open ticket" [ref=e65]:
+          - /url: https://discord.gg/lethaldma
+          - img [ref=e66]
+          - text: Open ticket
+    - generic [ref=e72]:
+      - generic [ref=e73]:
+        - generic [ref=e74]:
+          - generic [ref=e75]:
+            - img "Lethal Solutions" [ref=e78]
+            - generic [ref=e79]: Lethal Solutions
+          - paragraph [ref=e80]: Kernel-level gaming tools trusted by 8,700+ players. Undetected since day one.
+          - generic [ref=e81]:
+            - generic [ref=e82]:
+              - img [ref=e83]
+              - generic [ref=e85]: Secure
+            - generic [ref=e86]:
+              - img [ref=e87]
+              - generic [ref=e89]: Instant
+            - generic [ref=e90]:
+              - img [ref=e91]
+              - generic [ref=e94]: 24/7
+          - generic [ref=e95]:
+            - paragraph [ref=e96]: Connect
+            - generic [ref=e97]:
+              - link "Discord" [ref=e98]:
+                - /url: https://discord.gg/lethaldma
+                - img [ref=e99]
+              - link "YouTube" [ref=e102]:
+                - /url: https://www.youtube.com/@ujukcheats-x4b
+                - img [ref=e103]
+              - link "Telegram" [ref=e106]:
+                - /url: https://t.me/lethalsolutions
+                - img [ref=e107]
+        - generic [ref=e110]:
+          - heading "Products" [level=4] [ref=e111]
+          - list [ref=e112]:
+            - listitem [ref=e113]:
+              - link "All Products" [ref=e114]:
+                - /url: /products
+            - listitem [ref=e115]:
+              - link "Compare" [ref=e116]:
+                - /url: /compare
+            - listitem [ref=e117]:
+              - link "Reviews" [ref=e118]:
+                - /url: /reviews
+            - listitem [ref=e119]:
+              - link "Status" [ref=e120]:
+                - /url: /status
+        - generic [ref=e121]:
+          - heading "Resources" [level=4] [ref=e122]
+          - list [ref=e123]:
+            - listitem [ref=e124]:
+              - link "Setup Guide" [ref=e125]:
+                - /url: /setup
+            - listitem [ref=e126]:
+              - link "Media Library" [ref=e127]:
+                - /url: /media
+            - listitem [ref=e128]:
+              - link "FAQ" [ref=e129]:
+                - /url: /faq
+            - listitem [ref=e130]:
+              - link "Guides" [ref=e131]:
+                - /url: /guides
+            - listitem [ref=e132]:
+              - link "Changelog" [ref=e133]:
+                - /url: /changelog
+            - listitem [ref=e134]:
+              - link "Success Stories" [ref=e135]:
+                - /url: /stories
+            - listitem [ref=e136]:
+              - link "Referrals" [ref=e137]:
+                - /url: /referrals
+            - listitem [ref=e138]:
+              - link "Join Our Team" [ref=e139]:
+                - /url: /apply
+        - generic [ref=e140]:
+          - heading "Account" [level=4] [ref=e141]
+          - list [ref=e142]:
+            - listitem [ref=e143]:
+              - link "Track Order" [ref=e144]:
+                - /url: /track
+            - listitem [ref=e145]:
+              - link "Downloads" [ref=e146]:
+                - /url: /downloads
+            - listitem [ref=e147]:
+              - link "My Account" [ref=e148]:
+                - /url: /profile
+            - listitem [ref=e149]:
+              - link "Cart" [ref=e150]:
+                - /url: /cart
+      - heading [level=2] [ref=e152]: LETHAL
+      - generic [ref=e153]:
+        - paragraph [ref=e154]: © 2026 Lethal Solutions. All rights reserved.
+        - generic [ref=e155]:
+          - generic [ref=e160]: All systems operational
+          - link "Terms" [ref=e162]:
+            - /url: /terms
+          - link "Privacy" [ref=e164]:
+            - /url: /privacy

@@ -1,8 +1,21 @@
 import type { Metadata } from "next"
+import { SITE_URL, DEFAULT_OG_IMAGE } from "@/lib/seo-jsonld"
 
 export const metadata: Metadata = {
-  title: "Referral Program | Lethal Solutions",
-  description: "Earn rewards by referring friends. Get discounts on every successful referral through the Lethal Solutions referral program.",
+  title: "Referral Program — Earn Rewards",
+  description:
+    "Refer friends and earn store credit, loyalty points, and leaderboard tiers. Get rewarded every time a referral purchases.",
+  keywords: ["referral program", "loyalty rewards", "affiliate"],
+  alternates: { canonical: "/referrals" },
+  openGraph: {
+    title: "Referral Program — Earn Rewards | Lethal Solutions",
+    description: "Earn store credit and loyalty tier perks for every successful referral.",
+    url: `${SITE_URL}/referrals`,
+    type: "website",
+    siteName: "Lethal Solutions",
+    images: [{ url: DEFAULT_OG_IMAGE, width: 1200, height: 630, alt: "Referral Program" }],
+  },
+  twitter: { card: "summary_large_image", images: [DEFAULT_OG_IMAGE] },
 }
 
 // The referrals page calls the Supabase browser client at component top level

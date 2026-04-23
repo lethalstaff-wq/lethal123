@@ -47,10 +47,10 @@ export function DiscordCheckoutModal({ isOpen, onClose, productName, variantName
       <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={onClose} />
 
       {/* Modal */}
-      <Card className="relative w-full max-w-md border-border/50 bg-gradient-to-b from-card to-background shadow-2xl animate-in fade-in zoom-in duration-300">
-        <button
+      <Card className="relative w-full max-w-md border-white/[0.08] bg-gradient-to-b from-white/[0.025] to-transparent shadow-2xl animate-in fade-in zoom-in duration-300">
+        <button aria-label="Close"
           onClick={onClose}
-          className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors"
+          className="absolute top-4 right-4 text-white/55 hover:text-white transition-colors"
         >
           <X className="h-5 w-5" />
         </button>
@@ -69,44 +69,44 @@ export function DiscordCheckoutModal({ isOpen, onClose, productName, variantName
           {/* Title */}
           <div className="space-y-2">
             <h2 className="text-2xl font-bold">Complete Your Purchase</h2>
-            <p className="text-muted-foreground">
+            <p className="text-white/55">
               We're currently processing orders through Discord for the best support experience.
             </p>
           </div>
 
           {/* Product Info */}
           {productName && (
-            <div className="bg-muted/50 rounded-xl p-4 text-left space-y-2">
-              <p className="text-sm text-muted-foreground">Your selection:</p>
+            <div className="bg-white/[0.04] rounded-xl p-4 text-left space-y-2">
+              <p className="text-sm text-white/55">Your selection:</p>
               <p className="font-semibold">{productName}</p>
-              {variantName && <p className="text-sm text-muted-foreground">{variantName}</p>}
-              {price && <p className="text-lg font-bold text-primary">£{price.toFixed(2)}</p>}
+              {variantName && <p className="text-sm text-white/55">{variantName}</p>}
+              {price && <p className="text-lg font-bold text-[#f97316]">£{price.toFixed(2)}</p>}
             </div>
           )}
 
           {/* Features */}
           <div className="grid grid-cols-3 gap-4 text-center">
             <div className="space-y-1">
-              <Clock className="h-5 w-5 mx-auto text-primary" />
-              <p className="text-xs text-muted-foreground">Fast Response</p>
+              <Clock className="h-5 w-5 mx-auto text-[#f97316]" />
+              <p className="text-xs text-white/55">Fast Response</p>
             </div>
             <div className="space-y-1">
-              <Shield className="h-5 w-5 mx-auto text-primary" />
-              <p className="text-xs text-muted-foreground">Secure Payment</p>
+              <Shield className="h-5 w-5 mx-auto text-[#f97316]" />
+              <p className="text-xs text-white/55">Secure Payment</p>
             </div>
             <div className="space-y-1">
-              <Headphones className="h-5 w-5 mx-auto text-primary" />
-              <p className="text-xs text-muted-foreground">24/7 Support</p>
+              <Headphones className="h-5 w-5 mx-auto text-[#f97316]" />
+              <p className="text-xs text-white/55">24/7 Support</p>
             </div>
           </div>
 
           {/* Instructions */}
-          <div className="bg-primary/10 border border-primary/20 rounded-xl p-4 text-left">
-            <p className="text-sm font-medium text-primary mb-2">How to order:</p>
-            <ol className="text-sm text-muted-foreground space-y-1">
+          <div className="bg-[#f97316]/10 border border-[#f97316]/20 rounded-xl p-4 text-left">
+            <p className="text-sm font-medium text-[#f97316] mb-2">How to order:</p>
+            <ol className="text-sm text-white/55 space-y-1">
               <li>1. Join our Discord server</li>
               <li>
-                2. Go to <span className="text-primary font-medium">#🎫・contact-us</span> channel
+                2. Go to <span className="text-[#f97316] font-medium">#🎫・contact-us</span> channel
               </li>
               <li>3. Create a ticket and tell us what you want</li>
               <li>4. Receive payment instructions</li>
@@ -129,15 +129,15 @@ export function DiscordCheckoutModal({ isOpen, onClose, productName, variantName
 
             <button
               onClick={() => setAutoRedirect(false)}
-              className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+              className="text-xs text-white/55 hover:text-white transition-colors"
             >
               {autoRedirect ? "Cancel auto-redirect" : "Auto-redirect cancelled"}
             </button>
           </div>
 
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs text-white/55">
             Need help? Contact us at{" "}
-            <a href="mailto:support@lethalsolutions.me" className="text-primary hover:underline">
+            <a href="mailto:support@lethalsolutions.me" className="text-[#f97316] hover:underline">
               support@lethalsolutions.me
             </a>
           </p>

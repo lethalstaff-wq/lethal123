@@ -16,41 +16,42 @@ export function LoyaltyCard({ totalSpentPence }: { totalSpentPence: number }) {
   }
 
   return (
-    <div className={cn("rounded-2xl border border-white/[0.06] overflow-hidden bg-gradient-to-br", current.gradient)}>
-      <div className="p-6 backdrop-blur-sm bg-black/30">
+    <div className={cn("relative rounded-2xl border border-white/[0.10] overflow-hidden bg-gradient-to-br shadow-[0_24px_60px_rgba(0,0,0,0.4)]", current.gradient)}>
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none" />
+      <div className="relative p-7 backdrop-blur-md bg-black/55">
         <div className="flex items-start justify-between mb-5 gap-4">
           <div>
-            <div className="flex items-center gap-2 mb-1.5">
-              <Crown className={cn("h-4 w-4", current.accent)} />
-              <span className={cn("text-[11px] font-bold uppercase tracking-wider", current.accent)}>
+            <div className="flex items-center gap-2 mb-2 px-2.5 py-1 rounded-full bg-white/[0.06] border border-white/[0.10] inline-flex w-fit">
+              <Crown className={cn("h-3.5 w-3.5", current.accent)} />
+              <span className={cn("text-[10px] font-bold uppercase tracking-[0.15em]", current.accent)}>
                 {current.label} Tier
               </span>
             </div>
-            <p className="text-3xl font-black text-white">{current.discountPercent}% off</p>
-            <p className="text-xs text-white/60 mt-1">
-              Lifetime spend £{(totalSpentPence / 100).toFixed(2)}
+            <p className="font-display text-4xl font-black text-white tracking-tight">{current.discountPercent}% off</p>
+            <p className="text-[12px] text-white/65 mt-1.5">
+              Lifetime spend <span className="font-bold text-white tabular-nums">£{(totalSpentPence / 100).toFixed(2)}</span>
             </p>
           </div>
           <button
             onClick={copy}
-            className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/[0.06] hover:bg-white/[0.10] text-[11px] font-bold text-white/80 transition-colors font-mono"
+            className="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/[0.08] hover:bg-white/[0.14] border border-white/[0.10] hover:border-white/[0.20] text-[11px] font-bold text-white transition-all font-mono"
             aria-label="Copy tier coupon code"
           >
-            {copied ? <><Check className="h-3 w-3 text-emerald-400" /> Copied</> : <><Copy className="h-3 w-3" /> {current.couponCode}</>}
+            {copied ? <><Check className="h-3.5 w-3.5 text-emerald-400" /> Copied</> : <><Copy className="h-3.5 w-3.5" /> {current.couponCode}</>}
           </button>
         </div>
 
         {next && (
           <div className="mb-5">
-            <div className="flex items-center justify-between text-[11px] mb-1.5">
-              <span className="text-white/60">Progress to {next.label}</span>
-              <span className={cn("font-semibold", next.accent)}>
+            <div className="flex items-center justify-between text-[11px] mb-2 font-semibold">
+              <span className="text-white/65 uppercase tracking-wider">Progress to {next.label}</span>
+              <span className={cn("font-bold tabular-nums", next.accent)}>
                 £{(spentToNextPence / 100).toFixed(2)} to go
               </span>
             </div>
-            <div className="h-1.5 rounded-full bg-white/10 overflow-hidden">
+            <div className="h-2 rounded-full bg-white/[0.08] overflow-hidden">
               <div
-                className="h-full bg-gradient-to-r from-white/40 to-white/70 rounded-full transition-all duration-700"
+                className="h-full bg-gradient-to-r from-white/55 to-white/85 rounded-full transition-all duration-700 shadow-[0_0_8px_rgba(255,255,255,0.4)]"
                 style={{ width: `${progressPct}%` }}
               />
             </div>
@@ -89,15 +90,16 @@ export function LoyaltyTiersPreview() {
       {LOYALTY_TIERS.map((t) => (
         <div
           key={t.id}
-          className={cn("rounded-xl border border-white/[0.06] p-4 bg-gradient-to-br", t.gradient)}
+          className={cn("group relative rounded-xl border border-white/[0.10] p-4 bg-gradient-to-br hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.5)] transition-all duration-300 overflow-hidden", t.gradient)}
         >
-          <div className="backdrop-blur-sm bg-black/30 rounded-lg -m-4 p-4">
-            <div className="flex items-center gap-1.5 mb-2">
-              <Crown className={cn("h-3.5 w-3.5", t.accent)} />
-              <span className={cn("text-[10px] font-bold uppercase tracking-wider", t.accent)}>{t.label}</span>
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none" />
+          <div className="relative backdrop-blur-md bg-black/55 rounded-lg -m-4 p-4">
+            <div className="flex items-center gap-1.5 mb-2.5 px-2 py-0.5 rounded-full bg-white/[0.06] border border-white/[0.10] inline-flex w-fit">
+              <Crown className={cn("h-3 w-3", t.accent)} />
+              <span className={cn("text-[9px] font-bold uppercase tracking-[0.15em]", t.accent)}>{t.label}</span>
             </div>
-            <p className="text-xl font-black text-white mb-1">{t.discountPercent}% off</p>
-            <p className="text-[11px] text-white/50">
+            <p className="font-display text-2xl font-black text-white mb-1 tracking-tight">{t.discountPercent}% off</p>
+            <p className="text-[11px] text-white/65">
               {t.minPence === 0 ? "Instant on signup" : `From £${(t.minPence / 100).toFixed(0)} spend`}
             </p>
           </div>

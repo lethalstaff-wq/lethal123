@@ -70,8 +70,8 @@ export function AdminSettings({ settings, userEmail }: {
     <div className="space-y-8">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-foreground">Settings</h1>
-          <p className="text-sm text-muted-foreground mt-1">Manage your site configuration</p>
+          <h1 className="text-2xl font-bold text-white">Settings</h1>
+          <p className="text-sm text-white/55 mt-1">Manage your site configuration</p>
         </div>
         <Button onClick={saveAll} disabled={isPending}>
           {isPending ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Save className="h-4 w-4 mr-2" />}
@@ -80,149 +80,149 @@ export function AdminSettings({ settings, userEmail }: {
       </div>
 
       {/* Admin info */}
-      <div className="rounded-xl border border-border bg-card p-5">
+      <div className="rounded-xl border border-white/[0.08] bg-white/[0.025] p-5">
         <div className="flex items-center gap-3 mb-4">
-          <div className="p-2 rounded-lg bg-primary/10">
-            <Shield className="h-4 w-4 text-primary" />
+          <div className="p-2 rounded-lg bg-[#f97316]/10">
+            <Shield className="h-4 w-4 text-[#f97316]" />
           </div>
           <div>
-            <h2 className="font-semibold text-foreground text-sm">Admin Account</h2>
-            <p className="text-xs text-muted-foreground">{userEmail}</p>
+            <h2 className="font-semibold text-white text-sm">Admin Account</h2>
+            <p className="text-xs text-white/55">{userEmail}</p>
           </div>
         </div>
       </div>
 
       {/* General */}
-      <div className="rounded-xl border border-border bg-card p-5 space-y-4">
+      <div className="rounded-xl border border-white/[0.08] bg-white/[0.025] p-5 space-y-4">
         <div className="flex items-center gap-3 mb-2">
           <div className="p-2 rounded-lg bg-blue-500/10">
             <Globe className="h-4 w-4 text-blue-500" />
           </div>
-          <h2 className="font-semibold text-foreground text-sm">General</h2>
+          <h2 className="font-semibold text-white text-sm">General</h2>
         </div>
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <Label className="text-xs text-muted-foreground">Site Name</Label>
-            <Input value={siteName} onChange={(e) => setSiteName(e.target.value)} className="mt-1 bg-background text-sm" />
+            <Label className="text-xs text-white/55">Site Name</Label>
+            <Input value={siteName} onChange={(e) => setSiteName(e.target.value)} className="mt-1 bg-white/[0.02] text-sm" />
           </div>
           <div>
-            <Label className="text-xs text-muted-foreground">Description</Label>
-            <Input value={siteDescription} onChange={(e) => setSiteDescription(e.target.value)} className="mt-1 bg-background text-sm" />
+            <Label className="text-xs text-white/55">Description</Label>
+            <Input value={siteDescription} onChange={(e) => setSiteDescription(e.target.value)} className="mt-1 bg-white/[0.02] text-sm" />
           </div>
           <div className="col-span-2">
-            <Label className="text-xs text-muted-foreground">Announcement Banner (leave empty to hide)</Label>
-            <Input value={announcementText} onChange={(e) => setAnnouncementText(e.target.value)} placeholder="e.g. 20% OFF Summer Sale!" className="mt-1 bg-background text-sm" />
+            <Label className="text-xs text-white/55">Announcement Banner (leave empty to hide)</Label>
+            <Input value={announcementText} onChange={(e) => setAnnouncementText(e.target.value)} placeholder="e.g. 20% OFF Summer Sale!" className="mt-1 bg-white/[0.02] text-sm" />
           </div>
         </div>
       </div>
 
       {/* Social Links */}
-      <div className="rounded-xl border border-border bg-card p-5 space-y-4">
+      <div className="rounded-xl border border-white/[0.08] bg-white/[0.025] p-5 space-y-4">
         <div className="flex items-center gap-3 mb-2">
           <div className="p-2 rounded-lg bg-emerald-500/10">
             <MessageSquare className="h-4 w-4 text-emerald-500" />
           </div>
-          <h2 className="font-semibold text-foreground text-sm">Social Links</h2>
+          <h2 className="font-semibold text-white text-sm">Social Links</h2>
         </div>
         <div className="grid grid-cols-1 gap-4">
           <div>
-            <Label className="text-xs text-muted-foreground">Discord Invite Link</Label>
-            <Input value={discordLink} onChange={(e) => setDiscordLink(e.target.value)} className="mt-1 bg-background text-sm" placeholder="https://discord.gg/..." />
+            <Label className="text-xs text-white/55">Discord Invite Link</Label>
+            <Input value={discordLink} onChange={(e) => setDiscordLink(e.target.value)} className="mt-1 bg-white/[0.02] text-sm" placeholder="https://discord.gg/..." />
           </div>
           <div>
-            <Label className="text-xs text-muted-foreground">YouTube Channel Link</Label>
-            <Input value={youtubeLink} onChange={(e) => setYoutubeLink(e.target.value)} className="mt-1 bg-background text-sm" placeholder="https://youtube.com/..." />
+            <Label className="text-xs text-white/55">YouTube Channel Link</Label>
+            <Input value={youtubeLink} onChange={(e) => setYoutubeLink(e.target.value)} className="mt-1 bg-white/[0.02] text-sm" placeholder="https://youtube.com/..." />
           </div>
           <div>
-            <Label className="text-xs text-muted-foreground">Telegram Link</Label>
-            <Input value={telegramLink} onChange={(e) => setTelegramLink(e.target.value)} className="mt-1 bg-background text-sm" placeholder="https://t.me/..." />
+            <Label className="text-xs text-white/55">Telegram Link</Label>
+            <Input value={telegramLink} onChange={(e) => setTelegramLink(e.target.value)} className="mt-1 bg-white/[0.02] text-sm" placeholder="https://t.me/..." />
           </div>
         </div>
       </div>
 
       {/* Coupon */}
-      <div className="rounded-xl border border-border bg-card p-5 space-y-4">
+      <div className="rounded-xl border border-white/[0.08] bg-white/[0.025] p-5 space-y-4">
         <div className="flex items-center gap-3 mb-2">
           <div className="p-2 rounded-lg bg-amber-500/10">
             <Percent className="h-4 w-4 text-amber-500" />
           </div>
-          <h2 className="font-semibold text-foreground text-sm">Welcome Coupon</h2>
+          <h2 className="font-semibold text-white text-sm">Welcome Coupon</h2>
         </div>
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <Label className="text-xs text-muted-foreground">Coupon Code</Label>
-            <Input value={couponCode} onChange={(e) => setCouponCode(e.target.value)} className="mt-1 bg-background text-sm font-mono" placeholder="e.g. SUMMER20" />
+            <Label className="text-xs text-white/55">Coupon Code</Label>
+            <Input value={couponCode} onChange={(e) => setCouponCode(e.target.value)} className="mt-1 bg-white/[0.02] text-sm font-mono" placeholder="e.g. SUMMER20" />
           </div>
           <div>
-            <Label className="text-xs text-muted-foreground">Discount %</Label>
-            <Input type="number" value={couponPercent} onChange={(e) => setCouponPercent(e.target.value)} className="mt-1 bg-background text-sm" />
+            <Label className="text-xs text-white/55">Discount %</Label>
+            <Input type="number" value={couponPercent} onChange={(e) => setCouponPercent(e.target.value)} className="mt-1 bg-white/[0.02] text-sm" />
           </div>
         </div>
       </div>
 
       {/* Review Display Stats */}
-      <div className="rounded-xl border border-border bg-card p-5 space-y-4">
+      <div className="rounded-xl border border-white/[0.08] bg-white/[0.025] p-5 space-y-4">
         <div className="flex items-center gap-3 mb-2">
-          <div className="p-2 rounded-lg bg-primary/10">
-            <Star className="h-4 w-4 text-primary" />
+          <div className="p-2 rounded-lg bg-[#f97316]/10">
+            <Star className="h-4 w-4 text-[#f97316]" />
           </div>
           <div>
-            <h2 className="font-semibold text-foreground text-sm">Review Display Stats</h2>
-            <p className="text-xs text-muted-foreground">Controls the numbers shown on the public reviews page</p>
+            <h2 className="font-semibold text-white text-sm">Review Display Stats</h2>
+            <p className="text-xs text-white/55">Controls the numbers shown on the public reviews page</p>
           </div>
         </div>
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <Label className="text-xs text-muted-foreground">Total Reviews (base count)</Label>
-            <Input type="number" value={reviewTotal} onChange={(e) => setReviewTotal(e.target.value)} className="mt-1 bg-background text-sm font-mono" />
+            <Label className="text-xs text-white/55">Total Reviews (base count)</Label>
+            <Input type="number" value={reviewTotal} onChange={(e) => setReviewTotal(e.target.value)} className="mt-1 bg-white/[0.02] text-sm font-mono" />
           </div>
           <div>
-            <Label className="text-xs text-muted-foreground">Daily Growth (+N per day)</Label>
-            <Input type="number" value={reviewDailyGrowth} onChange={(e) => setReviewDailyGrowth(e.target.value)} className="mt-1 bg-background text-sm font-mono" />
+            <Label className="text-xs text-white/55">Daily Growth (+N per day)</Label>
+            <Input type="number" value={reviewDailyGrowth} onChange={(e) => setReviewDailyGrowth(e.target.value)} className="mt-1 bg-white/[0.02] text-sm font-mono" />
           </div>
         </div>
-        <div className="border-t border-border pt-4">
-          <Label className="text-xs text-muted-foreground mb-3 block">Rating Breakdown</Label>
+        <div className="border-t border-white/[0.08] pt-4">
+          <Label className="text-xs text-white/55 mb-3 block">Rating Breakdown</Label>
           <div className="grid grid-cols-5 gap-3">
             <div>
               <Label className="text-xs text-amber-500 font-semibold">5 Stars</Label>
-              <Input type="number" value={reviewStars5} onChange={(e) => setReviewStars5(e.target.value)} className="mt-1 bg-background text-sm font-mono" />
+              <Input type="number" value={reviewStars5} onChange={(e) => setReviewStars5(e.target.value)} className="mt-1 bg-white/[0.02] text-sm font-mono" />
             </div>
             <div>
               <Label className="text-xs text-amber-500 font-semibold">4 Stars</Label>
-              <Input type="number" value={reviewStars4} onChange={(e) => setReviewStars4(e.target.value)} className="mt-1 bg-background text-sm font-mono" />
+              <Input type="number" value={reviewStars4} onChange={(e) => setReviewStars4(e.target.value)} className="mt-1 bg-white/[0.02] text-sm font-mono" />
             </div>
             <div>
               <Label className="text-xs text-amber-500 font-semibold">3 Stars</Label>
-              <Input type="number" value={reviewStars3} onChange={(e) => setReviewStars3(e.target.value)} className="mt-1 bg-background text-sm font-mono" />
+              <Input type="number" value={reviewStars3} onChange={(e) => setReviewStars3(e.target.value)} className="mt-1 bg-white/[0.02] text-sm font-mono" />
             </div>
             <div>
               <Label className="text-xs text-amber-500 font-semibold">2 Stars</Label>
-              <Input type="number" value={reviewStars2} onChange={(e) => setReviewStars2(e.target.value)} className="mt-1 bg-background text-sm font-mono" />
+              <Input type="number" value={reviewStars2} onChange={(e) => setReviewStars2(e.target.value)} className="mt-1 bg-white/[0.02] text-sm font-mono" />
             </div>
             <div>
               <Label className="text-xs text-amber-500 font-semibold">1 Star</Label>
-              <Input type="number" value={reviewStars1} onChange={(e) => setReviewStars1(e.target.value)} className="mt-1 bg-background text-sm font-mono" />
+              <Input type="number" value={reviewStars1} onChange={(e) => setReviewStars1(e.target.value)} className="mt-1 bg-white/[0.02] text-sm font-mono" />
             </div>
           </div>
-          <p className="text-[10px] text-muted-foreground mt-3">
+          <p className="text-[10px] text-white/55 mt-3">
             {"Sum: "}{Number(reviewStars5) + Number(reviewStars4) + Number(reviewStars3) + Number(reviewStars2) + Number(reviewStars1)}
             {" (should equal Total Reviews: "}{reviewTotal}{")"}
           </p>
         </div>
-        <div className="border-t border-border pt-4">
-          <Label className="text-xs text-muted-foreground mb-3 block">Helpful Count Range (shown on each review)</Label>
+        <div className="border-t border-white/[0.08] pt-4">
+          <Label className="text-xs text-white/55 mb-3 block">Helpful Count Range (shown on each review)</Label>
           <div className="grid grid-cols-2 gap-4">
             <div>
               <Label className="text-xs text-emerald-500 font-semibold">Min Helpful</Label>
-              <Input type="number" value={helpfulMin} onChange={(e) => setHelpfulMin(e.target.value)} className="mt-1 bg-background text-sm font-mono" />
+              <Input type="number" value={helpfulMin} onChange={(e) => setHelpfulMin(e.target.value)} className="mt-1 bg-white/[0.02] text-sm font-mono" />
             </div>
             <div>
               <Label className="text-xs text-emerald-500 font-semibold">Max Helpful</Label>
-              <Input type="number" value={helpfulMax} onChange={(e) => setHelpfulMax(e.target.value)} className="mt-1 bg-background text-sm font-mono" />
+              <Input type="number" value={helpfulMax} onChange={(e) => setHelpfulMax(e.target.value)} className="mt-1 bg-white/[0.02] text-sm font-mono" />
             </div>
           </div>
-          <p className="text-[10px] text-muted-foreground mt-3">
+          <p className="text-[10px] text-white/55 mt-3">
             {"Each review will show a random helpful count between "}{helpfulMin}{" and "}{helpfulMax}
           </p>
         </div>

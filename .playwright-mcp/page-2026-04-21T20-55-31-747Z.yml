@@ -1,0 +1,213 @@
+- generic [active] [ref=e1]:
+  - alert [ref=e2]
+  - generic:
+    - img
+  - region "Notifications alt+T"
+  - button "Back to top":
+    - img
+    - img
+  - main [ref=e5]:
+    - navigation [ref=e6]:
+      - generic [ref=e8]:
+        - link "Lethal Solutions Lethal Solutions" [ref=e9]:
+          - /url: /
+          - generic [ref=e10]:
+            - img "Lethal Solutions" [ref=e13]
+            - generic [ref=e14]: Lethal Solutions
+        - generic [ref=e15]:
+          - button "Open search" [ref=e17]:
+            - img
+          - link:
+            - /url: /login
+          - link "Shopping cart" [ref=e18]:
+            - /url: /cart
+            - button "Shopping cart" [ref=e19]:
+              - img
+          - button "Toggle menu" [ref=e21]:
+            - img
+            - generic [ref=e22]: Toggle menu
+    - generic [ref=e24]:
+      - generic [ref=e28]: Setup Guide
+      - heading "Up and running in 5 minutes" [level=1] [ref=e32]
+      - paragraph [ref=e33]: Five steps. No bloat. No confusion. Scroll through — each step reveals as you go.
+    - generic [ref=e36]:
+      - generic [ref=e37]:
+        - generic [ref=e38]:
+          - img [ref=e40]
+          - generic [ref=e43]:
+            - generic [ref=e44]:
+              - generic [ref=e45]: STEP 01
+              - generic [ref=e47]: Instant delivery after checkout
+            - heading "Purchase & receive license" [level=3] [ref=e48]
+            - paragraph [ref=e49]: Pay with crypto or PayPal. Your license key and download link arrive in your inbox within 60 seconds. No human review, no queue.
+        - generic [ref=e51]:
+          - generic [ref=e56]: checkout · success
+          - generic [ref=e58]:
+            - generic [ref=e60]: ✓ Payment verified
+            - generic [ref=e62]: ✓ License generated
+            - generic [ref=e64]: → license.key (sent to inbox)
+      - generic [ref=e65]:
+        - generic [ref=e66]:
+          - img [ref=e68]
+          - generic [ref=e71]:
+            - generic [ref=e72]:
+              - generic [ref=e73]: STEP 02
+              - generic [ref=e75]: One input — seconds
+            - heading "Activate your key" [level=3] [ref=e76]
+            - paragraph [ref=e77]: Paste your license in the launcher. We handle hardware binding, refresh tokens, and all the boring stuff invisibly.
+        - generic [ref=e79]:
+          - generic [ref=e84]: license
+          - generic [ref=e86]:
+            - generic [ref=e87]:
+              - generic [ref=e88]: License
+              - generic [ref=e89]: LS-A7K3-9F2X-P4QM
+            - generic [ref=e90]:
+              - generic [ref=e91]: Status
+              - generic [ref=e92]: Active
+            - generic [ref=e93]:
+              - generic [ref=e94]: Expires
+              - generic [ref=e95]: Lifetime
+      - generic [ref=e96]:
+        - generic [ref=e97]:
+          - img [ref=e99]
+          - generic [ref=e101]:
+            - generic [ref=e102]:
+              - generic [ref=e103]: STEP 03
+              - generic [ref=e105]: Signed binary, 4 MB
+            - heading "Download loader" [level=3] [ref=e106]
+            - paragraph [ref=e107]: Small, signed, single-file loader. No installers, no registry writes. Runs once, streams the latest build directly into memory.
+        - generic [ref=e114]: loader ~ bash
+      - generic [ref=e118]:
+        - generic [ref=e119]:
+          - img [ref=e121]
+          - generic [ref=e123]:
+            - generic [ref=e124]:
+              - generic [ref=e125]: STEP 04
+              - generic [ref=e127]: Any order, anti-cheat safe
+            - heading "Launch game" [level=3] [ref=e128]
+            - paragraph [ref=e129]: Open the loader before or after the game — both work. Our injection engine attaches safely without triggering Vanguard, EAC, BattlEye, or Ricochet.
+        - generic [ref=e131]:
+          - generic [ref=e136]: game · status
+          - generic [ref=e138]:
+            - generic [ref=e139]:
+              - paragraph [ref=e140]: Game
+              - paragraph [ref=e141]: Valorant
+            - generic [ref=e142]:
+              - paragraph [ref=e143]: Anti-cheat
+              - paragraph [ref=e144]: Vanguard · OK
+            - generic [ref=e145]:
+              - paragraph [ref=e146]: Detection
+              - paragraph [ref=e147]: 0 flags
+            - generic [ref=e148]:
+              - paragraph [ref=e149]: Latency overhead
+              - paragraph [ref=e150]: < 1 ms
+      - generic [ref=e151]:
+        - generic [ref=e152]:
+          - img [ref=e154]
+          - generic [ref=e156]:
+            - generic [ref=e157]:
+              - generic [ref=e158]: STEP 05
+              - generic [ref=e160]: Day one. Week fifty.
+            - heading "Play undetected" [level=3] [ref=e161]
+            - paragraph [ref=e162]: You're in. Any patch lands, we push an update within 2 hours on average. Discord support is live 24/7 if anything feels off.
+        - generic [ref=e164]:
+          - generic [ref=e169]: status
+          - generic [ref=e171]:
+            - img [ref=e173]
+            - paragraph [ref=e175]: All clear
+            - paragraph [ref=e176]: 99.8% undetection rate since launch
+    - generic [ref=e181]:
+      - generic [ref=e182]:
+        - generic [ref=e183]:
+          - generic [ref=e184]:
+            - img "Lethal Solutions" [ref=e187]
+            - generic [ref=e188]: Lethal Solutions
+          - paragraph [ref=e189]: Kernel-level gaming tools trusted by 8,700+ players. Undetected since day one.
+          - generic [ref=e190]:
+            - generic [ref=e191]:
+              - img [ref=e192]
+              - generic [ref=e194]: Secure
+            - generic [ref=e195]:
+              - img [ref=e196]
+              - generic [ref=e198]: Instant
+            - generic [ref=e199]:
+              - img [ref=e200]
+              - generic [ref=e203]: 24/7
+          - generic [ref=e204]:
+            - paragraph [ref=e205]: Connect
+            - generic [ref=e206]:
+              - link "Discord" [ref=e207]:
+                - /url: https://discord.gg/lethaldma
+                - img [ref=e208]
+              - link "YouTube" [ref=e211]:
+                - /url: https://www.youtube.com/@ujukcheats-x4b
+                - img [ref=e212]
+              - link "Telegram" [ref=e215]:
+                - /url: https://t.me/lethalsolutions
+                - img [ref=e216]
+        - generic [ref=e219]:
+          - heading "Products" [level=4] [ref=e220]
+          - list [ref=e221]:
+            - listitem [ref=e222]:
+              - link "All Products" [ref=e223]:
+                - /url: /products
+            - listitem [ref=e224]:
+              - link "Compare" [ref=e225]:
+                - /url: /compare
+            - listitem [ref=e226]:
+              - link "Reviews" [ref=e227]:
+                - /url: /reviews
+            - listitem [ref=e228]:
+              - link "Status" [ref=e229]:
+                - /url: /status
+        - generic [ref=e230]:
+          - heading "Resources" [level=4] [ref=e231]
+          - list [ref=e232]:
+            - listitem [ref=e233]:
+              - link "Setup Guide" [ref=e234]:
+                - /url: /setup
+            - listitem [ref=e235]:
+              - link "Media Library" [ref=e236]:
+                - /url: /media
+            - listitem [ref=e237]:
+              - link "FAQ" [ref=e238]:
+                - /url: /faq
+            - listitem [ref=e239]:
+              - link "Guides" [ref=e240]:
+                - /url: /guides
+            - listitem [ref=e241]:
+              - link "Changelog" [ref=e242]:
+                - /url: /changelog
+            - listitem [ref=e243]:
+              - link "Success Stories" [ref=e244]:
+                - /url: /stories
+            - listitem [ref=e245]:
+              - link "Referrals" [ref=e246]:
+                - /url: /referrals
+            - listitem [ref=e247]:
+              - link "Join Our Team" [ref=e248]:
+                - /url: /apply
+        - generic [ref=e249]:
+          - heading "Account" [level=4] [ref=e250]
+          - list [ref=e251]:
+            - listitem [ref=e252]:
+              - link "Track Order" [ref=e253]:
+                - /url: /track
+            - listitem [ref=e254]:
+              - link "Downloads" [ref=e255]:
+                - /url: /downloads
+            - listitem [ref=e256]:
+              - link "My Account" [ref=e257]:
+                - /url: /profile
+            - listitem [ref=e258]:
+              - link "Cart" [ref=e259]:
+                - /url: /cart
+      - heading [level=2] [ref=e261]: LETHAL
+      - generic [ref=e262]:
+        - paragraph [ref=e263]: © 2026 Lethal Solutions. All rights reserved.
+        - generic [ref=e264]:
+          - generic [ref=e269]: All systems operational
+          - link "Terms" [ref=e271]:
+            - /url: /terms
+          - link "Privacy" [ref=e273]:
+            - /url: /privacy

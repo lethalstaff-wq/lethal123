@@ -155,7 +155,7 @@ export default function ProfilePage() {
 
   if (loading) {
     return (
-      <main className="min-h-screen bg-black flex items-center justify-center">
+      <main className="min-h-screen bg-transparent flex items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin text-[#f97316]" />
       </main>
     )
@@ -177,7 +177,7 @@ export default function ProfilePage() {
   ]
 
   return (
-    <main className="min-h-screen bg-black">
+    <main className="min-h-screen bg-transparent">
       <Navbar />
 
       <section className="pt-28 md:pt-32 pb-16 px-4 sm:px-6">
@@ -185,42 +185,44 @@ export default function ProfilePage() {
           {/* ═══ Hero ═══ */}
           <div
             className={cn(
-              "relative overflow-hidden rounded-3xl border border-white/[0.06] mb-6 bg-gradient-to-br",
+              "relative overflow-hidden rounded-3xl border border-white/[0.10] mb-6 bg-gradient-to-br shadow-[0_24px_60px_rgba(0,0,0,0.4)]",
               loyalty.current.gradient
             )}
           >
-            <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-black/55 backdrop-blur-md" />
+            <div className="absolute -top-20 -right-20 w-72 h-72 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(249, 115, 22, 0.22), transparent 70%)" }} />
             <div className="relative p-6 md:p-8">
               <div className="flex flex-col md:flex-row md:items-start gap-5">
                 <div
                   className={cn(
-                    "w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center text-2xl md:text-3xl font-black text-white shadow-lg shrink-0",
-                    "bg-gradient-to-br from-[#f97316] to-[#ea580c]"
+                    "w-20 h-20 md:w-24 md:h-24 rounded-2xl flex items-center justify-center font-display text-3xl md:text-4xl font-black text-white shrink-0",
+                    "bg-gradient-to-br from-[#f97316] to-[#ea580c] shadow-[0_8px_24px_rgba(249, 115, 22, 0.58),inset_0_1px_0_rgba(255,255,255,0.15)]"
                   )}
                 >
                   {initials}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 flex-wrap mb-1">
-                    <h1 className="text-2xl md:text-3xl font-black text-white truncate">
-                      {displayName ? displayName : "My Profile"}
+                  <div className="flex items-center gap-2 flex-wrap mb-2">
+                    <h1 className="font-display text-3xl md:text-4xl font-bold tracking-tight">
+                      <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>{displayName ? displayName : "My Profile"}</span>
                     </h1>
                     <span
                       className={cn(
-                        "inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10.5px] font-bold uppercase tracking-wider border border-white/[0.12] bg-black/30",
+                        "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-[0.18em] border border-white/[0.15] bg-black/45 backdrop-blur-md",
                         loyalty.current.accent
                       )}
                     >
                       <Crown className="h-3 w-3" /> {loyalty.current.label}
                     </span>
                   </div>
-                  <p className="text-sm text-white/60 truncate">{profile.email}</p>
-                  <p className="text-xs text-white/40 mt-0.5">Member since {formatDate(profile.created_at)}</p>
+                  <p className="text-[14px] text-white/75 truncate font-medium">{profile.email}</p>
+                  <p className="text-[12px] text-white/55 mt-1">Member since {formatDate(profile.created_at)}</p>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
                   <Link
                     href="/products"
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white/[0.08] hover:bg-white/[0.14] text-sm font-semibold text-white transition-colors"
+                    className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white text-[13px] font-bold transition-all hover:scale-[1.03] hover:brightness-110 shadow-[0_4px_14px_rgba(249, 115, 22, 0.46),inset_0_1px_0_rgba(255,255,255,0.08)]"
                   >
                     Shop products
                   </Link>
@@ -247,7 +249,7 @@ export default function ProfilePage() {
           </div>
 
           {/* ═══ Tabs ═══ */}
-          <div className="flex gap-1.5 p-1.5 rounded-2xl bg-white/[0.02] border border-white/[0.04] mb-6 overflow-x-auto scrollbar-hide">
+          <div className="flex gap-1 p-1.5 rounded-2xl bg-white/[0.04] border border-white/[0.08] backdrop-blur-md mb-6 overflow-x-auto scrollbar-hide">
             {tabs.map((tab) => {
               const Icon = tab.icon
               const active = activeTab === tab.id
@@ -256,14 +258,16 @@ export default function ProfilePage() {
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
                   className={cn(
-                    "flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition-all shrink-0",
-                    active ? "bg-white/[0.08] text-white shadow-lg" : "text-white/50 hover:text-white hover:bg-white/[0.03]"
+                    "flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-[13px] font-bold whitespace-nowrap transition-all shrink-0",
+                    active
+                      ? "bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white shadow-[0_4px_14px_rgba(249, 115, 22, 0.58)]"
+                      : "text-white/55 hover:text-white hover:bg-white/[0.06]"
                   )}
                 >
                   <Icon className="h-4 w-4" />
                   {tab.label}
                   {typeof tab.badge === "number" && tab.badge > 0 && (
-                    <span className={cn("px-1.5 py-0.5 rounded-full text-[10px] font-bold", active ? "bg-white/[0.12]" : "bg-white/[0.06]")}>
+                    <span className={cn("px-1.5 py-0.5 rounded-full text-[10px] font-black tabular-nums", active ? "bg-black/25 text-white" : "bg-white/[0.10] text-white/85")}>
                       {tab.badge}
                     </span>
                   )}
@@ -337,10 +341,10 @@ export default function ProfilePage() {
 
           {activeTab === "renewals" && (
             <div>
-              <div className="mb-4 rounded-2xl border border-white/[0.06] bg-white/[0.012] p-5">
+              <div className="mb-4 rounded-2xl border border-emerald-500/20 bg-gradient-to-br from-emerald-500/[0.06] to-white/[0.015] p-5">
                 <div className="flex items-start gap-3">
-                  <div className="w-9 h-9 rounded-xl bg-emerald-500/15 flex items-center justify-center shrink-0">
-                    <RefreshCw className="h-4 w-4 text-emerald-400" />
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500/25 to-emerald-600/15 border border-emerald-500/30 flex items-center justify-center shrink-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_18px_rgba(16,185,129,0.18)]">
+                    <RefreshCw className="h-[18px] w-[18px] text-emerald-400" style={{ filter: "drop-shadow(0 0 8px rgba(16,185,129,0.5))" }} />
                   </div>
                   <div>
                     <p className="font-bold text-white text-sm">Renewal reminders</p>
@@ -375,10 +379,10 @@ function MiniStat({
   valueTone?: string
 }) {
   return (
-    <div className="rounded-xl border border-white/[0.08] bg-black/30 px-4 py-3 backdrop-blur-sm">
-      <Icon className="h-3.5 w-3.5 text-white/40 mb-1.5" />
-      <p className={cn("text-xl md:text-2xl font-black", valueTone)}>{value}</p>
-      <p className="text-[10.5px] text-white/40 truncate">{label}</p>
+    <div className="rounded-xl border border-white/[0.10] bg-black/45 backdrop-blur-md px-4 py-3.5 hover:border-white/[0.18] transition-colors">
+      <Icon className="h-3.5 w-3.5 text-white/65 mb-1.5" />
+      <p className={cn("font-display text-xl md:text-2xl font-black tracking-tight", valueTone)}>{value}</p>
+      <p className="text-[10px] text-white/65 truncate uppercase tracking-[0.12em] font-bold mt-0.5">{label}</p>
     </div>
   )
 }
@@ -399,15 +403,15 @@ function QuickLink({
   accent?: string
 }) {
   const content = (
-    <div className="flex items-center gap-4 p-5 rounded-2xl border border-white/[0.06] bg-white/[0.012] hover:bg-white/[0.025] hover:border-white/[0.12] transition-all group">
-      <div className={cn("w-10 h-10 rounded-xl flex items-center justify-center bg-white/[0.04]", accent)}>
-        <Icon className="h-4 w-4" />
+    <div className="spotlight-card group flex items-center gap-4 p-5 rounded-2xl border border-white/[0.06] bg-white/[0.015] hover:bg-white/[0.03] hover:border-[#f97316]/30 hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249, 115, 22, 0.14)] transition-all duration-300">
+      <div className={cn("w-11 h-11 rounded-xl flex items-center justify-center bg-white/[0.04] border border-white/[0.08] group-hover:scale-110 transition-transform", accent)}>
+        <Icon className="h-[18px] w-[18px]" />
       </div>
       <div className="flex-1 min-w-0">
-        <p className="text-sm font-bold text-white">{label}</p>
-        <p className="text-xs text-white/40 mt-0.5 truncate">{description}</p>
+        <p className="font-display text-[14px] font-bold text-white tracking-tight">{label}</p>
+        <p className="text-[12px] text-white/65 mt-0.5 truncate">{description}</p>
       </div>
-      <ExternalLink className="h-3.5 w-3.5 text-white/20 group-hover:text-white/40 transition-colors" />
+      <ExternalLink className="h-3.5 w-3.5 text-white/45 group-hover:text-[#f97316] group-hover:translate-x-1 transition-all" />
     </div>
   )
   return external ? (
@@ -431,12 +435,14 @@ function EmptyState({
   ctaHref: string
 }) {
   return (
-    <div className="text-center py-16 rounded-2xl border border-white/[0.06] bg-white/[0.012]">
-      <Icon className="h-12 w-12 text-white/20 mx-auto mb-4" />
-      <p className="text-white/70 font-semibold mb-1">{title}</p>
-      <p className="text-xs text-white/40 mb-5 max-w-sm mx-auto leading-relaxed">{description}</p>
+    <div className="text-center py-16 rounded-2xl border border-white/[0.06] bg-white/[0.015]">
+      <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#f97316]/20 to-[#ea580c]/10 border border-[#f97316]/30 flex items-center justify-center mx-auto mb-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_24px_rgba(249, 115, 22, 0.22)]">
+        <Icon className="h-7 w-7 text-[#f97316]" style={{ filter: "drop-shadow(0 0 10px rgba(249, 115, 22, 0.72))" }} />
+      </div>
+      <p className="font-display text-white text-lg font-bold mb-2 tracking-tight">{title}</p>
+      <p className="text-[13px] text-white/65 mb-6 max-w-sm mx-auto leading-relaxed">{description}</p>
       <Link href={ctaHref}>
-        <button className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#f97316] to-[#ea580c] text-white text-sm font-semibold hover:opacity-90 transition-opacity">
+        <button data-cursor="cta" data-cursor-label={ctaLabel} className="cursor-cta press-spring inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-br from-[#f97316] to-[#ea580c] hover:shadow-[0_0_36px_rgba(249,115,22,0.55)] hover:scale-[1.03] text-white text-sm font-bold transition-all shadow-[0_4px_14px_rgba(249,115,22,0.46),inset_0_1px_0_rgba(255,255,255,0.08)]">
           {ctaLabel}
         </button>
       </Link>
@@ -448,27 +454,29 @@ function OrderRow({ order, onDownload }: { order: Order; onDownload: () => void 
   const statusConfig = STATUS_CONFIG[order.status] ?? STATUS_CONFIG.pending
   const StatusIcon = statusConfig.icon
   return (
-    <div className="rounded-2xl border border-white/[0.06] bg-white/[0.012] p-5">
+    <div className="spotlight-card group rounded-2xl border border-white/[0.06] bg-white/[0.015] p-5 hover:border-[#f97316]/30 hover:bg-white/[0.03] hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249, 115, 22, 0.14)] transition-all duration-300">
       <div className="flex flex-col md:flex-row md:items-center gap-4">
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 flex-wrap mb-1.5">
-            <span className="font-mono font-bold text-white text-sm">{order.display_id}</span>
-            <span className={cn("inline-flex items-center gap-1 text-[10.5px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full", statusConfig.color, statusConfig.bg)}>
+          <div className="flex items-center gap-2 flex-wrap mb-2">
+            <span className="font-mono font-bold text-white text-[13px] px-2 py-0.5 rounded bg-white/[0.05] border border-white/[0.08]">{order.display_id}</span>
+            <span className={cn("inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-[0.15em] px-2 py-0.5 rounded-full border border-white/[0.08]", statusConfig.color, statusConfig.bg)}>
               <StatusIcon className={cn("h-2.5 w-2.5", order.status === "processing" && "animate-spin")} />
               {statusConfig.label}
             </span>
           </div>
-          <p className="text-sm text-white/60 truncate">
+          <p className="font-display text-[14px] text-white truncate tracking-tight">
             {order.items.map((i) => `${i.name} (${i.variant})`).join(", ")}
           </p>
-          <p className="text-[11px] text-white/35 mt-1">{new Date(order.created_at).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" })}</p>
+          <p className="text-[11px] text-white/55 mt-1 font-medium">{new Date(order.created_at).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" })}</p>
         </div>
         <div className="flex items-center gap-3 shrink-0">
-          <span className="font-bold text-white whitespace-nowrap">&pound;{(order.total / 100).toFixed(2)}</span>
+          <span className="font-display font-black text-white text-lg whitespace-nowrap tracking-tight">&pound;{(order.total / 100).toFixed(2)}</span>
           {order.status === "completed" ? (
             <button
               onClick={onDownload}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/[0.06] hover:bg-white/[0.12] text-xs font-semibold text-white transition-colors"
+              data-cursor="cta"
+              data-cursor-label="Download"
+              className="cursor-cta press-spring flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gradient-to-br from-[#f97316] to-[#ea580c] hover:shadow-[0_0_28px_rgba(249,115,22,0.5)] hover:scale-[1.03] text-[12px] font-bold text-white transition-all shadow-[0_4px_14px_rgba(249,115,22,0.46)]"
             >
               <FileDown className="h-3.5 w-3.5" />
               Download
@@ -476,7 +484,9 @@ function OrderRow({ order, onDownload }: { order: Order; onDownload: () => void 
           ) : order.status === "pending" ? (
             <Link
               href={`/track?q=${order.display_id}`}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/[0.06] hover:bg-white/[0.12] text-xs font-semibold text-white transition-colors"
+              data-cursor="cta"
+              data-cursor-label="Track"
+              className="cursor-cta press-spring flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-white/[0.10] bg-white/[0.04] hover:border-[#f97316]/40 hover:bg-[#f97316]/[0.06] hover:text-[#f97316] text-[12px] font-bold text-white transition-all"
             >
               <Clock className="h-3.5 w-3.5" />
               Track
@@ -498,33 +508,36 @@ function LicenseCard({
   onCopy: (k: string) => void
 }) {
   return (
-    <div className="rounded-2xl border border-emerald-500/20 bg-emerald-500/[0.04] p-5">
-      <div className="flex flex-col md:flex-row md:items-start gap-3 mb-4">
+    <div className="spotlight-card group relative rounded-2xl border border-emerald-500/25 bg-gradient-to-br from-emerald-500/[0.06] to-white/[0.015] p-5 hover:border-emerald-500/50 hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(16,185,129,0.2)] transition-all duration-300 overflow-hidden">
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emerald-400/55 to-transparent pointer-events-none" />
+      <div className="relative flex flex-col md:flex-row md:items-start gap-3 mb-4">
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 mb-1">
-            <span className="font-mono text-[10.5px] font-bold text-white/40">{order.display_id}</span>
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/15 text-[10.5px] font-bold text-emerald-400">
+          <div className="flex items-center gap-2 mb-1.5">
+            <span className="font-mono text-[10.5px] font-bold text-white/65 px-2 py-0.5 rounded bg-white/[0.05] border border-white/[0.08]">{order.display_id}</span>
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-[10px] font-bold uppercase tracking-[0.15em] text-emerald-400">
               <CheckCircle2 className="h-2.5 w-2.5" /> Active
             </span>
           </div>
-          <p className="font-bold text-white text-base">{order.items[0]?.name}</p>
-          <p className="text-sm text-white/50">{order.items[0]?.variant}</p>
+          <p className="font-display font-bold text-white text-[16px] tracking-tight">{order.items[0]?.name}</p>
+          <p className="text-[13px] text-white/65">{order.items[0]?.variant}</p>
         </div>
         <Link
           href={`/download/${order.id}`}
-          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 text-sm font-bold text-emerald-400 transition-colors"
+          className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 border border-emerald-500/35 hover:bg-emerald-500/25 hover:border-emerald-500/55 hover:scale-[1.03] text-sm font-bold text-emerald-400 transition-all shadow-[0_4px_14px_rgba(16,185,129,0.18)]"
         >
           <Download className="h-3.5 w-3.5" /> Open downloads
         </Link>
       </div>
       {order.license_key && (
-        <div className="flex items-center gap-2">
-          <code className="flex-1 p-3 rounded-xl bg-black/40 border border-white/[0.06] font-mono text-sm text-white break-all">
+        <div className="relative flex items-center gap-2">
+          <code className="flex-1 p-3 rounded-xl bg-black/55 border border-white/[0.08] backdrop-blur-md font-mono text-[13px] text-white break-all tracking-wider">
             {order.license_key}
           </code>
           <button
             onClick={() => onCopy(order.license_key!)}
-            className="shrink-0 p-2.5 rounded-xl border border-white/[0.08] bg-white/[0.02] text-white/60 hover:text-white hover:bg-white/[0.06] transition-colors"
+            data-cursor="cta"
+            data-cursor-label={copiedKey === order.license_key ? "Got it" : "Copy"}
+            className="cursor-cta press-spring shrink-0 p-2.5 rounded-xl border border-white/[0.10] bg-white/[0.025] text-white/65 hover:text-[#f97316] hover:bg-[#f97316]/[0.08] hover:border-[#f97316]/40 transition-all"
             aria-label="Copy license key"
           >
             {copiedKey === order.license_key ? <Check className="h-4 w-4 text-emerald-400" /> : <Copy className="h-4 w-4" />}

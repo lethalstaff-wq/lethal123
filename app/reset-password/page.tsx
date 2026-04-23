@@ -49,13 +49,13 @@ export default function ResetPasswordPage() {
   return (
     <>
       <Navbar />
-      <main className="flex min-h-screen flex-col items-center justify-center bg-black px-4 pb-20 pt-32">
+      <main className="flex min-h-screen flex-col items-center justify-center bg-transparent px-4 pb-20 pt-32">
         <div className="w-full max-w-md">
           {/* Badge */}
           <div className="flex justify-center mb-6">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/[0.06] bg-white/[0.02] px-4 py-1.5">
               <div className="h-1.5 w-1.5 rounded-full bg-[#f97316]" />
-              <span className="text-[11px] font-semibold uppercase tracking-widest text-white/40">
+              <span className="text-[11px] font-semibold uppercase tracking-widest text-white/55">
                 Security
               </span>
             </div>
@@ -63,15 +63,11 @@ export default function ResetPasswordPage() {
 
           {/* Heading */}
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold tracking-tight text-white">
-              Reset{" "}
-              <span className="bg-gradient-to-r from-[#f97316] to-[#ea580c] bg-clip-text text-transparent">
-                Password
-              </span>
+            <h1 className="font-display text-4xl sm:text-5xl font-bold tracking-[-0.04em] leading-[1] mb-3">
+              <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Reset </span>
+              <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 40px rgba(249, 115, 22, 0.43))" }}>Password</span>
             </h1>
-            <p className="mt-2 text-sm text-white/30">
-              Enter your new password below
-            </p>
+            <p className="mt-2 text-[14px] text-white/55">Enter your new password below.</p>
           </div>
 
           {/* Card */}
@@ -111,7 +107,7 @@ export default function ResetPasswordPage() {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
-                      className="w-full rounded-xl border border-white/[0.05] bg-white/[0.015] px-4 py-2.5 pr-10 text-sm text-white placeholder:text-white/15 outline-none transition-colors focus:border-[#f97316]/30"
+                      className="focus-ring-premium w-full rounded-xl border border-white/[0.08] bg-white/[0.03] px-4 py-3.5 pr-10 text-[15px] text-white placeholder:text-white/35 outline-none transition-all focus:bg-white/[0.05]"
                     />
                     <button
                       type="button"
@@ -131,16 +127,19 @@ export default function ResetPasswordPage() {
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     required
-                    className="w-full rounded-xl border border-white/[0.05] bg-white/[0.015] px-4 py-2.5 text-sm text-white placeholder:text-white/15 outline-none transition-colors focus:border-[#f97316]/30"
+                    className="focus-ring-premium w-full rounded-xl border border-white/[0.08] bg-white/[0.03] px-4 py-3.5 text-[15px] text-white placeholder:text-white/35 outline-none transition-all focus:bg-white/[0.05]"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#f97316] to-[#ea580c] px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-[#f97316]/10 transition-opacity hover:opacity-90 disabled:opacity-50"
+                  data-cursor="cta"
+                  data-cursor-label={isLoading ? "Wait" : "Update"}
+                  className="cursor-cta press-spring group relative overflow-hidden flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-[#f97316] to-[#ea580c] px-4 py-3.5 text-[15px] font-bold text-white shadow-[0_0_28px_rgba(249,115,22,0.35)] transition-all hover:shadow-[0_0_50px_rgba(249,115,22,0.6)] hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
                   disabled={isLoading}
                 >
-                  {isLoading ? "Updating..." : "Update Password"}
+                  <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
+                  <span className="relative z-10">{isLoading ? "Updating…" : "Update Password"}</span>
                 </button>
               </form>
             )}

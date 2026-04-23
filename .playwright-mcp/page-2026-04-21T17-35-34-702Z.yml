@@ -1,0 +1,207 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - img
+  - button "Open chat" [ref=e2]:
+    - img [ref=e3]
+  - region "Notifications alt+T"
+  - generic:
+    - link "Perm Spoofer New Order · 2m ago Perm Spoofer Verified Dismiss notification":
+      - /url: /products/perm-spoofer
+      - generic:
+        - img "Perm Spoofer"
+      - generic:
+        - generic:
+          - generic: New Order
+          - generic: ·
+          - generic: 2m ago
+        - paragraph: Perm Spoofer
+        - generic:
+          - generic: Verified
+      - button "Dismiss notification": ×
+  - button "Back to top":
+    - img
+    - img
+  - main [ref=e7]:
+    - navigation [ref=e8]:
+      - generic [ref=e10]:
+        - link "Lethal Solutions Lethal Solutions" [ref=e11]:
+          - /url: /
+          - generic [ref=e12]:
+            - img "Lethal Solutions" [ref=e15]
+            - generic [ref=e16]: Lethal Solutions
+        - generic [ref=e18]:
+          - link "Home" [ref=e19]:
+            - /url: /
+          - link "Products" [ref=e20]:
+            - /url: /products
+          - link "Guides" [ref=e21]:
+            - /url: /guides
+          - link "Reviews" [ref=e22]:
+            - /url: /reviews
+          - link "Track Order" [ref=e23]:
+            - /url: /track
+          - link "Status" [ref=e24]:
+            - /url: /status
+        - generic [ref=e25]:
+          - button "Open search" [ref=e27]:
+            - img [ref=e28]
+            - generic [ref=e31]: Search…
+            - generic [ref=e32]: ⌘K
+          - link "Customer Login" [ref=e33]:
+            - /url: /login
+            - button "Customer Login" [ref=e34]:
+              - img
+              - text: Customer Login
+          - link "Shopping cart" [ref=e35]:
+            - /url: /cart
+            - button "Shopping cart" [ref=e36]:
+              - img
+    - generic [ref=e38]:
+      - generic [ref=e42]: Media Library
+      - heading "Watch it live" [level=1] [ref=e46]
+      - paragraph [ref=e47]: Setup walkthroughs, unboxings, gameplay runs and patch recaps — all playable right here.
+    - generic [ref=e49]:
+      - generic [ref=e52]:
+        - img "Lethal Solutions" [ref=e54]
+        - generic [ref=e55]:
+          - heading "Lethal Solutions" [level=2] [ref=e56]
+          - generic [ref=e57]:
+            - generic [ref=e58]: "@lethalsolutions"
+            - generic [ref=e59]: ·
+            - generic [ref=e60]: 3 videos
+            - generic [ref=e61]: ·
+            - generic [ref=e62]: 8,742 subscribers
+          - paragraph [ref=e63]: Setup walkthroughs, unboxings, gameplay runs and patch recaps — straight from the team.
+        - link "Subscribe" [ref=e64]:
+          - /url: https://discord.gg/lethaldma
+          - img [ref=e65]
+          - text: Subscribe
+      - generic [ref=e70]:
+        - button "Videos" [ref=e71]: Videos
+        - button "Playlists" [ref=e73]
+        - button "About" [ref=e74]
+    - generic [ref=e77]:
+      - button "0:00 Test 1 0 views · Just now" [ref=e78]:
+        - generic [ref=e79]:
+          - img [ref=e82]
+          - generic [ref=e84]: 0:00
+        - generic [ref=e85]:
+          - heading "Test 1" [level=3] [ref=e86]
+          - paragraph [ref=e87]: 0 views · Just now
+      - button "0:00 Test 2 0 views · Just now" [ref=e88]:
+        - generic [ref=e89]:
+          - img [ref=e92]
+          - generic [ref=e94]: 0:00
+        - generic [ref=e95]:
+          - heading "Test 2" [level=3] [ref=e96]
+          - paragraph [ref=e97]: 0 views · Just now
+      - button "0:00 Test 3 0 views · Just now" [ref=e98]:
+        - generic [ref=e99]:
+          - img [ref=e102]
+          - generic [ref=e104]: 0:00
+        - generic [ref=e105]:
+          - heading "Test 3" [level=3] [ref=e106]
+          - paragraph [ref=e107]: 0 views · Just now
+    - generic [ref=e112]:
+      - generic [ref=e113]:
+        - generic [ref=e114]:
+          - generic [ref=e115]:
+            - img "Lethal Solutions" [ref=e118]
+            - generic [ref=e119]: Lethal Solutions
+          - paragraph [ref=e120]: Kernel-level gaming tools trusted by 8,700+ players. Undetected since day one.
+          - generic [ref=e121]:
+            - generic [ref=e122]:
+              - img [ref=e123]
+              - generic [ref=e125]: Secure
+            - generic [ref=e126]:
+              - img [ref=e127]
+              - generic [ref=e129]: Instant
+            - generic [ref=e130]:
+              - img [ref=e131]
+              - generic [ref=e134]: 24/7
+          - generic [ref=e135]:
+            - paragraph [ref=e136]: Connect
+            - generic [ref=e137]:
+              - link "Discord" [ref=e138]:
+                - /url: https://discord.gg/lethaldma
+                - img [ref=e139]
+              - link "YouTube" [ref=e142]:
+                - /url: https://www.youtube.com/@ujukcheats-x4b
+                - img [ref=e143]
+              - link "Telegram" [ref=e146]:
+                - /url: https://t.me/lethalsolutions
+                - img [ref=e147]
+        - generic [ref=e150]:
+          - heading "Products" [level=4] [ref=e151]
+          - list [ref=e152]:
+            - listitem [ref=e153]:
+              - link "All Products" [ref=e154]:
+                - /url: /products
+            - listitem [ref=e155]:
+              - link "Compare" [ref=e156]:
+                - /url: /compare
+            - listitem [ref=e157]:
+              - link "Reviews" [ref=e158]:
+                - /url: /reviews
+            - listitem [ref=e159]:
+              - link "Status" [ref=e160]:
+                - /url: /status
+        - generic [ref=e161]:
+          - heading "Resources" [level=4] [ref=e162]
+          - list [ref=e163]:
+            - listitem [ref=e164]:
+              - link "Setup Guide" [ref=e165]:
+                - /url: /setup
+            - listitem [ref=e166]:
+              - link "Media Library" [ref=e167]:
+                - /url: /media
+            - listitem [ref=e168]:
+              - link "FAQ" [ref=e169]:
+                - /url: /faq
+            - listitem [ref=e170]:
+              - link "Guides" [ref=e171]:
+                - /url: /guides
+            - listitem [ref=e172]:
+              - link "Changelog" [ref=e173]:
+                - /url: /changelog
+            - listitem [ref=e174]:
+              - link "Success Stories" [ref=e175]:
+                - /url: /stories
+            - listitem [ref=e176]:
+              - link "Referrals" [ref=e177]:
+                - /url: /referrals
+            - listitem [ref=e178]:
+              - link "Join Our Team" [ref=e179]:
+                - /url: /apply
+        - generic [ref=e180]:
+          - heading "Account" [level=4] [ref=e181]
+          - list [ref=e182]:
+            - listitem [ref=e183]:
+              - link "Track Order" [ref=e184]:
+                - /url: /track
+            - listitem [ref=e185]:
+              - link "Downloads" [ref=e186]:
+                - /url: /downloads
+            - listitem [ref=e187]:
+              - link "My Account" [ref=e188]:
+                - /url: /profile
+            - listitem [ref=e189]:
+              - link "Cart" [ref=e190]:
+                - /url: /cart
+      - heading [level=2] [ref=e192]: LETHAL
+      - generic [ref=e193]:
+        - paragraph [ref=e194]: © 2026 Lethal Solutions. All rights reserved.
+        - generic [ref=e195]:
+          - generic [ref=e200]: All systems operational
+          - link "— online" [ref=e202]:
+            - /url: https://discord.gg/lethaldma
+            - img [ref=e203]
+            - generic [ref=e208]: —
+            - generic [ref=e209]: online
+          - link "Terms" [ref=e211]:
+            - /url: /terms
+          - link "Privacy" [ref=e213]:
+            - /url: /privacy
+  - button "Open Next.js Dev Tools" [ref=e219] [cursor=pointer]:
+    - img [ref=e220]
+  - alert [ref=e223]

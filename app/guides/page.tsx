@@ -6,12 +6,30 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import {
   Search, ChevronRight, Play, ExternalLink, ArrowRight, Download,
-  Settings, Wrench, Cpu, FileText
+  Settings, Wrench, Cpu, FileText, Monitor, CircuitBoard,
+  Terminal, ShieldAlert, Keyboard, Gamepad2, Clock,
 } from "lucide-react"
+import type { LucideIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Breadcrumbs } from "@/components/breadcrumbs"
+import { SectionEyebrow } from "@/components/section-eyebrow"
 
-const SETUP_GUIDES = [
+type Difficulty = "Beginner" | "Intermediate" | "Advanced"
+
+type Guide = {
+  id: string
+  title: string
+  description: string
+  category: string
+  readTime: string
+  difficulty: Difficulty
+  hasVideo: boolean
+  hasTool: boolean
+  icon: LucideIcon
+  iconTint: string // hex for tile accent
+}
+
+const SETUP_GUIDES: Guide[] = [
   {
     id: "what-is-dma",
     title: "What are DMA cheats and how do they work",
@@ -21,6 +39,8 @@ const SETUP_GUIDES = [
     difficulty: "Beginner",
     hasVideo: false,
     hasTool: false,
+    icon: CircuitBoard,
+    iconTint: "#60a5fa",
   },
   {
     id: "second-pc-setup",
@@ -31,6 +51,8 @@ const SETUP_GUIDES = [
     difficulty: "Intermediate",
     hasVideo: true,
     hasTool: false,
+    icon: Terminal,
+    iconTint: "#f97316",
   },
   {
     id: "memory-map",
@@ -41,6 +63,8 @@ const SETUP_GUIDES = [
     difficulty: "Intermediate",
     hasVideo: true,
     hasTool: true,
+    icon: Cpu,
+    iconTint: "#a78bfa",
   },
   {
     id: "troubleshooting",
@@ -48,9 +72,11 @@ const SETUP_GUIDES = [
     description: "Fix: Failed to initialize, Unable to locate DTB, Failed to find base address, USB disconnections.",
     category: "Troubleshooting",
     readTime: "15 min",
-    difficulty: "All Levels",
+    difficulty: "Beginner",
     hasVideo: false,
     hasTool: false,
+    icon: ShieldAlert,
+    iconTint: "#f43f5e",
   },
   {
     id: "kmbox-net",
@@ -61,6 +87,8 @@ const SETUP_GUIDES = [
     difficulty: "Intermediate",
     hasVideo: true,
     hasTool: false,
+    icon: Keyboard,
+    iconTint: "#34d399",
   },
   {
     id: "kmbox-b-plus",
@@ -71,6 +99,8 @@ const SETUP_GUIDES = [
     difficulty: "Intermediate",
     hasVideo: false,
     hasTool: false,
+    icon: Gamepad2,
+    iconTint: "#22d3ee",
   },
   {
     id: "system-time-sync",
@@ -81,6 +111,8 @@ const SETUP_GUIDES = [
     difficulty: "Beginner",
     hasVideo: false,
     hasTool: false,
+    icon: Clock,
+    iconTint: "#fbbf24",
   },
   {
     id: "fuser-setup",
@@ -91,8 +123,11 @@ const SETUP_GUIDES = [
     difficulty: "Advanced",
     hasVideo: false,
     hasTool: false,
+    icon: Monitor,
+    iconTint: "#fb923c",
   },
 ]
+
 
 const RESOURCES = [
   {
@@ -191,11 +226,10 @@ const RESOURCES = [
 
 const CATEGORIES = ["All", "Getting Started", "Setup", "Configuration", "Hardware", "Troubleshooting"]
 
-const DIFFICULTY_COLORS: Record<string, string> = {
+const DIFFICULTY_COLORS: Record<Difficulty, string> = {
   "Beginner": "text-emerald-400",
   "Intermediate": "text-amber-400",
   "Advanced": "text-red-400",
-  "All Levels": "text-blue-400",
 }
 
 const BADGE_COLORS: Record<string, string> = {
@@ -223,7 +257,7 @@ export default function GuidesPage() {
   })
 
   return (
-    <div className="min-h-screen bg-black flex flex-col">
+    <div className="min-h-screen bg-transparent flex flex-col">
       <Navbar />
 
       <main className="flex-1 pt-32 pb-20">
@@ -232,35 +266,49 @@ export default function GuidesPage() {
 
           {/* Hero */}
           <div className="text-center mb-14 relative">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[300px] bg-[#f97316]/[0.02] rounded-full blur-[100px] pointer-events-none" />
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/[0.06] bg-white/[0.02] mb-6">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#f97316]" />
-              <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">Guides & Resources</span>
+            <SectionEyebrow label="Guides & Resources" />
+            <div className="relative h-px w-44 mx-auto mb-7 bg-white/[0.05] overflow-hidden">
+              <div className="absolute inset-y-0 w-24 bg-gradient-to-r from-transparent via-[#f97316]/70 to-transparent" style={{ animation: "heroScan 4s ease-in-out infinite" }} />
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-white">
-              Everything You{" "}
-              <span className="bg-gradient-to-r from-[#f97316] to-[#fb923c] bg-clip-text text-transparent">
-                Need
-              </span>
+            <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-bold tracking-[-0.04em] leading-[0.95] mb-6">
+              <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Everything You </span>
+              <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249, 115, 22, 0.43))" }}>Need</span>
             </h1>
-            <p className="text-[15px] text-white/30 max-w-lg mx-auto mb-10 leading-relaxed">
+            <p className="text-[15px] text-white/55 max-w-lg mx-auto mb-10 leading-relaxed">
               Setup guides, downloads, and docs for all products.{" "}
-              <a href="https://discord.gg/lethaldma" target="_blank" className="text-[#f97316]/60 hover:text-[#f97316] transition-colors">
+              <a href="https://discord.gg/lethaldma" target="_blank" className="text-[#f97316]/70 hover:text-[#f97316] transition-colors">
                 Open a Discord ticket
               </a>{" "}
               if you need help.
             </p>
 
             {/* Search */}
-            <div className="max-w-md mx-auto relative">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-white/20" />
-              <input
-                type="text"
-                placeholder="Search guides and resources..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="w-full h-11 pl-11 pr-4 rounded-xl bg-white/[0.02] border border-white/[0.06] text-sm text-white placeholder:text-white/20 focus:outline-none focus:border-[#f97316]/30 transition-colors"
-              />
+            <div className="max-w-md mx-auto">
+              <div className="relative">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-white/20" />
+                <input
+                  type="text"
+                  placeholder="Search guides and resources..."
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  className="w-full h-11 pl-11 pr-4 rounded-xl bg-white/[0.02] border border-white/[0.06] text-sm text-white placeholder:text-white/20 focus:outline-none focus:border-[#f97316]/30 transition-colors"
+                />
+              </div>
+              <p className="mt-2.5 text-[11px] text-white/30 text-center">
+                Try{" "}
+                {["vanguard", "flashing", "mmap"].map((term, i, arr) => (
+                  <span key={term}>
+                    <button
+                      type="button"
+                      onClick={() => setSearch(term)}
+                      className="text-white/45 hover:text-[#f97316] transition-colors underline-offset-2 hover:underline"
+                    >
+                      &ldquo;{term}&rdquo;
+                    </button>
+                    {i < arr.length - 2 ? ", " : i === arr.length - 2 ? " or " : ""}
+                  </span>
+                ))}
+              </p>
             </div>
           </div>
 
@@ -271,54 +319,77 @@ export default function GuidesPage() {
               <span className="text-xs text-white/20">{filteredGuides.length} guides</span>
             </div>
 
-            {/* Category tabs */}
-            <div className="inline-flex flex-wrap gap-1 p-1 rounded-xl border border-white/[0.04] bg-white/[0.015] mb-8">
-              {CATEGORIES.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setCategory(cat)}
-                  className={cn(
-                    "px-4 py-2 rounded-lg text-xs font-medium transition-all",
-                    category === cat
-                      ? "bg-white/[0.08] text-white shadow-sm"
-                      : "text-white/25 hover:text-white/45"
-                  )}
-                >
-                  {cat}
-                </button>
-              ))}
+            {/* Category tabs — horizontal snap-scroll on mobile, inline-flex on desktop */}
+            <div className="-mx-4 sm:mx-0 mb-8">
+              <div
+                className="flex sm:inline-flex gap-1 p-1 rounded-xl border border-white/[0.04] bg-white/[0.015] overflow-x-auto sm:overflow-visible snap-x snap-mandatory scrollbar-none scroll-px-4 px-4 sm:px-1 [&::-webkit-scrollbar]:hidden"
+                style={{ WebkitOverflowScrolling: "touch" }}
+              >
+                {CATEGORIES.map((cat) => (
+                  <button
+                    key={cat}
+                    onClick={() => setCategory(cat)}
+                    className={cn(
+                      "shrink-0 snap-start px-4 py-2 rounded-lg text-xs font-medium transition-all whitespace-nowrap",
+                      category === cat
+                        ? "bg-white/[0.08] text-white shadow-sm"
+                        : "text-white/25 hover:text-white/45"
+                    )}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
             </div>
 
             {/* Guide cards */}
             <div className="grid md:grid-cols-2 gap-3">
               {filteredGuides.map((guide) => {
-                const globalIndex = SETUP_GUIDES.indexOf(guide)
-                const num = String(globalIndex + 1).padStart(2, "0")
+                const GuideIcon = guide.icon
 
                 return (
                   <Link
                     key={guide.id}
                     href={`/guides/${guide.id}`}
-                    className="group relative flex gap-4 p-5 rounded-xl border border-white/[0.04] hover:border-white/[0.08] bg-white/[0.01] hover:bg-white/[0.015] transition-all duration-300 overflow-hidden"
+                    data-cursor="cta"
+                    data-cursor-label="Read"
+                    className="spotlight-card cursor-cta group relative flex gap-4 p-5 rounded-xl border border-white/[0.06] hover:border-[#f97316]/35 bg-white/[0.012] hover:bg-white/[0.028] hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(249,115,22,0.14)] transition-all duration-300 overflow-hidden"
                   >
                     {/* Left accent bar */}
                     <div className="absolute left-0 top-3 bottom-3 w-[2px] rounded-full bg-white/[0.04] group-hover:bg-[#f97316]/50 transition-colors duration-300" />
 
-                    {/* Number */}
-                    <span className="text-[28px] font-bold text-white/[0.04] group-hover:text-[#f97316]/15 transition-colors tabular-nums leading-none mt-0.5 shrink-0 w-9 ml-1">
-                      {num}
-                    </span>
+                    {/* Icon tile 60x60 rounded-2xl */}
+                    <div
+                      className="relative shrink-0 w-[60px] h-[60px] rounded-2xl border border-white/[0.06] bg-white/[0.02] flex items-center justify-center overflow-hidden ml-1 group-hover:border-white/[0.12] transition-colors"
+                      aria-hidden="true"
+                    >
+                      <div
+                        className="absolute inset-0 opacity-60 group-hover:opacity-90 transition-opacity"
+                        style={{
+                          background: `radial-gradient(circle at 30% 20%, ${guide.iconTint}26, transparent 65%)`,
+                        }}
+                      />
+                      <div
+                        className="absolute -bottom-4 -right-4 w-14 h-14 rounded-full blur-xl"
+                        style={{ background: `${guide.iconTint}1f` }}
+                      />
+                      <GuideIcon
+                        className="relative h-6 w-6 transition-transform group-hover:scale-110 duration-300"
+                        style={{ color: guide.iconTint }}
+                        strokeWidth={1.6}
+                      />
+                    </div>
 
                     {/* Content */}
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-[15px] text-white/80 group-hover:text-white transition-colors line-clamp-1 mb-1">
+                    <div className="flex-1 min-w-0 flex flex-col">
+                      <h3 className="font-semibold text-[15px] text-white/85 group-hover:text-white transition-colors line-clamp-1 mb-1">
                         {guide.title}
                       </h3>
-                      <p className="text-[13px] text-white/25 line-clamp-2 mb-3">
+                      <p className="text-[13px] text-white/30 line-clamp-2 mb-3">
                         {guide.description}
                       </p>
 
-                      <div className="flex items-center gap-3 text-[11px]">
+                      <div className="flex items-center gap-3 text-[11px] mt-auto">
                         <span className={cn("font-medium", DIFFICULTY_COLORS[guide.difficulty])}>
                           {guide.difficulty}
                         </span>
@@ -333,10 +404,12 @@ export default function GuidesPage() {
                             <Settings className="h-2.5 w-2.5" /> Tool
                           </span>
                         )}
+                        <span className="ml-auto hidden sm:inline-flex items-center gap-1 text-[11px] font-medium text-white/30 group-hover:text-[#f97316] transition-colors">
+                          Read guide
+                          <ChevronRight className="h-3 w-3" />
+                        </span>
                       </div>
                     </div>
-
-                    <ChevronRight className="h-4 w-4 text-white/0 group-hover:text-white/20 transition-all self-center shrink-0" />
                   </Link>
                 )
               })}
@@ -363,12 +436,11 @@ export default function GuidesPage() {
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {filteredResources.map((resource) => {
                 const Icon = resource.icon
-                const isRequired = resource.badge === "Required"
 
                 return (
                   <div
                     key={resource.id}
-                    className="group p-5 rounded-xl border border-white/[0.04] hover:border-white/[0.08] bg-white/[0.01] hover:bg-white/[0.015] transition-all duration-300 flex flex-col"
+                    className="spotlight-card group p-5 rounded-xl border border-white/[0.06] hover:border-[#f97316]/30 bg-white/[0.012] hover:bg-white/[0.025] hover:-translate-y-0.5 transition-all duration-300 flex flex-col"
                   >
                     <div className="flex items-start justify-between mb-3">
                       <div className="w-9 h-9 rounded-lg bg-white/[0.03] border border-white/[0.04] flex items-center justify-center">
@@ -387,7 +459,7 @@ export default function GuidesPage() {
                     {resource.isInternal ? (
                       <Link
                         href={`/guides/${resource.slug}`}
-                        className="flex items-center justify-center gap-2 w-full py-2 rounded-lg border border-white/[0.06] text-white/40 font-medium text-xs hover:bg-white/[0.03] hover:text-white/60 transition-colors"
+                        className="flex items-center justify-center gap-2 w-full h-9 rounded-lg bg-gradient-to-r from-[#f97316] to-[#ea580c] text-white font-semibold text-xs shadow-[0_6px_20px_-8px_rgba(249,115,22,0.6)] hover:shadow-[0_8px_24px_-6px_rgba(249,115,22,0.75)] hover:opacity-95 transition-all"
                       >
                         {resource.buttonText}
                         <ArrowRight className="h-3 w-3" />
@@ -397,12 +469,7 @@ export default function GuidesPage() {
                         href={resource.externalUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={cn(
-                          "flex items-center justify-center gap-2 w-full py-2 rounded-lg font-medium text-xs transition-colors",
-                          isRequired
-                            ? "bg-gradient-to-r from-[#f97316] to-[#ea580c] text-white hover:opacity-90"
-                            : "border border-white/[0.06] text-white/40 hover:bg-white/[0.03] hover:text-white/60"
-                        )}
+                        className="flex items-center justify-center gap-2 w-full h-9 rounded-lg bg-gradient-to-r from-[#f97316] to-[#ea580c] text-white font-semibold text-xs shadow-[0_6px_20px_-8px_rgba(249,115,22,0.6)] hover:shadow-[0_8px_24px_-6px_rgba(249,115,22,0.75)] hover:opacity-95 transition-all"
                       >
                         {resource.buttonText}
                         <ExternalLink className="h-3 w-3" />
@@ -427,14 +494,19 @@ export default function GuidesPage() {
                   href="https://discord.gg/lethaldma"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 h-11 px-7 rounded-xl bg-gradient-to-r from-[#f97316] to-[#ea580c] text-white font-semibold text-sm shadow-[0_4px_16px_rgba(249,115,22,0.2)] hover:shadow-[0_8px_24px_rgba(249,115,22,0.3)] hover:-translate-y-px transition-all"
+                  data-cursor="cta"
+                  data-cursor-label="Discord"
+                  className="cursor-cta press-spring group relative overflow-hidden inline-flex items-center justify-center gap-2 h-11 px-7 rounded-xl bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white font-bold text-[14px] shadow-[0_0_28px_rgba(249,115,22,0.35)] hover:shadow-[0_0_50px_rgba(249,115,22,0.6)] hover:-translate-y-0.5 transition-all"
                 >
-                  Open Discord Ticket
-                  <ExternalLink className="h-3.5 w-3.5" />
+                  <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
+                  <span className="relative z-10">Open Discord Ticket</span>
+                  <ExternalLink className="relative z-10 h-3.5 w-3.5" />
                 </a>
                 <Link
                   href="/products"
-                  className="inline-flex items-center justify-center gap-2 h-11 px-7 rounded-xl border border-white/[0.06] text-white/40 font-medium text-sm hover:bg-white/[0.03] hover:text-white/60 transition-colors"
+                  data-cursor="cta"
+                  data-cursor-label="Shop"
+                  className="cursor-cta press-spring inline-flex items-center justify-center gap-2 h-11 px-7 rounded-xl border border-white/[0.10] bg-white/[0.025] text-white/85 font-bold text-[14px] hover:bg-[#f97316]/[0.08] hover:text-[#f97316] hover:border-[#f97316]/35 transition-all"
                 >
                   View Products
                   <ArrowRight className="h-3.5 w-3.5" />

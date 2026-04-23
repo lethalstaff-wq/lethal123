@@ -56,8 +56,8 @@ export function AdminStaffApplications({ applications }: { applications: Applica
     <div>
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-foreground">Staff Applications</h1>
-          <p className="text-muted-foreground text-sm mt-1">
+          <h1 className="text-2xl font-bold text-white">Staff Applications</h1>
+          <p className="text-white/55 text-sm mt-1">
             {applications.length} application{applications.length !== 1 ? "s" : ""} total
           </p>
         </div>
@@ -75,7 +75,7 @@ export function AdminStaffApplications({ applications }: { applications: Applica
       </div>
 
       {applications.length === 0 && (
-        <div className="text-center py-16 text-muted-foreground">
+        <div className="text-center py-16 text-white/55">
           No applications yet.
         </div>
       )}
@@ -86,20 +86,20 @@ export function AdminStaffApplications({ applications }: { applications: Applica
           return (
             <div
               key={app.id}
-              className="border border-border rounded-xl bg-card overflow-hidden transition-all"
+              className="border border-white/[0.08] rounded-xl bg-white/[0.025] overflow-hidden transition-all"
             >
               {/* Row header */}
               <button
                 onClick={() => setExpanded(isExpanded ? null : app.id)}
-                className="w-full flex items-center gap-4 px-5 py-4 text-left hover:bg-muted/30 transition-colors"
+                className="w-full flex items-center gap-4 px-5 py-4 text-left hover:bg-white/[0.05] transition-colors"
               >
                 <div className="flex-1 grid grid-cols-5 gap-4 items-center text-sm">
-                  <div className="font-medium text-foreground flex items-center gap-2">
-                    <User className="w-4 h-4 text-muted-foreground" />
+                  <div className="font-medium text-white flex items-center gap-2">
+                    <User className="w-4 h-4 text-white/55" />
                     {app.discord}
                   </div>
-                  <div className="text-muted-foreground">{app.age} yrs</div>
-                  <div className="text-muted-foreground">
+                  <div className="text-white/55">{app.age} yrs</div>
+                  <div className="text-white/55">
                     {POSITION_LABELS[app.position] || app.position}
                   </div>
                   <div>
@@ -112,72 +112,72 @@ export function AdminStaffApplications({ applications }: { applications: Applica
                       {app.status}
                     </span>
                   </div>
-                  <div className="text-muted-foreground text-xs">
+                  <div className="text-white/55 text-xs">
                     {new Date(app.created_at).toLocaleDateString()}
                   </div>
                 </div>
                 {isExpanded ? (
-                  <ChevronUp className="w-4 h-4 text-muted-foreground shrink-0" />
+                  <ChevronUp className="w-4 h-4 text-white/55 shrink-0" />
                 ) : (
-                  <ChevronDown className="w-4 h-4 text-muted-foreground shrink-0" />
+                  <ChevronDown className="w-4 h-4 text-white/55 shrink-0" />
                 )}
               </button>
 
               {/* Expanded details */}
               {isExpanded && (
-                <div className="border-t border-border px-5 py-5 space-y-5 bg-muted/10">
+                <div className="border-t border-white/[0.08] px-5 py-5 space-y-5 bg-white/[0.015]">
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
                     <div>
-                      <span className="text-muted-foreground flex items-center gap-1.5 mb-1">
+                      <span className="text-white/55 flex items-center gap-1.5 mb-1">
                         <Globe className="w-3.5 h-3.5" /> Timezone
                       </span>
-                      <p className="text-foreground">{app.timezone || "Not specified"}</p>
+                      <p className="text-white">{app.timezone || "Not specified"}</p>
                     </div>
                     <div>
-                      <span className="text-muted-foreground flex items-center gap-1.5 mb-1">
+                      <span className="text-white/55 flex items-center gap-1.5 mb-1">
                         <Clock className="w-3.5 h-3.5" /> Hours/Week
                       </span>
-                      <p className="text-foreground">{app.hours_per_week || "Not specified"}</p>
+                      <p className="text-white">{app.hours_per_week || "Not specified"}</p>
                     </div>
                     <div>
-                      <span className="text-muted-foreground flex items-center gap-1.5 mb-1">
+                      <span className="text-white/55 flex items-center gap-1.5 mb-1">
                         <MessageCircle className="w-3.5 h-3.5" /> Found via
                       </span>
-                      <p className="text-foreground">{app.how_found || "Not specified"}</p>
+                      <p className="text-white">{app.how_found || "Not specified"}</p>
                     </div>
                   </div>
 
                   <div>
-                    <span className="text-muted-foreground text-sm mb-1 block">Languages</span>
-                    <p className="text-foreground text-sm">{app.languages || "Not specified"}</p>
+                    <span className="text-white/55 text-sm mb-1 block">Languages</span>
+                    <p className="text-white text-sm">{app.languages || "Not specified"}</p>
                   </div>
 
                   <div>
-                    <span className="text-muted-foreground text-sm flex items-center gap-1.5 mb-1">
+                    <span className="text-white/55 text-sm flex items-center gap-1.5 mb-1">
                       <Briefcase className="w-3.5 h-3.5" /> Experience
                     </span>
-                    <p className="text-foreground text-sm whitespace-pre-wrap bg-background/50 rounded-lg p-3 border border-border">
+                    <p className="text-white text-sm whitespace-pre-wrap bg-white/[0.02] rounded-lg p-3 border border-white/[0.08]">
                       {app.experience || "No experience provided"}
                     </p>
                   </div>
 
                   <div>
-                    <span className="text-muted-foreground text-sm mb-1 block">Why should we hire them?</span>
-                    <p className="text-foreground text-sm whitespace-pre-wrap bg-background/50 rounded-lg p-3 border border-border">
+                    <span className="text-white/55 text-sm mb-1 block">Why should we hire them?</span>
+                    <p className="text-white text-sm whitespace-pre-wrap bg-white/[0.02] rounded-lg p-3 border border-white/[0.08]">
                       {app.why_hire}
                     </p>
                   </div>
 
                   {/* Admin notes & actions */}
-                  <div className="border-t border-border pt-4 space-y-3">
+                  <div className="border-t border-white/[0.08] pt-4 space-y-3">
                     <div>
-                      <label className="text-sm text-muted-foreground block mb-1.5">Admin Notes</label>
+                      <label className="text-sm text-white/55 block mb-1.5">Admin Notes</label>
                       <textarea
                         value={notes[app.id] ?? app.admin_notes ?? ""}
                         onChange={(e) => setNotes((prev) => ({ ...prev, [app.id]: e.target.value }))}
                         placeholder="Add internal notes..."
                         rows={2}
-                        className="w-full bg-background border border-border rounded-lg px-3 py-2 text-sm text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none"
+                        className="w-full bg-white/[0.02] border border-white/[0.08] rounded-lg px-3 py-2 text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-[#f97316]/50 resize-none"
                       />
                     </div>
                     <div className="flex gap-2">

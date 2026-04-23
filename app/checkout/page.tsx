@@ -32,7 +32,9 @@ const CRYPTO_OPTIONS = [
   { id: "ltc", name: "Litecoin", ticker: "LTC", coingeckoId: "litecoin", address: "ltc1q49qjqxvlr4slkvzm9pxfjshwne62a9dk8283t3", icon: LitecoinIcon, color: "#345D9D", confirmations: "3 confirmations" },
 ]
 
-const PAYPAL_EMAIL = "lethalstaff@gmail.com"
+// PayPal F&F receiving account. Override via NEXT_PUBLIC_PAYPAL_EMAIL env var
+// so it doesn't live in git history.
+const PAYPAL_EMAIL = process.env.NEXT_PUBLIC_PAYPAL_EMAIL || "lethalstaff@gmail.com"
 const TIMER_SECONDS = 30 * 60
 const RATE_KEY_MAP: Record<string, string> = { btc: "btc", erc20: "eth", trc20: "usdt", ltc: "ltc" }
 
@@ -271,12 +273,12 @@ export default function CheckoutPage() {
               {item.variant.product?.image ? (
                 <Image src={item.variant.product.image} alt="" width={48} height={48} className="object-contain" />
               ) : (
-                <Package className="w-5 h-5 text-white/20" />
+                <Package className="w-5 h-5 text-white/45" />
               )}
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-semibold truncate text-white/90">{item.variant.product?.name || item.variant.name}</p>
-              <p className="text-xs text-white/40">{item.variant.name} &times; {item.quantity}</p>
+              <p className="text-xs text-white/55">{item.variant.name} &times; {item.quantity}</p>
             </div>
             <p className="text-sm font-bold tabular-nums text-white/90">{"£"}{(item.variant.price * item.quantity).toFixed(2)}</p>
           </div>
@@ -286,7 +288,7 @@ export default function CheckoutPage() {
       {/* Totals */}
       <div className="border-t border-white/[0.06] pt-4 space-y-2">
         <div className="flex justify-between text-sm">
-          <span className="text-white/40">Subtotal</span>
+          <span className="text-white/55">Subtotal</span>
           <span className="tabular-nums text-white/90">{"£"}{total.toFixed(2)}</span>
         </div>
         {appliedCoupon && (
@@ -305,15 +307,15 @@ export default function CheckoutPage() {
 
       {/* Trust badges */}
       <div className="mt-6 pt-4 border-t border-white/[0.06] space-y-2">
-        <div className="flex items-center gap-2 text-xs text-white/30">
+        <div className="flex items-center gap-2 text-xs text-white/55">
           <Lock className="h-3 w-3 text-[#f97316]/60" />
           <span>Secure &amp; encrypted checkout</span>
         </div>
-        <div className="flex items-center gap-2 text-xs text-white/30">
+        <div className="flex items-center gap-2 text-xs text-white/55">
           <Zap className="h-3 w-3 text-[#f97316]/60" />
           <span>Instant digital delivery</span>
         </div>
-        <div className="flex items-center gap-2 text-xs text-white/30">
+        <div className="flex items-center gap-2 text-xs text-white/55">
           <Shield className="h-3 w-3 text-[#f97316]/60" />
           <span>Buyer protection guaranteed</span>
         </div>
@@ -324,19 +326,19 @@ export default function CheckoutPage() {
   /* ---- EMPTY CART ---- */
   if (items.length === 0 && step !== "confirming" && step !== "done") {
     return (
-      <main className="flex min-h-screen flex-col bg-black">
+      <main className="flex min-h-screen flex-col bg-transparent">
         <Navbar />
         <section className="flex-1 flex items-center justify-center px-4 py-32">
           <div className="text-center max-w-md">
             <div className="relative mx-auto w-24 h-24 mb-8">
               <div className="absolute inset-0 rounded-3xl bg-[#f97316]/10 blur-xl animate-pulse" />
               <div className="relative w-24 h-24 rounded-3xl bg-white/[0.012] border border-white/[0.04] flex items-center justify-center">
-                <Package className="w-10 h-10 text-white/20" />
+                <Package className="w-10 h-10 text-white/45" />
               </div>
             </div>
             <h1 className="text-3xl font-bold text-white/90 mb-3 tracking-tight">Your cart is <span className="text-[#f97316]">empty</span></h1>
-            <p className="text-white/40 mb-10">Add some products to get started.</p>
-            <Link href="/products" className="inline-flex items-center gap-2.5 px-8 py-4 text-white rounded-xl text-sm font-bold transition-all hover:shadow-[0_0_30px_rgba(249,115,22,0.3)] hover:scale-[1.02] active:scale-[0.98]" style={{ background: "linear-gradient(135deg, #f97316, #ea580c)" }}>
+            <p className="text-white/55 mb-10">Add some products to get started.</p>
+            <Link href="/products" className="inline-flex items-center gap-2.5 px-8 py-4 text-white rounded-xl text-sm font-bold transition-all hover:shadow-[0_0_30px_rgba(249, 115, 22, 0.43)] hover:scale-[1.02] active:scale-[0.98]" style={{ background: "linear-gradient(135deg, #f97316, #ea580c)" }}>
               Browse Products <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
@@ -349,7 +351,7 @@ export default function CheckoutPage() {
   /* ---- CONFIRMING / DONE ---- */
   if (step === "confirming" || step === "done") {
     return (
-      <main className="flex min-h-screen flex-col bg-black">
+      <main className="flex min-h-screen flex-col bg-transparent">
         <Navbar />
         <section className="flex-1 flex items-center justify-center px-4 py-16">
           <div className="max-w-lg w-full">
@@ -366,20 +368,20 @@ export default function CheckoutPage() {
                     <div className="relative mx-auto w-28 h-28 mb-6">
                       <div className="absolute inset-0 rounded-full bg-[#f97316]/20 animate-ping" style={{ animationDuration: "2s" }} />
                       <div className="absolute inset-2 rounded-full bg-[#f97316]/10 animate-pulse" style={{ animationDuration: "1.5s" }} />
-                      <div className="relative w-28 h-28 rounded-full flex items-center justify-center border-2 border-[#f97316]/30 shadow-[0_0_40px_rgba(249,115,22,0.3)]" style={{ background: "linear-gradient(to bottom right, rgba(249,115,22,0.3), rgba(249,115,22,0.1), transparent)" }}>
+                      <div className="relative w-28 h-28 rounded-full flex items-center justify-center border-2 border-[#f97316]/30 shadow-[0_0_40px_rgba(249, 115, 22, 0.43)]" style={{ background: "linear-gradient(to bottom right, rgba(249, 115, 22, 0.43), rgba(249, 115, 22, 0.14), transparent)" }}>
                         <Clock className="h-12 w-12 text-[#f97316]" />
                       </div>
                     </div>
 
                     <h2 className="text-3xl font-black text-white/90 tracking-tight mb-2">Payment <span className="text-[#f97316]">Processing</span></h2>
-                    <p className="text-sm text-white/40 max-w-xs mx-auto">
+                    <p className="text-sm text-white/55 max-w-xs mx-auto">
                       {"Our team is verifying your transaction. This typically takes up to 1 hour."}
                     </p>
                   </div>
 
                   {/* Timer section */}
                   <div className="px-8 pb-6">
-                    <div className="relative rounded-2xl border border-[#f97316]/20 p-6 overflow-hidden" style={{ background: "linear-gradient(to bottom right, rgba(249,115,22,0.1), rgba(249,115,22,0.05), transparent)" }}>
+                    <div className="relative rounded-2xl border border-[#f97316]/20 p-6 overflow-hidden" style={{ background: "linear-gradient(to bottom right, rgba(249, 115, 22, 0.14), rgba(249, 115, 22, 0.07), transparent)" }}>
                       <div className="absolute top-0 right-0 w-32 h-32 bg-[#f97316]/10 rounded-full blur-3xl" />
                       <div className="relative flex items-center justify-center gap-6">
                         <div className="text-center">
@@ -393,8 +395,8 @@ export default function CheckoutPage() {
                       {/* Progress bar */}
                       <div className="mt-6 h-2 rounded-full bg-white/[0.04] overflow-hidden">
                         <div
-                          className="h-full rounded-full transition-all duration-1000 ease-linear shadow-[0_0_20px_rgba(249,115,22,0.5)]"
-                          style={{ width: `${Math.min(((VERIFY_SECONDS - verifyTimeLeft) / VERIFY_SECONDS) * 100, 100)}%`, background: "linear-gradient(to right, #f97316, rgba(249,115,22,0.8), #f59e0b)" }}
+                          className="h-full rounded-full transition-all duration-1000 ease-linear shadow-[0_0_20px_rgba(249, 115, 22, 0.72)]"
+                          style={{ width: `${Math.min(((VERIFY_SECONDS - verifyTimeLeft) / VERIFY_SECONDS) * 100, 100)}%`, background: "linear-gradient(to right, #f97316, rgba(249, 115, 22, 0.85), #f59e0b)" }}
                         />
                       </div>
                     </div>
@@ -403,7 +405,7 @@ export default function CheckoutPage() {
                   {/* Order ID badge */}
                   <div className="px-8 pb-6">
                     <div className="flex items-center justify-center gap-3 px-6 py-4 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
-                      <span className="text-xs text-white/30 uppercase tracking-widest font-medium">Order</span>
+                      <span className="text-xs text-white/55 uppercase tracking-widest font-medium">Order</span>
                       <span className="font-mono font-black text-lg text-white tracking-wider">{orderId}</span>
                     </div>
                   </div>
@@ -427,11 +429,11 @@ export default function CheckoutPage() {
                           )}>
                             {s.done ? <CheckCircle2 className="h-5 w-5 text-emerald-500" /> :
                              s.active ? <s.icon className="h-5 w-5 text-[#f97316] animate-spin" /> :
-                             <s.icon className="h-5 w-5 text-white/20" />}
+                             <s.icon className="h-5 w-5 text-white/45" />}
                           </div>
                           <span className={cn(
                             "text-sm font-medium",
-                            s.done ? "text-white/90" : s.active ? "text-[#f97316] font-bold" : "text-white/20"
+                            s.done ? "text-white/90" : s.active ? "text-[#f97316] font-bold" : "text-white/45"
                           )}>
                             {s.label}
                             {s.active && <span className="text-[#f97316]/60 ml-1">...</span>}
@@ -445,7 +447,7 @@ export default function CheckoutPage() {
                   {/* Footer info */}
                   <div className="px-8 pb-8 space-y-4">
                     <div className="rounded-2xl border border-white/[0.04] bg-white/[0.012] p-5">
-                      <p className="text-sm text-white/40 leading-relaxed text-center">
+                      <p className="text-sm text-white/55 leading-relaxed text-center">
                         {"You can safely close this page. Delivery details will be sent to "}
                         <span className="text-[#f97316] font-bold">{email}</span>
                         {" once verified."}
@@ -470,14 +472,14 @@ export default function CheckoutPage() {
                 <div className="relative rounded-3xl border border-[#f97316]/30 bg-white/[0.012] backdrop-blur-xl p-10 text-center space-y-8">
                   <div className="relative mx-auto w-24 h-24">
                     <div className="absolute inset-0 rounded-full bg-[#f97316]/10 animate-pulse" style={{ animationDuration: "2s" }} />
-                    <div className="relative w-24 h-24 rounded-full flex items-center justify-center border border-[#f97316]/30" style={{ background: "linear-gradient(to bottom right, rgba(249,115,22,0.3), rgba(249,115,22,0.05))" }}>
+                    <div className="relative w-24 h-24 rounded-full flex items-center justify-center border border-[#f97316]/30" style={{ background: "linear-gradient(to bottom right, rgba(249, 115, 22, 0.43), rgba(249, 115, 22, 0.07))" }}>
                       <CheckCircle2 className="h-12 w-12 text-[#f97316]" />
                     </div>
                   </div>
 
                   <div>
                     <h2 className="text-3xl font-black text-white/90 tracking-tight">Order <span className="text-[#f97316]">Submitted</span></h2>
-                    <p className="text-sm text-white/40 mt-3">{"We're verifying your payment. You'll receive delivery once confirmed."}</p>
+                    <p className="text-sm text-white/55 mt-3">{"We're verifying your payment. You'll receive delivery once confirmed."}</p>
                   </div>
 
                   <div className="inline-flex items-center gap-3 px-6 py-3.5 rounded-2xl bg-[#f97316]/10 border border-[#f97316]/20">
@@ -485,24 +487,24 @@ export default function CheckoutPage() {
                     <span className="font-mono font-black text-lg text-[#f97316]">{orderId}</span>
                   </div>
 
-                  <div className="space-y-2 text-sm text-white/40">
+                  <div className="space-y-2 text-sm text-white/55">
                     <p>{"Delivery details sent to "}<span className="text-white/90 font-semibold">{email}</span></p>
                     {discordUser && <p>{"Discord: "}<span className="text-white/90 font-semibold">{discordUser}</span></p>}
                   </div>
 
-                  <p className="text-xs text-white/20 leading-relaxed px-4">
+                  <p className="text-xs text-white/45 leading-relaxed px-4">
                     {"Save your order ID. Join our Discord for updates and support."}
                   </p>
 
                   <div className="flex gap-3 pt-2">
                     <Link href="https://discord.gg/lethaldma" target="_blank" className="flex-1">
-                      <button className="w-full h-13 py-3.5 flex items-center justify-center gap-2.5 rounded-xl border border-white/[0.06] bg-white/[0.02] text-sm font-semibold text-white/40 hover:bg-white/[0.04] transition-all">
+                      <button className="w-full h-13 py-3.5 flex items-center justify-center gap-2.5 rounded-xl border border-white/[0.06] bg-white/[0.02] text-sm font-semibold text-white/55 hover:bg-white/[0.04] transition-all">
                         <DiscordIcon className="h-4 w-4" />
                         Discord
                       </button>
                     </Link>
                     <Link href="/" className="flex-1">
-                      <button className="w-full h-13 py-3.5 flex items-center justify-center gap-2.5 rounded-xl text-white text-sm font-bold transition-all hover:shadow-[0_0_20px_rgba(249,115,22,0.3)]" style={{ background: "linear-gradient(135deg, #f97316, #ea580c)" }}>
+                      <button className="w-full h-13 py-3.5 flex items-center justify-center gap-2.5 rounded-xl text-white text-sm font-bold transition-all hover:shadow-[0_0_20px_rgba(249, 115, 22, 0.43)]" style={{ background: "linear-gradient(135deg, #f97316, #ea580c)" }}>
                         Home
                       </button>
                     </Link>
@@ -521,7 +523,7 @@ export default function CheckoutPage() {
   const cryptoAmount = getCryptoAmount(selectedCrypto.id, finalTotal)
 
   return (
-    <main className="flex min-h-screen flex-col bg-black">
+    <main className="flex min-h-screen flex-col bg-transparent">
       <Navbar />
 
       <section className="flex-1 pt-28 pb-16 px-4 sm:px-6 lg:px-8">
@@ -530,21 +532,21 @@ export default function CheckoutPage() {
           {/* Header row */}
           <div className="flex items-center justify-between mb-8">
             {step === "form" ? (
-              <Link href="/products" className="inline-flex items-center gap-2.5 text-sm text-white/40 hover:text-white/90 transition-colors group">
+              <Link href="/products" className="inline-flex items-center gap-2.5 text-sm text-white/55 hover:text-white/90 transition-colors group">
                 <div className="w-8 h-8 rounded-lg bg-white/[0.012] border border-white/[0.06] flex items-center justify-center group-hover:border-white/[0.1] transition-colors">
                   <ArrowLeft className="h-3.5 w-3.5 text-white/60 transition-transform group-hover:-translate-x-0.5" />
                 </div>
                 <span className="hidden sm:inline font-medium">Back to Cart</span>
               </Link>
             ) : (
-              <button onClick={() => { setStep("form"); setTimeLeft(TIMER_SECONDS) }} className="inline-flex items-center gap-2.5 text-sm text-white/40 hover:text-white/90 transition-colors group">
+              <button onClick={() => { setStep("form"); setTimeLeft(TIMER_SECONDS) }} className="inline-flex items-center gap-2.5 text-sm text-white/55 hover:text-white/90 transition-colors group">
                 <div className="w-8 h-8 rounded-lg bg-white/[0.012] border border-white/[0.06] flex items-center justify-center group-hover:border-white/[0.1] transition-colors">
                   <ArrowLeft className="h-3.5 w-3.5 text-white/60 transition-transform group-hover:-translate-x-0.5" />
                 </div>
                 <span className="hidden sm:inline font-medium">Back to Details</span>
               </button>
             )}
-            <div className="flex items-center gap-2 text-xs text-white/20 bg-white/[0.02] border border-white/[0.04] px-3 py-1.5 rounded-full">
+            <div className="flex items-center gap-2 text-xs text-white/45 bg-white/[0.02] border border-white/[0.04] px-3 py-1.5 rounded-full">
               <Lock className="h-3 w-3" />
               <span className="hidden sm:inline">Encrypted &amp; Secure</span>
             </div>
@@ -563,9 +565,9 @@ export default function CheckoutPage() {
             <div className="flex-1 h-px bg-white/[0.06] relative">
               <div className={`absolute inset-y-0 left-0 bg-[#f97316] transition-all duration-500 ${step !== "form" ? "w-full" : "w-0"}`} />
             </div>
-            <div className={`flex items-center gap-2 ${step !== "form" ? "text-[#f97316]" : "text-white/30"}`}>
+            <div className={`flex items-center gap-2 ${step !== "form" ? "text-[#f97316]" : "text-white/55"}`}>
               <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${
-                step !== "form" ? "bg-[#f97316] text-white" : "bg-white/[0.04] text-white/30"
+                step !== "form" ? "bg-[#f97316] text-white" : "bg-white/[0.04] text-white/55"
               }`}>2</div>
               <span className="text-sm font-semibold">Send Payment</span>
             </div>
@@ -600,7 +602,7 @@ export default function CheckoutPage() {
                     </div>
                     <div className="space-y-5">
                       <div>
-                        <label className="text-[11px] font-semibold uppercase tracking-widest text-white/40 mb-2 block">
+                        <label className="text-[11px] font-semibold uppercase tracking-widest text-white/55 mb-2 block">
                           Email <span className="text-[#f97316]">*</span>
                         </label>
                         <input
@@ -609,7 +611,7 @@ export default function CheckoutPage() {
                           onBlur={() => setEmailTouched(true)}
                           placeholder="your@email.com"
                           className={cn(
-                            "w-full h-12 px-4 rounded-xl bg-white/[0.015] border text-sm text-white placeholder:text-white/20 focus:outline-none focus:ring-1 focus:ring-[#f97316]/20 transition-all",
+                            "w-full h-12 px-4 rounded-xl bg-white/[0.015] border text-sm text-white placeholder:text-white/45 focus:outline-none focus:ring-1 focus:ring-[#f97316]/20 transition-all",
                             emailTouched && !email.trim().includes("@")
                               ? "border-red-500/40 focus:border-red-500"
                               : "border-white/[0.05] focus:border-[#f97316]"
@@ -618,29 +620,29 @@ export default function CheckoutPage() {
                         {emailTouched && !email.trim().includes("@") ? (
                           <p className="text-[11px] text-red-400 mt-2 flex items-center gap-1"><AlertTriangle className="w-3 h-3" /> Please enter a valid email</p>
                         ) : (
-                          <p className="text-[11px] text-white/30 mt-2 flex items-center gap-1"><Zap className="h-3 w-3 text-[#f97316]/60" /> License key delivered instantly</p>
+                          <p className="text-[11px] text-white/55 mt-2 flex items-center gap-1"><Zap className="h-3 w-3 text-[#f97316]/60" /> License key delivered instantly</p>
                         )}
                       </div>
                       <div>
-                        <label className="text-[11px] font-semibold uppercase tracking-widest text-white/40 mb-2 flex items-center gap-1.5">
-                          <DiscordIcon className="w-3.5 h-3.5" /> Discord <span className="text-white/20 font-normal normal-case tracking-normal">(optional)</span>
+                        <label className="text-[11px] font-semibold uppercase tracking-widest text-white/55 mb-2 flex items-center gap-1.5">
+                          <DiscordIcon className="w-3.5 h-3.5" /> Discord <span className="text-white/45 font-normal normal-case tracking-normal">(optional)</span>
                         </label>
                         <input
                           type="text" value={discordUser} onChange={(e) => setDiscordUser(e.target.value)}
                           placeholder="username"
-                          className="w-full h-12 px-4 rounded-xl bg-white/[0.015] border border-white/[0.05] text-sm text-white placeholder:text-white/20 focus:outline-none focus:border-[#f97316] focus:ring-1 focus:ring-[#f97316]/20 transition-all"
+                          className="w-full h-12 px-4 rounded-xl bg-white/[0.015] border border-white/[0.05] text-sm text-white placeholder:text-white/45 focus:outline-none focus:border-[#f97316] focus:ring-1 focus:ring-[#f97316]/20 transition-all"
                         />
                       </div>
                       <div>
-                        <label className="text-[11px] font-semibold uppercase tracking-widest text-white/40 mb-2 block">
-                          Order Notes <span className="text-white/20 font-normal normal-case tracking-normal">(optional)</span>
+                        <label className="text-[11px] font-semibold uppercase tracking-widest text-white/55 mb-2 block">
+                          Order Notes <span className="text-white/45 font-normal normal-case tracking-normal">(optional)</span>
                         </label>
                         <textarea
                           value={orderNotes}
                           onChange={(e) => setOrderNotes(e.target.value)}
                           placeholder="Any special requests..."
                           rows={2}
-                          className="w-full px-4 py-3 rounded-xl bg-white/[0.015] border border-white/[0.05] text-sm text-white placeholder:text-white/20 focus:outline-none focus:border-[#f97316] resize-none"
+                          className="w-full px-4 py-3 rounded-xl bg-white/[0.015] border border-white/[0.05] text-sm text-white placeholder:text-white/45 focus:outline-none focus:border-[#f97316] resize-none"
                         />
                       </div>
                     </div>
@@ -669,7 +671,7 @@ export default function CheckoutPage() {
                             </div>
                             <div className="text-left flex-1">
                               <p className="font-semibold text-sm text-white/90">{option.name}</p>
-                              <p className="text-xs text-white/40 font-mono">
+                              <p className="text-xs text-white/55 font-mono">
                                 {option.ticker} {amt ? `~${amt} ${option.ticker}` : ""}
                               </p>
                             </div>
@@ -692,7 +694,7 @@ export default function CheckoutPage() {
                         <PayPalIcon className="h-10 w-10" />
                         <div className="text-left flex-1">
                           <p className="font-semibold text-sm text-white/90">PayPal</p>
-                          <p className="text-xs text-white/40">Friends &amp; Family only</p>
+                          <p className="text-xs text-white/55">Friends &amp; Family only</p>
                         </div>
                         <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
                           paymentMethod === "paypal" ? "border-[#f97316]" : "border-white/[0.1]"
@@ -711,7 +713,7 @@ export default function CheckoutPage() {
                         <DiscordIcon className="h-10 w-10" />
                         <div className="text-left flex-1">
                           <p className="font-semibold text-sm text-white/90">Via Discord</p>
-                          <p className="text-xs text-white/40">Open a ticket</p>
+                          <p className="text-xs text-white/55">Open a ticket</p>
                         </div>
                         <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
                           paymentMethod === "discord" ? "border-[#f97316]" : "border-white/[0.1]"
@@ -726,7 +728,7 @@ export default function CheckoutPage() {
                     <div className="rounded-2xl border border-[#003087]/20 bg-[#003087]/5 p-5">
                       <p className="text-sm font-bold mb-3 flex items-center gap-2 text-white/90"><DiscordIcon className="w-4 h-4" /> Discord Username Required</p>
                       <input type="text" value={discordUser} onChange={(e) => setDiscordUser(e.target.value)} placeholder="Enter Discord username"
-                        className="w-full h-12 px-4 rounded-xl bg-white/[0.015] border border-[#003087]/15 text-sm text-white placeholder:text-white/20 focus:outline-none focus:ring-1 focus:ring-[#003087]/20 transition-all" />
+                        className="w-full h-12 px-4 rounded-xl bg-white/[0.015] border border-[#003087]/15 text-sm text-white placeholder:text-white/45 focus:outline-none focus:ring-1 focus:ring-[#003087]/20 transition-all" />
                     </div>
                   )}
 
@@ -743,7 +745,7 @@ export default function CheckoutPage() {
                           <p className="text-sm font-black text-[#f97316]">{appliedCoupon.code}</p>
                           <p className="text-[11px] text-[#f97316]/60">{appliedCoupon.percent}% discount applied</p>
                         </div>
-                        <button onClick={() => { setAppliedCoupon(null); setCouponCode("") }} className="p-1.5 hover:bg-white/[0.04] rounded-lg transition-colors"><X className="h-4 w-4 text-white/30" /></button>
+                        <button onClick={() => { setAppliedCoupon(null); setCouponCode("") }} className="p-1.5 hover:bg-white/[0.04] rounded-lg transition-colors"><X className="h-4 w-4 text-white/55" /></button>
                       </div>
                     ) : (
                       <div className="flex gap-2">
@@ -751,7 +753,7 @@ export default function CheckoutPage() {
                           onChange={(e) => { setCouponCode(e.target.value); setCouponError("") }}
                           onKeyDown={(e) => e.key === "Enter" && applyCoupon()}
                           placeholder="Enter code"
-                          className="flex-1 h-11 px-4 rounded-xl bg-white/[0.015] border border-white/[0.05] text-sm font-mono text-white placeholder:text-white/20 focus:outline-none focus:border-[#f97316] transition-all" />
+                          className="flex-1 h-11 px-4 rounded-xl bg-white/[0.015] border border-white/[0.05] text-sm font-mono text-white placeholder:text-white/45 focus:outline-none focus:border-[#f97316] transition-all" />
                         <button onClick={applyCoupon}
                           className="px-5 h-11 rounded-xl bg-white/[0.04] border border-white/[0.06] text-sm font-semibold text-white/60 hover:bg-white/[0.08] hover:text-white/90 transition-all">
                           Apply
@@ -777,12 +779,12 @@ export default function CheckoutPage() {
                           <Image src="/images/products/perm-spoofer.png" alt="" width={40} height={40} className="rounded-lg" />
                           <div>
                             <p className="text-sm font-semibold text-white/90">Add Perm Spoofer</p>
-                            <p className="text-xs text-white/40">
+                            <p className="text-xs text-white/55">
                               <span className="line-through">{"£"}35</span>{" "}
                               <span className="text-[#f97316] font-bold">{"£"}25</span>{" "}
                               <span className="text-emerald-400 text-[10px]">save 28%</span>
                             </p>
-                            <p className="text-[10px] text-white/20">67% of buyers add this</p>
+                            <p className="text-[10px] text-white/45">67% of buyers add this</p>
                           </div>
                         </div>
                         <button
@@ -817,7 +819,7 @@ export default function CheckoutPage() {
                         <p className="text-sm font-bold text-white">Shipping address</p>
                         <span className="text-[10px] font-semibold text-red-400 uppercase tracking-wider">Required</span>
                       </div>
-                      <p className="text-[11.5px] text-white/40 -mt-2">
+                      <p className="text-[11.5px] text-white/55 -mt-2">
                         Your DMA bundle ships within 24h. Double-check — we can't change this after payment confirmation.
                       </p>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -825,43 +827,43 @@ export default function CheckoutPage() {
                           value={shipping.fullName}
                           onChange={(e) => setShipping((s) => ({ ...s, fullName: e.target.value }))}
                           placeholder="Full name"
-                          className="sm:col-span-2 h-10 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 text-sm text-white placeholder:text-white/25 outline-none focus:border-[#f97316]/40"
+                          className="sm:col-span-2 h-10 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 text-sm text-white placeholder:text-white/55 outline-none focus:border-[#f97316]/40"
                         />
                         <input
                           value={shipping.line1}
                           onChange={(e) => setShipping((s) => ({ ...s, line1: e.target.value }))}
                           placeholder="Address line 1"
-                          className="sm:col-span-2 h-10 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 text-sm text-white placeholder:text-white/25 outline-none focus:border-[#f97316]/40"
+                          className="sm:col-span-2 h-10 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 text-sm text-white placeholder:text-white/55 outline-none focus:border-[#f97316]/40"
                         />
                         <input
                           value={shipping.line2}
                           onChange={(e) => setShipping((s) => ({ ...s, line2: e.target.value }))}
                           placeholder="Apartment, suite (optional)"
-                          className="sm:col-span-2 h-10 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 text-sm text-white placeholder:text-white/25 outline-none focus:border-[#f97316]/40"
+                          className="sm:col-span-2 h-10 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 text-sm text-white placeholder:text-white/55 outline-none focus:border-[#f97316]/40"
                         />
                         <input
                           value={shipping.city}
                           onChange={(e) => setShipping((s) => ({ ...s, city: e.target.value }))}
                           placeholder="City"
-                          className="h-10 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 text-sm text-white placeholder:text-white/25 outline-none focus:border-[#f97316]/40"
+                          className="h-10 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 text-sm text-white placeholder:text-white/55 outline-none focus:border-[#f97316]/40"
                         />
                         <input
                           value={shipping.postalCode}
                           onChange={(e) => setShipping((s) => ({ ...s, postalCode: e.target.value }))}
                           placeholder="Postal code"
-                          className="h-10 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 text-sm text-white placeholder:text-white/25 outline-none focus:border-[#f97316]/40"
+                          className="h-10 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 text-sm text-white placeholder:text-white/55 outline-none focus:border-[#f97316]/40"
                         />
                         <input
                           value={shipping.country}
                           onChange={(e) => setShipping((s) => ({ ...s, country: e.target.value }))}
                           placeholder="Country"
-                          className="h-10 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 text-sm text-white placeholder:text-white/25 outline-none focus:border-[#f97316]/40"
+                          className="h-10 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 text-sm text-white placeholder:text-white/55 outline-none focus:border-[#f97316]/40"
                         />
                         <input
                           value={shipping.phone}
                           onChange={(e) => setShipping((s) => ({ ...s, phone: e.target.value }))}
                           placeholder="Phone (for courier)"
-                          className="h-10 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 text-sm text-white placeholder:text-white/25 outline-none focus:border-[#f97316]/40"
+                          className="h-10 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 text-sm text-white placeholder:text-white/55 outline-none focus:border-[#f97316]/40"
                         />
                       </div>
                     </div>
@@ -882,7 +884,7 @@ export default function CheckoutPage() {
                           <RefreshCw className="h-3.5 w-3.5 text-emerald-400" />
                           Remind me before my license expires
                         </p>
-                        <p className="text-[11.5px] text-white/40 mt-1 leading-relaxed">
+                        <p className="text-[11.5px] text-white/55 mt-1 leading-relaxed">
                           We'll email you 3 days before expiration with a one-click checkout link. No auto-billing — you stay in control. Cancel anytime.
                         </p>
                       </div>
@@ -893,20 +895,23 @@ export default function CheckoutPage() {
                   <label className="flex items-start gap-3 cursor-pointer group px-1 py-1">
                     <div className={cn(
                       "mt-0.5 h-5 w-5 rounded-md border-2 flex items-center justify-center shrink-0 transition-all duration-200",
-                      agreedTos ? "bg-[#f97316] border-[#f97316] shadow-[0_0_10px_rgba(249,115,22,0.3)]" : "border-white/[0.1] group-hover:border-white/[0.2]"
+                      agreedTos ? "bg-[#f97316] border-[#f97316] shadow-[0_0_10px_rgba(249, 115, 22, 0.43)]" : "border-white/[0.1] group-hover:border-white/[0.2]"
                     )}>
                       {agreedTos && <Check className="h-3 w-3 text-white" />}
                     </div>
                     <input type="checkbox" checked={agreedTos} onChange={(e) => setAgreedTos(e.target.checked)} className="sr-only" />
-                    <span className="text-xs text-white/30 leading-relaxed">
+                    <span className="text-xs text-white/55 leading-relaxed">
                       {"I agree to the Terms of Service. All sales are final. Products are delivered digitally."}
                     </span>
                   </label>
 
                   {/* Continue Button */}
                   <button disabled={!canProceed} onClick={handleProceed}
-                    className="w-full h-14 rounded-xl text-white font-bold text-base flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-lg shadow-orange-500/20 hover:shadow-xl hover:shadow-orange-500/30 mt-6"
-                    style={{ background: canProceed ? "linear-gradient(135deg, #f97316, #ea580c)" : "rgba(249,115,22,0.3)" }}>
+                    data-cursor="cta"
+                    data-cursor-label={paymentMethod === "discord" ? "Discord" : "Continue"}
+                    className="cursor-cta press-spring group relative overflow-hidden w-full h-14 rounded-xl text-white font-bold text-base flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-[0_0_28px_rgba(249,115,22,0.35)] hover:shadow-[0_0_50px_rgba(249,115,22,0.6)] mt-6"
+                    style={{ background: canProceed ? "linear-gradient(135deg, #f97316, #ea580c)" : "rgba(249, 115, 22, 0.43)" }}>
+                    <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
                     {paymentMethod === "discord" ? (
                       <>Open Discord <ExternalLink className="h-4 w-4" /></>
                     ) : (
@@ -925,7 +930,7 @@ export default function CheckoutPage() {
                     <div className="flex items-center gap-3 mb-3">
                       <Clock className={cn("h-4 w-4", timeLeft < 300 ? "text-red-500" : "text-[#f97316]")} />
                       <span className={cn("text-xl font-mono font-bold", timeLeft < 300 ? "text-red-500" : "text-[#f97316]")}>{formatTime(timeLeft)}</span>
-                      <span className="text-sm text-white/40">remaining</span>
+                      <span className="text-sm text-white/55">remaining</span>
                     </div>
                     <div className="w-full h-2 rounded-full bg-white/[0.04] overflow-hidden">
                       <div
@@ -943,29 +948,29 @@ export default function CheckoutPage() {
                         {(() => { const Icon = selectedCrypto.icon; return <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ backgroundColor: selectedCrypto.color + "15" }}><Icon className="h-5 w-5" /></div> })()}
                         <div>
                           <p className="font-bold text-white/90">{selectedCrypto.name}</p>
-                          <p className="text-xs text-white/40">{selectedCrypto.name.includes("TRC") ? "TRON Network" : selectedCrypto.name.includes("Ethereum") ? "Ethereum Network" : `${selectedCrypto.name} Mainnet`}</p>
+                          <p className="text-xs text-white/55">{selectedCrypto.name.includes("TRC") ? "TRON Network" : selectedCrypto.name.includes("Ethereum") ? "Ethereum Network" : `${selectedCrypto.name} Mainnet`}</p>
                         </div>
                       </div>
 
                       {/* Amount */}
                       <div className="rounded-xl bg-white/[0.02] border border-white/[0.04] p-5 text-center mb-6">
-                        <p className="text-[10px] uppercase tracking-widest text-white/30 mb-1">Amount Due</p>
+                        <p className="text-[10px] uppercase tracking-widest text-white/55 mb-1">Amount Due</p>
                         <p className="text-3xl font-black text-white">
-                          {cryptoAmount} <span className="text-lg text-white/40">{selectedCrypto.ticker}</span>
+                          {cryptoAmount} <span className="text-lg text-white/55">{selectedCrypto.ticker}</span>
                         </p>
-                        <p className="text-[11px] text-white/30 mt-1.5">
+                        <p className="text-[11px] text-white/55 mt-1.5">
                           Rate locked at {cryptoRates[RATE_KEY_MAP[selectedCrypto.id]]?.toLocaleString("en-US", { maximumFractionDigits: 2 })} USD
                         </p>
                         <button onClick={() => copyToClipboard(cryptoAmount || "", "amount")}
                           className={cn("mt-3 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all",
-                            copiedField === "amount" ? "bg-emerald-500/15 text-emerald-400" : "bg-white/[0.04] text-white/40 hover:text-white/90 hover:bg-white/[0.08]"
+                            copiedField === "amount" ? "bg-emerald-500/15 text-emerald-400" : "bg-white/[0.04] text-white/55 hover:text-white/90 hover:bg-white/[0.08]"
                           )}>{copiedField === "amount" ? <><Check className="h-3 w-3" /> Copied</> : <><Copy className="h-3 w-3" /> Copy Amount</>}</button>
-                        <div className="mt-3 flex items-center justify-center gap-2 text-[10.5px] text-white/30">
+                        <div className="mt-3 flex items-center justify-center gap-2 text-[10.5px] text-white/55">
                           <RefreshCw className={cn("h-3 w-3", ratesLoading && "animate-spin")} />
                           <span>
                             {ratesLoading ? "Refreshing rate…" : <>Auto-refresh in <span className="text-white/60 font-mono">{ratesNextRefresh}s</span></>}
                           </span>
-                          <button onClick={fetchRates} disabled={ratesLoading} className="ml-1 text-primary hover:text-primary/80 disabled:opacity-40 font-medium">Refresh now</button>
+                          <button onClick={fetchRates} disabled={ratesLoading} className="ml-1 text-[#f97316] hover:text-[#f97316]/80 disabled:opacity-40 font-medium">Refresh now</button>
                         </div>
                       </div>
 
@@ -978,7 +983,7 @@ export default function CheckoutPage() {
 
                       {/* Wallet Address */}
                       <div className="mb-6">
-                        <p className="text-[10px] uppercase tracking-widest text-white/30 mb-2">Wallet Address</p>
+                        <p className="text-[10px] uppercase tracking-widest text-white/55 mb-2">Wallet Address</p>
                         <button
                           onClick={() => copyToClipboard(selectedCrypto.address, "wallet")}
                           className={cn(
@@ -999,20 +1004,23 @@ export default function CheckoutPage() {
                       {/* Warning */}
                       <div className="flex items-start gap-2 p-3 rounded-xl bg-yellow-500/5 border border-yellow-500/10 mb-6">
                         <AlertTriangle className="h-4 w-4 text-yellow-500 mt-0.5 shrink-0" />
-                        <p className="text-xs text-white/40">
+                        <p className="text-xs text-white/55">
                           Send only <span className="text-yellow-500 font-bold">{selectedCrypto.ticker}</span> on the correct network. Other assets will be lost.
                         </p>
                       </div>
 
                       {/* Confirm button */}
                       <button onClick={handleConfirmPayment} disabled={timeLeft <= 0}
-                        className="w-full h-14 rounded-xl text-white font-bold text-base flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-lg shadow-orange-500/20 hover:shadow-xl hover:shadow-orange-500/30"
-                        style={{ background: timeLeft <= 0 ? "rgba(249,115,22,0.3)" : "linear-gradient(135deg, #f97316, #ea580c)" }}>
-                        {timeLeft <= 0 ? "Session Expired" : <><CheckCircle2 className="h-4 w-4" /> Confirm Payment Sent</>}
+                        data-cursor="cta"
+                        data-cursor-label={timeLeft <= 0 ? "Expired" : "Confirm"}
+                        className="cursor-cta press-spring group relative overflow-hidden w-full h-14 rounded-xl text-white font-bold text-base flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-[0_0_28px_rgba(249,115,22,0.35)] hover:shadow-[0_0_50px_rgba(249,115,22,0.6)]"
+                        style={{ background: timeLeft <= 0 ? "rgba(249, 115, 22, 0.43)" : "linear-gradient(135deg, #f97316, #ea580c)" }}>
+                        <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
+                        <span className="relative z-10 inline-flex items-center gap-2">{timeLeft <= 0 ? "Session Expired" : <><CheckCircle2 className="h-4 w-4" /> Confirm Payment Sent</>}</span>
                       </button>
 
                       <button onClick={() => { setStep("form"); setTimeLeft(TIMER_SECONDS) }}
-                        className="w-full text-center mt-3 text-sm text-white/30 hover:text-[#f97316] transition-colors">
+                        className="w-full text-center mt-3 text-sm text-white/55 hover:text-[#f97316] transition-colors">
                         Change payment method
                       </button>
                     </div>
@@ -1025,39 +1033,42 @@ export default function CheckoutPage() {
                         <PayPalIcon className="h-8 w-8" />
                         <div>
                           <p className="font-bold text-white/90">PayPal</p>
-                          <p className="text-xs text-white/40">Friends &amp; Family only</p>
+                          <p className="text-xs text-white/55">Friends &amp; Family only</p>
                         </div>
                       </div>
 
                       <div className="rounded-xl bg-white/[0.02] border border-white/[0.04] p-5 text-center mb-6">
-                        <p className="text-[10px] uppercase tracking-widest text-white/30 mb-1">Send To</p>
+                        <p className="text-[10px] uppercase tracking-widest text-white/55 mb-1">Send To</p>
                         <p className="text-lg font-bold text-white/90">{PAYPAL_EMAIL}</p>
                         <button onClick={() => copyToClipboard(PAYPAL_EMAIL, "paypal")}
                           className={cn("mt-2 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all",
-                            copiedField === "paypal" ? "bg-emerald-500/15 text-emerald-400" : "bg-white/[0.04] text-white/40 hover:text-white/90 hover:bg-white/[0.08]"
+                            copiedField === "paypal" ? "bg-emerald-500/15 text-emerald-400" : "bg-white/[0.04] text-white/55 hover:text-white/90 hover:bg-white/[0.08]"
                           )}>{copiedField === "paypal" ? <><Check className="h-3 w-3" /> Copied</> : <><Copy className="h-3 w-3" /> Copy</>}</button>
                       </div>
 
                       <div className="rounded-xl bg-white/[0.02] border border-white/[0.04] p-5 text-center mb-6">
-                        <p className="text-[10px] uppercase tracking-widest text-white/30 mb-1">Amount</p>
+                        <p className="text-[10px] uppercase tracking-widest text-white/55 mb-1">Amount</p>
                         <p className="text-3xl font-black text-white">{"£"}{finalTotal.toFixed(2)}</p>
                       </div>
 
                       <div className="flex items-start gap-2 p-3 rounded-xl bg-yellow-500/5 border border-yellow-500/10 mb-6">
                         <AlertTriangle className="h-4 w-4 text-yellow-500 mt-0.5 shrink-0" />
-                        <p className="text-xs text-white/40">
+                        <p className="text-xs text-white/55">
                           Send as <span className="text-yellow-500 font-bold">Friends &amp; Family</span>. Include order ID <span className="font-mono font-bold text-white/90">{orderId}</span> in the note.
                         </p>
                       </div>
 
                       <button onClick={handleConfirmPayment} disabled={timeLeft <= 0}
-                        className="w-full h-14 rounded-xl text-white font-bold text-base flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-lg shadow-orange-500/20 hover:shadow-xl hover:shadow-orange-500/30"
-                        style={{ background: timeLeft <= 0 ? "rgba(249,115,22,0.3)" : "linear-gradient(135deg, #f97316, #ea580c)" }}>
-                        {timeLeft <= 0 ? "Session Expired" : <><CheckCircle2 className="h-4 w-4" /> Confirm Payment Sent</>}
+                        data-cursor="cta"
+                        data-cursor-label={timeLeft <= 0 ? "Expired" : "Confirm"}
+                        className="cursor-cta press-spring group relative overflow-hidden w-full h-14 rounded-xl text-white font-bold text-base flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-[0_0_28px_rgba(249,115,22,0.35)] hover:shadow-[0_0_50px_rgba(249,115,22,0.6)]"
+                        style={{ background: timeLeft <= 0 ? "rgba(249, 115, 22, 0.43)" : "linear-gradient(135deg, #f97316, #ea580c)" }}>
+                        <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
+                        <span className="relative z-10 inline-flex items-center gap-2">{timeLeft <= 0 ? "Session Expired" : <><CheckCircle2 className="h-4 w-4" /> Confirm Payment Sent</>}</span>
                       </button>
 
                       <button onClick={() => { setStep("form"); setTimeLeft(TIMER_SECONDS) }}
-                        className="w-full text-center mt-3 text-sm text-white/30 hover:text-[#f97316] transition-colors">
+                        className="w-full text-center mt-3 text-sm text-white/55 hover:text-[#f97316] transition-colors">
                         Change payment method
                       </button>
                     </div>
@@ -1071,9 +1082,9 @@ export default function CheckoutPage() {
               <div className="lg:sticky lg:top-24">
                 <div className="rounded-2xl border border-white/[0.04] bg-white/[0.012] p-6">
                   <div className="flex items-center gap-2 mb-5">
-                    <Package className="h-4 w-4 text-white/30" />
+                    <Package className="h-4 w-4 text-white/55" />
                     <h3 className="text-base font-bold text-white/90">Order Summary</h3>
-                    <span className="ml-auto text-xs text-white/30 font-mono">{orderId}</span>
+                    <span className="ml-auto text-xs text-white/55 font-mono">{orderId}</span>
                   </div>
                   <OrderSummaryContent />
                 </div>

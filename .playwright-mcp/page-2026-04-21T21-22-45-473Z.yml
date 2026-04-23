@@ -1,0 +1,8 @@
+- generic [active]:
+  - generic:
+    - img
+  - region "Notifications alt+T"
+  - button "Back to top":
+    - img
+    - img
+  - generic [ref=e9]: Loading

@@ -1,49 +1,85 @@
 "use client"
 
 import { ArrowRight, Zap, Shield, Headphones, BookOpen, Mail, MessageSquare } from "lucide-react"
+import { SectionEyebrow } from "@/components/section-eyebrow"
+import { useDiscordOnline } from "@/components/discord-online"
 
 export function ContactSection() {
+  const { count: liveOnline, members: liveMembers, invite: liveInvite } = useDiscordOnline()
+  const joinHref = liveInvite ?? "https://discord.gg/lethaldma"
   return (
-    <section id="contact" className="py-24 px-6 sm:px-10 relative z-10">
+    <section id="contact" className="py-32 lg:py-40 px-6 sm:px-10 relative z-10">
       <div className="max-w-[1000px] mx-auto">
         <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/[0.06] bg-white/[0.02] mb-6">
-            <MessageSquare className="h-3.5 w-3.5 text-white/30" />
-            <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">Community</span>
+          <SectionEyebrow number="07" label="Community" />
+          <div className="relative h-px w-44 mx-auto mb-7 bg-white/[0.05] overflow-hidden">
+            <div className="absolute inset-y-0 w-24 bg-gradient-to-r from-transparent via-[#f97316]/70 to-transparent" style={{ animation: "heroScan 4s ease-in-out infinite" }} />
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-[-0.03em] leading-[1.1] mb-4 text-white">
-            Join the <span style={{ background: "linear-gradient(135deg, #f97316, #fb923c)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>community</span>
+          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.04em] leading-[0.95] mb-4">
+            <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Join the </span>
+            <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 50px rgba(249, 115, 22, 0.43))" }}>community</span>
           </h2>
-          <p className="text-white/35 text-[15px] max-w-lg mx-auto">9,200+ members. Get support, share configs, stay ahead.</p>
+          <p className="text-white/55 text-[16px] max-w-lg mx-auto">
+            {liveMembers !== null ? (
+              <>
+                <span className="text-white font-semibold tabular-nums">{liveMembers.toLocaleString()}</span> members.
+              </>
+            ) : (
+              <>8,700+ members.</>
+            )}{" "}
+            Get support, share configs, stay ahead.
+          </p>
         </div>
 
         {/* Discord card */}
-        <div className="rounded-xl border border-white/[0.04] bg-white/[0.012] overflow-hidden mb-5">
-          <div className="h-px bg-gradient-to-r from-transparent via-[#f97316]/30 to-transparent" />
-          <div className="p-8">
+        <div className="group relative rounded-2xl border border-white/[0.06] bg-white/[0.015] overflow-hidden mb-5 shadow-[0_24px_60px_rgba(0,0,0,0.4)] hover:border-[#f97316]/30 hover:shadow-[0_28px_70px_rgba(0,0,0,0.5),0_0_60px_rgba(249, 115, 22, 0.17)] transition-all duration-500">
+          {/* Top glow */}
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f97316]/60 to-transparent" />
+          <div className="absolute top-0 left-0 right-0 h-[6px] bg-gradient-to-b from-[#f97316]/20 to-transparent blur-md pointer-events-none" />
+          {/* Hover orange corner */}
+          <div className="absolute -top-20 -right-20 w-72 h-72 rounded-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700" style={{ background: "radial-gradient(circle, rgba(249, 115, 22, 0.26), transparent 70%)" }} />
+
+          <div className="relative p-8">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mb-6">
               <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-2xl overflow-hidden border border-white/[0.06]">
+                <div className="relative w-16 h-16 rounded-2xl overflow-hidden border-2 border-white/[0.10] shadow-[0_8px_24px_rgba(0,0,0,0.4)]">
                   <img src="/images/ava.png" alt="Lethal Solutions" className="w-full h-full object-cover" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-white/90">Lethal Solutions</h3>
-                  <div className="flex items-center gap-3 mt-1">
-                    <span className="flex items-center gap-1.5 text-sm"><span className="w-2 h-2 rounded-full bg-emerald-500/60 animate-pulse" /><span className="text-emerald-400/60 font-medium text-[13px]">3,147 online</span></span>
-                    <span className="text-white/10">&bull;</span>
-                    <span className="text-[13px] text-white/25">9,248 members</span>
+                  <h3 className="font-display text-2xl font-bold text-white tracking-tight">Lethal Solutions</h3>
+                  <div className="flex items-center gap-3 mt-1.5 flex-wrap">
+                    <span className="inline-flex items-center gap-1.5 text-sm">
+                      <span className="relative flex items-center justify-center">
+                        <span className="absolute w-2.5 h-2.5 rounded-full bg-emerald-400/45 animate-ping" />
+                        <span className="relative w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.7)]" />
+                      </span>
+                      <span className="text-emerald-400 font-bold text-[13px] tabular-nums">
+                        {liveOnline !== null ? liveOnline.toLocaleString() : "—"}
+                      </span>
+                      <span className="text-emerald-400/70 text-[12px] font-semibold uppercase tracking-wider">online</span>
+                    </span>
+                    <span className="text-white/20">&bull;</span>
+                    <span className="text-[13px] text-white/65 font-medium tabular-nums">
+                      <span className="text-white font-bold">
+                        {liveMembers !== null ? liveMembers.toLocaleString() : "—"}
+                      </span> members
+                    </span>
                   </div>
                 </div>
               </div>
-              <a href="https://discord.gg/lethaldma" target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-[14px] font-bold text-white cursor-pointer group transition-all"
-                style={{ background: "linear-gradient(135deg, #f97316, #ea580c)", boxShadow: "0 0 20px rgba(249,115,22,0.2)" }}>
-                Join Server <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
+              <a href={joinHref} target="_blank" rel="noopener noreferrer"
+                data-cursor="cta"
+                data-cursor-label="Discord"
+                className="cursor-cta press-spring relative overflow-hidden inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl text-[14px] font-bold text-white cursor-pointer group transition-all hover:scale-[1.03] hover:shadow-[0_0_40px_rgba(249,115,22,0.6)]"
+                style={{ background: "linear-gradient(135deg, #f97316, #ea580c)", boxShadow: "0 8px 24px rgba(249, 115, 22, 0.46), inset 0 1px 0 rgba(255,255,255,0.08)" }}>
+                <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 pointer-events-none" />
+                <span className="relative z-10">Join Server</span>
+                <ArrowRight className="relative z-10 h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </a>
             </div>
 
-            <p className="text-[14px] text-white/35 mb-8 max-w-2xl leading-relaxed">
-              Open a ticket in <span className="text-white/60 font-medium">#contact-us</span> for purchases, setup help, or any questions.
+            <p className="text-[14px] text-white/65 mb-8 max-w-2xl leading-relaxed">
+              Open a ticket in <span className="text-[#f97316] font-bold px-2 py-0.5 rounded-md bg-[#f97316]/10 border border-[#f97316]/25">#contact-us</span> for purchases, setup help, or any questions.
             </p>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -53,10 +89,12 @@ export function ContactSection() {
                 { icon: Headphones, title: "24/7 available", desc: "Round the clock" },
                 { icon: BookOpen, title: "Setup guides", desc: "Step-by-step tutorials" },
               ].map((c, i) => (
-                <div key={i} className="p-4 rounded-xl bg-white/[0.015] border border-white/[0.03]">
-                  <c.icon className="h-4 w-4 text-white/15 mb-3" />
-                  <p className="text-[13px] font-semibold text-white/60">{c.title}</p>
-                  <p className="text-[11px] text-white/20 mt-0.5">{c.desc}</p>
+                <div key={i} className="spotlight-card group p-4 rounded-xl bg-white/[0.022] border border-white/[0.06] hover:border-[#f97316]/30 hover:bg-white/[0.04] hover:-translate-y-0.5 transition-all duration-300">
+                  <div className="w-9 h-9 rounded-lg bg-white/[0.03] border border-white/[0.05] group-hover:bg-[#f97316]/10 group-hover:border-[#f97316]/25 flex items-center justify-center mb-3 transition-all">
+                    <c.icon className="h-4 w-4 text-white/55 group-hover:text-[#f97316] transition-colors" />
+                  </div>
+                  <p className="text-[13px] font-bold text-white">{c.title}</p>
+                  <p className="text-[11px] text-white/45 mt-0.5">{c.desc}</p>
                 </div>
               ))}
             </div>
@@ -70,15 +108,17 @@ export function ContactSection() {
             { href: "https://t.me/lethalsolutions", icon: MessageSquare, title: "Telegram", sub: "@lethalsolutions" },
           ].map((c, i) => (
             <a key={i} href={c.href} target={i === 1 ? "_blank" : undefined} rel={i === 1 ? "noopener noreferrer" : undefined}
-              className="group flex items-center gap-4 p-5 rounded-xl border border-white/[0.04] bg-white/[0.012] hover:border-white/[0.08] hover:bg-white/[0.02] transition-all">
-              <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.04] group-hover:bg-[#f97316]/10 group-hover:border-[#f97316]/15 transition-all">
-                <c.icon className="h-4 w-4 text-white/20 group-hover:text-[#f97316]/70 transition-colors" />
+              data-cursor="cta"
+              data-cursor-label={c.title}
+              className="spotlight-card cursor-cta group flex items-center gap-4 p-5 rounded-2xl border border-white/[0.06] bg-white/[0.015] hover:border-[#f97316]/30 hover:bg-white/[0.03] hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.5),0_0_30px_rgba(249,115,22,0.14)] transition-all duration-300">
+              <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06] group-hover:bg-gradient-to-br group-hover:from-[#f97316]/20 group-hover:to-[#ea580c]/10 group-hover:border-[#f97316]/30 transition-all">
+                <c.icon className="h-[18px] w-[18px] text-white/55 group-hover:text-[#f97316] transition-colors" />
               </div>
               <div className="flex-1">
-                <p className="font-semibold text-[14px] text-white/70">{c.title}</p>
-                <p className="text-[12px] text-white/25">{c.sub}</p>
+                <p className="font-display font-bold text-[15px] text-white tracking-tight">{c.title}</p>
+                <p className="text-[12px] text-white/55 mt-0.5">{c.sub}</p>
               </div>
-              <ArrowRight className="h-4 w-4 text-white/10 group-hover:text-[#f97316]/50 group-hover:translate-x-1 transition-all" />
+              <ArrowRight className="h-4 w-4 text-white/30 group-hover:text-[#f97316] group-hover:translate-x-1 transition-all duration-300" />
             </a>
           ))}
         </div>

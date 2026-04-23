@@ -79,78 +79,82 @@ export function WelcomePopup() {
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-background/80 backdrop-blur-sm" onClick={handleClose} />
+      <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={handleClose} />
 
       {/* Modal */}
-      <div className="relative w-full max-w-sm rounded-2xl border border-border/60 bg-card shadow-2xl shadow-primary/10 overflow-hidden animate-fade-in-up">
+      <div className="relative w-full max-w-sm rounded-2xl border border-white/[0.10] bg-black/95 backdrop-blur-xl shadow-[0_30px_80px_rgba(0,0,0,0.7),0_0_60px_rgba(249, 115, 22, 0.26)] overflow-hidden animate-fade-in-up">
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f97316]/60 to-transparent pointer-events-none" />
+
         {/* Close */}
-        <button
+        <button aria-label="Close"
           onClick={handleClose}
-          className="absolute top-4 right-4 z-10 text-muted-foreground hover:text-foreground transition-colors"
+          className="absolute top-3 right-3 z-10 p-2 rounded-full text-white/55 hover:text-white hover:bg-white/[0.06] transition-all"
         >
           <X className="h-5 w-5" />
         </button>
 
         {/* Top glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-24 bg-primary/20 blur-3xl rounded-full" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-32 bg-[#f97316]/20 blur-3xl rounded-full pointer-events-none" />
 
-        <div className="relative p-8 pt-10 text-center">
+        <div className="relative p-8 pt-12 text-center">
           {/* Gift icon */}
-          <div className="w-16 h-16 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center mx-auto mb-5">
-            <Gift className="h-8 w-8 text-primary" />
+          <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#f97316]/30 to-[#ea580c]/15 border border-[#f97316]/40 flex items-center justify-center mx-auto mb-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_0_30px_rgba(249, 115, 22, 0.43)]">
+            <Gift className="h-9 w-9 text-[#f97316]" style={{ filter: "drop-shadow(0 0 12px rgba(249, 115, 22, 0.85))" }} />
           </div>
 
-          <h2 className="text-2xl font-bold mb-1">
-            {"Welcome to "}
-            <span className="text-primary">Lethal Solutions</span>
+          <h2 className="font-display text-3xl font-bold mb-1.5 tracking-tight">
+            <span style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(180,180,195,0.85))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Welcome to </span>
+            <span style={{ background: "linear-gradient(180deg, #ffb366 0%, #f97316 45%, #c2410c 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 16px rgba(249, 115, 22, 0.58))" }}>Lethal</span>
           </h2>
-          <p className="text-sm text-muted-foreground mb-6">
+          <p className="text-[14px] text-white/65 mb-6">
             Exclusive offer just for you! Use this code at checkout.
           </p>
 
           {/* Discount badge */}
-          <div className="inline-block px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold mb-4">
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-[#f97316] to-[#ea580c] text-white text-[12px] font-black tracking-wider mb-4 shadow-[0_4px_14px_rgba(249, 115, 22, 0.58)]">
+            <span className="text-[14px]">⚡</span>
             {DISCOUNT}% OFF
           </div>
 
           {/* Coupon code */}
-          <div
+          <button
+            type="button"
             onClick={handleCopy}
-            className="relative mx-auto max-w-xs rounded-xl border-2 border-dashed border-primary/40 bg-primary/5 px-6 py-4 cursor-pointer hover:border-primary/60 transition-colors mb-6 group"
+            className="relative w-full rounded-xl border-2 border-dashed border-[#f97316]/45 bg-[#f97316]/[0.05] px-6 py-5 cursor-pointer hover:border-[#f97316]/70 hover:bg-[#f97316]/[0.08] transition-all mb-6 group"
           >
             <div className="flex items-center justify-center gap-3">
-              <span className="font-mono text-2xl font-bold tracking-widest text-foreground">{COUPON_CODE}</span>
+              <span className="font-mono text-2xl font-bold tracking-[0.25em] text-white">{COUPON_CODE}</span>
               {copied ? (
-                <Check className="h-5 w-5 text-green-400" />
+                <Check className="h-5 w-5 text-emerald-400" />
               ) : (
-                <Copy className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                <Copy className="h-5 w-5 text-white/55 group-hover:text-[#f97316] transition-colors" />
               )}
             </div>
             {copied && (
-              <p className="text-[10px] text-green-400 mt-1">Copied to clipboard!</p>
+              <p className="text-[11px] text-emerald-400 mt-1.5 font-semibold">Copied to clipboard!</p>
             )}
-          </div>
+          </button>
 
           {/* Timer */}
-          <div className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground mb-6">
-            <Clock className="h-3.5 w-3.5" />
-            <span>This offer expires in:</span>
+          <div className="flex items-center justify-center gap-1.5 text-[11px] text-white/55 mb-4 uppercase tracking-[0.15em] font-bold">
+            <Clock className="h-3.5 w-3.5 text-[#f97316]" />
+            <span>Offer expires in</span>
           </div>
 
-          <div className="flex items-center justify-center gap-3 mb-8">
+          <div className="flex items-center justify-center gap-2.5 mb-8">
             {[
-              { value: hours, label: "Hours" },
-              { value: minutes, label: "Minutes" },
-              { value: seconds, label: "Seconds" },
+              { value: hours, label: "HRS" },
+              { value: minutes, label: "MIN" },
+              { value: seconds, label: "SEC" },
             ].map((unit, i) => (
-              <div key={unit.label} className="flex items-center gap-3">
+              <div key={unit.label} className="flex items-center gap-2.5">
                 <div className="flex flex-col items-center">
-                  <div className="w-16 h-16 rounded-xl border border-border/60 bg-card/80 flex items-center justify-center">
-                    <span className="text-2xl font-bold font-mono">{String(unit.value).padStart(2, "0")}</span>
+                  <div className="w-16 h-16 rounded-xl border border-white/[0.10] bg-gradient-to-b from-white/[0.06] to-white/[0.02] flex items-center justify-center shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
+                    <span className="font-display text-3xl font-black tabular-nums text-white">{String(unit.value).padStart(2, "0")}</span>
                   </div>
-                  <span className="text-[10px] text-muted-foreground mt-1.5">{unit.label}</span>
+                  <span className="text-[9px] text-white/55 mt-1.5 uppercase tracking-[0.15em] font-bold">{unit.label}</span>
                 </div>
-                {i < 2 && <span className="text-xl font-bold text-muted-foreground -mt-5">:</span>}
+                {i < 2 && <span className="text-2xl font-black text-[#f97316]/40 -mt-5">:</span>}
               </div>
             ))}
           </div>
@@ -158,7 +162,7 @@ export function WelcomePopup() {
           {/* CTA */}
           <Button
             onClick={handleClose}
-            className="w-full py-5 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-sm"
+            className="w-full py-6 bg-gradient-to-br from-[#f97316] to-[#ea580c] hover:brightness-110 text-white font-bold text-[14px] rounded-xl shadow-[0_8px_24px_rgba(249, 115, 22, 0.46),inset_0_1px_0_rgba(255,255,255,0.08)] border-0 hover:scale-[1.02] transition-all"
           >
             Start Shopping
           </Button>

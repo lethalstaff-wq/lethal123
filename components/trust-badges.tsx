@@ -31,7 +31,7 @@ const BADGES = [
     icon: Award,
     value: "5 Years",
     label: "Experience",
-    color: "text-primary"
+    color: "text-[#f97316]"
   },
   {
     icon: Lock,
@@ -43,19 +43,19 @@ const BADGES = [
 
 export function TrustBadges() {
   return (
-    <section className="py-12 border-y border-border/30 bg-muted/5">
+    <section className="py-12 border-y border-white/[0.06] bg-white/[0.015]">
       <div className="container mx-auto px-4">
         <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
           {BADGES.map((badge, index) => {
             const Icon = badge.icon
             return (
               <div key={index} className="flex items-center gap-3 group">
-                <div className="w-10 h-10 rounded-xl bg-background/80 border border-border/50 flex items-center justify-center group-hover:border-primary/30 transition-colors">
+                <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center group-hover:border-[#f97316]/30 transition-colors">
                   <Icon className={`h-5 w-5 ${badge.color}`} />
                 </div>
                 <div>
-                  <p className="font-black text-foreground text-lg leading-none">{badge.value}</p>
-                  <p className="text-xs text-muted-foreground">{badge.label}</p>
+                  <p className="font-black text-white text-lg leading-none">{badge.value}</p>
+                  <p className="text-xs text-white/55">{badge.label}</p>
                 </div>
               </div>
             )

@@ -1,120 +1,167 @@
 "use client"
 
-import { useEffect, useState, useCallback } from "react"
+import { useEffect, useRef, useState } from "react"
 
-interface Particle {
-  id: number
-  x: number
-  y: number
-  size: number
-  opacity: number
-  color: string
-}
-
+/**
+ * Premium custom cursor: precise orange dot + lagged ring with gradient stroke.
+ * On hover over interactive elements the ring expands and fills softly.
+ * Native cursor hidden globally via `html.custom-cursor-active` class.
+ */
 export function CursorEffects() {
-  const [particles, setParticles] = useState<Particle[]>([])
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
-  const [isMoving, setIsMoving] = useState(false)
-
-  const createParticle = useCallback((x: number, y: number) => {
-    const colors = ["#EF6F29", "#FFB347", "#fdba74", "#fff7ed"]
-    return {
-      id: Date.now() + Math.random(),
-      x: x + (Math.random() - 0.5) * 20,
-      y: y + (Math.random() - 0.5) * 20,
-      size: Math.random() * 6 + 2,
-      opacity: 1,
-      color: colors[Math.floor(Math.random() * colors.length)],
-    }
-  }, [])
+  const [enabled, setEnabled] = useState(false)
+  const [hovering, setHovering] = useState(false)
+  const [hidden, setHidden] = useState(true)
+  const [pressing, setPressing] = useState(false)
+  const ringRef = useRef<HTMLDivElement | null>(null)
+  const dotRef = useRef<HTMLDivElement | null>(null)
+  const auraRef = useRef<HTMLDivElement | null>(null)
+  const posRef = useRef({ x: 0, y: 0, rx: 0, ry: 0 })
+  const rafRef = useRef(0)
 
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout
-    let lastX = 0
-    let lastY = 0
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const dx = e.clientX - lastX
-      const dy = e.clientY - lastY
-      const distance = Math.sqrt(dx * dx + dy * dy)
-
-      setMousePos({ x: e.clientX, y: e.clientY })
-      setIsMoving(true)
-
-      // Only create particles if mouse moved enough
-      if (distance > 8) {
-        lastX = e.clientX
-        lastY = e.clientY
-        setParticles((prev) => {
-          const newParticles = [...prev, createParticle(e.clientX, e.clientY)]
-          // Keep only last 20 particles
-          return newParticles.slice(-20)
-        })
-      }
-
-      clearTimeout(timeoutId)
-      timeoutId = setTimeout(() => setIsMoving(false), 100)
+    if (typeof window === "undefined") return
+    const canHover = window.matchMedia?.("(hover: hover)").matches
+    const noMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches
+    if (canHover && !noMotion) {
+      setEnabled(true)
+      document.documentElement.classList.add("custom-cursor-active")
     }
-
-    window.addEventListener("mousemove", handleMouseMove, { passive: true })
+    // In fullscreen, our fixed-position cursor is outside the fullscreen element
+    // and gets clipped — restore the native cursor there and hide ours.
+    const onFs = () => {
+      const fs = !!document.fullscreenElement
+      if (fs) document.documentElement.classList.add("cursor-in-fullscreen")
+      else document.documentElement.classList.remove("cursor-in-fullscreen")
+    }
+    document.addEventListener("fullscreenchange", onFs)
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove)
-      clearTimeout(timeoutId)
+      document.documentElement.classList.remove("custom-cursor-active")
+      document.documentElement.classList.remove("cursor-in-fullscreen")
+      document.removeEventListener("fullscreenchange", onFs)
     }
-  }, [createParticle])
-
-  // Fade out particles
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setParticles((prev) =>
-        prev
-          .map((p) => ({ ...p, opacity: p.opacity - 0.05 }))
-          .filter((p) => p.opacity > 0)
-      )
-    }, 30)
-    return () => clearInterval(interval)
   }, [])
+
+  useEffect(() => {
+    if (!enabled) return
+
+    const onMove = (e: MouseEvent) => {
+      posRef.current.x = e.clientX
+      posRef.current.y = e.clientY
+      if (hidden) setHidden(false)
+      if (dotRef.current) {
+        dotRef.current.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`
+      }
+      if (auraRef.current) {
+        auraRef.current.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`
+      }
+    }
+    const onLeave = () => setHidden(true)
+    const onEnter = () => setHidden(false)
+    const onDown = () => setPressing(true)
+    const onUp = () => setPressing(false)
+
+    const onOver = (e: MouseEvent) => {
+      const t = e.target as HTMLElement | null
+      if (!t) return
+      const interactive = t.closest('a, button, [data-cursor], [role="button"], input, textarea, select, label')
+      setHovering(!!interactive)
+    }
+
+    window.addEventListener("mousemove", onMove, { passive: true })
+    window.addEventListener("mouseover", onOver, { passive: true })
+    window.addEventListener("mousedown", onDown, { passive: true })
+    window.addEventListener("mouseup", onUp, { passive: true })
+    document.addEventListener("mouseleave", onLeave)
+    document.addEventListener("mouseenter", onEnter)
+
+    const tick = () => {
+      const p = posRef.current
+      // Softer lerp on the ring so it trails more visibly
+      p.rx += (p.x - p.rx) * 0.17
+      p.ry += (p.y - p.ry) * 0.17
+      if (ringRef.current) {
+        ringRef.current.style.transform = `translate3d(${p.rx.toFixed(2)}px, ${p.ry.toFixed(2)}px, 0) translate(-50%, -50%)`
+      }
+      rafRef.current = requestAnimationFrame(tick)
+    }
+    rafRef.current = requestAnimationFrame(tick)
+
+    return () => {
+      window.removeEventListener("mousemove", onMove)
+      window.removeEventListener("mouseover", onOver)
+      window.removeEventListener("mousedown", onDown)
+      window.removeEventListener("mouseup", onUp)
+      document.removeEventListener("mouseleave", onLeave)
+      document.removeEventListener("mouseenter", onEnter)
+      cancelAnimationFrame(rafRef.current)
+    }
+  }, [enabled, hidden])
+
+  if (!enabled) return null
 
   return (
     <>
-      {/* Cursor glow */}
+      {/* Soft aura — radial orange glow that instantly follows the cursor */}
       <div
-        className="pointer-events-none fixed z-[9999] hidden lg:block"
+        ref={auraRef}
+        className="pointer-events-none fixed top-0 left-0 z-[9997] hidden lg:block"
         style={{
-          left: mousePos.x,
-          top: mousePos.y,
-          transform: "translate(-50%, -50%)",
+          width: hovering ? 140 : 80,
+          height: hovering ? 140 : 80,
+          borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(249,115,22,0.22) 0%, transparent 65%)",
+          opacity: hidden ? 0 : 1,
+          transition: "opacity 0.25s ease, width 0.35s cubic-bezier(0.22,1,0.36,1), height 0.35s cubic-bezier(0.22,1,0.36,1)",
+          filter: "blur(4px)",
+          willChange: "transform",
         }}
-      >
-        <div
-          className="rounded-full transition-all duration-150 ease-out"
-          style={{
-            width: isMoving ? 40 : 20,
-            height: isMoving ? 40 : 20,
-            background: `radial-gradient(circle, rgba(239, 111, 41, ${isMoving ? 0.4 : 0.2}) 0%, transparent 70%)`,
-            filter: "blur(2px)",
-          }}
-        />
-      </div>
+        aria-hidden="true"
+      />
 
-      {/* Particle trail */}
-      {particles.map((particle) => (
-        <div
-          key={particle.id}
-          className="pointer-events-none fixed z-[9998] rounded-full hidden lg:block"
-          style={{
-            left: particle.x,
-            top: particle.y,
-            width: particle.size,
-            height: particle.size,
-            backgroundColor: particle.color,
-            opacity: particle.opacity,
-            transform: "translate(-50%, -50%)",
-            transition: "opacity 0.1s ease-out",
-            boxShadow: `0 0 ${particle.size * 2}px ${particle.color}`,
-          }}
-        />
-      ))}
+      {/* Precise inner dot — no lag, 1:1 with cursor */}
+      <div
+        ref={dotRef}
+        className="pointer-events-none fixed top-0 left-0 z-[9999] hidden lg:block"
+        style={{
+          width: pressing ? 4 : hovering ? 6 : 5,
+          height: pressing ? 4 : hovering ? 6 : 5,
+          borderRadius: "50%",
+          background: "#fbbf24",
+          boxShadow: "0 0 10px rgba(251,191,36,0.9), 0 0 18px rgba(249,115,22,0.6)",
+          opacity: hidden ? 0 : 1,
+          transition: "opacity 0.2s ease, width 0.2s ease, height 0.2s ease, background 0.25s ease",
+          willChange: "transform",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Outer ring — lags behind, has gradient stroke via conic background + mask */}
+      <div
+        ref={ringRef}
+        className="pointer-events-none fixed top-0 left-0 z-[9998] hidden lg:block"
+        style={{
+          width: pressing ? 28 : hovering ? 62 : 38,
+          height: pressing ? 28 : hovering ? 62 : 38,
+          borderRadius: "50%",
+          background: hovering
+            ? "conic-gradient(from 0deg, rgba(249,115,22,0.95), rgba(251,191,36,0.9), rgba(249,115,22,0.95))"
+            : "conic-gradient(from 0deg, rgba(255,255,255,0.55), rgba(255,255,255,0.25), rgba(255,255,255,0.55))",
+          WebkitMask: "radial-gradient(circle, transparent 55%, black 57%, black 100%)",
+          mask: "radial-gradient(circle, transparent 55%, black 57%, black 100%)",
+          opacity: hidden ? 0 : 1,
+          transition: "opacity 0.22s ease, width 0.28s cubic-bezier(0.22,1,0.36,1), height 0.28s cubic-bezier(0.22,1,0.36,1), background 0.3s ease",
+          willChange: "transform, width, height",
+          animation: hovering ? "cursorSpin 2.4s linear infinite" : "cursorSpin 5s linear infinite",
+        }}
+        aria-hidden="true"
+      />
+
+      <style jsx global>{`
+        @keyframes cursorSpin {
+          from { filter: hue-rotate(0deg); }
+          to { filter: hue-rotate(20deg); }
+        }
+      `}</style>
     </>
   )
 }

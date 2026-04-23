@@ -1,0 +1,20 @@
+[     543ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[     677ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[     697ms] [ERROR] ./app/stories/layout.tsx:33:1
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     | ^
+  34 | </invoke>
+
+Expression expected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117
+[     697ms] [ERROR] ./app/stories/layout.tsx:33:2
+Parsing ecmascript source code failed
+  31 |   )
+  32 | }
+> 33 | </content>
+     |  ^^^^^^^^^
+  34 | </invoke>
+
+Unterminated regexp literal @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:3117

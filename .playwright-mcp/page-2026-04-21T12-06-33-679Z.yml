@@ -1,0 +1,51 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - img
+  - generic:
+    - button "Build a Bundle" [ref=e2]:
+      - img [ref=e3]
+      - text: Build a Bundle
+    - button "Open chat" [ref=e5]:
+      - img [ref=e6]
+  - region "Notifications alt+T"
+  - generic:
+    - link "Perm Spoofer New Order · 2m ago Perm Spoofer Verified Dismiss notification":
+      - /url: /products/perm-spoofer
+      - generic:
+        - img "Perm Spoofer"
+      - generic:
+        - generic:
+          - generic: New Order
+          - generic: ·
+          - generic: 2m ago
+        - paragraph: Perm Spoofer
+        - generic:
+          - generic: Verified
+      - button "Dismiss notification": ×
+  - button "Back to top":
+    - img
+  - main [ref=e9]:
+    - generic [ref=e10]:
+      - img [ref=e12]
+      - heading "Something went wrong" [level=1] [ref=e14]
+      - paragraph [ref=e15]: An unexpected error occurred. Try refreshing the page or head back to the homepage.
+      - generic [ref=e16]:
+        - button "Try again" [ref=e17] [cursor=pointer]:
+          - img [ref=e18]
+          - generic [ref=e23]: Try again
+        - link "Back to home" [ref=e24] [cursor=pointer]:
+          - /url: /
+          - img [ref=e25]
+          - text: Back to home
+  - generic [ref=e32] [cursor=pointer]:
+    - button "Open Next.js Dev Tools" [ref=e33]:
+      - img [ref=e34]
+    - generic [ref=e37]:
+      - button "Open issues overlay" [ref=e38]:
+        - generic [ref=e39]:
+          - generic [ref=e40]: "0"
+          - generic [ref=e41]: "1"
+        - generic [ref=e42]: Issue
+      - button "Collapse issues badge" [ref=e43]:
+        - img [ref=e44]
+  - alert [ref=e46]

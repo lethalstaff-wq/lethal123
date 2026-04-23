@@ -1,0 +1,215 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - img
+  - button "Open chat" [ref=e2]:
+    - img [ref=e3]
+  - region "Notifications alt+T"
+  - generic:
+    - link "Perm Spoofer New Order · 2m ago Perm Spoofer Verified Dismiss notification":
+      - /url: /products/perm-spoofer
+      - generic:
+        - img "Perm Spoofer"
+      - generic:
+        - generic:
+          - generic: New Order
+          - generic: ·
+          - generic: 2m ago
+        - paragraph: Perm Spoofer
+        - generic:
+          - generic: Verified
+      - button "Dismiss notification": ×
+  - button "Back to top":
+    - img
+    - img
+  - generic [ref=e7]:
+    - navigation [ref=e8]:
+      - generic [ref=e10]:
+        - link "Lethal Solutions Lethal Solutions" [ref=e11]:
+          - /url: /
+          - generic [ref=e12]:
+            - img "Lethal Solutions" [ref=e15]
+            - generic [ref=e16]: Lethal Solutions
+        - generic [ref=e18]:
+          - link "Home" [ref=e19]:
+            - /url: /
+          - link "Products" [ref=e20]:
+            - /url: /products
+          - link "Guides" [ref=e21]:
+            - /url: /guides
+            - text: Guides
+          - link "Reviews" [ref=e23]:
+            - /url: /reviews
+          - link "Track Order" [ref=e24]:
+            - /url: /track
+          - link "Status" [ref=e25]:
+            - /url: /status
+        - generic [ref=e26]:
+          - button "Open search" [ref=e28]:
+            - img [ref=e29]
+            - generic [ref=e32]: Search…
+            - generic [ref=e33]: ⌘K
+          - link "Customer Login" [ref=e34]:
+            - /url: /login
+            - button "Customer Login" [ref=e35]:
+              - img
+              - text: Customer Login
+          - link "Shopping cart" [ref=e36]:
+            - /url: /cart
+            - button "Shopping cart" [ref=e37]:
+              - img
+    - article [ref=e38]:
+      - generic [ref=e39]:
+        - link "Back to Guides" [ref=e40]:
+          - /url: /guides
+          - img [ref=e41]
+          - text: Back to Guides
+        - generic [ref=e43]:
+          - generic [ref=e44]:
+            - generic [ref=e45]: Beginner
+            - generic [ref=e46]:
+              - img [ref=e47]
+              - text: 8 min read
+          - heading "What are DMA cheats and how do they work" [level=1] [ref=e50]
+          - paragraph [ref=e51]: Learn about DMA cards, KMBox devices, Fusers, read-only cheats, and how everything works together for DMA gaming.
+        - generic [ref=e52]:
+          - generic [ref=e53]:
+            - heading "Introduction to DMA" [level=2] [ref=e54]
+            - paragraph [ref=e55]: DMA (Direct Memory Access) cheating is one of the most advanced and undetectable methods of game modification. Unlike traditional software cheats that run on your gaming PC, DMA cheats use external hardware to read game memory directly from a separate computer.
+          - generic [ref=e57]:
+            - heading "ℹ How DMA Works" [level=2] [ref=e58]:
+              - generic [ref=e59]: ℹ
+              - text: How DMA Works
+            - paragraph [ref=e60]: A DMA setup requires a second PC connected to your gaming PC via a PCIe card. The second PC reads the game's memory through the DMA card without leaving any traces on the gaming PC itself. Since no cheat software runs on your gaming machine, anti-cheat cannot detect it.
+          - generic [ref=e61]:
+            - heading "Key Components" [level=2] [ref=e62]
+            - paragraph [ref=e63]: "A complete DMA setup typically includes:"
+            - list [ref=e64]:
+              - listitem [ref=e65]:
+                - generic [ref=e66]: •
+                - generic [ref=e67]: DMA Card (e.g., Captain 100T, Squirrel, Screamer) - installed in gaming PC
+              - listitem [ref=e68]:
+                - generic [ref=e69]: •
+                - generic [ref=e70]: Second PC (Cheat PC) - runs the cheat software and displays ESP
+              - listitem [ref=e71]:
+                - generic [ref=e72]: •
+                - generic [ref=e73]: Fuser (optional) - for display output manipulation and overlay
+              - listitem [ref=e74]:
+                - generic [ref=e75]: •
+                - generic [ref=e76]: KMBox (optional) - for input simulation (aimbot, recoil control)
+              - listitem [ref=e77]:
+                - generic [ref=e78]: •
+                - generic [ref=e79]: Custom Firmware - for anti-cheat bypass and FPGA configuration
+          - generic [ref=e81]:
+            - heading "💡 Why DMA is Undetectable" [level=2] [ref=e82]:
+              - generic [ref=e83]: 💡
+              - text: Why DMA is Undetectable
+            - paragraph [ref=e84]: Since the cheat runs on a completely separate PC and only reads memory (never writes), anti-cheat software on your gaming PC cannot detect any modifications. The DMA card appears as a legitimate PCIe device with spoofed signatures.
+          - generic [ref=e85]:
+            - heading "Read-Only vs Read-Write" [level=2] [ref=e86]
+            - paragraph [ref=e87]: Most DMA cheats are read-only, meaning they only read game memory to display ESP, radar, and other visual information. Read-write cheats can also modify game memory for features like aimbot, but carry slightly more risk.
+        - generic [ref=e88]:
+          - paragraph [ref=e89]:
+            - text: Still stuck?
+            - link "Open a ticket on Discord" [ref=e90]:
+              - /url: https://discord.gg/lethaldma
+          - link "All Guides" [ref=e91]:
+            - /url: /guides
+            - img [ref=e92]
+            - text: All Guides
+    - contentinfo [ref=e94]:
+      - generic [ref=e98]:
+        - generic [ref=e99]:
+          - generic [ref=e100]:
+            - generic [ref=e101]:
+              - img "Lethal Solutions" [ref=e104]
+              - generic [ref=e105]: Lethal Solutions
+            - paragraph [ref=e106]: Kernel-level gaming tools trusted by 8,700+ players. Undetected since day one.
+            - generic [ref=e107]:
+              - generic [ref=e108]:
+                - img [ref=e109]
+                - generic [ref=e111]: Secure
+              - generic [ref=e112]:
+                - img [ref=e113]
+                - generic [ref=e115]: Instant
+              - generic [ref=e116]:
+                - img [ref=e117]
+                - generic [ref=e120]: 24/7
+            - generic [ref=e121]:
+              - paragraph [ref=e122]: Connect
+              - generic [ref=e123]:
+                - link "Discord" [ref=e124]:
+                  - /url: https://discord.gg/lethaldma
+                  - img [ref=e125]
+                - link "YouTube" [ref=e128]:
+                  - /url: https://www.youtube.com/@ujukcheats-x4b
+                  - img [ref=e129]
+                - link "Telegram" [ref=e132]:
+                  - /url: https://t.me/lethalsolutions
+                  - img [ref=e133]
+          - generic [ref=e136]:
+            - heading "Products" [level=4] [ref=e137]
+            - list [ref=e138]:
+              - listitem [ref=e139]:
+                - link "All Products" [ref=e140]:
+                  - /url: /products
+              - listitem [ref=e141]:
+                - link "Compare" [ref=e142]:
+                  - /url: /compare
+              - listitem [ref=e143]:
+                - link "Reviews" [ref=e144]:
+                  - /url: /reviews
+              - listitem [ref=e145]:
+                - link "Status" [ref=e146]:
+                  - /url: /status
+          - generic [ref=e147]:
+            - heading "Resources" [level=4] [ref=e148]
+            - list [ref=e149]:
+              - listitem [ref=e150]:
+                - link "Setup Guide" [ref=e151]:
+                  - /url: /setup
+              - listitem [ref=e152]:
+                - link "Media Library" [ref=e153]:
+                  - /url: /media
+              - listitem [ref=e154]:
+                - link "FAQ" [ref=e155]:
+                  - /url: /faq
+              - listitem [ref=e156]:
+                - link "Guides" [ref=e157]:
+                  - /url: /guides
+              - listitem [ref=e158]:
+                - link "Changelog" [ref=e159]:
+                  - /url: /changelog
+              - listitem [ref=e160]:
+                - link "Success Stories" [ref=e161]:
+                  - /url: /stories
+              - listitem [ref=e162]:
+                - link "Referrals" [ref=e163]:
+                  - /url: /referrals
+              - listitem [ref=e164]:
+                - link "Join Our Team" [ref=e165]:
+                  - /url: /apply
+          - generic [ref=e166]:
+            - heading "Account" [level=4] [ref=e167]
+            - list [ref=e168]:
+              - listitem [ref=e169]:
+                - link "Track Order" [ref=e170]:
+                  - /url: /track
+              - listitem [ref=e171]:
+                - link "Downloads" [ref=e172]:
+                  - /url: /downloads
+              - listitem [ref=e173]:
+                - link "My Account" [ref=e174]:
+                  - /url: /profile
+              - listitem [ref=e175]:
+                - link "Cart" [ref=e176]:
+                  - /url: /cart
+        - heading [level=2] [ref=e178]: LETHAL
+        - generic [ref=e179]:
+          - paragraph [ref=e180]: © 2026 Lethal Solutions. All rights reserved.
+          - generic [ref=e181]:
+            - generic [ref=e186]: All systems operational
+            - link "Terms" [ref=e188]:
+              - /url: /terms
+            - link "Privacy" [ref=e190]:
+              - /url: /privacy
+  - alert [ref=e191]

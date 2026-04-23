@@ -1,17 +1,20 @@
-// Review counts — matches seeded DB data (862 total)
+// Review counts — matches seeded DB data (legacy + currently-visible native).
+// Refresh with `node --env-file=.env.local -e "..."` when seed changes.
+// Used only as a fallback for SSR/first paint — live value comes from
+// /api/reviews/count via useReviewCount().
 
-const TOTAL_REVIEWS = 862
+const TOTAL_REVIEWS = 3457
 
 export const PRODUCT_REVIEW_COUNTS: Record<string, number> = {
-  "perm-spoofer": 153,
-  "temp-spoofer": 198,
-  "fortnite-external": 207,
-  "blurred": 104,
-  "streck": 69,
-  "custom-dma-firmware": 62,
-  "dma-basic": 34,
-  "dma-advanced": 17,
-  "dma-elite": 18,
+  "fortnite-external": 1282,
+  "temp-spoofer": 641,
+  "perm-spoofer": 420,
+  "streck": 325,
+  "blurred": 326,
+  "custom-dma-firmware": 230,
+  "dma-basic": 106,
+  "dma-advanced": 50,
+  "dma-elite": 67,
 }
 
 export const PRODUCT_NAME_TO_SLUG: Record<string, string> = {
@@ -37,6 +40,8 @@ export function getTotalReviewCount(): number {
 }
 
 export function getOrdersToday(): number {
+  // Baseline 6-10 orders, ramps to 15-25 by end of day. Max caps at ~25.
+  // Never returns 0 — always shows some activity in the hero badge.
   const now = new Date()
   const day = now.getUTCDate()
   const month = now.getUTCMonth()
@@ -45,9 +50,10 @@ export function getOrdersToday(): number {
   const minute = now.getUTCMinutes()
 
   const daySeed = (year * 366 + month * 31 + day) % 100
-  const ordersPerHour = 1.5 + (daySeed % 2) * 0.5
+  const baseline = 6 + (daySeed % 5) // 6-10 at start of day
+  const ordersPerHour = 0.5 + (daySeed % 4) * 0.12 // 0.5-0.86/h
   const hoursPassed = hour + minute / 60
-  let orders = Math.floor(hoursPassed * ordersPerHour)
-  const maxOrders = 15 + (daySeed % 6)
-  return Math.min(orders, maxOrders)
+  const rolling = Math.floor(hoursPassed * ordersPerHour)
+  const maxOrders = 20 + (daySeed % 6) // 20-25 cap
+  return Math.min(baseline + rolling, maxOrders)
 }

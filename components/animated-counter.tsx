@@ -13,7 +13,7 @@ export function AnimatedCounter({ value, duration = 1500 }: AnimatedCounterProps
   const ref = useRef<HTMLSpanElement>(null)
 
   // Extract the numeric part and prefix/suffix
-  const match = value.match(/^([<>]?)(\d+(?:\.\d+)?)(%|[a-z+]+)?$/i)
+  const match = value.match(/^([<>]?)(\d+(?:\.\d+)?)(%|[a-z+/]+)?$/i)
   const canAnimate = !!match && !!match[2]
   const prefix = match?.[1] || ""
   const numericPart = parseFloat(match?.[2] || "0")
@@ -22,46 +22,34 @@ export function AnimatedCounter({ value, duration = 1500 }: AnimatedCounterProps
 
   useEffect(() => {
     if (hasAnimated || !canAnimate) return
+    if (typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !hasAnimated) {
           setHasAnimated(true)
-          animateValue()
+          // Snap to 0 and animate up
+          setDisplayed(`${prefix}0${suffix}`)
+          const startTime = performance.now()
+          const tick = (now: number) => {
+            const elapsed = now - startTime
+            const progress = Math.min(elapsed / duration, 1)
+            const eased = 1 - Math.pow(1 - progress, 3)
+            const current = numericPart * eased
+            if (isDecimal) setDisplayed(`${prefix}${current.toFixed(1)}${suffix}`)
+            else setDisplayed(`${prefix}${Math.floor(current)}${suffix}`)
+            if (progress < 1) requestAnimationFrame(tick)
+            else setDisplayed(value)
+          }
+          requestAnimationFrame(tick)
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0 }
     )
 
     if (ref.current) observer.observe(ref.current)
     return () => observer.disconnect()
-  }, [hasAnimated, canAnimate]) // eslint-disable-line react-hooks/exhaustive-deps
-
-  const animateValue = () => {
-    const startTime = performance.now()
-
-    const tick = (now: number) => {
-      const elapsed = now - startTime
-      const progress = Math.min(elapsed / duration, 1)
-      // Ease out cubic
-      const eased = 1 - Math.pow(1 - progress, 3)
-      const current = numericPart * eased
-
-      if (isDecimal) {
-        setDisplayed(`${prefix}${current.toFixed(1)}${suffix}`)
-      } else {
-        setDisplayed(`${prefix}${Math.floor(current)}${suffix}`)
-      }
-
-      if (progress < 1) {
-        requestAnimationFrame(tick)
-      } else {
-        setDisplayed(value)
-      }
-    }
-
-    requestAnimationFrame(tick)
-  }
+  }, [hasAnimated, canAnimate, duration, isDecimal, numericPart, prefix, suffix, value])
 
   return <span ref={ref}>{displayed}</span>
 }
