@@ -149,29 +149,43 @@ function buildSparklinePath(productId: string, width = 160, height = 28, points 
 
 // 90-day global incident grid — seeded so it stays stable across renders.
 // Incidents are rare (~3-4 red days across the 90) to keep the bar mostly green.
-interface DayDot { day: number; status: "up" | "incident"; label: string }
+interface DayDot {
+  day: number
+  status: "up" | "incident"
+  label: string
+  dateLabel: string
+  monthKey: string
+  incidentSummary?: string
+  incidentDetail?: string
+}
 function build90DayIncidents(): DayDot[] {
   const rng = seededRng(hashString("lethal-global-90d"))
   const days: DayDot[] = []
   const now = new Date()
-  const INCIDENT_LABELS = [
-    "Fortnite anti-cheat wave — patched in 1h 42m",
-    "API latency spike — resolved",
-    "DMA firmware signing delay — resolved",
-    "Brief VGK detection — patched same day",
+  const INCIDENTS = [
+    { summary: "Fortnite anti-cheat wave", detail: "Patched in 1h 42m" },
+    { summary: "API latency spike", detail: "Resolved in 47m" },
+    { summary: "DMA firmware signing delay", detail: "Resolved in 2h 58m" },
+    { summary: "Brief VGK detection", detail: "Patched same day" },
   ]
   let incidentIdx = 0
   for (let i = 89; i >= 0; i--) {
     const d = new Date(now)
     d.setDate(d.getDate() - i)
-    const isIncident = rng() < 0.04 && incidentIdx < INCIDENT_LABELS.length
+    const isIncident = rng() < 0.04 && incidentIdx < INCIDENTS.length
     const dateLabel = d.toLocaleDateString("en-US", { month: "short", day: "numeric" })
+    const monthKey = d.toLocaleDateString("en-US", { month: "short" })
+    const incident = isIncident ? INCIDENTS[incidentIdx++] : undefined
     days.push({
       day: 89 - i,
       status: isIncident ? "incident" : "up",
       label: isIncident
-        ? `${dateLabel} · ${INCIDENT_LABELS[incidentIdx++]}`
+        ? `${dateLabel} · ${incident!.summary} — ${incident!.detail.toLowerCase()}`
         : `${dateLabel} · All systems operational`,
+      dateLabel,
+      monthKey,
+      incidentSummary: incident?.summary,
+      incidentDetail: incident?.detail,
     })
   }
   return days
@@ -333,45 +347,138 @@ export default function StatusPage() {
           </div>
 
           {/* 90-day global incident strip */}
-          <div className="mb-10 rounded-2xl border border-white/[0.06] bg-white/[0.015] px-5 py-5">
-            <div className="flex items-center justify-between gap-4 mb-3 flex-wrap">
-              <div className="min-w-0">
-                <p className="text-[11px] uppercase tracking-[0.18em] text-white/35 font-semibold">90-day incident timeline</p>
-                <p className="text-[12px] text-white/55 mt-1">
-                  <span className="text-emerald-400 font-bold tabular-nums">{90 - incidentCount}</span> green days ·{" "}
-                  <span className="text-red-400 font-bold tabular-nums">{incidentCount}</span> incident{incidentCount === 1 ? "" : "s"} · avg patch time{" "}
-                  <span className="text-white/80 font-bold">1h 48m</span>
-                </p>
-              </div>
-              <div className="flex items-center gap-3 text-[10px] text-white/35 shrink-0">
-                <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-[2px] bg-emerald-500/80" /> up</span>
-                <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-[2px] bg-red-500 shadow-[0_0_6px_rgba(239,68,68,0.55)]" /> incident</span>
-              </div>
-            </div>
+          {(() => {
+            const greenDays = 90 - incidentCount
+            const uptimeHours = 90 * 24 - incidentCount * 1.8 // avg 1h 48m per incident
+            const uptimePct = ((uptimeHours / (90 * 24)) * 100).toFixed(2)
+            const incidents = ninetyDays.filter((d) => d.status === "incident")
+            // Month label positions — one tick per month, placed at the first occurrence
+            const monthTicks: { key: string; pct: number }[] = []
+            const seen = new Set<string>()
+            ninetyDays.forEach((d, idx) => {
+              if (!seen.has(d.monthKey)) {
+                seen.add(d.monthKey)
+                monthTicks.push({ key: d.monthKey, pct: (idx / 89) * 100 })
+              }
+            })
 
-            {/* Full-width day-bar grid */}
-            <div className="flex items-end gap-[1px] h-9 w-full" role="list" aria-label="90-day incident history">
-              {ninetyDays.map((d) => (
-                <div key={d.day} className="relative group/dot flex-1 h-full min-w-0">
-                  <div
-                    className={`w-full h-full rounded-[1.5px] transition-all duration-200 ${
-                      d.status === "up"
-                        ? "bg-emerald-500/55 group-hover/dot:bg-emerald-400 group-hover/dot:shadow-[0_0_6px_rgba(16,185,129,0.5)]"
-                        : "bg-red-500 group-hover/dot:bg-red-400 shadow-[0_0_10px_rgba(239,68,68,0.65)]"
-                    }`}
-                  />
-                  <div className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 rounded-md text-[10px] text-white whitespace-nowrap bg-black/95 border border-white/[0.08] opacity-0 group-hover/dot:opacity-100 transition-opacity duration-150 shadow-[0_8px_20px_rgba(0,0,0,0.5)] z-30">
-                    {d.label}
+            return (
+              <div
+                className="mb-10 relative rounded-3xl border border-white/[0.07] bg-white/[0.014] overflow-hidden"
+                style={{ boxShadow: "0 30px 80px -40px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.025)" }}
+              >
+                {/* Top hairline + ambient wash */}
+                <div className="absolute top-0 left-10 right-10 h-px bg-gradient-to-r from-transparent via-emerald-500/45 to-transparent" />
+                <div
+                  aria-hidden="true"
+                  className="absolute -top-20 left-1/2 -translate-x-1/2 w-[70%] h-40 pointer-events-none opacity-55"
+                  style={{ background: "radial-gradient(ellipse, rgba(16,185,129,0.14), transparent 70%)", filter: "blur(40px)" }}
+                />
+
+                {/* Header: uptime % + summary */}
+                <div className="relative flex items-center justify-between gap-6 px-6 pt-6 pb-5 flex-wrap">
+                  <div className="flex items-center gap-5">
+                    <div>
+                      <p
+                        className="font-display text-[36px] font-black tracking-[-0.03em] leading-none tabular-nums"
+                        style={{
+                          background: "linear-gradient(180deg, #6ee7b7 0%, #10b981 55%, #047857 100%)",
+                          WebkitBackgroundClip: "text",
+                          WebkitTextFillColor: "transparent",
+                          filter: "drop-shadow(0 0 24px rgba(16,185,129,0.4))",
+                        }}
+                      >
+                        {uptimePct}%
+                      </p>
+                      <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/40 mt-1.5">90-day uptime</p>
+                    </div>
+                    <div className="h-10 w-px bg-white/[0.07]" />
+                    <div className="flex items-center gap-5">
+                      <StatPair value={String(greenDays)} label="Green days" color="text-emerald-400" />
+                      <StatPair value={String(incidentCount)} label={incidentCount === 1 ? "Incident" : "Incidents"} color="text-red-400" />
+                      <StatPair value="1h 48m" label="Avg patch" color="text-white/80" />
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 text-[10px] text-white/40 shrink-0">
+                    <span className="flex items-center gap-1.5">
+                      <span className="h-2 w-2 rounded-[2px] bg-emerald-500/80" /> Operational
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                      <span className="h-2 w-2 rounded-[2px] bg-red-500 shadow-[0_0_6px_rgba(239,68,68,0.55)]" /> Incident
+                    </span>
                   </div>
                 </div>
-              ))}
-            </div>
 
-            <div className="flex items-center justify-between text-[9.5px] text-white/25 uppercase tracking-[0.18em] font-semibold mt-2">
-              <span>90 days ago</span>
-              <span>today</span>
-            </div>
-          </div>
+                <div className="relative px-6 pb-6">
+                  {/* Bar chart */}
+                  <div className="relative flex items-end gap-[1.5px] h-12 w-full" role="list" aria-label="90-day incident history">
+                    {ninetyDays.map((d) => (
+                      <div key={d.day} className="relative group/dot flex-1 h-full min-w-0">
+                        <div
+                          className={`w-full h-full rounded-[2px] transition-all duration-200 ${
+                            d.status === "up"
+                              ? "bg-gradient-to-t from-emerald-500/40 to-emerald-400/80 group-hover/dot:from-emerald-400 group-hover/dot:to-emerald-300 group-hover/dot:shadow-[0_0_10px_rgba(16,185,129,0.65)]"
+                              : "bg-gradient-to-t from-red-600 to-red-400 shadow-[0_0_14px_rgba(239,68,68,0.75)] group-hover/dot:from-red-500 group-hover/dot:to-red-300"
+                          }`}
+                        />
+                        <div className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2.5 py-1.5 rounded-lg text-[10.5px] text-white whitespace-nowrap bg-black/95 border border-white/[0.1] opacity-0 group-hover/dot:opacity-100 transition-opacity duration-150 shadow-[0_8px_24px_rgba(0,0,0,0.55)] z-30 font-medium">
+                          <span className="text-white/55 mr-1.5">{d.dateLabel}</span>
+                          {d.status === "up" ? (
+                            <span className="text-emerald-400">All systems operational</span>
+                          ) : (
+                            <span className="text-red-400">{d.incidentSummary}</span>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Month tick labels — positioned by percent */}
+                  <div className="relative h-5 mt-2">
+                    {monthTicks.map((t) => (
+                      <span
+                        key={t.key}
+                        className="absolute top-0 text-[9.5px] font-bold uppercase tracking-[0.2em] text-white/35 -translate-x-1/2"
+                        style={{ left: `${t.pct}%` }}
+                      >
+                        {t.key}
+                      </span>
+                    ))}
+                    <span className="absolute right-0 top-0 text-[9.5px] font-bold uppercase tracking-[0.2em] text-white/55">Today</span>
+                  </div>
+
+                  {/* Incident list chips — only if any incidents */}
+                  {incidents.length > 0 && (
+                    <div className="mt-5 pt-4 border-t border-white/[0.04]">
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="inline-block h-1 w-1 rounded-full bg-red-400" />
+                        <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/45">
+                          Recent incidents · all resolved
+                        </p>
+                      </div>
+                      <div className="grid gap-2 sm:grid-cols-3">
+                        {incidents.map((inc) => (
+                          <div
+                            key={inc.day}
+                            className="group/inc relative rounded-xl border border-red-500/15 bg-red-500/[0.03] px-3.5 py-2.5 hover:border-red-500/30 hover:bg-red-500/[0.06] transition-colors"
+                          >
+                            <div className="flex items-start gap-2.5">
+                              <span className="mt-[5px] h-1.5 w-1.5 rounded-full bg-red-400 shrink-0 shadow-[0_0_6px_rgba(239,68,68,0.7)]" />
+                              <div className="min-w-0 flex-1">
+                                <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-red-400/90">{inc.dateLabel}</p>
+                                <p className="text-[12.5px] font-semibold text-white/90 mt-0.5 leading-tight">{inc.incidentSummary}</p>
+                                <p className="text-[10.5px] text-white/45 mt-1">{inc.incidentDetail}</p>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )
+          })()}
 
           {/* Filter & Legend */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
@@ -562,6 +669,18 @@ export default function StatusPage() {
         }
       `}</style>
     </>
+  )
+}
+
+/* ════════ Timeline summary stat helper ════════ */
+function StatPair({ value, label, color }: { value: string; label: string; color: string }) {
+  return (
+    <div className="flex flex-col items-start">
+      <span className={`font-display text-[18px] font-black tabular-nums leading-none tracking-[-0.02em] ${color}`}>
+        {value}
+      </span>
+      <span className="text-[9.5px] font-bold uppercase tracking-[0.2em] text-white/35 mt-1.5">{label}</span>
+    </div>
   )
 }
 
