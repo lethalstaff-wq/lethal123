@@ -797,18 +797,29 @@ export default function ChangelogPage() {
               <form
                 onSubmit={handleSubscribe}
                 className={cn(
-                  "group/sub relative flex items-center w-full md:w-[360px] md:shrink-0 h-11 rounded-full bg-white/[0.025] border transition-all duration-300",
-                  subscribed
-                    ? "border-emerald-500/45"
-                    : "border-white/[0.07] focus-within:border-[#f97316]/45 focus-within:bg-white/[0.04]",
+                  "group/sub relative flex items-center w-full md:w-[340px] md:shrink-0 h-11 transition-all duration-300",
+                  subscribed && "opacity-95",
                 )}
-                style={
-                  subscribed
-                    ? { boxShadow: "inset 0 1px 0 rgba(255,255,255,0.025), 0 0 22px rgba(16,185,129,0.18)" }
-                    : { boxShadow: "inset 0 1px 0 rgba(255,255,255,0.025)" }
-                }
               >
-                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-white/35 pointer-events-none" />
+                {/* Hairline underline that breathes under the field */}
+                <span
+                  aria-hidden="true"
+                  className="absolute left-1 right-1 bottom-0 h-px transition-colors duration-300"
+                  style={{
+                    background: subscribed
+                      ? "linear-gradient(90deg, transparent, rgba(16,185,129,0.6), transparent)"
+                      : "linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent)",
+                  }}
+                />
+                <span
+                  aria-hidden="true"
+                  className="absolute left-1 right-1 bottom-0 h-px opacity-0 group-focus-within/sub:opacity-100 transition-opacity duration-300"
+                  style={{
+                    background: "linear-gradient(90deg, transparent, rgba(249,115,22,0.85), transparent)",
+                    boxShadow: "0 0 12px rgba(249,115,22,0.5)",
+                  }}
+                />
+                <Mail className="h-3.5 w-3.5 text-white/35 shrink-0 mr-2.5" />
                 <input
                   type="email"
                   required
@@ -817,32 +828,22 @@ export default function ChangelogPage() {
                   onChange={(e) => setEmail(e.target.value)}
                   disabled={subscribed}
                   aria-label="Email for changelog updates"
-                  className="flex-1 min-w-0 h-full bg-transparent pl-10 pr-2 text-[13px] text-white placeholder:text-white/30 outline-none disabled:opacity-60"
+                  className="flex-1 min-w-0 h-full bg-transparent text-[13px] text-white placeholder:text-white/30 outline-none disabled:opacity-60"
                 />
                 <button
                   type="submit"
                   disabled={subscribed}
-                  aria-label={subscribed ? "Subscribed" : "Subscribe"}
                   className={cn(
-                    "shrink-0 mr-1 my-1 relative inline-flex items-center justify-center w-9 h-9 rounded-full transition-all duration-300",
+                    "shrink-0 inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-[0.18em] transition-all duration-300",
                     subscribed
-                      ? "text-emerald-300"
-                      : "text-white hover:scale-[1.06]",
+                      ? "text-emerald-400"
+                      : "text-[#f97316] hover:text-[#ffb366]",
                   )}
-                  style={
-                    subscribed
-                      ? {
-                          background: "rgba(16,185,129,0.18)",
-                          boxShadow: "inset 0 0 0 1px rgba(16,185,129,0.45)",
-                        }
-                      : {
-                          background: "linear-gradient(180deg, #fb923c 0%, #f97316 55%, #ea580c 100%)",
-                          boxShadow:
-                            "inset 0 1px 0 rgba(255,255,255,0.32), inset 0 -1px 0 rgba(0,0,0,0.18), 0 0 0 1px rgba(0,0,0,0.35), 0 4px 14px -2px rgba(249,115,22,0.55)",
-                        }
-                  }
                 >
-                  {subscribed ? <Check className="h-4 w-4" strokeWidth={3} /> : <ArrowRight className="h-4 w-4" strokeWidth={2.4} />}
+                  {subscribed ? "Subscribed" : "Notify me"}
+                  {subscribed
+                    ? <Check className="h-3.5 w-3.5" strokeWidth={3} />
+                    : <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover/sub:translate-x-0.5" strokeWidth={2.4} />}
                 </button>
               </form>
             </div>
