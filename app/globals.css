@@ -919,6 +919,13 @@ button:focus-visible:not([class*="focus-"]):not(.cursor-cta) {
   to { transform: rotate(360deg); }
 }
 
+/* Travelling highlight on progress bars / tier segments (used on
+   /referrals LoyaltyTierCard + /setup installer). */
+@keyframes tierShine {
+  0%   { transform: translateX(-120%); }
+  100% { transform: translateX(320%);  }
+}
+
 /* Pulsing green status dot (used on /status and /downloads). */
 @keyframes statusPulse {
   0%, 100% { opacity: 0.7; transform: scale(1);   }
