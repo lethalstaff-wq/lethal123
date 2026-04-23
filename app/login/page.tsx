@@ -134,13 +134,13 @@ export default function LoginPage() {
     <main className="flex min-h-screen lg:h-screen bg-transparent lg:overflow-hidden">
       {/* Left — branding */}
       <div className="hidden lg:flex flex-col w-[45%] p-12 xl:p-16 pb-24 xl:pb-28 relative overflow-hidden border-r border-white/[0.04]">
-        {/* Background effects */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#f97316]/[0.045] via-transparent to-transparent" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[640px] h-[640px] bg-[#f97316]/[0.03] rounded-full blur-[140px]" style={{ animation: "loginOrb 18s ease-in-out infinite" }} />
-        <div className="absolute top-[15%] right-[5%] w-[320px] h-[320px] bg-amber-400/[0.04] rounded-full blur-[120px]" style={{ animation: "loginOrb 14s ease-in-out infinite reverse" }} />
+        {/* Background effects — decorative only, must not eat logo clicks */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#f97316]/[0.045] via-transparent to-transparent" />
+        <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[640px] h-[640px] bg-[#f97316]/[0.03] rounded-full blur-[140px]" style={{ animation: "loginOrb 18s ease-in-out infinite" }} />
+        <div className="pointer-events-none absolute top-[15%] right-[5%] w-[320px] h-[320px] bg-amber-400/[0.04] rounded-full blur-[120px]" style={{ animation: "loginOrb 14s ease-in-out infinite reverse" }} />
 
-        {/* Logo */}
-        <Link href="/" data-cursor="cta" data-cursor-label="Home" className="cursor-cta relative inline-flex items-center gap-2.5">
+        {/* Logo — clicks return to home */}
+        <Link href="/" data-cursor="cta" data-cursor-label="Home" aria-label="Lethal Solutions — home" className="cursor-cta relative z-10 inline-flex items-center gap-2.5 self-start hover:opacity-80 transition-opacity">
           <Image src="/images/logo.png" alt="Lethal Solutions" width={32} height={32} className="h-8 w-8 object-contain" />
           <span className="text-white font-bold text-lg">Lethal Solutions</span>
         </Link>
@@ -182,7 +182,7 @@ export default function LoginPage() {
         <div className="w-full max-w-[380px]">
           {/* Mobile logo */}
           <div className="lg:hidden mb-10">
-            <Link href="/" className="inline-flex items-center gap-2.5">
+            <Link href="/" aria-label="Lethal Solutions — home" className="inline-flex items-center gap-2.5 hover:opacity-80 transition-opacity">
               <Image src="/images/logo.png" alt="Lethal Solutions" width={32} height={32} className="h-8 w-8 object-contain" />
               <span className="text-white font-bold text-lg">Lethal Solutions</span>
             </Link>
