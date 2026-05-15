@@ -16,7 +16,6 @@ import { Toaster } from "@/components/ui/sonner"
 import { SocialProofToast } from "@/components/social-proof-toast"
 import { BackToTop } from "@/components/back-to-top"
 import { ScrollProgress } from "@/components/scroll-progress"
-import { CursorEffects } from "@/components/cursor-effects"
 import { ScrollToTopOnNav } from "@/components/scroll-to-top-on-nav"
 import { ShortcutsOverlay } from "@/components/shortcuts-overlay"
 import { ConfettiCanvas } from "@/components/confetti"
@@ -135,7 +134,8 @@ export default function RootLayout({
             </div>
             <BackToTop />
             {/* Duplicate of the scroll progress already rendered inside Navbar — removed. */}
-            <CursorEffects />
+            {/* CursorEffects removed — caused noticeable cursor lag from setState-per-mousemove,
+                filter:blur/hue-rotate on a moving element, and width/height transitions. */}
             <ScrollToTopOnNav />
             <ShortcutsOverlay />
             <ConfettiCanvas />
